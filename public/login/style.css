@@ -1,0 +1,111 @@
+html,
+body {
+    height: 100%
+}
+
+h3{
+    color :#2f3f64 !important;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 10px;
+    font-style: normal;
+}
+body {
+    background-color: #4052e4;
+    display: grid;
+    place-items: center
+}
+
+.card {
+    padding: 0px 15px;
+    border-radius: 15px;
+    width : 70%
+}
+
+.c1 {
+    background-color: #2f3f64;
+    border-radius: 5px
+}
+
+a{ 
+    margin: 0px;
+    font-size: 13px; 
+    border-radius: 7px;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+a:hover {
+    color: #a8231c;
+    background-color: aliceblue
+}
+
+.nav-link {
+    padding: 1rem 1.4rem;
+    margin: 0rem 0.7rem
+}
+
+.ac {
+    font-weight: bold;
+    color: #e0726c;
+    font-size: 12px
+}
+
+input,
+button {
+    width: 100%;
+    background-color: #2f3f64;
+    border-radius: 12px;
+    padding: 8px 17px;
+    font-size: 13px;
+    border: 1px solid #264eac;
+    color: aliceblue;
+}
+
+input:invalid {
+    border: 2px dashed red;
+}
+
+input:invalid:focus {
+    background-image: linear-gradient(rgb(211, 31, 61), rgb(199, 105, 16));
+}
+
+.bt {
+    background-color: #ac1b2e;
+    border: 1px solid rgb(300, 200, 200);
+    border-radius: 15px;
+}
+
+form {
+    margin-top: 50px
+}
+
+form>* {
+    margin: 8px 0px
+}
+
+#forgot {
+    margin: 0px -60px
+}
+
+#register {
+    text-align: center
+}
+
+img {
+    background-color: rgb(27, 222, 145, 0)
+}
+
+.wlcm {
+    font-size: 20px;
+    color: aliceblue;
+    text-align: center;
+}
+
+.sp1 {
+    font-size: 5px;
+    text-align: center;
+}
+
+.sp1>span {
+    background-color: #19178d
+}

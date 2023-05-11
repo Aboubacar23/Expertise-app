@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="images/logo.png" type="image/ico" />
+    <title>Jeumont Electric</title>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+    <link href="build/css/custom2.css" rel="stylesheet">
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="#" class="site_title"><img src="images/logo.png" alt="" class="image_logo"> <span></span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                          <h3>Jeumont Electric</h3> 
+                          <ul class="nav side-menu">
+                            <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="admin.html">Administrateurs</a></li>
+                                <li><a href="client.html">Clients</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="affaire_cours.html">Affaire en cours</a></li>
+                                <li><a href="add_affaire.html">Nouvelle affaire</a></li>
+                                <li><a href="liste_affaire.html">Liste des affaires</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="machine.html">Machines</a></li>
+                                <li><a href="#">Types</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="rapport.html"><i class="fa fa-list"></i> Rapports</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                <!-- /fin sidebar menu -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">Aboubacar Sidiki
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profil</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i> Log
+                                        Out</a>
+                                </div>
+                            </li>
+
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-red">4</span>
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu"
+                                    aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>Abou</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>Voir tout</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /fin top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="main">
+                    <div class="page-title">
+                        <div class="title_left"><h3>Expertise du projet</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Entête de l'expertise -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <a href="view.html" class="btn btn-outline-primary btn-sm">Information Client</a>
+                                        <a href="parametre.html" class="btn btn-outline-primary btn-sm">Paramètres généraux</a>
+                                        <a href="expertise_electrique.html" class="btn btn-primary btn-sm">Exp. électrique avant lavage</a>
+                                        <a href="expertise_mecanique.html" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                                        <a href="expertise_electrique_ap.html" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                                        <a href="constat_elec.html" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                                        <a href="constat_meca.html" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                                        <a href="remontage.html" class="btn btn-outline-primary btn-sm">Remontage</a>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                        <a href="#" class="btn btn-secondary btn-sm p-1" onclick="history.back();">Retour <i class="fa fa-reply p-1"></i></a>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>   
+                                    <header></header>
+                                </div>
+                            </div>
+                        </div>   
+                    <!-- /fin entête --> 
+                        
+                    <!-- début contenu formulaire --> 
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 ">
+                                <form id="demo-form2" data-parsley-validate class="form-horizontal">
+                                <!-- début contrôle visuel et recensement --> 
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Contrôle visuel et recensement</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <a href="" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                              
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse1">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <fieldset>
+                                                        <legend>Balais</legend>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md64 col-sm-6 label-align" for="dimension">Dimension</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="dimension" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Marque</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="marque" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="qualite">Qualite</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="qualite" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="nuance">Nuance</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="nuance" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="longueur_shunt">longueur Shunt</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="longueur_shunt" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_cosse">Type de Cosse</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="type_cosse" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="aspect_patine">Aspect de la patine</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="aspect_patine" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_pression">Type pression</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="type_pression" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="presence_gaine">Présence de gaine</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="checkbox" id="presence_gaine" required="required" class="form-control checkbox">
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <fieldset>
+                                                        <legend>Balais de masse</legend>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md64 col-sm-6 label-align" for="dimension">Dimension</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="dimension" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Marque</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="marque" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="qualite">Qualite</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="qualite" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="nuance">Nuance</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="nuance" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="longueur_shunt">longueur Shunt</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="longueur_shunt" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_cosse">Type de Cosse</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="type_cosse" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="aspect_patine">Aspect de la patine</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="aspect_patine" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_pression">Type pression</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="text" id="type_pression" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="presence_gaine">Présence de gaine</label>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="checkbox" id="presence_gaine" required="required" class="form-control checkbox">
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <fieldset>
+                                                        <legend>Fac-similé boîte à borne</legend>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="sens_rotation">Sens rotation</label>
+                                                            <div class="col-md-6 col-sm-6 ">
+                                                                <select class="select2_group form-control">
+                                                                    <option value="AZ">Choisir le sens</option>
+                                                                    <option value="AZ">Horaire</option>
+                                                                    <option value="AZ">Anti-horaire</option>
+                                                                    <option value="AZ">Les deux</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item form-group">
+                                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="remarque">Remarque</label>
+                                                            <div class="col-md-6 col-sm-6 ">
+                                                                <input type="text" id="remarque" required="required" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </legend>
+                                                </div>
+                                            </div> 
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- fin contrôle visuel et recensement --> 
+
+                                <!-- début Essais plateforme avant lavage -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Essais plateforme avant lavage</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse2">
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th colspan="6" class="text-center">Mesures d'isolation</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th>Paramètres</th>
+                                                        <th>Contrôle</th>
+                                                        <th>Critère</th>
+                                                        <th width="10%">Tension d'éssai(V)</th>
+                                                        <th>Valeur relevées en  MΩ</th>
+                                                        <th>Conformité</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td rowspan="5">
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="t_ambiante" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="t_tolerie" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="marque" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                                <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>RI/Masse UVW à 1 min</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>RI/Masse UVW à 10 min</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Calcul IP</td>
+                                                        <td>>= 2.5</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>RI Phase U/VW+Masse</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>RI Phase V / UW+Masse</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td rowspan="2">
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="date_essaie">Date d'essai</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="date" id="date_essaie" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>RI Phase W / UW+Masse</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>2500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>RI/Masse Sondes UVW</td>
+                                                        <td>132 MΩ</td>
+                                                        <td>500</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th colspan="5" class="text-center">Mesures des résistances Ohmiques</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th>Paramètres</th>
+                                                        <th>Contrôle</th>
+                                                        <th>Critère</th>
+                                                        <th>Valeur relevées en  MΩ</th>
+                                                        <th>Conformité</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td rowspan="3">
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="t_ambiante" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="t_tolerie" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="number" id="marque" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>R Ohmique phase U</td>
+                                                        <td rowspan="3">±5%</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R Ohmique phase V</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R Ohmique phase W</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td rowspan="3">
+                                                            <div class="item form-group">
+                                                                <label class="col-form-label col-md-4 col-sm-4 label-align" for="date_essaie">Date d'essai</label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                <input type="date" id="date_essaie" required="required" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>R Ohmique sonde ph. U</td>
+                                                        <td>100 Ω à 0 °C</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R Ohmique sonde ph. V</td>
+                                                        <td>101 Ω à 0 °C</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R Ohmique sonde ph. W</td>
+                                                        <td>102 Ω à 0 °C</td>
+                                                        <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                        <td width="4%">
+                                                            <select name="dd" id="dd">
+                                                                <option value="b">Non</option>
+                                                                <option value="a">Oui</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th colspan="14" class="text-center">Point de fonctionnement à vide</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th>t (min)</th>
+                                                        <th>U (v)</th>
+                                                        <th>I1 (A)</th>
+                                                        <th>I2 (A)</th>
+                                                        <th>I3 (A)</th>
+                                                        <th>P (kW)</th>
+                                                        <th>Q (kVAR)</th>
+                                                        <th>cos</th>
+                                                        <th>N (tr/min)</th>
+                                                        <th>I (A)</th>
+                                                        <th>TAmb (°C)</th>
+                                                        <th>CA (°C)</th>
+                                                        <th>COA (°C)</th>
+                                                        <th>Observation</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- fin Essais plateforme avant lavage -->
+
+                                    <!-- début Mesures vibratoires -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Mesures vibratoires</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                   
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse3">
+                                            <div class="row">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-1 col-sm-1 label-align" for="nom">Position</span></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select name="a" id="aa">
+                                                            <option value="ab">Choisir la position</option>
+                                                            <option value="ab">Horizontale</option>
+                                                            <option value="ab">Verticale</option>
+                                                        </select>
+                                                    </div>
+                                                    <label class="col-form-label col-md-1 col-sm-1 label-align" for="nom">Montage</span></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select name="b" id="bb">
+                                                            <option value="bb">Choisir le montage</option>
+                                                            <option value="bb">Souple</option>
+                                                            <option value="bb">Bridé</option>
+                                                        </select>
+                                                    </div>
+                                                    <label class="col-form-label col-md-1 col-sm-1 label-align" for="nom">Accouplement</span></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select name="c" id="cc">
+                                                            <option value="cb">Choisir l'accouplement</option>
+                                                            <option value="cb">Oui</option>
+                                                            <option value="cb">Non</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-1 col-sm-1 label-align" for="nom">Clavette</span></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select name="a" id="aa">
+                                                            <option value="ab">Choisir la clavette</option>
+                                                            <option value="ab">Entière</option>
+                                                            <option value="ab">Demie</option>
+                                                            <option value="ab">Sans</option>
+                                                        </select>
+                                                    </div>
+                                                    <label class="col-form-label col-md-1 col-sm-1 label-align" for="nom">Commentaire</span></label>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th>Critère acceptation max 25mm/s</th>
+                                                        <th>N (tr/min)</th>
+                                                        <th>A</th>
+                                                        <th>B</th>
+                                                        <th>C</th>
+                                                        <th>D</th>
+                                                        <th>E</th>
+                                                        <th>F</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>R.M.S à F0 à 25 Hz(mm/s)</td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Observations</td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- fin Mesures vibratoires -->
+
+                                    <!-- début Appareils de mesure utilisés -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Appareils de mesure utilisés</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse4">
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th>Désignation du moyen de contrôle</th>
+                                                        <th>N° de l'appareil</th>
+                                                        <th>Date de validité</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="number" required="required" class="form-control"></td>
+                                                        <td><input type="date" required="required" class="form-control"></td>
+                                                        <td><input type="submit" value="Ajouter" class="btn btn-primary btn-sm" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /fin Appareils de mesure utilisés -->
+
+                                    <!-- début Contrôles de bobinages -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Contrôles de bobinages</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse5"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse5">
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th>Nature du contrôle</th>
+                                                        <th>Conformité</th>
+                                                        <th>Préconisation</th>
+                                                        <th>Retenu</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Contrôle calage des encoches</td>
+                                                        <td>
+                                                            <select name="a" id="a">
+                                                                <option value="a">Oui</option>
+                                                                <option value="a">Non</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td>
+                                                            <select name="a" id="a">
+                                                                <option value="a">Oui</option>
+                                                                <option value="a">Non</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Contrôle laçage des développantes</td>
+                                                        <td>
+                                                            <select name="a" id="a">
+                                                                <option value="a">Oui</option>
+                                                                <option value="a">Non</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td>
+                                                            <select name="a" id="a">
+                                                                <option value="a">Oui</option>
+                                                                <option value="a">Non</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /fin Contrôles de bobinages -->
+
+                                    <!-- début Autres contôles -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Autres contôles</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse6">
+                                            <div class="row">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th colspan="4">Balais</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th>Constats</th>
+                                                        <th>Critères</th>
+                                                        <th>Préconisation</th>
+                                                        <th>Conformité</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                    </tr>
+                                                </table>
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th colspan="4">Balais de masse</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th>Constats</th>
+                                                        <th>Critères</th>
+                                                        <th>Préconisation</th>
+                                                        <th>Conformité</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                        <td><input type="text" required="required" class="form-control"></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /fin Autres contôles -->
+
+                                    <!-- début photo -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Photos</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse7">
+                                            <div class="row">
+                                                <div class="item form-group">
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <input type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /fin photo -->
+
+                                    <!-- début constats eléc -->
+                                    <div class="x_panel"> 
+                                        <div class="x_title">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h2>Constats électrique</h2>
+                                                </div>
+                                                <div class="col-md-4 text-center"> 
+                                                    <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>                                                
+                                                </div> 
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content collapse" id="collapse8">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="item form-group">
+                                                        <table class="table table-bordered">
+                                                            <tr  class="table-primary">
+                                                                <th colspan="12" class="text-center">Avant Lavage</th>
+                                                            </tr>
+                                                            <tr class="table-primary">
+                                                                <th>Vérification</th>
+                                                                <th width="6%">Critères</th>
+                                                                <th>Observation</th>
+                                                                <th>Préconisations et conclusion</th>
+                                                                <th>Retenu</th>
+                                                                <th>Photo</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td>
+                                                                    <select name="a" id="a">
+                                                                        <option value="a">Oui</option>
+                                                                        <option value="a">Non</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input type="file" required="required" class="form-control"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="item form-group">
+                                                        <table class="table table-bordered">
+                                                            <tr  class="table-primary">
+                                                                <th colspan="12" class="text-center">Après Lavage</th>
+                                                            </tr>
+                                                            <tr class="table-primary">
+                                                                <th>Vérification</th>
+                                                                <th width="6%">Critères</th>
+                                                                <th>Observation</th>
+                                                                <th>Préconisations et conclusion</th>
+                                                                <th>Retenu</th>
+                                                                <th>Photo</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td><input type="text" required="required" class="form-control"></td>
+                                                                <td>
+                                                                    <select name="a" id="a">
+                                                                        <option value="a">Oui</option>
+                                                                        <option value="a">Non</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><input type="file" required="required" class="form-control"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /fin constats eléc -->
+
+                                    <!-- début bouton -->
+                                    <div class="x_panel"> 
+                                        <div class="x_content">
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique avant Lavage<i class="fa fa-check-circle p-2"></i></button>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <!-- /fin bouton -->
+
+                                </form>
+                            </div>
+                        </div>                    
+                    <!-- /fin contenu du formulaire--> 
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Jeumont Electric <span class="text-info">2023</span>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /fin footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="vendors/Flot/jquery.flot.js"></script>
+    <script src="vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="vendors/Flot/jquery.flot.time.js"></script>
+    <script src="vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <script src="js/formulaire.js"></script>
+
+</body>
+</html>

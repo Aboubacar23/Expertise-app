@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+<style>
+    .profil {
+        margin-top: 10%;
+        margin-left: 30%;
+    }
+</style>
+<div class="profil">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img src="{{asset('images/user.png')}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                    {% for flash_message in app.session.flashbag.get('success') %}
+                        <div class="container alert alert-info m-2" role="alert">
+                          {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                    <h5 class="my-3">{{ app.user.username }}</h5>
+                    <h6 class="text-muted mb-1">{{app.user.nom}}</h6>
+                    <h6 class="text-muted mb-1">{{app.user.prenom}}</h6>
+                    <p class="text-muted mb-4">{{app.user.email}}</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <a href="{{path('change_password', {'id' : app.user.id })}}" class="btn btn-secondary btn-sm">Changer mot de passe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

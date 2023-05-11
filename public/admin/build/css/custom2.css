@@ -1,0 +1,46 @@
+main{
+    width: 80%;
+    border: 1px solid lightgrey;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input{
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+header{
+display: flex;
+justify-content: space-between;
+}
+  
+.page-num{
+    border: 1px solid #105ed3;
+    border-radius: 20%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 10px;
+}
+  
+.active1{
+color: white;
+background-color: #105ed3;
+}
+  
+.page{
+display: none;
+}
+  
+.checkbox{
+height: 14px !important;
+}

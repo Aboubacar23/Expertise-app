@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="images/logo.png" type="image/ico" />
+    <title>Jeumont Electric</title>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+    <link href="build/css/custom2.css" rel="stylesheet">
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="#" class="site_title"><img src="images/logo.png" alt="" class="image_logo"> <span></span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                          <h3>Jeumont Electric</h3> 
+                          <ul class="nav side-menu">
+                            <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="admin.html">Administrateurs</a></li>
+                                <li><a href="client.html">Clients</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="affaire_cours.html">Affaire en cours</a></li>
+                                <li><a href="add_affaire.html">Nouvelle affaire</a></li>
+                                <li><a href="liste_affaire.html">Liste des affaires</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="machine.html">Machines</a></li>
+                                <li><a href="#">Types</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="rapport.html"><i class="fa fa-list"></i> Rapports</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                <!-- /fin sidebar menu -->
+                </div>
+            </div>
+        <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">Aboubacar Sidiki
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profil</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i> Log
+                                        Out</a>
+                                </div>
+                            </li>
+
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-red">4</span>
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu"
+                                    aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>Abou</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>Voir tout</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        <!-- /fin top navigation -->
+
+        <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="main">
+                    <div class="page-title">
+                        <div class="title_left"><h3>Expertise Mécanique</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                <!-- Entête de l'expertise -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <a href="view.html" class="btn btn-outline-primary btn-sm">Information Client</a>
+                                    <a href="parametre.html" class="btn btn-outline-primary btn-sm">Paramètres généraux</a>
+                                    <a href="expertise_electrique.html" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                                    <a href="expertise_mecanique.html" class="btn btn-primary btn-sm">Exp. Mécanique</a>
+                                    <a href="expertise_electrique_ap.html" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                                    <a href="constat_elec.html" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                                    <a href="constat_meca.html" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                                    <a href="remontage.html" class="btn btn-outline-primary btn-sm">Remontage</a>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <a href="#" class="btn btn-secondary btn-sm p-1" onclick="history.back();">Retour <i class="fa fa-reply p-1"></i></a>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>   
+                                <header></header>
+                            </div>
+                        </div>
+                    </div>   
+                <!-- /fin entête --> 
+                    
+                <!-- début contenu formulaire --> 
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 ">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal">
+                                <!-- début contrôle visuel et recensement --> 
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Contrôle visuel et recensement</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <a href="" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                              
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div> 
+                                    <div class="x_content collapse" id="collapse1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Bridage</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Clavette</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Sonde palier CA</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Châssis</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Tresse de masse</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Sonde palier COA</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Boite à borne</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Vis vérins</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Autres Sondes</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Barrette de neutre</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="checkbox" id="dimension" required="required" class="form-control checkbox">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Peinture (N° RAL)</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Numéro de série</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Référence rotor</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Référence stator</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Nombre d'accessoires complémentaires</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th colspan="2" class="text-center">Tableau avec ajout de ligne en fonction d'accessoire supplémentaire à la réception</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-primary" width="20%">Accessoires complémentaires N° 1</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr width="30%">
+                                                            <td class="table-primary">Accessoires complémentaires N° 2</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Accouplement</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Position de l'accouplement</label>
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <input type="text" id="dimension" required="required" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-info btn-sm">Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fin contrôle visuel et recensement --> 
+                                
+                                <!-- début contrôle montage roulements --> 
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Contrôle montage roulements</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse2">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th></th>
+                                                            <th class="text-center">Roulements à la réception</th>
+                                                            <th class="text-center">Montage prévu selon CST</th>
+                                                            <th class="text-center">Kit à prévoir</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="3%">CA</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="checkbox" id="dimension" required="required" class="form-control checkbox"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="3%">COA</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="checkbox" id="dimension" required="required" class="form-control checkbox"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th width="3%">Rep</th>
+                                                            <th  class="text-center">Désignation piéces</th>
+                                                            <th class="text-center">Côté CA</th>
+                                                            <th class="text-center">Côté COA</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>A</td>
+                                                            <td>Moyeu palier</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>B</td>
+                                                            <td>Emboitage C-Rit extérieur</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>C</td>
+                                                            <td>Roulement</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>D</td>
+                                                            <td>Emboitage C-Rit intérieur</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>2 rondelles isolantes</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Jeu</td>
+                                                            <td>J = A - (B+C+D+Soupape)</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Graisse</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-info btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fin contrôle montage roulements --> 
+
+                                <!-- début contrôle montage coussinets --> 
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                              <h2>Contrôle montage coussinets</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                               
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <div class="col-md-6">
+                                                        <table class="table table-bordered">
+                                                            <tr class="table-primary">
+                                                                <th class="text-center" colspan="2">Côté accouplement</th>
+                                                            </tr>
+                                                            <tr class="table-primary">
+                                                                <th class="text-center">Avant (mm)</th>
+                                                                <th class="text-center">Arriére (mm)</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <table class="table table-bordered">
+                                                            <tr class="table-primary">
+                                                                <th class="text-center" colspan="2">Côté opposé accouplement</th>
+                                                            </tr>
+                                                            <tr class="table-primary">
+                                                                <th class="text-center">Avant (mm)</th>
+                                                                <th class="text-center">Arriére (mm)</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                                <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th></th>
+                                                            <th  class="text-center">Natures des relevés</th>
+                                                            <th class="text-center">Diamètre attendu (mm)</th>
+                                                            <th class="text-center">Tolérance</th>
+                                                            <th class="text-center">Moyenne des relevés (mm)</th>
+                                                            <th class="text-center">Conformité</th>
+                                                            <th class="text-center">Observation</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>CA</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>COA</td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-info btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fin contrôle montage coussinets -->
+
+                                <!-- début Relevès dimensionnels rotor et palier --> 
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Relevès dimensionnels rotor et palier</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                               
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th  class="text-center">Désignation diamètre</th>
+                                                            <th class="text-center">côte attendue (mm)</th>
+                                                            <th class="text-center">Tolérance</th>
+                                                            <th class="text-center">Côte relevée</th>
+                                                            <th class="text-center">Conformité</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="5" class="text-center table-primary">Côté accouplement</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="b">Choisir désignation</option>
+                                                                    <option value="a">Designation 1</option>
+                                                                    <option value="a">Designation 2</option>
+                                                                    <option value="a">Designation 3</option>
+                                                                    <option value="a">Designation 4</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="5" class="text-center table-primary">Côté opposé accouplement</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="b">Choisir désignation</option>
+                                                                    <option value="a">Designation 1</option>
+                                                                    <option value="a">Designation 2</option>
+                                                                    <option value="a">Designation 3</option>
+                                                                    <option value="a">Designation 4</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-info btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fin Relevès dimensionnels rotor et palier -->
+
+                                <!-- début contôle géométrique du rotor --> 
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Contôle géométrique du rotor</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                               
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse5"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse5">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                            <th colspan="4" class="text-center">∅A</th>
+                                                            <th colspan="4" class="text-center">∅B</th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th></th>
+                                                            <th colspan="4" class="text-center">(Bt.A Add.)</th>
+                                                            <th colspan="4" class="text-center">Pivot</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-center table-primary">Repères</th>
+                                                            <td class="text-center">1</td>
+                                                            <td class="text-center">2</td>
+                                                            <td class="text-center">3</td>
+                                                            <td class="text-center">4</td>
+                                                            <td class="text-center">1</td>
+                                                            <td class="text-center">2</td>
+                                                            <td class="text-center">3</td>
+                                                            <td class="text-center">4</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-center table-primary">Faux-Rond</th>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-center table-primary">Conformité</th>
+                                                            <td colspan="4" class="text-center">
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Conforme</option>
+                                                                    <option value="b">Non Conforme</option>
+                                                                </select>
+                                                            </td>
+                                                            <td colspan="4" class="text-center">
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Conforme</option>
+                                                                    <option value="b">Non Conforme</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-info btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fin contôle géométrique du rotor -->
+                                
+                                <!-- début Appareils de mesure utilisés -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Appareils de mesure utilisés</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse6">
+                                        <div class="row">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Désignation du moyen de contrôle</th>
+                                                    <th>N° de l'appareil</th>
+                                                    <th>Date de validité</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" required="required" class="form-control"></td>
+                                                    <td><input type="number" required="required" class="form-control"></td>
+                                                    <td><input type="date" required="required" class="form-control"></td>
+                                                    <td><input type="submit" value="Ajouter" class="btn btn-primary btn-sm" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /fin Appareils de mesure utilisés -->
+
+                                <!-- début Expertise Hydro ou Aéro -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Expertise Hydro ou Aéro</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse7">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th class="text-center">Nature du contrôle</th>
+                                                            <th class="text-center">Conformité</th>
+                                                            <th class="text-center">Préconisation</th>
+                                                            <th class="text-center">Retenu</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Essais de presion à x Bars</td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Contrôle visuel des ailettes</td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Contrôle visuel des boites à eau</td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th class="text-center" colspan="4">Pression dépend des préconisation constructeurs</th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th class="text-center">Nature du contrôle</th>
+                                                            <th class="text-center">Conformité</th>
+                                                            <th class="text-center">Préconisation</th>
+                                                            <th class="text-center">Retenu</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Contrôle du dudgeonages des tubes</td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Contrôle visuel des tubes</td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" id="dimension" required="required" class="form-control"></td>
+                                                            <td>
+                                                                <select name="aa" id="aa">
+                                                                    <option value="a">Oui</option>
+                                                                    <option value="b">Non</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /fin Expertise Hydro ou Aéro -->
+
+                                <!-- début photos -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>photos</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse8">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th class="text-center">Photo l'ensemble à l'arrive</th>
+                                                            <th class="text-center">Photo du pridage à l'arrivée</th>
+                                                            <th class="text-center">Photo de l'accouplement à l'arrivée</th>
+                                                            <th class="text-center">Photo du rotor au démontage</th>
+                                                            <th class="text-center">Phot des réfigérants à l'expertise</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="file" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="file" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="file" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="file" id="dimension" required="required" class="form-control"></td>
+                                                            <td><input type="file" id="dimension" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /fin photos -->
+                                
+                                <!-- début bouton -->
+                                <div class="x_panel"> 
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Valider l'expertise mécanique<i class="fa fa-check-circle p-2"></i></button>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!-- /fin bouton -->
+                            </form>
+                        </div>
+                    </div>                     
+                <!-- /fin contenu du formulaire--> 
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Jeumont Electric <span class="text-info">2023</span>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /fin footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="vendors/Flot/jquery.flot.js"></script>
+    <script src="vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="vendors/Flot/jquery.flot.time.js"></script>
+    <script src="vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <script src="js/formulaire.js"></script>
+
+</body>
+</html>

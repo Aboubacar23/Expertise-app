@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="images/logo.png" type="image/ico" />
+    <title>Jeumont Electric</title>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+    <link href="build/css/custom2.css" rel="stylesheet">
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="#" class="site_title"><img src="images/logo.png" alt="" class="image_logo"> <span></span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                          <h3>Jeumont Electric</h3> 
+                          <ul class="nav side-menu">
+                            <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="admin.html">Administrateurs</a></li>
+                                <li><a href="client.html">Clients</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="affaire_cours.html">Affaire en cours</a></li>
+                                <li><a href="add_affaire.html">Nouvelle affaire</a></li>
+                                <li><a href="liste_affaire.html">Liste des affaires</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="machine.html">Machines</a></li>
+                                <li><a href="#">Types</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="rapport.html"><i class="fa fa-list"></i> Rapports</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                <!-- /fin sidebar menu -->
+                </div>
+            </div>
+        <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">Aboubacar Sidiki
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profil</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i> Log
+                                        Out</a>
+                                </div>
+                            </li>
+
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-red">4</span>
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu"
+                                    aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>Abou</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>Voir tout</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        <!-- /fin top navigation -->
+
+        <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="main">
+                    <div class="page-title">
+                        <div class="title_left"><h3>Expertise électrique après lavage</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                <!-- Entête de l'expertise -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <a href="view.html" class="btn btn-outline-primary btn-sm">Information Client</a>
+                                    <a href="parametre.html" class="btn btn-outline-primary btn-sm">Paramètres généraux</a>
+                                    <a href="expertise_electrique.html" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                                    <a href="expertise_mecanique.html" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                                    <a href="expertise_electrique_ap.html" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
+                                    <a href="constat_elec.html" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                                    <a href="constat_meca.html" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                                    <a href="remontage.html" class="btn btn-outline-primary btn-sm">Remontage</a>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <a href="#" class="btn btn-secondary btn-sm p-1" onclick="history.back();">Retour <i class="fa fa-reply p-1"></i></a>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>   
+                                <header></header>
+                            </div>
+                        </div>
+                    </div>   
+                <!-- /fin entête --> 
+                    
+                <!-- début contenu formulaire --> 
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 ">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal">
+                                <!-- début Essais plateforme après lavage -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Essais électrique après lavage</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <a href="" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                              
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th colspan="6" class="text-center">Stator après lavage</th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th>Paramètres</th>
+                                                            <th>Contrôle</th>
+                                                            <th>Critère</th>
+                                                            <th width="10%">Tension d'éssai(V)</th>
+                                                            <th>Valeur relevées en  MΩ</th>
+                                                            <th>Conformité</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td rowspan="7">
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="t_ambiante" required="required" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="t_tolerie" required="required" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="marque" required="required" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                                                </div>
+                                                            </td>
+                                                            <td>RI/Masse UVW à 1 min</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>RI/Masse UVW à 10 min</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Calcul IP</td>
+                                                            <td>>= 2.5</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>RI Phase U/VW+Masse</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>RI Phase V / UW+Masse</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>RI Phase W / UW+Masse</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>2500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>RI/Masse Sondes UVW</td>
+                                                            <td>132 MΩ</td>
+                                                            <td>500</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="table-primary">
+                                                            <th colspan="5" class="text-center">Mesures des résistances Ohmiques</th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th>Paramètres</th>
+                                                            <th>Contrôle</th>
+                                                            <th>Critère</th>
+                                                            <th>Valeur relevées en  MΩ</th>
+                                                            <th>Conformité</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td rowspan="4">
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="t_ambiante" required="required" class="form-control">
+                                                                </div>
+                                                                </div>
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="t_tolerie" required="required" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                    <input type="number" id="marque" required="required" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>R Ohmique Sondes UVW</td>
+                                                            <td>132 MΩ sous</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>R Ohmique sonde ph. U</td>
+                                                            <td>100 Ω à 0 °C</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>R Ohmique sonde ph. V</td>
+                                                            <td>101 Ω à 0 °C</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>R Ohmique sonde ph. W</td>
+                                                            <td>102 Ω à 0 °C</td>
+                                                            <td><input type="number" id="dimension" required="required" class="form-control"></td>
+                                                            <td width="4%">
+                                                                <select name="dd" id="dd">
+                                                                    <option value="b">Non</option>
+                                                                    <option value="a">Oui</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <!-- fin Essais plateforme après lavage -->
+
+                                <!-- début Essais plateforme après rebobinage -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Carctérisques à vide </h2>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <a href="" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                              
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse2">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr  class="table-primary">
+                                                            <th colspan="12" class="text-center">Carctérisques à vide </th>
+                                                        </tr>
+                                                        <tr class="table-primary">
+                                                            <th colspan="2%">N°</th>
+                                                            <th>U (v)</th>
+                                                            <th>I1 (A)</th>
+                                                            <th>I2 (A)</th>
+                                                            <th>I3 (A)</th>
+                                                            <th>P (kW)</th>
+                                                            <th>Q (kVAR)</th>
+                                                            <th>cos</th>
+                                                            <th>N (tr/min)</th>
+                                                            <th>Pj (W)</th>
+                                                            <th>P-Pj (kW)</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="resistance">Résistance <span class="required text-danger">*</span></label>
+                                                    <div class="col-md-4 col-sm- ">
+                                                        <input type="text" id="resistance" required="required" class="form-control ">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <th class="table-primary">Pertes</th>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>tr/min</td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>W</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="table-primary">Pertes Fer à </th>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>V</td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>W</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr  class="table-primary">
+                                                            <th colspan="12" class="text-center">Point de fonctionnement rotor bloqué</th>
+                                                        </tr>
+                                                        <tr class="table-primary text-center">
+                                                            <th>U (v)</th>
+                                                            <th>I1 (A)</th>
+                                                            <th>I2 (A)</th>
+                                                            <th>I3 (A)</th>
+                                                            <th>Imoy (A)</th>
+                                                            <th>Pabs (kW)</th>
+                                                            <th>Pjoule (kW)</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <table class="table table-bordered">
+                                                        <tr class="text-center">
+                                                            <th class="table-primary">M</th>
+                                                            <th class="table-primary">Indication du peson</th>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>kg</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr class="text-center">
+                                                            <th class="table-primary">ID</th>
+                                                            <th class="table-primary">Courant de démarrage à Un</th>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>A</td>
+                                                            <th>ID = Imoy * Un/U</th>
+                                                        </tr>
+                                                        <tr class="text-center">
+                                                            <th class="table-primary">CD</th>
+                                                            <th class="table-primary">Couple de démarrage à un</th>
+                                                            <td><input type="number" required="required" class="form-control"></td>
+                                                            <td>Nm</td>
+                                                            <th>CD = (9.81 * M * Un/U)</th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <!-- fin Essais plateforme après rebobinage -->
+
+                                <!-- début Appareils de mesure utilisés -->
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h2>Appareils de mesure utilisés</h2>
+                                            </div>
+                                            <div class="col-md-4 text-center"> 
+                                                <a href="" class="btn btn-dark btn-sm">En attente <i class="fa fa-circle"></i></a>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content collapse" id="collapse3">
+                                        <div class="row">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Désignation du moyen de contrôle</th>
+                                                    <th>N° de l'appareil</th>
+                                                    <th>Date de validité</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" required="required" class="form-control"></td>
+                                                    <td><input type="number" required="required" class="form-control"></td>
+                                                    <td><input type="date" required="required" class="form-control"></td>
+                                                    <td><input type="submit" value="Ajouter" class="btn btn-primary btn-sm" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /fin Appareils de mesure utilisés -->
+                                
+                                <!-- début bouton -->
+                                <div class="x_panel"> 
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Valider l'expertise électrique après Lavage<i class="fa fa-check-circle p-2"></i></button>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!-- /fin bouton -->
+                            </form>
+                        </div>
+                    </div>                    
+                <!-- /fin contenu du formulaire--> 
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Jeumont Electric <span class="text-info">2023</span>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /fin footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="vendors/Flot/jquery.flot.js"></script>
+    <script src="vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="vendors/Flot/jquery.flot.time.js"></script>
+    <script src="vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <script src="js/formulaire.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="images/logo.png" type="image/ico" />
+    <title>Jeumont Electric</title>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="#" class="site_title"><img src="images/logo.png" alt="" class="image_logo"> <span></span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                          <h3>Jeumont Electric</h3> 
+                          <ul class="nav side-menu">
+                            <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="admin.html">Administrateurs</a></li>
+                                <li><a href="client.html">Clients</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="affaire_cours.html">Affaire en cours</a></li>
+                                <li><a href="add_affaire.html">Nouvelle affaire</a></li>
+                                <li><a href="liste_affaire.html">Liste des affaires</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+                              <ul class="nav child_menu">
+                                <li><a href="machine.html">Machines</a></li>
+                                <li><a href="#">Types</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="rapport.html"><i class="fa fa-list"></i> Rapports</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt="">Aboubacar Sidiki
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profil</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i> Log
+                                        Out</a>
+                                </div>
+                            </li>
+
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-red">4</span>
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu"
+                                    aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>Abou</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were
+                                                where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>Voir tout</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left"><h3>Expertise du projet</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <a href="view.html" class="btn btn-outline-primary btn-sm">Information Client</a>
+                                    <a href="parametre.html" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                                    <a href="expertise_electrique.html" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                                    <a href="expertise_mecanique.html" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                                    <a href="expertise_electrique_ap.html" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                                    <a href="constat_elec.html" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                                    <a href="constat_meca.html" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                                    <a href="remontage.html" class="btn btn-outline-primary btn-sm">Remontage</a>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <a href="#" class="btn btn-secondary btn-sm p-1" onclick="history.back();">Retour <i class="fa fa-reply p-1"></i></a>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 ">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal">
+                          <div class="x_panel"> 
+                              <div class="x_title">
+                                  <h2>Paramètres généraux</h2>
+                                  <ul class="nav navbar-center panel_toolbox">
+                                    <a href="add_client.html" target="_blank" class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
+                                  </ul>
+                                  <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                  </ul>
+                                  <div class="clearfix"></div>
+                              </div>
+                              <div class="x_content">
+                                  <br />
+                                  <div class="item form-group">
+                                      <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_machine">Nom Machine <span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                        <select class="select2_group form-control">
+                                            <option value="AZ">Choisir une machine</option>
+                                            <option value="AZ">Machine A</option>
+                                            <option value="AZ">Machine B</option>
+                                            <option value="AZ">Machine C</option>
+                                            <option value="AZ">Machine D</option>
+                                            <option value="AZ">Machine E</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="item form-group">
+                                      <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Machine <span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                        <select class="select2_group form-control">
+                                            <option value="AZ">Choisir Type machine</option>
+                                            <option value="AZ">Moteur</option>
+                                            <option value="AZ">Alternateur</option>
+                                        </select>
+                                      </div>
+                                      <label class="col-form-label col-md-2 col-sm-2 label-align" for="type">Type <span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                        <select class="select2_group form-control">
+                                            <option value="AZ">Choisir un Type</option>
+                                            <option value="AZ">Type A</option>
+                                            <option value="AZ">Type B</option>
+                                            <option value="AZ">Type C</option>
+                                            <option value="AZ">Type D</option>
+                                            <option value="AZ">Type E</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Puissance(kW)<span class="required text-danger">*</span></label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <input type="text" id="puissance" required="required" class="form-control">
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="vitesse">Vitesse(tr/min)<span class="required text-danger">*</span></label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <input type="text" id="vitesse" required="required" class="form-control ">
+                                        </div>
+                                  </div>
+                                  <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Montage<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <input type="text" id="montage" required="required" class="form-control ">
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <input type="text" id="masse" required="required" class="form-control ">
+                                        </div>
+                                  </div>
+                                  <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="fabricant">Fabricant<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <input type="text" id="fabricant" required="required" class="form-control ">
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Type palier<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <select class="select2_group form-control">
+                                                <option value="AZ">Choisir un Type</option>
+                                                <option value="AZ">Roulements</option>
+                                                <option value="AZ">Coussinets</option>
+                                            </select>
+                                        </div>
+                                  </div>
+                                  <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="presence_balais">Presence balais<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <input type="checkbox" id="presence_balais" required="required" class="form-control checkbox">
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Présence de balais de masse<span class="required text-danger">*</span></label>
+                                      <div class="col-md-4 col-sm-4 ">
+                                            <input type="checkbox" id="presence_balais" required="required" class="form-control checkbox ">
+                                        </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <h2>Stator</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br />
+                                        <div class="item form-group">
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                  <input type="text" id="tension" required="required" class="form-control ">
+                                              </div>
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <input type="text" id="courant" required="required" class="form-control ">
+                                              </div>
+                                        </div>
+                                        <div class="item form-group">
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <input type="text" id="frequence" required="required" class="form-control ">
+                                              </div>
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <select class="select2_group form-control">
+                                                    <option value="AZ">Choisir couolage</option>
+                                                    <option value="AZ">Etoile</option>
+                                                    <option value="AZ">etc</option>
+                                                </select>
+                                              </div>
+                                        </div>
+                                        <div class="item form-group">
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée(Hz)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <input type="date" id="date_arrivee" required="required" class="form-control ">
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="x_panel"> 
+                                    <div class="x_title">
+                                        <h2>Rotor</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <br />
+                                        <div class="item form-group">
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                  <input type="text" id="tension" required="required" class="form-control ">
+                                              </div>
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <input type="text" id="courant" required="required" class="form-control ">
+                                              </div>
+                                        </div>
+                                        <div class="item form-group">
+                                              <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants<span class="required text-danger">*</span></label>
+                                              <div class="col-md-4 col-sm-4 ">
+                                                <select class="select2_group form-control">
+                                                    <option value="AZ">Choisir expertise</option>
+                                                    <option value="AZ">Hydro</option>
+                                                    <option value="AZ">Aéro</option>
+                                                    <option value="AZ">Aucun</option>
+                                                </select>
+                                              </div>
+                                              <label class="col-form-label col-md-4 col-sm-4 label-align" for="presence_plans">Présence de plans<span class="required text-danger">*</span></label>
+                                              <div class="col-md-2 col-sm-2 ">
+                                                <input type="checkbox" id="presence_plans" required="required" class="form-control checkbox">
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="x_panel">
+                              <div class="x_content">                                
+                                  <div class="item form-group">
+                                      <div class="col-md-6 col-sm-6 offset-md-3 text-center">
+                                        <div class="row">
+                                          <div class="col-md-12 align-center">
+                                              <button type="submit" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation des paramètres généraux<i class="fa fa-check-circle p-2"></i></button>
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Jeumont Electric <span class="text-info">2023</span>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="vendors/Flot/jquery.flot.js"></script>
+    <script src="vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="vendors/Flot/jquery.flot.time.js"></script>
+    <script src="vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+
+</body>
+
+</html>
