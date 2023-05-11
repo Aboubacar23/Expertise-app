@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{button_label | default('Ajouter')}} un client</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                {{ form_start(form) }}
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="nom">Nom <span class="required text-danger">*</span></label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.nom)}}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="site">Site <span class="required text-danger">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.site)}}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label for="adresse" class="col-form-label col-md-3 col-sm-3 label-align">Adresse</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.adresse)}}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label for="ville" class="col-form-label col-md-3 col-sm-3 label-align">Ville</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.ville)}}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.contact)}}
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <button type="submit" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                              </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-secondary btn-sm" type="submit" onclick="history.back();">Retour  <i class="fa fa-reply p-1"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
