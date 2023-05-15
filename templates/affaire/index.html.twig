@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire index{% endblock %}
+
+{% block body %}
+    <h1>Affaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code_client</th>
+                <th>Num_fabrication</th>
+                <th>Num_article_client</th>
+                <th>Context</th>
+                <th>Num_affaire</th>
+                <th>Suivi_par</th>
+                <th>Date_livraison</th>
+                <th>Nom_rapport</th>
+                <th>Presentation_travaux</th>
+                <th>Travaux_sup</th>
+                <th>Etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for affaire in affaires %}
+            <tr>
+                <td>{{ affaire.id }}</td>
+                <td>{{ affaire.codeClient }}</td>
+                <td>{{ affaire.numFabrication }}</td>
+                <td>{{ affaire.numArticleClient }}</td>
+                <td>{{ affaire.context }}</td>
+                <td>{{ affaire.numAffaire }}</td>
+                <td>{{ affaire.suiviPar }}</td>
+                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                <td>{{ affaire.nomRapport }}</td>
+                <td>{{ affaire.presentationTravaux }}</td>
+                <td>{{ affaire.travauxSup }}</td>
+                <td>{{ affaire.etat ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_affaire_show', {'id': affaire.id}) }}">show</a>
+                    <a href="{{ path('app_affaire_edit', {'id': affaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_affaire_new') }}">Create new</a>
+{% endblock %}

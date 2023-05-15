@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste client{% endblock %}
+
+{% block body %}   
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+        <h3>Compte du Client : {{client.nom }}</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>La liste des affaires du client</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    {% if client.etat == 1  %}
+                        <a href="{{path('app_client_etat', {'id' : client.id })}}" class="btn btn-danger btn-sm p-2" onclick="return confirm('Voulez-vous confirmer ?')">Désactiver<i class="fa fa-times p-1"></i></a>
+                    {% else %}
+                        <a href="{{path('app_client_etat', {'id' : client.id })}}" class="btn btn-success btn-sm p-2" onclick="return confirm('Voulez-vous confirmer ?')">Activer<i class="fa fa-check p-1"></i></a>
+                    {% endif %}
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

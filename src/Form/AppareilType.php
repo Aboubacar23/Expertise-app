@@ -2,46 +2,50 @@
 
 namespace App\Form;
 
-use App\Entity\Client;
+use App\Entity\Appareil;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ClientType extends AbstractType
+class AppareilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class, [
-                'label' => 'Nom',
+            ->add('designation', TextType::class, [
+                'label' => 'Désignation du moyen de contrôle',
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Le nom du client est obligatoire'
+                        'message' => 'La désignation est obligatoire'
                     ])
                 ]
             ])
-            ->add('site',TextType::class, [
-                'label' => 'Site',
+            ->add('num_appareil', TextType::class,[
+                'label' => 'N° appareil',
                 'required' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Le site du client est obligatoire'
+                        'message' => 'Le numéro est obligatoire'
                     ])
                 ]
             ])
-            ->add('adresse')
-            ->add('ville')
-            ->add('contact')
+            ->add('date_validite', DateType::class, [
+                'label' => 'Date validitée de la carte',
+                'required' => true,
+                'widget' => 'single_text',
+
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Client::class,
+            'data_class' => Appareil::class,
         ]);
     }
 }

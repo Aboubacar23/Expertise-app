@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
            <link rel="icon" href="{{asset('images/logo.png')}}" type="image/ico" />
-        <title>Acceuil</title>
+        <title>Jeumont Electric Expertise</title>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link href="{{ asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
         <!-- Font Awesome -->
@@ -25,6 +25,14 @@
 
         <!-- Custom Theme Style -->
         <link href="{{ asset('admin/build/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/build/css/custom2.css') }}" rel="stylesheet">
+
+        <!-- Datatables -->  
+        <link href="{{ asset('admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -34,13 +42,27 @@
         {% endblock %}
     </head>
     <body class="nav-md">
-        
+    <style>
+      .form-select {
+        border-radius: 0;
+        width: 100%;
+      }
+      .form-check{
+        height: 10px;
+        padding: 0;
+        margin: 35px;
+      }
+      .form-check-input{
+        padding-top: -20px;
+        height: 15px !important;
+        }
+    </style>
     <div class="container body">
         <div class="main_container">
           <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
               <div class="navbar nav_title" style="border: 0;">
-                  <a href="#" class="site_title"><img src="{{asset('images/logo.png')}}" class="image_logo"></a>
+                  <a href="{{path('app_home')}}" class="site_title"><img src="{{asset('images/logo.png')}}" class="image_logo"></a>
               </div>
               <div class="clearfix"></div>
               <br />
@@ -48,29 +70,39 @@
               <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                 <div class="menu_section">
                   <h3>Jeumont Electric</h3>                
-                  <ul class="nav side-menu">
-                    <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <li><a href="{{path('app_register_index')}}">Administrateurs</a></li>
-                        {% endif %}
-                        <li><a href="{{path('app_client_index')}}">Clients</a></li>
-                      </ul>
-                    </li>
+                  <ul class="nav side-menu"> 
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                      <li><a><i class="fa fa-user"></i> Gestion Tiers <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <li><a href="{{path('app_register_index')}}">Administrateurs</a></li>
+                          {% endif %}
+                          {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                            <li><a href="{{path('app_client_index')}}">Clients</a></li>
+                          {% endif %}
+                        </ul>
+                      </li>
+                      {% endif %}
                     <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="affaire_cours.html">Affaire en cours</a></li>
-                        <li><a href="add_affaire.html">Nouvelle affaire</a></li>
-                        <li><a href="liste_affaire.html">Liste des affaires</a></li>
+                        <li><a href="#">Affaire en cours</a></li>
+                        {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                          <li><a href="{{path('app_affaire_new')}}">Nouvelle affaire</a></li>
+                        {% endif %}
+                        <li><a href="#">Liste des affaires</a></li>
                       </ul>
                     </li>
-                    <li><a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="machine.html">Machines</a></li>
-                        <li><a href="#">Types</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="rapport.html"><i class="fa fa-list"></i> Rapports</a></li>
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                      <li>
+                        <a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="{{path('app_machine_index')}}">Machines</a></li>
+                          <li><a href="{{path('app_type_index')}}">Types</a></li>
+                          <li><a href="{{path('app_appareil_index')}}">Apareilles</a></li>
+                        </ul>
+                      </li>
+                    {% endif %}
+                    <li><a href="#"><i class="fa fa-list"></i> Rapports</a></li>
                   </ul>
                 </div>
               </div>
@@ -181,5 +213,24 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{asset('admin/build/js/custom.min.js')}}"></script>
-    </body>
+
+
+    <!-- Datatables -->
+  <script src="{{asset('admin/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+  <script src="{{asset('admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/jszip/dist/jszip.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+  <script src="{{asset('admin/vendors/pdfmake/build/vfs_fonts.js')}}"></script> 
+
+</body>
 </html>

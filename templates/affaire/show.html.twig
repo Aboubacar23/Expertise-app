@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+    <h1>Affaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ affaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Code_client</th>
+                <td>{{ affaire.codeClient }}</td>
+            </tr>
+            <tr>
+                <th>Num_fabrication</th>
+                <td>{{ affaire.numFabrication }}</td>
+            </tr>
+            <tr>
+                <th>Num_article_client</th>
+                <td>{{ affaire.numArticleClient }}</td>
+            </tr>
+            <tr>
+                <th>Context</th>
+                <td>{{ affaire.context }}</td>
+            </tr>
+            <tr>
+                <th>Num_affaire</th>
+                <td>{{ affaire.numAffaire }}</td>
+            </tr>
+            <tr>
+                <th>Suivi_par</th>
+                <td>{{ affaire.suiviPar }}</td>
+            </tr>
+            <tr>
+                <th>Date_livraison</th>
+                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom_rapport</th>
+                <td>{{ affaire.nomRapport }}</td>
+            </tr>
+            <tr>
+                <th>Presentation_travaux</th>
+                <td>{{ affaire.presentationTravaux }}</td>
+            </tr>
+            <tr>
+                <th>Travaux_sup</th>
+                <td>{{ affaire.travauxSup }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ affaire.etat ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_affaire_index') }}">back to list</a>
+
+    <a href="{{ path('app_affaire_edit', {'id': affaire.id}) }}">edit</a>
+
+    {{ include('affaire/_delete_form.html.twig') }}
+{% endblock %}

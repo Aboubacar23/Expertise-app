@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appareil{% endblock %}
+
+{% block body %}
+    <h1>Appareil</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ appareil.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ appareil.designation }}</td>
+            </tr>
+            <tr>
+                <th>Num_appareil</th>
+                <td>{{ appareil.numAppareil }}</td>
+            </tr>
+            <tr>
+                <th>Date_validite</th>
+                <td>{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_appareil_index') }}">back to list</a>
+
+    <a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}">edit</a>
+
+    {{ include('appareil/_delete_form.html.twig') }}
+{% endblock %}

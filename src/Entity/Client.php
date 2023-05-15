@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -27,6 +29,17 @@ class Client
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $contact = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $etat = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Affaire::class)]
+    private Collection $affaires;
+
+    public function __construct()
+    {
+        $this->affaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,5 +104,52 @@ class Client
         $this->contact = $contact;
 
         return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Affaire>
+     */
+    public function getAffaires(): Collection
+    {
+        return $this->affaires;
+    }
+
+    public function addAffaire(Affaire $affaire): self
+    {
+        if (!$this->affaires->contains($affaire)) {
+            $this->affaires->add($affaire);
+            $affaire->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaire(Affaire $affaire): self
+    {
+        if ($this->affaires->removeElement($affaire)) {
+            // set the owning side to null (unless already changed)
+            if ($affaire->getClient() === $this) {
+                $affaire->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
     }
 }

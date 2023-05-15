@@ -32,10 +32,16 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/register, roles: [ROLE_SUPER_ADMIN] }
-         - { path: ^/home1, roles: ['ROLE_SUPER_ADMIN','CHEF_PROJET','TECHNICIEN_ELECTRICIEN','VERIFICATEUR'] }
+         - { path: ^/client, roles: [ROLE_CHEF_PROJET, ROLE_SUPER_ADMIN] }
+         - { path: ^/appareil, roles: [ROLE_CHEF_PROJET, ROLE_SUPER_ADMIN] }
+         - { path: ^/machine, roles: [ROLE_CHEF_PROJET, ROLE_SUPER_ADMIN] }
+         - { path: ^/type, roles: [ROLE_CHEF_PROJET, ROLE_SUPER_ADMIN] }
+         - { path: ^/type, roles: [ROLE_CHEF_PROJET, ROLE_SUPER_ADMIN] }
+         - { path: ^/profil, roles: [ROLE_SUPER_ADMIN,ROLE_CHEF_PROJET,ROLE_AGENT_MAITRISE,ROLE_VERIFICATEUR,ROLE_TECHNICIEN_ELECTRICIEN,ROLE_TECHNICIEN_MECANICIEN] }
+         - { path: ^/home, roles: [ROLE_SUPER_ADMIN,ROLE_CHEF_PROJET,ROLE_AGENT_MAITRISE,ROLE_VERIFICATEUR,ROLE_TECHNICIEN_ELECTRICIEN,ROLE_TECHNICIEN_MECANICIEN] }
 
     role_hierarchy:
-        ROLE_SUPER_ADMIN: ['CHEF_PROJET', 'AGENT_MAITRISE', 'VERIFICATEUR','TECHNICIEN_ELECTRICIEN', 'TECHNICIEN_MECANICIEN', 'ROLE_ALLOWED_TO_SWITCH']
+        ROLE_SUPER_ADMIN: ['ROLE_CHEF_PROJET', 'ROLE_AGENT_MAITRISE', 'ROLE_VERIFICATEUR','ROLE_TECHNICIEN_ELECTRICIEN', 'ROLE_TECHNICIEN_MECANICIEN', 'ROLE_ALLOWED_TO_SWITCH']
 
 when@test: 
     security:

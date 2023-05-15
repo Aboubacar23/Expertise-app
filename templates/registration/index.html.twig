@@ -57,15 +57,15 @@
                                                 {% for role in item.roles  %}
                                                     {% if role == "ROLE_SUPER_ADMIN" %}
                                                         SUPER ADMIN ||
-                                                    {% elseif role == "CHEF_PROJET" %}
+                                                    {% elseif role == "ROLE_CHEF_PROJET" %}
                                                         CHEF PROJET ||
-                                                    {% elseif role == "AGENT_MAITRISE" %}
+                                                    {% elseif role == "ROLE_AGENT_MAITRISE" %}
                                                         AGENT DE MAÎTRISE ||
-                                                    {% elseif role == "VERIFICATEUR" %}
+                                                    {% elseif role == "ROLE_VERIFICATEUR" %}
                                                         VÉRIFICATEUR ||
-                                                    {% elseif role == "TECHNICIEN_ELECTRICIEN" %}
+                                                    {% elseif role == "ROLE_TECHNICIEN_ELECTRICIEN" %}
                                                         TECHNICIEN ÉLECTRICIEN ||
-                                                    {% elseif role == "TECHNICIEN_MECANICIEN" %}
+                                                    {% elseif role == "ROLE_TECHNICIEN_MECANICIEN" %}
                                                         TECHNICIEN MECANICIEN ||
                                                     {% endif %}
                                                 {% endfor %}
