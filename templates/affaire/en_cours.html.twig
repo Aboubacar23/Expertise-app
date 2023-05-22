@@ -24,30 +24,45 @@
                     <thead class="table-primary">
                         <tr>
                         <th width="2">N°</th>
+                        <th>N° Affaire JE</th>
                         <th>Nom Client</th>
                         <th>Référence code client</th>
                         <th>N° de fabrication</th>
                         <th>N° d'article client</th>
-                        <th>N° Affaire JE</th>
                         <th>Affaire suivie par</th>
+                        <th>Context</th>
                         <th>Date prévisionnelle de livraison</th>
+                        <th>Jour Restant</th>
                         <th>Etat</th>
                         <th width="100" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody> 
                         {% set i = 0 %}
-                    {% for affaire in affaires %}
+                        {% set dateJour = "now" %}
+                        {% for affaire in affaires %}
                         {% set i = i + 1 %}
+                            {% set dateLivre = affaire.dateLivraison %}
+                            {% set dateDiff = date(dateLivre).diff(date(dateJour)) %}
+                            {% set jourRestant = dateDiff.days %}
                         <tr>
                             <td>{{ i}}</td>
+                            <td>{{ affaire.numAffaire }}</td>
+                            <td>{{ affaire.client }}</td>
                             <td>{{ affaire.codeClient }}</td>
                             <td>{{ affaire.numFabrication }}</td>
                             <td>{{ affaire.numArticleClient }}</td>
-                            <td>{{ affaire.context }}</td>
-                            <td>{{ affaire.numAffaire }}</td>
                             <td>{{ affaire.suiviPar }}</td>
+                            <td>{{ affaire.context }}</td>
                             <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                            <td>
+                                {% if dateJour < dateLivre %}
+                                    <span class="text-success">{{jourRestant}}</span>
+                                {% else %}
+                                    <span class="text-danger">{{jourRestant}}</span>
+                                {% endif %}
+
+                            </td>
                             <td><a class="btn btn-danger text-white btn-sm">{{ affaire.etat ? 'Yes' : 'En cours' }}</a></td>
                             <td>
                                 <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-info btn-sm">Continuer<i class="fa fa-eye p-1"></i></a>

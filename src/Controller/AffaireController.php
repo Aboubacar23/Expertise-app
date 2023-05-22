@@ -13,11 +13,32 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/affaire')]
 class AffaireController extends AbstractController
 {
+    //la fonction qui affiche la liste des affaires en coures
     #[Route('/', name: 'app_affaire_index', methods: ['GET'])]
     public function index(AffaireRepository $affaireRepository): Response
     {
+        $affaires = [];
+        $tabs = $affaireRepository->findBy([],['id' => 'desc']);
+        foreach($tabs as $item){
+            if($item->isEtat() == 0){
+                array_push($affaires, $item);
+            }
+        }
+       // dd($affaires);
         return $this->render('affaire/en_cours.html.twig', [
-            'affaires' => $affaireRepository->findAll(),
+            'affaires' => $affaires,
+        ]);
+    }
+
+
+    //la fonction qui affiche la liste de toutes les affaires
+    #[Route('/listes', name: 'app_affaire_liste', methods: ['GET'])]
+    public function listes(AffaireRepository $affaireRepository): Response
+    {
+        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+       // dd($affaires);
+        return $this->render('affaire/index.html.twig', [
+            'affaires' => $affaires,
         ]);
     }
 
@@ -67,13 +88,31 @@ class AffaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_affaire_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST'])]
     public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$affaire->getId(), $request->request->get('_token'))) {
+        if ($affaire) {
             $affaireRepository->remove($affaire, true);
+            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+
     }
+
+     //la fonction qui affiche la liste des affaires terminer
+     #[Route('/affaire/rapports', name: 'app_affaire_rapport', methods: ['GET'])]
+     public function rapport(AffaireRepository $affaireRepository): Response
+     {
+         $affaires = [];
+         $tabs = $affaireRepository->findBy([],['id' => 'desc']);
+         foreach($tabs as $item){
+             if($item->isEtat() == 1){
+                 array_push($affaires, $item);
+             }
+         }
+        // dd($affaires);
+         return $this->render('affaire/rapport.html.twig', [
+             'affaires' => $affaires,
+         ]);
+     }
 }

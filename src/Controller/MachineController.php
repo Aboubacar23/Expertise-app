@@ -30,7 +30,7 @@ class MachineController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $machineRepository->save($machine, true);
-
+            $this->addFlash('success', "Machine  a été créer");
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
         }
 

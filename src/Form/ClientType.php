@@ -32,7 +32,9 @@ class ClientType extends AbstractType
                     ])
                 ]
             ])
-            ->add('adresse')
+            ->add('adresse', TextType::class, [
+                'required' => false
+            ])
             ->add('ville')
             ->add('contact')
         ;

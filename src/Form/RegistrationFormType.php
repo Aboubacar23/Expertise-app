@@ -23,6 +23,9 @@ class RegistrationFormType extends AbstractType
             ->add('username',TextType::class, [
                 'label' => 'Nom Utilisateur',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'au moins 6 caractères'
+                ],
                 'constraints' => [
                     new Length([
                         'min' => 6,
@@ -47,11 +50,6 @@ class RegistrationFormType extends AbstractType
             ->add('telephone',TextType::class, [
                 'label' => 'Téléphone',
                 'required' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => "Veuillez entrer le numéro de l'utilisateur",
-                    ]),
-                ],
             ])
             ->add('prenom',TextType::class, [
                 'label' => 'Prenom',

@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Type;
 use App\Entity\Machine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -13,6 +15,10 @@ class MachineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('type', EntityType::class,[
+                'class' => Type::class,
+                'placeholder' => 'Choisir le type'
+            ])
             ->add('categorie', ChoiceType::class, [
                 'label' => 'Categorie',
                 'placeholder' => 'Choisir une catégorie',

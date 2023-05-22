@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AffaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -50,6 +52,15 @@ class Affaire
 
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
+
+    #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Parametre::class)]
+    private Collection $parametres;
+
+    public function __construct()
+    {
+        $this->parametres = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -196,6 +207,36 @@ class Affaire
     public function setEtat(?bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Parametre>
+     */
+    public function getParametres(): Collection
+    {
+        return $this->parametres;
+    }
+
+    public function addParametre(Parametre $parametre): self
+    {
+        if (!$this->parametres->contains($parametre)) {
+            $this->parametres->add($parametre);
+            $parametre->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParametre(Parametre $parametre): self
+    {
+        if ($this->parametres->removeElement($parametre)) {
+            // set the owning side to null (unless already changed)
+            if ($parametre->getAffaire() === $this) {
+                $parametre->setAffaire(null);
+            }
+        }
 
         return $this;
     }

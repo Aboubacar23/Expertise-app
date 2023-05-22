@@ -17,30 +17,65 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <br /> 
+                    <br />    
                     <div class="item form-group">
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_client">Nom client <span class="required text-danger">*</span></label>
                         <div class="col-md-4 col-sm-4 ">{{ form_widget(form.client) }}</div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="num_affaire">N° Affaire JE <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.num_affaire) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.num_affaire) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.num_affaire) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="reference_code_client">référence code client <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.code_client) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.code_client) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.code_client) }}
+                            </div>                        
+                        </div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="affaire_suivie">Affaire suivie par <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.suivi_par, { value : suivie }) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.suivi_par, { value : suivie }) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.suivi_par) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="num_fabrication">N° de fabrication <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.num_fabrication) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.num_fabrication) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.num_fabrication) }}
+                            </div>
+                        </div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_livraison">Date prévisionnelle de livraison <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.date_livraison) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.date_livraison) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.date_livraison) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="num_article_client">N° d'article client <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.num_article_client) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.num_article_client) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.num_article_client) }}
+                            </div>
+                        </div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_rapport">Nom du rapport (site et machine) <span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.nom_rapport) }}</div>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.nom_rapport) }}
+                            <div class="my-custom-class-for-errors">
+                                {{ form_errors(form.nom_rapport) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="context_projet">Context du projet</label>

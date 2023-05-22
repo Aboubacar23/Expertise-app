@@ -33,6 +33,7 @@
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
+                                        <th>Type</th>
                                         <th>Categorie</th>
                                         <th>Sous Categorie</th>
                                         <th>Sous Categorie 2</th>
@@ -46,6 +47,7 @@
                                         {% set i = i + 1 %}
                                         <tr>
                                             <td>{{ i }}</td>
+                                            <td>{{ machine.type }}</td>
                                             <td>{{ machine.categorie }}</td>
                                             <td>{{ machine.sousCategorie }}</td>
                                             <td>{{ machine.sousCategorie2 }}</td>

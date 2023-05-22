@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Parametre{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Expertise du projet</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            {{ form_start(form) }}
+                <div class="x_panel"> 
+                    <div class="x_title">
+                        <h2>Paramètres généraux</h2>
+                        <ul class="nav navbar-center panel_toolbox">
+                        <a href="{{path('app_machine_new')}}" target="_blank" class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
+                        </ul>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type">Type <span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type) }}</div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_machine">Nom Machine <span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.machine) }}</div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Type Machine <span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type_machine) }}</div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Puissance(kW)<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                    {{ form_widget(form.puissance) }}
+                            </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="vitesse">Vitesse(tr/min)<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                    {{ form_widget(form.vitesse) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Montage<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                    {{ form_widget(form.montage) }}
+                            </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                    {{ form_widget(form.masse) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="fabricant">Fabricant<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                {{ form_widget(form.fabricant) }}
+                            </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Type palier<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">
+                                {{ form_widget(form.type_palier) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 ">
+                                    {{ form_widget(form.presence_balais) }}
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                    {{ form_widget(form.presence_balais_masse) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <h2>Stator</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.stator_tension) }}
+                                    </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.stator_courant) }}
+                                    </div>
+                            </div>
+                            <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.stator_frequence) }}
+                                    </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.stator_couplage) }}
+                                    </div>
+                            </div>
+                            <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.date_arrivee) }}
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <h2>Rotor</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_tension) }}
+                                    </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_courant) }}
+                                    </div>
+                            </div>
+                            <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_expertise_refrigeant) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.presence_plans) }}
+                                    </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                </div>
+                <div class="x_panel">
+                    <div class="x_content">                                
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3 text-center">
+                            <div class="row">
+                                <div class="col-md-12 align-center">
+                                    <button type="submit" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation des paramètres généraux<i class="fa fa-check-circle p-2"></i></button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{{ include('parametre/_delete_form.html.twig') }} 
+{% endblock %}
+{% block javascripts %} 
+    <script>
+        window.onload = () => {
+            // On va chercher la région
+            let region = document.querySelector("#parametre_type");
+            region.addEventListener("change", function(){
+                let form = this.closest("form");
+                let data = this.name + "=" + this.value;
+                fetch(form.action, {
+                    method: form.getAttribute("method"),
+                    body: data,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset:UTF-8"
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    let content = document.createElement("html");
+                    content.innerHTML = html;
+                    let nouveauSelect = content.querySelector("#parametre_machine");
+                    console.log(nouveauSelect); 
+                    document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            });
+        }
+    </script>
+ {% endblock %}

@@ -12,10 +12,13 @@
                 <br />
                 {{ form_start(form) }}
                     <div class="item form-group">
-                        <div class="col-md-3 col-sm-4 ">{{ form_row(form.categorie)}}</div>
-                        <div class="col-md-3 col-sm-4 ">{{ form_row(form.sous_categorie)}}</div>
-                        <div class="col-md-3 col-sm-4 ">{{ form_row(form.sous_categorie2)}}</div>
-                        <div class="col-md-3 col-sm-4 ">{{ form_row(form.sous_categorie3)}}</div>
+                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.type)}}</div>
+                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.categorie)}}</div>
+                    </div>
+                    <div class="item form-group">
+                        <div class="col-md-4 col-sm-4 ">{{ form_row(form.sous_categorie)}}</div>
+                        <div class="col-md-4 col-sm-4 ">{{ form_row(form.sous_categorie2)}}</div>
+                        <div class="col-md-4 col-sm-4 ">{{ form_row(form.sous_categorie3)}}</div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">

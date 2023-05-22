@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left"><h3>Expertise du projet</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            {# <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                            <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
+                            #}
+                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div> 
+                        </div>
+                        <div class="x_content">
+                            <section class="content invoice">                                      
+                                <div class="row">
+                                    <div class="invoice-header">
+                                        <h2 class="text-right">
+                                            Type :  <small class="pull-right"> {{ parametre.type }} :  <td>{{parametre.machine }}</small>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5>Machine</h5>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Type Machine</th>
+                                                        <td>{{ parametre.typeMachine }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Puissance</th>
+                                                        <td>{{ parametre.puissance }} KW</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Fabricant</th>
+                                                        <td>{{ parametre.fabricant }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Montage</th>
+                                                        <td>{{ parametre.montage }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Vitesse (tr/min)</th>
+                                                        <td>{{ parametre.vitesse }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Masse</th>
+                                                        <td>{{ parametre.masse }} KG</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presence Balais</th>
+                                                        <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Vitesse (tr/min)</th>
+                                                        <td>{{ parametre.vitesse }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Masse</th>
+                                                        <td>{{ parametre.masse }} KG</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Type Palier</th>
+                                                        <td>{{ parametre.typePalier }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presence Balais Masse</th>
+                                                        <td>{{ parametre.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Stator</h5>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Stator Tension</th>
+                                                        <td>{{ parametre.statorTension }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Stator Frequence</th>
+                                                        <td>{{ parametre.statorFrequence }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Stator Courant</th>
+                                                        <td>{{ parametre.statorCourant }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Stator Couplage</th>
+                                                        <td>{{ parametre.statorCouplage }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date Arrivée</th>
+                                                        <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('Y-m-d') : '' }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Rotor</h5>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Rotor Tension</th>
+                                                        <td>{{ parametre.rotorTension }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rotor Expertise Refrigeant</th>
+                                                        <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rotor Courant</th>
+                                                        <td>{{ parametre.rotorCourant }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Presence Plans</th>
+                                                        <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

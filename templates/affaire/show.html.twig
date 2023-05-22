@@ -3,64 +3,175 @@
 {% block title %}Affaire{% endblock %}
 
 {% block body %}
-    <h1>Affaire</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ affaire.id }}</td>
-            </tr>
-            <tr>
-                <th>Code_client</th>
-                <td>{{ affaire.codeClient }}</td>
-            </tr>
-            <tr>
-                <th>Num_fabrication</th>
-                <td>{{ affaire.numFabrication }}</td>
-            </tr>
-            <tr>
-                <th>Num_article_client</th>
-                <td>{{ affaire.numArticleClient }}</td>
-            </tr>
-            <tr>
-                <th>Context</th>
-                <td>{{ affaire.context }}</td>
-            </tr>
-            <tr>
-                <th>Num_affaire</th>
-                <td>{{ affaire.numAffaire }}</td>
-            </tr>
-            <tr>
-                <th>Suivi_par</th>
-                <td>{{ affaire.suiviPar }}</td>
-            </tr>
-            <tr>
-                <th>Date_livraison</th>
-                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom_rapport</th>
-                <td>{{ affaire.nomRapport }}</td>
-            </tr>
-            <tr>
-                <th>Presentation_travaux</th>
-                <td>{{ affaire.presentationTravaux }}</td>
-            </tr>
-            <tr>
-                <th>Travaux_sup</th>
-                <td>{{ affaire.travauxSup }}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ affaire.etat ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_affaire_index') }}">back to list</a>
-
-    <a href="{{ path('app_affaire_edit', {'id': affaire.id}) }}">edit</a>
-
-    {{ include('affaire/_delete_form.html.twig') }}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left"><h3>Expertise du projet</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                            {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                            <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Constats Meca</a>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>#}
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div> 
+                        </div>
+                        <div class="x_content">
+                            <section class="content invoice">                                      
+                                <div class="row">
+                                    <div class="invoice-header">
+                                        <h4 class="text-right">
+                                            Numéro projet :  <small class="pull-right"> {{ affaire.numAffaire }}</small>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width:50%">Nom du client </th>
+                                                        <td>{{affaire.client }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Réference code client</th>
+                                                        <td>{{ affaire.codeClient }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Numéro de fabrication</th>
+                                                        <td>{{ affaire.numFabrication }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Nom du rapport</th>
+                                                        <td>{{ affaire.nomRapport }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2">Présentation des travaux</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">{{ affaire.presentationTravaux }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width:50%">Context du projet</th>
+                                                        <td>{{ affaire.context }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Numéro d'article client</th>
+                                                        <td>{{ affaire.numArticleClient }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Affaire suivie par</th>
+                                                        <td>{{ affaire.suiviPar }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date prévisionnelle de livraison</th>
+                                                        <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2">Réalisations des travaux Supplémentaires</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">{{ affaire.travauxSup }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div> 
+                        <div class="x_content">
+                            <section class="content invoice">
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover table-bordered" style="width:100%">
+                                            <thead class="table-secondary">
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Type</th>
+                                                    <th>Machine</th>
+                                                    <th>Type Machine</th>
+                                                    <th>Puissance (KW)</th>
+                                                    <th>Montage</th>
+                                                    <th>Fabricant</th>
+                                                    <th>Presence Balais</th>
+                                                    <th>Vitesse (tr/min)</th>
+                                                    <th>Masse (KG)</th>
+                                                 {#   <th>Type Palier</th>
+                                                    <th>Presence Balais Masse</th>
+                                                    <th>Stator Tension</th>
+                                                    <th>Stator Frequence</th>
+                                                    <th>Stator Courant</th>
+                                                    <th>Stator Couplage</th>
+                                                    <th>Date Arrivée</th>
+                                                    <th>Rotor Tension</th>
+                                                    <th>Rotor Expertise Refrigeant</th>
+                                                    <th>Rotor Courant</th>
+                                                    <th>Presence Plans</th>#}
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for parametre in affaire.parametres %}
+                                                <tr>
+                                                    <td>{{ parametre.id }}</td>
+                                                    <td>{{ parametre.type }}</td>
+                                                    <td>{{ parametre.machine }}</td>
+                                                    <td>{{ parametre.typeMachine }}</td>
+                                                    <td>{{ parametre.puissance }}</td>
+                                                    <td>{{ parametre.montage }}</td>
+                                                    <td>{{ parametre.fabricant }}</td>
+                                                    <td>{{ parametre.presenceBalais ? 'Yes' : 'No' }}</td>
+                                                    <td>{{ parametre.vitesse }}</td>
+                                                    <td>{{ parametre.masse }}</td>
+                                                  {#  <td>{{ parametre.typePalier }}</td>
+                                                    <td>{{ parametre.presenceBalaisMasse ? 'Yes' : 'No' }}</td>
+                                                    <td>{{ parametre.statorTension }}</td>
+                                                    <td>{{ parametre.statorFrequence }}</td>
+                                                    <td>{{ parametre.statorCourant }}</td>
+                                                    <td>{{ parametre.statorCouplage }}</td>
+                                                    <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('Y-m-d') : '' }}</td>
+                                                    <td>{{ parametre.rotorTension }}</td>
+                                                    <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
+                                                    <td>{{ parametre.rotorCourant }}</td>
+                                                    <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
+                                                    <td class="text-center">
+                                                        <a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}">Aller à l'expertise</a>
+                                                        <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}">Modifier</a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="20">no records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+    </div>
 {% endblock %}
