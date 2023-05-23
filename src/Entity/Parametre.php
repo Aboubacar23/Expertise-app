@@ -77,6 +77,9 @@ class Parametre
     #[ORM\ManyToOne(inversedBy: 'parametres')]
     private ?Affaire $affaire = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleVisuelElectrique $controleVisuelElectrique = null;
+
 
     public function getId(): ?int
     {
@@ -331,6 +334,18 @@ class Parametre
     public function setAffaire(?Affaire $affaire): self
     {
         $this->affaire = $affaire;
+
+        return $this;
+    }
+
+    public function getControleVisuelElectrique(): ?ControleVisuelElectrique
+    {
+        return $this->controleVisuelElectrique;
+    }
+
+    public function setControleVisuelElectrique(?ControleVisuelElectrique $controleVisuelElectrique): self
+    {
+        $this->controleVisuelElectrique = $controleVisuelElectrique;
 
         return $this;
     }

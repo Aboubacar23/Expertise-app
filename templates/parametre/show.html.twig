@@ -13,10 +13,7 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            {# <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
-                            <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
-                            #}
-                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>
@@ -32,12 +29,12 @@
                                 <div class="row">
                                     <div class="invoice-header">
                                         <h2 class="text-right">
-                                            Type :  <small class="pull-right"> {{ parametre.type }} :  <td>{{parametre.machine }}</small>
+                                            <strong class="pull-right"> {{ parametre.type }} :  <td>{{parametre.machine }}</strong>
                                         </h2>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <h5>Machine</h5>
                                         <div class="table-responsive">
                                             <table class="table">
@@ -45,59 +42,43 @@
                                                     <tr>
                                                         <th>Type Machine</th>
                                                         <td>{{ parametre.typeMachine }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>Puissance</th>
                                                         <td>{{ parametre.puissance }} KW</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Fabricant</th>
                                                         <td>{{ parametre.fabricant }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>Montage</th>
                                                         <td>{{ parametre.montage }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Vitesse (tr/min)</th>
-                                                        <td>{{ parametre.vitesse }}</td>
-                                                    </tr>
-                                                    <tr>
+                                                        <th>Vitesse</th>
+                                                        <td>{{ parametre.vitesse }} tr/min</td>
                                                         <th>Masse</th>
                                                         <td>{{ parametre.masse }} KG</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Presence Balais</th>
                                                         <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Vitesse (tr/min)</th>
-                                                        <td>{{ parametre.vitesse }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Masse</th>
-                                                        <td>{{ parametre.masse }} KG</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Type Palier</th>
-                                                        <td>{{ parametre.typePalier }}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>Presence Balais Masse</th>
                                                         <td>{{ parametre.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2">Type Palier</th>
+                                                        <td colspan="2">{{ parametre.typePalier }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <h5>Stator</h5>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <th>Stator Tension</th>
-                                                        <td>{{ parametre.statorTension }}</td>
+                                                        <td>{{ parametre.statorTension }} KV</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Stator Frequence</th>
@@ -105,7 +86,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Stator Courant</th>
-                                                        <td>{{ parametre.statorCourant }}</td>
+                                                        <td>{{ parametre.statorCourant }} A</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Stator Couplage</th>
@@ -119,14 +100,14 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <h5>Rotor</h5>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <th>Rotor Tension</th>
-                                                        <td>{{ parametre.rotorTension }}</td>
+                                                        <td>{{ parametre.rotorTension }} KV</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Rotor Expertise Refrigeant</th>
@@ -134,7 +115,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Rotor Courant</th>
-                                                        <td>{{ parametre.rotorCourant }}</td>
+                                                        <td>{{ parametre.rotorCourant }} A</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Presence Plans</th>

@@ -41,6 +41,7 @@ class ParametreController extends AbstractController
         return $this->renderForm('parametre/new.html.twig', [
             'parametre' => $parametre,
             'form' => $form,
+            'affaire' => $affaire
         ]);
     }
 
