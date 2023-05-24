@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20230523134555 extends AbstractMigration
+{
+    public function getDescription(): string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema): void
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TABLE mesure_vibratoire (id INT AUTO_INCREMENT NOT NULL, position VARCHAR(255) DEFAULT NULL, montage VARCHAR(255) NOT NULL, accouplement VARCHAR(255) NOT NULL, clavette VARCHAR(255) NOT NULL, commentaire VARCHAR(255) DEFAULT NULL, n10 INT DEFAULT NULL, n25 INT DEFAULT NULL, a10 INT DEFAULT NULL, a25 INT DEFAULT NULL, b10 INT DEFAULT NULL, b25 INT DEFAULT NULL, c10 INT DEFAULT NULL, c25 INT DEFAULT NULL, d10 INT DEFAULT NULL, d25 INT DEFAULT NULL, e10 INT DEFAULT NULL, e25 INT DEFAULT NULL, f10 INT DEFAULT NULL, f25 INT DEFAULT NULL, obervation VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE parametre ADD mesure_vibratoire_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE parametre ADD CONSTRAINT FK_ACC790415A914C24 FOREIGN KEY (mesure_vibratoire_id) REFERENCES mesure_vibratoire (id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_ACC790415A914C24 ON parametre (mesure_vibratoire_id)');
+    }
+
+    public function down(Schema $schema): void
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE parametre DROP FOREIGN KEY FK_ACC790415A914C24');
+        $this->addSql('DROP TABLE mesure_vibratoire');
+        $this->addSql('DROP INDEX UNIQ_ACC790415A914C24 ON parametre');
+        $this->addSql('ALTER TABLE parametre DROP mesure_vibratoire_id');
+    }
+}

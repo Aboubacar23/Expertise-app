@@ -80,6 +80,18 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?ControleVisuelElectrique $controleVisuelElectrique = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureVibratoire $mesure_vibratoire = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleBobinage $controleBobinage = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?AutreControle $autre_controle = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?Photo $photo = null;
+
 
     public function getId(): ?int
     {
@@ -346,6 +358,54 @@ class Parametre
     public function setControleVisuelElectrique(?ControleVisuelElectrique $controleVisuelElectrique): self
     {
         $this->controleVisuelElectrique = $controleVisuelElectrique;
+
+        return $this;
+    }
+
+    public function getMesureVibratoire(): ?MesureVibratoire
+    {
+        return $this->mesure_vibratoire;
+    }
+
+    public function setMesureVibratoire(?MesureVibratoire $mesure_vibratoire): self
+    {
+        $this->mesure_vibratoire = $mesure_vibratoire;
+
+        return $this;
+    }
+
+    public function getControleBobinage(): ?ControleBobinage
+    {
+        return $this->controleBobinage;
+    }
+
+    public function setControleBobinage(?ControleBobinage $controleBobinage): self
+    {
+        $this->controleBobinage = $controleBobinage;
+
+        return $this;
+    }
+
+    public function getAutreControle(): ?AutreControle
+    {
+        return $this->autre_controle;
+    }
+
+    public function setAutreControle(?AutreControle $autre_controle): self
+    {
+        $this->autre_controle = $autre_controle;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?Photo $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

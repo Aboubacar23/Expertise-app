@@ -2,40 +2,70 @@
 
 namespace App\Controller;
 
-use App\Entity\ControleVisuelElectrique;
+use App\Entity\Photo;
+use App\Entity\Images;
+use App\Form\PhotoType;
 use App\Entity\Parametre;
+use App\Entity\AutreControle;
+use App\Form\AutreControleType;
+use App\Entity\ControleBobinage;
+use App\Entity\MesureVibratoire;
+use App\Form\ControleBobinageType;
+use App\Form\MesureVibratoireType;
+use App\Repository\PhotoRepository;
+use App\Entity\ControleVisuelElectrique;
 use App\Form\ControleVisuelElectriqueType;
-use App\Repository\ControleVisuelElectriqueRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AutreControleRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ControleBobinageRepository;
+use App\Repository\MesureVibratoireRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ControleVisuelElectriqueRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/expertiseEAL')]
 class ExpertiseElectriqueAvantLavageController extends AbstractController
 {
-    #[Route('/electrique/avant/lavage/{id}', name: 'app_expertise_electrique_avant_lavage')]
-    public function index(Parametre $parametre,Request $request,ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository): Response
+    /** 
+     * A- Dans cette partie nous allons mettre tout ce qui concerne le traitement 
+     * de la partie controle Visuel.
+     * 1- instancier un objet de type ControleVisuel
+     * 2-Dans cette partie nous allons verifie si le controle Visuel est lié à un paramêtre
+     * si oui on ajoute les données dans l'objet créer, si non on envoi un objet vide à notre formulaire.
+     * 3- on crée un formulaire qui va prendre l'objet créer
+     * 4- On rendre ici si on click sur le bouton en cours ou terminer
+     * 5- on recupère le choix selon les deux actions sur le formulaire ( en cours et terminer)
+     *  + si le choix est en cours : on ajout les données dans la base de donnée et met l'etat à 0
+     * + si le choix est terminer : on ajout les données dans la base de donnée et on met l'etat à 1
+     * 6 - envoyer les variables à la view twig
+     * NB : c'est les mêmes étapes pour les autres aussi
+    */
+
+    #[Route('/electrique/avant/lavage/{id}', name: 'app_expertise_electrique_avant_lavage', methods: ['POST', 'GET'])]
+    public function index(Parametre $parametre,Request $request,
+        SluggerInterface $slugger,
+        ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository,
+        MesureVibratoireRepository $mesureVibratoireRepository,
+        ControleBobinageRepository $controleBobinageRepository,
+        AutreControleRepository $autreControleRepository,
+        PhotoRepository $photoRepository
+     ): Response
     {
+
         /**
-         * A- Dans cette partie nous allons mettre tout ce qui concerne le traitement 
-         * de la partie controle Visuel.
-         * 1- instancier un objet de type ControleVisuel
-         * 2-Dans cette partie nous allons verifie si le controle Visuel est lié à un paramêtre
-         * si oui on ajoute les données dans l'objet créer, si non on envoi un objet vide à notre formulaire.
-         * 3- on crée un formulaire qui va prendre l'objet créer
-         * 4- On rendre ici si on click sur le bouton en cours ou terminer
-         * 5- on recupère le choix selon les deux actions sur le formulaire ( en cours et terminer)
-         *  + si le choix est en cours : on ajout les données dans la base de donnée et met l'etat à 0
-         * + si le choix est terminer : on ajout les données dans la base de donnée et on met l'etat à 1
-         * 6 - envoyer les variables à la view twig
-        */
+         * la partie du contrôle visuel et recensement
+         */
 
         //1 
         $controleVisuelElectrique = new ControleVisuelElectrique();
         //2
        if($parametre->getControleVisuelElectrique())
-       {$controleVisuelElectrique = $parametre->getControleVisuelElectrique()->getParametre()->getControleVisuelElectrique();}
+        {
+            $controleVisuelElectrique = $parametre->getControleVisuelElectrique()->getParametre()->getControleVisuelElectrique();
+        }
 
        //3
        $formControleVisuelElectique = $this->createForm(ControleVisuelElectriqueType::class, $controleVisuelElectrique);
@@ -61,11 +91,173 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
             }
         }
+        //fin du contrôle visuel
 
+        //la partie du mesures vibratoires
+        $mesureVibratoire = new MesureVibratoire();
+        if($parametre->getMesureVibratoire()){
+            $mesureVibratoire = $parametre->getMesureVibratoire()->getParametre()->getMesureVibratoire();
+        }
+
+        $formMesureVibratoire = $this->createForm(MesureVibratoireType::class, $mesureVibratoire);
+        $formMesureVibratoire->handleRequest($request);
+        if($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid())
+        {
+            $choix = $request->get('bouton2');
+            if($choix == 'mesure_vibratoire_en_cours')
+            {
+                $parametre->setMesureVibratoire($mesureVibratoire);
+                $mesureVibratoire->setEtat(0);
+                $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+
+            }
+            elseif($choix == 'mesure_vibratoire_terminer')
+            {
+                $parametre->setMesureVibratoire($mesureVibratoire);
+                $mesureVibratoire->setEtat(1);
+                $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+        //la partie du controle de bobinage 
+        $controleBobinage = new ControleBobinage();
+        if ($parametre->getControleBobinage())
+        {   
+            $controleBobinage = $parametre->getControleBobinage()->getParametre()->getControleBobinage();
+        }
+
+        $formControleBobinage = $this->createForm(ControleBobinageType::class, $controleBobinage);
+        $formControleBobinage->handleRequest($request);
+        if($formControleBobinage->isSubmitted() && $formControleBobinage->isValid())
+        {
+            $choix = $request->get('bouton3');
+            if ($choix =='controle_bobinage_en_cours')
+            {
+                $parametre->setControleBobinage($controleBobinage);
+                $controleBobinage->setEtat(0);
+                $controleBobinageRepository->save($controleBobinage, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+            elseif($choix = 'controle_bobinage_terminer')
+            {
+                $parametre->setControleBobinage($controleBobinage);
+                $controleBobinage->setEtat(1);
+                $controleBobinageRepository->save($controleBobinage, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+        //la partie autre controle balais et balais de masse
+        $autreControle = new AutreControle();
+        if($parametre->getAutreControle())
+        {
+            $autreControle = $parametre->getAutreControle()->getParametre()->getAutreControle();
+        }
+
+        $formAutreControle = $this->createForm(AutreControleType::class, $autreControle);
+        $formAutreControle->handleRequest($request);
+        if($formAutreControle->isSubmitted() && $formAutreControle->isValid())
+        {
+            $choix = $request->get('bouton4');
+            if($choix == 'autre_controle_en_cours')
+            {
+                $parametre->setAutreControle($autreControle);
+                $autreControle->setEtat(0);
+                $autreControleRepository->save($autreControle, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+
+
+            }
+            elseif($choix == 'autre_controle_terminer')
+            {
+                $parametre->setAutreControle($autreControle);
+                $autreControle->setEtat(1);
+                $autreControleRepository->save($autreControle, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+        //la partie photo
+        $photo = new Photo();
+        
+        $formPhoto = $this->createForm(PhotoType::class, $photo);
+        $formPhoto->handleRequest($request);
+
+        if($formPhoto->isSubmitted() && $formPhoto->isValid())
+        {
+            $choix = $request->get('bouton5');
+            if($choix == 'photo_en_cours')
+            {
+                //dd($formPhoto->get('images')->getData());
+                $images = $formPhoto->get('images')->getData();
+
+                foreach($images as $image)
+                {
+                    $img = new Images();
+                    if ($image) {
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_expertises'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e){}
+                    }
+                    if($parametre->getPhoto()){
+                        $photo = $parametre->getPhoto()->getParametre()->getPhoto();
+                    }
+                    $img->setLibelle($newPhotoname);
+                    $photo->addImage($img);
+                 }
+                 
+                $parametre->setPhoto($photo);
+                $photo->setEtat(0);
+                $photoRepository->save($photo, true);
+            }
+            elseif($choix == 'photo_terminer')
+            {
+                $images = $formPhoto->get('images')->getData();
+
+                foreach($images as $image)
+                {
+                    $img = new Images();
+                    if ($image) {
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_expertises'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e){}
+                    }
+                    
+                    if($parametre->getPhoto()){
+                        $photo = $parametre->getPhoto()->getParametre()->getPhoto();
+                    }
+                    $img->setLibelle($newPhotoname);
+                    $photo->addImage($img);
+
+                 }
+                $parametre->setPhoto($photo);
+                $photo->setEtat(1);
+                $photoRepository->save($photo, true);
+            }
+
+        }
         //6
         return $this->render('expertise_electrique_avant_lavage/index.html.twig', [
             'parametre' => $parametre,
-            'formControleVisuelElectique' => $formControleVisuelElectique->createView()
+            'formControleVisuelElectique' => $formControleVisuelElectique->createView(),
+            'formMesureVibratoire'=> $formMesureVibratoire->createView(),
+            'formControleBobinage' => $formControleBobinage->createView(),
+            'formAutreControle' => $formAutreControle->createView(),
+            'formPhoto' => $formPhoto->createView()
         ]);
     }
 }
