@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParametreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -92,6 +94,23 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?Photo $photo = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesure::class)]
+    private Collection $appareilMesures;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureIsolement $mesure_isolement = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureResistance $mesure_resistance = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PointFonctionnement::class)]
+    private Collection $pointFonctionnements;
+
+    public function __construct()
+    {
+        $this->appareilMesures = new ArrayCollection();
+        $this->pointFonctionnements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -406,6 +425,90 @@ class Parametre
     public function setPhoto(?Photo $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AppareilMesure>
+     */
+    public function getAppareilMesures(): Collection
+    {
+        return $this->appareilMesures;
+    }
+
+    public function addAppareilMesure(AppareilMesure $appareilMesure): self
+    {
+        if (!$this->appareilMesures->contains($appareilMesure)) {
+            $this->appareilMesures->add($appareilMesure);
+            $appareilMesure->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesure(AppareilMesure $appareilMesure): self
+    {
+        if ($this->appareilMesures->removeElement($appareilMesure)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesure->getParametre() === $this) {
+                $appareilMesure->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMesureIsolement(): ?MesureIsolement
+    {
+        return $this->mesure_isolement;
+    }
+
+    public function setMesureIsolement(?MesureIsolement $mesure_isolement): self
+    {
+        $this->mesure_isolement = $mesure_isolement;
+
+        return $this;
+    }
+
+    public function getMesureResistance(): ?MesureResistance
+    {
+        return $this->mesure_resistance;
+    }
+
+    public function setMesureResistance(?MesureResistance $mesure_resistance): self
+    {
+        $this->mesure_resistance = $mesure_resistance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PointFonctionnement>
+     */
+    public function getPointFonctionnements(): Collection
+    {
+        return $this->pointFonctionnements;
+    }
+
+    public function addPointFonctionnement(PointFonctionnement $pointFonctionnement): self
+    {
+        if (!$this->pointFonctionnements->contains($pointFonctionnement)) {
+            $this->pointFonctionnements->add($pointFonctionnement);
+            $pointFonctionnement->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePointFonctionnement(PointFonctionnement $pointFonctionnement): self
+    {
+        if ($this->pointFonctionnements->removeElement($pointFonctionnement)) {
+            // set the owning side to null (unless already changed)
+            if ($pointFonctionnement->getParametre() === $this) {
+                $pointFonctionnement->setParametre(null);
+            }
+        }
 
         return $this;
     }

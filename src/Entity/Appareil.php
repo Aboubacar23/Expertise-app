@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AppareilRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,13 +17,22 @@ class Appareil
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $designation = null;
+    public ?string $designation = null;
 
     #[ORM\Column(length: 255)]
     private ?string $num_appareil = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_validite = null;
+
+    #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: AppareilMesure::class)]
+    private Collection $appareilMesures;
+
+
+    public function __construct()
+    {
+        $this->appareilMesures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,4 +74,39 @@ class Appareil
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, AppareilMesure>
+     */
+    public function getAppareilMesures(): Collection
+    {
+        return $this->appareilMesures;
+    }
+
+    public function addAppareilMesure(AppareilMesure $appareilMesure): self
+    {
+        if (!$this->appareilMesures->contains($appareilMesure)) {
+            $this->appareilMesures->add($appareilMesure);
+            $appareilMesure->setAppareil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesure(AppareilMesure $appareilMesure): self
+    {
+        if ($this->appareilMesures->removeElement($appareilMesure)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesure->getAppareil() === $this) {
+                $appareilMesure->setAppareil(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->getDesignation().' - '.$this->getNumAppareil(). ' - '.$this->getDateValidite()->format('Y-m-d');
+    }
+
 }

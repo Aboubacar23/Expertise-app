@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AffaireController extends AbstractController
 {
     //la fonction qui affiche la liste des affaires en coures
-    #[Route('/', name: 'app_affaire_index', methods: ['GET'])]
+    #[Route('/en_cours', name: 'app_affaire_index', methods: ['GET'])]
     public function index(AffaireRepository $affaireRepository): Response
     {
         $affaires = [];

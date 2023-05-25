@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Appareil;
+use App\Entity\AppareilMesure;
 use App\Form\AppareilType;
+use App\Repository\AppareilMesureRepository;
 use App\Repository\AppareilRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,6 +77,24 @@ class AppareilController extends AbstractController
        }else{
             return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
 
+       } 
+    }
+
+    #[Route('mesure/{id}', name: 'delete_appareil', methods: ['GET'])]
+    public function deleteAppareilMesure(Request $request,AppareilMesure $appareilMesure, AppareilMesureRepository $appareilMesureRepository): Response
+    {
+        $idApp = $appareilMesure;
+        $id = $idApp->getParametre()->getId();
+       if($appareilMesure){
+        $appareilMesureRepository->remove($appareilMesure, true);
+        return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+            'id' => $id
+        ], Response::HTTP_SEE_OTHER);
+
+       }else{
+            return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+                'id' => $id
+            ], Response::HTTP_SEE_OTHER);
        } 
     }
 }

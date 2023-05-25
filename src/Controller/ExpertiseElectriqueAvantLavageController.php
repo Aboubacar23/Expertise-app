@@ -7,20 +7,33 @@ use App\Entity\Images;
 use App\Form\PhotoType;
 use App\Entity\Parametre;
 use App\Entity\AutreControle;
+use App\Entity\AppareilMesure;
+use App\Entity\MesureIsolement;
 use App\Form\AutreControleType;
 use App\Entity\ControleBobinage;
+use App\Entity\MesureResistance;
 use App\Entity\MesureVibratoire;
+use App\Form\AppareilMesureType;
+use App\Form\MesureIsolementType;
 use App\Form\ControleBobinageType;
+use App\Form\MesureResistanceType;
 use App\Form\MesureVibratoireType;
+use App\Entity\PointFonctionnement;
 use App\Repository\PhotoRepository;
+use App\Repository\ImagesRepository;
+use App\Form\PointFonctionnementType;
 use App\Entity\ControleVisuelElectrique;
 use App\Form\ControleVisuelElectriqueType;
 use App\Repository\AutreControleRepository;
+use App\Repository\AppareilMesureRepository;
+use App\Repository\MesureIsolementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ControleBobinageRepository;
+use App\Repository\MesureResistanceRepository;
 use App\Repository\MesureVibratoireRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,13 +64,17 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         MesureVibratoireRepository $mesureVibratoireRepository,
         ControleBobinageRepository $controleBobinageRepository,
         AutreControleRepository $autreControleRepository,
-        PhotoRepository $photoRepository
+        PhotoRepository $photoRepository,
+        AppareilMesureRepository $appareilMesureRepository,
+        MesureIsolementRepository $mesureIsolementRepository,
+        MesureResistanceRepository $mesureResistanceRepository,
+        PointFonctionnementRepository $pointFonctionnementRepository
      ): Response
     {
 
-        /**
-         * la partie du contrôle visuel et recensement
-         */
+        
+         //la partie du contrôle visuel et recensement
+         
 
         //1 
         $controleVisuelElectrique = new ControleVisuelElectrique();
@@ -93,6 +110,58 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         }
         //fin du contrôle visuel
 
+        //Mesure d'isolement
+        $mesureIsolement = new MesureIsolement();
+        if($parametre->getMesureIsolement()){
+            $mesureIsolement = $parametre->getMesureIsolement()->getParametre()->getMesureIsolement();
+        }
+        $formMesureIsolement = $this->createForm(MesureIsolementType::class, $mesureIsolement);
+        $formMesureIsolement->handleRequest($request);
+        if($formMesureIsolement->isSubmitted() && $formMesureIsolement->isValid())
+        {
+            $choix = $request->get('bouton7');
+            if($choix == 'mesure_isolement_en_cours')
+            {
+                $parametre->setMesureIsolement($mesureIsolement);
+                $mesureIsolement->setEtat(0);
+                $mesureIsolementRepository->save($mesureIsolement, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'mesure_isolement_terminer')
+            {
+                $parametre->setMesureIsolement($mesureIsolement);
+                $mesureIsolement->setEtat(1);
+                $mesureIsolementRepository->save($mesureIsolement, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+
+        //Mesure de resistance
+        $mesureResistance = new MesureResistance();
+        if($parametre->getMesureResistance()){
+            $mesureResistance = $parametre->getMesureResistance()->getParametre()->getMesureResistance();
+        }
+        $formMesureResistance = $this->createForm(MesureResistanceType::class, $mesureResistance);
+        $formMesureResistance->handleRequest($request);
+        if($formMesureResistance->isSubmitted() && $formMesureResistance->isValid()){
+            $choix = $request->get('bouton8');
+            if($choix == 'mesure_resistance_en_cours')
+            {
+                $parametre->setMesureResistance($mesureResistance);
+                $mesureResistance->setEtat(0);
+                $mesureResistanceRepository->save($mesureResistance, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'mesure_resistance_terminer')
+            {
+                $parametre->setMesureResistance($mesureResistance);
+                $mesureResistance->setEtat(1);
+                $mesureResistanceRepository->save($mesureResistance, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+ 
         //la partie du mesures vibratoires
         $mesureVibratoire = new MesureVibratoire();
         if($parametre->getMesureVibratoire()){
@@ -250,6 +319,46 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             }
 
         }
+
+        //la partie appareil de mesure
+        $appareilMesure = new AppareilMesure();
+
+        $formAppareilMesure = $this->createForm(AppareilMesureType::class, $appareilMesure);
+        $formAppareilMesure->handleRequest($request);
+        $date = date('Y-m-d');
+        if($formAppareilMesure->isSubmitted() && $formAppareilMesure->isValid())
+        {
+            $choix = $request->get('bouton6');
+            if($choix == 'ajouter')
+            {
+                $dateAppareil = $appareilMesure->getAppareil()->getDateValidite()->format('Y-m-d');
+                if($dateAppareil < $date){
+                    $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
+                }else{
+                    $appareilMesure->setParametre($parametre);
+                    $appareilMesure->setEtat(0);
+                    $appareilMesureRepository->save($appareilMesure, true);
+                    $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+                }
+            }
+        }
+
+        //la partie point de fonctionnement
+        $pointFonctionnement = new PointFonctionnement();
+
+        $formPointFonctionnement = $this->createForm(PointFonctionnementType::class, $pointFonctionnement);
+        $formPointFonctionnement->handleRequest($request);
+        if($formPointFonctionnement->isSubmitted() && $formPointFonctionnement->isValid())
+        {
+            $choix = $request->get('bouton9');
+            if($choix == 'ajouter')
+            {
+                $pointFonctionnement->setParametre($parametre);
+                $pointFonctionnementRepository->save($pointFonctionnement, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
         //6
         return $this->render('expertise_electrique_avant_lavage/index.html.twig', [
             'parametre' => $parametre,
@@ -257,7 +366,48 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             'formMesureVibratoire'=> $formMesureVibratoire->createView(),
             'formControleBobinage' => $formControleBobinage->createView(),
             'formAutreControle' => $formAutreControle->createView(),
-            'formPhoto' => $formPhoto->createView()
+            'formPhoto' => $formPhoto->createView(),
+            'formAppareilMesure' => $formAppareilMesure->createView(),
+            'formMesureIsolement' => $formMesureIsolement->createView(),
+            'formMesureResistance' => $formMesureResistance->createView(),
+            'formPointFonctionnement' => $formPointFonctionnement->createView()
         ]);
+    }
+
+    //la fonction qui supprime une photo une fois ajouter
+    #[Route('photo/{id}', name: 'delete_photo', methods: ['GET'])]
+    public function deletePhoto(Request $request,Images $images, ImagesRepository $imagesRepository): Response
+    {
+        $id = $images->getPhoto()->getParametre()->getId();
+       if($images){
+        $imagesRepository->remove($images, true);
+        return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+            'id' => $id
+        ], Response::HTTP_SEE_OTHER);
+
+       }else{
+           return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+                'id' => $id
+            ], Response::HTTP_SEE_OTHER);
+       } 
+    }
+
+    //la fonction qui supprime un point de fonctionnement
+    #[Route('fonctionnement/{id}/point', name: 'delete_point_fonctionnement', methods: ['GET'])]
+    public function deletePointFonctionnement(Request $request,PointFonctionnement $pointFonctionnement, PointFonctionnementRepository $pointFonctionnementRepository): Response
+    {
+        $id = $pointFonctionnement->getParametre()->getId();
+        if($pointFonctionnement){
+        $pointFonctionnementRepository->remove($pointFonctionnement, true);
+        return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+            'id' => $id
+        ], Response::HTTP_SEE_OTHER);
+
+        }else{
+            return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+                'id' => $id
+            ], Response::HTTP_SEE_OTHER);
+        } 
+        
     }
 }

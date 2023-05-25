@@ -39,15 +39,15 @@
                     </thead>
                     <tbody> 
                         {% set i = 0 %}
-                        {% set dateJour = "now" %}
+                        {% set dateJour = "now" | date('Y-m-d') %}
                         {% for affaire in affaires %}
                         {% set i = i + 1 %}
-                            {% set dateLivre = affaire.dateLivraison %}
+                            {% set dateLivre = affaire.dateLivraison | date('Y-m-d') %}
                             {% set dateDiff = date(dateLivre).diff(date(dateJour)) %}
                             {% set jourRestant = dateDiff.days %}
                         <tr>
                             <td>{{ i}}</td>
-                            <td>{{ affaire.numAffaire }}</td>
+                            <td>{{ affaire.numAffaire }}</td> 
                             <td>{{ affaire.client }}</td>
                             <td>{{ affaire.codeClient }}</td>
                             <td>{{ affaire.numFabrication }}</td>
@@ -58,8 +58,8 @@
                             <td>
                                 {% if dateJour < dateLivre %}
                                     <span class="text-success">{{jourRestant}}</span>
-                                {% else %}
-                                    <span class="text-danger">{{jourRestant}}</span>
+                                {% elseif dateJour > dateLivre %}
+                                    <span class="text-danger"> - {{jourRestant}}</span>
                                 {% endif %}
 
                             </td>

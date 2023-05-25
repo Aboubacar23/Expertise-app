@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-md-4 text-center">
                                         {% if parametre.controleVisuelElectrique == null %}
-                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                         {% else %}
                                             {% if parametre.controleVisuelElectrique.etat == 1 %}
                                                 <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
@@ -210,6 +210,364 @@
                         </div>
                     {{ form_end(formControleVisuelElectique) }}
                 <!-- fin contrôle visuel et recensement -->  
+                
+                <!-- début Mesure d'isolement -->
+                    {{ form_start(formMesureIsolement) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Mesure d'isolement</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {% if parametre.mesureIsolement == null %}
+                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                        {% else %}
+                                            {% if parametre.mesureIsolement.etat == 1 %}
+                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                            {% else %}
+                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2_1"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content collapse" id="collapse2_1">
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Paramètres</th>
+                                            <th>Contrôle</th>
+                                            <th>Critère</th>
+                                            <th width="10%">Tension d'éssai(V)</th>
+                                            <th>Valeur relevées en  MΩ</th>
+                                            <th>Conformité</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="5">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.temp_ambiante) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.temp_tolerie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.hygrometrie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                                </div>
+                                            </td>
+                                            <td>RI/Masse UVW à 1 min</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur1) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite1) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI/Masse UVW à 10 min</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur2) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Calcul IP</td>
+                                            <td>>= 2.5</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur3) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite3) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI Phase U/VW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur4) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI Phase V / UW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur5) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite5) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="date_essaie">Date d'essai</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.date_essais) }}</div>
+                                                </div>
+                                            </td>
+                                            <td>RI Phase W / UW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur6) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite6) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI/Masse Sondes UVW</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">500</td>
+                                            <td>{{ form_widget(formMesureIsolement.valeur7) }}</td>
+                                            <td>{{ form_widget(formMesureIsolement.conformite7) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton7" value="mesure_isolement_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton7" value="mesure_isolement_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formMesureIsolement) }}
+                <!-- fin Mesure d'isolement -->
+                
+                <!-- début Mesure de resistance -->
+                    {{ form_start(formMesureResistance) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Mesure de resistance</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {% if parametre.mesureResistance == null %}
+                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                        {% else %}
+                                            {% if parametre.mesureResistance.etat == 1 %}
+                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                            {% else %}
+                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content collapse" id="collapse2">
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th colspan="5" class="text-center">Mesures des résistances Ohmiques</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th>Paramètres</th>
+                                            <th>Contrôle</th>
+                                            <th>Critère</th>
+                                            <th>Valeur relevées en  MΩ</th>
+                                            <th>Conformité</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.temp_ambiante) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.temp_tolerie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.hygrometrie) }}</div>
+                                                </div>
+                                            </td>
+                                            <td>R Ohmique phase U</td>
+                                            <td rowspan="3">±5%</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur1) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite1) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique phase V</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur2) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique phase W</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur3) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite3) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="date_essaie">Date d'essai</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.date_essais) }}</div>
+                                                </div>
+                                            </td>
+                                            <td>R Ohmique sonde ph. U</td>
+                                            <td>100 Ω à 0 °C</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur4) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. V</td>
+                                            <td>101 Ω à 0 °C</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur5) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite5) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. W</td>
+                                            <td>102 Ω à 0 °C</td>
+                                            <td>{{ form_widget(formMesureResistance.valeur6) }}</td>
+                                            <td>{{ form_widget(formMesureResistance.conformite6) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton8" value="mesure_resistance_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton8" value="mesure_resistance_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formMesureResistance) }}
+                <!-- fin Mesure de resistance -->
+         
+                <!-- début Point de fonctionnement à vide -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Point de fonctionnement à vide</h2>
+                                </div>
+                                <div class="col-md-4 text-center"> 
+                                    <a href="" class="btn btn-info btn-sm">En cours <i class="fa fa-circle-o"></i></a>                                                 
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2_3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2_3">
+                            {{ form_start(formPointFonctionnement) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>t (min)</th>
+                                            <th>U (v)</th>
+                                            <th>I1 (A)</th>
+                                            <th>I2 (A)</th>
+                                            <th>I3 (A)</th>
+                                            <th>P (kW)</th>
+                                            <th>Q (kVAR)</th>
+                                            <th rowspan="4"><button class="btn btn-primary btn-sm" name="bouton9" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formPointFonctionnement.t) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.u) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.i1) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.i2) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.i3) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.p) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.q) }}</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th>cos</th>
+                                            <th>N (tr/min)</th>
+                                            <th>I (A)</th>
+                                            <th>TAmb (°C)</th>
+                                            <th>CA (°C)</th>
+                                            <th>COA (°C)</th>
+                                            <th>Observation</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formPointFonctionnement.cos) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.n) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.i) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.tamb) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.ca) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.coa) }}</td>
+                                            <td>{{ form_widget(formPointFonctionnement.observation) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formPointFonctionnement) }}
+                            
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr class="table-primary text-center">
+                                        <th>t</th>
+                                        <th>U</th>
+                                        <th>I1</th>
+                                        <th>I2</th>
+                                        <th>I3</th>
+                                        <th>P</th>
+                                        <th>Q</th>
+                                        <th>cos</th>
+                                        <th>N</th>
+                                        <th>I</th>
+                                        <th>TAmb</th>
+                                        <th>CA</th>
+                                        <th>COA</th>
+                                        <th rowspan="2">Observation</th>
+                                        <th rowspan="2"></th>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>(min)</th>
+                                        <th>(V)</th>
+                                        <th>(A)</th>
+                                        <th>(A)</th>
+                                        <th>(A)</th>
+                                        <th>(kW)</th>
+                                        <th>(kVAR)</th>
+                                        <th>cos</th>
+                                        <th>(tr/min)</th>
+                                        <th>(A)</th>
+                                        <th>(°C)</th>
+                                        <th>(°C)</th>
+                                        <th>(°C)</th>
+                                    </tr>
+                                    {% for item in parametre.pointFonctionnements %}
+                                        <tr>
+                                            <td>{{item.t}}</td>
+                                            <td>{{item.u}}</td>
+                                            <td>{{item.i1}}</td>
+                                            <td>{{item.i2}}</td>
+                                            <td>{{item.i3}}</td>
+                                            <td>{{item.p}}</td>
+                                            <td>{{item.q}}</td>
+                                            <td>{{item.cos}}</td>
+                                            <td>{{item.n}}</td>
+                                            <td>{{item.i}}</td>
+                                            <td>{{item.tamb}}</td>
+                                            <td>{{item.ca}}</td>
+                                            <td>{{item.coa}}</td>
+                                            <td>{{item.observation}}</td>
+                                            <td><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <!-- fin Point de fonctionnement à vide -->
+
 
                 <!-- début Mesures vibratoires -->
                     {{ form_start(formMesureVibratoire) }}
@@ -311,6 +669,76 @@
                         </div>
                     {{ form_end(formMesureVibratoire) }}
                 <!-- fin Mesures vibratoires -->
+
+                <!-- début Appareils de mesure utilisés -->
+                    {{ form_start(formAppareilMesure) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Appareils de mesure utilisés</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {% if parametre.appareilMesures %}
+                                            <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                        {% else %}
+                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    {% for flash_message in app.session.flashbag.get('message') %}
+                                        <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                            {{ flash_message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content collapse" id="collapse4">
+                                {{ form_start(formAppareilMesure) }}
+                                    <div class="row">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th>Appareils de Mesures</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ form_widget(formAppareilMesure.appareil) }}</td>
+                                                <td width="100"><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter</button></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                {{ form_end(formAppareilMesure) }}
+                                <br>
+                                <div class="row">
+                                    {% if parametre.appareilMesures %}
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th>Désignation du moyen de contrôle</th>
+                                                <th>N° de l'appareil</th>
+                                                <th>Date de validité</th>
+                                                <th width="20"></th>
+                                            </tr>
+                                            {% for item in parametre.appareilMesures %}
+                                                <tr>
+                                                    <td>{{item.appareil.designation}}</td>
+                                                    <td>{{item.appareil.numAppareil}}</td>
+                                                    <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                    <td><a href="{{path('delete_appareil', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                </tr>
+                                            {% endfor %} 
+                                        </table>                                        
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                <!-- /fin Appareils de mesure utilisés -->
 
                 <!-- début Contrôles de bobinages -->
                     {{ form_start(formControleBobinage) }}
@@ -549,7 +977,7 @@
                                             {% if parametre.photo %}
                                                 {% for item in parametre.photo.images %}
                                                     <img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150">
-                                                    <a href=""><i class="fa fa-trash fa-2x"></i></a>        
+                                                    <a href="{{path('delete_photo', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a>        
                                                 {% endfor %}                                                
                                             {% endif %}
                                         </div> 
