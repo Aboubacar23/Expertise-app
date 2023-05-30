@@ -35,9 +35,6 @@ class Affaire
     #[ORM\Column(length: 255)]
     private ?string $num_affaire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $suivi_par = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_livraison = null;
 
@@ -55,6 +52,10 @@ class Affaire
 
     #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Parametre::class)]
     private Collection $parametres;
+
+    #[ORM\ManyToOne(inversedBy: 'affaire')]
+    private ?Admin $suivi_par = null;
+
 
     public function __construct()
     {
@@ -139,17 +140,6 @@ class Affaire
         return $this;
     }
 
-    public function getSuiviPar(): ?string
-    {
-        return $this->suivi_par;
-    }
-
-    public function setSuiviPar(string $suivi_par): self
-    {
-        $this->suivi_par = $suivi_par;
-
-        return $this;
-    }
 
     public function getDateLivraison(): ?\DateTimeInterface
     {
@@ -240,4 +230,17 @@ class Affaire
 
         return $this;
     }
+
+    public function getSuiviPar(): ?Admin
+    {
+        return $this->suivi_par;
+    }
+
+    public function setSuiviPar(?Admin $suivi_par): self
+    {
+        $this->suivi_par = $suivi_par;
+
+        return $this;
+    }
+
 }

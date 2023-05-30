@@ -106,10 +106,17 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PointFonctionnement::class)]
     private Collection $pointFonctionnements;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ConstatElectrique::class)]
+    private Collection $constatElectriques;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $expertise_electique_avant_lavage = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
         $this->pointFonctionnements = new ArrayCollection();
+        $this->constatElectriques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -509,6 +516,48 @@ class Parametre
                 $pointFonctionnement->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConstatElectrique>
+     */
+    public function getConstatElectriques(): Collection
+    {
+        return $this->constatElectriques;
+    }
+
+    public function addConstatElectrique(ConstatElectrique $constatElectrique): self
+    {
+        if (!$this->constatElectriques->contains($constatElectrique)) {
+            $this->constatElectriques->add($constatElectrique);
+            $constatElectrique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstatElectrique(ConstatElectrique $constatElectrique): self
+    {
+        if ($this->constatElectriques->removeElement($constatElectrique)) {
+            // set the owning side to null (unless already changed)
+            if ($constatElectrique->getParametre() === $this) {
+                $constatElectrique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isExpertiseElectiqueAvantLavage(): ?bool
+    {
+        return $this->expertise_electique_avant_lavage;
+    }
+
+    public function setExpertiseElectiqueAvantLavage(?bool $expertise_electique_avant_lavage): self
+    {
+        $this->expertise_electique_avant_lavage = $expertise_electique_avant_lavage;
 
         return $this;
     }

@@ -58,11 +58,14 @@ class ParametreController extends AbstractController
     {
         $form = $this->createForm(ParametreType::class, $parametre);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+ //       dd($parametre->getAffaire()->getId());
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $parametreRepository->save($parametre, true);
 
-            return $this->redirectToRoute('app_parametre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_affaire_show', [
+                'id' => $parametre->getAffaire()->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('parametre/edit.html.twig', [

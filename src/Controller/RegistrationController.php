@@ -39,7 +39,17 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+
+            foreach($user->getRoles() as $item)
+            {
+                if($item == 'ROLE_CHEF_PROJET')
+                {
+                    $user->setEtat(1);
+                }
+            }
+        
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -70,7 +80,15 @@ class RegistrationController extends AbstractController
         if(!$admin){
             return $this->redirect('app_register_index');
         }else{
-            if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            if ($registrationForm->isSubmitted() && $registrationForm->isValid())
+            {
+                foreach($admin->getRoles() as $item)
+                {
+                    if($item == 'ROLE_CHEF_PROJET')
+                    {
+                        $admin->setEtat(1);
+                    }
+                }
             
                 $admin->setPassword(
                     $userPasswordHasher->hashPassword(

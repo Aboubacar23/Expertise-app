@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AdminRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -40,6 +42,18 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $telephone = null;
+
+    #[ORM\OneToMany(mappedBy: 'suivi_par', targetEntity: Affaire::class)]
+    private Collection $affaire;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $etat = null;
+
+ 
+    public function __construct()
+    {
+        $this->affaire = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -158,4 +172,52 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Affaire>
+     */
+    public function getAffaire(): Collection
+    {
+        return $this->affaire;
+    }
+
+    public function addAffaire(Affaire $affaire): self
+    {
+        if (!$this->affaire->contains($affaire)) {
+            $this->affaire->add($affaire);
+            $affaire->setSuiviPar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaire(Affaire $affaire): self
+    {
+        if ($this->affaire->removeElement($affaire)) {
+            // set the owning side to null (unless already changed)
+            if ($affaire->getSuiviPar() === $this) {
+                $affaire->setSuiviPar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom().' '.$this->getPrenom();
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
 }

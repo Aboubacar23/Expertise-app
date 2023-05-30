@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Admin;
 use App\Entity\Client;
 use App\Entity\Affaire;
+use App\Repository\AdminRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -62,13 +64,20 @@ class AffaireType extends AbstractType
                     ])
                 ]
             ])
-            ->add('suivi_par',TextType::class, [
+            ->add('suivi_par',EntityType::class, [
                 'required' => false,
+                'class' => Admin::class,
+                'placeholder' => 'Choisir un Chef de projet',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champs est obligatoire'
                     ])
-                ]
+                    ],
+                'query_builder' => function(AdminRepository $adminRepository){
+                    $query = $adminRepository->createQueryBuilder('a')->andWhere("a.etat = 1");
+                 //   dd($query);
+                    return  $query;
+                }
             ])
             ->add('date_livraison', DateType::class, [
                 'widget' => 'single_text'

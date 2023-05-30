@@ -13,7 +13,11 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                            {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                            {% endif %}
                             <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>

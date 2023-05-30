@@ -70,33 +70,38 @@ class ParametreType extends AbstractType
                 'choice_label' => 'libelle',
                 'placeholder' => 'Choisir un Type',
                 'required' => false
-            ])
-            ->add('machine', ChoiceType::class, [
+            ]);
+          /*  ->add('machine', ChoiceType::class, [
                 'placeholder' => 'Choisir une Machine',
                 'required' => false
             ]);
+*/
+            $formModifier = function (FormInterface $form, Type $type = null) {
+                    $machines = (null === $type) ? [] : $type->getMachines();
+                    $form->add('machine', EntityType::class, [
+                        'class' => Machine::class,
+                        'choices' => $machines,
+                        'required' => false,
+                        'placeholder' => 'Choisir une Machine',
+                            'attr' => ['class' => 'custom-select'],
+                        ]);
+                };  
 
-        $formModifier = function (FormInterface $form, Type $type = null) {
-                $machines = (null === $type) ? [] : $type->getMachines();
-    
-                $form->add('machine', EntityType::class, [
-                    'class' => Machine::class,
-                    'choices' => $machines,
-                    'required' => false,
-                  //  'choice_label' => 'nom',
-                'placeholder' => 'Choisir une Machine',
-                    'attr' => ['class' => 'custom-select'],
-                   // 'label' => 'Ville'
-                ]);
-            };
+            $builder->addEventListener(
+                    FormEvents::PRE_SET_DATA,
+                    function (FormEvent $event) use ($formModifier) {
+                        $data = $event->getData();
+                        $formModifier($event->getForm(), $data->getType());
+                    }
+                );
 
-        $builder->get('type')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
-                    $type = $event->getForm()->getData();
-                    $formModifier($event->getForm()->getParent(), $type);
-                }
-            );
+            $builder->get('type')->addEventListener(
+                    FormEvents::POST_SUBMIT,
+                    function (FormEvent $event) use ($formModifier) {
+                        $type = $event->getForm()->getData();
+                        $formModifier($event->getForm()->getParent(), $type);
+                    }
+                );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

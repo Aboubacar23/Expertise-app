@@ -53,7 +53,7 @@ class AffaireController extends AbstractController
             $affaire->setEtat(0);
             $affaireRepository->save($affaire, true);
 
-            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_affaire_liste', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('affaire/new.html.twig', [
@@ -79,7 +79,7 @@ class AffaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $affaireRepository->save($affaire, true);
 
-            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_affaire_liste', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('affaire/edit.html.twig', [
