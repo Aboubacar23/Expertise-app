@@ -112,6 +112,18 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?bool $expertise_electique_avant_lavage = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleVisuelMecanique $controle_visuel_mecanique = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleMontageRoulement $controle_montage_roulement = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleMontageConssinet $controle_montage_coussinet = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ControleGeometrique $controle_geometrique = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -558,6 +570,54 @@ class Parametre
     public function setExpertiseElectiqueAvantLavage(?bool $expertise_electique_avant_lavage): self
     {
         $this->expertise_electique_avant_lavage = $expertise_electique_avant_lavage;
+
+        return $this;
+    }
+
+    public function getControleVisuelMecanique(): ?ControleVisuelMecanique
+    {
+        return $this->controle_visuel_mecanique;
+    }
+
+    public function setControleVisuelMecanique(?ControleVisuelMecanique $controle_visuel_mecanique): self
+    {
+        $this->controle_visuel_mecanique = $controle_visuel_mecanique;
+
+        return $this;
+    }
+
+    public function getControleMontageRoulement(): ?ControleMontageRoulement
+    {
+        return $this->controle_montage_roulement;
+    }
+
+    public function setControleMontageRoulement(?ControleMontageRoulement $controle_montage_roulement): self
+    {
+        $this->controle_montage_roulement = $controle_montage_roulement;
+
+        return $this;
+    }
+
+    public function getControleMontageCoussinet(): ?ControleMontageConssinet
+    {
+        return $this->controle_montage_coussinet;
+    }
+
+    public function setControleMontageCoussinet(?ControleMontageConssinet $controle_montage_coussinet): self
+    {
+        $this->controle_montage_coussinet = $controle_montage_coussinet;
+
+        return $this;
+    }
+
+    public function getControleGeometrique(): ?ControleGeometrique
+    {
+        return $this->controle_geometrique;
+    }
+
+    public function setControleGeometrique(?ControleGeometrique $controle_geometrique): self
+    {
+        $this->controle_geometrique = $controle_geometrique;
 
         return $this;
     }

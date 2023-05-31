@@ -5,7 +5,7 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h3>Expertise du projet</h3>
+        <div class="title_left"><h4>Expertise Électrique avant lavage</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -14,10 +14,8 @@
             <div class="x_panel">
                 <div class="x_title">
                     <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique avant lavage</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Constats Meca</a>
                     <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
@@ -529,37 +527,37 @@
                                         <th rowspan="2"></th>
                                     </tr>
                                     <tr class="table-primary">
-                                        <th>(min)</th>
-                                        <th>(V)</th>
-                                        <th>(A)</th>
-                                        <th>(A)</th>
-                                        <th>(A)</th>
-                                        <th>(kW)</th>
-                                        <th>(kVAR)</th>
-                                        <th>cos</th>
-                                        <th>(tr/min)</th>
-                                        <th>(A)</th>
-                                        <th>(°C)</th>
-                                        <th>(°C)</th>
-                                        <th>(°C)</th>
+                                        <th class="text-center">(min)</th>
+                                        <th class="text-center">(V)</th>
+                                        <th class="text-center">(A)</th>
+                                        <th class="text-center">(A)</th>
+                                        <th class="text-center">(A)</th>
+                                        <th class="text-center">(kW)</th>
+                                        <th class="text-center">(kVAR)</th>
+                                        <th class="text-center">cos</th>
+                                        <th class="text-center">(tr/min)</th>
+                                        <th class="text-center">(A)</th>
+                                        <th class="text-center">(°C)</th>
+                                        <th class="text-center">(°C)</th>
+                                        <th class="text-center">(°C)</th>
                                     </tr>
                                     {% for item in parametre.pointFonctionnements %}
                                         <tr>
-                                            <td>{{item.t}}</td>
-                                            <td>{{item.u}}</td>
-                                            <td>{{item.i1}}</td>
-                                            <td>{{item.i2}}</td>
-                                            <td>{{item.i3}}</td>
-                                            <td>{{item.p}}</td>
-                                            <td>{{item.q}}</td>
-                                            <td>{{item.cos}}</td>
-                                            <td>{{item.n}}</td>
-                                            <td>{{item.i}}</td>
-                                            <td>{{item.tamb}}</td>
-                                            <td>{{item.ca}}</td>
-                                            <td>{{item.coa}}</td>
-                                            <td>{{item.observation}}</td>
-                                            <td><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            <td class="text-center">{{item.t}}</td>
+                                            <td class="text-center">{{item.u}}</td>
+                                            <td class="text-center">{{item.i1}}</td>
+                                            <td class="text-center">{{item.i2}}</td>
+                                            <td class="text-center">{{item.i3}}</td>
+                                            <td class="text-center">{{item.p}}</td>
+                                            <td class="text-center">{{item.q}}</td>
+                                            <td class="text-center">{{item.cos}}</td>
+                                            <td class="text-center">{{item.n}}</td>
+                                            <td class="text-center">{{item.i}}</td>
+                                            <td class="text-center">{{item.tamb}}</td>
+                                            <td class="text-center">{{item.ca}}</td>
+                                            <td class="text-center">{{item.coa}}</td>
+                                            <td class="text-center">{{item.observation}}</td>
+                                            <td class="text-center"><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                         </tr>
                                     {% endfor %}
                                 </table>

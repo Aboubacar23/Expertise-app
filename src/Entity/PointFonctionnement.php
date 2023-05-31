@@ -40,7 +40,7 @@ class PointFonctionnement
     #[ORM\Column]
     private ?float $n = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $i = null;
 
     #[ORM\Column]

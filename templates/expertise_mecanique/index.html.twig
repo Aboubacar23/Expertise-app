@@ -1,0 +1,631 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Expertise Électrique avant lavage</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. Mécanique</a>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div> 
+            </div>
+        </div>
+    </div> 
+    <!-- début contenu formulaire --> 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <!-- début contrôle visuel et recensement --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Contrôle visuel et recensement</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleVisuelMecanique == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleVisuelMecanique.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                         {{ form_start(formControlevisuelMecanque) }}
+                            <div class="x_content collapse" id="collapse1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.bridage) }}</div>
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.clavette) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Sonde palier CA</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.sonde_palier_ca) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.chassis) }}</div>
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.tresse_masse) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Sonde palier COA</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.sonde_palier_coa) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.boite_borne) }}</div>
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.vis_verins) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Autres Sondes</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.autres_sondes) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.barrette_neutre) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Peinture (N° RAL)</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.peinture) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Numéro de série</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.numero_serie) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Référence rotor</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.reference_rotor) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Référence stator</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.reference_stator) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Nombre d'accessoires complémentaires</label>
+                                            <div class="col-md-2 col-sm-2">{{ form_widget(formControlevisuelMecanque.nombre_accessoire) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th colspan="3" class="text-center">Accessoire supplémentaire à la réception</th>
+                                                </tr>
+                                                {{ form_start(formAccessoire) }}
+                                                <tr>
+                                                    <td class="table-primary" width="20%">Accessoires complémentaires</td>
+                                                    <td>{{form_widget(formAccessoire.libelle)}}</td>
+                                                    <td width="70" class="text-center"><button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">Ajouter</button></td>
+                                                </tr>
+                                                {{ form_end(formAccessoire) }}
+                                                {% set i = 0 %}
+                                                {% for item in accessoires %}
+                                                    {% set i = i + 1 %}
+                                                    <tr>
+                                                        <td class="table-primary" width="20%">Accessoires complémentaires N° {{i}}</td>
+                                                        <td>{{item.libelle}}</td>
+                                                        <td width="70" class="text-center"><a href="{{path('app_delete_accessoire', {'id' : item.id, 'parmID' : parametre.id })}}"><i class="fa fa-trash fa-3x text-danger"></i></a></td>
+                                                    </tr>                                                     
+                                                {% endfor %} 
+                                                {% for c in controleVisuelMecanique.accessoireSupplementaires %}
+                                                    {% set i = i + 1 %}
+                                                    <tr>
+                                                        <td class="table-primary" width="20%">Accessoires complémentaires N° {{i}}</td>
+                                                        <td>{{c.libelle}}</td>
+                                                        <td width="70" class="text-center"><a href="{{path('app_delete_accessoire', {'id' : c.id, 'parmID' : parametre.id})}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                    </tr>                                                     
+                                                {% endfor %}                                                
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Accouplement</label>
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.accouplement) }}</div>
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="dimension">Position de l'accouplement</label>
+                                            <div class="col-md-4 col-sm-4">{{ form_widget(formControlevisuelMecanque.position_accouplement) }}</div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton1" value="controle_visuel_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton1" value="controle_visuel_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(formControlevisuelMecanque) }}
+                    </div>
+                <!-- fin contrôle visuel et recensement --> 
+
+                <!-- début contrôle montage roulements --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Contrôle montage roulements</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleMontageRoulement == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleMontageRoulement.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2">
+                            {{ form_start(formControlMontageRoulement) }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th class="text-center">Roulements à la réception</th>
+                                                    <th class="text-center">Montage prévu selon CST</th>
+                                                    <th class="text-center" width="100">Kit à Prévoir</th>
+                                                </tr>
+                                                <tr>
+                                                    <td width="3%">CA</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.ca_roulement) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.ca_montage) }}</td>
+                                                    <td class="p-0">{{ form_row(formControlMontageRoulement.ca_kit) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="3%">COA</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.coa_roulement) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.coa_montage) }}</td>
+                                                    <td class="p-0">{{ form_widget(formControlMontageRoulement.coa_kit) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th width="3%">Rep</th>
+                                                    <th class="text-center" width="200">Désignation piéces</th>
+                                                    <th class="text-center">Côté CA</th>
+                                                    <th class="text-center">Côté COA</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>A</td>
+                                                    <td>Moyeu palier</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_a) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_a) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>B</td>
+                                                    <td>Emboitage C-Rit extérieur</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_b) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_b) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>C</td>
+                                                    <td>Roulement</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_c) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_c) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>D</td>
+                                                    <td>Emboitage C-Rit intérieur</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_d) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_d) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2 rondelles isolantes</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_vide1) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_vide1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jeu</td>
+                                                    <td>J = A - (B+C+D+Soupape)</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_jeu) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_jeu) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Graisse</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_ca_vide2) }}</td>
+                                                    <td>{{ form_widget(formControlMontageRoulement.cote_coa_vide2) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton2" value="controle_montage_roulement_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton2" value="controle_montage_roulement_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formControlMontageRoulement) }}
+                        </div>
+                    </div>
+                <!-- fin contrôle montage roulements --> 
+
+                <!-- début contrôle montage coussinets --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4"><h2>Contrôle montage coussinets</h2></div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleMontageCoussinet == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleMontageCoussinet.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {{ form_start(formControlMontageCoussinet) }}
+                            <div class="x_content collapse" id="collapse3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th class="text-center">1</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d1) }}</td>
+                                                    <th class="text-center">3</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d3) }}</td>
+                                                    <th class="text-center">5</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d5) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">2</th>
+                                                    <td >{{ form_widget(formControlMontageCoussinet.d2) }}</td>
+                                                    <th class="text-center">4</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d4) }}</td>
+                                                    <th class="text-center">6</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d6) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th class="text-center">7</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d7) }}</td>
+                                                    <th class="text-center">9</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d9) }}</td>
+                                                    <th class="text-center">11</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d11) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">8</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d8) }}</td>
+                                                    <th class="text-center">10</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d10) }}</td>
+                                                    <th class="text-center">12</th>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.d12) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <div class="col-md-6">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th class="text-center" colspan="2">Côté accouplement</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th class="text-center">Avant (mm)</th>
+                                                        <th class="text-center">Arriére (mm)</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant1) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere1) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant2) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere2) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant3) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere3) }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table table-bordered">
+                                                    <tr class="table-primary">
+                                                        <th class="text-center" colspan="2">Côté opposé accouplement</th>
+                                                    </tr>
+                                                    <tr class="table-primary">
+                                                        <th class="text-center">Avant (mm)</th>
+                                                        <th class="text-center">Arriére (mm)</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant1) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere1) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant2) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere2) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant3) }}</td>
+                                                        <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere3) }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th  class="text-center">Natures des relevés</th>
+                                                    <th class="text-center">Diamètre attendu (mm)</th>
+                                                    <th class="text-center">Tolérance</th>
+                                                    <th class="text-center">Moyenne des relevés (mm)</th>
+                                                    <th class="text-center">Conformité</th>
+                                                    <th class="text-center">Observation</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>CA</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_nature_releve) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_diametre_attendu) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_tolerence) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_conformite) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.ca_observation) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>COA</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_nature_releve) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_diametre_attendu) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_tolerance) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_conformite) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.coa_observation) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton3" value="controle_montage_coussinet_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton3" value="controle_montage_coussinet_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(formControlMontageCoussinet) }}
+                    </div>
+                <!-- fin contrôle montage coussinets -->
+
+                <!-- début contôle géométrique du rotor --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Contôle géométrique du rotor</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleGeometrique == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleGeometrique.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse5"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {{ form_start(formControlGeometrique) }}
+                            <div class="x_content collapse" id="collapse5">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                    <th colspan="4" class="text-center">∅A</th>
+                                                    <th colspan="4" class="text-center">∅B</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th colspan="4" class="text-center">(Bt.A Add.)</th>
+                                                    <th colspan="4" class="text-center">Pivot</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Repères</th>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Faux-Rond</th>
+                                                    <td>{{ form_widget(formControlGeometrique.add_1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.add_2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.add_3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.add_4) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_b1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_b2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_b3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_b4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Conformité</th>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_add) }}</td>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_b) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                    <th colspan="4" class="text-center">∅E</th>
+                                                    <th colspan="4" class="text-center">∅F</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                                                    <th colspan="4" class="text-center">(Pivot)</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Repères</th>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Faux-Rond</th>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_e1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_e2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_e3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_e4) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_f1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_f2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_f3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.pivot_f4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Conformité</th>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_e) }}</td>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_f) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                    <th colspan="4" class="text-center">∅C</th>
+                                                    <th colspan="4" class="text-center">∅D</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                                                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Repères</th>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Faux-Rond</th>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_c1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_c2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_c3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_c4) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_d1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_d2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_d3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.tolerie_d4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Conformité</th>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_c) }}</td>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_d) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                    <th colspan="4" class="text-center">∅G</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th></th>
+                                                    <th colspan="4" class="text-center">(Accouplement)</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Repères</th>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-center">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Faux-Rond</th>
+                                                    <td>{{ form_widget(formControlGeometrique.accouplement_g1) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.accouplement_g2) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.accouplement_g3) }}</td>
+                                                    <td>{{ form_widget(formControlGeometrique.accouplement_g4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center table-primary">Conformité</th>
+                                                    <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_g) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton5" value="controle_geometrique_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton5" value="controle_geometrique_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(formControlGeometrique) }}
+                    </div>
+                <!-- fin contôle géométrique du rotor -->
+    
+            </div>
+        </div>                    
+    <!-- /fin contenu du formulaire--> 
+</div>
+{% endblock %}
