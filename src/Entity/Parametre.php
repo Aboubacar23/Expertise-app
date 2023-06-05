@@ -145,6 +145,21 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?StatorApresLavage $stator_apres_lavage = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?SondeBobinage $sonde_bobinage = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Caracteristique::class)]
+    private Collection $caracteristiques;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?AutreCaracteristique $autre_caracteristique = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PointFonctionnementRotor::class)]
+    private Collection $pointFonctionnementRotors;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?AutrePointFonctionnementRotor $autre_point_fonctionnement_rotor = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -154,6 +169,8 @@ class Parametre
         $this->photoExpertiseMecaniques = new ArrayCollection();
         $this->constatMecaniques = new ArrayCollection();
         $this->releveDimmensionnels = new ArrayCollection();
+        $this->caracteristiques = new ArrayCollection();
+        $this->pointFonctionnementRotors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -799,6 +816,102 @@ class Parametre
     public function setStatorApresLavage(?StatorApresLavage $stator_apres_lavage): self
     {
         $this->stator_apres_lavage = $stator_apres_lavage;
+
+        return $this;
+    }
+
+    public function getSondeBobinage(): ?SondeBobinage
+    {
+        return $this->sonde_bobinage;
+    }
+
+    public function setSondeBobinage(?SondeBobinage $sonde_bobinage): self
+    {
+        $this->sonde_bobinage = $sonde_bobinage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Caracteristique>
+     */
+    public function getCaracteristiques(): Collection
+    {
+        return $this->caracteristiques;
+    }
+
+    public function addCaracteristique(Caracteristique $caracteristique): self
+    {
+        if (!$this->caracteristiques->contains($caracteristique)) {
+            $this->caracteristiques->add($caracteristique);
+            $caracteristique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaracteristique(Caracteristique $caracteristique): self
+    {
+        if ($this->caracteristiques->removeElement($caracteristique)) {
+            // set the owning side to null (unless already changed)
+            if ($caracteristique->getParametre() === $this) {
+                $caracteristique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAutreCaracteristique(): ?AutreCaracteristique
+    {
+        return $this->autre_caracteristique;
+    }
+
+    public function setAutreCaracteristique(?AutreCaracteristique $autre_caracteristique): self
+    {
+        $this->autre_caracteristique = $autre_caracteristique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PointFonctionnementRotor>
+     */
+    public function getPointFonctionnementRotors(): Collection
+    {
+        return $this->pointFonctionnementRotors;
+    }
+
+    public function addPointFonctionnementRotor(PointFonctionnementRotor $pointFonctionnementRotor): self
+    {
+        if (!$this->pointFonctionnementRotors->contains($pointFonctionnementRotor)) {
+            $this->pointFonctionnementRotors->add($pointFonctionnementRotor);
+            $pointFonctionnementRotor->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePointFonctionnementRotor(PointFonctionnementRotor $pointFonctionnementRotor): self
+    {
+        if ($this->pointFonctionnementRotors->removeElement($pointFonctionnementRotor)) {
+            // set the owning side to null (unless already changed)
+            if ($pointFonctionnementRotor->getParametre() === $this) {
+                $pointFonctionnementRotor->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAutrePointFonctionnementRotor(): ?AutrePointFonctionnementRotor
+    {
+        return $this->autre_point_fonctionnement_rotor;
+    }
+
+    public function setAutrePointFonctionnementRotor(?AutrePointFonctionnementRotor $autre_point_fonctionnement_rotor): self
+    {
+        $this->autre_point_fonctionnement_rotor = $autre_point_fonctionnement_rotor;
 
         return $this;
     }

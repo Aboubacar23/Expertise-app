@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\StatorApresLavage;
+use App\Entity\SondeBobinage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class StatorApresLavageType extends AbstractType
+class SondeBobinageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,10 +19,7 @@ class StatorApresLavageType extends AbstractType
             ->add('valeur1')
             ->add('valeur2')
             ->add('valeur3')
-            ->add('valeur4')
-            ->add('valeur5')
-            ->add('valeur6')
-            ->add('valeur7')
+            ->add('valeur4')      
             ->add('conformite1', ChoiceType::class, [
                 'choices' => [
                     'Oui' => 'Oui',
@@ -47,31 +44,13 @@ class StatorApresLavageType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
-            ->add('conformite5', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
-            ->add('conformite6', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
-            ->add('conformite7', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => StatorApresLavage::class,
+            'data_class' => SondeBobinage::class,
         ]);
     }
 }

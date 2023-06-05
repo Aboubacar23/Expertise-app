@@ -36,17 +36,477 @@
     <!-- début contenu formulaire --> 
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
-    
-                <!-- début bouton -->
-                <div class="x_panel"> 
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <a href="{{path('valider_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                <!-- début Stator après lavage -->
+                    {{ form_start(formStatorApresLavage) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Stator Après Lavage</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {% if parametre.statorApresLavage == null %}
+                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                        {% else %}
+                                            {% if parametre.statorApresLavage.etat == 1 %}
+                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                            {% else %}
+                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                        </div> 
+                            <div class="x_content collapse" id="collapse1">                             
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Paramètres</th>
+                                            <th>Contrôle</th>
+                                            <th>Critère</th>
+                                            <th class="text-center" width="8%">Tension d'éssai(V)</th>
+                                            <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
+                                            <th>Valeur relevées après lavage en  MΩ</th>
+                                            <th>Conformité</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="7">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formStatorApresLavage.temp_ambiante) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formStatorApresLavage.temp_tolerie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formStatorApresLavage.hygrometrie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                                </div>
+                                            </td>
+                                            <td>RI/Masse UVW à 1 min</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur1}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur1) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite1) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI/Masse UVW à 10 min</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur2}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur2) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Calcul IP</td>
+                                            <td>>= 2.5</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur3}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur3) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite3) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI Phase U/VW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur4}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur4) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI Phase V / UW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur5}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur5) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite5) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI Phase W / UW+Masse</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur6}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur6) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite6) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RI/Masse Sondes UVW</td>
+                                            <td>132 MΩ</td>
+                                            <td class="text-center">500</td>
+                                            <td class="text-center">{{parametre.mesureIsolement.valeur7}}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.valeur7) }}</td>
+                                            <td>{{ form_widget(formStatorApresLavage.conformite7) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton1" value="stator_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton1" value="stator_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formStatorApresLavage) }}
+                <!-- fin stator après lavage -->
+       
+                <!-- début sonde bobinage -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Stator Après Lavage</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.sondeBobinage == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.sondeBobinage.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2">
+                            {{ form_start(formSondeBobinage) }}                            
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Paramètres</th>
+                                            <th>Contrôle</th>
+                                            <th>Critère</th>
+                                            <th class="text-center" width="8%">Tension d'éssai(V)</th>
+                                            <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
+                                            <th>Valeur relevées après lavage en  MΩ</th>
+                                            <th>Conformité</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="4">
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_ambiante) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_tolerie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                                    <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.hygrometrie) }}</div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                                </div>
+                                            </td>
+                                            <td>RI/Masse Sondes</td>
+                                            <td>132 MΩ sous</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureResistance.valeur1}}</td>
+                                            <td>{{ form_widget(formSondeBobinage.valeur1) }}</td>
+                                            <td>{{ form_widget(formSondeBobinage.conformite1) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. U</td>
+                                            <td>100 Ω à 0 °C</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureResistance.valeur4}}</td>
+                                            <td>{{ form_widget(formSondeBobinage.valeur2) }}</td>
+                                            <td>{{ form_widget(formSondeBobinage.conformite2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. V</td>
+                                            <td>101 Ω à 0 °C</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureResistance.valeur5}}</td>
+                                            <td>{{ form_widget(formSondeBobinage.valeur3) }}</td>
+                                            <td>{{ form_widget(formSondeBobinage.conformite3) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. W</td>
+                                            <td>102 Ω à 0 °C</td>
+                                            <td class="text-center">2500</td>
+                                            <td class="text-center">{{parametre.mesureResistance.valeur6}}</td>
+                                            <td>{{ form_widget(formSondeBobinage.valeur4) }}</td>
+                                            <td>{{ form_widget(formSondeBobinage.conformite4) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton2" value="sonde_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton2" value="sonde_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formSondeBobinage) }}
+                        </div>
                     </div>
-                </div>
+                 <!-- fin stator bobinage -->
+
+                <!-- début caractéristique -->
+                     <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Carctérisques à vide </h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.autreCaracteristique == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.autreCaracteristique.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse3">
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    {{ form_start(formCarateristique) }}
+                                        <tr class="table-primary">
+                                            <th></th>
+                                            <th>U (v)</th>
+                                            <th>I1 (A)</th>
+                                            <th>I2 (A)</th>
+                                            <th>I3 (A)</th>
+                                            <th>P (kW)</th>
+                                            <th>Q (kVAR)</th>
+                                            <th>cos</th>
+                                            <th>N (tr/min)</th>
+                                            <th>Pj (W)</th>
+                                            <th>P-Pj (KW)</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>{{ form_widget(formCarateristique.u) }}</td>
+                                            <td>{{ form_widget(formCarateristique.i1) }}</td>
+                                            <td>{{ form_widget(formCarateristique.i2) }}</td>
+                                            <td>{{ form_widget(formCarateristique.i3) }}</td>
+                                            <td>{{ form_widget(formCarateristique.p) }}</td>
+                                            <td>{{ form_widget(formCarateristique.q) }}</td>
+                                            <td>{{ form_widget(formCarateristique.cos) }}</td>
+                                            <td>{{ form_widget(formCarateristique.n) }}</td>
+                                            <td>{{ form_widget(formCarateristique.pj) }}</td>  
+                                            <td>{{ form_widget(formCarateristique.p_pj) }}</td>                                      
+                                            <th><button class="btn btn-primary btn-sm" name="bouton3_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                        </tr>
+                                        {% if parametre.caracteristiques %}
+                                            {% set i = 0 %}
+                                            {% for item in parametre.caracteristiques %}
+                                                {% set i = i + 1 %}
+                                                <tr>
+                                                    <td>{{i}}</td>
+                                                    <td>{{item.u}}</td>
+                                                    <td>{{item.i1 }}</td>
+                                                    <td>{{item.i2 }}</td>
+                                                    <td>{{item.i3 }}</td>
+                                                    <td>{{item.p}}</td>
+                                                    <td>{{item.q}}</td>
+                                                    <td>{{item.cos }}</td>
+                                                    <td>{{item.n}}</td>
+                                                    <td>{{item.pj }}</td>  
+                                                    <td>{{item.Ppj }}</td> 
+                                                    <th class="text-center"><a class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                                </tr> 
+                                            {% endfor %}
+                                        {% endif %}
+                                    {{ form_end(formCarateristique) }}
+                                </table>
+                            </div>
+                            {{ form_start(formAutreCaracteristique) }}
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="resistance">Résistance <span class="required text-danger">*</span></label>
+                                    <div class="col-md-4 col-sm- "><td>{{ form_widget(formAutreCaracteristique.resistance) }}</td></div>
+                                </div>
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th class="table-primary">Pertes</th>
+                                            <td>{{ form_widget(formAutreCaracteristique.perte1) }}</td>
+                                            <td>tr/min</td>
+                                            <td>{{ form_widget(formAutreCaracteristique.perte2) }}</td>
+                                            <td>W</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Pertes Fer à </th>
+                                            <td>{{ form_widget(formAutreCaracteristique.perte_fer1) }}</td>
+                                            <td>V</td>
+                                            <td>{{ form_widget(formAutreCaracteristique.perte_fer2) }}</td>
+                                            <td>W</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton3" value="carac_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton3" value="carac_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formAutreCaracteristique) }}
+                        </div>
+                    </div>  
+                <!-- fin caractéristique -->
+                
+                <!-- début point fonctionnement rotor -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Point de fonctionnement rotor bloqué</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.autrePointFonctionnementRotor == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.autrePointFonctionnementRotor.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="false"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            {{ form_start(formPointFonctionnementRotor) }}
+                                                <tr  class="table-primary">
+                                                    <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
+                                                </tr>
+                                                <tr class="table-primary text-center">
+                                                    <th>U (v)</th>
+                                                    <th>I1 (A)</th>
+                                                    <th>I2 (A)</th>
+                                                    <th>I3 (A)</th>
+                                                    <th>Imoy (A)</th>
+                                                    <th>Pabs (kW)</th>
+                                                    <th>Pjoule (kW)</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.u) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.i1) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.i2) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.i3) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.imoy) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.pabs) }}</td>
+                                                    <td>{{ form_widget(formPointFonctionnementRotor.pjoule) }}</td>
+                                                    <th><button class="btn btn-primary btn-sm" name="bouton4_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                                </tr>
+                                            {{ form_end(formPointFonctionnementRotor) }}
+                                            {% if parametre.pointFonctionnementRotors %}
+                                                {% for item in parametre.pointFonctionnementRotors %}
+                                                    <tr>
+                                                        <td>{{item.u }}</td>
+                                                        <td>{{item.i1 }}</td>
+                                                        <td>{{item.i2 }}</td>
+                                                        <td>{{item.i3 }}</td>
+                                                        <td>{{item.imoy }}</td>
+                                                        <td>{{item.pabs }}</td>
+                                                        <td>{{item.pjoule }}</td>
+                                                        <th class="text-center"><a class="btn btn-danger btn-sm" href="{{path('delete_point', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </table>
+                                    </div>
+                                    {{ form_start(formAutrePointFonctionnementRotor) }}
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="text-center">
+                                                    <th class="table-primary">M</th>
+                                                    <th class="table-primary">Indication du peson</th>
+                                                    <td>{{ form_widget(formAutrePointFonctionnementRotor.m) }}</td>
+                                                    <td>kg</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <th class="table-primary">ID</th>
+                                                    <th class="table-primary">Courant de démarrage à Un</th>
+                                                    <td>{{ form_widget(formAutrePointFonctionnementRotor.iden) }}</td>
+                                                    <td>A</td>
+                                                    <th>ID = Imoy * Un/U</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <th class="table-primary">CD</th>
+                                                    <th class="table-primary">Couple de démarrage à un</th>
+                                                    <td>{{ form_widget(formAutrePointFonctionnementRotor.cd) }}</td>
+                                                    <td>Nm</td>
+                                                    <th>CD = (9.81 * M * Un/U)</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 text-left">
+                                                <button class="btn btn-secondary btn-sm" name="bouton4" value="autre_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <button class="btn btn-success btn-sm" name="bouton4" value="autre_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                            </div>
+                                        </div>
+                                    {{ form_end(formAutrePointFonctionnementRotor) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                <!-- fin point fonctionnement rotor -->
+
+                 <!-- début bouton -->
+                    <div class="x_panel"> 
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a href="{{path('valider_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
                 <!-- /fin bouton -->
             </div>
         </div>                    
