@@ -5,24 +5,32 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Expertise Électrique avant lavage</h4>
+        <div class="title_left"><h4>Expertise Mécanique</h4>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
-                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. Mécanique</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                <div class="x_title">                   
+                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                    {% endif %}
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. Mécanique</a>
+                    {% endif %}
+                    <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                     <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div> 
                 </div> 
-            </div>
+            </div> 
         </div>
     </div> 
     <!-- début contenu formulaire --> 
@@ -426,6 +434,101 @@
                     </div>
                 <!-- fin contrôle montage coussinets -->
 
+                <!-- début Relevès dimensionnels rotor et palier --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Relevès dimensionnels rotor et palier</h2>
+                                </div>
+                                <div class="col-md-4 text-center"> 
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4_1"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse4_1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ form_start(formReleveDimmensionnel) }}
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th  class="text-center">Désignation diamètre</th>
+                                                    <th class="text-center">côte attendue (mm)</th>
+                                                    <th class="text-center">Tolérance</th>
+                                                    <th class="text-center">Côte relevée</th>
+                                                    <th class="text-center">Conformité</th>
+                                                    <th class="text-center">Type</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.designation) }}</td>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.cote_attendue) }}</td>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.tolerance) }}</td>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.cote_relevee) }}</td>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.conformite) }}</td>
+                                                    <td>{{ form_widget(formReleveDimmensionnel.type) }}</td>
+                                                    <td width="100"><button class="btn btn-primary btn-sm" name="bouton4" value="ajouter"> Ajouter</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    {{ form_end(formReleveDimmensionnel) }}
+                                    {% if parametre.releveDimmensionnels %}
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th  class="text-center">Désignation diamètre</th>
+                                                    <th class="text-center">côte attendue (mm)</th>
+                                                    <th class="text-center">Tolérance</th>
+                                                    <th class="text-center">Côte relevée</th>
+                                                    <th class="text-center">Conformité</th>
+                                                    <th width="50"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="6" class="text-center table-primary">Côté accouplement</th>
+                                                </tr>
+                                                {% for item in parametre.releveDimmensionnels %}
+                                                    {% if item.type == 'Côté accoupplement' %}
+                                                        <tr>
+                                                            <td>{{item.designation}}</td>
+                                                            <td>{{item.coteAttendue}}</td>
+                                                            <td>{{item.tolerance}}</td>
+                                                            <td>{{item.coteRelevee}}</td>
+                                                            <td>{{item.conformite}}</td>                                                
+                                                            <td class="text-center"><a href="{{path('delete_releve_dimmensionnel', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+
+                                                        </tr>                                                         
+                                                    {% endif %}                                                   
+                                                {% endfor %}
+                                                <tr>
+                                                    <th colspan="6" class="text-center table-primary">Côté opposé accouplement</th>
+                                                </tr>
+                                                {% for item in parametre.releveDimmensionnels %}
+                                                    {% if item.type == 'Côté opposé accoupplement' %}
+                                                        <tr>
+                                                            <td>{{item.designation}}</td>
+                                                            <td>{{item.coteAttendue}}</td>
+                                                            <td>{{item.tolerance}}</td>
+                                                            <td>{{item.coteRelevee}}</td>
+                                                            <td>{{item.conformite}}</td>
+                                                            <td class="text-center"><a href="{{path('delete_releve_dimmensionnel', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                        </tr>                                                         
+                                                    {% endif %}                                                   
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- fin Relevès dimensionnels rotor et palier -->
+
                 <!-- début contôle géométrique du rotor --> 
                     <div class="x_panel"> 
                         <div class="x_title">
@@ -623,7 +726,316 @@
                         {{ form_end(formControlGeometrique) }}
                     </div>
                 <!-- fin contôle géométrique du rotor -->
-    
+
+                 <!-- début Appareils de mesure utilisés -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Appareils de mesure utilisés</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesures %}
+                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                    {% else %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse4">
+                            {{ form_start(formAppareilMesureMecanique) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Appareils de Mesures</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formAppareilMesureMecanique.appareil) }}</td>
+                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formAppareilMesureMecanique) }} 
+                            <br>
+                            <div class="row">
+                                {% if parametre.appareilMesures %}
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Désignation du moyen de contrôle</th>
+                                            <th>N° de l'appareil</th>
+                                            <th>Date de validité</th>
+                                            <th width="20"></th>
+                                        </tr>
+                                        {% for item in parametre.appareilMesureMecaniques %}
+                                            <tr>
+                                                <td>{{item.appareil.designation}}</td>
+                                                <td>{{item.appareil.numAppareil}}</td>
+                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                <td><a href="{{path('delete_appareil_mecanique', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- /fin Appareils de mesure utilisés -->
+                
+                <!-- début Expertise Hydro ou Aéro -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Expertise Hydro ou Aéro</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.hydroaero == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.hydroaero.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse7">
+                            {{ form_start(formHydroAero) }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th class="text-center">Nature du contrôle</th>
+                                                    <th class="text-center">Conformité</th>
+                                                    <th class="text-center">Préconisation</th>
+                                                    <th class="text-center">Retenu</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Essais de presion à x Bars</td>
+                                                    <td>{{ form_widget(formHydroAero.conformite1) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.preconisation1) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.retenu1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contrôle visuel des ailettes</td>
+                                                    <td>{{ form_widget(formHydroAero.conformite2) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.preconisation2) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.retenu2)}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contrôle visuel des boites à eau</td>
+                                                    <td>{{ form_widget(formHydroAero.conformite3) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.preconisation3) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.retenu3) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" colspan="4">Pression dépend des préconisation constructeurs</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th class="text-center">Nature du contrôle</th>
+                                                    <th class="text-center">Conformité</th>
+                                                    <th class="text-center">Préconisation</th>
+                                                    <th class="text-center">Retenu</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contrôle du dudgeonages des tubes</td>
+                                                    <td>{{ form_widget(formHydroAero.conformite4) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.preconisation4) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.retenu4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contrôle visuel des tubes</td>
+                                                    <td>{{ form_widget(formHydroAero.conformite5) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.preconisation5) }}</td>
+                                                    <td>{{ form_widget(formHydroAero.retenu5) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton7" value="hydro_aero_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton7" value="hydro_aero_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formHydroAero) }}
+                        </div>
+                    </div>
+                <!-- /fin Expertise Hydro ou Aéro -->
+
+                <!-- début Appareils de mesure utilisés -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photos</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesures %}
+                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                    {% else %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse8">
+                            {{ form_start(formPhotoExpertiseMecanique) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Libelle</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formPhotoExpertiseMecanique.libelle) }}</td>
+                                            <td>{{ form_widget(formPhotoExpertiseMecanique.image) }}</td>
+                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton8" value="ajouter"> Ajouter</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formPhotoExpertiseMecanique) }} 
+                            <br>
+                            <div class="row">
+                                {% if parametre.photoExpertiseMecaniques %}
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Libelle</th>
+                                            <th width="150">Image</th>
+                                            <th width="20"></th>
+                                        </tr>
+                                        {% for item in parametre.photoExpertiseMecaniques %}
+                                            <tr>
+                                                <td>{{item.libelle}}</td>
+                                                <td><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}" height="80"></td>
+                                                <td><a href="{{path('delete_photo_expertise_mecanique', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- /fin Appareils de mesure utilisés -->
+                    
+                <!-- début constats eléc -->
+                     {{ form_start(formConstatMecanique) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Constats Mécanique</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse9"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>  
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content collapse" id="collapse9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Vérification</th>
+                                                    <th>Critères</th>
+                                                    <th>Observation</th>
+                                                    <th>Préconisations et conclusion</th>
+                                                    <th>Retenu</th>
+                                                    <th>Photo</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{form_widget(formConstatMecanique.verification)}}</td>
+                                                    <td>{{form_widget(formConstatMecanique.critere)}}</td>
+                                                    <td>{{form_widget(formConstatMecanique.observation)}}</td>
+                                                    <td>{{form_widget(formConstatMecanique.preconisation_conclusion)}}</td>
+                                                    <td>{{form_widget(formConstatMecanique.retenu)}}</td>
+                                                    <td>{{form_widget(formConstatMecanique.photo)}}</td>
+                                                    <td><button class="btn btn-primary btn-sm" name="bouton9" value="ajouter"> Ajouter <i class="fa fa-save"></i></button></td>
+                                                </tr>
+                                                {% for item in parametre.constatMecaniques %}
+                                                    <tr class="table-striped">
+                                                        <td>{{item.verification}}</td>
+                                                        <td>{{item.critere}}</td>
+                                                        <td>{{item.observation}}</td>
+                                                        <td>{{item.preconisationConclusion}}</td>
+                                                        <td>{{item.retenu}}</td>
+                                                        <td class="text-center"><img src="{{asset('/photo_constat_mecanique/'~ item.photo)}}" alt="" height="75"></td>
+                                                        <td class="text-center"><a href="{{path('delete_constat_mecanique', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                                    </tr>                                                    
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formConstatMecanique) }}
+                <!-- /fin constats eléc -->
+
+                <!-- début bouton -->
+                    <div class="x_panel"> 
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a href="{{path('valider_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise mécanique<i class="fa fa-check-circle p-2"></i></a>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                <!-- /fin bouton -->
             </div>
         </div>                    
     <!-- /fin contenu du formulaire--> 

@@ -124,11 +124,36 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?ControleGeometrique $controle_geometrique = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesureMecanique::class)]
+    private Collection $appareilMesureMecaniques;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?HydroAero $hydro_aero = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PhotoExpertiseMecanique::class)]
+    private Collection $photoExpertiseMecaniques;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ConstatMecanique::class)]
+    private Collection $constatMecaniques;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ReleveDimmensionnel::class)]
+    private Collection $releveDimmensionnels;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $expertise_mecanique = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?StatorApresLavage $stator_apres_lavage = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
         $this->pointFonctionnements = new ArrayCollection();
         $this->constatElectriques = new ArrayCollection();
+        $this->appareilMesureMecaniques = new ArrayCollection();
+        $this->photoExpertiseMecaniques = new ArrayCollection();
+        $this->constatMecaniques = new ArrayCollection();
+        $this->releveDimmensionnels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -618,6 +643,162 @@ class Parametre
     public function setControleGeometrique(?ControleGeometrique $controle_geometrique): self
     {
         $this->controle_geometrique = $controle_geometrique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AppareilMesureMecanique>
+     */
+    public function getAppareilMesureMecaniques(): Collection
+    {
+        return $this->appareilMesureMecaniques;
+    }
+
+    public function addAppareilMesureMecanique(AppareilMesureMecanique $appareilMesureMecanique): self
+    {
+        if (!$this->appareilMesureMecaniques->contains($appareilMesureMecanique)) {
+            $this->appareilMesureMecaniques->add($appareilMesureMecanique);
+            $appareilMesureMecanique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesureMecanique(AppareilMesureMecanique $appareilMesureMecanique): self
+    {
+        if ($this->appareilMesureMecaniques->removeElement($appareilMesureMecanique)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesureMecanique->getParametre() === $this) {
+                $appareilMesureMecanique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getHydroAero(): ?HydroAero
+    {
+        return $this->hydro_aero;
+    }
+
+    public function setHydroAero(?HydroAero $hydro_aero): self
+    {
+        $this->hydro_aero = $hydro_aero;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PhotoExpertiseMecanique>
+     */
+    public function getPhotoExpertiseMecaniques(): Collection
+    {
+        return $this->photoExpertiseMecaniques;
+    }
+
+    public function addPhotoExpertiseMecanique(PhotoExpertiseMecanique $photoExpertiseMecanique): self
+    {
+        if (!$this->photoExpertiseMecaniques->contains($photoExpertiseMecanique)) {
+            $this->photoExpertiseMecaniques->add($photoExpertiseMecanique);
+            $photoExpertiseMecanique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhotoExpertiseMecanique(PhotoExpertiseMecanique $photoExpertiseMecanique): self
+    {
+        if ($this->photoExpertiseMecaniques->removeElement($photoExpertiseMecanique)) {
+            // set the owning side to null (unless already changed)
+            if ($photoExpertiseMecanique->getParametre() === $this) {
+                $photoExpertiseMecanique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConstatMecanique>
+     */
+    public function getConstatMecaniques(): Collection
+    {
+        return $this->constatMecaniques;
+    }
+
+    public function addConstatMecanique(ConstatMecanique $constatMecanique): self
+    {
+        if (!$this->constatMecaniques->contains($constatMecanique)) {
+            $this->constatMecaniques->add($constatMecanique);
+            $constatMecanique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstatMecanique(ConstatMecanique $constatMecanique): self
+    {
+        if ($this->constatMecaniques->removeElement($constatMecanique)) {
+            // set the owning side to null (unless already changed)
+            if ($constatMecanique->getParametre() === $this) {
+                $constatMecanique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReleveDimmensionnel>
+     */
+    public function getReleveDimmensionnels(): Collection
+    {
+        return $this->releveDimmensionnels;
+    }
+
+    public function addReleveDimmensionnel(ReleveDimmensionnel $releveDimmensionnel): self
+    {
+        if (!$this->releveDimmensionnels->contains($releveDimmensionnel)) {
+            $this->releveDimmensionnels->add($releveDimmensionnel);
+            $releveDimmensionnel->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReleveDimmensionnel(ReleveDimmensionnel $releveDimmensionnel): self
+    {
+        if ($this->releveDimmensionnels->removeElement($releveDimmensionnel)) {
+            // set the owning side to null (unless already changed)
+            if ($releveDimmensionnel->getParametre() === $this) {
+                $releveDimmensionnel->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isExpertiseMecanique(): ?bool
+    {
+        return $this->expertise_mecanique;
+    }
+
+    public function setExpertiseMecanique(?bool $expertise_mecanique): self
+    {
+        $this->expertise_mecanique = $expertise_mecanique;
+
+        return $this;
+    }
+
+    public function getStatorApresLavage(): ?StatorApresLavage
+    {
+        return $this->stator_apres_lavage;
+    }
+
+    public function setStatorApresLavage(?StatorApresLavage $stator_apres_lavage): self
+    {
+        $this->stator_apres_lavage = $stator_apres_lavage;
 
         return $this;
     }

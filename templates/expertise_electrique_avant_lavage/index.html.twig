@@ -12,10 +12,18 @@
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique avant lavage</a>
-                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                <div class="x_title">                
+                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique avant lavage</a>
+                    {% endif %}
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                    {% endif %}
+                    <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                     <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
@@ -669,73 +677,72 @@
                 <!-- fin Mesures vibratoires -->
 
                 <!-- début Appareils de mesure utilisés -->
-                    {{ form_start(formAppareilMesure) }}
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Appareils de mesure utilisés</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.appareilMesures %}
-                                            <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
-                                        {% else %}
-                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Appareils de mesure utilisés</h2>
                                 </div>
-                                <div class="row">
-                                    {% for flash_message in app.session.flashbag.get('message') %}
-                                        <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
-                                            {{ flash_message }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content collapse" id="collapse4">
-                                {{ form_start(formAppareilMesure) }}
-                                    <div class="row">
-                                        <table class="table table-bordered">
-                                            <tr class="table-primary">
-                                                <th>Appareils de Mesures</th>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ form_widget(formAppareilMesure.appareil) }}</td>
-                                                <td width="100"><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter</button></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                {{ form_end(formAppareilMesure) }}
-                                <br>
-                                <div class="row">
+                                <div class="col-md-4 text-center">
                                     {% if parametre.appareilMesures %}
-                                        <table class="table table-bordered">
-                                            <tr class="table-primary">
-                                                <th>Désignation du moyen de contrôle</th>
-                                                <th>N° de l'appareil</th>
-                                                <th>Date de validité</th>
-                                                <th width="20"></th>
-                                            </tr>
-                                            {% for item in parametre.appareilMesures %}
-                                                <tr>
-                                                    <td>{{item.appareil.designation}}</td>
-                                                    <td>{{item.appareil.numAppareil}}</td>
-                                                    <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                                                    <td><a href="{{path('delete_appareil', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
-                                                </tr>
-                                            {% endfor %} 
-                                        </table>                                        
+                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                    {% else %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% endif %}
                                 </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse4">
+                            {{ form_start(formAppareilMesure) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Appareils de Mesures</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formAppareilMesure.appareil) }}</td>
+                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formAppareilMesure) }}
+                            <br>
+                            <div class="row">
+                                {% if parametre.appareilMesures %}
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Désignation du moyen de contrôle</th>
+                                            <th>N° de l'appareil</th>
+                                            <th>Date de validité</th>
+                                            <th width="20"></th>
+                                        </tr>
+                                        {% for item in parametre.appareilMesures %}
+                                            <tr>
+                                                <td>{{item.appareil.designation}}</td>
+                                                <td>{{item.appareil.numAppareil}}</td>
+                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                <td><a href="{{path('delete_appareil', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                {% endif %}
                             </div>
                         </div>
+                    </div>
                 <!-- /fin Appareils de mesure utilisés -->
 
                 <!-- début Contrôles de bobinages -->

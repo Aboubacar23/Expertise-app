@@ -18,8 +18,12 @@
                             {% else %}
                                 <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                             {% endif %}
-                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                            {% if parametre.expertiseMecanique == 1 %}
+                                <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                            {% endif %}
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
                             <ul class="nav navbar-right panel_toolbox">
                                 <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>

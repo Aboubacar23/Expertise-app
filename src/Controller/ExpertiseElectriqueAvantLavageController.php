@@ -79,8 +79,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     {
 
         
-         //la partie du contrôle visuel et recensement
-         
+         //la partie du contrôle visuel et recensement      
 
         //1 
         $controleVisuelElectrique = new ControleVisuelElectrique();
@@ -232,7 +231,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         }
 
         $formAutreControle = $this->createForm(AutreControleType::class, $autreControle);
-        $formAutreControle->handleRequest($request);
+        $formAutreControle->handleRequest($request); 
         if($formAutreControle->isSubmitted() && $formAutreControle->isValid())
         {
             $choix = $request->get('bouton4');
@@ -365,7 +364,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             }
         }
 
-        //la partie controle electrique
+        //la partie constat electrique
         $constatElectrique = new ConstatElectrique();
 
         $formConstatElectrique = $this->createForm(ConstatElectriqueType::class, $constatElectrique);

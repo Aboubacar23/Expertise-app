@@ -97,18 +97,6 @@ class AutreControleType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
-            ->add('d1')
-            ->add('d2')
-            ->add('d3')
-            ->add('d4')
-            ->add('d5')
-            ->add('d6')
-            ->add('d7')
-            ->add('d8')
-            ->add('d9')
-            ->add('d10')
-            ->add('d11')
-            ->add('d12')
             
         ;
     }
