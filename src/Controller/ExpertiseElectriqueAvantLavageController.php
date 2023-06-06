@@ -364,7 +364,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             }
         }
 
-        //la partie constat electrique
+        //la partie constat electrique avant lavage
         $constatElectrique = new ConstatElectrique();
 
         $formConstatElectrique = $this->createForm(ConstatElectriqueType::class, $constatElectrique);
@@ -450,8 +450,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         
     }
 
-      //la fonction qui supprime un point de fonctionnement
-      #[Route('constat/{id}/electrique', name: 'delete_constat_electrique', methods: ['GET'])]
+    //la fonction qui supprime un point de fonctionnement
+    #[Route('constat/{id}/electrique', name: 'delete_constat_electrique', methods: ['GET'])]
     public function deleteConstat(ConstatElectrique $constatElectrique,ConstatElectriqueRepository $constatElectriqueRepository): Response
     {
           $id = $constatElectrique->getParametre()->getId();

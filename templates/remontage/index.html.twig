@@ -1,0 +1,374 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Remontage</h4></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">                
+                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                    {% endif %}
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                    {% endif %}
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
+                    {% endif %}
+                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Constats <i class="fa fa-check"></i></a>
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Remontage</a>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- début contenu formulaire --> 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">                  
+                <!-- début Remontage paliers -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Remontage paliers</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.remontagePalier == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.remontagePalier.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse1">
+                            {{ form_start(formRemontagePalier) }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary text-center">
+                                                    <th rowspan="2">Rep</th>
+                                                    <th rowspan="2">Désignation Piéces</th>
+                                                    <th colspan="2">Cotes relevées</th>
+                                                </tr>
+                                                <tr class="table-primary text-center">
+                                                    <th>CA</th>
+                                                    <th>COA</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>A</td>
+                                                    <td>Moyeu Palier</td>
+                                                    <td>{{ form_widget(formRemontagePalier.caa) }}</td>
+                                                    <td>{{ form_widget(formRemontagePalier.coaa) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>B</td>
+                                                    <td>Emboîtage C-Rlt extérieur</td>
+                                                    <td>{{ form_widget(formRemontagePalier.cab) }}</td>
+                                                    <td>{{ form_widget(formRemontagePalier.coab) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>C</td>
+                                                    <td>Roulement</td>
+                                                    <td>{{ form_widget(formRemontagePalier.cac) }}</td>
+                                                    <td>{{ form_widget(formRemontagePalier.coac) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>D</td>
+                                                    <td>Emboîtage C-Rlt intérieur</td>
+                                                    <td>{{ form_widget(formRemontagePalier.cad) }}</td>
+                                                    <td>{{ form_widget(formRemontagePalier.coad) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jeu</td>
+                                                    <td>Jeu axial</td>
+                                                    {% if parametre.remontagePalier %}
+                                                        <td>{{ remontagePalier.caJeu }}</td>
+                                                        <td>{{ remontagePalier.coaJeu }}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>Roulement</td>
+                                                    <td>{{ form_widget(formRemontagePalier.ca_roulement) }}</td>
+                                                    <td>{{ form_widget(formRemontagePalier.coa_roulement) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="table-primary">Type de graisse</td>
+                                                    <td class="table-primary" colspan="2">{{ form_widget(formRemontagePalier.type_graisse) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton1" value="remontage_palier_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton1" value="remontage_palier_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formRemontagePalier) }}
+                        </div>
+                    </div>  
+                <!-- /fin Remontage paliers -->  
+
+                <!-- début Equilibrage -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Equilibrage</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.remontageEquilibrage == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.remontageEquilibrage.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2">
+                            {{ form_start(formRemontageEquilibrage) }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary text-center">
+                                                    <th colspan="7">Données techniques d'entrée</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td width="10%">Vitesse</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.vitesse) }}</td>
+                                                    <td width="4%">Tr/min</td>
+                                                    <td class="table-primary"></td>
+                                                    <td class="table-primary">Entiére</td>
+                                                    <td class="table-primary">1/2</td>
+                                                    <td class="table-primary">Sans</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Poids rotor</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.poids_rotor) }}</td>
+                                                    <td>Kg</td>
+                                                    <td class="table-primary">Clavatte</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_entiere) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_1_2) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_sans) }}</td> 
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Vitesse d'équilibrage</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.vitesse_equilibrage) }}</td>
+                                                    <td>Tr/min</td>
+                                                    <td class="table-primary">Correction</td>
+                                                    <td colspan="3">{{ form_widget(formRemontageEquilibrage.correction) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Nb de plan d'équilibrage</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.nb_plan) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Qualité d'équilibrage</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.qualite_equilibrage) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary text-center">
+                                                    <th rowspan="2"></th>
+                                                    <th colspan="2">Sans ventilateur</th>
+                                                    <th colspan="2">Avec ventilateur</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <th class="table-primary">Plan CA</th>
+                                                    <th class="table-primary">Plan COA</th>
+                                                    <th class="table-primary">Plan CA</th>
+                                                    <th class="table-primary">Plan COA</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Rayon d'équilibrage (mm)</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca1) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa1) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca1) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa1) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Balourd initial (en g)</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca2) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa2) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca2) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa2) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Angle balourd initial (dégrés)</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca3) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa3) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca3) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa3) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Balourd résiduel admissible</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca4) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa4) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca4) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa4) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Balourd Résiduel</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca5) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa5) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca5) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa5) }}</td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>Angle balourd résiduel</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca6) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa6) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca6) }}</td>
+                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa6) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton2" value="remontage_equilibrage_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton2" value="remontage_equilibrage_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formRemontageEquilibrage) }}
+                        </div>
+                    </div>  
+                <!-- /fin Equilibrage -->   
+                      
+                <!-- début photo -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photos</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.remontagePhotos %}
+                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                    {% else %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse8">
+                            {{ form_start(formRemontagePhoto) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Libelle</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formRemontagePhoto.libelle) }}</td>
+                                            <td>{{ form_widget(formRemontagePhoto.image) }}</td>
+                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton4" value="ajouter"> Ajouter</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formRemontagePhoto) }} 
+                            <br>
+                            <div class="row">
+                                {% if parametre.remontagePhotos %}
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Libelle</th>
+                                            <th width="150">Image</th>
+                                            <th width="20"></th>
+                                        </tr>
+                                        {% for item in parametre.remontagePhotos %}
+                                            <tr>
+                                                <td>{{item.libelle}}</td>
+                                                <td class="image"><img class="p-2" src="{{asset('/photo_remontages/'~ item.image)}}" height="80"></td>
+                                                <td><a href="{{path('delete_photo_remontage', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- /fin photo -->
+                    
+                 <!-- début bouton -->
+                    <div class="x_panel"> 
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a href="{{path('valider_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                <!-- /fin bouton -->
+            </div>
+        </div>                    
+    <!-- /fin contenu du formulaire--> 
+</div>
+</div>
+{% endblock %}

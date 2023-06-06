@@ -23,8 +23,13 @@
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
-                    <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
+                    {% endif %}
+                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
@@ -97,7 +102,11 @@
                                             <td>RI/Masse UVW à 1 min</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur1}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur1}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur1) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite1) }}</td>
                                         </tr>
@@ -105,7 +114,11 @@
                                             <td>RI/Masse UVW à 10 min</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur2}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur2}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur2) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite2) }}</td>
                                         </tr>
@@ -113,7 +126,11 @@
                                             <td>Calcul IP</td>
                                             <td>>= 2.5</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur3}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur3}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur3) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite3) }}</td>
                                         </tr>
@@ -121,7 +138,11 @@
                                             <td>RI Phase U/VW+Masse</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur4}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur4}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur4) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite4) }}</td>
                                         </tr>
@@ -129,7 +150,11 @@
                                             <td>RI Phase V / UW+Masse</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur5}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur5}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur5) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite5) }}</td>
                                         </tr>
@@ -137,7 +162,11 @@
                                             <td>RI Phase W / UW+Masse</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur6}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur6}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur6) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite6) }}</td>
                                         </tr>
@@ -145,7 +174,11 @@
                                             <td>RI/Masse Sondes UVW</td>
                                             <td>132 MΩ</td>
                                             <td class="text-center">500</td>
-                                            <td class="text-center">{{parametre.mesureIsolement.valeur7}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur7}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formStatorApresLavage.valeur7) }}</td>
                                             <td>{{ form_widget(formStatorApresLavage.conformite7) }}</td>
                                         </tr>
@@ -225,7 +258,11 @@
                                             <td>RI/Masse Sondes</td>
                                             <td>132 MΩ sous</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureResistance.valeur1}}</td>
+                                            {% if parametre.mesureIsolement %}
+                                                <td class="text-center">{{parametre.mesureIsolement.valeur1}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formSondeBobinage.valeur1) }}</td>
                                             <td>{{ form_widget(formSondeBobinage.conformite1) }}</td>
                                         </tr>
@@ -233,7 +270,11 @@
                                             <td>R Ohmique sonde ph. U</td>
                                             <td>100 Ω à 0 °C</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureResistance.valeur4}}</td>
+                                            {% if parametre.mesureResistance %}
+                                                <td class="text-center">{{parametre.mesureResistance.valeur4}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formSondeBobinage.valeur2) }}</td>
                                             <td>{{ form_widget(formSondeBobinage.conformite2) }}</td>
                                         </tr>
@@ -241,7 +282,11 @@
                                             <td>R Ohmique sonde ph. V</td>
                                             <td>101 Ω à 0 °C</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureResistance.valeur5}}</td>
+                                            {% if parametre.mesureResistance %}
+                                                <td class="text-center">{{parametre.mesureResistance.valeur5}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formSondeBobinage.valeur3) }}</td>
                                             <td>{{ form_widget(formSondeBobinage.conformite3) }}</td>
                                         </tr>
@@ -249,7 +294,11 @@
                                             <td>R Ohmique sonde ph. W</td>
                                             <td>102 Ω à 0 °C</td>
                                             <td class="text-center">2500</td>
-                                            <td class="text-center">{{parametre.mesureResistance.valeur6}}</td>
+                                            {% if parametre.mesureResistance %}
+                                                <td class="text-center">{{parametre.mesureResistance.valeur6}}</td>
+                                            {% else %}
+                                                <td class="text-center">0</td>
+                                            {% endif %}
                                             <td>{{ form_widget(formSondeBobinage.valeur4) }}</td>
                                             <td>{{ form_widget(formSondeBobinage.conformite4) }}</td>
                                         </tr>
@@ -496,13 +545,142 @@
                         </div>
                     </div>  
                 <!-- fin point fonctionnement rotor -->
+                
+                <!-- début Appareils de mesure utilisés -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Appareils de mesure utilisés</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesureElectriques %}
+                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-circle"></i></a> 
+                                    {% else %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse6">
+                            {{ form_start(formAppareilMesureElectrique) }}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Appareils de Mesures</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(formAppareilMesureElectrique.appareil) }}</td>
+                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton5" value="ajouter"> Ajouter</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {{ form_end(formAppareilMesureElectrique) }}
+                            <br>
+                            <div class="row">
+                                {% if parametre.appareilMesures %}
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th>Désignation du moyen de contrôle</th>
+                                            <th>N° de l'appareil</th>
+                                            <th>Date de validité</th>
+                                            <th width="20"></th>
+                                        </tr>
+                                        {% for item in parametre.appareilMesureElectriques %}
+                                            <tr>
+                                                <td>{{item.appareil.designation}}</td>
+                                                <td>{{item.appareil.numAppareil}}</td>
+                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                <td><a href="{{path('delete_appareil_electrique', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- /fin Appareils de mesure utilisés -->
+                                            
+                <!-- début constats eléc après lavage -->
+                     {{ form_start(formConstatElectriqueApresLavage) }}
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h2>Constats Électrique Après Lavage</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse9"><i class="fa fa-chevron-up"></i></a></li>
+                                        </ul>                                                
+                                    </div>  
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content collapse" id="collapse9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Vérification</th>
+                                                    <th>Critères</th>
+                                                    <th>Observation</th>
+                                                    <th>Préconisations et conclusion</th>
+                                                    <th>Retenu</th>
+                                                    <th>Photo</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.verification)}}</td>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.critere)}}</td>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.observation)}}</td>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.preconisation_conclusion)}}</td>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.retenu)}}</td>
+                                                    <td>{{form_widget(formConstatElectriqueApresLavage.photo)}}</td>
+                                                    <td><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter <i class="fa fa-save"></i></button></td>
+                                                </tr>
+                                                {% for item in parametre.constatElectriqueApresLavages %}
+                                                    <tr class="table-striped">
+                                                        <td>{{item.verification}}</td>
+                                                        <td>{{item.critere}}</td>
+                                                        <td>{{item.observation}}</td>
+                                                        <td>{{item.preconisationConclusion}}</td>
+                                                        <td>{{item.retenu}}</td>
+                                                        <td class="text-center"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
+                                                        <td class="text-center"><a href="{{path('delete_constat_electrique_apres_lavage', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                                    </tr>                                                    
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formConstatElectriqueApresLavage) }}
+                <!-- /fin constats eléc après lavage -->
 
                  <!-- début bouton -->
                     <div class="x_panel"> 
                         <div class="x_content">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <a href="{{path('valider_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                                    <a href="{{path('valider_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
                                 </div>
                             </div> 
                         </div>

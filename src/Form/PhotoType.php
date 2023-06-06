@@ -17,7 +17,7 @@ class PhotoType extends AbstractType
                 'label' => 'Images',
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false, 
+                'required' => true,
                 // 'constraints' => [
                 //     new File([
                 //         'maxSize' => '5000000k',

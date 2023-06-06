@@ -160,6 +160,30 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?AutrePointFonctionnementRotor $autre_point_fonctionnement_rotor = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesureElectrique::class)]
+    private Collection $appareilMesureElectriques;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $expertise_electique_apres_lavage = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ConstatElectriqueApresLavage::class)]
+    private Collection $constatElectriqueApresLavages;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?RemontagePalier $remontage_palier = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?RemontageEquilibrage $remontage_equilibrage = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: RemontagePhoto::class)]
+    private Collection $remontagePhotos;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $remontage = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -171,6 +195,9 @@ class Parametre
         $this->releveDimmensionnels = new ArrayCollection();
         $this->caracteristiques = new ArrayCollection();
         $this->pointFonctionnementRotors = new ArrayCollection();
+        $this->appareilMesureElectriques = new ArrayCollection();
+        $this->constatElectriqueApresLavages = new ArrayCollection();
+        $this->remontagePhotos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -912,6 +939,156 @@ class Parametre
     public function setAutrePointFonctionnementRotor(?AutrePointFonctionnementRotor $autre_point_fonctionnement_rotor): self
     {
         $this->autre_point_fonctionnement_rotor = $autre_point_fonctionnement_rotor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AppareilMesureElectrique>
+     */
+    public function getAppareilMesureElectriques(): Collection
+    {
+        return $this->appareilMesureElectriques;
+    }
+
+    public function addAppareilMesureElectrique(AppareilMesureElectrique $appareilMesureElectrique): self
+    {
+        if (!$this->appareilMesureElectriques->contains($appareilMesureElectrique)) {
+            $this->appareilMesureElectriques->add($appareilMesureElectrique);
+            $appareilMesureElectrique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesureElectrique(AppareilMesureElectrique $appareilMesureElectrique): self
+    {
+        if ($this->appareilMesureElectriques->removeElement($appareilMesureElectrique)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesureElectrique->getParametre() === $this) {
+                $appareilMesureElectrique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isExpertiseElectiqueApresLavage(): ?bool
+    {
+        return $this->expertise_electique_apres_lavage;
+    }
+
+    public function setExpertiseElectiqueApresLavage(?bool $expertise_electique_apres_lavage): self
+    {
+        $this->expertise_electique_apres_lavage = $expertise_electique_apres_lavage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConstatElectriqueApresLavage>
+     */
+    public function getConstatElectriqueApresLavages(): Collection
+    {
+        return $this->constatElectriqueApresLavages;
+    }
+
+    public function addConstatElectriqueApresLavage(ConstatElectriqueApresLavage $constatElectriqueApresLavage): self
+    {
+        if (!$this->constatElectriqueApresLavages->contains($constatElectriqueApresLavage)) {
+            $this->constatElectriqueApresLavages->add($constatElectriqueApresLavage);
+            $constatElectriqueApresLavage->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstatElectriqueApresLavage(ConstatElectriqueApresLavage $constatElectriqueApresLavage): self
+    {
+        if ($this->constatElectriqueApresLavages->removeElement($constatElectriqueApresLavage)) {
+            // set the owning side to null (unless already changed)
+            if ($constatElectriqueApresLavage->getParametre() === $this) {
+                $constatElectriqueApresLavage->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRemontagePalier(): ?RemontagePalier
+    {
+        return $this->remontage_palier;
+    }
+
+    public function setRemontagePalier(?RemontagePalier $remontage_palier): self
+    {
+        $this->remontage_palier = $remontage_palier;
+
+        return $this;
+    }
+
+    public function getRemontageEquilibrage(): ?RemontageEquilibrage
+    {
+        return $this->remontage_equilibrage;
+    }
+
+    public function setRemontageEquilibrage(?RemontageEquilibrage $remontage_equilibrage): self
+    {
+        $this->remontage_equilibrage = $remontage_equilibrage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RemontagePhoto>
+     */
+    public function getRemontagePhotos(): Collection
+    {
+        return $this->remontagePhotos;
+    }
+
+    public function addRemontagePhoto(RemontagePhoto $remontagePhoto): self
+    {
+        if (!$this->remontagePhotos->contains($remontagePhoto)) {
+            $this->remontagePhotos->add($remontagePhoto);
+            $remontagePhoto->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemontagePhoto(RemontagePhoto $remontagePhoto): self
+    {
+        if ($this->remontagePhotos->removeElement($remontagePhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($remontagePhoto->getParametre() === $this) {
+                $remontagePhoto->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isRemontage(): ?bool
+    {
+        return $this->remontage;
+    }
+
+    public function setRemontage(?bool $remontage): self
+    {
+        $this->remontage = $remontage;
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?bool $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

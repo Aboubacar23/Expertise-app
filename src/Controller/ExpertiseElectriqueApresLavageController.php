@@ -11,21 +11,29 @@ use App\Form\CaracteristiqueType;
 use App\Form\StatorApresLavageType;
 use App\Entity\AutreCaracteristique;
 use App\Form\AutreCarateristiqueType;
+use App\Entity\AppareilMesureElectrique;
 use App\Entity\PointFonctionnementRotor;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\AppareilMesureElectriqueType;
 use App\Form\PointFonctionnementRotorType;
 use App\Repository\SondeBobinageRepository;
+use App\Entity\ConstatElectriqueApresLavage;
 use App\Entity\AutrePointFonctionnementRotor;
-use App\Form\AutrePointFonctionnementRotorType;
 use App\Repository\CaracteristiqueRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\AutrePointFonctionnementRotorType;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AutreCaracteristiqueRepository;
+use App\Repository\AppareilMesureElectriqueRepository;
 use App\Repository\PointFonctionnementRotorRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
-use ContainerCJV8CA0\getAutrePointFonctionnementRotorTypeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/expertiseEpAL')]
 class ExpertiseElectriqueApresLavageController extends AbstractController
@@ -34,12 +42,15 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     public function index(
         Parametre $parametre,
         Request $request,
+        SluggerInterface $slugger,
         StatorApresLavageRepository $statorApresLavageRepository,
         SondeBobinageRepository $sondeBobinageRepository,
         CaracteristiqueRepository $caracteristiqueRepository,
         AutreCaracteristiqueRepository $autreCaracteristiqueRepository,
         PointFonctionnementRotorRepository $pointFonctionnementRotorRepository,
-        AutrePointFonctionnementRotorRepository $autrePointFonctionnementRotorRepository
+        AutrePointFonctionnementRotorRepository $autrePointFonctionnementRotorRepository,
+        AppareilMesureElectriqueRepository $appareilMesureElectriqueRepository,
+        ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository
         ): Response
     {
         
@@ -184,7 +195,58 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             }
         }
 
+        //la partie appareil de mesure
+        $appareilMesureElectrique = new AppareilMesureElectrique();
 
+        $formAppareilMesureElectrique = $this->createForm(AppareilMesureElectriqueType::class, $appareilMesureElectrique);
+        $formAppareilMesureElectrique->handleRequest($request);
+        $date = date('Y-m-d');
+        if($formAppareilMesureElectrique->isSubmitted() && $formAppareilMesureElectrique->isValid())
+        {
+            $choix = $request->get('bouton5');
+            if($choix == 'ajouter')
+            {
+                $dateAppareil = $appareilMesureElectrique->getAppareil()->getDateValidite()->format('Y-m-d');
+                if($dateAppareil < $date){
+                    $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
+                }else{
+                    $appareilMesureElectrique->setParametre($parametre);
+                    $appareilMesureElectriqueRepository->save($appareilMesureElectrique, true);
+                    $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                }
+            }
+        }
+
+        //la partie constat electrique après lavage
+        $constatElectriqueApresLavage = new ConstatElectriqueApresLavage();
+        $formConstatElectriqueApresLavage = $this->createForm(ConstatElectriqueApresLavageType::class, $constatElectriqueApresLavage);
+        $formConstatElectriqueApresLavage->handleRequest($request);
+        if($formConstatElectriqueApresLavage->isSubmitted() && $formConstatElectriqueApresLavage->isValid())
+        {
+            $choix = $request->get('bouton6');
+            if($choix == 'ajouter')
+            {
+                $image = $formConstatElectriqueApresLavage->get('photo')->getData();
+                if ($image)
+                {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('images_constat_electrique_apres_lavage'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+
+                    $constatElectriqueApresLavage->setPhoto($newPhotoname);
+                }     
+                $constatElectriqueApresLavage->setParametre($parametre);
+                $constatElectriqueApresLavageRepository->save($constatElectriqueApresLavage, true);
+                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+        
         return $this->render('expertise_electrique_apres_lavage/index.html.twig', [
             'parametre' => $parametre,
             'formStatorApresLavage' => $formStatorApresLavage->createView(),
@@ -192,13 +254,15 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             'formCarateristique' => $formCarateristique->createView(),
             'formAutreCaracteristique' => $formAutreCaracteristique->createView(),
             'formPointFonctionnementRotor' => $formPointFonctionnementRotor->createView(),
-            'formAutrePointFonctionnementRotor' => $formAutrePointFonctionnementRotor->createView()
+            'formAutrePointFonctionnementRotor' => $formAutrePointFonctionnementRotor->createView(),
+            'formAppareilMesureElectrique' => $formAppareilMesureElectrique->createView(),
+            'formConstatElectriqueApresLavage' => $formConstatElectriqueApresLavage->createView()
         ]);
     }
 
     //Supprimer carcatéristique
-    #[Route('constat/{id}/electrique', name: 'delete_caracteristique', methods: ['GET'])]
-    public function deleteConstat(Caracteristique $caracteristique,CaracteristiqueRepository $caracteristiqueRepository): Response
+    #[Route('caracteristique/{id}', name: 'delete_caracteristique', methods: ['GET'])]
+    public function deleteCaract(Caracteristique $caracteristique,CaracteristiqueRepository $caracteristiqueRepository): Response
     {
         $id = $caracteristique->getParametre()->getId();
         if($caracteristique)
@@ -225,5 +289,41 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         } 
             
     }
+
+    //la fonction qui valide l'expertise
+    #[Route('validation/{id}', name: 'valider_expertise_electrique_apres_lavage', methods: ['GET'])]
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    {
+        if($parametre)
+        {
+            $parametre->setExpertiseElectiqueApresLavage(1);
+            $entityManager->persist($parametre);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        }else
+        {
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        } 
+    }
+
+     //la fonction qui supprime un point de fonctionnement
+     #[Route('constat/{id}/electrique', name: 'delete_constat_electrique_apres_lavage', methods: ['GET'])]
+     public function deleteConstat(ConstatElectriqueApresLavage $constatElectriqueApresLavage,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
+     {
+           $id = $constatElectriqueApresLavage->getParametre()->getId();
+           if($constatElectriqueApresLavage)
+           {
+             $nom = $constatElectriqueApresLavage->getPhoto();
+             if($constatElectriqueApresLavage->getPhoto())
+             {
+                 unlink($this->getParameter('images_constat_electrique_apres_lavage').'/'.$nom);
+             }
+             $constatElectriqueApresLavageRepository->remove($constatElectriqueApresLavage, true);
+             return $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+           }else{
+               return $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+           } 
+           
+     }
         
 }

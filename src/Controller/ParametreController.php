@@ -58,7 +58,6 @@ class ParametreController extends AbstractController
     {
         $form = $this->createForm(ParametreType::class, $parametre);
         $form->handleRequest($request);
- //       dd($parametre->getAffaire()->getId());
         if ($form->isSubmitted() && $form->isValid())
         {
             $parametreRepository->save($parametre, true);

@@ -33,6 +33,7 @@
                             <th>Date d'arrivée</th>
                             <th>Expertise Electrique Avant lavage</th>
                             <th>Expertise Méca</th>
+                            <th>Expertise Electrique Après lavage</th>
                             <th>Remise Rapport Expertise</th>
                             <th>Reunion Validation</th>
                             <th>Remontage</th>
@@ -60,14 +61,23 @@
                                     {% elseif item.expertiseElectiqueAvantLavage == 0 %}
                                         <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
                                     {% endif %}
-                                    <td class="text-center"><i class="fa fa-circle fa-10x"></i></td>
+                                    {% if item.expertiseMecanique == 1 %}
+                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
+                                    {% elseif item.expertiseMecanique == 0 %}
+                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
+                                    {% endif %}
+                                    {% if item.expertiseElectiqueApresLavage == 1 %}
+                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
+                                    {% elseif item.expertiseElectiqueApresLavage == 0 %}
+                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
+                                    {% endif %}
                                     <td class="text-center"><i class="fa fa-circle fa-10x"></i></td>
                                     <td class="text-center">OK</td>
                                     <td class="text-center"><i class="fa fa-circle fa-10x"></i></td>
                                     <td class="text-center"><i class="fa fa-circle fa-10x"></i></td>
                                     <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                     <td class="text-center">
-                                        <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-info btn-sm">Voir <i class="fa fa-eye"></i></a>
+                                        <a href="{{path('app_parametre_show', {'id' : item.id })}}" class="btn btn-info btn-sm">Voir <i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

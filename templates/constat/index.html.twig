@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h3>Expertise du projet</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                        {% endif %}
+                        {% if parametre.expertiseMecanique == 1 %}
+                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                        {% endif %}
+                        {% if parametre.expertiseMecanique == 1 %}
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                        {% endif %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Constats</a>
+                        <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        </ul>
+                        <div class="clearfix"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- début Constats mécanique --> 
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <h2>Constats mécanique</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th>Vérification</th>
+                                                <th>Critères</th>
+                                                <th>Observation</th>
+                                                <th>Préconisations et conclusion</th>
+                                                <th>Retenu</th>
+                                                <th>Photo</th>
+                                            </tr>
+                                            {% for item in parametre.constatMecaniques %}
+                                                <tr class="table-striped">
+                                                    <td>{{item.verification}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.observation}}</td>
+                                                    <td>{{item.preconisationConclusion}}</td>
+                                                    <td>{{item.retenu}}</td>
+                                                    <td class="text-center"><img src="{{asset('/photo_constat_mecanique/'~ item.photo)}}" alt="" height="75"></td>
+                                                </tr>                                                    
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>                    
+        <!-- /fin Constats mécanique -->
+
+        <!-- début Constats électrique --> 
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <h2>Constats Électrique</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr  class="table-primary">
+                                                <th colspan="12" class="text-center">Avant Lavage</th>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th>Vérification</th>
+                                                <th width="6%">Critères</th>
+                                                <th>Observation</th>
+                                                <th>Préconisations et conclusion</th>
+                                                <th>Retenu</th>
+                                                <th>Photo</th>
+                                            </tr>
+                                            {% for item in parametre.constatElectriques %}
+                                                <tr class="table-striped">
+                                                    <td>{{item.verification}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.observation}}</td>
+                                                    <td>{{item.preconisationConclusion}}</td>
+                                                    <td>{{item.retenu}}</td>
+                                                    <td class="text-center"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                                </tr>                                                    
+                                            {% endfor %}
+                                                <tr  class="table-primary">
+                                                    <th colspan="12" class="text-center">Après Lavage</th>
+                                                </tr>
+                                            {% for item in parametre.constatElectriqueApresLavages %}
+                                                <tr class="table-striped">
+                                                    <td>{{item.verification}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.observation}}</td>
+                                                    <td>{{item.preconisationConclusion}}</td>
+                                                    <td>{{item.retenu}}</td>
+                                                    <td class="text-center"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
+                                                </tr>                                                    
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>                    
+        <!-- /fin Constats électrique --> 
+    </div>
+</div>
+{% endblock %}
