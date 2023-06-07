@@ -6,13 +6,17 @@ use App\Entity\Parametre;
 use App\Entity\RemontagePhoto;
 use App\Entity\RemontagePalier;
 use App\Form\RemontagePhotoType;
+use App\Entity\RemontageFinition;
 use App\Form\RemontagePalierType;
+use App\Form\RemontageFinitionType;
 use App\Entity\RemontageEquilibrage;
 use App\Form\RemontageEquilibrageType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RemontagePhotoRepository;
 use App\Repository\RemontagePalierRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\RemontageFinitionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RemontageEquilibrageRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -30,7 +34,8 @@ class RemontageController extends AbstractController
         SluggerInterface $slugger,
         RemontagePalierRepository $remontagePalierRepository,
         RemontageEquilibrageRepository $remontageEquilibrageRepository,
-        RemontagePhotoRepository $remontagePhotoRepository
+        RemontagePhotoRepository $remontagePhotoRepository,
+        RemontageFinitionRepository $remontageFinitionRepository
     ): Response
     {
 
@@ -130,12 +135,40 @@ class RemontageController extends AbstractController
             }
         }
 
+        //la partie de remontage et finition
+        $remontageFinition = new RemontageFinition();
+        if ($parametre->getRemontageFinition()){
+            $remontageFinition = $parametre->getRemontageFinition()->getParametre()->getRemontageFinition();
+        }
+        
+        $formRemontageFinition = $this->createForm(RemontageFinitionType::class, $remontageFinition);
+        $formRemontageFinition->handleRequest($request);
+
+        if ($formRemontageFinition->isSubmitted() && $formRemontageFinition->isValid())
+        {
+            $choix = $request->get('bouton3');
+            if($choix == 'remontage_finition_en_cours')
+            {
+                $parametre->setRemontageFinition($remontageFinition);
+                $remontageFinition->setEtat(0);
+                $remontageFinitionRepository->save($remontageFinition, true);
+                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'remontage_finition_terminer')
+            {
+                $parametre->setRemontageFinition($remontageFinition);
+                $remontageFinition->setEtat(1);
+                $remontageFinitionRepository->save($remontageFinition, true);
+                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+            }            
+        }
         return $this->render('remontage/index.html.twig', [
             'parametre' => $parametre,
             'remontagePalier' => $remontagePalier,
             'formRemontagePalier' => $formRemontagePalier->createView(),
             'formRemontageEquilibrage' => $formRemontageEquilibrage->createView(),
-            'formRemontagePhoto' => $formRemontagePhoto->createView()
+            'formRemontagePhoto' => $formRemontagePhoto->createView(),
+            'formRemontageFinition' => $formRemontageFinition->createView()
         ]);
     }
 
@@ -157,5 +190,21 @@ class RemontageController extends AbstractController
         {
             return $this->redirectToRoute('app_remontage_index', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
-    }
+    } 
+
+       //la fonction qui valide remontage
+       #[Route('validation/{id}/rapport', name: 'valider_remontage', methods: ['GET'])]
+       public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+       {
+               if($parametre)
+               {
+                   $parametre->setRemontage(1);
+                   $parametre->setStatut(1);
+                   $entityManager->persist($parametre);
+                   $entityManager->flush();
+                   return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+               }else{
+                   return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+               } 
+       }
 }

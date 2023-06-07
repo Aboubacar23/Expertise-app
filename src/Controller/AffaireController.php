@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Affaire;
 use App\Form\AffaireType;
 use App\Repository\AffaireRepository;
+use App\Repository\ParametreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,17 +101,10 @@ class AffaireController extends AbstractController
     }
 
      //la fonction qui affiche la liste des affaires terminer
-     #[Route('/affaire/rapports', name: 'app_affaire_rapport', methods: ['GET'])]
-     public function rapport(AffaireRepository $affaireRepository): Response
+     #[Route('/rapports/listes', name: 'app_affaire_rapport', methods: ['GET'])]
+     public function rapport(ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
      {
-         $affaires = [];
-         $tabs = $affaireRepository->findBy([],['id' => 'desc']);
-         foreach($tabs as $item){
-             if($item->isEtat() == 1){
-                 array_push($affaires, $item);
-             }
-         }
-        // dd($affaires);
+         $affaires = $affaireRepository->findBy([],['id' => 'desc']);
          return $this->render('affaire/rapport.html.twig', [
              'affaires' => $affaires,
          ]);

@@ -287,6 +287,256 @@
                     </div>  
                 <!-- /fin Equilibrage -->   
                       
+                <!-- début Remontage et finitions -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Remontage et finitions</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.remontageFinition == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.remontageFinition.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse3">
+                            {{ form_start(formRemontageFinition) }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Carcasse</th>
+                                                    <th width="20%">Contôles</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérifier la bonne position des paliers par rapport à la carcasse</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_carcasse) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Câblage et boite à bornes</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Etamage des plages de raccordement au réseau</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Serrage des connexions et de la barre de neutre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Marquage unitaire des phases, pose des logo</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage3) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage4) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Sondes</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification de la boîte à sondes (repérage, plans et maintien des connexions)</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Passage des sondes paliers non obturé</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification du nombre et de la mise en place des sondes</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde3) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Arbre</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Absence de point dur et de frottement lors de la rotation mécanique de l’arbre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de l'accouplement</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Général</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Propreté du plan de pose ou plans d’attache du moteur</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification du freinage mécanique des vis</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification de la compression des joints, de l'étanchéité des paliers et tuyauterie.</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general3) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Référence de la graisse des roulements</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification référence roulements montés (étiquettes des boîtes)</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general5) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification huile + coussinets</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general6) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Aspect des pistes – absence de choc</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general7) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Absence de poussière dans la chambre collecteur bagues</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general8) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Repérage de la ligne neutre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general9) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pré-rodage complet des balais</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general10) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérifier position des cages / pistes et présence des amortisseurs</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general11) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="item form-group">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th>Carcasse</th>
+                                                    <th width="20%">Contôles</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérifier le freinage des vis et la présence des rondelles sur l’ensemble de la machine</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_carcasse2) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Câblage et boite à bornes</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage2_1) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Sondes</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde2_1) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Arbre</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Propreté de l'arbre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de protection sur l’arbre et blocage de l’arbre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de l'accouplement</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_3) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Général</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Aspect général de la peinture et présence de peinture sur la visserie</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Absence graisse dans les bacs de récupération</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Absence de graisse, copeaux au niveau des paliers à l’intérieur de la machine</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_3) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Protection des graisseurs</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Trous de goupillage non obturés</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_5) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de bouchons d’obturation et de filtres à l’état neuf</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_6) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de la visserie pour le raccordement sur site</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_7) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_8) }}</td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th colspan="2">Plaques</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence des plaques de masse</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vérification plaque de firme</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Présence de la plaque de graissage et nouveaux roulements</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque3) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mettre étiquette «Ne pas oublier de remplir d'huile avant démarrage»</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque4) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Repérage de la ligne neutre</td>
+                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque5) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton3" value="remontage_finition_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton3" value="remontage_finition_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(formRemontageFinition) }}
+                        </div>
+                    </div>  
+                <!-- /fin Remontage et finitions -->  
+
                 <!-- début photo -->
                     <div class="x_panel"> 
                         <div class="x_title">
@@ -360,7 +610,7 @@
                         <div class="x_content">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <a href="{{path('valider_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                                    <a href="{{path('valider_remontage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation du Rapport final<i class="fa fa-check-circle p-2"></i></a>
                                 </div>
                             </div> 
                         </div>

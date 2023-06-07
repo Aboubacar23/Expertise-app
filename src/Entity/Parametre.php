@@ -184,6 +184,9 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?bool $statut = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?RemontageFinition $remontage_finition = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1089,6 +1092,18 @@ class Parametre
     public function setStatut(?bool $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getRemontageFinition(): ?RemontageFinition
+    {
+        return $this->remontage_finition;
+    }
+
+    public function setRemontageFinition(?RemontageFinition $remontage_finition): self
+    {
+        $this->remontage_finition = $remontage_finition;
 
         return $this;
     }

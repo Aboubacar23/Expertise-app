@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use TCPDF;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Affaire;
 use App\Entity\Parametre;
 use App\Form\ParametreType;
@@ -81,5 +84,68 @@ class ParametreController extends AbstractController
         }
 
         return $this->redirectToRoute('app_parametre_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/print/rapport/{id}', name: 'app_parametre_print', methods: ['POST', 'GET'])]
+    public function print(Parametre $parametre): Response
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Times New Roman');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+
+        $dompdf->setHttpContext($context);
+        $html = $this->renderView('parametre/rapport_pdf.html.twig', [
+            'parametre' => $parametre
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = $parametre->getAffaire()->getNomRapport();
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => false
+        ]);
+
+        exit();
+      /*
+        $pdf = new TCPDF();
+        $pdf->SetMargins(5, 5, 5);
+        $pdf->AddPage();
+        $pdf->SetTitle($parametre->getAffaire()->getNomRapport());
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        // Récupérez le contenu de la page Twig
+        $content = $this->renderView('parametre/rapport_pdf.html.twig', [
+            'parametre' => $parametre,
+            'hello' => 'bonjour'
+        ]);
+
+        // Ajoutez le contenu à votre PDF
+        $pdf->writeHTML($content);
+
+        // Définissez le nom du fichier PDF généré
+        $filename = $parametre->getAffaire()->getNomRapport();
+
+        // Renvoyez le PDF en tant que réponse
+        return new Response($pdf->Output($filename, 'I'), 200, array(
+            'Content-Type' => 'application/pdf',
+        ));
+        */
+    
+
     }
 }

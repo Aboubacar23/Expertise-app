@@ -29,29 +29,39 @@
                                     <th>Référence code client</th>
                                     <th>N° de fabrication</th>
                                     <th>N° d'article client</th>
+                                    <th>Type Machine</th>
+                                    <th>Machine</th>
                                     <th>Affaire suivie par</th>
                                     <th>Date prévisionnelle de livraison</th>
                                     <th width="100" class="text-center">Action</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                </thead> 
+                                <tbody> 
+                                    {% set i = 0 %}
                                 {% for affaire in affaires %}
-                                    <tr>
-                                        <td>1</td>
-                                        <td>{{ affaire.numAffaire }}</td>
-                                        <td>{{ affaire.client }}</td>
-                                        <td>{{ affaire.codeClient }}</td>
-                                        <td>{{ affaire.numFabrication }}</td>
-                                        <td>{{ affaire.numArticleClient }}</td>
-                                        <td>{{ affaire.suiviPar }}</td>
-                                        <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
-                                        <td class="text-center">
-                                            <a href="#" class="btn btn-outline-secondary btn-sm p-2">Imprimer <i class="fa fa-print p-1"></i></a>
-                                        </td>
-                                    </tr>
+                                    {% for item in affaire.parametres %}
+                                        {% if item.statut == 1 %}
+                                            {% set i = i + 1 %}
+                                            <tr>
+                                                <td>{{i}}</td>
+                                                <td>{{ affaire.numAffaire }}</td> 
+                                                <td>{{ item.affaire.client }}</td>
+                                                <td>{{ item.affaire.codeClient }}</td>
+                                                <td>{{ item.affaire.numFabrication }}</td>
+                                                <td>{{ item.affaire.numArticleClient }}</td>
+                                                <td>{{ item.type }}</td>
+                                                <td>{{ item.machine }}</td>
+                                                <td>{{ item.affaire.suiviPar }}</td>
+                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Imprimer <i class="fa fa-eye"></i></a>
+                                                </td>
+                                            </tr>                                            
+                                        {% endif %}
+                                    {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td colspan="13">Pas d'affaire  terminer</td>
+                                        <td colspan="13">Pas d'affaire dans le système</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
