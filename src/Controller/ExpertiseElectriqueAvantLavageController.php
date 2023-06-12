@@ -355,6 +355,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $formPointFonctionnement->handleRequest($request);
         if($formPointFonctionnement->isSubmitted() && $formPointFonctionnement->isValid())
         {
+            $idN = $parametre->getId();
             $choix = $request->get('bouton9');
             if($choix == 'ajouter')
             {

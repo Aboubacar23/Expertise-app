@@ -94,7 +94,16 @@ class ParametreController extends AbstractController
         $pdfOptions->setIsRemoteEnabled(true);
 
         // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);
+        $dompdf = new Dompdf($pdfOptions);        
+        $dompdf->getOptions()->set('isPhpEnabled', true);
+        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
+        $dompdf->setCallbacks([
+            'event' => function ($event) use ($dompdf) {
+                if ($event['event'] === 'dompdf.page_number') {
+                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
+                }
+            }
+        ]);
 
         $context = stream_context_create([
             'ssl' => [

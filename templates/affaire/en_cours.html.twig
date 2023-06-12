@@ -30,10 +30,9 @@
                             <th>N° de fabrication</th>
                             <th>N° d'article client</th>
                             <th>Affaire suivie par</th>
-                            <th>Context</th>
                             <th>Date prévisionnelle de livraison</th>
-                            <th>Jour Restant</th>
-                            <th>Etat</th>
+                            <th width="40" class="text-center">Jour Restant</th>
+                            <th width="70" class="text-center">Etat</th>
                             <th width="100" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -53,15 +52,17 @@
                                 <td>{{ affaire.numFabrication }}</td>
                                 <td>{{ affaire.numArticleClient }}</td>
                                 <td>{{ affaire.suiviPar }}</td>
-                                <td>{{ affaire.context }}</td>
                                 <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
-                                <td>
+                                <td class="text-center">
+                                {% if jourRestant %}
                                     {% if dateJour < dateLivre %}
                                         <span class="text-success">{{jourRestant}}</span>
                                     {% elseif dateJour > dateLivre %}
                                         <span class="text-danger"> - {{jourRestant}}</span>
                                     {% endif %}
-
+                                {% else %}
+                                    <span class="text-warning">0</span>
+                                {% endif %}
                                 </td>
                                 <td><a class="btn btn-danger text-white btn-sm">{{ affaire.etat ? 'Yes' : 'En cours' }}</a></td>
                                 <td>

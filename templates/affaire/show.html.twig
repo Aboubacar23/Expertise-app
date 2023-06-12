@@ -14,6 +14,9 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                            {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                                <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                            {% endif %}
                             {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                             <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
                             <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
@@ -156,7 +159,9 @@
                                                     <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
                                                     <td class="text-center">
                                                         <a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}">Expertise</a>
+                                                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                                                         <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}">Modifier</a>
+                                                    {% endif %}
                                                     </td>
                                                 </tr>
                                             {% else %}

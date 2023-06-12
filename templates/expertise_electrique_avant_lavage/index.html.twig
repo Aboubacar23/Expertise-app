@@ -23,7 +23,7 @@
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
-                    {% if parametre.expertiseMecanique == 1 %}
+                    {% if parametre.expertiseElectiqueApresLavage == 1 %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
@@ -275,7 +275,7 @@
                                                     <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.hygrometrie) }}</div>
                                                 </div>
                                                 <div class="item form-group">
-                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Critère</label>
                                                     <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
                                                 </div>
                                             </td>
@@ -465,7 +465,8 @@
                                     <h2>Point de fonctionnement à vide</h2>
                                 </div>
                                 <div class="col-md-4 text-center"> 
-                                    <a href="" class="btn btn-info btn-sm">En cours <i class="fa fa-circle-o"></i></a>                                                 
+                                    <a href="" class="btn btn-info btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                                                                  
                                 </div>
                                 <div class="col-md-4">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -570,7 +571,7 @@
                                             <td class="text-center">{{item.ca}}</td>
                                             <td class="text-center">{{item.coa}}</td>
                                             <td class="text-center">{{item.observation}}</td>
-                                            <td class="text-center"><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                            <td class="text-center"><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                         </tr>
                                     {% endfor %}
                                 </table>
@@ -578,7 +579,6 @@
                         </div>
                     </div>
                 <!-- fin Point de fonctionnement à vide -->
-
 
                 <!-- début Mesures vibratoires -->
                     {{ form_start(formMesureVibratoire) }}
@@ -740,7 +740,7 @@
                                                 <td>{{item.appareil.designation}}</td>
                                                 <td>{{item.appareil.numAppareil}}</td>
                                                 <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                                                <td><a href="{{path('delete_appareil', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                <td><a href="{{path('delete_appareil', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                             </tr>
                                         {% endfor %} 
                                     </table>                                        
@@ -793,7 +793,7 @@
                                             <td>{{ form_widget(formControleBobinage.retenu1) }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="table-primary">Contrôle calage des encoches</th>
+                                            <th class="table-primary">Contrôle laçage des développantes</th>
                                             <td>{{ form_widget(formControleBobinage.conformite2) }}</td>
                                             <td>{{ form_widget(formControleBobinage.preconisation2) }}</td>
                                             <td>{{ form_widget(formControleBobinage.retenu2) }}</td>
@@ -986,8 +986,8 @@
                                         <div class="col-md-12 col-sm-12 text-center">
                                             {% if parametre.photo %}
                                                 {% for item in parametre.photo.images %}
-                                                    <img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150">
-                                                    <a href="{{path('delete_photo', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a>        
+                                                    <td class="image"><img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150"></td>
+                                                    <td><a href="{{path('delete_photo', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>        
                                                 {% endfor %}                                                
                                             {% endif %}
                                         </div> 
@@ -1053,8 +1053,8 @@
                                                         <td>{{item.observation}}</td>
                                                         <td>{{item.preconisationConclusion}}</td>
                                                         <td>{{item.retenu}}</td>
-                                                        <td class="text-center"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
-                                                        <td class="text-center"><a href="{{path('delete_constat_electrique', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                                        <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                                        <td class="text-center"><a href="{{path('delete_constat_electrique', {'id' :  item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                                     </tr>                                                    
                                                 {% endfor %}
                                             </table>
@@ -1065,7 +1065,7 @@
                         </div>
                     {{ form_end(formConstatElectrique) }}
                 <!-- /fin constats eléc -->
-
+ 
                 <!-- début bouton -->
                 <div class="x_panel"> 
                     <div class="x_content">

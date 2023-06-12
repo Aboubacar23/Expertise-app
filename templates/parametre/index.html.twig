@@ -37,11 +37,11 @@
                 <td>{{ parametre.puissance }}</td>
                 <td>{{ parametre.montage }}</td>
                 <td>{{ parametre.fabricant }}</td>
-                <td>{{ parametre.presenceBalais ? 'Yes' : 'No' }}</td>
+                <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
                 <td>{{ parametre.vitesse }}</td>
                 <td>{{ parametre.masse }}</td>
                 <td>{{ parametre.typePalier }}</td>
-                <td>{{ parametre.presenceBalaisMasse ? 'Yes' : 'No' }}</td>
+                <td>{{ parametre.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
                 <td>{{ parametre.statorTension }}</td>
                 <td>{{ parametre.statorFrequence }}</td>
                 <td>{{ parametre.statorCourant }}</td>
@@ -50,7 +50,7 @@
                 <td>{{ parametre.rotorTension }}</td>
                 <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
                 <td>{{ parametre.rotorCourant }}</td>
-                <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>
+                <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
                 <td>
                     <a href="{{ path('app_parametre_show', {'id': parametre.id}) }}">show</a>
                     <a href="{{ path('app_parametre_edit', {'id': parametre.id}) }}">edit</a>

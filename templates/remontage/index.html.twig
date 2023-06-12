@@ -22,7 +22,7 @@
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
-                    {% if parametre.expertiseMecanique == 1 %}
+                    {% if parametre.expertiseElectiqueApresLavage == 1 %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
@@ -595,7 +595,7 @@
                                             <tr>
                                                 <td>{{item.libelle}}</td>
                                                 <td class="image"><img class="p-2" src="{{asset('/photo_remontages/'~ item.image)}}" height="80"></td>
-                                                <td><a href="{{path('delete_photo_remontage', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                <td><a href="{{path('delete_photo_remontage', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                             </tr>
                                         {% endfor %} 
                                     </table>                                        

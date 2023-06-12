@@ -5,7 +5,7 @@
 {% block body %}
 <div class="page-title">
     <div class="title_left">
-    <h3>Rapports</h3>
+    <h3>Affaire</h3>
     </div>
 </div>
 <div class="clearfix"></div>
@@ -13,7 +13,7 @@
     <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Listes des rapports</h2>
+            <h2>Affaire en attentes de validation</h2>
             <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -38,13 +38,11 @@
                                 </thead> 
                                 <tbody> 
                                     {% set i = 0 %}
-                                {% for affaire in affaires %}
-                                    {% for item in affaire.parametres %}
-                                        {% if item.statut == 1 %}
+                                    {% for item in parametres %}
                                             {% set i = i + 1 %}
                                             <tr>
                                                 <td>{{i}}</td>
-                                                <td>{{ affaire.numAffaire }}</td> 
+                                                <td>{{ item.affaire.numAffaire }}</td> 
                                                 <td>{{ item.affaire.client }}</td>
                                                 <td>{{ item.affaire.codeClient }}</td>
                                                 <td>{{ item.affaire.numFabrication }}</td>
@@ -54,16 +52,14 @@
                                                 <td>{{ item.affaire.suiviPar }}</td>
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Imprimer <i class="fa fa-print"></i></a>
+                                                    <a href="{{path('app_validation_show', {'id' : item.id })}}" class="btn btn-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
                                                 </td>
-                                            </tr>                                            
-                                        {% endif %}
+                                            </tr>     
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="13">Pas d'affaire dans le système</td>
+                                        </tr>
                                     {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="13">Pas d'affaire dans le système</td>
-                                    </tr>
-                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

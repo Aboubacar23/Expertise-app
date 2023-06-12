@@ -20,6 +20,10 @@
     border-left: 2px solid red;
 }
 
+h3{
+    color: azure;
+}
+
 .logo
 {
     text-align: right;
@@ -33,8 +37,8 @@
 
 }
 .card1 {
-  width: 450px;
-  height: 200px;
+  width: 470px;
+  height: 160px;
   border: 1px solid #675E49;
   background-color: #675E49;
   border-radius: 10px;
@@ -46,11 +50,12 @@
 }
 
 .card2 {
-  width: 340px;
-  height: 400px;
+  width: 360px;
+  height: 270px;
   border: 2px solid #675E49;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 15px;
 }
 
 .card-content {
@@ -73,6 +78,11 @@
   margin: 5px 0;
 }
 
+.table_matiere{
+    padding-top: 200px;
+}
+
+
 </style>
 <body class="body">
     <div class="logo">
@@ -82,7 +92,7 @@
         <h1 class="titre1">Rapport Expertise</h1>
         <div class="card1">
             <div class="card-content">
-                <h3>{{parametre.affaire.client}}</h3>
+                <h3>{{parametre.affaire.client.nom}}</h3>
                 <h3>&</h3>
                 <h3>{{parametre.affaire.client.site}}</h3>
             </div>
@@ -92,10 +102,15 @@
                 <p>Affaire suivie par : <strong>{{parametre.affaire.suiviPar}}</strong></p>
                 <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('Y-m-d') : '' }}</strong></p>
                 <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
+                <br>
                 <p>Référence client : <strong>{{parametre.affaire.codeClient}}</strong></p>
                 <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
                 <p>N° d’article client : <strong>{{parametre.affaire.numArticleClient}}</strong></p>
             </div>
         </div>
     </div>
+   {# <div class="table_matiere">
+      <h2>Table des matiéres</h2>   
+    </div>
+    #}
 </body>

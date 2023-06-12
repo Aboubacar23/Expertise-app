@@ -13,43 +13,43 @@ class PointFonctionnement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)] 
     private ?float $t = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $u = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $i1 = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $i2 = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $i3 = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $p = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $q = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $cos = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $n = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $i = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $tamb = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $ca = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $coa = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -26,7 +26,10 @@ class PhotoExpertiseMecaniqueType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'Images',
-                'required' => true, 
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-file-path'
+                ],
                  'constraints' => [
                      new File([
                          'maxSize' => '5000000k',

@@ -23,7 +23,7 @@
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
-                    {% if parametre.expertiseMecanique == 1 %}
+                    {% if parametre.expertiseElectiqueApresLavage == 1 %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
@@ -318,7 +318,7 @@
                  <!-- fin stator bobinage -->
 
                 <!-- début caractéristique -->
-                     <div class="x_panel"> 
+                    <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
                                 <div class="col-md-4">
@@ -390,7 +390,7 @@
                                                     <td>{{item.n}}</td>
                                                     <td>{{item.pj }}</td>  
                                                     <td>{{item.Ppj }}</td> 
-                                                    <th class="text-center"><a class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                                    <th class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
                                                 </tr> 
                                             {% endfor %}
                                         {% endif %}
@@ -499,7 +499,7 @@
                                                         <td>{{item.imoy }}</td>
                                                         <td>{{item.pabs }}</td>
                                                         <td>{{item.pjoule }}</td>
-                                                        <th class="text-center"><a class="btn btn-danger btn-sm" href="{{path('delete_point', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                                        <th class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_point', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
                                                     </tr>
                                                 {% endfor %}
                                             {% endif %}
@@ -605,7 +605,7 @@
                                                 <td>{{item.appareil.designation}}</td>
                                                 <td>{{item.appareil.numAppareil}}</td>
                                                 <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                                                <td><a href="{{path('delete_appareil_electrique', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                <td><a href="{{path('delete_appareil_electrique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                             </tr>
                                         {% endfor %} 
                                     </table>                                        
@@ -662,8 +662,8 @@
                                                         <td>{{item.observation}}</td>
                                                         <td>{{item.preconisationConclusion}}</td>
                                                         <td>{{item.retenu}}</td>
-                                                        <td class="text-center"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
-                                                        <td class="text-center"><a href="{{path('delete_constat_electrique_apres_lavage', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                                        <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
+                                                        <td class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" href="{{path('delete_constat_electrique_apres_lavage', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                                     </tr>                                                    
                                                 {% endfor %}
                                             </table>
