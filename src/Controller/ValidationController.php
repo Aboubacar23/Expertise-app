@@ -43,4 +43,16 @@ class ValidationController extends AbstractController
 
         }
     }
+
+    #[Route('/validation/{id}', name: 'app_validation_valide')]
+    public function validation(Parametre $parametre, EntityManagerInterface $em): Response
+    {
+        if($parametre)
+        {
+            $parametre->setStatut(1);
+            $em->persist($parametre);
+            $em->flush();
+            return $this->redirectToRoute('app_affaire_rapport');
+        }
+    }
 }

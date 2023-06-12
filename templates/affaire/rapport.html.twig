@@ -33,7 +33,7 @@
                                     <th>Machine</th>
                                     <th>Affaire suivie par</th>
                                     <th>Date prévisionnelle de livraison</th>
-                                    <th width="100" class="text-center">Action</th>
+                                    <th width="300" class="text-center">Action</th>
                                     </tr>
                                 </thead> 
                                 <tbody> 
@@ -54,7 +54,8 @@
                                                 <td>{{ item.affaire.suiviPar }}</td>
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Imprimer <i class="fa fa-print"></i></a>
+                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Rapport Exp <i class="fa fa-print"></i></a>
+                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-success btn-sm">Rapport Final <i class="fa fa-print"></i></a>
                                                 </td>
                                             </tr>                                            
                                         {% endif %}
