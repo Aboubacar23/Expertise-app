@@ -129,6 +129,8 @@
                                     <!-- fin contrôle visuel et recensement --> 
 
                                     <!-- fin Mesure d'isolement et resistance -->
+                                    {% set critere1 = 0 %}
+                                    {% set critere1 = (20000 * parametre.puissance) / 1000000 %}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <table class="table table-bordered table-striped">
@@ -147,8 +149,8 @@
                                                     <td>T° Ambiante (°C)</td>
                                                     <td>{{ parametre.mesureIsolement.tempAmbiante }}</td>
                                                     <td>RI/Masse UVW à 1 min</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension1 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur1 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite1 }}</td>
                                                 </tr>
@@ -156,8 +158,8 @@
                                                     <td>T° Tôlerie (°C)</td>
                                                     <td>{{ parametre.mesureIsolement.tempTolerie }}</td>
                                                     <td>RI/Masse UVW à 10 min</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension2 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur2 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite2 }}</td>
                                                 </tr>
@@ -166,7 +168,7 @@
                                                     <td>{{ parametre.mesureIsolement.hygrometrie }}</td>
                                                     <td>Calcul IP</td>
                                                     <td>>= 2.5</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ parametre.mesureIsolement.tension3 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur3 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite3 }}</td>
                                                 </tr>
@@ -174,8 +176,8 @@
                                                     <td>Critère</td>
                                                     <td>20 000 Ω/V</td>
                                                     <td>RI Phase U/VW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension4 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur4 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite4 }}</td>
                                                 </tr>
@@ -183,22 +185,22 @@
                                                     <td rowspan="3">Date d'essai</td>
                                                     <td rowspan="3">{{ parametre.mesureIsolement.dateEssais ?  parametre.mesureIsolement.dateEssais|date('d-m-Y') }}</td>
                                                     <td>RI Phase V / UW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension5 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur5 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite5 }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>RI Phase W / UW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension6 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur6 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite6 }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>RI/Masse Sondes UVW</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">500</td>
+                                                    <td>{{ critere1 }} MΩ</td>
+                                                    <td>{{ parametre.mesureIsolement.tension7 }}</td>
                                                     <td>{{ parametre.mesureIsolement.valeur7 }}</td>
                                                     <td>{{ parametre.mesureIsolement.conformite7 }}</td>
                                                 </tr>

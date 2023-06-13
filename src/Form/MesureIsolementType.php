@@ -27,6 +27,13 @@ class MesureIsolementType extends AbstractType
             ->add('valeur5')
             ->add('valeur6')
             ->add('valeur7')
+            ->add('tension1')
+            ->add('tension2')
+            ->add('tension3')
+            ->add('tension4')
+            ->add('tension5')
+            ->add('tension6')
+            ->add('tension7')
             ->add('conformite1', ChoiceType::class, [
                 'choices' => [
                     'Oui' => 'Oui',

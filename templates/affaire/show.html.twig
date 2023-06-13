@@ -134,9 +134,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% set i = 0 %}
                                             {% for parametre in affaire.parametres %}
+                                                {% set i = i + 1 %}
                                                 <tr>
-                                                    <td>{{ parametre.id }}</td>
+                                                    <td>{{ i }}</td>
                                                     <td>{{ parametre.type }}</td>
                                                     <td>{{ parametre.machine }}</td>
                                                     <td>{{ parametre.typeMachine }}</td>

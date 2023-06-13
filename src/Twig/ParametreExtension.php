@@ -23,9 +23,10 @@ class ParametreExtension extends AbstractExtension
         ];
     }
 
+
     public function nombres()
     {
-         $nombres  = 0;
+        global $nombres;
          $lists = $this->em->findBy([],['id'=> 'desc']);
          foreach ($lists as $item)
          {

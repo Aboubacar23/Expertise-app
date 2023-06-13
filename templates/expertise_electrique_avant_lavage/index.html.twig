@@ -230,6 +230,73 @@
                     {{ form_end(formControleVisuelElectique) }}
                 <!-- fin contrôle visuel et recensement -->  
                 
+                <!-- la gestion des valeur saisir automatiquement -->
+
+                    <!-- la gestion des valeur saisir automatiquement -->
+                    {% set tension_essaie = 0 %}
+                    {% set tension_essaie1 = 0 %}
+                    {% set tension_essaie2 = 0 %}
+                    {% set tension_essaie3 = 0 %}
+                    {% set tension_essaie4 = 0 %}
+                    {% set tension_essaie5 = 0 %}
+                    {% set tension_essaie6 = 0 %}
+                    {% set tension_essaie7 = 500 %}
+                        
+                    {% if val == 0 %}
+                        {% if parametre.puissance < 500 %}
+                            {% set tension_essaie = 500 %}
+                        {% elseif parametre.puissance >= 500 and parametre.puissance <= 1000 %}
+                            {% set tension_essaie = 1000 %}
+                        {% elseif parametre.puissance > 1000 and parametre.puissance <= 5000 %}
+                            {% set tension_essaie = 2500 %}
+                        {% elseif parametre.puissance > 5000 %}
+                            {% set tension_essaie = 5000 %}
+                        {% endif %}
+
+                        {% set tension_essaie1 = tension_essaie %}
+                        {% set tension_essaie2 = tension_essaie %}
+                        {% set tension_essaie3 = tension_essaie %}
+                        {% set tension_essaie4 = tension_essaie %}
+                        {% set tension_essaie5 = tension_essaie %}
+                        {% set tension_essaie6 = tension_essaie %}
+    
+                    {% elseif val == 1 %}
+                        {% set tension_essaie1 = parametre.mesureIsolement.tension1 %}
+                        {% set tension_essaie2 = parametre.mesureIsolement.tension2 %}
+                        {% set tension_essaie3 = parametre.mesureIsolement.tension3 %}
+                        {% set tension_essaie4 = parametre.mesureIsolement.tension4 %}
+                        {% set tension_essaie5 = parametre.mesureIsolement.tension5 %}
+                        {% set tension_essaie6 = parametre.mesureIsolement.tension6 %}
+                        {% set tension_essaie7 = parametre.mesureIsolement.tension7 %}
+                    {% endif %}
+                    <!-- la gestion des valeur saisir automatiquement -->
+                    {% set critere1 = 0 %}
+                    {% set critere2 = 0 %}
+                    {% set critere1 = (20000 * parametre.puissance) / 1000000 %}
+
+                    <!-- la saisie des controles -->
+                    {% set controle1 = "" %}
+                    {% set controle2 = "" %}
+                    {% set controle3 = "Calcul IP" %}
+                    {% set controle4 = "" %}
+                    {% set controle5 = "" %}
+                    {% set controle6 = "" %}
+                    {% set controle7 = "" %}
+                        
+                    {% if parametre.machine.categorie == "Machines Asynchrone" and parametre.machine.sousCategorie == "A cage" and parametre.machine.sousCategorie2 == "Neutre Sorti" %}
+                        {% set controle1  = "R phase U" %}
+                        {% set controle2 = "R phase V" %}
+                        {% set controle3 = "Calcul IP" %}
+                        {% set controle4 = "R phase W" %}
+                        {% set controle5 = "RI U/V.W.masse - 1 min" %}
+                        {% set controle6 = "RI V/U.W.masse - 1 min" %}
+                        {% set controle7 = "RI W/U.V.masse - 1 min" %}
+                        
+                    {% endif %}
+
+                    
+                <!-- fin des valeurs -->
+
                 <!-- début Mesure d'isolement -->
                     {{ form_start(formMesureIsolement) }}
                         <div class="x_panel"> 
@@ -287,37 +354,37 @@
                                                     <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
                                                 </div>
                                             </td>
-                                            <td>RI/Masse UVW à 1 min</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ controle1 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension1, { value : tension_essaie1 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur1) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite1) }}</td>
                                         </tr>
                                         <tr>
-                                            <td>RI/Masse UVW à 10 min</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ controle2 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension2, { value : tension_essaie2 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur2) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite2) }}</td>
                                         </tr>
                                         <tr>
                                             <td>Calcul IP</td>
                                             <td>>= 2.5</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension3, { value : tension_essaie3 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur3) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite3) }}</td>
                                         </tr>
                                         <tr>
-                                            <td>RI Phase U/VW+Masse</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ controle4 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension4, { value : tension_essaie4 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur4) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite4) }}</td>
                                         </tr>
                                         <tr>
-                                            <td>RI Phase V / UW+Masse</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ controle5 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension5, { value : tension_essaie5 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur5) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite5) }}</td>
                                         </tr>
@@ -328,16 +395,16 @@
                                                     <div class="col-md-8 col-sm-8">{{ form_widget(formMesureIsolement.date_essais) }}</div>
                                                 </div>
                                             </td>
-                                            <td>RI Phase W / UW+Masse</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">2500</td>
+                                            <td>{{ controle6 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension6 , { value : tension_essaie6 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur6) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite6) }}</td>
                                         </tr>
                                         <tr>
-                                            <td>RI/Masse Sondes UVW</td>
-                                            <td>132 MΩ</td>
-                                            <td class="text-center">500</td>
+                                            <td>{{ controle7 }}</td>
+                                            <td>{{critere1 | number_format }} MΩ</td>
+                                            <td>{{ form_widget(formMesureIsolement.tension7, { value : tension_essaie7 }) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.valeur7) }}</td>
                                             <td>{{ form_widget(formMesureIsolement.conformite7) }}</td>
                                         </tr>

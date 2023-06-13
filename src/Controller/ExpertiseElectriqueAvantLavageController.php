@@ -120,8 +120,10 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
         //Mesure d'isolement
         $mesureIsolement = new MesureIsolement();
+        $val = 0;
         if($parametre->getMesureIsolement()){
             $mesureIsolement = $parametre->getMesureIsolement()->getParametre()->getMesureIsolement();
+            $val = 1;
         }
         $formMesureIsolement = $this->createForm(MesureIsolementType::class, $mesureIsolement);
         $formMesureIsolement->handleRequest($request);
@@ -448,7 +450,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             'formMesureIsolement' => $formMesureIsolement->createView(),
             'formMesureResistance' => $formMesureResistance->createView(),
             'formPointFonctionnement' => $formPointFonctionnement->createView(),
-            'formConstatElectrique' => $formConstatElectrique->createView()
+            'formConstatElectrique' => $formConstatElectrique->createView(),
+            'val' => $val
         ]);
     }
 

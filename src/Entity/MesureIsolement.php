@@ -74,6 +74,27 @@ class MesureIsolement
     #[ORM\OneToOne(mappedBy: 'mesure_isolement', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $tension1 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension2 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension3 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension4 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension5 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension6 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension7 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -325,6 +346,90 @@ class MesureIsolement
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getTension1(): ?float
+    {
+        return $this->tension1;
+    }
+
+    public function setTension1(?float $tension1): self
+    {
+        $this->tension1 = $tension1;
+
+        return $this;
+    }
+
+    public function getTension2(): ?float
+    {
+        return $this->tension2;
+    }
+
+    public function setTension2(?float $tension2): self
+    {
+        $this->tension2 = $tension2;
+
+        return $this;
+    }
+
+    public function getTension3(): ?float
+    {
+        return $this->tension3;
+    }
+
+    public function setTension3(?float $tension3): self
+    {
+        $this->tension3 = $tension3;
+
+        return $this;
+    }
+
+    public function getTension4(): ?float
+    {
+        return $this->tension4;
+    }
+
+    public function setTension4(?float $tension4): self
+    {
+        $this->tension4 = $tension4;
+
+        return $this;
+    }
+
+    public function getTension5(): ?float
+    {
+        return $this->tension5;
+    }
+
+    public function setTension5(?float $tension5): self
+    {
+        $this->tension5 = $tension5;
+
+        return $this;
+    }
+
+    public function getTension6(): ?float
+    {
+        return $this->tension6;
+    }
+
+    public function setTension6(?float $tension6): self
+    {
+        $this->tension6 = $tension6;
+
+        return $this;
+    }
+
+    public function getTension7(): ?float
+    {
+        return $this->tension7;
+    }
+
+    public function setTension7(?float $tension7): self
+    {
+        $this->tension7 = $tension7;
 
         return $this;
     }
