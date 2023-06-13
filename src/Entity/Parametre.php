@@ -187,6 +187,9 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?RemontageFinition $remontage_finition = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut_final = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1104,6 +1107,18 @@ class Parametre
     public function setRemontageFinition(?RemontageFinition $remontage_finition): self
     {
         $this->remontage_finition = $remontage_finition;
+
+        return $this;
+    }
+
+    public function isStatutFinal(): ?bool
+    {
+        return $this->statut_final;
+    }
+
+    public function setStatutFinal(?bool $statut_final): self
+    {
+        $this->statut_final = $statut_final;
 
         return $this;
     }

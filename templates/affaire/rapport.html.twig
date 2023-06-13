@@ -55,7 +55,9 @@
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Rapport Exp <i class="fa fa-print"></i></a>
-                                                    <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-success btn-sm">Rapport Final <i class="fa fa-print"></i></a>
+                                                    {% if item.statutFinal == 1 %}
+                                                        <a href="{{path('app_parametre_print', {'id' : item.id })}}" target="_blank" class="btn btn-success btn-sm">Rapport Final <i class="fa fa-print"></i></a>
+                                                    {% endif %}
                                                 </td>
                                             </tr>                                            
                                         {% endif %}

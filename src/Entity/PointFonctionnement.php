@@ -14,43 +14,43 @@ class PointFonctionnement
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)] 
-    private ?float $t = null;
+    private ?string $t = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $u = null;
+    private ?string $u = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $i1 = null;
+    private ?string $i1 = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $i2 = null;
+    private ?string $i2 = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $i3 = null;
+    private ?string $i3 = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $p = null;
+    private ?string $p = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $q = null;
+    private ?string $q = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $cos = null;
+    private ?string $cos = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $n = null;
+    private ?string $n = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $i = null;
+    private ?string $i = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $tamb = null;
+    private ?string $tamb = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $ca = null;
+    private ?string $ca = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $coa = null;
+    private ?string $coa = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $observation = null;
@@ -63,156 +63,156 @@ class PointFonctionnement
         return $this->id;
     }
 
-    public function getT(): ?float
+    public function getT(): ?string
     {
         return $this->t;
     }
 
-    public function setT(float $t): self
+    public function setT(string $t): self
     {
         $this->t = $t;
 
         return $this;
     }
 
-    public function getU(): ?float
+    public function getU(): ?string
     {
         return $this->u;
     }
 
-    public function setU(float $u): self
+    public function setU(string $u): self
     {
         $this->u = $u;
 
         return $this;
     }
 
-    public function getI1(): ?float
+    public function getI1(): ?string
     {
         return $this->i1;
     }
 
-    public function setI1(float $i1): self
+    public function setI1(string $i1): self
     {
         $this->i1 = $i1;
 
         return $this;
     }
 
-    public function getI2(): ?float
+    public function getI2(): ?string
     {
         return $this->i2;
     }
 
-    public function setI2(float $i2): self
+    public function setI2(string $i2): self
     {
         $this->i2 = $i2;
 
         return $this;
     }
 
-    public function getI3(): ?float
+    public function getI3(): ?string
     {
         return $this->i3;
     }
 
-    public function setI3(float $i3): self
+    public function setI3(string $i3): self
     {
         $this->i3 = $i3;
 
         return $this;
     }
 
-    public function getP(): ?float
+    public function getP(): ?string
     {
         return $this->p;
     }
 
-    public function setP(float $p): self
+    public function setP(string $p): self
     {
         $this->p = $p;
 
         return $this;
     }
 
-    public function getQ(): ?float
+    public function getQ(): ?string
     {
         return $this->q;
     }
 
-    public function setQ(float $q): self
+    public function setQ(string $q): self
     {
         $this->q = $q;
 
         return $this;
     }
 
-    public function getCos(): ?float
+    public function getCos(): ?string
     {
         return $this->cos;
     }
 
-    public function setCos(float $cos): self
+    public function setCos(string $cos): self
     {
         $this->cos = $cos;
 
         return $this;
     }
 
-    public function getN(): ?float
+    public function getN(): ?string
     {
         return $this->n;
     }
 
-    public function setN(float $n): self
+    public function setN(string $n): self
     {
         $this->n = $n;
 
         return $this;
     }
 
-    public function getI(): ?float
+    public function getI(): ?string
     {
         return $this->i;
     }
 
-    public function setI(float $i): self
+    public function setI(string $i): self
     {
         $this->i = $i;
 
         return $this;
     }
 
-    public function getTamb(): ?float
+    public function getTamb(): ?string
     {
         return $this->tamb;
     }
 
-    public function setTamb(float $tamb): self
+    public function setTamb(string $tamb): self
     {
         $this->tamb = $tamb;
 
         return $this;
     }
 
-    public function getCa(): ?float
+    public function getCa(): ?string
     {
         return $this->ca;
     }
 
-    public function setCa(float $ca): self
+    public function setCa(string $ca): self
     {
         $this->ca = $ca;
 
         return $this;
     }
 
-    public function getCoa(): ?float
+    public function getCoa(): ?string
     {
         return $this->coa;
     }
 
-    public function setCoa(float $coa): self
+    public function setCoa(string $coa): self
     {
         $this->coa = $coa;
 

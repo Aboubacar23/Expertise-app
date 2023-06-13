@@ -6,12 +6,15 @@ use App\Entity\PointFonctionnement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PointFonctionnementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('observation', FileType::class)
+            /*
             ->add('t')
             ->add('u')
             ->add('i1')
@@ -26,6 +29,7 @@ class PointFonctionnementType extends AbstractType
             ->add('ca')
             ->add('coa')
             ->add('observation')
+            */
         ;
     }
 

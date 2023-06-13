@@ -20,7 +20,7 @@ class ValidationController extends AbstractController
         $parametres  = [];
         foreach ($lists as $item)
         {
-            if($item->isStatut() == null && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isRemontage() == 1 && $item->isRemontage() == 1)           
+            if($item->isStatut() == null && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)           
             {
                 array_push($parametres, $item);
             }

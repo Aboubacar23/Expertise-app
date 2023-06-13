@@ -25,15 +25,15 @@ class ParametreExtension extends AbstractExtension
 
     public function nombres()
     {
+         $nombres  = 0;
          $lists = $this->em->findBy([],['id'=> 'desc']);
-         $nombre  = 0;
          foreach ($lists as $item)
          {
              if($item->isStatut() == 0 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isRemontage() == 1 && $item->isRemontage() == 1)
              {
-                $nombre = $nombre + 1;
+                $nombres++;
              }
          }
-        return $nombre;
+        return $nombres;
     }
 }

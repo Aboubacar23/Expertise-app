@@ -29,7 +29,15 @@
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                     {% endif %}
                     <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
-                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
+            
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        {% if parametre.remontage == 1 %}
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
+                        {% endif %}                                
+                    {% endif %}
+
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
@@ -461,14 +469,10 @@
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h2>Point de fonctionnement à vide</h2>
-                                </div>
-                                <div class="col-md-4 text-center"> 
-                                    <a href="" class="btn btn-info btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                                                                  
-                                </div>
-                                <div class="col-md-4">
+                                </div>  
+                                <div class="col-md-6">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2_3"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -480,7 +484,11 @@
                             {{ form_start(formPointFonctionnement) }}
                                 <div class="row">
                                     <table class="table table-bordered">
-                                        <tr class="table-primary">
+                                        <tr>
+                                            <td>{{ form_widget(formPointFonctionnement.observation) }}</td>                                    
+                                            <td><button class="btn btn-primary btn-sm" name="bouton9" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></td>
+                                        </tr>
+                                        {#<tr class="table-primary">
                                             <th>t (min)</th>
                                             <th>U (v)</th>
                                             <th>I1 (A)</th>
@@ -516,7 +524,7 @@
                                             <td>{{ form_widget(formPointFonctionnement.ca) }}</td>
                                             <td>{{ form_widget(formPointFonctionnement.coa) }}</td>
                                             <td>{{ form_widget(formPointFonctionnement.observation) }}</td>
-                                        </tr>
+                                        </tr>#}
                                     </table>
                                 </div>
                             {{ form_end(formPointFonctionnement) }}
@@ -685,17 +693,10 @@
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h2>Appareils de mesure utilisés</h2>
                                 </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.appareilMesures %}
-                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
-                                    {% else %}
-                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
