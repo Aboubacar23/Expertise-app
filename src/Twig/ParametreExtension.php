@@ -16,25 +16,17 @@ class ParametreExtension extends AbstractExtension
         $this->em = $em;
     }
 
-    public function getFunctions(): array
+    public function getListes()
     {
-        return [
-            new TwigFunction('nombre', [$this, 'nombres'])
-        ];
-    }
-
-
-    public function nombres()
-    {
-        global $nombres;
-         $lists = $this->em->findBy([],['id'=> 'desc']);
-         foreach ($lists as $item)
-         {
-             if($item->isStatut() == 0 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isRemontage() == 1 && $item->isRemontage() == 1)
-             {
-                $nombres++;
-             }
-         }
-        return $nombres;
+        $listes = [];
+        $lists = $this->em->findBy([],['id'=> 'desc']);
+        foreach ($lists as $item)
+        {
+            if($item->isStatut() == 0 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isRemontage() == 1 && $item->isRemontage() == 1)
+            {
+                array_push($listes, $item);
+            }
+        }
+        return $listes;
     }
 }

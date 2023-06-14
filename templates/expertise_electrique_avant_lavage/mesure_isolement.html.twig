@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Mesure d'isolement</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                   
+                <!-- la gestion des valeur saisir automatiquement -->
+
+                    <!-- la gestion des valeur saisir automatiquement -->
+                    {% set tension_essaie = 0 %}
+                        {% if parametre.statorTension < 500 %}
+                            {% set tension_essaie = 500 %}
+                        {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
+                            {% set tension_essaie = 1000 %}
+                        {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
+                            {% set tension_essaie = 2500 %}
+                        {% elseif parametre.statorTension > 5000 %}
+                            {% set tension_essaie = 5000 %}
+                        {% endif %}
+                        <!-- la gestion des valeur saisir automatiquement -->
+    
+                        {% set critere = (20000 * parametre.statorTension) / 1000 %}
+                        
+                    <!-- fin des valeurs -->
+    
+                    <!-- début Mesure d'isolement -->
+                        <form method="post">
+                            <div class="x_content">
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th colspan="6" class="text-center">Paramètres</th>
+                                        </tr>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <td >{{ form_widget(formMesureIsolement.temp_tolerie) }}</td>
+                                            <th>Date d'essai</th>
+                                            <td >{{ form_widget(formMesureIsolement.date_essais) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hygrométrie (%)</th>
+                                            <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
+                                            <th>Critère</th>
+                                            <td>20 000 Ω/V </td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>   
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-primary">
+                                            <th width="15%">Contrôle</th>
+                                            <th>Critère (MΩ)</th>
+                                            <th width="25%">Tension d'éssai(V)</th>
+                                            <th width="25%">Valeur relevées (MΩ)</th>
+                                            <th width="15%">Conformité</th>
+                                            <th width="100"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form_widget(form.controle) }}</td>
+                                            <td>{{ form_widget(form.critere, { value : critere }) }}</td>
+                                            <td>{{ form_widget(form.tension, { value : tension_essaie }) }}</td>
+                                            <td>{{ form_widget(form.valeur) }}</td>
+                                            <td>{{ form_widget(form.conformite) }}</td>
+                                            <td><button class="btn btn-primary btn-sm" name="bouton7" value="ajouter">Ajouter</button></td>
+                                        </tr>
+                                        {% for item2 in items %}
+                                            <tr>
+                                                <td>{{item2.controle}}</td>
+                                                <td>{{item2.critere}}</td>
+                                                <td>{{item2.tension}}</td>
+                                                <td>{{item2.valeur}}</td>
+                                                <td>{{item2.conformite}}</td>
+                                                <td class="text-center"><a href="{{path('delete_mesure', {'id' : item2.lig, 'paramID' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                            </tr>                                        
+                                        {% endfor %}
+                                        <tr class="bg-primary"></tr>
+                                        {% for item in parametre.mesureIsolement.lmesureIsolements %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.tension}}</td>
+                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.conformite}}</td>
+                                                <td class="text-center"><a href="#"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                            </tr>                                        
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <button class="btn btn-secondary btn-sm" name="bouton7" value="mesure_isolement_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-success btn-sm" name="bouton7" value="mesure_isolement_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    <!-- fin Mesure d'isolement -->  
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

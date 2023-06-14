@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Controle Visuel et Recensement</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <!-- début contrôle visuel et recensement --> 
+                <div class="x_content">
+                    {{ form_start(formControleVisuelElectique) }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <fieldset>
+                                <legend>Balais</legend>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md64 col-sm-6 label-align" for="dimension">Dimension</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_dimension) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Marque</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_marque) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="qualite">Quantité</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_quantite) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="nuance">Nuance</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_nuance) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="longueur_shunt">longueur Shunt</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_longueur_shunt) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_cosse">Type de Cosse</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_type_cosse) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="aspect_patine">Aspect de la patine</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_aspect) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_pression">Type pression</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_type_pression) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <div class="col-md-12 col-sm-12">
+                                        {{ form_widget(formControleVisuelElectique.balais_presence_gaine) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                            <fieldset>
+                                <legend>Balais de masse</legend>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md64 col-sm-6 label-align" for="dimension">Dimension</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_dimension) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Marque</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_marque) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="qualite">Quantité</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_quantite) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="nuance">Nuance</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_nuance) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="longueur_shunt">longueur Shunt</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_longueur_shunt) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_cosse">Type de Cosse</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_type_cosse) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="aspect_patine">Aspect de la patine</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_aspect) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="type_pression">Type pression</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_type_pression) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <div class="col-md-12 col-sm-12">
+                                        {{ form_widget(formControleVisuelElectique.balais_masse_presence_gaine) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                            <fieldset>
+                                <legend>Fac-similé boîte à borne</legend>
+                                <div class="item form-group text-center">
+                                    <div class="col-md-12 col-sm-12">
+                                        {# <img src="{{asset('images/machine.png')}}" alt="" class="text-center">#}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="sens_rotation">Sens rotation</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(formControleVisuelElectique.sens_rotation) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-6 col-sm-6 label-align" for="remarque">Remarque</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(formControleVisuelElectique.remarque) }}
+                                    </div>
+                                </div>
+                            </legend>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <button class="btn btn-secondary btn-sm" name="bouton" value="controle_visuel_en_cours"> En cours <i class="fa fa-save"></i></button>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-success btn-sm" name="bouton" value="controle_visuel_terminer"> Terminer <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+                    {{ form_end(formControleVisuelElectique) }}
+                </div>
+                <!-- fin contrôle visuel et recensement -->   
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

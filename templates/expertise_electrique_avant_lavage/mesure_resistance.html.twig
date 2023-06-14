@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Mesure de resistance</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>                
+                <div class="x_content">
+                <!-- début Mesure de resistance -->
+                {{ form_start(formMesureResistance) }}
+                    <div class="x_content">
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <tr class="table-primary">
+                                    <th colspan="5" class="text-center">Mesures des résistances Ohmiques</th>
+                                </tr>
+                                <tr class="table-primary">
+                                    <th>Paramètres</th>
+                                    <th>Contrôle</th>
+                                    <th>Critère</th>
+                                    <th>Valeur relevées en  MΩ</th>
+                                    <th>Conformité</th>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.temp_ambiante) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.temp_tolerie) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.hygrometrie) }}</div>
+                                        </div>
+                                    </td>
+                                    <td>R Ohmique phase U</td>
+                                    <td rowspan="3">±5%</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur1) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite1) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique phase V</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur2) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique phase W</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur3) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite3) }}</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="date_essaie">Date d'essai</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formMesureResistance.date_essais) }}</div>
+                                        </div>
+                                    </td>
+                                    <td>R Ohmique sonde ph. U</td>
+                                    <td>100 Ω à 0 °C</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur4) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite4) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique sonde ph. V</td>
+                                    <td>101 Ω à 0 °C</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur5) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite5) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique sonde ph. W</td>
+                                    <td>102 Ω à 0 °C</td>
+                                    <td>{{ form_widget(formMesureResistance.valeur6) }}</td>
+                                    <td>{{ form_widget(formMesureResistance.conformite6) }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton8" value="mesure_resistance_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton8" value="mesure_resistance_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(formMesureResistance) }}
+                <!-- fin Mesure de resistance -->
+        
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

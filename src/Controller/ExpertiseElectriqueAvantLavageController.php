@@ -24,8 +24,10 @@ use App\Repository\PhotoRepository;
 use App\Repository\ImagesRepository;
 use App\Form\PointFonctionnementType;
 use App\Entity\ControleVisuelElectrique;
+use App\Entity\LMesureIsolement;
 use App\Form\ConstatElectriqueType;
 use App\Form\ControleVisuelElectriqueType;
+use App\Form\LMesureIsolementType;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
 use App\Repository\ConstatElectriqueRepository;
@@ -38,6 +40,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
+use App\Repository\LMesureIsolementRepository;
 use App\Repository\ParametreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -67,138 +70,16 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('/electrique/avant/lavage/{id}', name: 'app_expertise_electrique_avant_lavage', methods: ['POST', 'GET'])]
     public function index(Parametre $parametre,Request $request,
         SluggerInterface $slugger,
-        ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository,
-        MesureVibratoireRepository $mesureVibratoireRepository,
         ControleBobinageRepository $controleBobinageRepository,
         AutreControleRepository $autreControleRepository,
         PhotoRepository $photoRepository,
         AppareilMesureRepository $appareilMesureRepository,
-        MesureIsolementRepository $mesureIsolementRepository,
-        MesureResistanceRepository $mesureResistanceRepository,
-        PointFonctionnementRepository $pointFonctionnementRepository,
         ConstatElectriqueRepository $constatElectriqueRepository,
-        EntityManagerInterface $em
      ): Response
     {
 
-        
-         //la partie du contrôle visuel et recensement      
 
-        //1 
-        $controleVisuelElectrique = new ControleVisuelElectrique();
-        //2
-       if($parametre->getControleVisuelElectrique())
-        {
-            $controleVisuelElectrique = $parametre->getControleVisuelElectrique()->getParametre()->getControleVisuelElectrique();
-        }
-
-       //3
-       $formControleVisuelElectique = $this->createForm(ControleVisuelElectriqueType::class, $controleVisuelElectrique);
-       $formControleVisuelElectique->handleRequest($request);
-
-        //4
-        if($formControleVisuelElectique->isSubmitted() && $formControleVisuelElectique->isValid())
-        {   //5
-            $choix = $request->get('bouton');
-            if($choix == 'controle_visuel_en_cours')
-            {
-                $parametre->setControleVisuelElectrique($controleVisuelElectrique);
-                $controleVisuelElectrique->setEtat(0);
-                $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-            elseif($choix == 'controle_visuel_terminer')
-            {
-                $parametre->setControleVisuelElectrique($controleVisuelElectrique);
-                $controleVisuelElectrique->setEtat(1);
-                $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-
-            }
-        }
-        //fin du contrôle visuel
-
-        //Mesure d'isolement
-        $mesureIsolement = new MesureIsolement();
-        $val = 0;
-        if($parametre->getMesureIsolement()){
-            $mesureIsolement = $parametre->getMesureIsolement()->getParametre()->getMesureIsolement();
-            $val = 1;
-        }
-        $formMesureIsolement = $this->createForm(MesureIsolementType::class, $mesureIsolement);
-        $formMesureIsolement->handleRequest($request);
-        if($formMesureIsolement->isSubmitted() && $formMesureIsolement->isValid())
-        {
-            $choix = $request->get('bouton7');
-            if($choix == 'mesure_isolement_en_cours')
-            {
-                $parametre->setMesureIsolement($mesureIsolement);
-                $mesureIsolement->setEtat(0);
-                $mesureIsolementRepository->save($mesureIsolement, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-            elseif($choix == 'mesure_isolement_terminer')
-            {
-                $parametre->setMesureIsolement($mesureIsolement);
-                $mesureIsolement->setEtat(1);
-                $mesureIsolementRepository->save($mesureIsolement, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-        }
-
-
-        //Mesure de resistance
-        $mesureResistance = new MesureResistance();
-        if($parametre->getMesureResistance()){
-            $mesureResistance = $parametre->getMesureResistance()->getParametre()->getMesureResistance();
-        }
-        $formMesureResistance = $this->createForm(MesureResistanceType::class, $mesureResistance);
-        $formMesureResistance->handleRequest($request);
-        if($formMesureResistance->isSubmitted() && $formMesureResistance->isValid()){
-            $choix = $request->get('bouton8');
-            if($choix == 'mesure_resistance_en_cours')
-            {
-                $parametre->setMesureResistance($mesureResistance);
-                $mesureResistance->setEtat(0);
-                $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-            elseif($choix == 'mesure_resistance_terminer')
-            {
-                $parametre->setMesureResistance($mesureResistance);
-                $mesureResistance->setEtat(1);
-                $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-        }
  
-        //la partie du mesures vibratoires
-        $mesureVibratoire = new MesureVibratoire();
-        if($parametre->getMesureVibratoire()){
-            $mesureVibratoire = $parametre->getMesureVibratoire()->getParametre()->getMesureVibratoire();
-        }
-
-        $formMesureVibratoire = $this->createForm(MesureVibratoireType::class, $mesureVibratoire);
-        $formMesureVibratoire->handleRequest($request);
-        if($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid())
-        {
-            $choix = $request->get('bouton2');
-            if($choix == 'mesure_vibratoire_en_cours')
-            {
-                $parametre->setMesureVibratoire($mesureVibratoire);
-                $mesureVibratoire->setEtat(0);
-                $mesureVibratoireRepository->save($mesureVibratoire, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-
-            }
-            elseif($choix == 'mesure_vibratoire_terminer')
-            {
-                $parametre->setMesureVibratoire($mesureVibratoire);
-                $mesureVibratoire->setEtat(1);
-                $mesureVibratoireRepository->save($mesureVibratoire, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-        }
 
         //la partie du controle de bobinage 
         $controleBobinage = new ControleBobinage();
@@ -353,14 +234,225 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             }
         }
 
-        //la partie point de fonctionnement
+ 
+
+        //la partie constat electrique avant lavage
+        $constatElectrique = new ConstatElectrique();
+
+        $formConstatElectrique = $this->createForm(ConstatElectriqueType::class, $constatElectrique);
+        $formConstatElectrique->handleRequest($request);
+        if($formConstatElectrique->isSubmitted() && $formConstatElectrique->isValid())
+        {
+            $choix = $request->get('bouton10');
+            if($choix == 'ajouter')
+            {
+                $image = $formConstatElectrique->get('photo')->getData();
+                if ($image) {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('images_constat_electrique'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }           
+                $constatElectrique->setPhoto($newPhotoname);
+                $constatElectrique->setParametre($parametre);
+                $constatElectrique->setEtat(1);
+                $constatElectriqueRepository->save($constatElectrique, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+        //6
+        return $this->render('expertise_electrique_avant_lavage/index.html.twig', [
+            'parametre' => $parametre,
+            'formControleBobinage' => $formControleBobinage->createView(),
+            'formAutreControle' => $formAutreControle->createView(),
+            'formPhoto' => $formPhoto->createView(),
+            'formAppareilMesure' => $formAppareilMesure->createView(),
+            'formConstatElectrique' => $formConstatElectrique->createView(),
+        ]);
+    }
+
+    //creation de controle visuel et recensement
+    #[Route('/controle/visuel/recensement/{id}', name: 'app_controle_visuel_recensement')]
+    public function controleVisuel(Parametre $parametre, Request $request, ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository): Response
+    {        //1 
+        $controleVisuelElectrique = new ControleVisuelElectrique();
+        //2
+       if($parametre->getControleVisuelElectrique())
+        {
+            $controleVisuelElectrique = $parametre->getControleVisuelElectrique()->getParametre()->getControleVisuelElectrique();
+        }
+
+       //3
+       $formControleVisuelElectique = $this->createForm(ControleVisuelElectriqueType::class, $controleVisuelElectrique);
+       $formControleVisuelElectique->handleRequest($request);
+
+        //4
+        if($formControleVisuelElectique->isSubmitted() && $formControleVisuelElectique->isValid())
+        {   //5
+            $choix = $request->get('bouton');
+            if($choix == 'controle_visuel_en_cours')
+            {
+                $parametre->setControleVisuelElectrique($controleVisuelElectrique);
+                $controleVisuelElectrique->setEtat(0);
+                $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
+                $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'controle_visuel_terminer')
+            {
+                $parametre->setControleVisuelElectrique($controleVisuelElectrique);
+                $controleVisuelElectrique->setEtat(1);
+                $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
+                $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $parametre->getId()]);
+
+            }
+        }
+        //fin du contrôle visuel
+
+        return $this->render('expertise_electrique_avant_lavage/controle_visuel_recensement.html.twig', [
+            'parametre' => $parametre,
+            'formControleVisuelElectique' => $formControleVisuelElectique->createView(),
+        ]);
+    }
+
+    //création de mesure d'isolement
+    #[Route('/mesure/isolement/{id}', name: 'app_mesure_isolement', methods: ['POST', 'GET'])]
+    public function mesureIso(Parametre $parametre,Request $request,MesureIsolementRepository $mesureIsolementRepository,EntityManagerInterface $em): Response
+    {
+        //Mesure d'isolement
+        $mesureIsolement = new MesureIsolement();
+        $lmesureIsolement = new LMesureIsolement();
+        $val = 0;
+        if($parametre->getMesureIsolement()){
+            $mesureIsolement = $parametre->getMesureIsolement()->getParametre()->getMesureIsolement();
+            $val = 1;
+        }
+        $formMesureIsolement = $this->createForm(MesureIsolementType::class, $mesureIsolement);
+        $form = $this->createForm(LMesureIsolementType::class, $lmesureIsolement);
+        $formMesureIsolement->handleRequest($request);
+        $form->handleRequest($request);
+
+        $session = $request->getSession();
+        $tables = $session->get('mesures', []);
+
+        if($formMesureIsolement->isSubmitted() && $form->isSubmitted())
+        {
+            $choix = $request->get('bouton7');
+            if($choix == 'mesure_isolement_en_cours')
+            {
+                $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureIsolement = new LMesureIsolement();
+                    $lmesureIsolement->setLig($i);
+                    $lmesureIsolement->setControle($item->getControle());
+                    $lmesureIsolement->setCritere($item->getCritere());
+                    $lmesureIsolement->setTension($item->getTension());
+                    $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setConformite($item->getConformite());
+                    $lmesureIsolement->setMesureIsolement($mesureIsolement);
+                    $em->persist($lmesureIsolement);
+                }
+                $parametre->setMesureIsolement($mesureIsolement);
+                $mesureIsolement->setEtat(0);
+                $mesureIsolementRepository->save($mesureIsolement, true);
+                $session->clear();
+                $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'mesure_isolement_terminer')
+            {
+                $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureIsolement = new LMesureIsolement();
+                    $lmesureIsolement->setLig($i);
+                    $lmesureIsolement->setControle($item->getControle());
+                    $lmesureIsolement->setCritere($item->getCritere());
+                    $lmesureIsolement->setTension($item->getTension());
+                    $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setConformite($item->getConformite());
+                    $lmesureIsolement->setMesureIsolement($mesureIsolement);
+                    $em->persist($lmesureIsolement);
+                }
+                $parametre->setMesureIsolement($mesureIsolement);
+                $mesureIsolement->setEtat(1);
+                $mesureIsolementRepository->save($mesureIsolement, true);
+                $session->clear();
+                $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'ajouter')
+            {
+                $lig = sizeof($tables)+1;
+                $lmesureIsolement->setLig($lig);
+                $tables[$lig] = $lmesureIsolement;
+                $session->set('mesures', $tables);
+            }
+        } 
+
+        //6
+        return $this->render('expertise_electrique_avant_lavage/mesure_isolement.html.twig', [
+            'parametre' => $parametre,
+            'formMesureIsolement' => $formMesureIsolement->createView(),
+            'form'=>$form->createView(),
+            'items' => $tables,
+            'val' => $val
+        ]);
+    }
+
+   //création de mesure d'resistance
+   #[Route('/mesure/resistance/{id}', name: 'app_mesure_resistance', methods: ['POST', 'GET'])]
+   public function mesureResistance(Parametre $parametre,Request $request,MesureResistanceRepository $mesureResistanceRepository,EntityManagerInterface $em): Response
+   {
+        //Mesure de resistance
+        $mesureResistance = new MesureResistance();
+        if($parametre->getMesureResistance()){
+            $mesureResistance = $parametre->getMesureResistance()->getParametre()->getMesureResistance();
+        }
+        $formMesureResistance = $this->createForm(MesureResistanceType::class, $mesureResistance);
+        $formMesureResistance->handleRequest($request);
+        if($formMesureResistance->isSubmitted() && $formMesureResistance->isValid()){
+            $choix = $request->get('bouton8');
+            if($choix == 'mesure_resistance_en_cours')
+            {
+                $parametre->setMesureResistance($mesureResistance);
+                $mesureResistance->setEtat(0);
+                $mesureResistanceRepository->save($mesureResistance, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'mesure_resistance_terminer')
+            {
+                $parametre->setMesureResistance($mesureResistance);
+                $mesureResistance->setEtat(1);
+                $mesureResistanceRepository->save($mesureResistance, true);
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+       //6
+       return $this->render('expertise_electrique_avant_lavage/mesure_resistance.html.twig', [
+           'parametre' => $parametre,
+           'formMesureResistance' => $formMesureResistance->createView(),
+       ]);
+   }
+
+    //création de mesure d'resistance
+    #[Route('/point/fonctionnement/{id}', name: 'app_point_fonctionnement', methods: ['POST', 'GET'])]
+    public function pointFonctionnement(Parametre $parametre,Request $request,EntityManagerInterface $em): Response
+    {
+            //la partie point de fonctionnement
         $pointFonctionnement = new PointFonctionnement();
 
         $formPointFonctionnement = $this->createForm(PointFonctionnementType::class, $pointFonctionnement);
         $formPointFonctionnement->handleRequest($request);
         if($formPointFonctionnement->isSubmitted() && $formPointFonctionnement->isValid())
         {
-
             $choix = $request->get('bouton9');
             if($choix == 'ajouter')
             {
@@ -398,62 +490,65 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         $pointFonctionnement->setCoa(strval($item[12]));
                         $pointFonctionnement->setObservation($item[13]);
                         $pointFonctionnement->setParametre($parametre);
-                    
+                        
                         $em->persist($pointFonctionnement);
                     }
                 }
 
-                $em->flush();
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            }
-        }
-
-        //la partie constat electrique avant lavage
-        $constatElectrique = new ConstatElectrique();
-
-        $formConstatElectrique = $this->createForm(ConstatElectriqueType::class, $constatElectrique);
-        $formConstatElectrique->handleRequest($request);
-        if($formConstatElectrique->isSubmitted() && $formConstatElectrique->isValid())
-        {
-            $choix = $request->get('bouton10');
-            if($choix == 'ajouter')
-            {
-                $image = $formConstatElectrique->get('photo')->getData();
-                if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_constat_electrique'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
-                }           
-                $constatElectrique->setPhoto($newPhotoname);
-                $constatElectrique->setParametre($parametre);
-                $constatElectrique->setEtat(1);
-                $constatElectriqueRepository->save($constatElectrique, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            $em->flush();
+                return $this->redirectToRoute('app_point_fonctionnement', ['id' => $parametre->getId()]);
             }
         }
 
         //6
-        return $this->render('expertise_electrique_avant_lavage/index.html.twig', [
+        return $this->render('expertise_electrique_avant_lavage/point_fonctionnement.html.twig', [
             'parametre' => $parametre,
-            'formControleVisuelElectique' => $formControleVisuelElectique->createView(),
-            'formMesureVibratoire'=> $formMesureVibratoire->createView(),
-            'formControleBobinage' => $formControleBobinage->createView(),
-            'formAutreControle' => $formAutreControle->createView(),
-            'formPhoto' => $formPhoto->createView(),
-            'formAppareilMesure' => $formAppareilMesure->createView(),
-            'formMesureIsolement' => $formMesureIsolement->createView(),
-            'formMesureResistance' => $formMesureResistance->createView(),
             'formPointFonctionnement' => $formPointFonctionnement->createView(),
-            'formConstatElectrique' => $formConstatElectrique->createView(),
-            'val' => $val
         ]);
     }
+
+    //création de mesure vibratoire
+    #[Route('/mesure/vibratoire/{id}', name: 'app_mesure_vibratoire', methods: ['POST', 'GET'])]
+    public function mesureVibratoire(Parametre $parametre,Request $request,MesureVibratoireRepository $mesureVibratoireRepository): Response
+    {
+         
+        //la partie du mesures vibratoires
+        $mesureVibratoire = new MesureVibratoire();
+        if($parametre->getMesureVibratoire()){
+            $mesureVibratoire = $parametre->getMesureVibratoire()->getParametre()->getMesureVibratoire();
+        }
+
+        $formMesureVibratoire = $this->createForm(MesureVibratoireType::class, $mesureVibratoire);
+        $formMesureVibratoire->handleRequest($request);
+        if($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid())
+        {
+            $choix = $request->get('bouton2');
+            if($choix == 'mesure_vibratoire_en_cours')
+            {
+                $parametre->setMesureVibratoire($mesureVibratoire);
+                $mesureVibratoire->setEtat(0);
+                $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $this->redirectToRoute('app_mesure_vibratoire', ['id' => $parametre->getId()]);
+
+            }
+            elseif($choix == 'mesure_vibratoire_terminer')
+            {
+                $parametre->setMesureVibratoire($mesureVibratoire);
+                $mesureVibratoire->setEtat(1);
+                $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $this->redirectToRoute('app_mesure_vibratoire', ['id' => $parametre->getId()]);
+            }
+        }
+
+          
+         //6
+        return $this->render('expertise_electrique_avant_lavage/mesure_vibratoire.html.twig', [
+             'parametre' => $parametre,
+             'formMesureVibratoire'=> $formMesureVibratoire->createView(),
+         ]);
+     }
+
+
 
     //la fonction qui supprime une photo une fois ajouter
     #[Route('photo/{id}', name: 'delete_photo', methods: ['GET'])]
@@ -483,19 +578,19 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $id = $pointFonctionnement->getParametre()->getId();
         if($pointFonctionnement){
         $pointFonctionnementRepository->remove($pointFonctionnement, true);
-        return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+        return $this->redirectToRoute('app_point_fonctionnement', [
             'id' => $id
         ], Response::HTTP_SEE_OTHER);
 
         }else{
-            return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+            return $this->redirectToRoute('app_point_fonctionnement', [
                 'id' => $id
             ], Response::HTTP_SEE_OTHER);
         } 
         
     }
 
-    //la fonction qui supprime un point de fonctionnement
+    //la fonction qui supprime constat électrique
     #[Route('constat/{id}/electrique', name: 'delete_constat_electrique', methods: ['GET'])]
     public function deleteConstat(ConstatElectrique $constatElectrique,ConstatElectriqueRepository $constatElectriqueRepository): Response
     {
@@ -526,4 +621,20 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
             } 
     }
+
+    //delete session tables mesures isolement
+    #[Route('/delete/{id}/{paramID}', name: 'delete_mesure')]
+    public function supprimeSession($id,$paramID,Request $request)
+    {
+        $session = $request->getSession();
+        $tables = $session->get('mesures', []);
+        if (array_key_exists($id, $tables))
+        {
+            unset($tables[$id]);
+            $session->set('mesures',$tables);
+        }
+        return $this->redirectToRoute('app_mesure_isolement',['id' => $paramID]); 
+    } 
+
+    //delete tables mesures isolement
 }
