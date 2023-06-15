@@ -6,9 +6,12 @@ use TCPDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\Affaire;
+use App\Entity\Critere;
 use App\Entity\Parametre;
 use App\Form\ParametreType;
+use App\Repository\CritereRepository;
 use App\Repository\ParametreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,12 +29,22 @@ class ParametreController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,Affaire $affaire, ParametreRepository $parametreRepository): Response
+    public function new(Request $request,Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository): Response
     {
         $parametre = new Parametre();
         $form = $this->createForm(ParametreType::class, $parametre);
         $form->handleRequest($request);
 
+        $criteres = $critereRepository->findAll();
+        $critere = 0;
+        foreach ($criteres as $item)
+        {
+            if ($item->isEtat() == 1)
+            {
+                $critere = $item->getMontant();
+            }
+        }
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $parametre->setAffaire($affaire);
             $parametreRepository->save($parametre, true);
@@ -44,7 +57,8 @@ class ParametreController extends AbstractController
         return $this->renderForm('parametre/new.html.twig', [
             'parametre' => $parametre,
             'form' => $form,
-            'affaire' => $affaire
+            'affaire' => $affaire,
+            'critere' => $critere,
         ]);
     }
 
@@ -156,5 +170,19 @@ class ParametreController extends AbstractController
         */
     
 
+    }
+
+    #[Route('/reunion-validation/{id}', name: 'app_parametre_valided', methods: ['GET'])]
+    public function reunion(Request $request, Parametre $parametre, ParametreRepository $parametreRepository, EntityManagerInterface $em): Response
+    {
+        $id = $parametre->getAffaire()->getId();
+        if ($parametre) {
+            $parametre->setEtat(1);
+            $em->persist($parametre);
+            $em->flush();
+        }
+        return $this->redirectToRoute('app_affaire_show', [
+            'id' => $id
+        ], Response::HTTP_SEE_OTHER);
     }
 }

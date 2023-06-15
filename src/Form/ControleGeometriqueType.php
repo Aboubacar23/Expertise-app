@@ -57,7 +57,12 @@ class ControleGeometriqueType extends AbstractType
             ->add('tolerie_c2')
             ->add('tolerie_c3')
             ->add('tolerie_c4')
-            ->add('conformite_c')
+            ->add('conformite_c', ChoiceType::class, [
+                'choices' => [
+                    'Conforme' => 'Conforme',
+                    'Non Conforme' => 'Non Conforme'
+                ]
+            ])
             ->add('tolerie_d1')
             ->add('tolerie_d2')
             ->add('tolerie_d3')

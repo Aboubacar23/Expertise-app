@@ -64,6 +64,7 @@ class ParametreType extends AbstractType
             ])
             ->add('rotor_courant')
             ->add('presence_plans')
+            ->add('critere')
             ->add('type', EntityType::class, [
                 //'mapped' => false,
                 'class' => Type::class,

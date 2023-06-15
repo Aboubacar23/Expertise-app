@@ -190,6 +190,12 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?bool $statut_final = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $critere = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $etat = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1119,6 +1125,30 @@ class Parametre
     public function setStatutFinal(?bool $statut_final): self
     {
         $this->statut_final = $statut_final;
+
+        return $this;
+    }
+
+    public function getCritere(): ?float
+    {
+        return $this->critere;
+    }
+
+    public function setCritere(?float $critere): self
+    {
+        $this->critere = $critere;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

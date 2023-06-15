@@ -32,7 +32,6 @@
                             <th>Affaire suivie par</th>
                             <th>Date prévisionnelle de livraison</th>
                             <th width="40" class="text-center">Jour Restant</th>
-                            <th width="70" class="text-center">Etat</th>
                             <th width="100" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -64,7 +63,6 @@
                                     <span class="text-warning">0</span>
                                 {% endif %}
                                 </td>
-                                <td><a class="btn btn-danger text-white btn-sm">{{ affaire.etat ? 'Yes' : 'En cours' }}</a></td>
                                 <td>
                                     <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-info btn-sm">Continuer<i class="fa fa-eye p-1"></i></a>
                                 </td>

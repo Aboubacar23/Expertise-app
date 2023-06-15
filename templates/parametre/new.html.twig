@@ -35,6 +35,8 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Type Machine <span class="required text-danger">*</span></label>
                             <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type_machine) }}</div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Critère<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.critere, { value : critere }) }}</div>
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Puissance(kW)<span class="required text-danger">*</span></label>
@@ -77,47 +79,47 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-md-6">
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <h2>Stator</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <br />
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_tension) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_courant) }}
-                                    </div>
+                    <div class="col-md-6">
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <h2>Stator</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_frequence) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_couplage) }}
-                                    </div>
-                            </div>
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.date_arrivee) }}
-                                    </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(kV)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_tension) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_courant) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_frequence) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_couplage) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.date_arrivee) }}
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
+                    <div class="col-md-6">
                     <div class="x_panel"> 
                         <div class="x_title">
                             <h2>Rotor</h2>

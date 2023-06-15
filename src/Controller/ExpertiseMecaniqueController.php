@@ -49,20 +49,14 @@ class ExpertiseMecaniqueController extends AbstractController
 
 
     #[Route('/index/{id}/mecanique', name: 'app_expertise_mecanique')]
-    public function index(
-        SluggerInterface $slugger,
-        Parametre $parametre, Request $request,
-        ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,
-        AccessoireSupplementaireRepository $accessoireSupplementaireRepository,
-        ControleMontageRoulementRepository $controleMontageRoulementRepository,
-        ControleMontageConssinetRepository $controleMontageConssinetRepository,
-        ControleGeometriqueRepository $controleGeometriqueRepository,
-        AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,
-        HydroAeroRepository $hyroleRepository,
-        PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository,
-        ConstatMecaniqueRepository $constatMecaniqueRepository,
-        ReleveDimmensionnelRepository $releveDimmensionnelRepository
-        ): Response
+    public function index(Parametre $parametre, Request $request,): Response
+    {
+        return $this->render('expertise_mecanique/index.html.twig', ['parametre' => $parametre,]);
+    }
+
+    //controle visuel et recensement
+    #[Route('/controle-visuel/{id}', name: 'app_controle_visuel_mecanique')]
+    public function consoleVisuel(AccessoireSupplementaireRepository $accessoireSupplementaireRepository,Parametre $parametre, Request $request,ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
         //la partie controle visuel Mecanique
         $controleVisuelMecanique = new ControleVisuelMecanique();
@@ -115,6 +109,20 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        return $this->render('expertise_mecanique/controle_visuel.html.twig', [
+            'parametre' => $parametre,
+            'formAccessoire' => $formAccessoire->createView(),
+            'controleVisuelMecanique' => $controleVisuelMecanique,
+            'formControlevisuelMecanque' => $formControlevisuelMecanque->createView(),
+            'accessoires' => $tables,
+            
+        ]);
+    }
+
+     //controle montage de roulement
+    #[Route('/controle-montage-roulement/{id}', name: 'app_controle_montage_roulement')]
+    public function consoleMontage(ControleMontageRoulementRepository $controleMontageRoulementRepository,Parametre $parametre, Request $request,ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
+    {
         //la partie controle montage roulement
         $controleMontageRoulement = new ControleMontageRoulement();
         if($parametre->getControleMontageRoulement()){
@@ -131,17 +139,28 @@ class ExpertiseMecaniqueController extends AbstractController
                 $parametre->setControleMontageRoulement($controleMontageRoulement);
                 $controleMontageRoulement->setEtat(0);
                 $controleMontageRoulementRepository->save($controleMontageRoulement, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_controle_montage_roulement', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'controle_montage_roulement_terminer')
             {         
                  $parametre->setControleMontageRoulement($controleMontageRoulement);
                  $controleMontageRoulement->setEtat(1);
                  $controleMontageRoulementRepository->save($controleMontageRoulement, true);
-                 $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                 $this->redirectToRoute('app_controle_montage_roulement', ['id' => $parametre->getId()]);
             }
         }
 
+         return $this->render('expertise_mecanique/controle_montage_roulement.html.twig', [
+             'parametre' => $parametre,
+             'formControlMontageRoulement' => $formControlMontageRoulement->createView()
+             
+         ]);
+    }
+
+    //controle montage de coussinet
+    #[Route('/controle-montage-coussinet/{id}', name: 'app_controle_montage_coussinet')]
+    public function consoleMontageCoussinet(ControleMontageConssinetRepository $controleMontageConssinetRepository,Parametre $parametre, Request $request): Response
+    {
         //la partie controle montage coussinet
         $controleMontageCoussinet = new ControleMontageConssinet();
         if($parametre->getControleMontageCoussinet()){
@@ -158,44 +177,96 @@ class ExpertiseMecaniqueController extends AbstractController
                 $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                 $controleMontageCoussinet->setEtat(0);
                 $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_controle_montage_coussinet', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'controle_montage_coussinet_terminer')
             {         
                     $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                     $controleMontageCoussinet->setEtat(1);
                     $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
-                    $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                    $this->redirectToRoute('app_controle_montage_coussinet', ['id' => $parametre->getId()]);
             }
         }
 
-         //la partie controle geometrique
-         $controleGeometrique = new ControleGeometrique();
-         if($parametre->getControleGeometrique()){
-             $controleGeometrique = $parametre->getControleGeometrique()->getParametre()->getControleGeometrique();
-         }
- 
-         $formControlGeometrique = $this->createForm(ControleGeometriqueType::class, $controleGeometrique);
-         $formControlGeometrique->handleRequest($request);
-         if($formControlGeometrique->isSubmitted() && $formControlGeometrique->isValid())
-         {
-             $choix = $request->get('bouton5');
-             if($choix == 'controle_geometrique_en_cours')
-             {
-                 $parametre->setControleGeometrique($controleGeometrique);
-                 $controleGeometrique->setEtat(0);
-                 $controleGeometriqueRepository->save($controleGeometrique, true);
-                 $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
-             }
-             elseif($choix == 'controle_geometrique_terminer')
-             {         
-                     $parametre->setControleGeometrique($controleGeometrique);
-                     $controleGeometrique->setEtat(1);
-                     $controleGeometriqueRepository->save($controleGeometrique, true);
-                     $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
-             }
-         }
+        return $this->render('expertise_mecanique/controle_montage_coussinet.html.twig', [
+            'parametre' => $parametre,
+            'formControlMontageCoussinet' => $formControlMontageCoussinet->createView(),
+            
+        ]);
+    }
 
+     //relevé dimensionnel
+    #[Route('/releve-dimensionnel/{id}', name: 'app_releve_dimensionnel')]
+    public function releveDimensionnel(ReleveDimmensionnelRepository $releveDimmensionnelRepository,Parametre $parametre, Request $request): Response
+    {
+        //la partie relevés dimmensionnel rotor et paliers
+        $releveDimmensionnel = new ReleveDimmensionnel();
+        $formReleveDimmensionnel = $this->createForm(ReleveDimmensionnelType::class, $releveDimmensionnel);
+        $formReleveDimmensionnel->handleRequest($request);
+        if($formReleveDimmensionnel->isSubmitted() && $formReleveDimmensionnel->isValid())
+        {
+            $choix = $request->get('bouton4');
+          //  dd($choix);
+            if($choix == 'ajouter')
+            {
+                $releveDimmensionnel->setParametre($parametre);
+                $releveDimmensionnelRepository->save($releveDimmensionnel, true);
+                $this->redirectToRoute('app_releve_dimensionnel', ['id' => $parametre->getId()]);
+            }
+        }
+
+ 
+         return $this->render('expertise_mecanique/releve_dimensionnels.html.twig', [
+             'parametre' => $parametre,
+             'formReleveDimmensionnel' => $formReleveDimmensionnel->createView()
+             
+         ]);
+    }
+
+
+    //relevé controle geometrique
+    #[Route('/controle-geometrique/{id}', name: 'app_controle_geometrique')]
+    public function controleGeometrique(ControleGeometriqueRepository $controleGeometriqueRepository,Parametre $parametre, Request $request): Response
+    {
+        
+    //la partie controle geometrique
+    $controleGeometrique = new ControleGeometrique();
+    if($parametre->getControleGeometrique()){
+        $controleGeometrique = $parametre->getControleGeometrique()->getParametre()->getControleGeometrique();
+    }
+
+    $formControlGeometrique = $this->createForm(ControleGeometriqueType::class, $controleGeometrique);
+    $formControlGeometrique->handleRequest($request);
+    if($formControlGeometrique->isSubmitted() && $formControlGeometrique->isValid())
+    {
+        $choix = $request->get('bouton5');
+        if($choix == 'controle_geometrique_en_cours')
+        {
+            $parametre->setControleGeometrique($controleGeometrique);
+            $controleGeometrique->setEtat(0);
+            $controleGeometriqueRepository->save($controleGeometrique, true);
+            $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
+        }
+        elseif($choix == 'controle_geometrique_terminer')
+        {         
+                $parametre->setControleGeometrique($controleGeometrique);
+                $controleGeometrique->setEtat(1);
+                $controleGeometriqueRepository->save($controleGeometrique, true);
+                $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
+        }
+    }
+
+    return $this->render('expertise_mecanique/controle_geometrique.html.twig', [
+        'parametre' => $parametre,
+        'formControlGeometrique' => $formControlGeometrique->createView(),
+        
+    ]);
+    }
+
+    //relevé appareil-mesure
+    #[Route('/appareil-mesure/{id}', name: 'app_appareil_mesure_mecanique')]
+    public function appareilMesure(AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,Parametre $parametre, Request $request): Response
+    {
         //la partie appareil de mesure
         $appareilMesureMecanique = new AppareilMesureMecanique();
 
@@ -214,11 +285,22 @@ class ExpertiseMecaniqueController extends AbstractController
                     $appareilMesureMecanique->setParametre($parametre);
                     $appareilMesureMecanique->setEtat(0);
                     $appareilMesureMecaniqueRepository->save($appareilMesureMecanique, true);
-                    $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                    $this->redirectToRoute('app_appareil_mesure_mecanique', ['id' => $parametre->getId()]);
                 }
             }
         }
+        
+        return $this->render('expertise_mecanique/appareil_mesure.html.twig', [
+            'parametre' => $parametre,
+            'formAppareilMesureMecanique' => $formAppareilMesureMecanique->createView(),
+            
+        ]);
+    }
 
+    //relevé Expertise Hydro ou Aéro
+    #[Route('/hydro-aero/{id}', name: 'app_hydro_aero')]
+    public function hydroAero(HydroAeroRepository $hydroAeroRepository,Parametre $parametre, Request $request): Response
+    {
         //la partie hydro Aéro
         $hydroAero = new HydroAero();
         if($parametre->getHydroAero())
@@ -235,18 +317,30 @@ class ExpertiseMecaniqueController extends AbstractController
             {
                 $parametre->setHydroAero($hydroAero);
                 $hydroAero->setEtat(0);
-                $hyroleRepository->save($hydroAero, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $hydroAeroRepository->save($hydroAero, true);
+                $this->redirectToRoute('app_hydro_aero', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'hydro_aero_terminer')
             {         
                 $parametre->setHydroAero($hydroAero);
                 $hydroAero->setEtat(1);
-                $hyroleRepository->save($hydroAero, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $hydroAeroRepository->save($hydroAero, true);
+                $this->redirectToRoute('app_hydro_aero', ['id' => $parametre->getId()]);
             }
         }
 
+        
+        return $this->render('expertise_mecanique/expertise_hydro_aero.html.twig', [
+            'parametre' => $parametre,
+            'formHydroAero' => $formHydroAero->createView(),
+        ]);
+    }
+
+     //relevé photos
+     #[Route('/photos/{id}', name: 'app_photos_mecanique')]
+     public function photo(PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository,SluggerInterface $slugger,Parametre $parametre, Request $request): Response
+    {
+        
         //la partie photo
         $photoExpertiseMecanique = new PhotoExpertiseMecanique();
 
@@ -274,10 +368,22 @@ class ExpertiseMecaniqueController extends AbstractController
                 $photoExpertiseMecanique->setParametre($parametre); 
                 $photoExpertiseMecanique->setImage($newPhotoname);
                 $photoExpertiseMecaniqueRepository->save($photoExpertiseMecanique, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
             }
         }
+   
+        return $this->render('expertise_mecanique/photo.html.twig', [
+             'parametre' => $parametre,
+             'formPhotoExpertiseMecanique' => $formPhotoExpertiseMecanique->createView(),
+         ]);
+    }
 
+    //relevé Constats Mécanique
+    #[Route('/constat-mecanique/{id}', name: 'app_constat_mecanique')]
+    public function constat(ConstatMecaniqueRepository $constatMecaniqueRepository,SluggerInterface $slugger,Parametre $parametre, Request $request): Response
+    {
+        
+       
         //la partie constat electrique
         $constatMecanique = new ConstatMecanique();
 
@@ -305,43 +411,14 @@ class ExpertiseMecaniqueController extends AbstractController
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
 
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
             }
         }
-
-        //la partie relevés dimmensionnel rotor et paliers
-        $releveDimmensionnel = new ReleveDimmensionnel();
-
-        $formReleveDimmensionnel = $this->createForm(ReleveDimmensionnelType::class, $releveDimmensionnel);
-        $formReleveDimmensionnel->handleRequest($request);
-        if($formReleveDimmensionnel->isSubmitted() && $formReleveDimmensionnel->isValid())
-        {
-            $choix = $request->get('bouton4');
-          //  dd($choix);
-            if($choix == 'ajouter')
-            {
-                $releveDimmensionnel->setParametre($parametre);
-                $releveDimmensionnelRepository->save($releveDimmensionnel, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
-            }
-        }
-
-
-        return $this->render('expertise_mecanique/index.html.twig', [
-            'parametre' => $parametre,
-            'formAccessoire' => $formAccessoire->createView(),
-            'formControlevisuelMecanque' => $formControlevisuelMecanque->createView(),
-            'formControlMontageRoulement' => $formControlMontageRoulement->createView(),
-            'formControlMontageCoussinet' => $formControlMontageCoussinet->createView(),
-            'formControlGeometrique' => $formControlGeometrique->createView(),
-            'accessoires' => $tables,
-            'controleVisuelMecanique' => $controleVisuelMecanique,
-            'formAppareilMesureMecanique' => $formAppareilMesureMecanique->createView(),
-            'formHydroAero' => $formHydroAero->createView(),
-            'formPhotoExpertiseMecanique' => $formPhotoExpertiseMecanique->createView(),
-            'formConstatMecanique' => $formConstatMecanique->createView(),
-            'formReleveDimmensionnel' => $formReleveDimmensionnel->createView()
-            
+       
+    
+        return $this->render('expertise_mecanique/constat.html.twig', [
+                'parametre' => $parametre,
+                'formConstatMecanique' => $formConstatMecanique->createView(),
         ]);
     }
 
@@ -358,7 +435,7 @@ class ExpertiseMecaniqueController extends AbstractController
     }
 
     //la fonction qui supprime une photo une fois ajouter
-    #[Route('photo/{id}/expertise', name: 'delete_photo_expertise_mecanique', methods: ['GET'])]
+    #[Route('/photo/{id}/expertise', name: 'delete_photo_expertise_mecanique', methods: ['GET'])]
     public function deletePhoto(PhotoExpertiseMecanique $photoExpertiseMecanique, PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository): Response
     {
         $id = $photoExpertiseMecanique->getParametre()->getId();
@@ -368,17 +445,17 @@ class ExpertiseMecaniqueController extends AbstractController
             unlink($this->getParameter('image_expertise_mecaniques').'/'.$nom);
             
             $photoExpertiseMecaniqueRepository->remove($photoExpertiseMecanique, true);
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_photos_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
 
         }
         else
         {
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_photos_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
     }
 
     //la fonction qui supprime le constat mécanique
-    #[Route('constat/{id}/mecanique', name: 'delete_constat_mecanique', methods: ['GET'])]
+    #[Route('/constat/{id}/mecanique', name: 'delete_constat_mecanique', methods: ['GET'])]
     public function deleteConstat(ConstatMecanique $constatMecanique,ConstatMecaniqueRepository $constatMecaniqueRepository): Response
     {
         $id = $constatMecanique->getParametre()->getId();
@@ -387,9 +464,9 @@ class ExpertiseMecaniqueController extends AbstractController
             $nom = $constatMecanique->getPhoto();
             unlink($this->getParameter('images_constat_mecanique').'/'.$nom);
             $constatMecaniqueRepository->remove($constatMecanique, true);
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_constat_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }else{
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_constat_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
         
     }
@@ -402,9 +479,9 @@ class ExpertiseMecaniqueController extends AbstractController
         if($releveDimmensionnel)
         {
             $releveDimmensionnelRepository->remove($releveDimmensionnel, true);
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_releve_dimensionnel', ['id' => $id], Response::HTTP_SEE_OTHER);
         }else{
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_releve_dimensionnel', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
         
     }

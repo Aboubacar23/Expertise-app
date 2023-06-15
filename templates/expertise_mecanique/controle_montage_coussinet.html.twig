@@ -1,0 +1,163 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Contrôle Montage Coussinet</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <!-- début contrôle montage roulements --> 
+                    <div class="x_content">
+                        {{ form_start(formControlMontageCoussinet) }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th class="text-center">1</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d1) }}</td>
+                                                <th class="text-center">3</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d3) }}</td>
+                                                <th class="text-center">5</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d5) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">2</th>
+                                                <td >{{ form_widget(formControlMontageCoussinet.d2) }}</td>
+                                                <th class="text-center">4</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d4) }}</td>
+                                                <th class="text-center">6</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d6) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th class="text-center">7</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d7) }}</td>
+                                                <th class="text-center">9</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d9) }}</td>
+                                                <th class="text-center">11</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d11) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">8</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d8) }}</td>
+                                                <th class="text-center">10</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d10) }}</td>
+                                                <th class="text-center">12</th>
+                                                <td>{{ form_widget(formControlMontageCoussinet.d12) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="item form-group">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" colspan="2">Côté accouplement</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th class="text-center">Avant (mm)</th>
+                                                    <th class="text-center">Arriére (mm)</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant1) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant2) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_avant3) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_arriere3) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr class="table-primary">
+                                                    <th class="text-center" colspan="2">Côté opposé accouplement</th>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th class="text-center">Avant (mm)</th>
+                                                    <th class="text-center">Arriére (mm)</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant1) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere1) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant2) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_avant3) }}</td>
+                                                    <td>{{ form_widget(formControlMontageCoussinet.accouplement_oppose_arriere3) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th></th>
+                                                <th  class="text-center">Natures des relevés</th>
+                                                <th class="text-center">Diamètre attendu (mm)</th>
+                                                <th class="text-center">Tolérance</th>
+                                                <th class="text-center">Moyenne des relevés (mm)</th>
+                                                <th class="text-center">Conformité</th>
+                                                <th class="text-center">Observation</th>
+                                            </tr>
+                                            <tr>
+                                                <td>CA</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_nature_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_diametre_attendu) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_tolerence) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_conformite) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_observation) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>COA</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_nature_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_diametre_attendu) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_tolerance) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_conformite) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_observation) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <button class="btn btn-secondary btn-sm" name="bouton3" value="controle_montage_coussinet_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" name="bouton3" value="controle_montage_coussinet_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        {{ form_end(formControlMontageCoussinet) }}
+                    </div>
+                <!-- fin contrôle montage roulements --> 
+
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

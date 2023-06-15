@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Expertise Hydro ou Aéro</h4></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    {{ form_start(formHydroAero) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th class="text-center">Nature du contrôle</th>
+                                            <th class="text-center">Conformité</th>
+                                            <th class="text-center">Préconisation</th>
+                                            <th class="text-center">Retenu</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Essais de presion à x Bars</td>
+                                            <td>{{ form_widget(formHydroAero.conformite1) }}</td>
+                                            <td>{{ form_widget(formHydroAero.preconisation1) }}</td>
+                                            <td>{{ form_widget(formHydroAero.retenu1) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contrôle visuel des ailettes</td>
+                                            <td>{{ form_widget(formHydroAero.conformite2) }}</td>
+                                            <td>{{ form_widget(formHydroAero.preconisation2) }}</td>
+                                            <td>{{ form_widget(formHydroAero.retenu2)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contrôle visuel des boites à eau</td>
+                                            <td>{{ form_widget(formHydroAero.conformite3) }}</td>
+                                            <td>{{ form_widget(formHydroAero.preconisation3) }}</td>
+                                            <td>{{ form_widget(formHydroAero.retenu3) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" colspan="4">Pression dépend des préconisation constructeurs</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th class="text-center">Nature du contrôle</th>
+                                            <th class="text-center">Conformité</th>
+                                            <th class="text-center">Préconisation</th>
+                                            <th class="text-center">Retenu</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Contrôle du dudgeonages des tubes</td>
+                                            <td>{{ form_widget(formHydroAero.conformite4) }}</td>
+                                            <td>{{ form_widget(formHydroAero.preconisation4) }}</td>
+                                            <td>{{ form_widget(formHydroAero.retenu4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contrôle visuel des tubes</td>
+                                            <td>{{ form_widget(formHydroAero.conformite5) }}</td>
+                                            <td>{{ form_widget(formHydroAero.preconisation5) }}</td>
+                                            <td>{{ form_widget(formHydroAero.retenu5) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton7" value="hydro_aero_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton7" value="hydro_aero_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formHydroAero) }}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

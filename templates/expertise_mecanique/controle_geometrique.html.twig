@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Contrôle géométrique du rotor</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    {{ form_start(formControlGeometrique) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                                            <th colspan="4" class="text-center">∅A</th>
+                                            <th colspan="4" class="text-center">∅B</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th></th>
+                                            <th colspan="4" class="text-center">(Bt.A Add.)</th>
+                                            <th colspan="4" class="text-center">Pivot</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Repères</th>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Faux-Rond</th>
+                                            <td>{{ form_widget(formControlGeometrique.add_1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.add_2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.add_3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.add_4) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_b1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_b2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_b3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_b4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Conformité</th>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_add) }}</td>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_b) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                                            <th colspan="4" class="text-center">∅E</th>
+                                            <th colspan="4" class="text-center">∅F</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th></th>
+                                            <th colspan="4" class="text-center">(Tôlerie)</th>
+                                            <th colspan="4" class="text-center">(Pivot)</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Repères</th>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Faux-Rond</th>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_e1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_e2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_e3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_e4) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_f1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_f2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_f3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.pivot_f4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Conformité</th>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_e) }}</td>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_f) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                                            <th colspan="4" class="text-center">∅C</th>
+                                            <th colspan="4" class="text-center">∅D</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th></th>
+                                            <th colspan="4" class="text-center">(Tôlerie)</th>
+                                            <th colspan="4" class="text-center">(Tôlerie)</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Repères</th>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Faux-Rond</th>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_c1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_c2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_c3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_c4) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_d1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_d2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_d3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.tolerie_d4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Conformité</th>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_c) }}</td>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_d) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                                            <th colspan="4" class="text-center">∅G</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th></th>
+                                            <th colspan="4" class="text-center">(Accouplement)</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Repères</th>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Faux-Rond</th>
+                                            <td>{{ form_widget(formControlGeometrique.accouplement_g1) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.accouplement_g2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.accouplement_g3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.accouplement_g4) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center table-primary">Conformité</th>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_g) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton5" value="controle_geometrique_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton5" value="controle_geometrique_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formControlGeometrique) }}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

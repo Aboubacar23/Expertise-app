@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Contrôle montage roulement</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <!-- début contrôle montage roulements --> 
+                    <div class="x_content">
+                        {{ form_start(formControlMontageRoulement) }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th></th>
+                                                <th class="text-center">Roulements à la réception</th>
+                                                <th class="text-center">Montage prévu selon CST</th>
+                                                <th class="text-center" width="100">Kit à Prévoir</th>
+                                            </tr>
+                                            <tr>
+                                                <td width="3%">CA</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.ca_roulement) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.ca_montage) }}</td>
+                                                <td class="p-0">{{ form_row(formControlMontageRoulement.ca_kit) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="3%">COA</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.coa_roulement) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.coa_montage) }}</td>
+                                                <td class="p-0">{{ form_widget(formControlMontageRoulement.coa_kit) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th width="3%">Rep</th>
+                                                <th class="text-center" width="200">Désignation piéces</th>
+                                                <th class="text-center">Côté CA</th>
+                                                <th class="text-center">Côté COA</th>
+                                            </tr>
+                                            <tr>
+                                                <td>A</td>
+                                                <td>Moyeu palier</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_a) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_a) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>B</td>
+                                                <td>Emboitage C-Rit extérieur</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_b) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_b) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>C</td>
+                                                <td>Roulement</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_c) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_c) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>D</td>
+                                                <td>Emboitage C-Rit intérieur</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_d) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_d) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>2 rondelles isolantes</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_vide1) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_vide1) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jeu</td>
+                                                <td>J = A - (B+C+D+Soupape)</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_jeu) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_jeu) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>Graisse</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_vide2) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_vide2) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <button class="btn btn-secondary btn-sm" name="bouton2" value="controle_montage_roulement_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" name="bouton2" value="controle_montage_roulement_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        {{ form_end(formControlMontageRoulement) }}
+                    </div>
+                <!-- fin contrôle montage roulements --> 
+
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

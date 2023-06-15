@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Contrôle visuel et recensement</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <!-- début Relevès dimensionnels rotor et palier --> 
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_start(formReleveDimmensionnel) }}
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th  class="text-center">Désignation diamètre</th>
+                                                <th class="text-center">côte attendue (mm)</th>
+                                                <th class="text-center">Tolérance</th>
+                                                <th class="text-center">Côte relevée</th>
+                                                <th class="text-center">Conformité</th>
+                                                <th class="text-center">Type</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ form_widget(formReleveDimmensionnel.designation) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.cote_attendue) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.tolerance) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.cote_relevee) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.conformite) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.type) }}</td>
+                                                <td width="100"><button class="btn btn-primary btn-sm" name="bouton4" value="ajouter"> Ajouter</button></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                {{ form_end(formReleveDimmensionnel) }}
+                                {% if parametre.releveDimmensionnels %}
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th  class="text-center">Désignation diamètre</th>
+                                                <th class="text-center">côte attendue (mm)</th>
+                                                <th class="text-center">Tolérance</th>
+                                                <th class="text-center">Côte relevée</th>
+                                                <th class="text-center">Conformité</th>
+                                                <th width="50"></th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6" class="text-center table-primary">Côté accouplement</th>
+                                            </tr>
+                                            {% for item in parametre.releveDimmensionnels %}
+                                                {% if item.type == 'Côté accoupplement' %}
+                                                    <tr>
+                                                        <td>{{item.designation}}</td>
+                                                        <td>{{item.coteAttendue}}</td>
+                                                        <td>{{item.tolerance}}</td>
+                                                        <td>{{item.coteRelevee}}</td>
+                                                        <td>{{item.conformite}}</td>                                                
+                                                        <td class="text-center"><a href="{{path('delete_releve_dimmensionnel', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+
+                                                    </tr>                                                         
+                                                {% endif %}                                                   
+                                            {% endfor %}
+                                            <tr>
+                                                <th colspan="6" class="text-center table-primary">Côté opposé accouplement</th>
+                                            </tr>
+                                            {% for item in parametre.releveDimmensionnels %}
+                                                {% if item.type == 'Côté opposé accoupplement' %}
+                                                    <tr>
+                                                        <td>{{item.designation}}</td>
+                                                        <td>{{item.coteAttendue}}</td>
+                                                        <td>{{item.tolerance}}</td>
+                                                        <td>{{item.coteRelevee}}</td>
+                                                        <td>{{item.conformite}}</td>
+                                                        <td class="text-center"><a href="{{path('delete_releve_dimmensionnel', {'id' : item.id })}}"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                                    </tr>                                                         
+                                                {% endif %}                                                   
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- fin Relevès dimensionnels rotor et palier -->
+
+
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

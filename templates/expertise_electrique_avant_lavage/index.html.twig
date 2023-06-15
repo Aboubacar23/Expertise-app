@@ -54,7 +54,7 @@
                     <div class="x_title">
                         <div class="row">
                             <div class="col-md-4">
-                                <h2><a href="{{path('app_controle_visuel_recensement', {'id' : parametre.id })}}" class="btn btn-primary" target="_blank">Contrôle visuel et recensement</a></h2>
+                                <h2>Contrôle visuel et recensement</h2>
                             </div>
                             <div class="col-md-4 text-center">
                                 {% if parametre.controleVisuelElectrique == null %}
@@ -67,7 +67,10 @@
                                     {% endif %}
                                 {% endif %}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2 text-right">
+                                <a class="btn btn-primary" href="{{path('app_controle_visuel_recensement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                            </div>
+                            <div class="col-md-2">
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>                                                
@@ -173,7 +176,7 @@
                             <div class="x_title">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h2><a href="{{path('app_mesure_isolement', {'id' : parametre.id })}}" class="btn btn-primary" target="_blank">Mesure d'isolement</a></h2>
+                                        <h2>Mesure d'isolement</h2>
                                     </div>
                                     <div class="col-md-4 text-center">
                                         {% if parametre.mesureIsolement == null %}
@@ -186,7 +189,10 @@
                                             {% endif %}
                                         {% endif %}
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2 text-right">
+                                        <a class="btn btn-primary" href="{{path('app_mesure_isolement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    </div>
+                                    <div class="col-md-2">
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="true" href="#collapse2_1"><i class="fa fa-chevron-up"></i></a></li>
                                         </ul>                                                
@@ -246,101 +252,110 @@
                 <!-- fin Mesure d'isolement -->
                 
                 <!-- début Mesure de resistance -->
-                <div class="x_panel"> 
-                    <div class="x_title">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h2><a href="{{path('app_mesure_resistance', {'id' : parametre.id })}}" class="btn btn-primary" target="_blank">Mesure Resistance</a></h2>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                {% if parametre.mesureResistance == null %}
-                                    <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                {% else %}
-                                    {% if parametre.mesureResistance.etat == 1 %}
-                                        <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesure Resistance</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureResistance == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% else %}
-                                        <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% if parametre.mesureResistance.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_mesure_resistance', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>                                                
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="x_content collapse" id="collapse2">
+                            {% if parametre.mesureResistance %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-primary">
+                                            <th colspan="6" class="text-center">Mesures des résistances Ohmiques</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th colspan="2" class="text-center">Paramètres</th>
+                                            <th>Contrôle</th>
+                                            <th>Critère</th>
+                                            <th  width="10%" class="text-center">Valeur relevées en  MΩ</th>
+                                            <th  width="10%" class="text-center">Conformité</th>
+                                        </tr>
+                                        <tr>
+                                            <td>T° Ambiante (°C)</td>
+                                            <td>{{ parametre.mesureResistance.tempAmbiante }}</td>
+                                            <td>R Ohmique phase U</td>
+                                            <td rowspan="3">±5%</td>
+                                            <td>{{ parametre.mesureResistance.valeur1 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>T° Tôlerie (°C)</td>
+                                            <td>{{ parametre.mesureResistance.tempTolerie }}</td>
+                                            <td>R Ohmique phase V</td>
+                                            <td>{{ parametre.mesureResistance.valeur2 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hygrométrie (%)</td>
+                                            <td>{{ parametre.mesureResistance.hygrometrie }}</td>
+                                            <td>R Ohmique phase W</td>
+                                            <td>{{ parametre.mesureResistance.valeur3 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3">Date d'essai</td>
+                                            <td rowspan="3">{{ parametre.mesureResistance.dateEssais ?  parametre.mesureResistance.dateEssais|date('d-m-Y') }}</td>
+                                            <td>R Ohmique sonde ph. U</td>
+                                            <td>100 Ω à 0 °C</td>
+                                            <td>{{ parametre.mesureResistance.valeur4 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. V</td>
+                                            <td>101 Ω à 0 °C</td>
+                                            <td>{{ parametre.mesureResistance.valeur5 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite5 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R Ohmique sonde ph. W</td>
+                                            <td>102 Ω à 0 °C</td>
+                                            <td>{{ parametre.mesureResistance.valeur6 }}</td>
+                                            <td>{{ parametre.mesureResistance.conformite6 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div> 
-                    <div class="x_content collapse" id="collapse2">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered table-striped">
-                                    <tr class="table-primary">
-                                        <th colspan="6" class="text-center">Mesures des résistances Ohmiques</th>
-                                    </tr>
-                                    <tr class="table-primary">
-                                        <th colspan="2" class="text-center">Paramètres</th>
-                                        <th>Contrôle</th>
-                                        <th>Critère</th>
-                                        <th  width="10%" class="text-center">Valeur relevées en  MΩ</th>
-                                        <th  width="10%" class="text-center">Conformité</th>
-                                    </tr>
-                                    <tr>
-                                        <td>T° Ambiante (°C)</td>
-                                        <td>{{ parametre.mesureResistance.tempAmbiante }}</td>
-                                        <td>R Ohmique phase U</td>
-                                        <td rowspan="3">±5%</td>
-                                        <td>{{ parametre.mesureResistance.valeur1 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite1 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>T° Tôlerie (°C)</td>
-                                        <td>{{ parametre.mesureResistance.tempTolerie }}</td>
-                                        <td>R Ohmique phase V</td>
-                                        <td>{{ parametre.mesureResistance.valeur2 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hygrométrie (%)</td>
-                                        <td>{{ parametre.mesureResistance.hygrometrie }}</td>
-                                        <td>R Ohmique phase W</td>
-                                        <td>{{ parametre.mesureResistance.valeur3 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite3 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="3">Date d'essai</td>
-                                        <td rowspan="3">{{ parametre.mesureResistance.dateEssais ?  parametre.mesureResistance.dateEssais|date('d-m-Y') }}</td>
-                                        <td>R Ohmique sonde ph. U</td>
-                                        <td>100 Ω à 0 °C</td>
-                                        <td>{{ parametre.mesureResistance.valeur4 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite4 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>R Ohmique sonde ph. V</td>
-                                        <td>101 Ω à 0 °C</td>
-                                        <td>{{ parametre.mesureResistance.valeur5 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite5 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>R Ohmique sonde ph. W</td>
-                                        <td>102 Ω à 0 °C</td>
-                                        <td>{{ parametre.mesureResistance.valeur6 }}</td>
-                                        <td>{{ parametre.mesureResistance.conformite6 }}</td>
-                                    </tr>
-                                </table>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
                 <!-- fin Mesure de resistance -->
-            
+             
                 <!-- début Point de fonctionnement à vide -->
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h2><a href="{{path('app_point_fonctionnement', {'id' : parametre.id })}}" class="btn btn-primary" target="_blank">Point de fonctionnement à vide</a></h2>                                </div>  
-                                <div class="col-md-6">
+                                <div class="col-md-8">
+                                    <h2>Point de fonctionnement à vide</h2> 
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_point_fonctionnement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2_3"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -407,249 +422,233 @@
                 <!-- fin Point de fonctionnement à vide -->
 
                 <!-- début Mesures vibratoires -->
-                <div class="x_panel"> 
-                    <div class="x_title">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h2><a href="{{path('app_mesure_vibratoire', {'id' : parametre.id })}}" class="btn btn-primary" target="_blank">Mesures vibratoires</a></h2>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                {% if parametre.mesureVibratoire == null %}
-                                    <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                {% else %}
-                                    {% if parametre.mesureVibratoire.etat == 1 %}
-                                        <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesures vibratoires</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureVibratoire == null %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% else %}
-                                        <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% if parametre.mesureVibratoire.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_mesure_vibratoire', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>                                                
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse3">
+                            {% if parametre.mesureVibratoire %}
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr class="table-primary text-center">
+                                        <th colspan="5">Mesures Vibratoires</th>
+                                    </tr>
+                                    <tr class="table-primary text-center">
+                                        <th>Position</th>
+                                        <th>Montage</th>
+                                        <th>Accouplement</th>
+                                        <th>Clavette</th>
+                                        <th>Commentaire</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ parametre.mesureVibratoire.position}}</td>
+                                        <td>{{ parametre.mesureVibratoire.montage}}</td>
+                                        <td>{{ parametre.mesureVibratoire.accouplement}}</td>
+                                        <td>{{ parametre.mesureVibratoire.clavette}}</td>
+                                        <td>{{ parametre.mesureVibratoire.commentaire}}</td>
+                                    </tr>
+                                </table>
+                                <table class="table table-bordered">
+                                    <tr class="table-primary">
+                                        <th>Critère acceptation max 25mm/s</th>
+                                        <th>N (tr/min)</th>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>C</th>
+                                        <th>D</th>
+                                        <th>E</th>
+                                        <th>F</th>
+                                    </tr>
+                                    <tr>
+                                        <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                        <td>{{ parametre.mesureVibratoire.n10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.a10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.b10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.c10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.d10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.e10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.f10 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>R.M.S à F0 à 25 Hz(mm/s)</td>
+                                        <td>{{ parametre.mesureVibratoire.n25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.a25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.b25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.c25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.d25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.e25 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.f25 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Observations</td>
+                                        <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content collapse" id="collapse3">
-                        <div class="row">
-                            <table class="table table-bordered">
-                                <tr class="table-primary text-center">
-                                    <th colspan="5">Mesures Vibratoires</th>
-                                </tr>
-                                <tr class="table-primary text-center">
-                                    <th>Position</th>
-                                    <th>Montage</th>
-                                    <th>Accouplement</th>
-                                    <th>Clavette</th>
-                                    <th>Commentaire</th>
-                                </tr>
-                                <tr>
-                                    <td>{{ parametre.mesureVibratoire.position}}</td>
-                                    <td>{{ parametre.mesureVibratoire.montage}}</td>
-                                    <td>{{ parametre.mesureVibratoire.accouplement}}</td>
-                                    <td>{{ parametre.mesureVibratoire.clavette}}</td>
-                                    <td>{{ parametre.mesureVibratoire.commentaire}}</td>
-                                </tr>
-                            </table>
-
-                            <table class="table table-bordered">
-                                <tr class="table-primary">
-                                    <th>Critère acceptation max 25mm/s</th>
-                                    <th>N (tr/min)</th>
-                                    <th>A</th>
-                                    <th>B</th>
-                                    <th>C</th>
-                                    <th>D</th>
-                                    <th>E</th>
-                                    <th>F</th>
-                                </tr>
-                                <tr>
-                                    <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                                    <td>{{ parametre.mesureVibratoire.n10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.a10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.b10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.c10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.d10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.e10 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.f10 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>R.M.S à F0 à 25 Hz(mm/s)</td>
-                                    <td>{{ parametre.mesureVibratoire.n25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.a25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.b25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.c25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.d25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.e25 }}</td>
-                                    <td>{{ parametre.mesureVibratoire.f25 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Observations</td>
-                                    <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
-                                </tr>
-                            </table>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
                 <!-- fin Mesures vibratoires -->
 
                 <!-- début Appareils de mesure utilisés -->
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <h2>Appareils de mesure utilisés</h2>
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_appareil_mesure', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
                                 </div>
                             </div>
-                            <div class="row">
-                                {% for flash_message in app.session.flashbag.get('message') %}
-                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
-                                        {{ flash_message }}
-                                    </div>
-                                {% endfor %}
-                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse4">
-                            {{ form_start(formAppareilMesure) }}
+                            {% if parametre.appareilMesures %}
                                 <div class="row">
-                                    <table class="table table-bordered">
-                                        <tr class="table-primary">
-                                            <th>Appareils de Mesures</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ form_widget(formAppareilMesure.appareil) }}</td>
-                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton6" value="ajouter"> Ajouter</button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            {{ form_end(formAppareilMesure) }}
-                            <br>
-                            <div class="row">
-                                {% if parametre.appareilMesures %}
-                                    <table class="table table-bordered">
-                                        <tr class="table-primary">
-                                            <th>Désignation du moyen de contrôle</th>
-                                            <th>N° de l'appareil</th>
-                                            <th>Date de validité</th>
-                                            <th width="20"></th>
-                                        </tr>
-                                        {% for item in parametre.appareilMesures %}
-                                            <tr>
-                                                <td>{{item.appareil.designation}}</td>
-                                                <td>{{item.appareil.numAppareil}}</td>
-                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                                                <td><a href="{{path('delete_appareil', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                    {% if parametre.appareilMesures %}
+                                        <table class="table table-bordered table-striped">
+                                            <tr class="table-primary">
+                                                <th>Désignation du moyen de contrôle</th>
+                                                <th>N° de l'appareil</th>
+                                                <th>Date de validité</th>
                                             </tr>
-                                        {% endfor %} 
-                                    </table>                                        
-                                {% endif %}
-                            </div>
+                                            {% for item in parametre.appareilMesures %}
+                                                <tr>
+                                                    <td>{{item.appareil.designation}}</td>
+                                                    <td>{{item.appareil.numAppareil}}</td>
+                                                    <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                </tr>
+                                            {% endfor %} 
+                                        </table>                                        
+                                    {% endif %}
+                                </div>                                
+                            {% endif %}
                         </div>
                     </div>
                 <!-- /fin Appareils de mesure utilisés -->
 
                 <!-- début Contrôles de bobinages -->
-                    {{ form_start(formControleBobinage) }}
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Contrôles de bobinages</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.controleBobinage == null %}
-                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Contrôles de bobinages</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleBobinage == null %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleBobinage.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
                                         {% else %}
-                                            {% if parametre.controleBobinage.etat == 1 %}
-                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                            {% else %}
-                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                            {% endif %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
                                         {% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse5"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
+                                    {% endif %}
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_controle_bobinage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse5"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="x_content collapse" id="collapse5">
-                                <div class="row">
-                                    <table class="table table-bordered">
-                                        <tr class="table-primary">
-                                            <th>Nature du contrôle</th>
-                                            <th>Conformité</th>
-                                            <th>Préconisation</th>
-                                            <th>Retenu</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="table-primary">Contrôle calage des encoches</th>
-                                            <td>{{ form_widget(formControleBobinage.conformite1) }}</td>
-                                            <td>{{ form_widget(formControleBobinage.preconisation1) }}</td>
-                                            <td>{{ form_widget(formControleBobinage.retenu1) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="table-primary">Contrôle laçage des développantes</th>
-                                            <td>{{ form_widget(formControleBobinage.conformite2) }}</td>
-                                            <td>{{ form_widget(formControleBobinage.preconisation2) }}</td>
-                                            <td>{{ form_widget(formControleBobinage.retenu2) }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton3" value="controle_bobinage_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton3" value="controle_bobinage_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse5">
+                            <div class="row">
+                                <table class="table table-bordered table-striped">
+                                    <tr class="table-primary">
+                                        <th class="text-center" colspan="4">Contrôles de bobinages</th>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>Nature du contrôle</th>
+                                        <th>Conformité</th>
+                                        <th>Préconisation</th>
+                                        <th>Retenu</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-primary">Contrôle calage des encoches</th>
+                                        <td>{{ parametre.controleBobinage.conformite1}}</td>
+                                        <td>{{ parametre.controleBobinage.preconisation1}}</td>
+                                        <td>{{ parametre.controleBobinage.retenu1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-primary">Contrôle laçage des développantes</th>
+                                        <td>{{ parametre.controleBobinage.conformite2}}</td>
+                                        <td>{{ parametre.controleBobinage.preconisation2}}</td>
+                                        <td>{{ parametre.controleBobinage.retenu2}}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                    {{ form_end(formControleBobinage) }}
+                    </div>
                 <!-- /fin Contrôles de bobinages -->
                                         
                 <!-- début Autres contôles -->
-                    {{ form_start(formAutreControle) }}
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Autres contôles</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.autreControle == null %}
-                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                        {% else %}
-                                            {% if parametre.autreControle.etat == 1 %}
-                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                            {% else %}
-                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Autres Contrôles</h2>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.autreControle == null %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.autreControle.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_autre_controle', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="x_content collapse" id="collapse6">
-                                <div class="row">
-                                    <table class="table table-bordered">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse6">
+                            <div class="row">
+                                {% if parametre.presenceBalais == 1 %}
+                                    <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
                                             <th colspan="4" class="text-center">Balais</th>
                                         </tr>
@@ -662,41 +661,44 @@
                                         <tr>
                                             <td>Distance porte-balais/bague</td>
                                             <td>2,5 m à 3 mn</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation1) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite1) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation1 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite1 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Pression des balais</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation2) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite2) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite2 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Isolement jeu de bagues à réception</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation3) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite3) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite3 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Isolement jeu de bagues après lavage</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation4) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite4) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite4 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Rugosité du collecteur</td>
                                             <td>Nuancier Mersen</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation5) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite5) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation5 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite5 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Aspect des patines</td>
                                             <td>Nuancier Mersen</td>
-                                            <td>{{ form_widget(formAutreControle.balais_preconisation6) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisConformite6) }}</td>
+                                            <td>{{ parametre.autreControle.balaisPreconisation6 }}</td>
+                                            <td>{{ parametre.autreControle.balaisConformite6 }}</td>
                                         </tr>
                                     </table>
-                                    <table class="table table-bordered">
+                                    
+                                {% endif %}
+                                {% if parametre.presenceBalaisMasse == 1 %}
+                                    <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
                                             <th colspan="4" class="text-center">Balais de masse</th>
                                         </tr>
@@ -709,168 +711,139 @@
                                         <tr>
                                             <td>Distance porte-balais/bague</td>
                                             <td>2,5 m à 3 mn</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation1) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite1) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation1 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite1 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Pression des balais</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation2) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite2) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Isolement jeu de bagues à réception</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation3) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite3) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Isolement jeu de bagues après lavage</td>
                                             <td>À définir suivant le type de balais</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation4) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite4) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Rugosité du collecteur</td>
                                             <td>Nuancier Mersen</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation5) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite5) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation5 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite5 }}</td>
                                         </tr>
                                         <tr>
                                             <td>Aspect des patines</td>
                                             <td>Nuancier Mersen</td>
-                                            <td>{{ form_widget(formAutreControle.balais_masse_preconisation6) }}</td>
-                                            <td>{{ form_widget(formAutreControle.balaisMasseConformite6) }}</td>
+                                            <td>{{ parametre.autreControle.balaisMassePreconisation6 }}</td>
+                                            <td>{{ parametre.autreControle.balaisMasseConformite6 }}</td>
                                         </tr>
-                                    </table>                                      
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton4" value="autre_controle_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton4" value="autre_controle_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
+                                    </table>                                                    
+                                {% endif %}                                  
                             </div>
                         </div>
-                    {{ form_end(formAutreControle) }}
+                    </div>
                 <!-- /fin Autres contôles -->
 
                 <!-- début photo -->
-                    {{ form_start(formPhoto) }}
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Photos</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.photo == null %}
-                                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photos</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.photo == null %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.photo.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
                                         {% else %}
-                                            {% if parametre.photo.etat == 1 %}
-                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                            {% else %}
-                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                            {% endif %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
                                         {% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
+                                    {% endif %}
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_photos', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="x_content collapse" id="collapse7">
-                                <div class="row">
-                                    <div class="item form-group">
-                                        <div class="col-md-12 col-sm-12">{{ form_widget(formPhoto.images) }}</div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <div class="col-md-12 col-sm-12 text-center">
-                                            {% if parametre.photo %}
-                                                {% for item in parametre.photo.images %}
-                                                    <td class="image"><img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150"></td>
-                                                    <td><a href="{{path('delete_photo', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>        
-                                                {% endfor %}                                                
-                                            {% endif %}
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton5" value="photo_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton5" value="photo_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse7">
+                            <div class="row">
+                                {% if parametre.photo %}
+                                    {% for item in parametre.photo.images %}
+                                        <div class="col-md-2">
+                                            <span class="image"><img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150"> </span>
+                                        </div>
+                                    {% endfor %}                                                
+                                {% endif %}
                             </div>
                         </div>
-                    {{ form_end(formPhoto) }}
+                    </div>
                 <!-- /fin photo -->
 
                 <!-- début constats eléc -->
-                    {{ form_start(formConstatElectrique) }}
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Constats électrique</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>  
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Constats électrique</h2>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content collapse" id="collapse8">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary">
-                                                    <th>Vérification</th>
-                                                    <th>Critères</th>
-                                                    <th>Observation</th>
-                                                    <th>Préconisations et conclusion</th>
-                                                    <th>Retenu</th>
-                                                    <th>Photo</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>{{form_widget(formConstatElectrique.verification)}}</td>
-                                                    <td>{{form_widget(formConstatElectrique.critere)}}</td>
-                                                    <td>{{form_widget(formConstatElectrique.observation)}}</td>
-                                                    <td>{{form_widget(formConstatElectrique.preconisation_conclusion)}}</td>
-                                                    <td>{{form_widget(formConstatElectrique.retenu)}}</td>
-                                                    <td>{{form_widget(formConstatElectrique.photo)}}</td>
-                                                    <td><button class="btn btn-primary btn-sm" name="bouton10" value="ajouter"> Ajouter <i class="fa fa-save"></i></button></td>
-                                                </tr>
-                                                {% for item in parametre.constatElectriques %}
-                                                    <tr class="table-striped">
-                                                        <td>{{item.verification}}</td>
-                                                        <td>{{item.critere}}</td>
-                                                        <td>{{item.observation}}</td>
-                                                        <td>{{item.preconisationConclusion}}</td>
-                                                        <td>{{item.retenu}}</td>
-                                                        <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
-                                                        <td class="text-center"><a href="{{path('delete_constat_electrique', {'id' :  item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
-                                                    </tr>                                                    
-                                                {% endfor %}
-                                            </table>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4 text-center">
                                 </div>
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_constat_electrique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>  
                             </div>
+                            <div class="clearfix"></div>
                         </div>
-                    {{ form_end(formConstatElectrique) }}
+                        <div class="x_content collapse" id="collapse8">
+                            {% if parametre.constatElectriques %}
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-primary">
+                                            <th colspan="6">Photos</th>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th>Vérification</th>
+                                            <th>Critères</th>
+                                            <th>Observation</th>
+                                            <th>Préconisations et conclusion</th>
+                                            <th>Retenu</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                        {% for item in parametre.constatElectriques %}
+                                            <tr class="table-striped">
+                                                <td>{{item.verification}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.observation}}</td>
+                                                <td>{{item.preconisationConclusion}}</td>
+                                                <td>{{item.retenu}}</td>
+                                                <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                            </tr>                                                    
+                                        {% endfor %}
+                                    </table>
+                                </div>                                
+                            {% endif %}
+                        </div>
+                    </div>
                 <!-- /fin constats eléc -->
     
                 <!-- début bouton -->

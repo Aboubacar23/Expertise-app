@@ -82,8 +82,10 @@
                                                         <td>{{ parametre.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="2">Type Palier</th>
-                                                        <td colspan="2">{{ parametre.typePalier }}</td>
+                                                        <th>Type Palier</th>
+                                                        <td>{{ parametre.typePalier }}</td>
+                                                        <th>Critère</th>
+                                                        <td>{{ parametre.critere | number_format }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

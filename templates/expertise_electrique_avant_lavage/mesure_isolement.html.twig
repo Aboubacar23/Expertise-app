@@ -14,11 +14,11 @@
             <div class="x_panel">
                 <div class="x_title">     
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div> 
                 </div>
-                   
+                    
                 <!-- la gestion des valeur saisir automatiquement -->
 
                     <!-- la gestion des valeur saisir automatiquement -->
@@ -34,7 +34,7 @@
                         {% endif %}
                         <!-- la gestion des valeur saisir automatiquement -->
     
-                        {% set critere = (20000 * parametre.statorTension) / 1000 %}
+                        {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
                         
                     <!-- fin des valeurs -->
     
@@ -59,8 +59,8 @@
                                             <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
                                             <th>Critère</th>
                                             <td>20 000 Ω/V </td>
-                                            <th></th>
-                                            <td></td>
+                                            <th>Tension Machine</th>
+                                            <td>{{parametre.statorTension}}</td>
                                         </tr>   
                                     </table>
                                 </div>
@@ -93,16 +93,18 @@
                                             </tr>                                        
                                         {% endfor %}
                                         <tr class="bg-primary"></tr>
-                                        {% for item in parametre.mesureIsolement.lmesureIsolements %}
-                                            <tr>
-                                                <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
-                                                <td>{{item.tension}}</td>
-                                                <td>{{item.valeur}}</td>
-                                                <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="#"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                            </tr>                                        
-                                        {% endfor %}
+                                        {% if parametre.mesureIsolement %}
+                                            {% for item in parametre.mesureIsolement.lmesureIsolements %}
+                                                <tr>
+                                                    <td>{{item.controle}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.tension}}</td>
+                                                    <td>{{item.valeur}}</td>
+                                                    <td>{{item.conformite}}</td>
+                                                    <td class="text-center"><a href="#"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                                </tr>                                        
+                                            {% endfor %}                                            
+                                        {% endif %}
                                     </table>
                                 </div>
                                 <div class="row">

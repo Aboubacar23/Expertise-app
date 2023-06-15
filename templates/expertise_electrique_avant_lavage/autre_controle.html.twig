@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Autres Contrôles</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>  
+                <!-- début Autres contôles -->
+                    {{ form_start(formAutreControle) }}
+                        <div class="x_content">
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr class="table-primary">
+                                        <th colspan="4" class="text-center">Balais</th>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>Constats</th>
+                                        <th>Critères</th>
+                                        <th>Préconisation</th>
+                                        <th>Conformité</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Distance porte-balais/bague</td>
+                                        <td>2,5 m à 3 mn</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation1) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite1) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pression des balais</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation2) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isolement jeu de bagues à réception</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation3) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite3) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isolement jeu de bagues après lavage</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation4) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite4) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rugosité du collecteur</td>
+                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation5) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite5) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aspect des patines</td>
+                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_preconisation6) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisConformite6) }}</td>
+                                    </tr>
+                                </table>
+                                <table class="table table-bordered">
+                                    <tr class="table-primary">
+                                        <th colspan="4" class="text-center">Balais de masse</th>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>Constats</th>
+                                        <th>Critères</th>
+                                        <th>Préconisation</th>
+                                        <th>Conformité</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Distance porte-balais/bague</td>
+                                        <td>2,5 m à 3 mn</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation1) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite1) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pression des balais</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation2) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isolement jeu de bagues à réception</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation3) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite3) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isolement jeu de bagues après lavage</td>
+                                        <td>À définir suivant le type de balais</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation4) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite4) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rugosité du collecteur</td>
+                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation5) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite5) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aspect des patines</td>
+                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation6) }}</td>
+                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite6) }}</td>
+                                    </tr>
+                                </table>                                      
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <button class="btn btn-secondary btn-sm" name="bouton4" value="autre_controle_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" name="bouton4" value="autre_controle_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(formAutreControle) }}
+                <!-- /fin Autres contôles -->
+
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

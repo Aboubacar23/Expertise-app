@@ -91,12 +91,12 @@ class AppareilController extends AbstractController
         $id = $idApp->getParametre()->getId();
        if($appareilMesure){
         $appareilMesureRepository->remove($appareilMesure, true);
-        return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+        return $this->redirectToRoute('app_appareil_mesure', [
             'id' => $id
         ], Response::HTTP_SEE_OTHER);
 
        }else{
-            return $this->redirectToRoute('app_expertise_electrique_avant_lavage', [
+            return $this->redirectToRoute('app_appareil_mesure', [
                 'id' => $id
             ], Response::HTTP_SEE_OTHER);
        } 
