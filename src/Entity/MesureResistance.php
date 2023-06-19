@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MesureResistanceRepository;
@@ -26,47 +28,19 @@ class MesureResistance
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_essais = null;
 
-    #[ORM\Column]
-    private ?float $valeur1 = null;
-
-    #[ORM\Column]
-    private ?float $valeur2 = null;
-
-    #[ORM\Column]
-    private ?float $valeur3 = null;
-
-    #[ORM\Column]
-    private ?float $valeur4 = null;
-
-    #[ORM\Column]
-    private ?float $valeur5 = null;
-
-    #[ORM\Column]
-    private ?float $valeur6 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite1 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite2 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite3 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite4 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite5 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite6 = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
 
     #[ORM\OneToOne(mappedBy: 'mesure_resistance', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
+
+    #[ORM\OneToMany(mappedBy: 'mesure_resistance', targetEntity: LMesureResistance::class)]
+    private Collection $lMesureResistances;
+
+    public function __construct()
+    {
+        $this->lMesureResistances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,150 +95,6 @@ class MesureResistance
         return $this;
     }
 
-    public function getValeur1(): ?float
-    {
-        return $this->valeur1;
-    }
-
-    public function setValeur1(float $valeur1): self
-    {
-        $this->valeur1 = $valeur1;
-
-        return $this;
-    }
-
-    public function getValeur2(): ?float
-    {
-        return $this->valeur2;
-    }
-
-    public function setValeur2(float $valeur2): self
-    {
-        $this->valeur2 = $valeur2;
-
-        return $this;
-    }
-
-    public function getValeur3(): ?float
-    {
-        return $this->valeur3;
-    }
-
-    public function setValeur3(float $valeur3): self
-    {
-        $this->valeur3 = $valeur3;
-
-        return $this;
-    }
-
-    public function getValeur4(): ?float
-    {
-        return $this->valeur4;
-    }
-
-    public function setValeur4(float $valeur4): self
-    {
-        $this->valeur4 = $valeur4;
-
-        return $this;
-    }
-
-    public function getValeur5(): ?float
-    {
-        return $this->valeur5;
-    }
-
-    public function setValeur5(float $valeur5): self
-    {
-        $this->valeur5 = $valeur5;
-
-        return $this;
-    }
-
-    public function getValeur6(): ?float
-    {
-        return $this->valeur6;
-    }
-
-    public function setValeur6(float $valeur6): self
-    {
-        $this->valeur6 = $valeur6;
-
-        return $this;
-    }
-
-    public function getConformite1(): ?string
-    {
-        return $this->conformite1;
-    }
-
-    public function setConformite1(string $conformite1): self
-    {
-        $this->conformite1 = $conformite1;
-
-        return $this;
-    }
-
-    public function getConformite2(): ?string
-    {
-        return $this->conformite2;
-    }
-
-    public function setConformite2(string $conformite2): self
-    {
-        $this->conformite2 = $conformite2;
-
-        return $this;
-    }
-
-    public function getConformite3(): ?string
-    {
-        return $this->conformite3;
-    }
-
-    public function setConformite3(string $conformite3): self
-    {
-        $this->conformite3 = $conformite3;
-
-        return $this;
-    }
-
-    public function getConformite4(): ?string
-    {
-        return $this->conformite4;
-    }
-
-    public function setConformite4(string $conformite4): self
-    {
-        $this->conformite4 = $conformite4;
-
-        return $this;
-    }
-
-    public function getConformite5(): ?string
-    {
-        return $this->conformite5;
-    }
-
-    public function setConformite5(string $conformite5): self
-    {
-        $this->conformite5 = $conformite5;
-
-        return $this;
-    }
-
-    public function getConformite6(): ?string
-    {
-        return $this->conformite6;
-    }
-
-    public function setConformite6(string $conformite6): self
-    {
-        $this->conformite6 = $conformite6;
-
-        return $this;
-    }
-
     public function isEtat(): ?bool
     {
         return $this->etat;
@@ -295,6 +125,36 @@ class MesureResistance
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LMesureResistance>
+     */
+    public function getLMesureResistances(): Collection
+    {
+        return $this->lMesureResistances;
+    }
+
+    public function addLMesureResistance(LMesureResistance $lMesureResistance): self
+    {
+        if (!$this->lMesureResistances->contains($lMesureResistance)) {
+            $this->lMesureResistances->add($lMesureResistance);
+            $lMesureResistance->setMesureResistance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLMesureResistance(LMesureResistance $lMesureResistance): self
+    {
+        if ($this->lMesureResistances->removeElement($lMesureResistance)) {
+            // set the owning side to null (unless already changed)
+            if ($lMesureResistance->getMesureResistance() === $this) {
+                $lMesureResistance->setMesureResistance(null);
+            }
+        }
 
         return $this;
     }

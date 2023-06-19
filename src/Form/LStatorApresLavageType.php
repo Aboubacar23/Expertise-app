@@ -2,18 +2,19 @@
 
 namespace App\Form;
 
-use App\Entity\LMesureIsolement;
+use App\Entity\LStatorApresLavage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class LMesureIsolementType extends AbstractType
+class LStatorApresLavageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('tension_essai')
             ->add('controle', ChoiceType::class, [
                 'choices' => [
                     'R phase U' => 'R phase U',
@@ -28,7 +29,6 @@ class LMesureIsolementType extends AbstractType
                 ]
             ])
             ->add('critere')
-            ->add('tension')
             ->add('valeur', NumberType::class, [
                 'required' => true,
             ])
@@ -39,12 +39,12 @@ class LMesureIsolementType extends AbstractType
                 ]
             ])
         ;
-    }
+    } 
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => LMesureIsolement::class,
+            'data_class' => LStatorApresLavage::class,
         ]);
     }
 }

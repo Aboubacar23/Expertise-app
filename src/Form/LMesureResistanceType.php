@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\LMesureResistance;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
+class LMesureResistanceType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('controle', ChoiceType::class, [
+                'choices' => [
+                    'R Sonde phase U' => 'R Sonde phase U',
+                    'R Sonde phase V' => 'R Sonde phase V',
+                    'R Sonde phase W' => 'R Sonde phase W',
+                    'R Sondes Palier CA' => 'R Sondes Palier CA',
+                    'R Sondes Palier CA' => 'R Sondes Palier CAO',
+                    'R entrée huile CA' => 'R entrée huile CA',
+                    'R entrée huile CA' => 'R entrée huile COA',
+                    'R sortie huile CA' => 'R sortie huile CA',
+                    'R sortie huile CA' => 'R sortie huile COA',
+                    'R entrée air 1' => 'R entrée air 1',
+                    'R entrée air 2' => 'R entrée air 2',
+                    'R sortie air 1' =>'R sortie air 1',
+                    'R sortie air 2' => 'R sortie air 2',
+                    'RI les X sondes réunies' => 'RI les X sondes réunies'
+                ]
+            ])
+            ->add('critere')
+            ->add('valeur', NumberType::class, [
+                'required' => true,
+            ])
+            ->add('conformite', ChoiceType::class, [
+                'choices' => [
+                    'Oui' => 'Oui',
+                    'Non' => 'Non'
+                ]
+            ]);
+           
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => LMesureResistance::class,
+        ]);
+    }
+}

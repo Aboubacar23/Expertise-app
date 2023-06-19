@@ -25,9 +25,11 @@ use App\Repository\ImagesRepository;
 use App\Form\PointFonctionnementType;
 use App\Entity\ControleVisuelElectrique;
 use App\Entity\LMesureIsolement;
+use App\Entity\LMesureResistance;
 use App\Form\ConstatElectriqueType;
 use App\Form\ControleVisuelElectriqueType;
 use App\Form\LMesureIsolementType;
+use App\Form\LMesureResistanceType;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
 use App\Repository\ConstatElectriqueRepository;
@@ -41,6 +43,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
 use App\Repository\LMesureIsolementRepository;
+use App\Repository\LMesureResistanceRepository;
 use App\Repository\ParametreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -206,31 +209,79 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     }
 
    //création de mesure d'resistance
-   #[Route('/mesure/resistance/{id}', name: 'app_mesure_resistance', methods: ['POST', 'GET'])]
+   #[Route('/mesure-resistance/{id}', name: 'app_mesure_resistance', methods: ['POST','GET'])]
    public function mesureResistance(Parametre $parametre,Request $request,MesureResistanceRepository $mesureResistanceRepository,EntityManagerInterface $em): Response
    {
         //Mesure de resistance
         $mesureResistance = new MesureResistance();
+        $lmesureResistance = new LMesureResistance();
         if($parametre->getMesureResistance()){
             $mesureResistance = $parametre->getMesureResistance()->getParametre()->getMesureResistance();
         }
+
         $formMesureResistance = $this->createForm(MesureResistanceType::class, $mesureResistance);
         $formMesureResistance->handleRequest($request);
-        if($formMesureResistance->isSubmitted() && $formMesureResistance->isValid()){
+        $form = $this->createForm(LMesureResistanceType::class, $lmesureResistance);
+        $form->handleRequest($request);
+
+        $session = $request->getSession();
+        $tables = $session->get('resistances', []);
+
+
+        if($formMesureResistance->isSubmitted() && $form->isSubmitted())
+        {
             $choix = $request->get('bouton8');
             if($choix == 'mesure_resistance_en_cours')
             {
+              //  dd($choix);
+                $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureResistance = new LMesureResistance();
+                    $lmesureResistance->setLig($i);
+                    $lmesureResistance->setControle($item->getControle());
+                    $lmesureResistance->setCritere($item->getCritere());
+                    $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setConformite($item->getConformite());
+                    $lmesureResistance->setMesureResistance($mesureResistance);
+                    $em->persist($lmesureResistance);
+                }
+
                 $parametre->setMesureResistance($mesureResistance);
                 $mesureResistance->setEtat(0);
+                $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'mesure_resistance_terminer')
             {
+                 $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureResistance = new LMesureResistance();
+                    $lmesureResistance->setLig($i);
+                    $lmesureResistance->setControle($item->getControle());
+                    $lmesureResistance->setCritere($item->getCritere());
+                    $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setConformite($item->getConformite());
+                    $lmesureResistance->setMesureResistance($mesureResistance);
+                    $em->persist($lmesureResistance);
+                }
+
                 $parametre->setMesureResistance($mesureResistance);
                 $mesureResistance->setEtat(1);
+                $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'ajouter')
+            {
+                $lig = sizeof($tables)+1;
+                $lmesureResistance->setLig($lig);
+                $tables[$lig] = $lmesureResistance;
+                $session->set('resistances', $tables);
             }
         }
 
@@ -238,6 +289,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
        return $this->render('expertise_electrique_avant_lavage/mesure_resistance.html.twig', [
            'parametre' => $parametre,
            'formMesureResistance' => $formMesureResistance->createView(),
+           'form' => $form->createView(),
+           'items' => $tables,
        ]);
    }
 
@@ -667,5 +720,30 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         return $this->redirectToRoute('app_mesure_isolement',['id' => $paramID]); 
     } 
 
-    //delete tables mesures isolement
+    //delete session tables mesures resistance
+    #[Route('/delete-lmesure-session-resistance/{id}/{id2}', name: 'delete_lmesure_resistance_session')]
+    public function supprimeSessionResistance($id,$id2,Request $request)
+    {
+        $session = $request->getSession();
+        $tables = $session->get('resistances', []);
+        if (array_key_exists($id, $tables))
+        {
+            unset($tables[$id]);
+            $session->set('resistances',$tables);
+        }
+        return $this->redirectToRoute('app_mesure_resistance',['id' => $id2]); 
+    } 
+
+    //delete tables mesures resistance
+    #[Route('/delete-lmesure-resistance/{id}/{id2}', name: 'delete_lmesure_resistance')]
+    public function supprimeLResistance(LMesureResistance $lMesureResistance,$id2,Request $request, LMesureResistanceRepository $lMesureResistanceRepository)
+    {
+
+        if ($lMesureResistance)
+        {
+            $lMesureResistanceRepository->remove($lMesureResistance, true);
+            return $this->redirectToRoute('app_mesure_resistance',['id' => $id2]); 
+        }
+    } 
+
 }

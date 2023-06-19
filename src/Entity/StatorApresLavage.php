@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StatorApresLavageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StatorApresLavageRepository::class)]
@@ -69,6 +71,14 @@ class StatorApresLavage
 
     #[ORM\OneToOne(mappedBy: 'stator_apres_lavage', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
+
+    #[ORM\OneToMany(mappedBy: 'stator_apres_lavage', targetEntity: LStatorApresLavage::class)]
+    private Collection $lStatorApresLavages;
+
+    public function __construct()
+    {
+        $this->lStatorApresLavages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -309,6 +319,36 @@ class StatorApresLavage
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LStatorApresLavage>
+     */
+    public function getLStatorApresLavages(): Collection
+    {
+        return $this->lStatorApresLavages;
+    }
+
+    public function addLStatorApresLavage(LStatorApresLavage $lStatorApresLavage): self
+    {
+        if (!$this->lStatorApresLavages->contains($lStatorApresLavage)) {
+            $this->lStatorApresLavages->add($lStatorApresLavage);
+            $lStatorApresLavage->setStatorApresLavage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLStatorApresLavage(LStatorApresLavage $lStatorApresLavage): self
+    {
+        if ($this->lStatorApresLavages->removeElement($lStatorApresLavage)) {
+            // set the owning side to null (unless already changed)
+            if ($lStatorApresLavage->getStatorApresLavage() === $this) {
+                $lStatorApresLavage->setStatorApresLavage(null);
+            }
+        }
 
         return $this;
     }

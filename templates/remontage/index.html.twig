@@ -36,7 +36,7 @@
                 </div> 
             </div>
         </div>
-    </div>
+    </div> 
     <!-- début contenu formulaire --> 
         <div class="row">
             <div class="col-md-12 col-sm-12 ">                  
@@ -58,7 +58,10 @@
                                         {% endif %}
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_remontage_palier', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -67,76 +70,66 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse1">
-                            {{ form_start(formRemontagePalier) }}
-                                <div class="row">
+                            <div class="row">
+                                {% if parametre.remontagePalier %}
                                     <div class="col-md-12">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary text-center">
-                                                    <th rowspan="2">Rep</th>
-                                                    <th rowspan="2">Désignation Piéces</th>
-                                                    <th colspan="2">Cotes relevées</th>
-                                                </tr>
-                                                <tr class="table-primary text-center">
-                                                    <th>CA</th>
-                                                    <th>COA</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>A</td>
-                                                    <td>Moyeu Palier</td>
-                                                    <td>{{ form_widget(formRemontagePalier.caa) }}</td>
-                                                    <td>{{ form_widget(formRemontagePalier.coaa) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>B</td>
-                                                    <td>Emboîtage C-Rlt extérieur</td>
-                                                    <td>{{ form_widget(formRemontagePalier.cab) }}</td>
-                                                    <td>{{ form_widget(formRemontagePalier.coab) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>C</td>
-                                                    <td>Roulement</td>
-                                                    <td>{{ form_widget(formRemontagePalier.cac) }}</td>
-                                                    <td>{{ form_widget(formRemontagePalier.coac) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>D</td>
-                                                    <td>Emboîtage C-Rlt intérieur</td>
-                                                    <td>{{ form_widget(formRemontagePalier.cad) }}</td>
-                                                    <td>{{ form_widget(formRemontagePalier.coad) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jeu</td>
-                                                    <td>Jeu axial</td>
-                                                    {% if parametre.remontagePalier %}
-                                                        <td>{{ remontagePalier.caJeu }}</td>
-                                                        <td>{{ remontagePalier.coaJeu }}</td>
-                                                    {% endif %}
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>Roulement</td>
-                                                    <td>{{ form_widget(formRemontagePalier.ca_roulement) }}</td>
-                                                    <td>{{ form_widget(formRemontagePalier.coa_roulement) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td class="table-primary">Type de graisse</td>
-                                                    <td class="table-primary" colspan="2">{{ form_widget(formRemontagePalier.type_graisse) }}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary text-center">
+                                                <th rowspan="2">Rep</th>
+                                                <th rowspan="2">Désignation Piéces</th>
+                                                <th colspan="2">Cotes relevées</th>
+                                            </tr>
+                                            <tr class="table-primary text-center">
+                                                <th>CA</th>
+                                                <th>COA</th>
+                                            </tr>
+                                            <tr>
+                                                <td>A</td>
+                                                <td>Moyeu Palier</td>
+                                                <td>{{ parametre.remontagePalier.caa }}</td>
+                                                <td>{{ parametre.remontagePalier.coaa }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>B</td>
+                                                <td>Emboîtage C-Rlt extérieur</td>
+                                                <td>{{ parametre.remontagePalier.cab }}</td>
+                                                <td>{{ parametre.remontagePalier.coab }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>C</td>
+                                                <td>Roulement</td>
+                                                <td>{{ parametre.remontagePalier.cac }}</td>
+                                                <td>{{ parametre.remontagePalier.coac }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>D</td>
+                                                <td>Emboîtage C-Rlt intérieur</td>
+                                                <td>{{ parametre.remontagePalier.cad }}</td>
+                                                <td>{{ parametre.remontagePalier.coad }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jeu</td>
+                                                <td>Jeu axial</td>
+                                                {% if parametre.remontagePalier %}
+                                                    <td>{{ parametre.remontagePalier.caJeu }}</td>
+                                                    <td>{{ parametre.remontagePalier.coaJeu }}</td>
+                                                {% endif %}
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>Roulement</td>
+                                                <td>{{ parametre.remontagePalier.caRoulement }}</td>
+                                                <td>{{ parametre.remontagePalier.coaRoulement }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class="table-primary">Type de graisse</td>
+                                                <td class="table-primary" colspan="2">{{ parametre.remontagePalier.typeGraisse}}</td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton1" value="remontage_palier_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton1" value="remontage_palier_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
-                            {{ form_end(formRemontagePalier) }}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>  
                 <!-- /fin Remontage paliers -->  
@@ -159,7 +152,10 @@
                                         {% endif %}
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_equilibrage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -168,121 +164,109 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse2">
-                            {{ form_start(formRemontageEquilibrage) }}
+                            {% if parametre.remontageEquilibrage %}
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary text-center">
-                                                    <th colspan="7">Données techniques d'entrée</th>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td width="10%">Vitesse</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.vitesse) }}</td>
-                                                    <td width="4%">Tr/min</td>
-                                                    <td class="table-primary"></td>
-                                                    <td class="table-primary">Entiére</td>
-                                                    <td class="table-primary">1/2</td>
-                                                    <td class="table-primary">Sans</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Poids rotor</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.poids_rotor) }}</td>
-                                                    <td>Kg</td>
-                                                    <td class="table-primary">Clavatte</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_entiere) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_1_2) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.clavette_sans) }}</td> 
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Vitesse d'équilibrage</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.vitesse_equilibrage) }}</td>
-                                                    <td>Tr/min</td>
-                                                    <td class="table-primary">Correction</td>
-                                                    <td colspan="3">{{ form_widget(formRemontageEquilibrage.correction) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Nb de plan d'équilibrage</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.nb_plan) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Qualité d'équilibrage</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.qualite_equilibrage) }}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary text-center">
+                                                <th colspan="7">Données techniques d'entrée</th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td width="10%">Vitesse</td>
+                                                <td>{{ parametre.remontageEquilibrage.vitesse}}</td>
+                                                <td width="4%">Tr/min</td>
+                                                <td class="table-primary"></td>
+                                                <td class="table-primary">Entiére</td>
+                                                <td class="table-primary">1/2</td>
+                                                <td class="table-primary">Sans</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Poids rotor</td>
+                                                <td>{{ parametre.remontageEquilibrage.poidsrotor}}</td>
+                                                <td>Kg</td>
+                                                <td class="table-primary">Clavatte</td>
+                                                <td>{{ parametre.remontageEquilibrage.clavetteEntiere}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.clavette12}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.clavetteSans}}</td> 
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Vitesse d'équilibrage</td>
+                                                <td>{{ parametre.remontageEquilibrage.vitesseEquilibrage}}</td>
+                                                <td>Tr/min</td>
+                                                <td class="table-primary">Correction</td>
+                                                <td colspan="3">{{ parametre.remontageEquilibrage.correction}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Nb de plan d'équilibrage</td>
+                                                <td>{{ parametre.remontageEquilibrage.nbPlan}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Qualité d'équilibrage</td>
+                                                <td>{{ parametre.remontageEquilibrage.qualiteEquilibrage}}</td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary text-center">
-                                                    <th rowspan="2"></th>
-                                                    <th colspan="2">Sans ventilateur</th>
-                                                    <th colspan="2">Avec ventilateur</th>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <th class="table-primary">Plan CA</th>
-                                                    <th class="table-primary">Plan COA</th>
-                                                    <th class="table-primary">Plan CA</th>
-                                                    <th class="table-primary">Plan COA</th>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Rayon d'équilibrage (mm)</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca1) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa1) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca1) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa1) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Balourd initial (en g)</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca2) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa2) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca2) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa2) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Angle balourd initial (dégrés)</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca3) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa3) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca3) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa3) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Balourd résiduel admissible</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca4) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa4) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca4) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa4) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Balourd Résiduel</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca5) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa5) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca5) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa5) }}</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>Angle balourd résiduel</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca6) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa6) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca6) }}</td>
-                                                    <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa6) }}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary text-center">
+                                                <th rowspan="2"></th>
+                                                <th colspan="2">Sans ventilateur</th>
+                                                <th colspan="2">Avec ventilateur</th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <th class="table-primary">Plan CA</th>
+                                                <th class="table-primary">Plan COA</th>
+                                                <th class="table-primary">Plan CA</th>
+                                                <th class="table-primary">Plan COA</th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Rayon d'équilibrage (mm)</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa1}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa1}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa1}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa1}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Balourd initial (en g)</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa2}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa2}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa2}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa2}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Angle balourd initial (dégrés)</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa3}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa3}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa3}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa3}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Balourd résiduel admissible</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa4}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa4}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa4}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa4}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Balourd Résiduel</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa5}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa5}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa5}}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa5}}</td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td>Angle balourd résiduel</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCa6 }}</td>
+                                                <td>{{ parametre.remontageEquilibrage.sansPlanCoa6 }}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCa6 }}</td>
+                                                <td>{{ parametre.remontageEquilibrage.avecPlanCoa6 }}</td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton2" value="remontage_equilibrage_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton2" value="remontage_equilibrage_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
-                            {{ form_end(formRemontageEquilibrage) }}
+                            {% endif %}
                         </div>
                     </div>  
                 <!-- /fin Equilibrage -->   
@@ -305,7 +289,10 @@
                                         {% endif %}
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_remontage_finition', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -314,225 +301,213 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse3">
-                            {{ form_start(formRemontageFinition) }}
-                                <div class="row">
+                            <div class="row">
+                                {% if parametre.remontageFinition %}
                                     <div class="col-md-6">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary">
-                                                    <th>Carcasse</th>
-                                                    <th width="20%">Contôles</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérifier la bonne position des paliers par rapport à la carcasse</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_carcasse) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Câblage et boite à bornes</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Etamage des plages de raccordement au réseau</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Serrage des connexions et de la barre de neutre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Marquage unitaire des phases, pose des logo</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage3) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage4) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Sondes</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification de la boîte à sondes (repérage, plans et maintien des connexions)</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Passage des sondes paliers non obturé</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification du nombre et de la mise en place des sondes</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde3) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Arbre</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Absence de point dur et de frottement lors de la rotation mécanique de l’arbre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de l'accouplement</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Général</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Propreté du plan de pose ou plans d’attache du moteur</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification du freinage mécanique des vis</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification de la compression des joints, de l'étanchéité des paliers et tuyauterie.</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general3) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Référence de la graisse des roulements</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general4) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification référence roulements montés (étiquettes des boîtes)</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general5) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification huile + coussinets</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general6) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Aspect des pistes – absence de choc</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general7) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Absence de poussière dans la chambre collecteur bagues</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general8) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Repérage de la ligne neutre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general9) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Pré-rodage complet des balais</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general10) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérifier position des cages / pistes et présence des amortisseurs</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general11) }}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th>Carcasse</th>
+                                                <th width="20%">Contôles</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérifier la bonne position des paliers par rapport à la carcasse</td>
+                                                <td>{{ parametre.remontageFinition.controleCarcasse}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Câblage et boite à bornes</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Etamage des plages de raccordement au réseau</td>
+                                                <td>{{ parametre.remontageFinition.controleCablage1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Serrage des connexions et de la barre de neutre</td>
+                                                <td>{{ parametre.remontageFinition.controleCablage2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Marquage unitaire des phases, pose des logo</td>
+                                                <td>{{ parametre.remontageFinition.controleCablage3}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                                                <td>{{ parametre.remontageFinition.controleCablage4}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Sondes</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification de la boîte à sondes (repérage, plans et maintien des connexions)</td>
+                                                <td>{{ parametre.remontageFinition.controleSonde1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Passage des sondes paliers non obturé</td>
+                                                <td>{{ parametre.remontageFinition.controleSonde2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification du nombre et de la mise en place des sondes</td>
+                                                <td>{{ parametre.remontageFinition.controleSonde3}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Arbre</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Absence de point dur et de frottement lors de la rotation mécanique de l’arbre</td>
+                                                <td>{{ parametre.remontageFinition.controleArbre1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de l'accouplement</td>
+                                                <td>{{ parametre.remontageFinition.controleArbre2}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Général</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Propreté du plan de pose ou plans d’attache du moteur</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification du freinage mécanique des vis</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification de la compression des joints, de l'étanchéité des paliers et tuyauterie.</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral3}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Référence de la graisse des roulements</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral4}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification référence roulements montés (étiquettes des boîtes)</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral5}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification huile + coussinets</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral6}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aspect des pistes – absence de choc</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral7}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Absence de poussière dans la chambre collecteur bagues</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral8}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Repérage de la ligne neutre</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral9}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pré-rodage complet des balais</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral10}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérifier position des cages / pistes et présence des amortisseurs</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral11}}</td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="item form-group">
-                                            <table class="table table-bordered">
-                                                <tr class="table-primary">
-                                                    <th>Carcasse</th>
-                                                    <th width="20%">Contôles</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérifier le freinage des vis et la présence des rondelles sur l’ensemble de la machine</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_carcasse2) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Câblage et boite à bornes</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_cablage2_1) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Sondes</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_sonde2_1) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Arbre</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Propreté de l'arbre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de protection sur l’arbre et blocage de l’arbre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de l'accouplement</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_arbre2_3) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Général</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Aspect général de la peinture et présence de peinture sur la visserie</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Absence graisse dans les bacs de récupération</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Absence de graisse, copeaux au niveau des paliers à l’intérieur de la machine</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_3) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Protection des graisseurs</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_4) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Trous de goupillage non obturés</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_5) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de bouchons d’obturation et de filtres à l’état neuf</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_6) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de la visserie pour le raccordement sur site</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_7) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_general2_8) }}</td>
-                                                </tr>
-                                                <tr class="table-primary">
-                                                    <th colspan="2">Plaques</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence des plaques de masse</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque1) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vérification plaque de firme</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque2) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Présence de la plaque de graissage et nouveaux roulements</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque3) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mettre étiquette «Ne pas oublier de remplir d'huile avant démarrage»</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque4) }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Repérage de la ligne neutre</td>
-                                                    <td>{{ form_widget(formRemontageFinition.controle_plaque5) }}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 text-left">
-                                        <button class="btn btn-secondary btn-sm" name="bouton3" value="remontage_finition_en_cours"> En cours <i class="fa fa-save"></i></button>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <button class="btn btn-success btn-sm" name="bouton3" value="remontage_finition_terminer"> Terminer <i class="fa fa-save"></i></button>
-                                    </div>
-                                </div>
-                            {{ form_end(formRemontageFinition) }}
+                                        <table class="table table-bordered">
+                                            <tr class="table-primary">
+                                                <th>Carcasse</th>
+                                                <th width="20%">Contôles</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérifier le freinage des vis et la présence des rondelles sur l’ensemble de la machine</td>
+                                                <td>{{ parametre.remontageFinition.controleCarcasse2}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Câblage et boite à bornes</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                                                <td>{{ parametre.remontageFinition.controleCablage21}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Sondes</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                                                <td>{{ parametre.remontageFinition.controleSonde21}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Arbre</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Propreté de l'arbre</td>
+                                                <td>{{ parametre.remontageFinition.controleArbre21}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de protection sur l’arbre et blocage de l’arbre</td>
+                                                <td>{{ parametre.remontageFinition.controleArbre22}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de l'accouplement</td>
+                                                <td>{{ parametre.remontageFinition.controleArbre23}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Général</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Aspect général de la peinture et présence de peinture sur la visserie</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral21}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Absence graisse dans les bacs de récupération</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral22}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Absence de graisse, copeaux au niveau des paliers à l’intérieur de la machine</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral23}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Protection des graisseurs</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral24}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trous de goupillage non obturés</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral25}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de bouchons d’obturation et de filtres à l’état neuf</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral26}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de la visserie pour le raccordement sur site</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral27}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                                                <td>{{ parametre.remontageFinition.controleGeneral28}}</td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <th colspan="2">Plaques</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence des plaques de masse</td>
+                                                <td>{{ parametre.remontageFinition.controlePlaque1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vérification plaque de firme</td>
+                                                <td>{{ parametre.remontageFinition.controlePlaque2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Présence de la plaque de graissage et nouveaux roulements</td>
+                                                <td>{{ parametre.remontageFinition.controlePlaque3}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mettre étiquette «Ne pas oublier de remplir d'huile avant démarrage»</td>
+                                                <td>{{ parametre.remontageFinition.controlePlaque4}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Repérage de la ligne neutre</td>
+                                                <td>{{ parametre.remontageFinition.controlePlaque5}}</td>
+                                            </tr>
+                                        </table>
+                                    </div> 
+                                {% endif %}
+                            </div>
                         </div>
                     </div>  
                 <!-- /fin Remontage et finitions -->  
@@ -551,7 +526,10 @@
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2 text-right">
+                                    <a class="btn btn-primary" href="{{path('app_photo_remontage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                </div>
+                                <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse8"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
@@ -567,22 +545,6 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse8">
-                            {{ form_start(formRemontagePhoto) }}
-                                <div class="row">
-                                    <table class="table table-bordered">
-                                        <tr class="table-primary">
-                                            <th>Libelle</th>
-                                            <th>Photo</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ form_widget(formRemontagePhoto.libelle) }}</td>
-                                            <td>{{ form_widget(formRemontagePhoto.image) }}</td>
-                                            <td width="100"><button class="btn btn-primary btn-sm" name="bouton4" value="ajouter"> Ajouter</button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            {{ form_end(formRemontagePhoto) }} 
-                            <br>
                             <div class="row">
                                 {% if parametre.remontagePhotos %}
                                     <table class="table table-bordered">

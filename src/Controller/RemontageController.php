@@ -28,17 +28,17 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class RemontageController extends AbstractController
 {
     #[Route('/index/{id}', name: 'app_remontage_index')]
-    public function index(
-        Parametre $parametre,
-        Request $request,
-        SluggerInterface $slugger,
-        RemontagePalierRepository $remontagePalierRepository,
-        RemontageEquilibrageRepository $remontageEquilibrageRepository,
-        RemontagePhotoRepository $remontagePhotoRepository,
-        RemontageFinitionRepository $remontageFinitionRepository
-    ): Response
+    public function index(Parametre $parametre,): Response
     {
+        return $this->render('remontage/index.html.twig', [
+            'parametre' => $parametre,
+        ]);
+    }
 
+    //le remontage de palier
+    #[Route('/remontage-palier/{id}', name: 'app_remontage_palier', methods: ['GET','POST'])]
+    public function remontagePalier(Parametre $parametre,Request $request,RemontagePalierRepository $remontagePalierRepository): Response
+    {
         //la partie de remontage de palier
         $remontagePalier = new RemontagePalier();
         if ($parametre->getRemontagePalier()){
@@ -60,7 +60,7 @@ class RemontageController extends AbstractController
                 $remontagePalier->setCaJeu($caJeu);
                 $remontagePalier->setCoaJeu($coaJeu);
                 $remontagePalierRepository->save($remontagePalier, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_remontage_palier', ['id' => $parametre->getId()]);
 
             }
             elseif($choix == 'remontage_palier_terminer')
@@ -72,12 +72,24 @@ class RemontageController extends AbstractController
                 $remontagePalier->setCaJeu($caJeu);
                 $remontagePalier->setCoaJeu($coaJeu);
                 $remontagePalierRepository->save($remontagePalier, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_remontage_palier', ['id' => $parametre->getId()]);
             }            
 
         }
 
-        //la partie de remontage de palier
+        return $this->render('remontage/remontage.html.twig', [
+            'parametre' => $parametre,
+            'remontagePalier' => $remontagePalier,
+            'formRemontagePalier' => $formRemontagePalier->createView(),
+        ]);
+       
+    } 
+
+    //l'equilibrage
+    #[Route('/equilibrage/{id}', name: 'app_equilibrage', methods: ['GET','POST'])]
+    public function equilibrage(Parametre $parametre,Request $request,RemontageEquilibrageRepository $remontageEquilibrageRepository): Response
+    {        
+        //l'equilibrage
         $remontageEquilibrage = new RemontageEquilibrage();
         if ($parametre->getRemontageEquilibrage()){
             $remontageEquilibrage = $parametre->getRemontageEquilibrage()->getParametre()->getRemontageEquilibrage();
@@ -94,47 +106,29 @@ class RemontageController extends AbstractController
                 $parametre->setRemontageEquilibrage($remontageEquilibrage);
                 $remontageEquilibrage->setEtat(0);
                 $remontageEquilibrageRepository->save($remontageEquilibrage, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_equilibrage', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'remontage_equilibrage_terminer')
             {
                 $parametre->setRemontageEquilibrage($remontageEquilibrage);
                 $remontageEquilibrage->setEtat(1);
                 $remontageEquilibrageRepository->save($remontageEquilibrage, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_equilibrage', ['id' => $parametre->getId()]);
             }            
-        }
+        }       
 
-        //la partie photo
-        $remontagePhoto = new RemontagePhoto();
+        return $this->render('remontage/equilibrage.html.twig', [
+            'parametre' => $parametre,
+            'formRemontageEquilibrage' => $formRemontageEquilibrage->createView(),
+        ]);
+       
+    }
 
-        $formRemontagePhoto = $this->createForm(RemontagePhotoType::class, $remontagePhoto);
-        $formRemontagePhoto->handleRequest($request);
-        if($formRemontagePhoto->isSubmitted() && $formRemontagePhoto->isValid())
-        {
-            $choix = $request->get('bouton4');
-            $image = $formRemontagePhoto->get('image')->getData();
-            if($choix == 'ajouter')
-            {
-                if ($image)
-                {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('image_remontages'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
-                    $remontagePhoto->setImage($newPhotoname);
-                }
-                $remontagePhoto->setParametre($parametre); 
-                $remontagePhotoRepository->save($remontagePhoto, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
-            }
-        }
 
+    //le remontage finition
+    #[Route('/remontage-finition/{id}', name: 'app_remontage_finition', methods: ['GET','POST'])]
+    public function remontageFinitions(Parametre $parametre,Request $request,RemontageFinitionRepository $remontageFinitionRepository): Response
+    {        
         //la partie de remontage et finition
         $remontageFinition = new RemontageFinition();
         if ($parametre->getRemontageFinition()){
@@ -152,26 +146,62 @@ class RemontageController extends AbstractController
                 $parametre->setRemontageFinition($remontageFinition);
                 $remontageFinition->setEtat(0);
                 $remontageFinitionRepository->save($remontageFinition, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_remontage_finition', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'remontage_finition_terminer')
             {
                 $parametre->setRemontageFinition($remontageFinition);
                 $remontageFinition->setEtat(1);
                 $remontageFinitionRepository->save($remontageFinition, true);
-                $this->redirectToRoute('app_remontage_index', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_remontage_finition', ['id' => $parametre->getId()]);
             }            
-        }
-        return $this->render('remontage/index.html.twig', [
-            'parametre' => $parametre,
-            'remontagePalier' => $remontagePalier,
-            'formRemontagePalier' => $formRemontagePalier->createView(),
-            'formRemontageEquilibrage' => $formRemontageEquilibrage->createView(),
-            'formRemontagePhoto' => $formRemontagePhoto->createView(),
-            'formRemontageFinition' => $formRemontageFinition->createView()
-        ]);
-    }
+        }          
 
+        return $this->render('remontage/remontage_finitions.html.twig', [
+            'parametre' => $parametre,
+            'formRemontageFinition' => $formRemontageFinition->createView()
+        ]);       
+    } 
+    
+    //la photo
+    #[Route('/photo-remontage/{id}', name: 'app_photo_remontage', methods: ['GET','POST'])]
+    public function photo(Parametre $parametre,Request $request,SluggerInterface $slugger,RemontagePhotoRepository $remontagePhotoRepository,): Response
+    {        
+         //la partie photo
+         $remontagePhoto = new RemontagePhoto();
+
+         $formRemontagePhoto = $this->createForm(RemontagePhotoType::class, $remontagePhoto);
+         $formRemontagePhoto->handleRequest($request);
+         if($formRemontagePhoto->isSubmitted() && $formRemontagePhoto->isValid())
+         {
+             $choix = $request->get('bouton4');
+             $image = $formRemontagePhoto->get('image')->getData();
+             if($choix == 'ajouter')
+             {
+                 if ($image)
+                 {
+                     $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                     $safePhotoname = $slugger->slug($originalePhoto);
+                     $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                     try {
+                         $image->move(
+                             $this->getParameter('image_remontages'),
+                             $newPhotoname
+                         );
+                     } catch (FileException $e){}
+                     $remontagePhoto->setImage($newPhotoname);
+                 }
+                 $remontagePhoto->setParametre($parametre); 
+                 $remontagePhotoRepository->save($remontagePhoto, true);
+                 $this->redirectToRoute('app_photo_remontage', ['id' => $parametre->getId()]);
+             }
+         }
+
+        return $this->render('remontage/photos.html.twig', [
+            'parametre' => $parametre,
+            'formRemontagePhoto' => $formRemontagePhoto->createView(),
+        ]);       
+    }
 
     //la fonction qui supprime une photo une fois ajouter
     #[Route('/photo/{id}/remontage', name: 'delete_photo_remontage', methods: ['GET'])]
@@ -183,27 +213,27 @@ class RemontageController extends AbstractController
             $nom = $remontagePhoto->getImage();
             unlink($this->getParameter('image_remontages').'/'.$nom);
             $remontagePhotoRepository->remove($remontagePhoto, true);
-            return $this->redirectToRoute('app_remontage_index', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_photo_remontage', ['id' => $id], Response::HTTP_SEE_OTHER);
 
         }
         else
         {
-            return $this->redirectToRoute('app_remontage_index', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_photo_remontage', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
     } 
 
-       //la fonction qui valide remontage
-       #[Route('validation/{id}/rapport', name: 'valider_remontage', methods: ['GET'])]
-       public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
-       {
-               if($parametre)
-               {
-                   $parametre->setRemontage(1);
-                   $entityManager->persist($parametre);
-                   $entityManager->flush();
-                   return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-               }else{
-                   return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-               } 
-       }
+    //la fonction qui valide remontage
+    #[Route('validation/{id}/rapport', name: 'valider_remontage', methods: ['GET'])]
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    {
+            if($parametre)
+            {
+                $parametre->setRemontage(1);
+                $entityManager->persist($parametre);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+            } 
+    }
 }

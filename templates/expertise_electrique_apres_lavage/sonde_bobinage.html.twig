@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Sonde Bobinage</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    {{ form_start(formSondeBobinage) }}                            
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <tr class="table-primary">
+                                    <th>Paramètres</th>
+                                    <th>Contrôle</th>
+                                    <th>Critère</th>
+                                    <th class="text-center" width="8%">Tension d'éssai(V)</th>
+                                    <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
+                                    <th>Valeur relevées après lavage en  MΩ</th>
+                                    <th>Conformité</th>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_ambiante) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_tolerie) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
+                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.hygrometrie) }}</div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
+                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
+                                        </div>
+                                    </td>
+                                    <td>RI/Masse Sondes</td>
+                                    <td>132 MΩ sous</td>
+                                    <td class="text-center">2500</td>
+                                    <td class="text-center">0</td>
+                                    <td>{{ form_widget(formSondeBobinage.valeur1) }}</td>
+                                    <td>{{ form_widget(formSondeBobinage.conformite1) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique sonde ph. U</td>
+                                    <td>100 Ω à 0 °C</td>
+                                    <td class="text-center">2500</td>
+                                    <td class="text-center">0</td>
+                                    <td>{{ form_widget(formSondeBobinage.valeur2) }}</td>
+                                    <td>{{ form_widget(formSondeBobinage.conformite2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique sonde ph. V</td>
+                                    <td>101 Ω à 0 °C</td>
+                                    <td class="text-center">2500</td>
+                                    <td class="text-center">0</td>
+                                    <td>{{ form_widget(formSondeBobinage.valeur3) }}</td>
+                                    <td>{{ form_widget(formSondeBobinage.conformite3) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>R Ohmique sonde ph. W</td>
+                                    <td>102 Ω à 0 °C</td>
+                                    <td class="text-center">2500</td>
+                                    <td class="text-center">0</td>
+                                    <td>{{ form_widget(formSondeBobinage.valeur4) }}</td>
+                                    <td>{{ form_widget(formSondeBobinage.conformite4) }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton2" value="sonde_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton2" value="sonde_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formSondeBobinage) }}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

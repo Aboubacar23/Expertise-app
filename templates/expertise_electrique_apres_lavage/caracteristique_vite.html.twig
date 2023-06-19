@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Carctérisques à vide</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            {{ form_start(formCarateristique) }}
+                                <tr class="table-primary">
+                                    <th></th>
+                                    <th>U (v)</th>
+                                    <th>I1 (A)</th>
+                                    <th>I2 (A)</th>
+                                    <th>I3 (A)</th>
+                                    <th>P (kW)</th>
+                                    <th>Q (kVAR)</th>
+                                    <th>cos</th>
+                                    <th>N (tr/min)</th>
+                                    <th>Pj (W)</th>
+                                    <th>P-Pj (KW)</th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>{{ form_widget(formCarateristique.u) }}</td>
+                                    <td>{{ form_widget(formCarateristique.i1) }}</td>
+                                    <td>{{ form_widget(formCarateristique.i2) }}</td>
+                                    <td>{{ form_widget(formCarateristique.i3) }}</td>
+                                    <td>{{ form_widget(formCarateristique.p) }}</td>
+                                    <td>{{ form_widget(formCarateristique.q) }}</td>
+                                    <td>{{ form_widget(formCarateristique.cos) }}</td>
+                                    <td>{{ form_widget(formCarateristique.n) }}</td>
+                                    <td>{{ form_widget(formCarateristique.pj) }}</td>  
+                                    <td>{{ form_widget(formCarateristique.p_pj) }}</td>                                      
+                                    <th><button class="btn btn-primary btn-sm" name="bouton3_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                </tr>
+                                {% if parametre.caracteristiques %}
+                                    {% set i = 0 %}
+                                    {% for item in parametre.caracteristiques %}
+                                        {% set i = i + 1 %}
+                                        <tr>
+                                            <td>{{i}}</td>
+                                            <td>{{item.u}}</td>
+                                            <td>{{item.i1 }}</td>
+                                            <td>{{item.i2 }}</td>
+                                            <td>{{item.i3 }}</td>
+                                            <td>{{item.p}}</td>
+                                            <td>{{item.q}}</td>
+                                            <td>{{item.cos }}</td>
+                                            <td>{{item.n}}</td>
+                                            <td>{{item.pj }}</td>  
+                                            <td>{{item.Ppj }}</td> 
+                                            <th class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                        </tr> 
+                                    {% endfor %}
+                                {% endif %}
+                            {{ form_end(formCarateristique) }}
+                        </table>
+                    </div>
+                    {{ form_start(formAutreCaracteristique) }}
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="resistance">Résistance <span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm- "><td>{{ form_widget(formAutreCaracteristique.resistance) }}</td></div>
+                        </div>
+                        <div class="item form-group">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th class="table-primary">Pertes</th>
+                                    <td>{{ form_widget(formAutreCaracteristique.perte1) }}</td>
+                                    <td>tr/min</td>
+                                    <td>{{ form_widget(formAutreCaracteristique.perte2) }}</td>
+                                    <td>W</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-primary">Pertes Fer à </th>
+                                    <td>{{ form_widget(formAutreCaracteristique.perte_fer1) }}</td>
+                                    <td>V</td>
+                                    <td>{{ form_widget(formAutreCaracteristique.perte_fer2) }}</td>
+                                    <td>W</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton3" value="carac_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton3" value="carac_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formAutreCaracteristique) }}
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

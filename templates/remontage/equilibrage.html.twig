@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Equilibrage</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    {{ form_start(formRemontageEquilibrage) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary text-center">
+                                            <th colspan="7">Données techniques d'entrée</th>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td width="10%">Vitesse</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.vitesse) }}</td>
+                                            <td width="4%">Tr/min</td>
+                                            <td class="table-primary"></td>
+                                            <td class="table-primary">Entiére</td>
+                                            <td class="table-primary">1/2</td>
+                                            <td class="table-primary">Sans</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Poids rotor</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.poids_rotor) }}</td>
+                                            <td>Kg</td>
+                                            <td class="table-primary">Clavatte</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.clavette_entiere) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.clavette_1_2) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.clavette_sans) }}</td> 
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Vitesse d'équilibrage</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.vitesse_equilibrage) }}</td>
+                                            <td>Tr/min</td>
+                                            <td class="table-primary">Correction</td>
+                                            <td colspan="3">{{ form_widget(formRemontageEquilibrage.correction) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Nb de plan d'équilibrage</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.nb_plan) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Qualité d'équilibrage</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.qualite_equilibrage) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary text-center">
+                                            <th rowspan="2"></th>
+                                            <th colspan="2">Sans ventilateur</th>
+                                            <th colspan="2">Avec ventilateur</th>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <th class="table-primary">Plan CA</th>
+                                            <th class="table-primary">Plan COA</th>
+                                            <th class="table-primary">Plan CA</th>
+                                            <th class="table-primary">Plan COA</th>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Rayon d'équilibrage (mm)</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca1) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa1) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca1) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa1) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Balourd initial (en g)</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca2) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa2) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca2) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa2) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Angle balourd initial (dégrés)</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca3) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa3) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca3) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa3) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Balourd résiduel admissible</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca4) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa4) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca4) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa4) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Balourd Résiduel</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca5) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa5) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca5) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa5) }}</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>Angle balourd résiduel</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_ca6) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.sans_plan_coa6) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_ca6) }}</td>
+                                            <td>{{ form_widget(formRemontageEquilibrage.avec_plan_coa6) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton2" value="remontage_equilibrage_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton2" value="remontage_equilibrage_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formRemontageEquilibrage) }}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

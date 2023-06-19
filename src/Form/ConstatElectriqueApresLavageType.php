@@ -28,7 +28,7 @@ class ConstatElectriqueApresLavageType extends AbstractType
             ->add('photo',FileType::class, [
                 'label' => 'Images',
                 'mapped' => false,
-                'required' => false, 
+                'required' => true, 
                 'constraints' => [
                     new File([
                         'maxSize' => '5000000k',

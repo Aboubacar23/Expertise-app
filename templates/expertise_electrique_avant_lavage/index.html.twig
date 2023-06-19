@@ -226,25 +226,25 @@
                                         </table>
                                     </div>
                                     <div class="row">
-                                    <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
-                                            <th width="15%">Contrôle</th>
-                                            <th>Critère (MΩ)</th>
-                                            <th width="25%">Tension d'éssai(V)</th>
-                                            <th width="25%">Valeur relevées (MΩ)</th>
-                                            <th width="15%">Conformité</th>
-                                        </tr>
-                                        {% for item in parametre.mesureIsolement.lmesureIsolements %}
-                                            <tr>
-                                                <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
-                                                <td>{{item.tension}}</td>
-                                                <td>{{item.valeur}}</td>
-                                                <td>{{item.conformite}}</td>
-                                            </tr>                                        
-                                        {% endfor %}
-                                    </table>
-                                </div>
+                                        <table class="table table-bordered table-striped">
+                                            <tr class="table-primary">
+                                                <th width="15%">Contrôle</th>
+                                                <th>Critère (MΩ)</th>
+                                                <th width="25%">Tension d'éssai(V)</th>
+                                                <th width="25%">Valeur relevées (MΩ)</th>
+                                                <th width="15%">Conformité</th>
+                                            </tr>
+                                            {% for item in parametre.mesureIsolement.lmesureIsolements %}
+                                                <tr>
+                                                    <td>{{item.controle}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.tension}}</td>
+                                                    <td>{{item.valeur}}</td>
+                                                    <td>{{item.conformite}}</td>
+                                                </tr>                                        
+                                            {% endfor %}
+                                        </table>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -282,64 +282,47 @@
                         </div> 
                         <div class="x_content collapse" id="collapse2">
                             {% if parametre.mesureResistance %}
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
-                                            <th colspan="6" class="text-center">Mesures des résistances Ohmiques</th>
+                                            <th colspan="6" class="text-center">Paramètres</th>
                                         </tr>
-                                        <tr class="table-primary">
-                                            <th colspan="2" class="text-center">Paramètres</th>
-                                            <th>Contrôle</th>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <td>{{ parametre.mesureResistance.tempAmbiante}}</td>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <td >{{ parametre.mesureResistance.tempTolerie}}</td>
+                                            <th>Date d'essai</th>
+                                            <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('Y-m-d') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hygrométrie (%)</th>
+                                            <td >{{ parametre.mesureResistance.hygrometrie}}</td>
                                             <th>Critère</th>
-                                            <th  width="10%" class="text-center">Valeur relevées en  MΩ</th>
-                                            <th  width="10%" class="text-center">Conformité</th>
-                                        </tr>
-                                        <tr>
-                                            <td>T° Ambiante (°C)</td>
-                                            <td>{{ parametre.mesureResistance.tempAmbiante }}</td>
-                                            <td>R Ohmique phase U</td>
-                                            <td rowspan="3">±5%</td>
-                                            <td>{{ parametre.mesureResistance.valeur1 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite1 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>T° Tôlerie (°C)</td>
-                                            <td>{{ parametre.mesureResistance.tempTolerie }}</td>
-                                            <td>R Ohmique phase V</td>
-                                            <td>{{ parametre.mesureResistance.valeur2 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite2 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hygrométrie (%)</td>
-                                            <td>{{ parametre.mesureResistance.hygrometrie }}</td>
-                                            <td>R Ohmique phase W</td>
-                                            <td>{{ parametre.mesureResistance.valeur3 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td rowspan="3">Date d'essai</td>
-                                            <td rowspan="3">{{ parametre.mesureResistance.dateEssais ?  parametre.mesureResistance.dateEssais|date('d-m-Y') }}</td>
-                                            <td>R Ohmique sonde ph. U</td>
-                                            <td>100 Ω à 0 °C</td>
-                                            <td>{{ parametre.mesureResistance.valeur4 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite4 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>R Ohmique sonde ph. V</td>
-                                            <td>101 Ω à 0 °C</td>
-                                            <td>{{ parametre.mesureResistance.valeur5 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite5 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>R Ohmique sonde ph. W</td>
-                                            <td>102 Ω à 0 °C</td>
-                                            <td>{{ parametre.mesureResistance.valeur6 }}</td>
-                                            <td>{{ parametre.mesureResistance.conformite6 }}</td>
-                                        </tr>
+                                            <td>20 000 Ω/V </td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>   
                                     </table>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-primary">
+                                            <th width="15%">Contrôle</th>
+                                            <th>Critère (MΩ)</th>
+                                            <th width="25%">Valeur relevées (MΩ)</th>
+                                            <th width="15%">Conformité</th>
+                                        </tr>
+                                        {% for item in parametre.mesureResistance.lmesureResistances %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.conformite}}</td>
+                                            </tr>                                        
+                                        {% endfor %}
+                                    </table>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
