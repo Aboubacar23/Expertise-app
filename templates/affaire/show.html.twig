@@ -13,9 +13,11 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
                             {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                                <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                                {% if affaire.parametres != null %}
+                                    <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                                {% endif %}
+                                    <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
                             {% endif %}
                             {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                             <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
@@ -116,12 +118,12 @@
                                                     <th>Puissance (KW)</th>
                                                     <th>Montage</th>
                                                     <th>Fabricant</th>
-                                                    <th>Presence Balais</th>
                                                     <th>Vitesse (tr/min)</th>
                                                     <th>Masse (KG)</th>
                                                     <th>Critère</th>
                                                     <th class="text-center">Etat</th>
                                                     {#<th>Stator Tension</th>
+                                                    <th>Presence Balais</th>
                                                     <th>Stator Frequence</th>
                                                     <th>Stator Courant</th>
                                                     <th>Stator Couplage</th>
@@ -145,7 +147,6 @@
                                                     <td>{{ parametre.puissance }}</td>
                                                     <td>{{ parametre.montage }}</td>
                                                     <td>{{ parametre.fabricant }}</td>
-                                                    <td>{{ parametre.presenceBalais ? 'Yes' : 'No' }}</td>
                                                     <td>{{ parametre.vitesse }}</td>
                                                     <td>{{ parametre.masse }}</td>
                                                     <td>{{ parametre.critere | number_format }}</td>
@@ -155,8 +156,9 @@
                                                         {% else %}
                                                             <span class="btn btn-secondary btn-sm">{{ parametre.etat ? 'En-cours' : 'En Attente' }}</span>
                                                         {% endif %}
-                                                    </td>
+                                                        </td>
                                                     {#<td>{{ parametre.statorTension }}</td>
+                                                    <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
                                                     <td>{{ parametre.statorFrequence }}</td>
                                                     <td>{{ parametre.statorCourant }}</td>
                                                     <td>{{ parametre.statorCouplage }}</td>
@@ -171,6 +173,7 @@
                                                         {% endif %}
                                                         {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                                                             <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
+                                                            <a class="btn btn-danger btn-sm p-1" href="{{ path('app_parametre_delete', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-trash fa-2x"></i></a>
                                                         {% endif %}
                                                         {% if parametre.etat == 0 %}
                                                             <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>

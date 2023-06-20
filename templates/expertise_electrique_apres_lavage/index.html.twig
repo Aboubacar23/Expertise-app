@@ -84,78 +84,60 @@
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
                                                 <tr class="table-primary">
-                                                    <th colspan="2">Paramètres</th>
-                                                    <th>Contrôle</th>
-                                                    <th>Critère</th>
-                                                    <th class="text-center" width="8%">Tension d'éssai(V)</th>
-                                                    <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
-                                                    <th width="8%">Valeur relevées après lavage en  MΩ</th>
+                                                    <th colspan="8" class="text-center">Paramètres</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="table-primary">T° Ambiante (°C)</th>
+                                                    <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
+                                                    <th class="table-primary">T° Tôlerie (°C)</th>
+                                                    <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
+                                                    <th class="table-primary">Hygrométrie (%)</th>
+                                                    <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
+                                                    <th class="table-primary">Isolation</th>
+                                                    <td>{{parametre.critere}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div> 
+
+                                <!-- la gestion des valeur saisir automatiquement -->
+                                {% set tension_essaie = 0 %}
+                                    {% if parametre.statorTension < 500 %}
+                                        {% set tension_essaie = 500 %}
+                                    {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
+                                        {% set tension_essaie = 1000 %}
+                                    {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
+                                        {% set tension_essaie = 2500 %}
+                                    {% elseif parametre.statorTension > 5000 %}
+                                        {% set tension_essaie = 5000 %}
+                                    {% endif %}
+                                    <!-- la gestion des valeur saisir automatiquement -->
+                
+                                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
+                                    
+                                <!-- fin des valeurs -->
+    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered table-striped">
+                                                <tr class="table-primary">
+                                                    <th width="15%">Contrôle</th>
+                                                    <th width="15%">Critère</th>
+                                                    <th class="text-center" width="15%">Tension d'éssai(V)</th>
+                                                    <th class="text-center" width="15%">Valeur relevées avant lavage en  MΩ</th>
+                                                    <th width="15%">Valeur relevées après lavage en  MΩ</th>
                                                     <th width="8%">Conformité</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>T° Ambiante (°C)</td>
-                                                    <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
-                                                    <td>RI/Masse UVW à 1 min</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur1 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite1 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>T° Tôlerie (°C)</td>
-                                                    <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
-                                                    <td>RI/Masse UVW à 10 min</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur2 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite2 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Hygrométrie (%)</td>
-                                                    <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                    <td>Calcul IP</td>
-                                                    <td>>= 2.5</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur3 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite3 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td rowspan="4">Isolation</td>
-                                                    <td rowspan="4">20 000 Ω/V </td>
-                                                    <td>RI Phase U/VW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur4 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite4 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>RI Phase V / UW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur5 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite5 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>RI Phase W / UW+Masse</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">2500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur6 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite6 }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>RI/Masse Sondes UVW</td>
-                                                    <td>132 MΩ</td>
-                                                    <td class="text-center">500</td>
-                                                    <td class="text-center">0</td>
-                                                    <td>{{ parametre.statorApresLavage.valeur7 }}</td>
-                                                    <td>{{ parametre.statorApresLavage.conformite7 }}</td>
-                                                </tr>
+                                                {% for item in parametre.statorApresLavage.lstatorApresLavages %}
+                                                    <tr>
+                                                        <td class="text-left">{{item.controle}}</td>
+                                                        <td class="text-center">{{ item.critere }}</td>
+                                                        <td class="text-center">{{item.tensionEssai}}</td>
+                                                        <td class="text-center">{{item.valeurRelevee}}</td>
+                                                        <td class="text-center">{{ item.valeur}}</td>
+                                                        <td class="text-center">{{ item.conformite }}</td>
+                                                    </tr>                                                    
+                                                {% endfor %}
                                             </table>
                                         </div>
                                     </div>
@@ -198,56 +180,47 @@
                             <!-- début sonde bobinage -->
                             {% if parametre.sondeBobinage %}
                                 <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-primary">
+                                            <th colspan="6" class="text-center">Paramètres</th>
+                                        </tr>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <th>Hygrométrie (%)</th>
+                                            <th>Critère</th>
+                                            <th>Tension Machine</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
+                                            <td >{{parametre.sondeBobinage.tempTolerie }}</td>
+                                            <td >{{parametre.sondeBobinage.hygrometrie }}</td>
+                                            <td>{{parametre.critere}} Ω/V </td>
+                                            <td>{{parametre.statorTension}}</td>
+                                        </tr>   
+                                    </table>
+                                </div>
+                                <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
-                                            <th colspan="2">Paramètres</th>
-                                            <th>Contrôle</th>
-                                            <th>Critère</th>
-                                            <th class="text-center" width="8%">Tension d'éssai(V)</th>
-                                            <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
-                                            <th width="8%">Valeur relevées après lavage en  MΩ</th>
-                                            <th width="8%">Conformité</th>
+                                            <th width="20%">Contrôle</th>
+                                            <th width="20%">Critère (MΩ)</th>
+                                            <th width="20%">Valeur relevée avant lavage (MΩ)</th>
+                                            <th width="20%">Valeur relevées (MΩ)</th>
+                                            <th width="20%">Conformité</th>
                                         </tr>
-                                        <tr>
-                                            <td>T° Ambiante (°C)</td>
-                                            <td>{{ parametre.sondeBobinage.tempAmbiante}}</td>                                        
-                                            <td>RI/Masse Sondes</td>
-                                            <td>132 MΩ sous</td>
-                                            <td class="text-center">2500</td>
-                                            <td class="text-center">0</td>
-                                            <td>{{ parametre.sondeBobinage.valeur1}}</td>
-                                            <td>{{ parametre.sondeBobinage.conformite1}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>T° Tôlerie (°C)</td>
-                                            <td>{{ parametre.sondeBobinage.tempTolerie}}</td>
-                                            <td>R Ohmique sonde ph. U</td>
-                                            <td>100 Ω à 0 °C</td>
-                                            <td class="text-center">2500</td>
-                                            <td class="text-center">0</td>
-                                            <td>{{ parametre.sondeBobinage.valeur2}}</td>
-                                            <td>{{ parametre.sondeBobinage.conformite2}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hygrométrie (%)</td>
-                                            <td>{{ parametre.sondeBobinage.hygrometrie}}</td>
-                                            <td>R Ohmique sonde ph. V</td>
-                                            <td>101 Ω à 0 °C</td>
-                                            <td class="text-center">2500</td>
-                                            <td class="text-center">0</td>
-                                            <td>{{ parametre.sondeBobinage.valeur3 }}</td>
-                                            <td>{{ parametre.sondeBobinage.conformite3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Isolation</td>
-                                            <td>20 000 Ω/V </td>
-                                            <td>R Ohmique sonde ph. W</td>
-                                            <td>102 Ω à 0 °C</td>
-                                            <td class="text-center">2500</td>
-                                            <td class="text-center">0</td>
-                                            <td>{{ parametre.sondeBobinage.valeur4 }}</td>
-                                            <td>{{ parametre.sondeBobinage.conformite4 }}</td>
-                                        </tr>
+                                        <tr class="bg-primary"></tr>
+                                        {% if parametre.sondeBobinage %}
+                                            {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                                                <tr>
+                                                    <td>{{item.controle}}</td>
+                                                    <td>{{item.critere}}</td>
+                                                    <td>{{item.valeurRelevee}}</td>
+                                                    <td>{{item.valeur}}</td>
+                                                    <td>{{item.conformite}}</td>
+                                                </tr>                                        
+                                            {% endfor %}                                            
+                                        {% endif %}
                                     </table>
                                 </div>
                             {% endif %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SondeBobinageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SondeBobinageRepository::class)]
@@ -22,35 +24,19 @@ class SondeBobinage
     #[ORM\Column]
     private ?float $hygrometrie = null;
 
-    #[ORM\Column]
-    private ?float $valeur1 = null;
-
-    #[ORM\Column]
-    private ?float $valeur2 = null;
-
-    #[ORM\Column]
-    private ?float $valeur3 = null;
-
-    #[ORM\Column]
-    private ?float $valeur4 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite1 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite2 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite3 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $conformite4 = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
 
     #[ORM\OneToOne(mappedBy: 'sonde_bobinage', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
+
+    #[ORM\OneToMany(mappedBy: 'sonde_bobinage', targetEntity: LSondeBobinage::class)]
+    private Collection $lSondeBobinages;
+
+    public function __construct()
+    {
+        $this->lSondeBobinages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,102 +80,6 @@ class SondeBobinage
         return $this;
     }
 
-    public function getValeur1(): ?float
-    {
-        return $this->valeur1;
-    }
-
-    public function setValeur1(float $valeur1): self
-    {
-        $this->valeur1 = $valeur1;
-
-        return $this;
-    }
-
-    public function getValeur2(): ?float
-    {
-        return $this->valeur2;
-    }
-
-    public function setValeur2(float $valeur2): self
-    {
-        $this->valeur2 = $valeur2;
-
-        return $this;
-    }
-
-    public function getValeur3(): ?float
-    {
-        return $this->valeur3;
-    }
-
-    public function setValeur3(float $valeur3): self
-    {
-        $this->valeur3 = $valeur3;
-
-        return $this;
-    }
-
-    public function getValeur4(): ?float
-    {
-        return $this->valeur4;
-    }
-
-    public function setValeur4(float $valeur4): self
-    {
-        $this->valeur4 = $valeur4;
-
-        return $this;
-    }
-
-    public function getConformite1(): ?string
-    {
-        return $this->conformite1;
-    }
-
-    public function setConformite1(string $conformite1): self
-    {
-        $this->conformite1 = $conformite1;
-
-        return $this;
-    }
-
-    public function getConformite2(): ?string
-    {
-        return $this->conformite2;
-    }
-
-    public function setConformite2(string $conformite2): self
-    {
-        $this->conformite2 = $conformite2;
-
-        return $this;
-    }
-
-    public function getConformite3(): ?string
-    {
-        return $this->conformite3;
-    }
-
-    public function setConformite3(string $conformite3): self
-    {
-        $this->conformite3 = $conformite3;
-
-        return $this;
-    }
-
-    public function getConformite4(): ?string
-    {
-        return $this->conformite4;
-    }
-
-    public function setConformite4(string $conformite4): self
-    {
-        $this->conformite4 = $conformite4;
-
-        return $this;
-    }
-
     public function isEtat(): ?bool
     {
         return $this->etat;
@@ -220,6 +110,36 @@ class SondeBobinage
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LSondeBobinage>
+     */
+    public function getLSondeBobinages(): Collection
+    {
+        return $this->lSondeBobinages;
+    }
+
+    public function addLSondeBobinage(LSondeBobinage $lSondeBobinage): self
+    {
+        if (!$this->lSondeBobinages->contains($lSondeBobinage)) {
+            $this->lSondeBobinages->add($lSondeBobinage);
+            $lSondeBobinage->setSondeBobinage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLSondeBobinage(LSondeBobinage $lSondeBobinage): self
+    {
+        if ($this->lSondeBobinages->removeElement($lSondeBobinage)) {
+            // set the owning side to null (unless already changed)
+            if ($lSondeBobinage->getSondeBobinage() === $this) {
+                $lSondeBobinage->setSondeBobinage(null);
+            }
+        }
 
         return $this;
     }

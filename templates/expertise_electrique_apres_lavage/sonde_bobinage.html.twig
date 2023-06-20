@@ -18,80 +18,100 @@
                     </ul>
                     <div class="clearfix"></div> 
                 </div>
+
+                 <!-- la gestion des valeur saisir automatiquement -->
+                    {% set tension_essaie = 0 %}
+                    {% if parametre.statorTension < 500 %}
+                        {% set tension_essaie = 500 %}
+                    {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
+                        {% set tension_essaie = 1000 %}
+                    {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
+                        {% set tension_essaie = 2500 %}
+                    {% elseif parametre.statorTension > 5500 %}
+                        {% set tension_essaie = 5000 %}
+                    {% endif %}
+                    <!-- la gestion des valeur saisir automatiquement -->
+
+                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
+                    
+                <!-- fin des valeurs -->
                 <div class="x_content">
-                    {{ form_start(formSondeBobinage) }}                            
-                        <div class="row">
-                            <table class="table table-bordered">
-                                <tr class="table-primary">
-                                    <th>Paramètres</th>
-                                    <th>Contrôle</th>
-                                    <th>Critère</th>
-                                    <th class="text-center" width="8%">Tension d'éssai(V)</th>
-                                    <th class="text-center" width="8%">Valeur relevées avant lavage en  MΩ</th>
-                                    <th>Valeur relevées après lavage en  MΩ</th>
-                                    <th>Conformité</th>
-                                </tr>
-                                <tr>
-                                    <td rowspan="4">
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_ambiante">T° Ambiante (°C)</label>
-                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_ambiante) }}</div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="t_tolerie">T° Tôlerie (°C)</label>
-                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.temp_tolerie) }}</div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="marque">Hygrométrie (%)</label>
-                                            <div class="col-md-8 col-sm-8">{{ form_widget(formSondeBobinage.hygrometrie) }}</div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">Isolation</label>
-                                            <label class="col-form-label col-md-6 col-sm-6 label-align" for="marque">20 000 Ω/V </label>
-                                        </div>
-                                    </td>
-                                    <td>RI/Masse Sondes</td>
-                                    <td>132 MΩ sous</td>
-                                    <td class="text-center">2500</td>
-                                    <td class="text-center">0</td>
-                                    <td>{{ form_widget(formSondeBobinage.valeur1) }}</td>
-                                    <td>{{ form_widget(formSondeBobinage.conformite1) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>R Ohmique sonde ph. U</td>
-                                    <td>100 Ω à 0 °C</td>
-                                    <td class="text-center">2500</td>
-                                    <td class="text-center">0</td>
-                                    <td>{{ form_widget(formSondeBobinage.valeur2) }}</td>
-                                    <td>{{ form_widget(formSondeBobinage.conformite2) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>R Ohmique sonde ph. V</td>
-                                    <td>101 Ω à 0 °C</td>
-                                    <td class="text-center">2500</td>
-                                    <td class="text-center">0</td>
-                                    <td>{{ form_widget(formSondeBobinage.valeur3) }}</td>
-                                    <td>{{ form_widget(formSondeBobinage.conformite3) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>R Ohmique sonde ph. W</td>
-                                    <td>102 Ω à 0 °C</td>
-                                    <td class="text-center">2500</td>
-                                    <td class="text-center">0</td>
-                                    <td>{{ form_widget(formSondeBobinage.valeur4) }}</td>
-                                    <td>{{ form_widget(formSondeBobinage.conformite4) }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 text-left">
-                                <button class="btn btn-secondary btn-sm" name="bouton2" value="sonde_en_cours"> En cours <i class="fa fa-save"></i></button>
+                    <form method="post">
+                        <div class="x_content">
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr class="table-primary">
+                                        <th colspan="6" class="text-center">Paramètres</th>
+                                    </tr>
+                                    <tr>
+                                        <th>T° Ambiante (°C)</th>
+                                        <th>T° Tôlerie (°C)</th>
+                                        <th>Hygrométrie (%)</th>
+                                        <th>Critère</th>
+                                        <th>Tension Machine</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
+                                        <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
+                                        <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
+                                        <td>{{parametre.critere}} Ω/V </td>
+                                        <td>{{parametre.statorTension}}</td>
+                                    </tr>   
+                                </table>
                             </div>
-                            <div class="col-md-6 text-right">
-                                <button class="btn btn-success btn-sm" name="bouton2" value="sonde_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            <div class="row">
+                                <table class="table table-bordered table-striped">
+                                    <tr class="table-primary">
+                                        <th width="20%">Contrôle</th>
+                                        <th width="20%">Critère (MΩ)</th>
+                                        <th width="20%">Valeur relevée avant lavage (MΩ)</th>
+                                        <th width="20%">Valeur relevées (MΩ)</th>
+                                        <th width="15%">Conformité</th>
+                                        <th width="5%"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form.controle) }}</td>
+                                        <td>{{ form_widget(form.critere, { value : critere }) }}</td>
+                                        <td></td>
+                                        <td>{{ form_widget(form.valeur) }}</td>
+                                        <td>{{ form_widget(form.conformite) }}</td>
+                                        <td><button class="btn btn-primary btn-sm" name="bouton2" value="ajouter">Ajouter</button></td>
+                                    </tr>
+                                    {% for item2 in items %}
+                                        <tr>
+                                            <td>{{item2.controle}}</td>
+                                            <td>{{item2.critere}}</td>
+                                            <td>{{item2.valeurRelevee}}</td>
+                                            <td>{{item2.valeur}}</td>
+                                            <td>{{item2.conformite}}</td>
+                                            <td class="text-center"><a href="{{path('delete_sonde_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                        </tr>                                        
+                                    {% endfor %}
+                                    <tr class="bg-primary"></tr>
+                                    {% if parametre.sondeBobinage %}
+                                        {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.valeurRelevee}}</td>
+                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.conformite}}</td>
+                                                <td class="text-center"><a href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                            </tr>                                        
+                                        {% endfor %}                                            
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <button class="btn btn-secondary btn-sm" name="bouton2" value="sonde_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" name="bouton2" value="sonde_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                </div>
                             </div>
                         </div>
-                    {{ form_end(formSondeBobinage) }}
+                    </form>
                 </div>
             </div>
         </div>

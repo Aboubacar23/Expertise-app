@@ -19,12 +19,14 @@ use App\Form\PointFonctionnementRotorType;
 use App\Repository\SondeBobinageRepository;
 use App\Entity\ConstatElectriqueApresLavage;
 use App\Entity\AutrePointFonctionnementRotor;
+use App\Entity\LSondeBobinage;
 use App\Entity\LStatorApresLavage;
 use App\Repository\CaracteristiqueRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AutrePointFonctionnementRotorType;
+use App\Form\LSondeBobinageType;
 use App\Form\LStatorApresLavageType;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +36,7 @@ use App\Repository\PointFonctionnementRotorRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
+use App\Repository\LSondeBobinageRepository;
 use App\Repository\LStatorApresLavageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -148,38 +151,99 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
      //sonde à bobinage
     #[Route('/sonde-bobinage/{id}', name: 'app_sonde_bobinage')]
-    public function sonde(Parametre $parametre,Request $request,SondeBobinageRepository $sondeBobinageRepository): Response
+    public function sonde(Parametre $parametre,Request $request,SondeBobinageRepository $sondeBobinageRepository,EntityManagerInterface $em): Response
     {
         //sonde bobinage
         $sondeBobinage = new SondeBobinage();
+        $lsondeBobinage = new LSondeBobinage();
+        
         if($parametre->getSondeBobinage()){
             $sondeBobinage = $parametre->getSondeBobinage()->getParametre()->getSondeBobinage();
         }
 
         $formSondeBobinage = $this->createForm(SondeBobinageType::class, $sondeBobinage);
         $formSondeBobinage->handleRequest($request);
-        if($formSondeBobinage->isSubmitted() && $formSondeBobinage->isValid())
+
+        $form = $this->createForm(LSondeBobinageType::class, $lsondeBobinage);
+        $form->handleRequest($request);
+
+
+        $session = $request->getSession();
+        $tables = $session->get('sondes', []);
+
+        if($formSondeBobinage->isSubmitted() && $form->isSubmitted())
         {
             $choix = $request->get('bouton2');
             if($choix == 'sonde_en_cours')
             {
+                $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lsondeBobinage = new LSondeBobinage();
+                    $lsondeBobinage->setLig($i);
+                    $lsondeBobinage->setControle($item->getControle());
+                    $lsondeBobinage->setCritere($item->getCritere());
+                    $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
+                    $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setConformite($item->getConformite());
+                    $lsondeBobinage->setSondeBobinage($sondeBobinage);
+                    $em->persist($lsondeBobinage);
+                }
+
                 $parametre->setSondeBobinage($sondeBobinage);
                 $sondeBobinage->setEtat(0);
+                $session->clear();
                 $sondeBobinageRepository->save($sondeBobinage, true);
                 $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'sonde_terminer')
-            {
+            { 
+                $i = 0;
+                foreach($tables as $item)
+                {
+                    $i = $i + 1;
+                    $lsondeBobinage = new LSondeBobinage();
+                    $lsondeBobinage->setLig($i);
+                    $lsondeBobinage->setControle($item->getControle());
+                    $lsondeBobinage->setCritere($item->getCritere());
+                    $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
+                    $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setConformite($item->getConformite());
+                    $lsondeBobinage->setSondeBobinage($sondeBobinage);
+                    $em->persist($lsondeBobinage);
+                }
+
                 $parametre->setSondeBobinage($sondeBobinage);
                 $sondeBobinage->setEtat(1);
+                $session->clear();
                 $sondeBobinageRepository->save($sondeBobinage, true);
                 $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+
+            }
+            elseif($choix == 'ajouter')
+            {
+                foreach($parametre->getMesureResistance()->getLMesureResistances() as $item)
+                {
+                     if($item->getControle() == $lsondeBobinage->getControle())
+                     {
+                       $lsondeBobinage->setValeurRelevee($item->getValeur());
+                     }else{
+                        $lsondeBobinage->setValeurRelevee(0);
+                     }
+                }
+                $lig = sizeof($tables)+1;
+                $lsondeBobinage->setLig($lig);
+                $tables[$lig] = $lsondeBobinage;
+                $session->set('sondes', $tables);
             }
         }
 
         return $this->render('expertise_electrique_apres_lavage/sonde_bobinage.html.twig', [
             'parametre' => $parametre,
             'formSondeBobinage' => $formSondeBobinage->createView(),
+           'form' => $form->createView(),
+           'items' => $tables,
         ]);
     }
 
@@ -452,6 +516,32 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         {
             $lstatorApresLavageRepository->remove($lstatorApresLavage, true);
             return $this->redirectToRoute('app_stator_apres_lavage',['id' => $id2]); 
+        }
+    } 
+
+            
+    //delete session tables sondes
+    #[Route('/sonde-session/{id}/{id2}', name: 'delete_sonde_session')]
+    public function supprimeSondeSession($id,$id2,Request $request)
+    {
+        $session = $request->getSession();
+        $tables = $session->get('sondes', []);
+        if (array_key_exists($id, $tables))
+        {
+            unset($tables[$id]);
+            $session->set('sondes',$tables);
+        }
+        return $this->redirectToRoute('app_sonde_bobinage',['id' => $id2]); 
+    } 
+
+    //delete tables sondes
+    #[Route('/sonde-apres-lavage/{id}/{id2}', name: 'delete_sonde_apres_session_lavage')]
+    public function supprimeSondeS(LSondeBobinage $lsondeBobinage,$id2,Request $request,LSondeBobinageRepository $lsondeBobinageRepository)
+    {
+        if ($lsondeBobinage)
+        {
+            $lsondeBobinageRepository->remove($lsondeBobinage, true);
+            return $this->redirectToRoute('app_sonde_bobinage',['id' => $id2]); 
         }
     } 
 }

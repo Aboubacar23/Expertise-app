@@ -229,6 +229,7 @@ class RemontageController extends AbstractController
             if($parametre)
             {
                 $parametre->setRemontage(1);
+                $parametre->setStatutFinal(1);
                 $entityManager->persist($parametre);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

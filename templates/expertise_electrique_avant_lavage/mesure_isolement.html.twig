@@ -22,17 +22,17 @@
                 <!-- la gestion des valeur saisir automatiquement -->
 
                     <!-- la gestion des valeur saisir automatiquement -->
-                    {% set tension_essaie = 0 %}
+                        {% set tension_essaie = 0 %}
                         {% if parametre.statorTension < 500 %}
                             {% set tension_essaie = 500 %}
-                        {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
+                        {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
                             {% set tension_essaie = 1000 %}
-                        {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
+                        {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
                             {% set tension_essaie = 2500 %}
-                        {% elseif parametre.statorTension > 5000 %}
+                        {% elseif parametre.statorTension > 5500 %}
                             {% set tension_essaie = 5000 %}
                         {% endif %}
-                        <!-- la gestion des valeur saisir automatiquement -->
+                    <!-- la gestion des valeur saisir automatiquement -->
     
                         {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
                         
