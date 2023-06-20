@@ -127,7 +127,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             {
                foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $item)
                {
-                    if($item->getControle() == $lstatorApresLavage->getControle())
+                    if(strcmp($item->getControle(),$lstatorApresLavage->getControle()) !== 0)
                     {
                       $lstatorApresLavage->setValeurRelevee($item->getValeur());
                     }else{
@@ -225,7 +225,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             {
                 foreach($parametre->getMesureResistance()->getLMesureResistances() as $item)
                 {
-                     if($item->getControle() == $lsondeBobinage->getControle())
+                     if(strcmp($item->getControle(),$lsondeBobinage->getControle()) !== 0)
                      {
                        $lsondeBobinage->setValeurRelevee($item->getValeur());
                      }else{

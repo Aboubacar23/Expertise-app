@@ -209,19 +209,17 @@
                                             </tr>
                                             <tr>
                                                 <th>T° Ambiante (°C)</th>
-                                                <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
                                                 <th>T° Tôlerie (°C)</th>
-                                                <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
+                                                <th>Hygrométrie (%)</th>
                                                 <th>Date d'essai</th>
-                                                <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
+                                                <th>Critère</th>
                                             </tr>
                                             <tr>
-                                                <th>Hygrométrie (%)</th>
+                                                <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
+                                                <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
+                                                <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
                                                 <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
-                                                <th>Critère</th>
-                                                <td>20 000 Ω/V </td>
-                                                <th></th>
-                                                <td></td>
+                                                <td>{{ parametre.critere}} Ω/V </td>
                                             </tr>   
                                         </table>
                                     </div>
@@ -571,6 +569,7 @@
                         </div>
                         <div class="x_content collapse" id="collapse5">
                             <div class="row">
+                            {% if parametre.controleBobinage %}
                                 <table class="table table-bordered table-striped">
                                     <tr class="table-primary">
                                         <th class="text-center" colspan="4">Contrôles de bobinages</th>
@@ -593,7 +592,8 @@
                                         <td>{{ parametre.controleBobinage.preconisation2}}</td>
                                         <td>{{ parametre.controleBobinage.retenu2}}</td>
                                     </tr>
-                                </table>
+                                </table>                                
+                            {% endif %}
                             </div>
                         </div>
                     </div>
@@ -630,6 +630,7 @@
                         </div>
                         <div class="x_content collapse" id="collapse6">
                             <div class="row">
+                            {% if parametre.autreControle %}
                                 {% if parametre.presenceBalais == 1 %}
                                     <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
@@ -728,7 +729,8 @@
                                             <td>{{ parametre.autreControle.balaisMasseConformite6 }}</td>
                                         </tr>
                                     </table>                                                    
-                                {% endif %}                                  
+                                {% endif %}                                 
+                            {% endif %}                                 
                             </div>
                         </div>
                     </div>

@@ -100,22 +100,22 @@
                                         </div>
                                     </div> 
 
-                                <!-- la gestion des valeur saisir automatiquement -->
-                                {% set tension_essaie = 0 %}
-                                    {% if parametre.statorTension < 500 %}
-                                        {% set tension_essaie = 500 %}
-                                    {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
-                                        {% set tension_essaie = 1000 %}
-                                    {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
-                                        {% set tension_essaie = 2500 %}
-                                    {% elseif parametre.statorTension > 5000 %}
-                                        {% set tension_essaie = 5000 %}
-                                    {% endif %}
                                     <!-- la gestion des valeur saisir automatiquement -->
-                
-                                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                                    
-                                <!-- fin des valeurs -->
+                                        {% set tension_essaie = 0 %}
+                                        {% if parametre.statorTension < 500 %}
+                                            {% set tension_essaie = 500 %}
+                                        {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
+                                            {% set tension_essaie = 1000 %}
+                                        {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
+                                            {% set tension_essaie = 2500 %}
+                                        {% elseif parametre.statorTension > 5000 %}
+                                            {% set tension_essaie = 5000 %}
+                                        {% endif %}
+                                        <!-- la gestion des valeur saisir automatiquement -->
+                    
+                                        {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
+                                        
+                                    <!-- fin des valeurs -->
     
                                     <div class="row">
                                         <div class="col-md-12">
@@ -423,7 +423,7 @@
                                     <h2>Appareils de mesure utilisés</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    {% if parametre.appareilMesureElectriques %}
+                                    {% if parametre.appareilMesureElectriques == null %}
                                         <a href="#" class="btn btn-success btn-sm">Terminer <i class="fa fa-check"></i></a> 
                                     {% else %}
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>

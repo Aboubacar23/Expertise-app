@@ -96,7 +96,7 @@ class Parametre
 
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesure::class)]
     private Collection $appareilMesures;
-
+ 
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?MesureIsolement $mesure_isolement = null;
 

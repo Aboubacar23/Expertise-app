@@ -22,7 +22,7 @@ class ParametreExtension extends AbstractExtension
         $lists = $this->em->findBy([],['id'=> 'desc']);
         foreach ($lists as $item)
         {
-            if($item->isStatut() == 0 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isRemontage() == 1 && $item->isRemontage() == 1)
+            if($item->isStatut() == 0 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isExpertiseMecanique())
             {
                 array_push($listes, $item);
             }

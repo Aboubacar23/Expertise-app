@@ -17,7 +17,8 @@
                                 {% if affaire.parametres != null %}
                                     <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
                                 {% endif %}
-                                    <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
                             {% endif %}
                             {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                             <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>

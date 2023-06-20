@@ -80,7 +80,9 @@ class AffaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $affaireRepository->save($affaire, true);
 
-            return $this->redirectToRoute('app_affaire_liste', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_affaire_show', [
+                'id' => $affaire->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('affaire/edit.html.twig', [
@@ -89,7 +91,7 @@ class AffaireController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository): Response
     {
         if ($affaire) {

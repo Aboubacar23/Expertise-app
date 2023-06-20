@@ -23,9 +23,9 @@ class MachineType extends AbstractType
                 'label' => 'Categorie',
                 'placeholder' => 'Choisir une catégorie',
                 'choices' => [
-                    'Machines Asynchrone' => 'Machines Asynchrone',
-                    'Machines Synchrone' => 'Machines Synchrone',
-                    'Machines à courant continu' => 'Machines à courant continu',
+                    'Asynchrone' => 'Asynchrone',
+                    'Synchrone' => 'Synchrone',
+                    'À courant continu' => 'À courant continu',
                     'Autres' => 'Autres',
                 ]
             ])

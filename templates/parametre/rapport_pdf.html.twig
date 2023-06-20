@@ -8,6 +8,18 @@
 </head>
 
 <style>
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    font-size: 14px;
+    padding: 5px;
+    width: 100%;
+}
+ 
+.titre_table{
+    background-color: #ECECCD;
+}
+
 .image_logo 
     {
     height: 100px;
@@ -82,6 +94,8 @@ h3{
     padding-top: 200px;
 }
 
+.page_break { page-break-before: always; }
+
 
 </style>
 <body class="body">
@@ -109,8 +123,36 @@ h3{
             </div>
         </div>
     </div>
-   {# <div class="table_matiere">
-      <h2>Table des matiéres</h2>   
+    <div class="page_break"></div>
+    <div class="page2">
+        <table>
+            <tr class="titre_table">
+                <th>Machine</th>
+                <th colspan="5">Type</th>
+            </tr>
+            <tr>
+                <td>{{parametre.typeMachine}}</td>
+                <td>{{parametre.type}}</td>
+                <td>{{parametre.machine.categorie}}</td> 
+                <td>{{parametre.machine.sousCategorie}}</td>
+                <td>{{parametre.machine.sousCategorie2}}</td>
+                <td>{{parametre.machine.sousCategorie3}}</td>
+            </tr>
+        </table>
+        <table>
+            <tr class="titre_table">
+                <th>Fabricant</th>
+                <th>Type</th>
+                <th>N° de Série</th>
+            </tr>
+            <tr>
+                <td>{{parametre.typeMachine}}</td>
+                <td>{{parametre.type}}</td>
+                <td>{{parametre.machine.categorie}}</td> 
+                <td>{{parametre.machine.sousCategorie}}</td>
+                <td>{{parametre.machine.sousCategorie2}}</td>
+                <td>{{parametre.machine.sousCategorie3}}</td>
+            </tr>
+        </table>
     </div>
-    #}
 </body>
