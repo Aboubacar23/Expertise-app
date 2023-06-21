@@ -5,16 +5,10 @@ namespace App\Controller;
 use App\Entity\AccessoireSupplementaire;
 use TCPDF;
 use Dompdf\Dompdf;
+use Dompdf\Adapter\CPDF;
 use Dompdf\Options;
 use App\Entity\Affaire;
-use App\Entity\AppareilMesure;
-use App\Entity\Critere;
-use App\Entity\LStatorApresLavage;
 use App\Entity\Parametre;
-use App\Entity\PhotoExpertiseMecanique;
-use App\Entity\RemontagePhoto;
-use App\Form\AppareilMesureElectriqueType;
-use App\Form\MesureVibratoireType;
 use App\Form\ParametreType;
 use App\Repository\AccessoireSupplementaireRepository;
 use App\Repository\AppareilMesureElectriqueRepository;
@@ -342,6 +336,19 @@ class ParametreController extends AbstractController
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
+
+        // Génération du numéro de page
+      /*  $dompdf->getCanvas()->getDom()->addEventListener('load', function($event) use ($dompdf) {
+                $pageNumber = $dompdf->getCanvas()->get_page_number();
+                $totalPages = $dompdf->getCanvas()->get_page_count();
+                $font = $dompdf->getFontMetrics()->get_font('helvetica', 'regular');
+                $size = 10;
+                $color = array(0, 0, 0); // Couleur du numéro de page (noir)
+
+                $canvas = $dompdf->getCanvas();
+                $canvas->page_text(550, 20, "Page $pageNumber / $totalPages", $font, $size, $color);
+            });
+            */
         $dompdf->render();
 
         // On génère un nom de fichier
