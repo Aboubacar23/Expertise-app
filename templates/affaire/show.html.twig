@@ -14,10 +14,19 @@
                     <div class="x_panel">
                         <div class="x_title">
                             {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                                {% if affaire.parametres != null %}
+                                {% if active == false %}
                                     <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
                                 {% endif %}
                                 <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-info btn-sm">Archiver</a>
+                                {% if active == true %}
+                                    {% if affaire.bloque != 1 %}
+                                        <a onclick="return confirm('Voulez-vous confirmer ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-danger btn-sm">Fermer</a>
+                                    {% else %}
+                                        <a onclick="return confirm('Voulez-vous confirmer ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-success btn-sm">Activer</a>
+                                    {% endif %}
+                                {% endif %}
+                                <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Contrat</a>
                                 <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
                             {% endif %}
                             {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>

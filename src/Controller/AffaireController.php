@@ -6,6 +6,7 @@ use App\Entity\Affaire;
 use App\Form\AffaireType;
 use App\Repository\AffaireRepository;
 use App\Repository\ParametreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +55,7 @@ class AffaireController extends AbstractController
             $affaire->setEtat(0);
             $affaireRepository->save($affaire, true);
 
-            return $this->redirectToRoute('app_affaire_liste', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('affaire/new.html.twig', [
@@ -64,10 +65,19 @@ class AffaireController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_affaire_show', methods: ['GET'])]
-    public function show(Affaire $affaire): Response
+    public function show(Affaire $affaire,ParametreRepository $parametreRepository): Response
     {
+        $listes = $parametreRepository->findAll();
+        $active = false;
+        foreach($listes as $item)
+        {
+            if ($item->getAffaire()->getId() == $affaire->getId()){
+                $active = true;
+            }
+        }
         return $this->render('affaire/show.html.twig', [
             'affaire' => $affaire,
+            'active' => $active
         ]);
     }
 
@@ -111,4 +121,25 @@ class AffaireController extends AbstractController
              'affaires' => $affaires,
          ]);
      }
+
+       //la fonction qui affiche la liste des affaires terminer
+       #[Route('/bloque-activer/{id}', name: 'app_bloque', methods: ['GET'])]
+       public function bloque(Affaire $affaire, EntityManagerInterface $em): Response
+       {
+           if($affaire)
+           {
+                if($affaire->isBloque() == 1)
+                {
+                    $affaire->setBloque(0);
+                    $em->persist($affaire);
+                }else{
+                    $affaire->setBloque(1);
+                    $em->persist($affaire);
+                }
+
+            $em->flush();
+           return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
+           }
+           return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
+       }
 }

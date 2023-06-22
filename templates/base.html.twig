@@ -108,6 +108,10 @@
                       </li>
                     {% endif %}
                     <li><a href="{{path('app_affaire_rapport')}}"><i class="fa fa-list"></i> Rapports</a></li>
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                      <li><a href="#"><i class="fa fa-trash"></i> Corbeilles</a></li>
+                      <li><a href="#"><i class="fa fa-archive"></i> Archives</a></li>
+                  {% endif %}
                   </ul>
                 </div>
               </div>

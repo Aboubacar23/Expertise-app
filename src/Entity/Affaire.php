@@ -56,6 +56,9 @@ class Affaire
     #[ORM\ManyToOne(inversedBy: 'affaire')]
     private ?Admin $suivi_par = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $bloque = null;
+
 
     public function __construct()
     {
@@ -239,6 +242,18 @@ class Affaire
     public function setSuiviPar(?Admin $suivi_par): self
     {
         $this->suivi_par = $suivi_par;
+
+        return $this;
+    }
+
+    public function isBloque(): ?bool
+    {
+        return $this->bloque;
+    }
+
+    public function setBloque(?bool $bloque): self
+    {
+        $this->bloque = $bloque;
 
         return $this;
     }

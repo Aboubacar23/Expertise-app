@@ -66,7 +66,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_controle_visuel_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_controle_visuel_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -182,7 +184,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_controle_montage_roulement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -294,7 +298,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_controle_montage_coussinet', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -438,7 +444,9 @@
                                 <div class="col-md-4 text-center">
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_releve_dimensionnel', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -514,7 +522,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_controle_geometrique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -700,7 +710,9 @@
                                 <div class="col-md-4 text-center">
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_appareil_mesure_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -755,7 +767,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_hydro_aero', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -849,7 +863,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_photos_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -896,7 +912,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_constat_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
