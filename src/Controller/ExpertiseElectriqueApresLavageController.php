@@ -95,7 +95,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $parametre->setStatorApresLavage($statorApresLavage);
                 $statorApresLavage->setEtat(0);
-                $session->clear();
+                $session->remove('stators');
                 $statorApresLavageRepository->save($statorApresLavage, true);
                 $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
             }
@@ -119,23 +119,25 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $parametre->setStatorApresLavage($statorApresLavage);
                 $statorApresLavage->setEtat(1);
-                $session->clear();
+                $session->remove('stators');
                 $statorApresLavageRepository->save($statorApresLavage, true);
                 $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
                 
             }elseif($choix == 'ajouter')
             {
+                $val = 0;
                foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $item)
                {
-                    if(strcmp($item->getControle(),$lstatorApresLavage->getControle()) !== 0)
-                    {
-                      $lstatorApresLavage->setValeurRelevee($item->getValeur());
+                   if($item->getControle() == $lstatorApresLavage->getControle())
+                   {
+                       $val = $item->getValeur();
                     }else{
                         $lstatorApresLavage->setValeurRelevee(0);
                     }
                }
                 $lig = sizeof($listes)+1;
                 $lstatorApresLavage->setLig($lig);
+                $lstatorApresLavage->setValeurRelevee($val);
                 $listes[$lig] = $lstatorApresLavage;
                 $session->set('stators', $listes);
             }
@@ -193,8 +195,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $parametre->setSondeBobinage($sondeBobinage);
                 $sondeBobinage->setEtat(0);
-                $session->clear();
                 $sondeBobinageRepository->save($sondeBobinage, true);
+                $session->clear();
                 $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'sonde_terminer')
@@ -216,24 +218,26 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $parametre->setSondeBobinage($sondeBobinage);
                 $sondeBobinage->setEtat(1);
-                $session->clear();
                 $sondeBobinageRepository->save($sondeBobinage, true);
+                $session->clear();
                 $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
 
             }
             elseif($choix == 'ajouter')
             {
+                $val = 0;
                 foreach($parametre->getMesureResistance()->getLMesureResistances() as $item)
                 {
-                     if(strcmp($item->getControle(),$lsondeBobinage->getControle()) !== 0)
+                     if($item->getControle() == $lsondeBobinage->getControle())
                      {
-                       $lsondeBobinage->setValeurRelevee($item->getValeur());
+                        $val = $item->getValeur();
                      }else{
                         $lsondeBobinage->setValeurRelevee(0);
                      }
-                }
+                } 
                 $lig = sizeof($tables)+1;
                 $lsondeBobinage->setLig($lig);
+                $lsondeBobinage->setValeurRelevee($val);
                 $tables[$lig] = $lsondeBobinage;
                 $session->set('sondes', $tables);
             }

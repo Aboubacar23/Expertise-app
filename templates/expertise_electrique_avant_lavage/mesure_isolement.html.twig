@@ -101,7 +101,7 @@
                                                     <td>{{item.tension}}</td>
                                                     <td>{{item.valeur}}</td>
                                                     <td>{{item.conformite}}</td>
-                                                    <td class="text-center"><a href="#"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                                    <td class="text-center"><a href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                                 </tr>                                        
                                             {% endfor %}                                            
                                         {% endif %}

@@ -302,8 +302,8 @@ class ParametreController extends AbstractController
         ], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/print/rapport/{id}', name: 'app_parametre_print', methods: ['POST', 'GET'])]
-    public function print(Parametre $parametre): Response
+    #[Route('/print/rapport-expertise/{id}', name: 'app_parametre_expertise', methods: ['POST', 'GET'])]
+    public function rapportExpertise(Parametre $parametre): Response
     {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
@@ -330,7 +330,92 @@ class ParametreController extends AbstractController
         ]);
 
         $dompdf->setHttpContext($context);
-        $html = $this->renderView('parametre/rapport_pdf.html.twig', [
+        $html = $this->renderView('parametre/rapport_expertise.html.twig', [
+            'parametre' => $parametre
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Génération du numéro de page
+      /*  $dompdf->getCanvas()->getDom()->addEventListener('load', function($event) use ($dompdf) {
+                $pageNumber = $dompdf->getCanvas()->get_page_number();
+                $totalPages = $dompdf->getCanvas()->get_page_count();
+                $font = $dompdf->getFontMetrics()->get_font('helvetica', 'regular');
+                $size = 10;
+                $color = array(0, 0, 0); // Couleur du numéro de page (noir)
+
+                $canvas = $dompdf->getCanvas();
+                $canvas->page_text(550, 20, "Page $pageNumber / $totalPages", $font, $size, $color);
+            });
+            */
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = $parametre->getAffaire()->getNomRapport();
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => false
+        ]);
+
+        exit();
+      /*
+        $pdf = new TCPDF();
+        $pdf->SetMargins(5, 5, 5);
+        $pdf->AddPage();
+        $pdf->SetTitle($parametre->getAffaire()->getNomRapport());
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        // Récupérez le contenu de la page Twig
+        $content = $this->renderView('parametre/rapport_pdf.html.twig', [
+            'parametre' => $parametre,
+            'hello' => 'bonjour'
+        ]);
+
+        // Ajoutez le contenu à votre PDF
+        $pdf->writeHTML($content);
+
+        // Définissez le nom du fichier PDF généré
+        $filename = $parametre->getAffaire()->getNomRapport();
+
+        // Renvoyez le PDF en tant que réponse
+        return new Response($pdf->Output($filename, 'I'), 200, array(
+            'Content-Type' => 'application/pdf',
+        ));
+        */
+    
+
+    }
+
+    #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
+    public function rapporFinal(Parametre $parametre): Response
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Times New Roman');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);        
+        $dompdf->getOptions()->set('isPhpEnabled', true);
+        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
+        $dompdf->setCallbacks([
+            'event' => function ($event) use ($dompdf) {
+                if ($event['event'] === 'dompdf.page_number') {
+                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
+                }
+            }
+        ]);
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+
+        $dompdf->setHttpContext($context);
+        $html = $this->renderView('parametre/rapport_final.html.twig', [
             'parametre' => $parametre
         ]);
 

@@ -205,7 +205,7 @@
                                     <div class="row">
                                         <table class="table table-bordered table-striped">
                                             <tr class="table-primary">
-                                                <th colspan="6" class="text-center">Paramètres</th>
+                                                <th colspan="5" class="text-center">Paramètres</th>
                                             </tr>
                                             <tr>
                                                 <th>T° Ambiante (°C)</th>
@@ -516,22 +516,20 @@
                         <div class="x_content collapse" id="collapse4">
                             {% if parametre.appareilMesures %}
                                 <div class="row">
-                                    {% if parametre.appareilMesures %}
-                                        <table class="table table-bordered table-striped">
-                                            <tr class="table-primary">
-                                                <th>Désignation du moyen de contrôle</th>
-                                                <th>N° de l'appareil</th>
-                                                <th>Date de validité</th>
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-primary">
+                                            <th>Désignation du moyen de contrôle</th>
+                                            <th>N° de l'appareil</th>
+                                            <th>Date de validité</th>
+                                        </tr>
+                                        {% for item in parametre.appareilMesures %}
+                                            <tr>
+                                                <td>{{item.appareil.designation}}</td>
+                                                <td>{{item.appareil.numAppareil}}</td>
+                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
                                             </tr>
-                                            {% for item in parametre.appareilMesures %}
-                                                <tr>
-                                                    <td>{{item.appareil.designation}}</td>
-                                                    <td>{{item.appareil.numAppareil}}</td>
-                                                    <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                                                </tr>
-                                            {% endfor %} 
-                                        </table>                                        
-                                    {% endif %}
+                                        {% endfor %} 
+                                    </table>
                                 </div>                                
                             {% endif %}
                         </div>
@@ -804,15 +802,15 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr class="table-primary">
-                                            <th colspan="6">Photos</th>
+                                            <th colspan="6">Constats</th>
                                         </tr>
                                         <tr class="table-primary">
                                             <th>Vérification</th>
                                             <th>Critères</th>
                                             <th>Observation</th>
                                             <th>Préconisations et conclusion</th>
-                                            <th>Retenu</th>
                                             <th>Photo</th>
+                                            <th>Retenu</th>
                                         </tr>
                                         {% for item in parametre.constatElectriques %}
                                             <tr class="table-striped">
@@ -820,8 +818,8 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.observation}}</td>
                                                 <td>{{item.preconisationConclusion}}</td>
-                                                <td>{{item.retenu}}</td>
                                                 <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                                <td>{{item.retenu}}</td>
                                             </tr>                                                    
                                         {% endfor %}
                                     </table>

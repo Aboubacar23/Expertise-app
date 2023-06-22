@@ -872,7 +872,6 @@
                                             <tr>
                                                 <td>{{item.libelle}}</td>
                                                 <td class="image"><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}" height="80"></td>
-                                                <td><a href="{{path('delete_photo_expertise_mecanique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                             </tr>
                                         {% endfor %} 
                                     </table>                                        

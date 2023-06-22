@@ -37,7 +37,9 @@ class LMesureResistanceType extends AbstractType
                 'required' => true,
             ])
             ->add('conformite', ChoiceType::class, [
+                'required' => true,
                 'choices' => [
+                    '' => '',
                     'Oui' => 'Oui',
                     'Non' => 'Non'
                 ]

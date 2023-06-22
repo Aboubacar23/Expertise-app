@@ -35,7 +35,9 @@ class LSondeBobinageType extends AbstractType
             ->add('valeur_relevee')
             ->add('valeur')   
             ->add('conformite', ChoiceType::class, [
+                'required' => true,
                 'choices' => [
+                    '' => '',
                     'Oui' => 'Oui',
                     'Non' => 'Non'
                 ]

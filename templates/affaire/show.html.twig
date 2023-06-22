@@ -121,9 +121,9 @@
                                                     <th>Fabricant</th>
                                                     <th>Vitesse (tr/min)</th>
                                                     <th>Masse (KG)</th>
-                                                    <th>Critère</th>
                                                     <th class="text-center">Etat</th>
                                                     {#<th>Stator Tension</th>
+                                                    <th>Critère</th>
                                                     <th>Presence Balais</th>
                                                     <th>Stator Frequence</th>
                                                     <th>Stator Courant</th>
@@ -150,7 +150,6 @@
                                                     <td>{{ parametre.fabricant }}</td>
                                                     <td>{{ parametre.vitesse }}</td>
                                                     <td>{{ parametre.masse }}</td>
-                                                    <td>{{ parametre.critere | number_format }}</td>
                                                     <td class="text-center">
                                                         {% if parametre.etat == 1 %}
                                                             <span class="btn btn-danger btn-sm">{{ parametre.etat ? 'En-cours' : 'En Attente' }}</span>
@@ -159,6 +158,7 @@
                                                         {% endif %}
                                                         </td>
                                                     {#<td>{{ parametre.statorTension }}</td>
+                                                    <td>{{ parametre.critere | number_format }}</td>
                                                     <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
                                                     <td>{{ parametre.statorFrequence }}</td>
                                                     <td>{{ parametre.statorCourant }}</td>
@@ -176,8 +176,10 @@
                                                             <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
                                                             <a class="btn btn-danger btn-sm p-1" href="{{ path('app_parametre_delete', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-trash fa-2x"></i></a>
                                                         {% endif %}
-                                                        {% if parametre.etat == 0 %}
-                                                            <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>
+                                                        {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                                                            {% if parametre.etat == 0 %}
+                                                                <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>
+                                                            {% endif %}
                                                         {% endif %}
                                                     </td>
                                                 </tr>

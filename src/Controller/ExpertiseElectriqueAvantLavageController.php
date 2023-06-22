@@ -746,4 +746,30 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         }
     } 
 
-}
+    //delete session tables mesures isolement
+    #[Route('/delete-lmesure-session-isolement/{id}/{id2}', name: 'delete_lmesure_isolement_session')]
+    public function supprimeSessionIsolemenet($id,$id2,Request $request)
+    {
+        $session = $request->getSession();
+        $tables = $session->get('mesures', []);
+        if (array_key_exists($id, $tables))
+        {
+            unset($tables[$id]);
+            $session->set('mesures',$tables);
+        }
+        return $this->redirectToRoute('app_mesure_isolement',['id' => $id2]); 
+    } 
+
+    //delete tables mesures isolement
+    #[Route('/delete-lmesure-isolement/{id}/{id2}', name: 'delete_lmesure_isolement')]
+    public function supprimeLIsolement(LMesureIsolement $lmesureIsolement,$id2,Request $request, LMesureIsolementRepository $lmesureIsolementRepository)
+    {
+
+        if ($lmesureIsolement)
+        {
+            $lmesureIsolementRepository->remove($lmesureIsolement, true);
+            return $this->redirectToRoute('app_mesure_isolement',['id' => $id2]); 
+        }
+    } 
+    
+} 
