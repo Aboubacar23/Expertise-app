@@ -59,10 +59,14 @@ class Affaire
     #[ORM\Column(nullable: true)]
     private ?bool $bloque = null;
 
+    #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Archive::class)]
+    private Collection $archives;
+
 
     public function __construct()
     {
         $this->parametres = new ArrayCollection();
+        $this->archives = new ArrayCollection();
     }
 
 
@@ -254,6 +258,36 @@ class Affaire
     public function setBloque(?bool $bloque): self
     {
         $this->bloque = $bloque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Archive>
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archive $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives->add($archive);
+            $archive->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archive $archive): self
+    {
+        if ($this->archives->removeElement($archive)) {
+            // set the owning side to null (unless already changed)
+            if ($archive->getAffaire() === $this) {
+                $archive->setAffaire(null);
+            }
+        }
 
         return $this;
     }

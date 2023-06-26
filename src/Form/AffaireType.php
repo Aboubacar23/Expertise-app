@@ -9,13 +9,15 @@ use App\Repository\AdminRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Eckinox\TinymceBundle\Form\Type\TinymceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AffaireType extends AbstractType
 {   
@@ -90,17 +92,11 @@ class AffaireType extends AbstractType
                     ])
                 ]
             ])
-            ->add('presentation_travaux', TextareaType::class, [
+            ->add('presentation_travaux', CKEditorType::class, [
                 'required' => false,
-                'attr' => [
-                    'rows' => 6
-                ]
             ])
-            ->add('travaux_sup', TextareaType::class, [
+            ->add('travaux_sup', CKEditorType::class, [
                 'required' => false,
-                'attr' => [
-                    'rows' => 6
-                ]
             ])
             ->add('client', EntityType::class, [
                 'class' => Client::class,   

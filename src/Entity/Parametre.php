@@ -196,6 +196,9 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $corbeille = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1149,6 +1152,18 @@ class Parametre
     public function setEtat(?bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function isCorbeille(): ?bool
+    {
+        return $this->corbeille;
+    }
+
+    public function setCorbeille(?bool $corbeille): self
+    {
+        $this->corbeille = $corbeille;
 
         return $this;
     }

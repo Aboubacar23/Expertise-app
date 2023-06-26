@@ -93,10 +93,8 @@
                             <div class="col-md-4 col-sm-4 ">{{ form_widget(form.context) }}</div>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="presentation_travaux">Présentation des travaux</label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.presentation_travaux) }}</div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="presentation_travaux">Travaux Supplémentaires</label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.travaux_sup) }}</div>
+                            <div class="col-md-6 col-sm-6 ">{{ form_row(form.presentation_travaux) }}</div>
+                            <div class="col-md-6 col-sm-6 ">{{ form_row(form.travaux_sup) }}</div>
                         </div>
                     </div>
                 </div>

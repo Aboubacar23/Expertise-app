@@ -67,7 +67,9 @@
                                         {% endif %}
                                     </div>
                                     <div class="col-md-2 text-right">
-                                        <a class="btn btn-primary" href="{{path('app_stator_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_stator_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-2">
                                         <ul class="nav navbar-right panel_toolbox">
@@ -166,7 +168,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_sonde_bobinage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_sonde_bobinage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -248,7 +252,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_caracteristique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_caracteristique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -344,7 +350,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_fonctionnement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_fonctionnement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -430,7 +438,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_appareil_mesure_expertise_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_appareil_mesure_expertise_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -473,7 +483,9 @@
                                 <div class="col-md-4 text-center">
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_constact_expertise_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_constact_expertise_apres_lavage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">

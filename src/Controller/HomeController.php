@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Parametre;
 use App\Repository\AdminRepository;
 use App\Repository\AffaireRepository;
 use App\Repository\ClientRepository;
@@ -20,12 +21,7 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route('/home', name: 'app_home')]
-    public function index(
-        AdminRepository $adminRepository,
-        ClientRepository $clientRepository,
-        ParametreRepository $parametreRepository,
-        AffaireRepository $affaireRepository
-    ): Response
+    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,ParametreRepository $parametreRepository,AffaireRepository $affaireRepository): Response
     {
 
         $admin = count($adminRepository->findAll());
@@ -48,4 +44,25 @@ class HomeController extends AbstractController
             
         ]);
     }
+
+
+     //la fonction qui affiche la liste des affaires terminer
+     #[Route('/corbeille-listes', name: 'app_corbeille_listes', methods: ['GET'])]
+     public function rapport(ParametreRepository $parametreRepository): Response
+     {
+        $listes = $parametreRepository->findBy([],['id' => 'desc']);
+        $parametres = [];
+
+        foreach($listes as $item)
+        {
+            if($item->isCorbeille() == true)
+            {
+                array_push($parametres, $item);
+            }
+        }
+
+        return $this->render('home/corbeille.html.twig', [
+            'parametres' => $parametres,
+        ]);
+     }
 }

@@ -59,7 +59,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_remontage_palier', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_remontage_palier', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -153,7 +155,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_equilibrage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_equilibrage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -290,7 +294,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_remontage_finition', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_remontage_finition', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
@@ -527,7 +533,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a class="btn btn-primary" href="{{path('app_photo_remontage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_photo_remontage', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">

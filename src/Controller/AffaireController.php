@@ -3,14 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Affaire;
+use App\Entity\Archive;
+use App\Entity\Parametre;
 use App\Form\AffaireType;
+use App\Form\ArchiveType;
 use App\Repository\AffaireRepository;
+use App\Repository\ArchiveRepository;
 use App\Repository\ParametreRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/affaire')]
 class AffaireController extends AbstractController
@@ -64,9 +70,11 @@ class AffaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_affaire_show', methods: ['GET'])]
-    public function show(Affaire $affaire,ParametreRepository $parametreRepository): Response
-    {
+    //la fonction pour retourner une seule affaire
+    #[Route('/{id}', name: 'app_affaire_show', methods: ['GET','POST'])]
+    public function show(Affaire $affaire,ParametreRepository $parametreRepository, ArchiveRepository $archiveRepository, Request $request, SluggerInterface $slugger): Response
+    {   
+        //envoyer une variable active true pour désactiver et activer le parametre
         $listes = $parametreRepository->findAll();
         $active = false;
         foreach($listes as $item)
@@ -75,9 +83,48 @@ class AffaireController extends AbstractController
                 $active = true;
             }
         }
+        //traitement des archives
+        $archive = new Archive();
+        $form = $this->createForm(ArchiveType::class, $archive);
+        $form->handleRequest($request);
+
+        //verifie s'il y a une version existant de cette affaire pour connaitre le nombre total
+        $num = 0;
+        if($affaire->getArchives())
+        {
+            $num = count($affaire->getArchives()) + 1;
+        }
+
+        $version = 'Version-'.$num;
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $fichier = $form->get('fichier')->getData();
+            if ($fichier) {
+                $originaleFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME); 
+                $safeFichier = $slugger->slug($originaleFichier);
+                $newFichierName = $safeFichier . '-' . uniqid() . '.' . $fichier->guessExtension();
+                try {
+                    $fichier->move(
+                        $this->getParameter('fichier_archives'),
+                        $newFichierName
+                    );
+                } catch (FileException $e){}
+            }
+            $archive->setAffaire($affaire);
+            $archive->setFichier($newFichierName);
+            $archiveRepository->save($archive, true);
+            $this->addFlash('success', 'Vous avez créé une archive sur cette affaire');
+            return $this->redirectToRoute('app_affaire_show', [
+                'id' => $affaire->getId(),
+            ], Response::HTTP_SEE_OTHER);
+        }
+        //fin d'archiver
         return $this->render('affaire/show.html.twig', [
             'affaire' => $affaire,
-            'active' => $active
+            'active' => $active,
+            'form' => $form->createView(),
+            'archive' => $archive,
+            'version' => $version
         ]);
     }
 
@@ -122,24 +169,51 @@ class AffaireController extends AbstractController
          ]);
      }
 
-       //la fonction qui affiche la liste des affaires terminer
-       #[Route('/bloque-activer/{id}', name: 'app_bloque', methods: ['GET'])]
-       public function bloque(Affaire $affaire, EntityManagerInterface $em): Response
-       {
-           if($affaire)
-           {
-                if($affaire->isBloque() == 1)
-                {
-                    $affaire->setBloque(0);
-                    $em->persist($affaire);
-                }else{
-                    $affaire->setBloque(1);
-                    $em->persist($affaire);
-                }
+    //la fonction qui permet d'activer et réactiver une affaire
+    #[Route('/bloque-activer/{id}', name: 'app_bloque', methods: ['GET'])]
+    public function bloque(Affaire $affaire, EntityManagerInterface $em): Response
+    {
+        //on vérifi si l'affaire existe
+        if($affaire)
+        {
+            /**
+             * si l'attribut bloque est true
+             * il lui passe en false
+             * si non il lui passe en true
+             */
+            if($affaire->isBloque() == 1)
+            {
+                $affaire->setBloque(0);
+                $em->persist($affaire);
+            }else{
+                $affaire->setBloque(1);
+                $em->persist($affaire);
+            }
 
+        $em->flush();
+        return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    //la fonction qui permet d'activer et réactiver une affaire
+    #[Route('/corbeille/{id}', name: 'app_corbeille', methods: ['GET'])]
+    public function corbeille(Parametre $parametre, EntityManagerInterface $em): Response
+    {
+        //on vérifi si l'affaire existe
+        if($parametre)
+        {
+            if($parametre->isCorbeille() == 1)
+            {
+                $parametre->setCorbeille(0);
+                $em->persist($parametre);
+            }else{
+                $parametre->setCorbeille(1);
+                $em->persist($parametre);
+            }
             $em->flush();
-           return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
-           }
-           return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
-       }
+            return $this->redirectToRoute('app_affaire_show', ['id' => $parametre->getAffaire()->getId()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->redirectToRoute('app_affaire_show', ['id' => $parametre->getAffaire->getAffaire()->getId()], Response::HTTP_SEE_OTHER);
+    }
 }

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire index{% endblock %}
+
+{% block body %}  
+<div class="page-title">
+    <div class="title_left">
+    <h3>Gestion Affaires</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Archives</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box table-responsive">
+                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="table-primary">
+                            <tr>
+                            <th width="2">N°</th>
+                            <th>N° Affaire JE</th>
+                            <th>Nom Client</th>
+                            <th>Référence code client</th>
+                            <th>Type</th>
+                            <th>Machine</th>
+                            <th>Type Machine</th>
+                            <th class="text-center">Date Archive</th>
+                            <th class="text-center">Version</th>
+                            <th class="text-center">Fichier</th>
+                            <th width="100" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            {% set i = 0 %}
+                            {% for item in archives %}
+                            {% set i = i + 1 %}
+                            <tr>
+                                <td>{{ i}}</td>
+                                <td>{{ item.affaire.numAffaire }}</td> 
+                                <td>{{ item.affaire.client }}</td>
+                                <td>{{ item.affaire.codeClient }}</td>
+                                {% for item2 in item.affaire.parametres %}
+                                    <td>{{ item2.type }}</td>
+                                    <td>{{ item2.machine }}</td>
+                                    <td>{{ item2.typeMachine }}</td>                                    
+                                {% endfor %}
+                                <td class="text-center">{{ item.dateArchive ? item.dateArchive|date('Y-m-d') : '' }}</td>
+                                <td class="text-center">{{ item.version }}</td>
+                                <td class="text-center"><a class="text-danger" target="_blank" href="{{asset('/archives/'~ item.fichier)}}" alt="" height="75"><i class="fa fa-file-pdf-o fa-2x"></i></a></td>
+                                <td class="text-center">
+                                    <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-1x p-1"></i></a>
+                                    <a onclick="return confirm('Voulez-vous confirmer ?')" href="{{path('app_archive_delete', {'id' : item.id })}}" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-1x p-1"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr> 
+                                <td colspan="13">Pas d'affaires en cours</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
