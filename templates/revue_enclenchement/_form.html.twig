@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        {{ form_start(form) }}
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-bordered table-striped">
+                        <tr class="table-primary">
+                            <th class="text-center" colspan="2">Revue D'enclenchement</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form_widget(form.libelle) }}</td>
+                        </tr> 
+                        <tr>
+                            <td>{{affaire}}</td>
+                            <td>{{ form_widget(form.libelle) }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr> 
+                    </table>
+                </div>
+            </div>
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="item form-group">
+                    <div class="col-md-6 col-sm-6 offset-md-3 text-center">
+                        <div class="row">
+                            <div class="col-md-12 align-center">
+                                <button class="btn btn-danger btn-sm text-uppercase"
+                                onclick="confirm('Voulez-vous vraiment valider ?')">{{ button_label|default('Valider') }}<i class="fa fa-save p-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

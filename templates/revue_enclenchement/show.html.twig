@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RevueEnclenchement{% endblock %}
+
+{% block body %}
+    <h1>RevueEnclenchement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ revue_enclenchement.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero_contrat</th>
+                <td>{{ revue_enclenchement.numeroContrat }}</td>
+            </tr>
+            <tr>
+                <th>Cahier_charge</th>
+                <td>{{ revue_enclenchement.cahierCharge }}</td>
+            </tr>
+            <tr>
+                <th>Numero_pcq</th>
+                <td>{{ revue_enclenchement.numeroPcq }}</td>
+            </tr>
+            <tr>
+                <th>Amiante</th>
+                <td>{{ revue_enclenchement.amiante }}</td>
+            </tr>
+            <tr>
+                <th>Contre_expertise</th>
+                <td>{{ revue_enclenchement.contreExpertise }}</td>
+            </tr>
+            <tr>
+                <th>Re7_client</th>
+                <td>{{ revue_enclenchement.re7Client ? revue_enclenchement.re7Client|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ revue_enclenchement.observation }}</td>
+            </tr>
+            <tr>
+                <th>Delai_demande_client</th>
+                <td>{{ revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Point_arret</th>
+                <td>{{ revue_enclenchement.pointArret }}</td>
+            </tr>
+            <tr>
+                <th>Arrive_commande</th>
+                <td>{{ revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Arc</th>
+                <td>{{ revue_enclenchement.arc ? revue_enclenchement.arc|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Revue_enclenchement</th>
+                <td>{{ revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Arrivee_machine</th>
+                <td>{{ revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Objectif_rapport_expertise</th>
+                <td>{{ revue_enclenchement.objectifRapportExpertise }}</td>
+            </tr>
+            <tr>
+                <th>Objectif_mise_dispo</th>
+                <td>{{ revue_enclenchement.objectifMiseDispo }}</td>
+            </tr>
+            <tr>
+                <th>Date_rapport_expertise_finalise</th>
+                <td>{{ revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_machine_prete</th>
+                <td>{{ revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_revue_enclenchement_index') }}">back to list</a>
+
+    <a href="{{ path('app_revue_enclenchement_edit', {'id': revue_enclenchement.id}) }}">edit</a>
+
+    {{ include('revue_enclenchement/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RevueEnclenchement index{% endblock %}
+
+{% block body %}
+    <h1>RevueEnclenchement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero_contrat</th>
+                <th>Cahier_charge</th>
+                <th>Numero_pcq</th>
+                <th>Amiante</th>
+                <th>Contre_expertise</th>
+                <th>Re7_client</th>
+                <th>Observation</th>
+                <th>Delai_demande_client</th>
+                <th>Point_arret</th>
+                <th>Arrive_commande</th>
+                <th>Arc</th>
+                <th>Revue_enclenchement</th>
+                <th>Arrivee_machine</th>
+                <th>Objectif_rapport_expertise</th>
+                <th>Objectif_mise_dispo</th>
+                <th>Date_rapport_expertise_finalise</th>
+                <th>Date_machine_prete</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for revue_enclenchement in revue_enclenchements %}
+            <tr>
+                <td>{{ revue_enclenchement.id }}</td>
+                <td>{{ revue_enclenchement.numeroContrat }}</td>
+                <td>{{ revue_enclenchement.cahierCharge }}</td>
+                <td>{{ revue_enclenchement.numeroPcq }}</td>
+                <td>{{ revue_enclenchement.amiante }}</td>
+                <td>{{ revue_enclenchement.contreExpertise }}</td>
+                <td>{{ revue_enclenchement.re7Client ? revue_enclenchement.re7Client|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.observation }}</td>
+                <td>{{ revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.pointArret }}</td>
+                <td>{{ revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.arc ? revue_enclenchement.arc|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.objectifRapportExpertise }}</td>
+                <td>{{ revue_enclenchement.objectifMiseDispo }}</td>
+                <td>{{ revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_revue_enclenchement_show', {'id': revue_enclenchement.id}) }}">show</a>
+                    <a href="{{ path('app_revue_enclenchement_edit', {'id': revue_enclenchement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_revue_enclenchement_new') }}">Create new</a>
+{% endblock %}

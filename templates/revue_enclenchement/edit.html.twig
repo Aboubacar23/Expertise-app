@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RevueEnclenchement{% endblock %}
+
+{% block body %}
+    <h1>Edit RevueEnclenchement</h1>
+
+    {{ include('revue_enclenchement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_revue_enclenchement_index') }}">back to list</a>
+
+    {{ include('revue_enclenchement/_delete_form.html.twig') }}
+{% endblock %}

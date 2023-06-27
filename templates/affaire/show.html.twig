@@ -26,9 +26,9 @@
                                 <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-success btn-sm">Activer</a>
                             {% endif %}
                         {% endif %}
-                        <a href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Contrat</a>
+                        <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Contrat</a>
                         <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
-                    {% endif %}
+                    {% endif %} 
                     {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                     <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
                     <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
@@ -86,7 +86,7 @@
                                                 <th colspan="2">Présentation des travaux</th>
                                             </tr>
                                             <tr>
-                                                <td colspan="2">{{affaire.presentationTravaux}}</td>
+                                                <td colspan="2">{{affaire.presentationTravaux | raw}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -116,7 +116,7 @@
                                                 <th colspan="2">Réalisations des travaux Supplémentaires</th>
                                             </tr>
                                             <tr>
-                                                <td colspan="2">{{ affaire.travauxSup }}</td>
+                                                <td colspan="2">{{ affaire.travauxSup | raw}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

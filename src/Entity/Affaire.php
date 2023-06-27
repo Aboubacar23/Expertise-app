@@ -62,6 +62,9 @@ class Affaire
     #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Archive::class)]
     private Collection $archives;
 
+    #[ORM\OneToOne(inversedBy: 'affaire', cascade: ['persist', 'remove'])]
+    private ?RevueEnclenchement $revue_enclenchement = null;
+
 
     public function __construct()
     {
@@ -288,6 +291,18 @@ class Affaire
                 $archive->setAffaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRevueEnclenchement(): ?RevueEnclenchement
+    {
+        return $this->revue_enclenchement;
+    }
+
+    public function setRevueEnclenchement(?RevueEnclenchement $revue_enclenchement): self
+    {
+        $this->revue_enclenchement = $revue_enclenchement;
 
         return $this;
     }
