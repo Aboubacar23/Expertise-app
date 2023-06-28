@@ -16,7 +16,7 @@
             <div class="x_title">
             <h2>Listes des clients</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_client_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
             </ul>
             <div class="clearfix"></div>
             </div>
@@ -71,6 +71,72 @@
             </div>
         </div>
         </div>
+    </div>
+</div>
+<div class="col-md-6 col-sm-6  ">
+    <div class="x_content">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Archives</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                </div>
+                {{ form_start(form) }}
+                    <div class="modal-body">
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="nom">Nom <span class="required text-danger">*</span></label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.nom)}}
+                                <div class="my-custom-class-for-errors">
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="site">Site <span class="required text-danger">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.site)}}
+                                <div class="my-custom-class-for-errors">
+                                    {{ form_errors(form.site) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="adresse" class="col-form-label col-md-3 col-sm-3 label-align">Adresse</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.adresse)}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="ville" class="col-form-label col-md-3 col-sm-3 label-align">Ville</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.ville)}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.contact)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Ajouter</button>                                
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <!-- /modals -->
     </div>
 </div>
 {% endblock %}

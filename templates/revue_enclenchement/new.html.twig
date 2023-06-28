@@ -13,95 +13,92 @@
     <div class="row">      
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div>  
+                </div>
                 <div class="x_content">
                     {{ form_start(form) }}
                         <div class="row">
                             <table class="table table-bordered table-striped">
                                 <tr class="table-primary">
-                                    <th class="text-center" colspan="4">Revue D'enclenchement</th>
+                                    <th class="text-center" colspan="6">Revue D'enclenchement</th>
                                 </tr>
-                                <tr>
-                                    <td colspan="4">{{ form_widget(form.libelle) }}</td>
-                                </tr> 
                                 <tr class="table-primary">
+                                    <td></td>
                                     <td>N° PROJET</td>
                                     <td>DESCRIPTION PRESTATION</td>
                                     <td>Chef de Projet</td>
                                     <td>CLIENT</td>
-                                </tr>
+                                    <td></td>
+                                </tr> 
                                 <tr>
+                                    <td>{{ form_widget(form.libelle) }}</td>
                                     <td>{{ affaire.numAffaire }}</td>
                                     <td>{{ form_widget(form.description_prestation) }}</td>
                                     <td>{{ affaire.suiviPar }}</td>
                                     <td>{{ affaire.client }}</td>
+                                    <td></td>
                                 </tr> 
                                 <tr class="table-primary">
                                     <td>Type</td>
-                                    <td>Amiante</td>
-                                    <td>Paliers</td>
                                     <td>Plan</td>
+                                    <td>Paliers</td>
+                                    <td>Amiante</td>
+                                    <td>N° Contrat</td>
+                                    <td>Cahier des Charges</td>
                                 </tr>
                                 <tr>
                                     <td>{{ parametre[0].type }}</td>
-                                    <td>{{ form_widget(form.amiante) }}</td>
-                                    <td>{{ parametre[0].typePalier }}</td>
                                     <td>{{ form_widget(form.plan) }}</td>
-                                </tr> 
-                                <tr class="table-primary">
-                                    <td>N° Contrat</td>
-                                    <td>Cahier des Charges</td>
-                                    <td>N° PCQ</td>
-                                    <td>Point d'arrêt</td>
-                                </tr>
-                                <tr>
+                                    <td>{{ parametre[0].typePalier }}</td>
+                                    <td>{{ form_widget(form.amiante) }}</td>
                                     <td>{{ form_widget(form.numero_contrat) }}</td>
                                     <td>{{ form_widget(form.cahier_charge) }}</td>
+                                </tr> 
+                                <tr class="table-primary">
+                                    <td>N° PCQ</td>
+                                    <td>Point d'arrêt</td>
+                                    <td>Contre expertise</td>
+                                    <td>Re7 client</td>
+                                    <td>Observation</td>
+                                    <td>Clarifications suite RE</td>
+                                </tr>
+                                <tr>
                                     <td>{{ form_widget(form.numero_pcq) }}</td>
                                     <td>{{ form_widget(form.point_arret) }}</td>
+                                    <td>{{ form_widget(form.contre_expertise) }}</td>
+                                    <td>{{ form_widget(form.re7_client) }}</td>
+                                    <td>{{ form_widget(form.observation) }}</td>
+                                    <td>{{ form_widget(form.clarification) }}</td>
                                 </tr> 
                                 <tr class="table-primary">
-                                    <td colspan="2">Contre expertise</td>
-                                    <td colspan="2">Re7 client</td>
+                                    <th colspan="6" class="text-center">PLANIFICATION / JALONS</th>
                                 </tr>
-                                <tr>
-                                    <td colspan="2">{{ form_widget(form.contre_expertise) }}</td>
-                                    <td colspan="2">{{ form_widget(form.re7_client) }}</td>
-                                </tr> 
                                 <tr class="table-primary">
-                                    <td colspan="2">Observation</td>
-                                    <td colspan="2">Clarifications suite RE</td>
+                                    <td colspan="2">Délai Demande client</td>
+                                    <td colspan="2">Arrivée de la commande</td>
+                                    <td colspan="2">ARC</td>    
                                 </tr>
                                 <tr>
-                                    <td colspan="2">{{ form_widget(form.observation) }}</td>
-                                    <td colspan="2">{{ form_widget(form.clarification) }}</td>
-                                </tr> 
-                                <tr class="table-primary">
-                                    <th colspan="4" class="text-center">PLANIFICATION / JALONS</th>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="table-primary">Délai Demande client</td>
                                     <td colspan="2">{{ form_widget(form.delai_demande_client) }}</td>
+                                    <td colspan="2">{{ form_widget(form.arrive_commande) }}</td>
+                                    <td colspan="2">{{ form_widget(form.arc) }}</td>
     
                                 </tr>
                                 <tr class="table-primary">
-                                    <td>Arrivée de la commande</td>
-                                    <td>ARC</td>
                                     <td>Revue d'enclenchement</td>
                                     <td>Arrivée de la machine</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ form_widget(form.arrive_commande) }}</td>
-                                    <td>{{ form_widget(form.arc) }}</td>
-                                    <td>{{ form_widget(form.revue_enclenchement) }}</td>
-                                    <td>{{ form_widget(form.arrivee_machine) }}</td>
-                                </tr> 
-                                <tr class="table-primary">
                                     <td>Objectif rapport expertise (jours)</td>
                                     <td>Objectif mise à dispo machine pour exp(jours)</td>
                                     <td>Date rapport expertise finalisé</td>
                                     <td>Date machine prête pour expé</td>
                                 </tr>
                                 <tr>
+                                    <td>{{ form_widget(form.revue_enclenchement) }}</td>
+                                    <td>{{ form_widget(form.arrivee_machine) }}</td>
                                     <td>{{ form_widget(form.objectif_rapport_expertise) }}</td>
                                     <td>{{ form_widget(form.objectif_mise_dispo) }}</td>
                                     <td>{{ form_widget(form.date_rapport_expertise_finalise) }}</td>
@@ -220,9 +217,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}">A réception</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-primary ">A réception</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -246,9 +243,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num2 + 1}}">Démontage moteur</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num2 + 1}}" class="table-primary">Démontage moteur</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -272,9 +269,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num2 + 1}}">Lavage / Etuvage / Nettoyage</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num2 + 1}}" class="table-primary ">Lavage / Etuvage / Nettoyage</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -298,9 +295,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}">Expertise électrique</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Expertise électrique</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -324,9 +321,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}">Expertise mécanique</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Expertise mécanique</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -350,9 +347,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}">Remontage moteur</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-primary">Remontage moteur</td>
+                                            <td class="table-primary"></td>
+                                            <td class="table-primary"></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -376,9 +373,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}">Autres</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Autres</td>
+                                            <td class="table-primary "></td>
+                                            <td class="table-primary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -400,4 +397,4 @@
     </div>
 </div>
 {% endblock %}
- 
+  

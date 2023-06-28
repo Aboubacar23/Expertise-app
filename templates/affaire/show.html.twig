@@ -15,29 +15,26 @@
                 <div class="x_title">
                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                         {% if active == false %}
-                            <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Paramètres généraux</a>
+                            <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>
                         {% endif %}
-                        <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-warning btn-sm">Modifier</a>
+                        <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>
                         {% if active == true %}
-                            <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-info btn-sm">Archiver</a>
+                            <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
                             {% if affaire.bloque != 1 %}
-                                <a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-danger btn-sm">Fermer</a>
+                                <a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase">Fermer</a>
                             {% else %}
-                                <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-success btn-sm">Activer</a>
+                                <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-success btn-sm text-uppercase">Activer</a>
                             {% endif %}
                         {% endif %}
-                        <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Contrat</a>
-                        <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
+                        {% if affaire.revueEnclenchement %}
+                            <a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
+                        {% else %}
+                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-info btn-sm">REVUE ENC</a>
+                        {% endif %}
+                        <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
                     {% endif %} 
-                    {#  <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
-                    <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-primary btn-sm">Information Client</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Constats Elec</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Constats Meca</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Remontage</a>#}
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div> 
                 </div>
@@ -172,12 +169,12 @@
                                                 <td>{{ parametre.vitesse }}</td>
                                                 <td>{{ parametre.masse }}</td>
                                                 <td class="text-center">
-                                                    {% if parametre.etat == 1 %}
-                                                        <span class="btn btn-danger btn-sm">{{ parametre.etat ? 'En-cours' : 'En Attente' }}</span>
+                                                    {% if affaire.revueEnclenchement %}
+                                                        <span class="btn btn-danger btn-sm">En-cours</span>
                                                     {% else %}
-                                                        <span class="btn btn-secondary btn-sm">{{ parametre.etat ? 'En-cours' : 'En Attente' }}</span>
+                                                        <span class="btn btn-secondary btn-sm">En Attente</span>
                                                     {% endif %}
-                                                    </td>
+                                                </td>
                                                 {#<td>{{ parametre.statorTension }}</td>
                                                 <td>{{ parametre.critere | number_format }}</td>
                                                 <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
@@ -190,18 +187,20 @@
                                                 <td>{{ parametre.rotorCourant }}</td>
                                                 <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
                                                 <td class="text-center">
-                                                    {% if parametre.etat == 1 %}
+                                                    {% if affaire.revueEnclenchement %}
                                                         <a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-2x"></i></a>
                                                     {% endif %}
                                                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                                                         <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
                                                         <a class="btn btn-danger btn-sm p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-2x"></i></a>
                                                     {% endif %}
+                                                  {#
                                                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                                                         {% if parametre.etat == 0 %}
                                                             <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>
                                                         {% endif %}
                                                     {% endif %}
+                                                    #}
                                                 </td>
                                             </tr>                                   
                                         {% endif %}
@@ -249,3 +248,4 @@
     </div>
 </div>
 {% endblock %}
+ 

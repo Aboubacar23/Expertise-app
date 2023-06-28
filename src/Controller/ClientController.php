@@ -15,11 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientController extends AbstractController
 {
     //cette fonction permet de récuper tous les client du systeme de la base 
-    #[Route('/', name: 'app_client_index', methods: ['GET'])]
-    public function index(ClientRepository $clientRepository): Response
-    {
+    #[Route('/index', name: 'app_client_index', methods: ['GET','POST'])]
+    public function index(ClientRepository $clientRepository, Request $request): Response
+    {   
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', "Le client a été créer ");
+            $client->setEtat(1);
+            $clientRepository->save($client, true);
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findBy([], ['id' => 'DESC']),
+            'client' => $client,
+            'form' => $form->createView(),
         ]);
     }
 

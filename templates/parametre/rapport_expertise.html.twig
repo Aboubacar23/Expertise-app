@@ -6,7 +6,6 @@
         <title>Jeumont Electric Expertise</title>
         <link href="{{ asset('admin/build/css/rapport.css') }}" rel="stylesheet">
 </head>
-
 <style>
 table, th, td {
     border: 1px solid;
@@ -135,6 +134,7 @@ h5{
 .sous_page4_2{padding-bottom: 15px;}
 .table_sous_page_6_2, .tr_table_sous_page_6_2{font-size: 11px !important;}
 .th_table_sous_page6_2{width: 20%!important;}
+.td_image{ text-align: center;}
 </style>
 <body class="body">
 {# la partie logo et titre #}
@@ -165,917 +165,926 @@ h5{
 {# fin de la partie logo et titre #}
 
 {# la page 2 , Préambule et Context #}
-    <div class="page_break"></div>
-    <div class="page2">
-        <div>
-            <h2>I.  Préambule et Context</h2>
-            <p>{{parametre.affaire.context}}</p>
-        </div>
-        <div>
-            <h2>II.  Présentation des travaux</h2>
-            <p>{{parametre.affaire.presentationTravaux}}</p>
-        </div>
+<div class="page_break"></div>
+<div class="page2">
+    <div>
+        <h2>I.  Préambule et Context</h2>
+        <p>{{parametre.affaire.context}}</p>
     </div>
+    <div>
+        <h2>II.  Présentation des travaux</h2>
+        <p>{{parametre.affaire.presentationTravaux | raw}}</p>
+    </div>
+</div>
 {# fin de la page 2 #}
 
 {# la page 3, Caractéristiques générales  #}
-    <div class="page_break"></div>
-    <div class="page3">
-        <h2>III.  Caractéristiques générales</h2>           
-        <div class="sous_page">
-            <table>
-                <tr>
-                    <td height="15%"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Photo 1 : plaque signalétique</td>
-                    <td>Photo 2 : plaque révision</td>
-                </tr>
-            </table>
-        </div>
-        <div class="sous_page1">
-            <table>
-                <tr class="titre_table">
-                    <th>Machine</th>
-                    <th colspan="5">Type</th>
-                </tr>
-                <tr>
-                    <td>{{parametre.typeMachine}}</td>
-                    <td>{{parametre.type}}</td>
-                    <td>{{parametre.machine.categorie}}</td> 
-                    <td>{{parametre.machine.sousCategorie}}</td>
-                    <td>{{parametre.machine.sousCategorie2}}</td>
-                    <td>{{parametre.machine.sousCategorie3}}</td>
-                </tr>
-            </table>
-            <table>
-                <tr class="titre_table">
-                    <th>Fabricant</th>
-                    <th>Type</th>
-                    <th>N° de Série</th>
-                </tr>
-                <tr>
-                    <td>{{parametre.fabricant}}</td>
-                    <td>{{parametre.typePalier}}</td> 
-                    <td>{{parametre.affaire.numFabrication}}</td>
-                </tr>
-            </table>
-            <table>
-                <tr class="titre_table">
-                    <th>Service</th>
-                    <th>Classe Isolation</th>
-                    <th>Indice de protection</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td> 
-                    <td></td>
-                </tr>
-            </table>
-            <table>
-                <tr class="titre_table">
-                    <th>Puissance</th>
-                    <th>Vitesse</th>
-                    <th>Montage</th>
-                    <th>Masse</th>
-                </tr>
-                <tr>
-                    <td>{{parametre.puissance}} KW</td>
-                    <td>{{parametre.vitesse}} tr/min</td>
-                    <td>{{parametre.montage}}</td>
-                    <td>{{parametre.masse}} Kg</td>
-                </tr>
-            </table>
-        </div>
-        <div class="sous_page2">
-            <table class="table_sous_page1">
-                <tr class="titre_table">
-                    <th colspan="4">Stator/Inducteur</th>
-                </tr>
-                <tr>
-                    <td>Tension : </td>
-                    <td>Kv</td>
-                    <td>Fréquence :</td>
-                    <td>A</td>
-                </tr>
-                <tr>
-                    <td>Courant : </td>
-                    <td>Hz</td>
-                    <td>Couplage :</td>
-                    <td></td>
-                </tr>
-            </table>
-            <table class="table_sous_page2">
-                <tr class="titre_table">
-                    <th colspan="2">Rotor / Induit</th>
-                </tr>
-                <tr>
-                    <td>Tension :</td>
-                    <td>Kv</td>
-                </tr>
-                <tr>
-                    <td>Courant : </td>
-                    <td>A</td>
-                </tr>
-            </table>
-        </div>
-        <div class="sous_page3">
-            <table class="table_sous_page1">    
-                <tr class="titre_table">
-                    <th></th>
-                    <th>Roulements CA</th>
-                    <th>Roulements COA</th>
-                </tr>
-                <tr>
-                    <td rowspan="2">Type :</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-                    <td>Graisse</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <table class="table_sous_page2">
-                <tr class="titre_table">
-                    <th>Caractéristiques</th>
-                    <th>Balais</th>
-                    <th>balais de Masse</th>
-                </tr>
-                <tr>
-                    <td>Dimensions</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Marque</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Quantité</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Longueur Shunt</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Game Isolation</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Type de Cosses</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <table class="table_sous_page3">
-                <tr class="titre_table">
-                    <th class="numero"></th>
-                    <th>Coussinet CA</th>
-                    <th>Coussinet COA</th>
-                </tr>
-                <tr>
-                    <td>Réf. Palier</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>N° Code</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Photo Plaque</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+<div class="page_break"></div>
+<div class="page3">
+    <h2>III.  Caractéristiques générales</h2>           
+    <div class="sous_page">
+        <table>
+            <tr>
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/plaque.jpeg')) }}" alt="item.photo" height="200px"></td>
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/plaque2.jpeg')) }}" alt="item.photo" height="200px"></td>
+            </tr>
+            <tr>
+                <td>Photo 1 : plaque signalétique</td>
+                <td>Photo 2 : plaque révision</td>
+            </tr>
+        </table>
     </div>
+    <div class="sous_page1">
+        <table>
+            <tr class="titre_table">
+                <th>Machine</th>
+                <th colspan="5">Type</th>
+            </tr>
+            <tr>
+                <td>{{parametre.typeMachine}}</td>
+                <td>{{parametre.type}}</td>
+                <td>{{parametre.machine.categorie}}</td> 
+                <td>{{parametre.machine.sousCategorie}}</td>
+                <td>{{parametre.machine.sousCategorie2}}</td>
+                <td>{{parametre.machine.sousCategorie3}}</td>
+            </tr>
+        </table>
+        <table>
+            <tr class="titre_table">
+                <th>Fabricant</th>
+                <th>Type</th>
+                <th>N° de Série</th>
+            </tr>
+            <tr>
+                <td>{{parametre.fabricant}}</td>
+                <td>{{parametre.typePalier}}</td> 
+                <td>{{parametre.affaire.numFabrication}}</td>
+            </tr>
+        </table>
+        <table>
+            <tr class="titre_table">
+                <th>Service</th>
+                <th>Classe Isolation</th>
+                <th>Indice de protection</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td> 
+                <td></td>
+            </tr>
+        </table>
+        <table>
+            <tr class="titre_table">
+                <th>Puissance</th>
+                <th>Vitesse</th>
+                <th>Montage</th>
+                <th>Masse</th>
+            </tr>
+            <tr>
+                <td>{{parametre.puissance}} KW</td>
+                <td>{{parametre.vitesse}} tr/min</td>
+                <td>{{parametre.montage}}</td>
+                <td>{{parametre.masse}} Kg</td>
+            </tr>
+        </table>
+    </div>
+    <div class="sous_page2">
+        <table class="table_sous_page1">
+            <tr class="titre_table">
+                <th colspan="4">Stator/Inducteur</th>
+            </tr>
+            <tr>
+                <td>Tension : </td>
+                <td>Kv</td>
+                <td>Fréquence :</td>
+                <td>A</td>
+            </tr>
+            <tr>
+                <td>Courant : </td>
+                <td>Hz</td>
+                <td>Couplage :</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table_sous_page2">
+            <tr class="titre_table">
+                <th colspan="2">Rotor / Induit</th>
+            </tr>
+            <tr>
+                <td>Tension :</td>
+                <td>Kv</td>
+            </tr>
+            <tr>
+                <td>Courant : </td>
+                <td>A</td>
+            </tr>
+        </table>
+    </div>
+    <div class="sous_page3">
+        <table class="table_sous_page1">    
+            <tr class="titre_table">
+                <th></th>
+                <th>Roulements CA</th>
+                <th>Roulements COA</th>
+            </tr>
+            <tr>
+                <td rowspan="2">Type :</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+                <td>Graisse</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table_sous_page2">
+            <tr class="titre_table">
+                <th>Caractéristiques</th>
+                <th>Balais</th>
+                <th>balais de Masse</th>
+            </tr>
+            <tr>
+                <td>Dimensions</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Marque</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Quantité</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Longueur Shunt</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Game Isolation</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Type de Cosses</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table_sous_page3">
+            <tr class="titre_table">
+                <th class="numero"></th>
+                <th>Coussinet CA</th>
+                <th>Coussinet COA</th>
+            </tr>
+            <tr>
+                <td>Réf. Palier</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>N° Code</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Photo Plaque</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
 {# fin la page 3  #}
 
 {# la page 4, Expertise à réception #}  
-    <div class="page_break"></div>
-    <div class="page4">
-        <h2>IV.  Expertise à réception</h2>
-        <h4>A.  <span class="span_titre">Contrôles et recensement</span></h4>
-        <div class="sous_page4_1">
-            <table>    
-                <tr class="titre_table">
-                    <th colspan="2">Photos à Reception</th>
-                </tr>
-                <tr height="10%">
-                    <td  height="15%"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Photo 3 : Ensemble à l’arrivée</td>
-                    <td>Photo 4 : Bridage à l’arrivée</td>
-                </tr>
-            </table>
-        </div>
-        <div class="sous_page4_2">
-            <table>    
-            {% if parametre.controleVisuelMecanique %}
-                <tr class="titre_table">
-                    <th colspan="4">Controle Visuel et Recensement</th>
-                </tr> 
-                <tr>
-                    <td>Accouplement</td>
-                    <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
-                    <td>Peinture (N° RAL)</td>
-                    <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
-                </tr>  
-                <tr>
-                    <td>Châssis</td>
-                    <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
-                    <td>Tresse de masse (nb)</td>
-                    <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
-                </tr>  
-                <tr>
-                    <td>Boite à borne</td>
-                    <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
-                    <td>Vis vérins (nb)</td>
-                    <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
-                </tr>    
-                <tr>
-                    <td>Barrette neutre</td>
-                    <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
-                    <td>Sonde palier CA</td>
-                    <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
-                </tr>    
-                <tr>
-                    <td>Bridage</td>
-                    <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
-                    <td>Autres Sondes</td>
-                    <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
-                </tr>   
-                <tr>
-                    <td>Clavette</td>
-                    <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
-                    <td>Sonde palier COA</td>
-                    <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
-                </tr> 
-                <tr>
-                    <td>Numéro de série</td>
-                    <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
-                    <td>Référence rotor</td>
-                    <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
-                </tr>  
-                <tr>
-                    <td>Position de l'accouplement</td>
-                    <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
-                    <td>Nombre d'accessoires complémentaires</td>
-                    <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
-                </tr>
-                <tr>
-                    <td>Commentaires</td>
-                    <td></td>
-                    <td>Référence stator</td>
-                    <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
-                    
-                </tr>       
-            {% endif %}            
-            </table>
-        </div>
-        <div class="sous_page4_3">
-            <table>    
-                <tr class="titre_table">
-                    <th colspan="2">Liste des accessoires complémentaires</th>
-                </tr>
-                {% if parametre.controleVisuelMecanique %}
-                    {% set i = 0 %}
-                    {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
-                        {% set i = i + 1 %}
-                        <tr>
-                            <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
-                            <td>{{c.libelle}}</td>
-                        </tr>                                                   
-                    {% endfor %} 
-                {% endif %}                
-            </table>
-        </div>
+<div class="page_break"></div>
+<div class="page4">
+    <h2>IV.  Expertise à réception</h2>
+    <h4>A.  <span class="span_titre">Contrôles et recensement</span></h4>
+    <div class="sous_page4_1">
+        <table>    
+            <tr class="titre_table">
+                <th colspan="2">Photos à Reception</th>
+            </tr>
+            <tr height="10%">
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/ensemble.jpeg')) }}" alt="item.photo" height="150px"></td>
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/bridage.jpg')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+            <tr>
+                <td>Photo 3 : Ensemble à l’arrivée</td>
+                <td>Photo 4 : Bridage à l’arrivée</td>
+            </tr>
+        </table> 
     </div>
+    <div class="sous_page4_2">
+        <table>    
+        {% if parametre.controleVisuelMecanique %}
+            <tr class="titre_table">
+                <th colspan="4">Controle Visuel et Recensement</th>
+            </tr> 
+            <tr>
+                <td>Accouplement</td>
+                <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
+                <td>Peinture (N° RAL)</td>
+                <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
+            </tr>  
+            <tr>
+                <td>Châssis</td>
+                <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
+                <td>Tresse de masse (nb)</td>
+                <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
+            </tr>  
+            <tr>
+                <td>Boite à borne</td>
+                <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
+                <td>Vis vérins (nb)</td>
+                <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
+            </tr>    
+            <tr>
+                <td>Barrette neutre</td>
+                <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
+                <td>Sonde palier CA</td>
+                <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
+            </tr>    
+            <tr>
+                <td>Bridage</td>
+                <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
+                <td>Autres Sondes</td>
+                <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
+            </tr>   
+            <tr>
+                <td>Clavette</td>
+                <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+                <td>Sonde palier COA</td>
+                <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
+            </tr> 
+            <tr>
+                <td>Numéro de série</td>
+                <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
+                <td>Référence rotor</td>
+                <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
+            </tr>  
+            <tr>
+                <td>Position de l'accouplement</td>
+                <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
+                <td>Nombre d'accessoires complémentaires</td>
+                <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+            </tr>
+            <tr>
+                <td>Commentaires</td>
+                <td></td>
+                <td>Référence stator</td>
+                <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
+                
+            </tr>       
+        {% endif %}            
+        </table>
+    </div>
+    <div class="sous_page4_3">
+        <table>    
+            <tr class="titre_table">
+                <th colspan="2">Liste des accessoires complémentaires</th>
+            </tr>
+            {% if parametre.controleVisuelMecanique %}
+                {% set i = 0 %}
+                {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
+                    {% set i = i + 1 %}
+                    <tr>
+                        <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
+                        <td>{{c.libelle}}</td>
+                    </tr>                                                   
+                {% endfor %} 
+            {% endif %}                
+        </table>
+    </div>
+</div>
 {# fin la page 4 #}
 
 {# la page 5, Expertise mécanique  #}  
-    <div class="page_break"></div>
-    <div class="page5">
-        <h2>V.  Expertise mécanique</h2>
-        <h4>A.  <span class="span_titre">Démontage</span></h4>
-        <h5>1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
-        <div class="sous_page5_1">
-            <table>    
-                <tr class="titre_table">
-                    <th>Nom</th>
-                </tr>
-                <tr>
-                    <td  height="15%"></td>
-                </tr>
-                <tr>
-                    <td>Titre</td>
-                </tr>
-            </table>
-        </div>
-        <div class="sous_page5_2">
-            <table>    
-                <tr class="titre_table">
-                    <th colspan="2"></th>
-                    <th>PHOTO N°5 : ACCOUPLEMENT</th>
-                    <th>Débordant/affleurant /…</th>
-                </tr> 
-                <tr>
-                    <td>Faux ROND Bt.A</td>
-                    <td>mm</td>
-                    <td rowspan="3"></td>
-                    <td rowspan="3"></td>
-                </tr>                 
-                <tr>
-                    <td>Présence clavette</td>
-                    <td>Oui/Non</td>
-                </tr>                 
-                <tr>
-                    <td>Etat de l’accouplement</td>
-                    <td>mm</td>
-                </tr>               
-            </table>
-        </div>
-        <div class="sous_page5_3">
-            <h5>2.  <span class="span_titre">Relevé Boîte à Bornes (ou Bornier CC)</span></h5>
-            <table>    
-                <tr class="titre_table">
-                    <th>FAC-SIMILE BOITE à BORNES</th>
-                    <th>PHOTO N°6 : INTERIEUR BOITE à BORNES</th>
-                </tr>
-                <tr>
-                    <td height="15%"></td>
-                    <td></td>
-                </tr>                  
-            </table>
-        </div>
-        <div class="sous_page5_4">
-            <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>
-            <table>   
-                <tr>
-                    <th>Plan CA</th>
-                    <th>Repères ,Désignation des pièces</th>
-                </tr>  
-                <tr>
-                    <th height="25%"></th>
-                    <th></th>
-                </tr> 
-                <tr>
-                    <th>Plan COA</th>
-                    <th>Repères ,Désignation des pièces</th>
-                </tr>
-                <tr>
-                    <th height="25%"></th>
-                    <th></th>
-                </tr>                  
-            </table>
-        </div>
-        <div class="sous_page5_5">
-            <h4>B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
-            {% if parametre.controleMontageRoulement %}
-                <table>
-                    <tr class="titre_table">
-                        <th class="numero2"></th>
-                        <th>Roulements à la réception</th>
-                        <th>Montage prévu selon CST</th>
-                        <th class="numero">Kit à Prévoir</th>
-                    </tr>
-                    <tr> 
-                        <td>CA</td>
-                        <td>{{ parametre.controleMontageRoulement.caRoulement }}</td>
-                        <td>{{ parametre.controleMontageRoulement.caMontage }}</td>
-                        <td>{{ parametre.controleMontageRoulement.caKit ? 'Oui' : 'Non' }}</td>
-                    </tr> 
-                    <tr>
-                        <td>COA</td>
-                        <td>{{ parametre.controleMontageRoulement.coaRoulement }}</td>
-                        <td>{{ parametre.controleMontageRoulement.coaMontage }}</td>
-                        <td>{{ parametre.controleMontageRoulement.coaKit ? 'Oui' : 'Non' }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="numero2">Rep</th>
-                        <th>Désignation piéces</th>
-                        <th class="numero">Cotes CA</th>
-                        <th class="numero">Cotes COA</th>
-                    </tr>
-                    <tr>
-                        <td>A</td>
-                        <td>Moyeu palier</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
-                    </tr>
-                    <tr>
-                        <td>B</td>
-                        <td>Emboitage C-Rit extérieur</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
-                    </tr>
-                    <tr>
-                        <td>C</td>
-                        <td>Roulement</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
-                    </tr>
-                    <tr>
-                        <td>D</td>
-                        <td>Emboitage C-Rit intérieur</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>2 rondelles isolantes</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
-                    </tr>
-                    <tr>
-                        <td>Jeu</td>
-                        <td>J = A - (B+C+D+Soupape)</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Graisse</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
-                        <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
-                    </tr>                   
-                </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_6">
-            <h4>C.  <span class="span_titre">Contrôle des coussinets</span></h4>
-            <h5>1.  <span class="span_titre">Expertise des soies</span></h5>
-            <p>Image de côté accouplement</p>
-            <p>Image de côté opposé accouplement</p>
-            {% if parametre.controleMontageCoussinet %}
-                <table class="table_sous_page5_6_1">
-                    <tr>
-                        <th class="titre_table">1</th>
-                        <td>{{ parametre.controleMontageCoussinet.d1}}</td>
-                        <th class="titre_table">3</th>
-                        <td>{{ parametre.controleMontageCoussinet.d3}}</td>
-                        <th class="titre_table">5</th>
-                        <td>{{ parametre.controleMontageCoussinet.d5}}</td>
-                    </tr>
-                    <tr>
-                        <th class="titre_table">2</th>
-                        <td>{{ parametre.controleMontageCoussinet.d2}}</td>
-                        <th class="titre_table">4</th>
-                        <td>{{ parametre.controleMontageCoussinet.d4}}</td>
-                        <th class="titre_table">6</th>
-                        <td>{{ parametre.controleMontageCoussinet.d6}}</td>
-                    </tr>
-                </table>
-                <table class="table_sous_page5_6_2">
-                    <tr>
-                        <th class="titre_table">7</th>
-                        <td>{{ parametre.controleMontageCoussinet.d7}}</td>
-                        <th class="titre_table">9</th>
-                        <td>{{ parametre.controleMontageCoussinet.d9}}</td>
-                        <th class="titre_table">11</th>
-                        <td>{{ parametre.controleMontageCoussinet.d11}}</td>
-                    </tr>
-                    <tr>
-                        <th class="titre_table">8</th>
-                        <td>{{ parametre.controleMontageCoussinet.d8}}</td>
-                        <th class="titre_table">10</th>
-                        <td>{{ parametre.controleMontageCoussinet.d10}}</td>
-                        <th class="titre_table">12</th>
-                        <td>{{ parametre.controleMontageCoussinet.d12}}</td>
-                    </tr>
-                </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_7">
-            <h5>2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
-            <p>Image de côté accouplement</p>
-            <p>Image de côté opposé accouplement</p>
-            {% if parametre.controleMontageCoussinet %}
-                <table class="table_sous_page5_7_1">
-                    <tr class="titre_table">
-                        <th colspan="2">Côté accouplement</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Avant (mm)</th>
-                        <th>Arriére (mm)</th>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant1}}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere1}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant2}}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere2}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant3}}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere3}}</td>
-                    </tr>
-                </table>
-                <table class="table_sous_page5_7_2">
-                    <tr class="titre_table">
-                        <th colspan="2">Côté opposé accouplement</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Avant (mm)</th>
-                        <th>Arriére (mm)</th>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant1 }}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere1 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant2 }}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere2 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant3 }}</td>
-                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere3 }}</td>
-                    </tr>
-                </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_8">
-            <h5>3.  <span class="span_titre">Expertise des coussinets</span></h5>
+<div class="page_break"></div>
+<div class="page5">
+    <h2>V.  Expertise mécanique</h2>
+    <h4>A.  <span class="span_titre">Démontage</span></h4>
+    <h5>1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
+    <div class="sous_page5_1">
+        <table>    
+            <tr>                    
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/demontage.png')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="sous_page5_2">
+        <table>    
+            <tr class="titre_table">
+                <th colspan="2"></th>
+                <th>PHOTO N°5 : ACCOUPLEMENT</th>
+                <th>Débordant/affleurant /…</th>
+            </tr> 
+            <tr>
+                <td>Faux ROND Bt.A</td>
+                <td>mm</td>
+                <td rowspan="3"></td>
+                <td rowspan="3"></td>
+            </tr>                 
+            <tr>
+                <td>Présence clavette</td>
+                <td>Oui/Non</td>
+            </tr>                 
+            <tr>
+                <td>Etat de l’accouplement</td>
+                <td>mm</td>
+            </tr>               
+        </table>
+    </div>
+    <div class="sous_page5_3">
+        <h5>2.  <span class="span_titre">Relevé Boîte à Bornes (ou Bornier CC)</span></h5>
+        <table>    
+            <tr class="titre_table">
+                <th>FAC-SIMILE BOITE à BORNES</th>
+                <th>PHOTO N°6 : INTERIEUR BOITE à BORNES</th>
+            </tr>
+            <tr>
+                <td height="15%"></td>
+                <td></td>
+            </tr>                  
+        </table>
+    </div>
+    <div class="sous_page5_4">
+        <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>
+        <table>   
+            <tr>
+                <th>Plan CA</th>
+                <th>Repères ,Désignation des pièces</th>
+            </tr>  
+            <tr>
+                <th height="25%"></th>
+                <th></th>
+            </tr> 
+            <tr>
+                <th>Plan COA</th>
+                <th>Repères ,Désignation des pièces</th>
+            </tr>
+            <tr>
+                <th height="25%"></th>
+                <th></th>
+            </tr>                  
+        </table>
+    </div>
+    <div class="sous_page5_5">
+        <h4>B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
+        {% if parametre.controleMontageRoulement %}
             <table>
                 <tr class="titre_table">
                     <th class="numero2"></th>
-                    <th>Natures des relevés</th>
-                    <th>Diamètre attendu (mm)</th>
-                    <th>Tolérance</th>
-                    <th>Moyenne des relevés (mm)</th>
-                    <th>Conformité</th>
-                    <th>Observation</th>
+                    <th>Roulements à la réception</th>
+                    <th>Montage prévu selon CST</th>
+                    <th class="numero">Kit à Prévoir</th>
                 </tr>
-                <tr>
+                <tr> 
                     <td>CA</td>
-                    <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
-                </tr>
+                    <td>{{ parametre.controleMontageRoulement.caRoulement }}</td>
+                    <td>{{ parametre.controleMontageRoulement.caMontage }}</td>
+                    <td>{{ parametre.controleMontageRoulement.caKit ? 'Oui' : 'Non' }}</td>
+                </tr> 
                 <tr>
                     <td>COA</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
+                    <td>{{ parametre.controleMontageRoulement.coaRoulement }}</td>
+                    <td>{{ parametre.controleMontageRoulement.coaMontage }}</td>
+                    <td>{{ parametre.controleMontageRoulement.coaKit ? 'Oui' : 'Non' }}</td>
                 </tr>
-            </table>
-        </div>
-        <div class="sous_page5_9">
-            <h4>D.  <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
-            <p>photo rotor</p>
-            {% if parametre.releveDimmensionnels%}
-            <table>
-                <tr class="titre_table">
-                    <th>Désignation diamètre</th>
-                    <th>côte attendue (mm)</th>
-                    <th>Tolérance</th>
-                    <th>Côte relevée</th>
-                    <th class="numero2">Conformité</th>
-                </tr>
-                <tr>
-                    <th colspan="5" class="titre_table">Côté accouplement</th>
-                </tr>
-                {% for item in parametre.releveDimmensionnels %}
-                    {% if item.type == 'Côté accoupplement' %}
-                        <tr>
-                            <td>{{item.designation}}</td>
-                            <td>{{item.coteAttendue}}</td>
-                            <td>{{item.tolerance}}</td>
-                            <td>{{item.coteRelevee}}</td>
-                            <td>{{item.conformite}}</td>                                                
-                        </tr>                                                         
-                    {% endif %}                                                   
-                {% endfor %}
-                <tr>
-                    <th colspan="5" class="titre_table">Côté opposé accouplement</th>
-                </tr>
-                {% for item in parametre.releveDimmensionnels %}
-                    {% if item.type == 'Côté opposé accoupplement' %}
-                        <tr>
-                            <td>{{item.designation}}</td>
-                            <td>{{item.coteAttendue}}</td>
-                            <td>{{item.tolerance}}</td>
-                            <td>{{item.coteRelevee}}</td>
-                            <td>{{item.conformite}}</td>
-                        </tr>                                                         
-                    {% endif %}                                                   
-                {% endfor %}
             </table>
             <table>
                 <tr class="titre_table">
-                    <th>PHOTO N° 7 : ROTOR</th>
+                    <th class="numero2">Rep</th>
+                    <th>Désignation piéces</th>
+                    <th class="numero">Cotes CA</th>
+                    <th class="numero">Cotes COA</th>
                 </tr>
                 <tr>
-                    <td height="25%"></td>
+                    <td>A</td>
+                    <td>Moyeu palier</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
                 </tr>
+                <tr>
+                    <td>B</td>
+                    <td>Emboitage C-Rit extérieur</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>Roulement</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>Emboitage C-Rit intérieur</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>2 rondelles isolantes</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
+                </tr>
+                <tr>
+                    <td>Jeu</td>
+                    <td>J = A - (B+C+D+Soupape)</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Graisse</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
+                    <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
+                </tr>                   
             </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_10">
-            <h4>E.  <span class="span_titre">Contrôles géométriques du rotor</span></h4>
-            <p>photo rotor</p>                                   
-            {% if parametre.controleGeometrique %}
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅A</th>
-                        <th colspan="4" class="text-center">∅B</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Bt.A Add.)</th>
-                        <th colspan="4" class="text-center">Pivot</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.add1 }}</td>
-                        <td>{{ parametre.controleGeometrique.add2 }}</td>
-                        <td>{{ parametre.controleGeometrique.add3 }}</td>
-                        <td>{{ parametre.controleGeometrique.add4 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB1 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB2 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB3 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteAdd }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteB }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅E</th>
-                        <th colspan="4" class="text-center">∅F</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                        <th colspan="4" class="text-center">(Pivot)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.tolerieE1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE4 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF1 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF2 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF3 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteE }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteF }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅C</th>
-                        <th colspan="4" class="text-center">∅D</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.tolerieC1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC4 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteC }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteD }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅G</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Accouplement)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.accouplementG1 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG2 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG3 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteG }}</td>
-                    </tr>
-                </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_10">
-            <h4>F.  <span class="span_titre">Appareils de mesure utilisés</span></h4>
-            {% if parametre.appareilMesureMecaniques %}
-                <table>
-                    <tr class="titre_table">
-                        <th>Désignation du moyen de contrôle</th>
-                        <th>N° de l'appareil</th>
-                        <th>Date de validité</th>
-                    </tr>
-                    {% for item in parametre.appareilMesureMecaniques %}
-                        <tr>
-                            <td>{{item.appareil.designation}}</td>
-                            <td>{{item.appareil.numAppareil}}</td>
-                            <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
-                        </tr>
-                    {% endfor %} 
-                </table>     
-            {% endif %}
-        </div>
-        <div class="sous_page5_11">
-            <h4>G.  <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
-            {% if parametre.hydroAero %}
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="4">Machine équipée d'hydro ou Aéro</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Nature du contrôle</th>
-                        <th>Conformité</th>
-                        <th>Préconisation</th>
-                        <th>Retenu</th>
-                    </tr>
-                    <tr>
-                        <td>Essais de presion à x Bars</td>
-                        <td>{{ parametre.hydroAero.conformite1}}</td>
-                        <td>{{ parametre.hydroAero.preconisation1}}</td>
-                        <td>{{ parametre.hydroAero.retenu1}}</td>
-                    </tr>
-                    <tr>
-                        <td>Contrôle visuel des ailettes</td>
-                        <td>{{ parametre.hydroAero.conformite2}}</td>
-                        <td>{{ parametre.hydroAero.preconisation2}}</td>
-                        <td>{{ parametre.hydroAero.retenu2}}</td>
-                    </tr>
-                    <tr>
-                        <td>Contrôle visuel des boites à eau</td>
-                        <td>{{ parametre.hydroAero.conformite3}}</td>
-                        <td>{{ parametre.hydroAero.preconisation3}}</td>
-                        <td>{{ parametre.hydroAero.retenu3}}</td>
-                    </tr>
-                </table>    
-            {% endif %}
-        </div>
-        <div class="sous_page5_12">
-            <h4>H.  <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
-            {% if parametre.hydroAero %}
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="4">Pression dépend des préconisation constructeurs</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Nature du contrôle</th>
-                        <th>Conformité</th>
-                        <th>Préconisation</th>
-                        <th>Retenu</th>
-                    </tr>
-                    <tr>
-                        <td>Contrôle du dudgeonages des tubes</td>
-                        <td>{{ parametre.hydroAero.conformite4}}</td>
-                        <td>{{ parametre.hydroAero.preconisation4}}</td>
-                        <td>{{ parametre.hydroAero.retenu4}}</td>
-                    </tr>
-                    <tr>
-                        <td>Contrôle visuel des tubes</td>
-                        <td>{{ parametre.hydroAero.conformite5}}</td>
-                        <td>{{ parametre.hydroAero.preconisation5}}</td>
-                        <td>{{ parametre.hydroAero.retenu5}}</td>
-                    </tr>
-                </table>
-            {% endif %}
-        </div>
-        <div class="sous_page5_13">
-            <h4>I.  <span class="span_titre">Illustration des Observations</span></h4>
-            {% if parametre.photoExpertiseMecaniques %}
-                <table>
-                    {% for item in parametre.photoExpertiseMecaniques %}
-                        <tr>
-                            <td height="15%" style="text-align: center;"><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}"></td>
-                        </tr>
-                        <tr>
-                            <th class="titre_table">{{item.libelle}}</th>
-                        </tr>
-                    {% endfor %} 
-                </table>                                        
-            {% endif %}
-        </div>
-        <div class="sous_page5_14">
-            <h4>J.  <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
-            {% if parametre.constatMecaniques %}
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="6">Photos</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Vérification</th>
-                        <th>Critères</th>
-                        <th>Observation</th>
-                        <th>Préconisations et conclusion</th>
-                        <th>Photo</th>
-                        <th>Retenu</th>
-                    </tr>
-                    {% for item in parametre.constatMecaniques %}
-                        <tr>
-                            <td>{{item.verification}}</td>
-                            <td>{{item.critere}}</td>
-                            <td>{{item.observation}}</td>
-                            <td>{{item.preconisationConclusion}}</td>
-                            <td class="text-center image" height="20%"><img src="{{asset('/photo_constat_mecanique/'~ item.photo)}}"></td>
-                            <td>{{item.retenu}}</td>
-                        </tr>                                                    
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
+        {% endif %}
     </div>
+    <div class="sous_page5_6">
+        <h4>C.  <span class="span_titre">Contrôle des coussinets</span></h4>
+        <h5>1.  <span class="span_titre">Expertise des soies</span></h5>
+        <table>    
+            <tr>                    
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/accouplement.png')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+        </table>
+        {% if parametre.controleMontageCoussinet %}
+            <table class="table_sous_page5_6_1">
+                <tr>
+                    <th class="titre_table">1</th>
+                    <td>{{ parametre.controleMontageCoussinet.d1}}</td>
+                    <th class="titre_table">3</th>
+                    <td>{{ parametre.controleMontageCoussinet.d3}}</td>
+                    <th class="titre_table">5</th>
+                    <td>{{ parametre.controleMontageCoussinet.d5}}</td>
+                </tr>
+                <tr>
+                    <th class="titre_table">2</th>
+                    <td>{{ parametre.controleMontageCoussinet.d2}}</td>
+                    <th class="titre_table">4</th>
+                    <td>{{ parametre.controleMontageCoussinet.d4}}</td>
+                    <th class="titre_table">6</th>
+                    <td>{{ parametre.controleMontageCoussinet.d6}}</td>
+                </tr>
+            </table>
+            <table class="table_sous_page5_6_2">
+                <tr>
+                    <th class="titre_table">7</th>
+                    <td>{{ parametre.controleMontageCoussinet.d7}}</td>
+                    <th class="titre_table">9</th>
+                    <td>{{ parametre.controleMontageCoussinet.d9}}</td>
+                    <th class="titre_table">11</th>
+                    <td>{{ parametre.controleMontageCoussinet.d11}}</td>
+                </tr>
+                <tr>
+                    <th class="titre_table">8</th>
+                    <td>{{ parametre.controleMontageCoussinet.d8}}</td>
+                    <th class="titre_table">10</th>
+                    <td>{{ parametre.controleMontageCoussinet.d10}}</td>
+                    <th class="titre_table">12</th>
+                    <td>{{ parametre.controleMontageCoussinet.d12}}</td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+    <div class="sous_page5_7">
+        <h5>2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
+        <table>    
+            <tr>                    
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/releve.png')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+        </table>
+        {% if parametre.controleMontageCoussinet %}
+            <table class="table_sous_page5_7_1">
+                <tr class="titre_table">
+                    <th colspan="2">Côté accouplement</th>
+                </tr>
+                <tr class="titre_table">
+                    <th>Avant (mm)</th>
+                    <th>Arriére (mm)</th>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementAvant1}}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementArriere1}}</td>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementAvant2}}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementArriere2}}</td>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementAvant3}}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementArriere3}}</td>
+                </tr>
+            </table>
+            <table class="table_sous_page5_7_2">
+                <tr class="titre_table">
+                    <th colspan="2">Côté opposé accouplement</th>
+                </tr>
+                <tr class="titre_table">
+                    <th>Avant (mm)</th>
+                    <th>Arriére (mm)</th>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant1 }}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere1 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant2 }}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere2 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant3 }}</td>
+                    <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere3 }}</td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+    <div class="sous_page5_8">
+        <h5>3.  <span class="span_titre">Expertise des coussinets</span></h5>
+        <table>
+            <tr class="titre_table">
+                <th class="numero2"></th>
+                <th>Natures des relevés</th>
+                <th>Diamètre attendu (mm)</th>
+                <th>Tolérance</th>
+                <th>Moyenne des relevés (mm)</th>
+                <th>Conformité</th>
+                <th>Observation</th>
+            </tr>
+            <tr>
+                <td>CA</td>
+                <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
+                <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
+                <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
+                <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve }}</td>
+                <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
+                <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
+            </tr>
+            <tr>
+                <td>COA</td>
+                <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
+                <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
+                <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
+                <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve }}</td>
+                <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
+                <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="sous_page5_9">
+        <h4>D.  <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
+        <table>    
+            <tr>                    
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+        </table>
+        {% if parametre.releveDimmensionnels%}
+        <table>
+            <tr class="titre_table">
+                <th>Désignation diamètre</th>
+                <th>côte attendue (mm)</th>
+                <th>Tolérance</th>
+                <th>Côte relevée</th>
+                <th class="numero2">Conformité</th>
+            </tr>
+            <tr>
+                <th colspan="5" class="titre_table">Côté accouplement</th>
+            </tr>
+            {% for item in parametre.releveDimmensionnels %}
+                {% if item.type == 'Côté accoupplement' %}
+                    <tr>
+                        <td>{{item.designation}}</td>
+                        <td>{{item.coteAttendue}}</td>
+                        <td>{{item.tolerance}}</td>
+                        <td>{{item.coteRelevee}}</td>
+                        <td>{{item.conformite}}</td>                                                
+                    </tr>                                                         
+                {% endif %}                                                   
+            {% endfor %}
+            <tr>
+                <th colspan="5" class="titre_table">Côté opposé accouplement</th>
+            </tr>
+            {% for item in parametre.releveDimmensionnels %}
+                {% if item.type == 'Côté opposé accoupplement' %}
+                    <tr>
+                        <td>{{item.designation}}</td>
+                        <td>{{item.coteAttendue}}</td>
+                        <td>{{item.tolerance}}</td>
+                        <td>{{item.coteRelevee}}</td>
+                        <td>{{item.conformite}}</td>
+                    </tr>                                                         
+                {% endif %}                                                   
+            {% endfor %}
+        </table>
+        <table>
+            <tr class="titre_table">
+                <th>PHOTO N° 7 : ROTOR</th>
+            </tr>
+            <tr>
+                <td height="25%"></td>
+            </tr>
+        </table>
+        {% endif %}
+    </div>
+    <div class="sous_page5_10">
+        <h4>E.  <span class="span_titre">Contrôles géométriques du rotor</span></h4>
+        <table>    
+            <tr>                    
+                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/geo.png')) }}" alt="item.photo" height="150px"></td>
+            </tr>
+        </table>                            
+        {% if parametre.controleGeometrique %}
+            <table>
+                <tr class="titre_table">
+                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                    <th colspan="4" class="text-center">∅A</th>
+                    <th colspan="4" class="text-center">∅B</th>
+                </tr>
+                <tr class="titre_table">
+                    <th></th>
+                    <th colspan="4" class="text-center">(Bt.A Add.)</th>
+                    <th colspan="4" class="text-center">Pivot</th>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Repères</th>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Faux-Rond</th>
+                    <td>{{ parametre.controleGeometrique.add1 }}</td>
+                    <td>{{ parametre.controleGeometrique.add2 }}</td>
+                    <td>{{ parametre.controleGeometrique.add3 }}</td>
+                    <td>{{ parametre.controleGeometrique.add4 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotB1 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotB2 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotB3 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotB4 }}</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Conformité</th>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteAdd }}</td>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteB }}</td>
+                </tr>
+            </table>
+            <table>
+                <tr class="titre_table">
+                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                    <th colspan="4" class="text-center">∅E</th>
+                    <th colspan="4" class="text-center">∅F</th>
+                </tr>
+                <tr class="titre_table">
+                    <th></th>
+                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                    <th colspan="4" class="text-center">(Pivot)</th>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Repères</th>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Faux-Rond</th>
+                    <td>{{ parametre.controleGeometrique.tolerieE1 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieE2 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieE3 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieE4 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotF1 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotF2 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotF3 }}</td>
+                    <td>{{ parametre.controleGeometrique.pivotF4 }}</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Conformité</th>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteE }}</td>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteF }}</td>
+                </tr>
+            </table>
+            <table>
+                <tr class="titre_table">
+                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                    <th colspan="4" class="text-center">∅C</th>
+                    <th colspan="4" class="text-center">∅D</th>
+                </tr>
+                <tr class="titre_table">
+                    <th></th>
+                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                    <th colspan="4" class="text-center">(Tôlerie)</th>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Repères</th>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Faux-Rond</th>
+                    <td>{{ parametre.controleGeometrique.tolerieC1 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieC2 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieC3 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieC4 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieD1 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieD2 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieD3 }}</td>
+                    <td>{{ parametre.controleGeometrique.tolerieD4 }}</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Conformité</th>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteC }}</td>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteD }}</td>
+                </tr>
+            </table>
+            <table>
+                <tr class="titre_table">
+                    <th class="text-center" width="10%">Diamètre mesuré</th>
+                    <th colspan="4" class="text-center">∅G</th>
+                </tr>
+                <tr class="titre_table">
+                    <th></th>
+                    <th colspan="4" class="text-center">(Accouplement)</th>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Repères</th>
+                    <td class="text-center">1</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">4</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Faux-Rond</th>
+                    <td>{{ parametre.controleGeometrique.accouplementG1 }}</td>
+                    <td>{{ parametre.controleGeometrique.accouplementG2 }}</td>
+                    <td>{{ parametre.controleGeometrique.accouplementG3 }}</td>
+                    <td>{{ parametre.controleGeometrique.accouplementG4 }}</td>
+                </tr>
+                <tr>
+                    <th class="text-center titre_table">Conformité</th>
+                    <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteG }}</td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+    <div class="sous_page5_10">
+        <h4>F.  <span class="span_titre">Appareils de mesure utilisés</span></h4>
+        {% if parametre.appareilMesureMecaniques %}
+            <table>
+                <tr class="titre_table">
+                    <th>Désignation du moyen de contrôle</th>
+                    <th>N° de l'appareil</th>
+                    <th>Date de validité</th>
+                </tr>
+                {% for item in parametre.appareilMesureMecaniques %}
+                    <tr>
+                        <td>{{item.appareil.designation}}</td>
+                        <td>{{item.appareil.numAppareil}}</td>
+                        <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                    </tr>
+                {% endfor %} 
+            </table>     
+        {% endif %}
+    </div>
+    <div class="sous_page5_11">
+        <h4>G.  <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
+        {% if parametre.hydroAero %}
+            <table>
+                <tr class="titre_table">
+                    <th colspan="4">Machine équipée d'hydro ou Aéro</th>
+                </tr>
+                <tr class="titre_table">
+                    <th>Nature du contrôle</th>
+                    <th>Conformité</th>
+                    <th>Préconisation</th>
+                    <th>Retenu</th>
+                </tr>
+                <tr>
+                    <td>Essais de presion à x Bars</td>
+                    <td>{{ parametre.hydroAero.conformite1}}</td>
+                    <td>{{ parametre.hydroAero.preconisation1}}</td>
+                    <td>{{ parametre.hydroAero.retenu1}}</td>
+                </tr>
+                <tr>
+                    <td>Contrôle visuel des ailettes</td>
+                    <td>{{ parametre.hydroAero.conformite2}}</td>
+                    <td>{{ parametre.hydroAero.preconisation2}}</td>
+                    <td>{{ parametre.hydroAero.retenu2}}</td>
+                </tr>
+                <tr>
+                    <td>Contrôle visuel des boites à eau</td>
+                    <td>{{ parametre.hydroAero.conformite3}}</td>
+                    <td>{{ parametre.hydroAero.preconisation3}}</td>
+                    <td>{{ parametre.hydroAero.retenu3}}</td>
+                </tr>
+            </table>    
+        {% endif %}
+    </div>
+    <div class="sous_page5_12">
+        <h4>H.  <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
+        {% if parametre.hydroAero %}
+            <table>
+                <tr class="titre_table">
+                    <th colspan="4">Pression dépend des préconisation constructeurs</th>
+                </tr>
+                <tr class="titre_table">
+                    <th>Nature du contrôle</th>
+                    <th>Conformité</th>
+                    <th>Préconisation</th>
+                    <th>Retenu</th>
+                </tr>
+                <tr>
+                    <td>Contrôle du dudgeonages des tubes</td>
+                    <td>{{ parametre.hydroAero.conformite4}}</td>
+                    <td>{{ parametre.hydroAero.preconisation4}}</td>
+                    <td>{{ parametre.hydroAero.retenu4}}</td>
+                </tr>
+                <tr>
+                    <td>Contrôle visuel des tubes</td>
+                    <td>{{ parametre.hydroAero.conformite5}}</td>
+                    <td>{{ parametre.hydroAero.preconisation5}}</td>
+                    <td>{{ parametre.hydroAero.retenu5}}</td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+    <div class="sous_page5_13">
+        <h4>I.  <span class="span_titre">Illustration des Observations</span></h4>
+        {% if parametre.photoExpertiseMecaniques %}
+            <table>
+                {% for item in parametre.photoExpertiseMecaniques %}
+                    <tr>
+                        {#<td  style="text-align: center;"><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}"></td>#}
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}" alt="{{ item.libelle }}" height="300px"></td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table">{{item.libelle}}</th>
+                    </tr>
+                {% endfor %} 
+            </table>                                        
+        {% endif %}
+    </div>
+    <div class="sous_page5_14">
+        <h4>J.  <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
+        {% if parametre.constatMecaniques %}
+            <table>
+                <tr class="titre_table">
+                    <th colspan="6">Photos</th>
+                </tr>
+                <tr class="titre_table">
+                    <th>Vérification</th>
+                    <th>Critères</th>
+                    <th>Observation</th>
+                    <th>Préconisations et conclusion</th>
+                    <th>Photo</th>
+                    <th>Retenu</th>
+                </tr>
+                {% for item in parametre.constatMecaniques %}
+                    <tr>
+                        <td>{{item.verification}}</td>
+                        <td>{{item.critere}}</td>
+                        <td>{{item.observation}}</td>
+                        <td>{{item.preconisationConclusion}}</td>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px"></td>
+                        <td>{{item.retenu}}</td>
+                    </tr>                                                    
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</div>
 {# fin la page 5 #}
 
 {# la partie 6 expertise electrique #}
 <div class="page_break"></div>
-<div class="page5">
+<div class="page6">
     <h2>V.  Expertise électrique</h2>
     <div class="sous_page6_1">
         <h4>A.  <span class="span_titre">Essais plate-forme (suivant SAQ 94 100) à Réception</span></h4>
@@ -1459,8 +1468,8 @@ h5{
                         <td>{{item.critere}}</td>
                         <td>{{item.observation}}</td>
                         <td>{{item.preconisationConclusion}}</td>
-                        <td>{{item.retenu}}</td>
-                        <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                        <td>{{item.retenu}}</td>                            
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px"></td>
                     </tr>                                                    
                 {% endfor %}
             </table>                         
@@ -1468,4 +1477,223 @@ h5{
     </div>
 </div>
 {# fin de la partie 6 #}
+
+{# la partie 7 expertise electrique #}
+<div class="page_break"></div>
+<div class="page8">
+    <h2>VI. Expertise Électrique</h2>
+</div>
+{# fin de la partie 7 #}
+
+{# la partie 8 expertise electrique #}
+<div class="page_break"></div>
+<div class="page8">
+    <h2>VII. Expertise Électrique</h2>
+</div>
+{# fin de la partie 8 #}
+
+{# la partie 9 Remontage #}
+<div class="page_break"></div>
+<div class="page8">
+    <h2>VIII. Remontage</h2>
+    <div class="sous_page6_1">
+        <h4>A.  <span class="span_titre">Contrôle visuel et Recensement</span></h4>
+        {% if parametre.remontageFinition %}
+            <table>
+                <tr class="titre_table">
+                    <th>Carcasse</th>
+                    <th width="20%">Contôles</th>
+                </tr>
+                <tr>
+                    <td>Vérifier la bonne position des paliers par rapport à la carcasse</td>
+                    <td>{{ parametre.remontageFinition.controleCarcasse}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Câblage et boite à bornes</th>
+                </tr>
+                <tr>
+                    <td>Etamage des plages de raccordement au réseau</td>
+                    <td>{{ parametre.remontageFinition.controleCablage1}}</td>
+                </tr>
+                <tr>
+                    <td>Serrage des connexions et de la barre de neutre</td>
+                    <td>{{ parametre.remontageFinition.controleCablage2}}</td>
+                </tr>
+                <tr>
+                    <td>Marquage unitaire des phases, pose des logo</td>
+                    <td>{{ parametre.remontageFinition.controleCablage3}}</td>
+                </tr>
+                <tr>
+                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                    <td>{{ parametre.remontageFinition.controleCablage4}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Sondes</th>
+                </tr>
+                <tr>
+                    <td>Vérification de la boîte à sondes (repérage, plans et maintien des connexions)</td>
+                    <td>{{ parametre.remontageFinition.controleSonde1}}</td>
+                </tr>
+                <tr>
+                    <td>Passage des sondes paliers non obturé</td>
+                    <td>{{ parametre.remontageFinition.controleSonde2}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification du nombre et de la mise en place des sondes</td>
+                    <td>{{ parametre.remontageFinition.controleSonde3}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Arbre</th>
+                </tr>
+                <tr>
+                    <td>Absence de point dur et de frottement lors de la rotation mécanique de l’arbre</td>
+                    <td>{{ parametre.remontageFinition.controleArbre1}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de l'accouplement</td>
+                    <td>{{ parametre.remontageFinition.controleArbre2}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Général</th>
+                </tr>
+                <tr>
+                    <td>Propreté du plan de pose ou plans d’attache du moteur</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral1}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification du freinage mécanique des vis</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral2}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification de la compression des joints, de l'étanchéité des paliers et tuyauterie.</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral3}}</td>
+                </tr>
+                <tr>
+                    <td>Référence de la graisse des roulements</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral4}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification référence roulements montés (étiquettes des boîtes)</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral5}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification huile + coussinets</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral6}}</td>
+                </tr>
+                <tr>
+                    <td>Aspect des pistes – absence de choc</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral7}}</td>
+                </tr>
+                <tr>
+                    <td>Absence de poussière dans la chambre collecteur bagues</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral8}}</td>
+                </tr>
+                <tr>
+                    <td>Repérage de la ligne neutre</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral9}}</td>
+                </tr>
+                <tr>
+                    <td>Pré-rodage complet des balais</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral10}}</td>
+                </tr>
+                <tr>
+                    <td>Vérifier position des cages / pistes et présence des amortisseurs</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral11}}</td>
+                </tr>
+                <tr>
+                    <td>Vérifier le freinage des vis et la présence des rondelles sur l’ensemble de la machine</td>
+                    <td>{{ parametre.remontageFinition.controleCarcasse2}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Câblage et boite à bornes</th>
+                </tr>
+                <tr>
+                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                    <td>{{ parametre.remontageFinition.controleCablage21}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Sondes</th>
+                </tr>
+                <tr>
+                    <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
+                    <td>{{ parametre.remontageFinition.controleSonde21}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Arbre</th>
+                </tr>
+                <tr>
+                    <td>Propreté de l'arbre</td>
+                    <td>{{ parametre.remontageFinition.controleArbre21}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de protection sur l’arbre et blocage de l’arbre</td>
+                    <td>{{ parametre.remontageFinition.controleArbre22}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de l'accouplement</td>
+                    <td>{{ parametre.remontageFinition.controleArbre23}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Général</th>
+                </tr>
+                <tr>
+                    <td>Aspect général de la peinture et présence de peinture sur la visserie</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral21}}</td>
+                </tr>
+                <tr>
+                    <td>Absence graisse dans les bacs de récupération</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral22}}</td>
+                </tr>
+                <tr>
+                    <td>Absence de graisse, copeaux au niveau des paliers à l’intérieur de la machine</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral23}}</td>
+                </tr>
+                <tr>
+                    <td>Protection des graisseurs</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral24}}</td>
+                </tr>
+                <tr>
+                    <td>Trous de goupillage non obturés</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral25}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de bouchons d’obturation et de filtres à l’état neuf</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral26}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de la visserie pour le raccordement sur site</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral27}}</td>
+                </tr>
+                <tr>
+                    <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
+                    <td>{{ parametre.remontageFinition.controleGeneral28}}</td>
+                </tr>
+                <tr class="titre_table">
+                    <th colspan="2">Plaques</th>
+                </tr>
+                <tr>
+                    <td>Présence des plaques de masse</td>
+                    <td>{{ parametre.remontageFinition.controlePlaque1}}</td>
+                </tr>
+                <tr>
+                    <td>Vérification plaque de firme</td>
+                    <td>{{ parametre.remontageFinition.controlePlaque2}}</td>
+                </tr>
+                <tr>
+                    <td>Présence de la plaque de graissage et nouveaux roulements</td>
+                    <td>{{ parametre.remontageFinition.controlePlaque3}}</td>
+                </tr>
+                <tr>
+                    <td>Mettre étiquette «Ne pas oublier de remplir d'huile avant démarrage»</td>
+                    <td>{{ parametre.remontageFinition.controlePlaque4}}</td>
+                </tr>
+                <tr>
+                    <td>Repérage de la ligne neutre</td>
+                    <td>{{ parametre.remontageFinition.controlePlaque5}}</td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+</div>
+{# fin de la partie 9 #}
 </body>

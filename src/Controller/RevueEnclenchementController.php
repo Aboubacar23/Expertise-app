@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RevueEnclenchementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/revue/enclenchement')]
 class RevueEnclenchementController extends AbstractController
@@ -65,6 +67,10 @@ class RevueEnclenchementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
         {
             $affaire->setRevueEnclenchement($revueEnclenchement);
+            foreach($affaire->getParametres() as $item)
+            {
+                $item->setEtat(1);
+            }
             $revueEnclenchementRepository->save($revueEnclenchement, true);
             return $this->redirectToRoute('app_revue_enclenchement_new', [
                 'id' => $affaire->getId()
@@ -102,11 +108,21 @@ class RevueEnclenchementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_revue_enclenchement_show', methods: ['GET'])]
-    public function show(RevueEnclenchement $revueEnclenchement): Response
-    {
+    #[Route('/show-revue/{id}', name: 'app_revue_enclenchement_show', methods: ['GET'])]
+    public function show(RevueEnclenchement $revueEnclenchement, ParametreRepository $parametreRepository): Response
+    {   
+        $listes = $parametreRepository->findAll();
+        $parametre = [];
+        foreach($listes as $item)
+        {
+            if ($item->getAffaire()->getId() == $revueEnclenchement->getAffaire()->getId())
+            {
+                array_push($parametre,$item);
+            }
+        }
         return $this->render('revue_enclenchement/show.html.twig', [
             'revue_enclenchement' => $revueEnclenchement,
+            'parametre' => $parametre,
         ]);
     }
 
@@ -164,5 +180,63 @@ class RevueEnclenchementController extends AbstractController
         }
         return $this->redirectToRoute('app_revue_enclenchement_new', ['id' => $id], Response::HTTP_SEE_OTHER);
 
+    }
+
+    //voir pdf de la revue
+    #[Route('/print-revue-enclenchement/{id}', name: 'app_revue_enclenchement_print', methods: ['POST','GET'])]
+    public function print(RevueEnclenchement $revueEnclenchement, ParametreRepository $parametreRepository): Response
+    {  
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Times New Roman');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);        
+        $dompdf->getOptions()->set('isPhpEnabled', true);
+        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
+        $dompdf->setCallbacks([
+            'event' => function ($event) use ($dompdf) {
+                if ($event['event'] === 'dompdf.page_number') {
+                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
+                }
+            }
+        ]);
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $listes = $parametreRepository->findAll();
+        $parametre = [];
+        foreach($listes as $item)
+        {
+            if ($item->getAffaire()->getId() == $revueEnclenchement->getAffaire()->getId())
+            {
+                array_push($parametre,$item);
+            }
+        }
+
+        $dompdf->setHttpContext($context);
+        $html = $this->renderView('revue_enclenchement/print.html.twig', [
+            'parametre' => $parametre,
+            'revue_enclenchement' => $revueEnclenchement,
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = $revueEnclenchement->getAffaire()->getNomRapport();
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => false
+        ]);
+
+        exit();    
     }
 }

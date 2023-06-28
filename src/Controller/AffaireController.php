@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/affaire')]
 class AffaireController extends AbstractController
 {
-    //la fonction qui affiche la liste des affaires en coures
+    //la fonction qui affiche la liste des affaires en cours
     #[Route('/en_cours', name: 'app_affaire_index', methods: ['GET'])]
     public function index(AffaireRepository $affaireRepository): Response
     {
@@ -38,7 +38,6 @@ class AffaireController extends AbstractController
         ]);
     }
 
-
     //la fonction qui affiche la liste de toutes les affaires
     #[Route('/listes', name: 'app_affaire_liste', methods: ['GET'])]
     public function listes(AffaireRepository $affaireRepository): Response
@@ -50,6 +49,7 @@ class AffaireController extends AbstractController
         ]);
     }
 
+    //ajouter une nouvelle affaire
     #[Route('/new', name: 'app_affaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AffaireRepository $affaireRepository): Response
     {
