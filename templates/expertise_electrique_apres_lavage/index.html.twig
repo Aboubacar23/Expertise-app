@@ -14,25 +14,25 @@
             <div class="x_panel">
                 <div class="x_title">                
                     {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                     {% endif %}
                     {% if parametre.expertiseMecanique == 1 %}
-                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
-                    {% if parametre.expertiseElectiqueApresLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
-                    {% else %}
-                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
-                    {% endif %}
-                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
 
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                         {% if parametre.remontage == 1 %}
-                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
                         {% endif %}                                
@@ -85,17 +85,17 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="8" class="text-center">Paramètres</th>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-primary">T° Ambiante (°C)</th>
+                                                    <th class="table-secondary">T° Ambiante (°C)</th>
                                                     <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
-                                                    <th class="table-primary">T° Tôlerie (°C)</th>
+                                                    <th class="table-secondary">T° Tôlerie (°C)</th>
                                                     <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
-                                                    <th class="table-primary">Hygrométrie (%)</th>
+                                                    <th class="table-secondary">Hygrométrie (%)</th>
                                                     <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                    <th class="table-primary">Isolation</th>
+                                                    <th class="table-secondary">Isolation</th>
                                                     <td>{{parametre.critere}}</td>
                                                 </tr>
                                             </table>
@@ -122,7 +122,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th width="15%">Contrôle</th>
                                                     <th width="15%">Critère</th>
                                                     <th class="text-center" width="15%">Tension d'éssai(V)</th>
@@ -185,7 +185,7 @@
                             {% if parametre.sondeBobinage %}
                                 <div class="row">
                                     <table class="table table-bordered">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="6" class="text-center">Paramètres</th>
                                         </tr>
                                         <tr>
@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th width="20%">Contrôle</th>
                                             <th width="20%">Critère (MΩ)</th>
                                             <th width="20%">Valeur relevée avant lavage (MΩ)</th>
@@ -270,7 +270,7 @@
                                     <div class="col-md-12">
                                     {% if parametre.caracteristiques %}
                                         <table class="table table-bordered table-striped">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th></th>
                                                 <th>U (v)</th>
                                                 <th>I1 (A)</th>
@@ -305,18 +305,18 @@
                                         {% if parametre.autreCaracteristique %}
                                             <table class="table table-bordered table-striped">
                                                 <tr>
-                                                    <th class="table-primary">Résistance</th>
+                                                    <th class="table-secondary">Résistance</th>
                                                     <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-primary">Pertes</th>
+                                                    <th class="table-secondary">Pertes</th>
                                                     <td>{{ parametre.autreCaracteristique.perte1}}</td>
                                                     <td>tr/min</td>
                                                     <td>{{ parametre.autreCaracteristique.perte2}}</td>
                                                     <td>W</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-primary">Pertes Fer à </th>
+                                                    <th class="table-secondary">Pertes Fer à </th>
                                                     <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
                                                     <td>V</td>
                                                     <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
@@ -366,10 +366,10 @@
                             {% if parametre.pointFonctionnementRotors %}
                             <div class="row">
                                 <table class="table table-bordered table-striped">
-                                    <tr  class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
                                     </tr>
-                                    <tr class="table-primary text-center">
+                                    <tr class="table-secondary text-center">
                                         <th>U (v)</th>
                                         <th>I1 (A)</th>
                                         <th>I2 (A)</th>
@@ -396,22 +396,22 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr class="text-center">
-                                            <th class="table-primary">M</th>
-                                            <th class="table-primary">Indication du peson</th>
+                                            <th class="table-secondary">M</th>
+                                            <th class="table-secondary">Indication du peson</th>
                                             <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
                                             <td>kg</td>
                                             <td></td>
                                         </tr>
                                         <tr class="text-center">
-                                            <th class="table-primary">ID</th>
-                                            <th class="table-primary">Courant de démarrage à Un</th>
+                                            <th class="table-secondary">ID</th>
+                                            <th class="table-secondary">Courant de démarrage à Un</th>
                                             <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
                                             <td>A</td>
                                             <th>ID = Imoy * Un/U</th>
                                         </tr>
                                         <tr class="text-center">
-                                            <th class="table-primary">CD</th>
-                                            <th class="table-primary">Couple de démarrage à un</th>
+                                            <th class="table-secondary">CD</th>
+                                            <th class="table-secondary">Couple de démarrage à un</th>
                                             <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
                                             <td>Nm</td>
                                             <th>CD = (9.81 * M * Un/U)</th>
@@ -431,7 +431,7 @@
                                     <h2>Appareils de mesure utilisés</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    {% if parametre.appareilMesureElectriques == null %}
+                                    {% if parametre.appareilMesureElectriques | length > 0 %}
                                         <a href="#" class="btn btn-success btn-sm">Terminer <i class="fa fa-check"></i></a> 
                                     {% else %}
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
@@ -454,7 +454,7 @@
                             <div class="row">
                                 {% if parametre.appareilMesureElectriques %}
                                     <table class="table table-bordered">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Désignation du moyen de contrôle</th>
                                             <th>N° de l'appareil</th>
                                             <th>Date de validité</th>
@@ -498,7 +498,7 @@
                         <div class="x_content collapse" id="collapse9">
                             <div class="row">
                                 <table class="table table-bordered">
-                                    <tr class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th>Vérification</th>
                                         <th>Critères</th>
                                         <th>Observation</th>

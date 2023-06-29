@@ -23,10 +23,10 @@
                     {{ form_start(form) }}
                         <div class="row">
                             <table class="table table-bordered table-striped">
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <th class="text-center" colspan="6">Revue D'enclenchement</th>
                                 </tr>
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <td></td>
                                     <td>N° PROJET</td>
                                     <td>DESCRIPTION PRESTATION</td>
@@ -42,7 +42,7 @@
                                     <td>{{ affaire.client }}</td>
                                     <td></td>
                                 </tr> 
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <td>Type</td>
                                     <td>Plan</td>
                                     <td>Paliers</td>
@@ -58,7 +58,7 @@
                                     <td>{{ form_widget(form.numero_contrat) }}</td>
                                     <td>{{ form_widget(form.cahier_charge) }}</td>
                                 </tr> 
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <td>N° PCQ</td>
                                     <td>Point d'arrêt</td>
                                     <td>Contre expertise</td>
@@ -74,10 +74,10 @@
                                     <td>{{ form_widget(form.observation) }}</td>
                                     <td>{{ form_widget(form.clarification) }}</td>
                                 </tr> 
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <th colspan="6" class="text-center">PLANIFICATION / JALONS</th>
                                 </tr>
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <td colspan="2">Délai Demande client</td>
                                     <td colspan="2">Arrivée de la commande</td>
                                     <td colspan="2">ARC</td>    
@@ -88,7 +88,7 @@
                                     <td colspan="2">{{ form_widget(form.arc) }}</td>
     
                                 </tr>
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <td>Revue d'enclenchement</td>
                                     <td>Arrivée de la machine</td>
                                     <td>Objectif rapport expertise (jours)</td>
@@ -119,10 +119,10 @@
                 <div class="x_content">
                     <div class="row">
                         <table class="table table-bordered table-striped">
-                            <tr class="table-primary">
+                            <tr  class="table-secondary">
                                 <th class="text-center" colspan="5">ACHATS / SOUS-TRAITANCE</th>
                             </tr>
-                            <tr class="table-primary">
+                            <tr  class="table-secondary">
                                 <th>Quoi </th>
                                 <th>Délai/Date</th>
                                 <th>Observation</th>
@@ -143,7 +143,7 @@
                                 </tr> 
                             {{ form_end(formEtudesAchats) }}        
                             {% if revue_enclenchement.etudesAchats %}
-                                <tr class="table-primary" >
+                                <tr  class="table-secondary">
                                     <th colspan="4" class="text-center">ETUDES</th>
                                 </tr>
                                 {% for item in revue_enclenchement.etudesAchats %}
@@ -157,7 +157,7 @@
                                         </tr>
                                     {% endif %}
                                 {% endfor %}
-                                <tr class="table-primary">
+                                <tr  class="table-secondary">
                                     <th colspan="4" class="text-center">ACHATS / SOUS-TRAITANCE</th>
                                 </tr>
                                 {% for item in revue_enclenchement.etudesAchats %}
@@ -181,10 +181,10 @@
                 <div class="x_content">
                     <div class="row">
                         <table class="table table-bordered table-striped">
-                            <tr class="table-primary">
+                            <tr  class="table-secondary">
                                 <th class="text-center" colspan="5">ATELIER</th>
                             </tr>
-                            <tr class="table-primary text-center">
+                            <tr class="table-secondary text-center">
                                 <th>Opération </th>
                                 <th>Travaux</th>
                                 <th>Heures</th>
@@ -217,9 +217,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}" class="table-primary ">A réception</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-secondary ">A réception</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -243,9 +243,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num2 + 1}}" class="table-primary">Démontage moteur</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num2 + 1}}" class="table-secondary">Démontage moteur</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -269,9 +269,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num2 + 1}}" class="table-primary ">Lavage / Etuvage / Nettoyage</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num2 + 1}}" class="table-secondary ">Lavage / Etuvage / Nettoyage</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -295,9 +295,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Expertise électrique</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-secondary ">Expertise électrique</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -321,9 +321,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Expertise mécanique</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-secondary ">Expertise mécanique</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -347,9 +347,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}" class="table-primary">Remontage moteur</td>
-                                            <td class="table-primary"></td>
-                                            <td class="table-primary"></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-secondary">Remontage moteur</td>
+                                            <td class="table-secondary"></td>
+                                            <td class="table-secondary"></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}
@@ -373,9 +373,9 @@
                                         {% endif %}
                                     {% endfor %}   
                                         <tr>
-                                            <td rowspan="{{num1 + 1}}" class="table-primary ">Autres</td>
-                                            <td class="table-primary "></td>
-                                            <td class="table-primary "></td>
+                                            <td rowspan="{{num1 + 1}}" class="table-secondary ">Autres</td>
+                                            <td class="table-secondary "></td>
+                                            <td class="table-secondary "></td>
                                             <td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
                                         </tr>
                                     {% for item2 in revue_enclenchement.ateliers %}

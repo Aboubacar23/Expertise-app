@@ -23,10 +23,10 @@
                             <div class="item form-group">
                                 <table class="table table-bordered">
                                     {{ form_start(formPointFonctionnementRotor) }}
-                                        <tr  class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
                                         </tr>
-                                        <tr class="table-primary text-center">
+                                        <tr class="table-secondary text-center">
                                             <th>U (v)</th>
                                             <th>I1 (A)</th>
                                             <th>I2 (A)</th>
@@ -67,22 +67,22 @@
                                 <div class="item form-group">
                                     <table class="table table-bordered">
                                         <tr class="text-center">
-                                            <th class="table-primary">M</th>
-                                            <th class="table-primary">Indication du peson</th>
+                                            <th class="table-secondary">M</th>
+                                            <th class="table-secondary">Indication du peson</th>
                                             <td>{{ form_widget(formAutrePointFonctionnementRotor.m) }}</td>
                                             <td>kg</td>
                                             <td></td>
                                         </tr>
                                         <tr class="text-center">
-                                            <th class="table-primary">ID</th>
-                                            <th class="table-primary">Courant de démarrage à Un</th>
+                                            <th class="table-secondary">ID</th>
+                                            <th class="table-secondary">Courant de démarrage à Un</th>
                                             <td>{{ form_widget(formAutrePointFonctionnementRotor.iden) }}</td>
                                             <td>A</td>
                                             <th>ID = Imoy * Un/U</th>
                                         </tr>
                                         <tr class="text-center">
-                                            <th class="table-primary">CD</th>
-                                            <th class="table-primary">Couple de démarrage à un</th>
+                                            <th class="table-secondary">CD</th>
+                                            <th class="table-secondary">Couple de démarrage à un</th>
                                             <td>{{ form_widget(formAutrePointFonctionnementRotor.cd) }}</td>
                                             <td>Nm</td>
                                             <th>CD = (9.81 * M * Un/U)</th>

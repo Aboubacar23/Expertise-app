@@ -77,10 +77,15 @@ class AffaireController extends AbstractController
         //envoyer une variable active true pour désactiver et activer le parametre
         $listes = $parametreRepository->findAll();
         $active = false;
+        $fermer = false;
         foreach($listes as $item)
         {
             if ($item->getAffaire()->getId() == $affaire->getId()){
                 $active = true;
+                if ($item->isRemontage() == true && $item->isExpertiseElectiqueApresLavage() ==true && $item->isExpertiseElectiqueAvantLavage() == true && $item->isExpertiseMecanique() == true)
+                {
+                    $fermer = true;
+                }
             }
         }
         //traitement des archives
@@ -94,8 +99,15 @@ class AffaireController extends AbstractController
         {
             $num = count($affaire->getArchives()) + 1;
         }
+        $lettre = '';
+        if($num == 1){ $lettre = 'A';}
+        elseif($num == 2){ $lettre = 'B';}
+        elseif($num == 3){ $lettre = 'C';}
+        elseif($num == 4){ $lettre = 'D';}
+        elseif($num == 5){ $lettre = 'E';}
+        elseif($num == 6){ $lettre = 'F';}
+        $version = 'Indice-'.$lettre;
 
-        $version = 'Version-'.$num;
         if ($form->isSubmitted() && $form->isValid())
         {
             $fichier = $form->get('fichier')->getData();
@@ -124,7 +136,8 @@ class AffaireController extends AbstractController
             'active' => $active,
             'form' => $form->createView(),
             'archive' => $archive,
-            'version' => $version
+            'version' => $version,
+            'fermer' => $fermer
         ]);
     }
 

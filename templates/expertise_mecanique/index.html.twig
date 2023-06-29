@@ -14,21 +14,21 @@
             <div class="x_panel">
                 <div class="x_title">                   
                     {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                     {% endif %}
-                    {% if parametre.expertiseMecanique == 1 %}
-                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
-                    {% else %}
-                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. Mécanique</a>
-                    {% endif %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% if parametre.expertiseElectiqueApresLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                     {% endif %}
-                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                         {% if parametre.remontage == 1 %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <table class="table table-striped table-bordered">
-                                            <thead class="table-primary">
+                                            <thead class="table-secondary">
                                                 <tr>
                                                     <th class="text-center" colspan="6">Contrôle visuel et recensement</th>
                                                 </tr>
@@ -142,7 +142,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <table class="table table-striped table-bordered">
-                                            <thead class="table-primary">
+                                            <thead class="table-secondary">
                                                 <tr>
                                                     <th colspan="2" class="text-center">Accessoire supplémentaire à la réception</th>
                                                 </tr>
@@ -152,7 +152,7 @@
                                                 {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
                                                     {% set i = i + 1 %}
                                                     <tr>
-                                                        <td class="table-primary">Accessoires complémentaires N° {{i}}</td>
+                                                        <td class="table-secondary">Accessoires complémentaires N° {{i}}</td>
                                                         <td>{{c.libelle}}</td>
                                                     </tr>                                                     
                                                 {% endfor %}  
@@ -202,7 +202,7 @@
                                     <div class="col-md-12">
                                         <div class="item form-group">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th></th>
                                                     <th class="text-center">Roulements à la réception</th>
                                                     <th class="text-center">Montage prévu selon CST</th>
@@ -224,7 +224,7 @@
                                         </div>
                                         <div class="item form-group">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th width="3%">Rep</th>
                                                     <th class="text-center" width="200">Désignation piéces</th>
                                                     <th class="text-center" width="12%">Côté CA</th>
@@ -351,10 +351,10 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" colspan="2">Côté accouplement</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center">Avant (mm)</th>
                                                         <th class="text-center">Arriére (mm)</th>
                                                     </tr>
@@ -374,10 +374,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" colspan="2">Côté opposé accouplement</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center">Avant (mm)</th>
                                                         <th class="text-center">Arriére (mm)</th>
                                                     </tr>
@@ -398,7 +398,7 @@
                                         </div>
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th></th>
                                                     <th  class="text-center">Natures des relevés</th>
                                                     <th class="text-center">Diamètre attendu (mm)</th>
@@ -460,7 +460,7 @@
                             {% if parametre.releveDimmensionnels%}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th  class="text-center">Désignation diamètre</th>
                                             <th class="text-center">côte attendue (mm)</th>
                                             <th class="text-center">Tolérance</th>
@@ -541,12 +541,12 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" width="10%">Diamètre mesuré</th>
                                                         <th colspan="4" class="text-center">∅A</th>
                                                         <th colspan="4" class="text-center">∅B</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th></th>
                                                         <th colspan="4" class="text-center">(Bt.A Add.)</th>
                                                         <th colspan="4" class="text-center">Pivot</th>
@@ -582,12 +582,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" width="10%">Diamètre mesuré</th>
                                                         <th colspan="4" class="text-center">∅E</th>
                                                         <th colspan="4" class="text-center">∅F</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th></th>
                                                         <th colspan="4" class="text-center">(Tôlerie)</th>
                                                         <th colspan="4" class="text-center">(Pivot)</th>
@@ -623,12 +623,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" width="10%">Diamètre mesuré</th>
                                                         <th colspan="4" class="text-center">∅C</th>
                                                         <th colspan="4" class="text-center">∅D</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th></th>
                                                         <th colspan="4" class="text-center">(Tôlerie)</th>
                                                         <th colspan="4" class="text-center">(Tôlerie)</th>
@@ -664,11 +664,11 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" width="10%">Diamètre mesuré</th>
                                                         <th colspan="4" class="text-center">∅G</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th></th>
                                                         <th colspan="4" class="text-center">(Accouplement)</th>
                                                     </tr>
@@ -726,10 +726,10 @@
                             {% if parametre.appareilMesureMecaniques %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="3" class="text-center">Appareils de mesure utilisés</th>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Désignation du moyen de contrôle</th>
                                             <th>N° de l'appareil</th>
                                             <th>Date de validité</th>
@@ -786,10 +786,10 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center">Nature du contrôle</th>
                                                         <th class="text-center">Conformité</th>
                                                         <th class="text-center">Préconisation</th>
@@ -817,10 +817,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center" colspan="4">Pression dépend des préconisation constructeurs</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th class="text-center">Nature du contrôle</th>
                                                         <th class="text-center">Conformité</th>
                                                         <th class="text-center">Préconisation</th>
@@ -879,7 +879,7 @@
                             <div class="row">
                                 {% if parametre.photoExpertiseMecaniques %}
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Libelle</th>
                                             <th width="150">Image</th>
                                             <th width="20"></th>
@@ -928,10 +928,10 @@
                             {% if parametre.constatMecaniques %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="6" class="text-center">Photos</th>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Vérification</th>
                                             <th>Critères</th>
                                             <th>Observation</th>

@@ -59,12 +59,12 @@
                                     </div>
                                     <div class="item form-group">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="3" class="text-center">Accessoire supplémentaire à la réception</th>
                                             </tr>
                                             {{ form_start(formAccessoire) }}
                                             <tr>
-                                                <td class="table-primary" width="20%">Accessoires complémentaires</td>
+                                                <td <thead class="table-secondary"> width="20%">Accessoires complémentaires</td>
                                                 <td>{{form_widget(formAccessoire.libelle)}}</td>
                                                 <td width="70" class="text-center"><button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">Ajouter</button></td>
                                             </tr>
@@ -73,7 +73,7 @@
                                             {% for item in accessoires %}
                                                 {% set i = i + 1 %}
                                                 <tr>
-                                                    <td class="table-primary" width="20%">Accessoires complémentaires N° {{i}}</td>
+                                                    <td <thead class="table-secondary"> width="20%">Accessoires complémentaires N° {{i}}</td>
                                                     <td>{{item.libelle}}</td>
                                                     <td width="70" class="text-center"><a href="{{path('app_delete_accessoire', {'id' : item.id, 'parmID' : parametre.id })}}"><i class="fa fa-trash fa-3x text-danger"></i></a></td>
                                                 </tr>                                                     
@@ -81,7 +81,7 @@
                                             {% for c in controleVisuelMecanique.accessoireSupplementaires %}
                                                 {% set i = i + 1 %}
                                                 <tr>
-                                                    <td class="table-primary" width="20%">Accessoires complémentaires N° {{i}}</td>
+                                                    <td <thead class="table-secondary"> width="20%">Accessoires complémentaires N° {{i}}</td>
                                                     <td>{{c.libelle}}</td>
                                                     <td width="70" class="text-center"><a href="{{path('app_delete_accessoire', {'id' : c.id, 'parmID' : parametre.id})}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                                 </tr>                                                     

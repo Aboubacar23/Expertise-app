@@ -227,7 +227,7 @@ class RemontageController extends AbstractController
     public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
     {
             if($parametre)
-            {
+            { 
                 $parametre->setRemontage(1);
                 $parametre->setStatutFinal(1);
                 $entityManager->persist($parametre);

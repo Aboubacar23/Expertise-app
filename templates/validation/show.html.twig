@@ -47,7 +47,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered">
-                                                    <thead class="table-primary">
+                                                    <thead class="table-secondary">
                                                         <tr>
                                                             <th class="text-center" colspan="5">Contrôle visuel et recensement</th>
                                                         </tr>
@@ -134,7 +134,7 @@
                                         {% if parametre.mesureIsolement %}
                                             <div class="row">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th colspan="6" class="text-center">Paramètres</th>
                                                     </tr>
                                                     <tr>
@@ -155,7 +155,7 @@
                                             </div>
                                             <div class="row">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr class="table-secondary">
                                                         <th width="15%">Contrôle</th>
                                                         <th>Critère (MΩ)</th>
                                                         <th width="25%">Tension d'éssai(V)</th>
@@ -179,10 +179,10 @@
                                     <!-- début Point de fonctionnement à vide -->                                           
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
-                                                    <th class="text-center" colspan="14">Point de fonctionnement à vide</th>class="text-center" 
+                                                <tr class="table-secondary">
+                                                    <th class="text-center" colspan="14">Point de fonctionnement à vide</th> 
                                                 </tr>
-                                                <tr class="table-primary text-center">
+                                                <tr class="table-secondary text-center">
                                                     <th>t</th>
                                                     <th>U</th>
                                                     <th>I1</th>
@@ -198,7 +198,7 @@
                                                     <th>COA</th>
                                                     <th rowspan="2">Observation</th>
                                                 </tr>
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th class="text-center">(min)</th>
                                                     <th class="text-center">(V)</th>
                                                     <th class="text-center">(A)</th>
@@ -238,10 +238,10 @@
                                     <!-- début Mesures vibratoires -->
                                         <div class="row">
                                             <table class="table table-bordered">
-                                                <tr class="table-primary text-center">
+                                                <tr class="table-secondary text-center">
                                                     <th colspan="5">Mesures Vibratoires</th>
                                                 </tr>
-                                                <tr class="table-primary text-center">
+                                                <tr class="table-secondary text-center">
                                                     <th>Position</th>
                                                     <th>Montage</th>
                                                     <th>Accouplement</th>
@@ -257,7 +257,7 @@
                                                 </tr>
                                             </table>
                                             <table class="table table-bordered">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Critère acceptation max 25mm/s</th>
                                                     <th>N (tr/min)</th>
                                                     <th>A</th>
@@ -299,10 +299,10 @@
                                         <div class="row">
                                             {% if parametre.appareilMesures %}
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th colspan="3" class="text-center">Appareils de mesure utilisés</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th>Désignation du moyen de contrôle</th>
                                                         <th>N° de l'appareil</th>
                                                         <th>Date de validité</th>
@@ -322,23 +322,23 @@
                                     <!-- début Contrôles de bobinages -->
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th class="text-center" colspan="4">Contrôles de bobinages</th>
                                                 </tr>
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Nature du contrôle</th>
                                                     <th>Conformité</th>
                                                     <th>Préconisation</th>
                                                     <th>Retenu</th>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-primary">Contrôle calage des encoches</th>
+                                                    <th class="table-secondary">Contrôle calage des encoches</th>
                                                     <td>{{ parametre.controleBobinage.conformite1}}</td>
                                                     <td>{{ parametre.controleBobinage.preconisation1}}</td>
                                                     <td>{{ parametre.controleBobinage.retenu1}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-primary">Contrôle laçage des développantes</th>
+                                                    <th class="table-secondary">Contrôle laçage des développantes</th>
                                                     <td>{{ parametre.controleBobinage.conformite2}}</td>
                                                     <td>{{ parametre.controleBobinage.preconisation2}}</td>
                                                     <td>{{ parametre.controleBobinage.retenu2}}</td>
@@ -351,10 +351,10 @@
                                         <div class="row">
                                             {% if parametre.presenceBalais == 1 %}
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th colspan="4" class="text-center">Balais</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th>Constats</th>
                                                         <th>Critères</th>
                                                         <th>Préconisation</th>
@@ -401,10 +401,10 @@
                                             {% endif %}
                                             {% if parametre.presenceBalaisMasse == 1 %}
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th colspan="4" class="text-center">Balais de masse</th>
                                                     </tr>
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th>Constats</th>
                                                         <th>Critères</th>
                                                         <th>Préconisation</th>
@@ -466,10 +466,10 @@
                                     <!-- début constats eléc -->
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="6">Photos</th>
                                                 </tr>
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Vérification</th>
                                                     <th>Critères</th>
                                                     <th>Observation</th>
@@ -518,7 +518,7 @@
                                         <div class="row">
                                             <div class="col-md-7">
                                                 <table class="table table-striped table-bordered">
-                                                    <thead class="table-primary">
+                                                    <thead class="table-secondary">
                                                         <tr>
                                                             <th class="text-center" colspan="6">Contrôle visuel et recensement</th>
                                                         </tr>
@@ -577,7 +577,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <table class="table table-striped table-bordered">
-                                                    <thead class="table-primary">
+                                                    <thead class="table-secondary">
                                                         <tr>
                                                             <th colspan="2" class="text-center">Accessoire supplémentaire à la réception</th>
                                                         </tr>
@@ -587,7 +587,7 @@
                                                         {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
                                                             {% set i = i + 1 %}
                                                             <tr>
-                                                                <td class="table-primary">Accessoires complémentaires N° {{i}}</td>
+                                                                <td class="table-secondary">Accessoires complémentaires N° {{i}}</td>
                                                                 <td>{{c.libelle}}</td>
                                                             </tr>                                                     
                                                         {% endfor %}  
@@ -604,7 +604,7 @@
                                             <div class="col-md-12">
                                                 <div class="item form-group">
                                                     <table class="table table-bordered table-striped">
-                                                        <tr class="table-primary">
+                                                        <tr  class="table-secondary">
                                                             <th></th>
                                                             <th class="text-center">Roulements à la réception</th>
                                                             <th class="text-center">Montage prévu selon CST</th>
@@ -626,7 +626,7 @@
                                                 </div>
                                                 <div class="item form-group">
                                                     <table class="table table-bordered table-striped">
-                                                        <tr class="table-primary">
+                                                        <tr  class="table-secondary">
                                                             <th width="3%">Rep</th>
                                                             <th class="text-center" width="200">Désignation piéces</th>
                                                             <th class="text-center" width="12%">Côté CA</th>
@@ -722,10 +722,10 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" colspan="2">Côté accouplement</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center">Avant (mm)</th>
                                                                 <th class="text-center">Arriére (mm)</th>
                                                             </tr>
@@ -745,10 +745,10 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" colspan="2">Côté opposé accouplement</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center">Avant (mm)</th>
                                                                 <th class="text-center">Arriére (mm)</th>
                                                             </tr>
@@ -769,7 +769,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <table class="table table-bordered table-striped">
-                                                        <tr class="table-primary">
+                                                        <tr  class="table-secondary">
                                                             <th></th>
                                                             <th  class="text-center">Natures des relevés</th>
                                                             <th class="text-center">Diamètre attendu (mm)</th>
@@ -807,7 +807,7 @@
                                     {% if parametre.releveDimmensionnels %}
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th  class="text-center">Désignation diamètre</th>
                                                     <th class="text-center">côte attendue (mm)</th>
                                                     <th class="text-center">Tolérance</th>
@@ -816,7 +816,7 @@
                                                     <th width="50"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="6" class="text-center table-primary">Côté accouplement</th>
+                                                    <th colspan="6" class="text-center table-secondary">Côté accouplement</th>
                                                 </tr>
                                                 {% for item in parametre.releveDimmensionnels %}
                                                     {% if item.type == 'Côté accoupplement' %}
@@ -831,7 +831,7 @@
                                                     {% endif %}                                                   
                                                 {% endfor %}
                                                 <tr>
-                                                    <th colspan="6" class="text-center table-primary">Côté opposé accouplement</th>
+                                                    <th colspan="6" class="text-center table-secondary">Côté opposé accouplement</th>
                                                 </tr>
                                                 {% for item in parametre.releveDimmensionnels %}
                                                     {% if item.type == 'Côté opposé accoupplement' %}
@@ -856,18 +856,18 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" width="10%">Diamètre mesuré</th>
                                                                 <th colspan="4" class="text-center">∅A</th>
                                                                 <th colspan="4" class="text-center">∅B</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th></th>
                                                                 <th colspan="4" class="text-center">(Bt.A Add.)</th>
                                                                 <th colspan="4" class="text-center">Pivot</th>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Repères</th>
+                                                                <th class="text-center table-secondary">Repères</th>
                                                                 <td class="text-center">1</td>
                                                                 <td class="text-center">2</td>
                                                                 <td class="text-center">3</td>
@@ -878,7 +878,7 @@
                                                                 <td class="text-center">4</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Faux-Rond</th>
+                                                                <th class="text-center table-secondary">Faux-Rond</th>
                                                                 <td>{{ parametre.controleGeometrique.add1 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.add2 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.add3 }}</td>
@@ -889,7 +889,7 @@
                                                                 <td>{{ parametre.controleGeometrique.pivotB4 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Conformité</th>
+                                                                <th class="text-center table-secondary">Conformité</th>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteAdd }}</td>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteB }}</td>
                                                             </tr>
@@ -897,18 +897,18 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" width="10%">Diamètre mesuré</th>
                                                                 <th colspan="4" class="text-center">∅E</th>
                                                                 <th colspan="4" class="text-center">∅F</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th></th>
                                                                 <th colspan="4" class="text-center">(Tôlerie)</th>
                                                                 <th colspan="4" class="text-center">(Pivot)</th>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Repères</th>
+                                                                <th class="text-center table-secondary">Repères</th>
                                                                 <td class="text-center">1</td>
                                                                 <td class="text-center">2</td>
                                                                 <td class="text-center">3</td>
@@ -919,7 +919,7 @@
                                                                 <td class="text-center">4</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Faux-Rond</th>
+                                                                <th class="text-center table-secondary">Faux-Rond</th>
                                                                 <td>{{ parametre.controleGeometrique.tolerieE1 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.tolerieE2 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.tolerieE3 }}</td>
@@ -930,7 +930,7 @@
                                                                 <td>{{ parametre.controleGeometrique.pivotF4 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Conformité</th>
+                                                                <th class="text-center table-secondary">Conformité</th>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteE }}</td>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteF }}</td>
                                                             </tr>
@@ -938,18 +938,18 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" width="10%">Diamètre mesuré</th>
                                                                 <th colspan="4" class="text-center">∅C</th>
                                                                 <th colspan="4" class="text-center">∅D</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th></th>
                                                                 <th colspan="4" class="text-center">(Tôlerie)</th>
                                                                 <th colspan="4" class="text-center">(Tôlerie)</th>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Repères</th>
+                                                                <th class="text-center table-secondary">Repères</th>
                                                                 <td class="text-center">1</td>
                                                                 <td class="text-center">2</td>
                                                                 <td class="text-center">3</td>
@@ -960,7 +960,7 @@
                                                                 <td class="text-center">4</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Faux-Rond</th>
+                                                                <th class="text-center table-secondary">Faux-Rond</th>
                                                                 <td>{{ parametre.controleGeometrique.tolerieC1 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.tolerieC2 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.tolerieC3 }}</td>
@@ -971,7 +971,7 @@
                                                                 <td>{{ parametre.controleGeometrique.tolerieD4 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Conformité</th>
+                                                                <th class="text-center table-secondary">Conformité</th>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteC }}</td>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteD }}</td>
                                                             </tr>
@@ -979,30 +979,30 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" width="10%">Diamètre mesuré</th>
                                                                 <th colspan="4" class="text-center">∅G</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th></th>
                                                                 <th colspan="4" class="text-center">(Accouplement)</th>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Repères</th>
+                                                                <th class="text-center table-secondary">Repères</th>
                                                                 <td class="text-center">1</td>
                                                                 <td class="text-center">2</td>
                                                                 <td class="text-center">3</td>
                                                                 <td class="text-center">4</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Faux-Rond</th>
+                                                                <th class="text-center table-secondary">Faux-Rond</th>
                                                                 <td>{{ parametre.controleGeometrique.accouplementG1 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.accouplementG2 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.accouplementG3 }}</td>
                                                                 <td>{{ parametre.controleGeometrique.accouplementG4 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th class="text-center table-primary">Conformité</th>
+                                                                <th class="text-center table-secondary">Conformité</th>
                                                                 <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteG }}</td>
                                                             </tr>
                                                         </table>
@@ -1017,10 +1017,10 @@
                                     <div class="row">
                                         {% if parametre.appareilMesures %}
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="3" class="text-center">Appareils de mesure utilisés</th>
                                                 </tr>
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Désignation du moyen de contrôle</th>
                                                     <th>N° de l'appareil</th>
                                                     <th>Date de validité</th>
@@ -1044,10 +1044,10 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center">Nature du contrôle</th>
                                                                 <th class="text-center">Conformité</th>
                                                                 <th class="text-center">Préconisation</th>
@@ -1075,10 +1075,10 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <table class="table table-bordered table-striped">
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center" colspan="4">Pression dépend des préconisation constructeurs</th>
                                                             </tr>
-                                                            <tr class="table-primary">
+                                                            <tr  class="table-secondary">
                                                                 <th class="text-center">Nature du contrôle</th>
                                                                 <th class="text-center">Conformité</th>
                                                                 <th class="text-center">Préconisation</th>
@@ -1108,7 +1108,7 @@
                                     <div class="row">
                                         {% if parametre.photoExpertiseMecaniques %}
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Libelle</th>
                                                     <th width="150">Image</th>
                                                     <th width="20"></th>
@@ -1129,10 +1129,10 @@
                                     {% if parametre.constatMecaniques %}
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="6" class="text-center">Photos</th>
                                                 </tr>
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Vérification</th>
                                                     <th>Critères</th>
                                                     <th>Observation</th>
@@ -1182,17 +1182,17 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th colspan="8" class="text-center">Paramètres</th>
                                                     </tr>
                                                     <tr>
-                                                        <th class="table-primary">T° Ambiante (°C)</th>
+                                                        <th class="table-secondary">T° Ambiante (°C)</th>
                                                         <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
-                                                        <th class="table-primary">T° Tôlerie (°C)</th>
+                                                        <th class="table-secondary">T° Tôlerie (°C)</th>
                                                         <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
-                                                        <th class="table-primary">Hygrométrie (%)</th>
+                                                        <th class="table-secondary">Hygrométrie (%)</th>
                                                         <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                        <th class="table-primary">Isolation</th>
+                                                        <th class="table-secondary">Isolation</th>
                                                         <td>{{parametre.critere}}</td>
                                                     </tr>
                                                 </table>
@@ -1219,7 +1219,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <table class="table table-bordered table-striped">
-                                                    <tr class="table-primary">
+                                                    <tr  class="table-secondary">
                                                         <th width="15%">Contrôle</th>
                                                         <th width="15%">Critère</th>
                                                         <th class="text-center" width="15%">Tension d'éssai(V)</th>
@@ -1247,7 +1247,7 @@
                                     {% if parametre.sondeBobinage %}
                                         <div class="row">
                                             <table class="table table-bordered">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="6" class="text-center">Paramètres</th>
                                                 </tr>
                                                 <tr>
@@ -1268,7 +1268,7 @@
                                         </div>
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th width="20%">Contrôle</th>
                                                     <th width="20%">Critère (MΩ)</th>
                                                     <th width="20%">Valeur relevée avant lavage (MΩ)</th>
@@ -1296,7 +1296,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th></th>
                                                     <th>U (v)</th>
                                                     <th>I1 (A)</th>
@@ -1332,18 +1332,18 @@
                                             {% if parametre.autreCaracteristique %}
                                                 <table class="table table-bordered table-striped">
                                                     <tr>
-                                                        <th class="table-primary">Résistance</th>
+                                                        <th class="table-secondary">Résistance</th>
                                                         <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="table-primary">Pertes</th>
+                                                        <th class="table-secondary">Pertes</th>
                                                         <td>{{ parametre.autreCaracteristique.perte1}}</td>
                                                         <td>tr/min</td>
                                                         <td>{{ parametre.autreCaracteristique.perte2}}</td>
                                                         <td>W</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="table-primary">Pertes Fer à </th>
+                                                        <th class="table-secondary">Pertes Fer à </th>
                                                         <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
                                                         <td>V</td>
                                                         <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
@@ -1358,10 +1358,10 @@
                                     <!-- début point fonctionnement rotor -->
                                     <div class="row">
                                         <table class="table table-bordered table-striped">
-                                            <tr  class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
                                             </tr>
-                                            <tr class="table-primary text-center">
+                                            <tr class="table-secondary text-center">
                                                 <th>U (v)</th>
                                                 <th>I1 (A)</th>
                                                 <th>I2 (A)</th>
@@ -1389,22 +1389,22 @@
                                     <div class="row">
                                         <table class="table table-bordered table-striped">
                                             <tr class="text-center">
-                                                <th class="table-primary">M</th>
-                                                <th class="table-primary">Indication du peson</th>
+                                                <th class="table-secondary">M</th>
+                                                <th class="table-secondary">Indication du peson</th>
                                                 <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
                                                 <td>kg</td>
                                                 <td></td>
                                             </tr>
                                             <tr class="text-center">
-                                                <th class="table-primary">ID</th>
-                                                <th class="table-primary">Courant de démarrage à Un</th>
+                                                <th class="table-secondary">ID</th>
+                                                <th class="table-secondary">Courant de démarrage à Un</th>
                                                 <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
                                                 <td>A</td>
                                                 <th>ID = Imoy * Un/U</th>
                                             </tr>
                                             <tr class="text-center">
-                                                <th class="table-primary">CD</th>
-                                                <th class="table-primary">Couple de démarrage à un</th>
+                                                <th class="table-secondary">CD</th>
+                                                <th class="table-secondary">Couple de démarrage à un</th>
                                                 <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
                                                 <td>Nm</td>
                                                 <th>CD = (9.81 * M * Un/U)</th>
@@ -1418,7 +1418,7 @@
                                     <div class="row">
                                         {% if parametre.appareilMesures %}
                                             <table class="table table-bordered">
-                                                <tr class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th>Désignation du moyen de contrôle</th>
                                                     <th>N° de l'appareil</th>
                                                     <th>Date de validité</th>
@@ -1438,7 +1438,7 @@
                                     <!-- début constats eléc après lavage -->
                                     <div class="row">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th>Vérification</th>
                                                 <th>Critères</th>
                                                 <th>Observation</th>

@@ -13,22 +13,26 @@
             <div class="x_panel">
                 <div class="x_title">                
                     {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                     {% endif %}
                     {% if parametre.expertiseMecanique == 1 %}
-                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
                     {% if parametre.expertiseElectiqueApresLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique après lavage</a>
                     {% endif %}
-                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Constats <i class="fa fa-check"></i></a>
-                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Remontage</a>
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
@@ -36,7 +40,7 @@
                 </div> 
             </div>
         </div>
-    </div> 
+    </div>  
     <!-- début contenu formulaire --> 
         <div class="row">
             <div class="col-md-12 col-sm-12 ">                  
@@ -76,12 +80,12 @@
                                 {% if parametre.remontagePalier %}
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary text-center">
+                                            <tr class="table-secondary text-center">
                                                 <th rowspan="2">Rep</th>
                                                 <th rowspan="2">Désignation Piéces</th>
                                                 <th colspan="2">Cotes relevées</th>
                                             </tr>
-                                            <tr class="table-primary text-center">
+                                            <tr class="table-secondary text-center">
                                                 <th>CA</th>
                                                 <th>COA</th>
                                             </tr>
@@ -125,8 +129,8 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class="table-primary">Type de graisse</td>
-                                                <td class="table-primary" colspan="2">{{ parametre.remontagePalier.typeGraisse}}</td>
+                                                <td class="table-secondary">Type de graisse</td>
+                                                <td <thead class="table-secondary"> colspan="2">{{ parametre.remontagePalier.typeGraisse}}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -172,23 +176,23 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary text-center">
+                                            <tr class="table-secondary text-center">
                                                 <th colspan="7">Données techniques d'entrée</th>
                                             </tr>
                                             <tr class="text-center">
                                                 <td width="10%">Vitesse</td>
                                                 <td>{{ parametre.remontageEquilibrage.vitesse}}</td>
                                                 <td width="4%">Tr/min</td>
-                                                <td class="table-primary"></td>
-                                                <td class="table-primary">Entiére</td>
-                                                <td class="table-primary">1/2</td>
-                                                <td class="table-primary">Sans</td>
+                                                <td class="table-secondary"></td>
+                                                <td class="table-secondary">Entiére</td>
+                                                <td class="table-secondary">1/2</td>
+                                                <td class="table-secondary">Sans</td>
                                             </tr>
                                             <tr class="text-center">
                                                 <td>Poids rotor</td>
                                                 <td>{{ parametre.remontageEquilibrage.poidsrotor}}</td>
                                                 <td>Kg</td>
-                                                <td class="table-primary">Clavatte</td>
+                                                <td class="table-secondary">Clavatte</td>
                                                 <td>{{ parametre.remontageEquilibrage.clavetteEntiere}}</td>
                                                 <td>{{ parametre.remontageEquilibrage.clavette12}}</td>
                                                 <td>{{ parametre.remontageEquilibrage.clavetteSans}}</td> 
@@ -197,7 +201,7 @@
                                                 <td>Vitesse d'équilibrage</td>
                                                 <td>{{ parametre.remontageEquilibrage.vitesseEquilibrage}}</td>
                                                 <td>Tr/min</td>
-                                                <td class="table-primary">Correction</td>
+                                                <td class="table-secondary">Correction</td>
                                                 <td colspan="3">{{ parametre.remontageEquilibrage.correction}}</td>
                                             </tr>
                                             <tr class="text-center">
@@ -214,16 +218,16 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary text-center">
+                                            <tr class="table-secondary text-center">
                                                 <th rowspan="2"></th>
                                                 <th colspan="2">Sans ventilateur</th>
                                                 <th colspan="2">Avec ventilateur</th>
                                             </tr>
                                             <tr class="text-center">
-                                                <th class="table-primary">Plan CA</th>
-                                                <th class="table-primary">Plan COA</th>
-                                                <th class="table-primary">Plan CA</th>
-                                                <th class="table-primary">Plan COA</th>
+                                                <th class="table-secondary">Plan CA</th>
+                                                <th class="table-secondary">Plan COA</th>
+                                                <th class="table-secondary">Plan CA</th>
+                                                <th class="table-secondary">Plan COA</th>
                                             </tr>
                                             <tr class="text-center">
                                                 <td>Rayon d'équilibrage (mm)</td>
@@ -311,7 +315,7 @@
                                 {% if parametre.remontageFinition %}
                                     <div class="col-md-6">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th>Carcasse</th>
                                                 <th width="20%">Contôles</th>
                                             </tr>
@@ -319,7 +323,7 @@
                                                 <td>Vérifier la bonne position des paliers par rapport à la carcasse</td>
                                                 <td>{{ parametre.remontageFinition.controleCarcasse}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Câblage et boite à bornes</th>
                                             </tr>
                                             <tr>
@@ -338,7 +342,7 @@
                                                 <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
                                                 <td>{{ parametre.remontageFinition.controleCablage4}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Sondes</th>
                                             </tr>
                                             <tr>
@@ -353,7 +357,7 @@
                                                 <td>Vérification du nombre et de la mise en place des sondes</td>
                                                 <td>{{ parametre.remontageFinition.controleSonde3}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Arbre</th>
                                             </tr>
                                             <tr>
@@ -364,7 +368,7 @@
                                                 <td>Présence de l'accouplement</td>
                                                 <td>{{ parametre.remontageFinition.controleArbre2}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Général</th>
                                             </tr>
                                             <tr>
@@ -415,7 +419,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th>Carcasse</th>
                                                 <th width="20%">Contôles</th>
                                             </tr>
@@ -423,21 +427,21 @@
                                                 <td>Vérifier le freinage des vis et la présence des rondelles sur l’ensemble de la machine</td>
                                                 <td>{{ parametre.remontageFinition.controleCarcasse2}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Câblage et boite à bornes</th>
                                             </tr>
                                             <tr>
                                                 <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
                                                 <td>{{ parametre.remontageFinition.controleCablage21}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Sondes</th>
                                             </tr>
                                             <tr>
                                                 <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
                                                 <td>{{ parametre.remontageFinition.controleSonde21}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Arbre</th>
                                             </tr>
                                             <tr>
@@ -452,7 +456,7 @@
                                                 <td>Présence de l'accouplement</td>
                                                 <td>{{ parametre.remontageFinition.controleArbre23}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Général</th>
                                             </tr>
                                             <tr>
@@ -487,7 +491,7 @@
                                                 <td>Présence et efficacité des liaisons équipotentielles (absence de tout isolant)</td>
                                                 <td>{{ parametre.remontageFinition.controleGeneral28}}</td>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="2">Plaques</th>
                                             </tr>
                                             <tr>
@@ -556,7 +560,7 @@
                             <div class="row">
                                 {% if parametre.remontagePhotos %}
                                     <table class="table table-bordered">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Libelle</th>
                                             <th width="150">Image</th>
                                             <th width="20"></th>

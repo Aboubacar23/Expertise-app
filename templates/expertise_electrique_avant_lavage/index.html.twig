@@ -12,27 +12,26 @@
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
-                <div class="x_title">                
-                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
-                    {% else %}
-                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Exp. électrique avant lavage</a>
-                    {% endif %}
+                <div class="x_title">  
+                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                     {% if parametre.expertiseMecanique == 1 %}
-                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                     {% endif %}
                     {% if parametre.expertiseElectiqueApresLavage == 1 %}
-                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                     {% else %}
                         <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                     {% endif %}
-                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
-            
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                         {% if parametre.remontage == 1 %}
-                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
                         {% endif %}                                
@@ -85,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table class="table table-striped table-bordered">
-                                            <thead class="table-primary">
+                                            <thead class="table-secondary">
                                                 <tr>
                                                     <th class="text-center" colspan="5">Contrôle visuel et recensement</th>
                                                 </tr>
@@ -208,7 +207,7 @@
                                 {% if parametre.mesureIsolement %}
                                     <div class="row">
                                         <table class="table table-bordered table-striped">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="5" class="text-center">Paramètres</th>
                                             </tr>
                                             <tr>
@@ -229,7 +228,7 @@
                                     </div>
                                     <div class="row">
                                         <table class="table table-bordered table-striped">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th width="15%">Contrôle</th>
                                                 <th>Critère (MΩ)</th>
                                                 <th width="25%">Tension d'éssai(V)</th>
@@ -288,7 +287,7 @@
                             {% if parametre.mesureResistance %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="6" class="text-center">Paramètres</th>
                                         </tr>
                                         <tr>
@@ -311,7 +310,7 @@
                                 </div>
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th width="15%">Contrôle</th>
                                             <th>Critère (MΩ)</th>
                                             <th width="25%">Valeur relevées (MΩ)</th>
@@ -355,7 +354,7 @@
                         <div class="x_content collapse" id="collapse2_3">
                             <div class="row table-responsive">
                                 <table class="table table-bordered table-striped">
-                                    <tr class="table-primary text-center">
+                                    <tr class="table-secondary text-center">
                                         <th width="2%">t</th>
                                         <th>U</th>
                                         <th>I1</th>
@@ -371,7 +370,7 @@
                                         <th>COA</th>
                                         <th rowspan="2">Observation</th>
                                     </tr>
-                                    <tr class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th class="text-center">(min)</th>
                                         <th class="text-center">(V)</th>
                                         <th class="text-center">(A)</th>
@@ -445,10 +444,10 @@
                             {% if parametre.mesureVibratoire %}
                             <div class="row">
                                 <table class="table table-bordered">
-                                    <tr class="table-primary text-center">
+                                    <tr class="table-secondary text-center">
                                         <th colspan="5">Mesures Vibratoires</th>
                                     </tr>
-                                    <tr class="table-primary text-center">
+                                    <tr class="table-secondary text-center">
                                         <th>Position</th>
                                         <th>Montage</th>
                                         <th>Accouplement</th>
@@ -464,7 +463,7 @@
                                     </tr>
                                 </table>
                                 <table class="table table-bordered">
-                                    <tr class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th>Critère acceptation max 25mm/s</th>
                                         <th>N (tr/min)</th>
                                         <th>A</th>
@@ -529,7 +528,7 @@
                             {% if parametre.appareilMesures %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Désignation du moyen de contrôle</th>
                                             <th>N° de l'appareil</th>
                                             <th>Date de validité</th>
@@ -583,23 +582,23 @@
                             <div class="row">
                             {% if parametre.controleBobinage %}
                                 <table class="table table-bordered table-striped">
-                                    <tr class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th class="text-center" colspan="4">Contrôles de bobinages</th>
                                     </tr>
-                                    <tr class="table-primary">
+                                    <tr  class="table-secondary">
                                         <th>Nature du contrôle</th>
                                         <th>Conformité</th>
                                         <th>Préconisation</th>
                                         <th>Retenu</th>
                                     </tr>
                                     <tr>
-                                        <th class="table-primary">Contrôle calage des encoches</th>
+                                        <th class="table-secondary">Contrôle calage des encoches</th>
                                         <td>{{ parametre.controleBobinage.conformite1}}</td>
                                         <td>{{ parametre.controleBobinage.preconisation1}}</td>
                                         <td>{{ parametre.controleBobinage.retenu1}}</td>
                                     </tr>
                                     <tr>
-                                        <th class="table-primary">Contrôle laçage des développantes</th>
+                                        <th class="table-secondary">Contrôle laçage des développantes</th>
                                         <td>{{ parametre.controleBobinage.conformite2}}</td>
                                         <td>{{ parametre.controleBobinage.preconisation2}}</td>
                                         <td>{{ parametre.controleBobinage.retenu2}}</td>
@@ -647,10 +646,10 @@
                             {% if parametre.autreControle %}
                                 {% if parametre.presenceBalais == 1 %}
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="4" class="text-center">Balais</th>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Constats</th>
                                             <th>Critères</th>
                                             <th>Préconisation</th>
@@ -697,10 +696,10 @@
                                 {% endif %}
                                 {% if parametre.presenceBalaisMasse == 1 %}
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="4" class="text-center">Balais de masse</th>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Constats</th>
                                             <th>Critères</th>
                                             <th>Préconisation</th>
@@ -821,10 +820,10 @@
                             {% if parametre.constatElectriques %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th colspan="6">Constats</th>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr  class="table-secondary">
                                             <th>Vérification</th>
                                             <th>Critères</th>
                                             <th>Observation</th>

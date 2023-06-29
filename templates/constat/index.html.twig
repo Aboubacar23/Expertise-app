@@ -14,23 +14,24 @@
                 <div class="x_panel">
                     <div class="x_title">
                         {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
                         {% endif %}
                         {% if parametre.expertiseMecanique == 1 %}
-                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
                         {% endif %}
                         {% if parametre.expertiseMecanique == 1 %}
-                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
                         {% endif %}
-                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-primary btn-sm">Constats</a> {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a> 
+                        {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                             {% if parametre.remontage == 1 %}
-                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                             {% else %}
                                 <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
                             {% endif %}                                
@@ -59,7 +60,7 @@
                                 <div class="col-md-12">
                                     <div class="item form-group">
                                         <table class="table table-bordered">
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th>Vérification</th>
                                                 <th>Critères</th>
                                                 <th>Observation</th>
@@ -103,10 +104,10 @@
                                 <div class="col-md-12">
                                     <div class="item form-group">
                                         <table class="table table-bordered">
-                                            <tr  class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th colspan="12" class="text-center">Avant Lavage</th>
                                             </tr>
-                                            <tr class="table-primary">
+                                            <tr  class="table-secondary">
                                                 <th>Vérification</th>
                                                 <th width="6%">Critères</th>
                                                 <th>Observation</th>
@@ -124,7 +125,7 @@
                                                     <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
                                                 </tr>                                                    
                                             {% endfor %}
-                                                <tr  class="table-primary">
+                                                <tr  class="table-secondary">
                                                     <th colspan="12" class="text-center">Après Lavage</th>
                                                 </tr>
                                             {% for item in parametre.constatElectriqueApresLavages %}

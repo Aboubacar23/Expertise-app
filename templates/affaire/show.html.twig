@@ -17,19 +17,24 @@
                         {% if active == false %}
                             <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>
                         {% endif %}
-                        <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>
-                        {% if active == true %}
-                            <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
-                            {% if affaire.bloque != 1 %}
-                                <a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase">Fermer</a>
-                            {% else %}
-                                <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-success btn-sm text-uppercase">Activer</a>
+                        <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>       
+                        {% if affaire.revueEnclenchement %}
+                            {% if active == true %}
+                                <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
+                                {% if fermer == true %}
+                                    {% if affaire.bloque != 1 %}
+                                        <a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase">Fermer</a>
+                                    {% else %}
+                                        <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-success btn-sm text-uppercase">Activer</a>
+                                    {% endif %}                                    
+                                {% endif %}
                             {% endif %}
                         {% endif %}
+
                         {% if affaire.revueEnclenchement %}
                             <a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
                         {% else %}
-                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-info btn-sm">REVUE ENC</a>
+                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
                         {% endif %}
                         <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
                     {% endif %} 
@@ -170,9 +175,9 @@
                                                 <td>{{ parametre.masse }}</td>
                                                 <td class="text-center">
                                                     {% if affaire.revueEnclenchement %}
-                                                        <span class="btn btn-danger btn-sm">En-cours</span>
+                                                        <span class="btn btn-outline-danger btn-sm">En-cours</span>
                                                     {% else %}
-                                                        <span class="btn btn-secondary btn-sm">En Attente</span>
+                                                        <span class="btn btn-outline-secondary btn-sm">En Attente</span>
                                                     {% endif %}
                                                 </td>
                                                 {#<td>{{ parametre.statorTension }}</td>
@@ -229,22 +234,22 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                 </div>
                 {{ form_start(form) }}
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">{{ form_row(form.fichier) }}</div>
-                        <div class="col-md-12">{{ form_row(form.version, { value : version }) }}</div>
-                        <div class="col-md-12">{{ form_row(form.date_archive) }}</div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">{{ form_row(form.fichier) }}</div>
+                            <div class="col-md-12">{{ form_row(form.version, { value : version }) }}</div>
+                            <div class="col-md-12">{{ form_row(form.date_archive) }}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-primary">Archiver</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Archiver</button>
+                    </div>
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
-    <!-- /modals -->
+    <!-- /modals --> 
     </div>
 </div>
 {% endblock %}

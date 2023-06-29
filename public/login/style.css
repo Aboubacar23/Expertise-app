@@ -10,7 +10,7 @@ h3{
     font-style: normal;
 }
 body {
-    background-color: #4052e4;
+    background-color: #fff;
     display: grid;
     place-items: center
 }
@@ -23,7 +23,11 @@ body {
 
 .c1 {
     background-color: #2f3f64;
-    border-radius: 5px
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 a{ 

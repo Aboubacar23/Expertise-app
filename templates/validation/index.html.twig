@@ -21,7 +21,7 @@
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
                             <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                                <thead class="table-primary">
+                                <thead class="table-secondary">
                                     <tr>
                                     <th width="2">N°</th>
                                     <th>N° Affaire JE</th>
@@ -52,7 +52,7 @@
                                                 <td>{{ item.affaire.suiviPar }}</td>
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{path('app_validation_show', {'id' : item.id })}}" class="btn btn-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
+                                                    <a href="{{path('app_validation_show', {'id' : item.id })}}" class="btn btn-outline-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>     
                                     {% else %}
