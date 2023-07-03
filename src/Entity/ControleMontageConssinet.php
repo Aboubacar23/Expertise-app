@@ -127,6 +127,12 @@ class ControleMontageConssinet
     #[ORM\Column(nullable: true)]
     private ?float $d12 = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $longueur_accouplement = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longueur_opp_accouplement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -594,6 +600,30 @@ class ControleMontageConssinet
     public function setD12(?float $d12): self
     {
         $this->d12 = $d12;
+
+        return $this;
+    }
+
+    public function getLongueurAccouplement(): ?float
+    {
+        return $this->longueur_accouplement;
+    }
+
+    public function setLongueurAccouplement(?float $longueur_accouplement): self
+    {
+        $this->longueur_accouplement = $longueur_accouplement;
+
+        return $this;
+    }
+
+    public function getLongueurOppAccouplement(): ?float
+    {
+        return $this->longueur_opp_accouplement;
+    }
+
+    public function setLongueurOppAccouplement(?float $longueur_opp_accouplement): self
+    {
+        $this->longueur_opp_accouplement = $longueur_opp_accouplement;
 
         return $this;
     }

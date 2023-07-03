@@ -59,6 +59,8 @@ class ControleMontageCoussinetType extends AbstractType
             ->add('d10')
             ->add('d11')
             ->add('d12')
+            ->add('longueur_accouplement')
+            ->add('longueur_opp_accouplement')
         ;
     }
 

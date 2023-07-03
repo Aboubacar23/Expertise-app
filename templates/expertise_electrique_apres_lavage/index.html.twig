@@ -364,33 +364,33 @@
                         </div>
                         <div class="x_content collapse" id="collapse4">
                             {% if parametre.pointFonctionnementRotors %}
-                            <div class="row">
-                                <table class="table table-bordered table-striped">
-                                    <tr  class="table-secondary">
-                                        <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
-                                    </tr>
-                                    <tr class="table-secondary text-center">
-                                        <th>U (v)</th>
-                                        <th>I1 (A)</th>
-                                        <th>I2 (A)</th>
-                                        <th>I3 (A)</th>
-                                        <th>Imoy (A)</th>
-                                        <th>Pabs (kW)</th>
-                                        <th>Pjoule (kW)</th>
-                                    </tr>
-                                    {% for item in parametre.pointFonctionnementRotors %}
-                                        <tr>
-                                            <td>{{item.u }}</td>
-                                            <td>{{item.i1 }}</td>
-                                            <td>{{item.i2 }}</td>
-                                            <td>{{item.i3 }}</td>
-                                            <td>{{item.imoy }}</td>
-                                            <td>{{item.pabs }}</td>
-                                            <td>{{item.pjoule }}</td>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
                                         </tr>
-                                    {% endfor %}
-                                </table>
-                            </div>
+                                        <tr class="table-secondary text-center">
+                                            <th>U (v)</th>
+                                            <th>I1 (A)</th>
+                                            <th>I2 (A)</th>
+                                            <th>I3 (A)</th>
+                                            <th>Imoy (A)</th>
+                                            <th>Pabs (kW)</th>
+                                            <th>Pjoule (kW)</th>
+                                        </tr>
+                                        {% for item in parametre.pointFonctionnementRotors %}
+                                            <tr>
+                                                <td>{{item.u }}</td>
+                                                <td>{{item.i1 }}</td>
+                                                <td>{{item.i2 }}</td>
+                                                <td>{{item.i3 }}</td>
+                                                <td>{{item.imoy }}</td>
+                                                <td>{{item.pabs }}</td>
+                                                <td>{{item.pjoule }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
                             {% endif %}
                             {% if parametre.autrePointFonctionnementRotor %}
                                 <div class="row">
