@@ -199,6 +199,15 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?bool $corbeille = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ControleRecensement::class)]
+    private Collection $controleRecensements;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Plaque::class)]
+    private Collection $plaques;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?Coussinet $coussinet = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -213,6 +222,8 @@ class Parametre
         $this->appareilMesureElectriques = new ArrayCollection();
         $this->constatElectriqueApresLavages = new ArrayCollection();
         $this->remontagePhotos = new ArrayCollection();
+        $this->controleRecensements = new ArrayCollection();
+        $this->plaques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1164,6 +1175,78 @@ class Parametre
     public function setCorbeille(?bool $corbeille): self
     {
         $this->corbeille = $corbeille;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ControleRecensement>
+     */
+    public function getControleRecensements(): Collection
+    {
+        return $this->controleRecensements;
+    }
+
+    public function addControleRecensement(ControleRecensement $controleRecensement): self
+    {
+        if (!$this->controleRecensements->contains($controleRecensement)) {
+            $this->controleRecensements->add($controleRecensement);
+            $controleRecensement->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeControleRecensement(ControleRecensement $controleRecensement): self
+    {
+        if ($this->controleRecensements->removeElement($controleRecensement)) {
+            // set the owning side to null (unless already changed)
+            if ($controleRecensement->getParametre() === $this) {
+                $controleRecensement->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Plaque>
+     */
+    public function getPlaques(): Collection
+    {
+        return $this->plaques;
+    }
+
+    public function addPlaque(Plaque $plaque): self
+    {
+        if (!$this->plaques->contains($plaque)) {
+            $this->plaques->add($plaque);
+            $plaque->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaque(Plaque $plaque): self
+    {
+        if ($this->plaques->removeElement($plaque)) {
+            // set the owning side to null (unless already changed)
+            if ($plaque->getParametre() === $this) {
+                $plaque->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCoussinet(): ?Coussinet
+    {
+        return $this->coussinet;
+    }
+
+    public function setCoussinet(?Coussinet $coussinet): self
+    {
+        $this->coussinet = $coussinet;
 
         return $this;
     }

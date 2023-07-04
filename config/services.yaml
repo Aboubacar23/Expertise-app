@@ -10,9 +10,13 @@ parameters:
     image_expertise_mecaniques : '%kernel.project_dir%/public/photo_expertise_mecanique'
     images_constat_electrique_apres_lavage: '%kernel.project_dir%/public/photo_constat_electrique_apres_lavage'
     image_remontages: '%kernel.project_dir%/public/photo_remontages'
+    image_controle_recensement: '%kernel.project_dir%/public/photo_controle_recensement'
+    image_plaque: '%kernel.project_dir%/public/photo_plaque'
+    image_coussinet: '%kernel.project_dir%/public/photo_coussinet'
     fichier_archives: '%kernel.project_dir%/public/archives'
+    
 services:
-    # default configuration for services in *this* file images_constat_electrique
+    # default configuration for services in *this* file 
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

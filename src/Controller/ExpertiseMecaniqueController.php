@@ -2,12 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Plaque;
 use App\Entity\HydroAero;
 use App\Entity\Parametre;
 use App\Form\HydroAeroType;
 use App\Entity\ConstatMecanique;
+use App\Form\ConstatMecaniqueType;
 use App\Entity\ControleGeometrique;
+use App\Entity\ControleRecensement;
+use App\Entity\ReleveDimmensionnel;
+use App\Repository\PlaqueRepository;
 use App\Form\ControleGeometriqueType;
+use App\Form\ControleRecensementType;
+use App\Form\ReleveDimmensionnelType;
 use App\Entity\AppareilMesureMecanique;
 use App\Entity\ControleVisuelMecanique;
 use App\Entity\PhotoExpertiseMecanique;
@@ -15,28 +22,31 @@ use App\Repository\HydroAeroRepository;
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\ControleMontageConssinet;
 use App\Entity\ControleMontageRoulement;
-use App\Entity\ReleveDimmensionnel;
+use App\Entity\Coussinet;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\AppareilMesureMecaniqueType;
 use App\Form\ControleVisuelMecaniqueType;
 use App\Form\PhotoExpertiseMecaniqueType;
 use App\Form\AccessoireSupplementaireType;
-use App\Form\ConstatMecaniqueType;
 use App\Form\ControleMontageCoussinetType;
 use App\Form\ControleMontageRoulementType;
-use App\Form\ReleveDimmensionnelType;
+use App\Form\CoussinetType;
+use App\Form\PlaqueType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ConstatMecaniqueRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ControleGeometriqueRepository;
+use App\Repository\ControleRecensementRepository;
+use App\Repository\ReleveDimmensionnelRepository;
 use App\Repository\AppareilMesureMecaniqueRepository;
 use App\Repository\ControleVisuelMecaniqueRepository;
 use App\Repository\PhotoExpertiseMecaniqueRepository;
 use App\Repository\AccessoireSupplementaireRepository;
-use App\Repository\ConstatMecaniqueRepository;
 use App\Repository\ControleMontageConssinetRepository;
 use App\Repository\ControleMontageRoulementRepository;
-use App\Repository\ReleveDimmensionnelRepository;
+use App\Repository\CoussinetRepository;
+use App\Repository\ParametreRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -52,6 +62,114 @@ class ExpertiseMecaniqueController extends AbstractController
     public function index(Parametre $parametre, Request $request,): Response
     {
         return $this->render('expertise_mecanique/index.html.twig', ['parametre' => $parametre,]);
+    }
+
+    //photo à la réception 
+    #[Route('/photo-reception/{id}', name: 'app_photo_reception')]
+    public function photoReception(Parametre $parametre, ControleRecensementRepository $controleRecensementRepository,Request $request,SluggerInterface $slugger)
+    {       
+        $controleRecensement = new ControleRecensement();
+        $formControleRecensement = $this->createForm(ControleRecensementType::class, $controleRecensement);
+        $formControleRecensement->handleRequest($request);
+        if($formControleRecensement->isSubmitted() && $formControleRecensement->isValid())
+        {
+            $trouve = false;
+            foreach($parametre->getControleRecensements() as $item)
+            {
+                if ($item->getLibelle() == $controleRecensement->getLibelle())
+                {
+                    $trouve = true;
+                }
+            }
+
+            if ($trouve == false)
+            {
+                $photo = $formControleRecensement->get('photo')->getData();
+                if ($photo)
+                {
+                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                    try {
+                        $photo->move(
+                            $this->getParameter('image_controle_recensement'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+    
+                $controleRecensement->setParametre($parametre); 
+                $controleRecensement->setPhoto($newPhotoname);
+                $controleRecensementRepository->save($controleRecensement, true);
+                return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
+
+            }else{
+
+                $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$controleRecensement->getLibelle());
+                return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
+            }
+                     
+        }
+        return $this->render('expertise_mecanique/controle_recensement.html.twig', [
+        'parametre' => $parametre,
+        'formControleRecensement' => $formControleRecensement->createView()
+        
+        ]);
+
+    }
+
+       //photo à la réception 
+       #[Route('/plaque/{id}', name: 'app_photo_plaque')]
+    public function plauqe(Parametre $parametre, PlaqueRepository $plaqueRepository,Request $request,SluggerInterface $slugger)
+    {       
+        $plaque = new Plaque();
+        $formPlaque = $this->createForm(PlaqueType::class, $plaque);
+        $formPlaque->handleRequest($request);
+        if($formPlaque->isSubmitted() && $formPlaque->isValid())
+        {
+            $trouve = false;
+            foreach($parametre->getPlaques() as $item)
+            {
+                if ($item->getLibelle() == $plaque->getLibelle())
+                {
+                    $trouve = true;
+                }
+            }
+
+            if ($trouve == false)
+            {
+                $photo = $formPlaque->get('photo')->getData();
+                if ($photo)
+                {
+                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                    try {
+                        $photo->move(
+                            $this->getParameter('image_plaque'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+    
+                $plaque->setParametre($parametre); 
+                $plaque->setPhoto($newPhotoname);
+                $plaqueRepository->save($plaque, true);
+                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
+
+            }else{
+
+                $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$plaque->getLibelle());
+                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
+            }
+                    
+        }
+        return $this->render('expertise_mecanique/plaque.html.twig', [
+        'parametre' => $parametre,
+        'formPlaque' => $formPlaque->createView()
+        
+        ]);
+
     }
 
     //controle visuel et recensement
@@ -223,44 +341,43 @@ class ExpertiseMecaniqueController extends AbstractController
          ]);
     }
 
-
     //relevé controle geometrique
     #[Route('/controle-geometrique/{id}', name: 'app_controle_geometrique')]
     public function controleGeometrique(ControleGeometriqueRepository $controleGeometriqueRepository,Parametre $parametre, Request $request): Response
     {
         
-    //la partie controle geometrique
-    $controleGeometrique = new ControleGeometrique();
-    if($parametre->getControleGeometrique()){
-        $controleGeometrique = $parametre->getControleGeometrique()->getParametre()->getControleGeometrique();
-    }
-
-    $formControlGeometrique = $this->createForm(ControleGeometriqueType::class, $controleGeometrique);
-    $formControlGeometrique->handleRequest($request);
-    if($formControlGeometrique->isSubmitted() && $formControlGeometrique->isValid())
-    {
-        $choix = $request->get('bouton5');
-        if($choix == 'controle_geometrique_en_cours')
-        {
-            $parametre->setControleGeometrique($controleGeometrique);
-            $controleGeometrique->setEtat(0);
-            $controleGeometriqueRepository->save($controleGeometrique, true);
-            $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
+        //la partie controle geometrique
+        $controleGeometrique = new ControleGeometrique();
+        if($parametre->getControleGeometrique()){
+            $controleGeometrique = $parametre->getControleGeometrique()->getParametre()->getControleGeometrique();
         }
-        elseif($choix == 'controle_geometrique_terminer')
-        {         
+
+        $formControlGeometrique = $this->createForm(ControleGeometriqueType::class, $controleGeometrique);
+        $formControlGeometrique->handleRequest($request);
+        if($formControlGeometrique->isSubmitted() && $formControlGeometrique->isValid())
+        {
+            $choix = $request->get('bouton5');
+            if($choix == 'controle_geometrique_en_cours')
+            {
                 $parametre->setControleGeometrique($controleGeometrique);
-                $controleGeometrique->setEtat(1);
+                $controleGeometrique->setEtat(0);
                 $controleGeometriqueRepository->save($controleGeometrique, true);
                 $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'controle_geometrique_terminer')
+            {         
+                    $parametre->setControleGeometrique($controleGeometrique);
+                    $controleGeometrique->setEtat(1);
+                    $controleGeometriqueRepository->save($controleGeometrique, true);
+                    $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
+            }
         }
-    }
 
-    return $this->render('expertise_mecanique/controle_geometrique.html.twig', [
-        'parametre' => $parametre,
-        'formControlGeometrique' => $formControlGeometrique->createView(),
-        
-    ]);
+        return $this->render('expertise_mecanique/controle_geometrique.html.twig', [
+            'parametre' => $parametre,
+            'formControlGeometrique' => $formControlGeometrique->createView(),
+            
+        ]);
     }
 
     //relevé appareil-mesure
@@ -500,5 +617,145 @@ class ExpertiseMecaniqueController extends AbstractController
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
             } 
     }
-      
+    
+    //la fonction qui supprime une photo à la réception
+    #[Route('/recetpion/{id}', name: 'app_delete_controle_recensement', methods: ['GET'])]
+    public function deletePhotoReception(ControleRecensement $controleRecensement, ControleRecensementRepository $controleRecensementRepository): Response
+    {
+        $id = $controleRecensement->getParametre()->getId();
+        if($controleRecensement)
+        {
+            $nom = $controleRecensement->getPhoto();
+            unlink($this->getParameter('image_controle_recensement').'/'.$nom);
+            $controleRecensementRepository->remove($controleRecensement, true);
+            return $this->redirectToRoute('app_photo_reception', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        else
+        {
+            return $this->redirectToRoute('app_photo_reception', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } 
+    }
+
+    //la fonction qui supprime les plaques
+    #[Route('/plaque-supprimer/{id}', name: 'app_delete_plaque', methods: ['GET'])]
+    public function deletePlaque(Plaque $plaque, PlaqueRepository $plaqueRepository): Response
+    {
+        $id = $plaque->getParametre()->getId();
+        if($plaque)
+        {
+            $nom = $plaque->getPhoto();
+            unlink($this->getParameter('image_plaque').'/'.$nom);
+            $plaqueRepository->remove($plaque, true);
+            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        else
+        {
+            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } 
+    }
+
+    //coussinet CA & COA
+    #[Route('/coussinet/{id}', name: 'app_coussinet')]
+    public function coussinet(CoussinetRepository $coussinetRepository,Parametre $parametre, Request $request, SluggerInterface $slugger): Response
+    {
+        $coussinet = new Coussinet();
+        if($parametre->getCoussinet())
+        {
+            $coussinet =  $parametre->getCoussinet()->getParametre()->getCoussinet();
+        }
+
+        $formCoussinet = $this->createForm(CoussinetType::class, $coussinet);
+        $formCoussinet->handleRequest($request);
+        if($formCoussinet->isSubmitted() && $formCoussinet->isValid())
+        {
+            $choix = $request->get('bouton003');
+            if($choix == 'coussinet_en_cours')
+            {
+                //photo coussinet ca
+                $photo_ca = $formCoussinet->get('photo_ca')->getData();
+                if ($photo_ca)
+                {
+                    $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
+                    try {
+                        $photo_ca->move(
+                            $this->getParameter('image_coussinet'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+                $coussinet->setPhotoCa($newPhotoname);
+
+                //photo coussinet coa
+                $photo_coa = $formCoussinet->get('photo_coa')->getData();
+                if ($photo_coa)
+                {
+                    $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
+                    try {
+                        $photo_coa->move(
+                            $this->getParameter('image_coussinet'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+                $coussinet->setPhotoCoa($newPhotoname);
+
+                $parametre->setCoussinet($coussinet);
+                $coussinet->setEtat(0);
+                $coussinetRepository->save($coussinet, true);
+                $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'coussinet_terminer')
+            {       
+                
+                //photo coussinet ca
+                $photo_ca = $formCoussinet->get('photo_ca')->getData();
+                if ($photo_ca)
+                {
+                    $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
+                    try {
+                        $photo_ca->move(
+                            $this->getParameter('image_coussinet'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+                $coussinet->setPhotoCa($newPhotoname);
+
+                //photo coussinet coa
+                $photo_coa = $formCoussinet->get('photo_coa')->getData();
+                if ($photo_coa)
+                {
+                    $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
+                    try {
+                        $photo_coa->move(
+                            $this->getParameter('image_coussinet'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+                $coussinet->setPhotoCoa($newPhotoname);
+
+                $parametre->setCoussinet($coussinet);
+                $coussinet->setEtat(1);
+                $coussinetRepository->save($coussinet, true);
+                $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+            }
+        }
+
+        
+        return $this->render('expertise_mecanique/coussinet.html.twig', [
+            'parametre' => $parametre,
+            'coussinet' => $coussinet,
+            'formCoussinet' => $formCoussinet->createView(),
+        ]);
+    }
+
 }

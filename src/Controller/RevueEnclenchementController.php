@@ -45,6 +45,8 @@ class RevueEnclenchementController extends AbstractController
         $form = $this->createForm(RevueEnclenchementType::class, $revueEnclenchement);
         $form->handleRequest($request);
 
+        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
+
 
         $etudesAchats = new EtudesAchats();
         $formEtudesAchats = $this->createForm(EtudesAchatsType::class, $etudesAchats);
@@ -66,11 +68,13 @@ class RevueEnclenchementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
+            $revueEnclenchement->setUtilisateur($user);
             $affaire->setRevueEnclenchement($revueEnclenchement);
             foreach($affaire->getParametres() as $item)
             {
                 $item->setEtat(1);
             }
+            
             $revueEnclenchementRepository->save($revueEnclenchement, true);
             return $this->redirectToRoute('app_revue_enclenchement_new', [
                 'id' => $affaire->getId()

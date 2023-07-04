@@ -513,6 +513,52 @@
                         <div class="x_content collapse" id="collapse2">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <!-- début plaque --> 
+                                    {% if parametre.plaques %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            {% for item in parametre.plaques %}
+                                                                <td><img src="{{asset('/photo_plauqe/' ~ item.photo)}}" height="200"/></td>
+                                                            {% endfor %}
+                                                        </tr>    
+                                                            <tr>                                                
+                                                            {% for item in parametre.plaques %}
+                                                                <td>{{item.libelle}}</td>
+                                                            {% endfor %}
+                                                        </tr>  
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div> 
+                                    {% endif %}
+                                    <!-- début plaque --> 
+
+                                    <!-- début contrôle et recensement (photo à la réception )--> 
+                                    {% if parametre.controleRecensements %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            {% for item in parametre.controleRecensements %}
+                                                                <td><img src="{{asset('/photo_controle_recensement/' ~ item.photo)}}" height="200"/></td>
+                                                            {% endfor %}
+                                                        </tr>    
+                                                            <tr>                                                
+                                                            {% for item in parametre.controleRecensements %}
+                                                                <td>{{item.libelle}}</td>
+                                                            {% endfor %}
+                                                        </tr>  
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div> 
+                                    {% endif %}
+                                    <!-- début contrôle et recensement --> 
+
                                     <!-- début contrôle visuel et recensement --> 
                                     {% if parametre.controleVisuelMecanique %}
                                         <div class="row">

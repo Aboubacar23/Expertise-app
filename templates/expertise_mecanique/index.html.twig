@@ -31,10 +31,12 @@
                     {% endif %}
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                         {% if parametre.remontage == 1 %}
-                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
-                        {% endif %}                                
+                        {% endif %} 
+                        
+                        <a href="#" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>                                   
                     {% endif %}
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
@@ -47,6 +49,185 @@
     <!-- début contenu formulaire --> 
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
+
+                <!-- début plaque --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Plaque Signalétique et Révision</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.plaques |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.plaques |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_photo_plaque', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" href="#collapse02"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse02">
+                            {% if parametre.plaques %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    {% for item in parametre.plaques %}
+                                                        <td><img src="{{asset('/photo_plaque/' ~ item.photo)}}" height="200"/></td>
+                                                    {% endfor %}
+                                                </tr>    
+                                                    <tr>                                                
+                                                    {% for item in parametre.plaques %}
+                                                        <td>{{item.libelle}}</td>
+                                                    {% endfor %}
+                                                </tr>  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin plaque --> 
+
+                <!-- début coussinet --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Coussinet</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.coussinet == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.coussinet.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_coussinet', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse03" aria-expanded="false" href="#collapse03"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse03">
+                            {% if parametre.coussinet %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr  class="table-secondary">
+                                                    <th></th>
+                                                    <th class="text-center">Coussinet CA</th>
+                                                    <th class="text-center">Coussinet CA</th>
+                                                </tr>
+                                                <tr>
+                                                    <td width="10%">Réf Palier</td>
+                                                    <td>{{ parametre.coussinet.refPalierCa }}</td>
+                                                    <td>{{ parametre.coussinet.refPalierCoa }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="10%">Num Code</td>
+                                                    <td>{{ parametre.coussinet.numCodeCa }}</td>
+                                                    <td>{{ parametre.coussinet.numCodeCoa }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><img src="{{asset('/photo_coussinet/' ~ parametre.coussinet.photoCa)}}" alt="{{parametre.coussinet.photoCa}}" height="150"/></td>
+                                                    <td><img src="{{asset('/photo_coussinet/' ~ parametre.coussinet.photoCoa)}}" alt="{{parametre.coussinet.photoCoa}}" height="150"/></td>                                            
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin coussinet --> 
+
+                <!-- début contrôle  recensement --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photos à la Reception</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.controleRecensements |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.controleRecensements |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                {% if parametre.affaire.bloque != 1 %}
+                                        <a class="btn btn-primary" href="{{path('app_photo_reception', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse01" aria-expanded="false" href="#collapse01"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse01">
+                            {% if parametre.controleRecensements %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    {% for item in parametre.controleRecensements %}
+                                                        <td><img src="{{asset('/photo_controle_recensement/' ~ item.photo)}}" height="200"/></td>
+                                                    {% endfor %}
+                                                </tr>    
+                                                    <tr>                                                
+                                                    {% for item in parametre.controleRecensements %}
+                                                        <td>{{item.libelle}}</td>
+                                                    {% endfor %}
+                                                </tr>  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin contrôle  recensement --> 
+
                 <!-- début contrôle visuel et recensement --> 
                     <div class="x_panel"> 
                         <div class="x_title">
@@ -466,12 +647,21 @@
                                     <h2>Relevès dimensionnels rotor et palier</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
+                                    {% if parametre.releveDimmensionnels |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.releveDimmensionnels |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
                                 {% if parametre.affaire.bloque != 1 %}
                                     <a class="btn btn-primary" href="{{path('app_releve_dimensionnel', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
                                 {% endif %}
-                                </div>
+                                </div> 
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4_1"><i class="fa fa-chevron-up"></i></a></li>
@@ -481,7 +671,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse4_1">
-                            {% if parametre.releveDimmensionnels%}
+                            {% if parametre.releveDimmensionnels %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
@@ -732,6 +922,15 @@
                                     <h2>Appareils de mesure utilisés</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesureMecaniques |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.appareilMesureMecaniques |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
                                 {% if parametre.affaire.bloque != 1 %}
@@ -929,7 +1128,7 @@
                                     <h2>Constats Mécanique</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    {% if parametre.constatMecaniques ==  null %}
+                                    {% if parametre.constatMecaniques | length !=  0 %}
                                         <a href="#" class="btn btn-success btn-sm">Terminer<i class="fa fa-check"></i></a> 
                                     {% else %}
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>

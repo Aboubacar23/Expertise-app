@@ -88,6 +88,9 @@ class RevueEnclenchement
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $clarification = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $utilisateur = null;
+
     public function __construct()
     {
         $this->ateliers = new ArrayCollection();
@@ -429,6 +432,18 @@ class RevueEnclenchement
     public function setClarification(?string $clarification): self
     {
         $this->clarification = $clarification;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?string
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?string $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

@@ -34,7 +34,9 @@
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
-                        {% endif %}                                
+                        {% endif %} 
+                        
+                        <a href="#" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>                                   
                     {% endif %}
 
                     <ul class="nav navbar-right panel_toolbox">
@@ -335,9 +337,20 @@
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     <h2>Point de fonctionnement à vide</h2> 
                                 </div> 
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.pointFonctionnements |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.pointFonctionnements |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
                                 <div class="col-md-2 text-right">
                                     {% if parametre.affaire.bloque != 1 %}
                                         <a class="btn btn-primary" href="{{path('app_point_fonctionnement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
@@ -508,9 +521,20 @@
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-4">
                                     <h2>Appareils de mesure utilisés</h2>
                                 </div> 
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesures |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.appareilMesures |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
                                 <div class="col-md-2 text-right">
                                     {% if parametre.affaire.bloque != 1 %}
                                         <a class="btn btn-primary" href="{{path('app_appareil_mesure', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
@@ -802,6 +826,15 @@
                                     <h2>Constats électrique</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
+                                    {% if parametre.constatElectriques |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.constatElectriques |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
                                     {% if parametre.affaire.bloque != 1 %}

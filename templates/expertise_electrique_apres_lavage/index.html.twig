@@ -35,7 +35,8 @@
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
-                        {% endif %}                                
+                        {% endif %}  
+                        <a href="#" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>                                  
                     {% endif %}
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
@@ -481,6 +482,15 @@
                                     <h2>Constats Électrique Après Lavage</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
+                                    {% if parametre.constatElectriqueApresLavages |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.constatElectriqueApresLavages |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-2 text-right">
                                     {% if parametre.affaire.bloque != 1 %}
