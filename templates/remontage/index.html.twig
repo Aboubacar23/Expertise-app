@@ -32,8 +32,19 @@
                     {% else %}
                             <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
                     {% endif %}
-                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>    
+                    {% if parametre.contreExpertise %}
+                        <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
+                    {% endif %}   
+
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a> 
+
+                    {% if parametre.phototheques | length > 1 %}
+                        <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                    {% endif %}   
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
@@ -532,7 +543,7 @@
                                 </div>
                                 <div class="col-md-4 text-center">
                                     {% if parametre.remontagePhotos %}
-                                        <a href="#" class="btn btn-info btn-sm">En cours <i class="fa fa-check"></i></a> 
+                                        <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a> 
                                     {% else %}
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% endif %}

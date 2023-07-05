@@ -403,33 +403,33 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('/appariel-mesure/{id}', name: 'app_appareil_mesure', methods: ['POST', 'GET'])]
     public function appareilMesure(Parametre $parametre,Request $request,AppareilMesureRepository $appareilMesureRepository): Response
     {
-    //la partie appareil de mesure
-    $appareilMesure = new AppareilMesure();
+        //la partie appareil de mesure
+        $appareilMesure = new AppareilMesure();
 
-    $formAppareilMesure = $this->createForm(AppareilMesureType::class, $appareilMesure);
-    $formAppareilMesure->handleRequest($request);
-    $date = date('Y-m-d');
-    if($formAppareilMesure->isSubmitted() && $formAppareilMesure->isValid())
-    {
-        $choix = $request->get('bouton6');
-        if($choix == 'ajouter')
+        $formAppareilMesure = $this->createForm(AppareilMesureType::class, $appareilMesure);
+        $formAppareilMesure->handleRequest($request);
+        $date = date('Y-m-d');
+        if($formAppareilMesure->isSubmitted() && $formAppareilMesure->isValid())
         {
-            $dateAppareil = $appareilMesure->getAppareil()->getDateValidite()->format('Y-m-d');
-            if($dateAppareil < $date){
-                $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
-            }else{
-                $appareilMesure->setParametre($parametre);
-                $appareilMesure->setEtat(0);
-                $appareilMesureRepository->save($appareilMesure, true);
-                $this->redirectToRoute('app_appareil_mesure', ['id' => $parametre->getId()]);
+            $choix = $request->get('bouton6');
+            if($choix == 'ajouter')
+            {
+                $dateAppareil = $appareilMesure->getAppareil()->getDateValidite()->format('Y-m-d');
+                if($dateAppareil < $date){
+                    $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
+                }else{
+                    $appareilMesure->setParametre($parametre);
+                    $appareilMesure->setEtat(0);
+                    $appareilMesureRepository->save($appareilMesure, true);
+                    $this->redirectToRoute('app_appareil_mesure', ['id' => $parametre->getId()]);
+                }
             }
-        }
-    }           
-        //6
-        return $this->render('expertise_electrique_avant_lavage/appareil_mesure.html.twig', [
-            'parametre' => $parametre,
-            'formAppareilMesure' => $formAppareilMesure->createView(),
-        ]);
+        }           
+            //6
+            return $this->render('expertise_electrique_avant_lavage/appareil_mesure.html.twig', [
+                'parametre' => $parametre,
+                'formAppareilMesure' => $formAppareilMesure->createView(),
+            ]);
     }
 
     //création de controle de bobinage
@@ -514,14 +514,14 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('/photos/{id}', name: 'app_photos', methods: ['POST', 'GET'])]
     public function photo(Parametre $parametre,Request $request,SluggerInterface $slugger, PhotoRepository $photoRepository,): Response
     {
-    //la partie photo
-    $photo = new Photo();
+        //la partie photo
+        $photo = new Photo();
 
-    $formPhoto = $this->createForm(PhotoType::class, $photo);
-    $formPhoto->handleRequest($request);
+        $formPhoto = $this->createForm(PhotoType::class, $photo);
+        $formPhoto->handleRequest($request);
 
-    if($formPhoto->isSubmitted() && $formPhoto->isValid())
-    {
+        if($formPhoto->isSubmitted() && $formPhoto->isValid())
+        {
         $choix = $request->get('bouton5');
         if($choix == 'photo_en_cours')
         {

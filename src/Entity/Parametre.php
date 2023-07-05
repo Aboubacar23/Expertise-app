@@ -208,6 +208,15 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?Coussinet $coussinet = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ContreExpertise $contre_expertise = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Phototheque::class)]
+    private Collection $phototheques;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -224,6 +233,7 @@ class Parametre
         $this->remontagePhotos = new ArrayCollection();
         $this->controleRecensements = new ArrayCollection();
         $this->plaques = new ArrayCollection();
+        $this->phototheques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1247,6 +1257,60 @@ class Parametre
     public function setCoussinet(?Coussinet $coussinet): self
     {
         $this->coussinet = $coussinet;
+
+        return $this;
+    }
+
+    public function getContreExpertise(): ?ContreExpertise
+    {
+        return $this->contre_expertise;
+    }
+
+    public function setContreExpertise(?ContreExpertise $contre_expertise): self
+    {
+        $this->contre_expertise = $contre_expertise;
+
+        return $this;
+    }
+
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(?string $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Phototheque>
+     */
+    public function getPhototheques(): Collection
+    {
+        return $this->phototheques;
+    }
+
+    public function addPhototheque(Phototheque $phototheque): self
+    {
+        if (!$this->phototheques->contains($phototheque)) {
+            $this->phototheques->add($phototheque);
+            $phototheque->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhototheque(Phototheque $phototheque): self
+    {
+        if ($this->phototheques->removeElement($phototheque)) {
+            // set the owning side to null (unless already changed)
+            if ($phototheque->getParametre() === $this) {
+                $phototheque->setParametre(null);
+            }
+        }
 
         return $this;
     }

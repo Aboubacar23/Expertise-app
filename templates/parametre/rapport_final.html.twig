@@ -1502,7 +1502,22 @@
             {% endif %}     
         </div>
         <div class="sous_page6_7">
-            <h4>E.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
+            <h4>E.  <span class="span_titre">Illustrations</span></h4> 
+            {% if parametre.photo %}
+                <table>
+                    <tr class="titre_table">
+                        <th>Illustrations</th>
+                    </tr>
+                    {% for item in parametre.photo.images %}
+                        <tr>                        
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertises/' ~ item.libelle)) }}" alt="{{ item.photo }}" height="300px" width="300px"></td>
+                        </tr>                                                    
+                    {% endfor %} 
+                </table>                         
+            {% endif %}
+        </div>
+        <div class="sous_page6_7">
+            <h4>F.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
             {% if parametre.constatElectriques %}
                 <table>
                     <tr class="titre_table">
@@ -1529,11 +1544,14 @@
     </div>
 {# fin de la partie 6 #}
 
-{# la partie 7 expertise electrique #}
-    <div class="page_break"></div>
-    <div class="page8">
-        <h2>VII. Contre-Expertise</h2>
-    </div>
+{# la partie 7 contre expertise #}
+    {% if parametre.contreExpertise %}
+        <div class="page_break"></div>
+        <div class="page8">
+            <h2>VII. Contre-Expertise</h2>
+            <p>{{ parametre.contreExpertise | raw }}</p>
+        </div>    
+    {% endif %}
 {# fin de la partie 7 #}
 
 {# la partie 8 Travaux de remise en état et Révision #}
@@ -1541,7 +1559,17 @@
     <div class="page8">
         <h2>VIII. Travaux de remise en état et Révision</h2>
         <div class="sous_page8_1">
+            {% if parametre.phototheques %}
             <h4>A.  <span class="span_titre">Photothèque après travaux</span></h4>
+            <div style="padding-top: 20px; align-items: center;">
+                {% for item in parametre.phototheques %}
+                    <div>
+                        <img class="p-2" src="{{absolute_url(asset('/phototheques/'~ item.libelle))}}" height="200" width="200" style="padding: 10px;">
+                        <h6>{{item.titre}}</h6>
+                    </div>
+                {% endfor %}    
+            </div>                                            
+        {% endif %}
         </div>
         <div class="sous_page8_2">
             <h4>B.  <span class="span_titre">Equilibrage rotor</span></h4>

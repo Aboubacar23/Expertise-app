@@ -57,7 +57,9 @@ class AffaireController extends AbstractController
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
+        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
         if ($form->isSubmitted() && $form->isValid()) {
+            $affaire->setUser($user);
             $affaire->setEtat(0);
             $affaireRepository->save($affaire, true);
 
@@ -147,9 +149,11 @@ class AffaireController extends AbstractController
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $affaire->setUser($user);
             $affaireRepository->save($affaire, true);
-
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $affaire->getId()
             ], Response::HTTP_SEE_OTHER);

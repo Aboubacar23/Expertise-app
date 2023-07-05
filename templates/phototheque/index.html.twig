@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Expertise Électrique avant lavage</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">                 
+                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                    {% endif %}
+
+                    {% if parametre.expertiseMecanique == 1 %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                    {% endif %}
+ 
+                    {% if parametre.expertiseElectiqueApresLavage == 1 %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                    {% else %}
+                        <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                    {% endif %}
+
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
+
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+
+                        {% if parametre.contreExpertise %}
+                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
+                        {% endif %}
+
+                        {% if parametre.remontage == 1 %}
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
+                        {% endif %}   
+                            <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                    {% endif %}
+
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- début contenu formulaire --> 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <!-- début photo -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photos</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.phototheques | length > 0 %}
+                                        <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a> 
+                                    {% else %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>   
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse7"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="collapse7">
+                            {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6">{{ form_row(form.titre) }}</div>
+                                        <div class="col-md-6 col-sm-6">{{ form_row(form.libelle) }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button class="btn btn-success btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                            <hr>
+                            <div class="row">
+                                {% if parametre.phototheques %}
+                                    {% for item in parametre.phototheques %}
+                                        <div class="col-md-2">
+                                            <span><img class="p-2" src="{{asset('/phototheques/'~ item.libelle)}}" height="150" width="150"> <a href="{{path('app_delete_plaque', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-1x"></i></a></span><br>
+                                            <h6>{{item.titre}}</h6>
+                                        </div>
+                                    {% endfor %}                                                
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- /fin photo -->
+    
+            </div>
+        </div>                    
+    <!-- /fin contenu du formulaire--> 
+</div>
+</div>
+{% endblock %}
+                

@@ -24,6 +24,7 @@
                             <thead class="table-secondary">
                                 <tr>
                                 <th width="2">N°</th>
+                                <th>Utilisateur</th>
                                 <th>N° Affaire JE</th>
                                 <th>Nom Client</th>
                                 <th>Référence code client</th>
@@ -46,6 +47,7 @@
                                     {% set jourRestant = dateDiff.days %}
                                 <tr>
                                     <td>{{ i}}</td>
+                                    <td>{{ affaire.user }}</td> 
                                     <td>{{ affaire.numAffaire }}</td> 
                                     <td>{{ affaire.client }}</td>
                                     <td>{{ affaire.codeClient }}</td>

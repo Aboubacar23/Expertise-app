@@ -65,6 +65,9 @@ class Affaire
     #[ORM\OneToOne(inversedBy: 'affaire', cascade: ['persist', 'remove'])]
     private ?RevueEnclenchement $revue_enclenchement = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $user = null;
+
 
     public function __construct()
     {
@@ -303,6 +306,18 @@ class Affaire
     public function setRevueEnclenchement(?RevueEnclenchement $revue_enclenchement): self
     {
         $this->revue_enclenchement = $revue_enclenchement;
+
+        return $this;
+    }
+
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(?string $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
