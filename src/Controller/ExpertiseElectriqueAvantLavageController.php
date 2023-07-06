@@ -4,53 +4,59 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 use App\Entity\Images;
+use App\Entity\Plaque;
 use App\Form\PhotoType;
+use App\Form\PlaqueType;
 use App\Entity\Parametre;
 use App\Entity\AutreControle;
 use App\Entity\AppareilMesure;
-use App\Entity\ConstatElectrique;
 use App\Entity\MesureIsolement;
 use App\Form\AutreControleType;
 use App\Entity\ControleBobinage;
+use App\Entity\LMesureIsolement;
 use App\Entity\MesureResistance;
 use App\Entity\MesureVibratoire;
 use App\Form\AppareilMesureType;
+use App\Entity\ConstatElectrique;
+use App\Entity\LMesureResistance;
 use App\Form\MesureIsolementType;
 use App\Form\ControleBobinageType;
+use App\Form\LMesureIsolementType;
 use App\Form\MesureResistanceType;
 use App\Form\MesureVibratoireType;
 use App\Entity\PointFonctionnement;
+use App\Form\ConstatElectriqueType;
+use App\Form\LMesureResistanceType;
 use App\Repository\PhotoRepository;
 use App\Repository\ImagesRepository;
+use App\Repository\PlaqueRepository;
 use App\Form\PointFonctionnementType;
+use App\Repository\ParametreRepository;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Entity\ControleVisuelElectrique;
-use App\Entity\LMesureIsolement;
-use App\Entity\LMesureResistance;
-use App\Form\ConstatElectriqueType;
+use App\Entity\LPlaque;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ControleVisuelElectriqueType;
-use App\Form\LMesureIsolementType;
-use App\Form\LMesureResistanceType;
+use App\Form\LPlaqueType;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
-use App\Repository\ConstatElectriqueRepository;
 use App\Repository\MesureIsolementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ControleBobinageRepository;
+use App\Repository\LMesureIsolementRepository;
 use App\Repository\MesureResistanceRepository;
 use App\Repository\MesureVibratoireRepository;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ConstatElectriqueRepository;
+use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
-use App\Repository\LMesureIsolementRepository;
-use App\Repository\LMesureResistanceRepository;
-use App\Repository\ParametreRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\LPlaqueRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 #[Route('/expertiseEAL')]
 class ExpertiseElectriqueAvantLavageController extends AbstractController
@@ -770,6 +776,99 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $lmesureIsolementRepository->remove($lmesureIsolement, true);
             return $this->redirectToRoute('app_mesure_isolement',['id' => $id2]); 
         }
-    } 
+    }
+
+    //plaque signalétique et révision 
+    #[Route('/plaque/{id}', name: 'app_photo_plaque')]
+    public function plauqe(Parametre $parametre, PlaqueRepository $plaqueRepository,Request $request,SluggerInterface $slugger, LPlaqueRepository $lPlaqueRepository)
+    {       
+        $plaque = new Plaque();
+        $formPlaque = $this->createForm(PlaqueType::class, $plaque);
+        $formPlaque->handleRequest($request);
+
+        $lplaque = new LPlaque();
+
+        if($parametre->getLplaque())
+        {
+            $lplaque = $parametre->getLplaque()->getParametre()->getLplaque();
+        }
+
+        $form = $this->createForm(LPlaqueType::class, $lplaque);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $parametre->setLplaque($lplaque);
+            $lPlaqueRepository->save($lplaque, true);
+            return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
+
+        }
+
+        if($formPlaque->isSubmitted() && $formPlaque->isValid())
+        {
+            $trouve = false;
+            foreach($parametre->getPlaques() as $item)
+            {
+                if ($item->getLibelle() == $plaque->getLibelle())
+                {
+                    $trouve = true;
+                }
+            }
+
+            if ($trouve == false)
+            {
+                $photo = $formPlaque->get('photo')->getData();
+                if ($photo)
+                {
+                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                    try {
+                        $photo->move(
+                            $this->getParameter('image_plaque'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                }
+    
+                $plaque->setParametre($parametre); 
+                $plaque->setPhoto($newPhotoname);
+                $plaqueRepository->save($plaque, true);
+                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
+
+            }else{
+
+                $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$plaque->getLibelle());
+                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
+            }
+                    
+        }
+        return $this->render('expertise_electrique_avant_lavage/plaque.html.twig', [
+        'parametre' => $parametre,
+        'formPlaque' => $formPlaque->createView(),
+        'form' => $form->createView()
+        
+        ]);
+
+    }
+
+    //la fonction qui supprime les plaques
+    #[Route('/plaque-supprimer/{id}', name: 'app_delete_plaque', methods: ['GET'])]
+    public function deletePlaque(Plaque $plaque, PlaqueRepository $plaqueRepository): Response
+    {
+        $id = $plaque->getParametre()->getId();
+        if($plaque)
+        {
+            $nom = $plaque->getPhoto();
+            unlink($this->getParameter('image_plaque').'/'.$nom);
+            $plaqueRepository->remove($plaque, true);
+            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        else
+        {
+            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } 
+    }
+
     
 } 

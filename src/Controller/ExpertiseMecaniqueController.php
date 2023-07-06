@@ -3,9 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Plaque;
+use App\Form\PlaqueType;
+use App\Entity\Coussinet;
 use App\Entity\HydroAero;
 use App\Entity\Parametre;
+use App\Entity\Roulement;
+use App\Entity\Synoptique;
+use App\Form\CoussinetType;
 use App\Form\HydroAeroType;
+use App\Form\RoulementType;
+use App\Form\SynoptiqueType;
 use App\Entity\ConstatMecanique;
 use App\Form\ConstatMecaniqueType;
 use App\Entity\ControleGeometrique;
@@ -18,11 +25,14 @@ use App\Form\ReleveDimmensionnelType;
 use App\Entity\AppareilMesureMecanique;
 use App\Entity\ControleVisuelMecanique;
 use App\Entity\PhotoExpertiseMecanique;
+use App\Repository\CoussinetRepository;
 use App\Repository\HydroAeroRepository;
+use App\Repository\ParametreRepository;
+use App\Repository\RoulementRepository;
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\ControleMontageConssinet;
 use App\Entity\ControleMontageRoulement;
-use App\Entity\Coussinet;
+use App\Repository\SynoptiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\AppareilMesureMecaniqueType;
 use App\Form\ControleVisuelMecaniqueType;
@@ -30,8 +40,6 @@ use App\Form\PhotoExpertiseMecaniqueType;
 use App\Form\AccessoireSupplementaireType;
 use App\Form\ControleMontageCoussinetType;
 use App\Form\ControleMontageRoulementType;
-use App\Form\CoussinetType;
-use App\Form\PlaqueType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ConstatMecaniqueRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,8 +53,6 @@ use App\Repository\PhotoExpertiseMecaniqueRepository;
 use App\Repository\AccessoireSupplementaireRepository;
 use App\Repository\ControleMontageConssinetRepository;
 use App\Repository\ControleMontageRoulementRepository;
-use App\Repository\CoussinetRepository;
-use App\Repository\ParametreRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -113,60 +119,6 @@ class ExpertiseMecaniqueController extends AbstractController
         return $this->render('expertise_mecanique/controle_recensement.html.twig', [
         'parametre' => $parametre,
         'formControleRecensement' => $formControleRecensement->createView()
-        
-        ]);
-
-    }
-
-       //photo à la réception 
-       #[Route('/plaque/{id}', name: 'app_photo_plaque')]
-    public function plauqe(Parametre $parametre, PlaqueRepository $plaqueRepository,Request $request,SluggerInterface $slugger)
-    {       
-        $plaque = new Plaque();
-        $formPlaque = $this->createForm(PlaqueType::class, $plaque);
-        $formPlaque->handleRequest($request);
-        if($formPlaque->isSubmitted() && $formPlaque->isValid())
-        {
-            $trouve = false;
-            foreach($parametre->getPlaques() as $item)
-            {
-                if ($item->getLibelle() == $plaque->getLibelle())
-                {
-                    $trouve = true;
-                }
-            }
-
-            if ($trouve == false)
-            {
-                $photo = $formPlaque->get('photo')->getData();
-                if ($photo)
-                {
-                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
-                    try {
-                        $photo->move(
-                            $this->getParameter('image_plaque'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
-                }
-    
-                $plaque->setParametre($parametre); 
-                $plaque->setPhoto($newPhotoname);
-                $plaqueRepository->save($plaque, true);
-                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
-
-            }else{
-
-                $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$plaque->getLibelle());
-                return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
-            }
-                    
-        }
-        return $this->render('expertise_mecanique/plaque.html.twig', [
-        'parametre' => $parametre,
-        'formPlaque' => $formPlaque->createView()
         
         ]);
 
@@ -636,24 +588,6 @@ class ExpertiseMecaniqueController extends AbstractController
         } 
     }
 
-    //la fonction qui supprime les plaques
-    #[Route('/plaque-supprimer/{id}', name: 'app_delete_plaque', methods: ['GET'])]
-    public function deletePlaque(Plaque $plaque, PlaqueRepository $plaqueRepository): Response
-    {
-        $id = $plaque->getParametre()->getId();
-        if($plaque)
-        {
-            $nom = $plaque->getPhoto();
-            unlink($this->getParameter('image_plaque').'/'.$nom);
-            $plaqueRepository->remove($plaque, true);
-            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
-        }
-        else
-        {
-            return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
-        } 
-    }
-
     //coussinet CA & COA
     #[Route('/coussinet/{id}', name: 'app_coussinet')]
     public function coussinet(CoussinetRepository $coussinetRepository,Parametre $parametre, Request $request, SluggerInterface $slugger): Response
@@ -757,5 +691,81 @@ class ExpertiseMecaniqueController extends AbstractController
             'formCoussinet' => $formCoussinet->createView(),
         ]);
     }
+
+    //roulement CA & COA
+    #[Route('/roulement/{id}', name: 'app_roulement')]
+    public function roulement(RoulementRepository $roulementRepository,Parametre $parametre, Request $request): Response
+    {
+        $roulement = new Roulement();
+        if($parametre->getRoulement())
+        {
+            $roulement =  $parametre->getRoulement()->getParametre()->getRoulement();
+        }
+
+        $formRoulement = $this->createForm(RoulementType::class, $roulement);
+        $formRoulement->handleRequest($request);
+        if($formRoulement->isSubmitted() && $formRoulement->isValid())
+        {
+            $choix = $request->get('bouton004');
+            if($choix == 'roulement_en_cours')
+            {
+                $parametre->setRoulement($roulement);
+                $roulement->setEtat(0);
+                $roulementRepository->save($roulement, true);
+                $this->redirectToRoute('app_roulement', ['id' => $parametre->getId()]);
+            }
+            elseif($choix == 'roulement_terminer')
+            {       
+                $parametre->setRoulement($roulement);
+                $roulement->setEtat(1);
+                $roulementRepository->save($roulement, true);
+                $this->redirectToRoute('app_roulement', ['id' => $parametre->getId()]);
+            }
+        }
+
+        
+        return $this->render('expertise_mecanique/roulement.html.twig', [
+            'parametre' => $parametre,
+            'roulement' => $roulement,
+            'formRoulement' => $formRoulement->createView(),
+        ]);
+    }
+
+    //synoptiques 
+    #[Route('/synoptique/{id}', name: 'app_synoptique')]
+    public function synoptique(Parametre $parametre, SynoptiqueRepository $synoptiqueRepository,Request $request)
+    {       
+        $synoptique = new Synoptique();
+        $form = $this->createForm(SynoptiqueType::class, $synoptique);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $synoptique->setParametre($parametre); 
+            $synoptiqueRepository->save($synoptique, true);
+            return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);                         
+        }
+        return $this->render('expertise_mecanique/synoptique.html.twig', [
+            'parametre' => $parametre,
+            'form' => $form->createView()
+        
+        ]);
+
+    }
+
+     //la fonction qui supprime synoptique
+     #[Route('/syno-delete/{id}', name: 'app_delete_synoptique', methods: ['GET'])]
+     public function deleteSynoptique(Synoptique $synoptique, SynoptiqueRepository $synoptiqueRepository): Response
+     {
+         $id = $synoptique->getParametre()->getId();
+         if($synoptique)
+         {
+             $synoptiqueRepository->remove($synoptique, true);
+             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
+         }
+         else
+         {
+             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
+         } 
+     }
 
 }

@@ -66,18 +66,18 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
 
-                <!-- début plaque --> 
+                <!-- début roulement --> 
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h2>Plaque Signalétique et Révision</h2>
+                                    <h2>Roulements CA / COA</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    {% if parametre.plaques |length == 0 %}
+                                    {% if parametre.roulement == null %}
                                         <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% else %}
-                                        {% if parametre.plaques |length  > 1 %}
+                                        {% if parametre.roulement.etat == 1 %}
                                             <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
                                         {% else %}
                                             <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
@@ -86,33 +86,38 @@
                                 </div>
                                 <div class="col-md-2 text-right">
                                 {% if parametre.affaire.bloque != 1 %}
-                                        <a class="btn btn-primary" href="{{path('app_photo_plaque', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                        <a class="btn btn-primary" href="{{path('app_roulement', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                 {% endif %}
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" href="#collapse02"><i class="fa fa-chevron-up"></i></a></li>
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse04" aria-expanded="false" href="#collapse04"><i class="fa fa-chevron-up"></i></a></li>
                                     </ul>                                                
                                 </div> 
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="x_content collapse" id="collapse02">
-                            {% if parametre.plaques %}
+                        <div class="x_content collapse" id="collapse04">
+                            {% if parametre.roulement %}
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table class="table table-striped table-bordered">
                                             <tbody>
+                                                <tr  class="table-secondary">
+                                                    <th></th>
+                                                    <th class="text-center">Roulement CA</th>
+                                                    <th class="text-center">Roulement COA</th>
+                                                </tr>
                                                 <tr>
-                                                    {% for item in parametre.plaques %}
-                                                        <td><img src="{{asset('/photo_plaque/' ~ item.photo)}}" height="200"/></td>
-                                                    {% endfor %}
-                                                </tr>    
-                                                    <tr>                                                
-                                                    {% for item in parametre.plaques %}
-                                                        <td>{{item.libelle}}</td>
-                                                    {% endfor %}
-                                                </tr>  
+                                                    <td width="10%">Type</td>
+                                                    <td>{{ parametre.roulement.typeCa }}</td>
+                                                    <td>{{ parametre.roulement.typeCoa }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="10%">Graisse</td>
+                                                    <td>{{ parametre.roulement.graisseCa }}</td>
+                                                    <td>{{ parametre.roulement.graisseCoa }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -120,7 +125,7 @@
                             {% endif %}
                         </div>
                     </div>
-                <!-- fin plaque --> 
+                <!-- fin roulement --> 
 
                 <!-- début coussinet --> 
                     <div class="x_panel"> 
@@ -162,7 +167,7 @@
                                                 <tr  class="table-secondary">
                                                     <th></th>
                                                     <th class="text-center">Coussinet CA</th>
-                                                    <th class="text-center">Coussinet CA</th>
+                                                    <th class="text-center">Coussinet COA</th>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%">Réf Palier</td>
@@ -188,7 +193,7 @@
                     </div>
                 <!-- fin coussinet --> 
 
-                <!-- début contrôle  recensement --> 
+                <!-- début Photos à la Reception --> 
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
@@ -242,6 +247,77 @@
                             {% endif %}
                         </div>
                     </div>
+                <!-- fin Photos à la Reception --> 
+
+                <!-- début synoptique de démontage --> 
+                <div class="x_panel"> 
+                    <div class="x_title">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>Synoptique de démontage</h2>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                {% if parametre.synoptiques |length == 0 %}
+                                    <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                {% else %}
+                                    {% if parametre.synoptiques |length  > 1 %}
+                                        <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                    {% else %}
+                                        <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-2 text-right">
+                            {% if parametre.affaire.bloque != 1 %}
+                                    <a class="btn btn-primary" href="{{path('app_synoptique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            </div>
+                            <div class="col-md-2">
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse05" aria-expanded="false" href="#collapse05"><i class="fa fa-chevron-up"></i></a></li>
+                                </ul>                                                
+                            </div> 
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content collapse" id="collapse05">
+                        {% if parametre.synoptiques %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped table-bordered">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th>Repères,Désignation des pièces</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-secondary text-center">
+                                                <th>PLAN CA</th>
+                                            </tr>                                                
+                                            {% for item in parametre.synoptiques %}     
+                                                <tr> 
+                                                    {% if item.type == "Plan CA" %}
+                                                        <td>{{item.repere}}</td>
+                                                    {% endif %}
+                                                </tr> 
+                                            {% endfor %}
+                                            <tr class="table-secondary text-center">
+                                                <th>PLAN COA</th>
+                                            </tr>                                                
+                                            {% for item in parametre.synoptiques %}    
+                                                <tr>  
+                                                    {% if item.type == "Plan COA" %}
+                                                        <td>{{item.repere}}</td>
+                                                    {% endif %}
+                                                </tr>          
+                                            {% endfor %}                                       
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> 
+                        {% endif %}
+                    </div>
+                </div>
                 <!-- fin contrôle  recensement --> 
 
                 <!-- début contrôle visuel et recensement --> 

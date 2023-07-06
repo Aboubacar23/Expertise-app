@@ -121,6 +121,16 @@
 
     .page_break { page-break-before: always; }
 
+    .table_sous_page51{
+        width: 50%;
+        float: left;
+    }
+
+    .table_sous_page52{
+        width: 50%;
+        float: right;
+    }
+
     .table_sous_page1, .table_sous_page5_6_1, .table_sous_page5_7_1{
         width: 50%;
         float: left;
@@ -130,9 +140,11 @@
         float: right;
     }
     .taille_cellulle80{width: 80px;}
+
     .sous_page5_7{
         padding-top: 174px;
     }
+
     .aligne_cellulle_left{text-align: left;}
     .sous_page3{padding-top: 120px;}
     .table_sous_page3{padding-top: 250px;}
@@ -234,17 +246,19 @@
                 </tr>
             </table>
             <table>
-                <tr class="titre_table">
-                    <th>Service</th>
-                    <th>Classe Isolation</th>
-                    <th>Indice de protection</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td> 
-                    <td></td>
-                </tr>
-            </table>
+                {% if parametre.lplaque %}
+                    <tr class="titre_table">
+                        <th>Service</th>
+                        <th>Classe Isolation</th>
+                        <th>Indice de protection</th>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.lplaque.service }}</td>
+                        <td>{{ parametre.lplaque.classeIsolation }}</td>
+                        <td>{{ parametre.lplaque.indiceProtection }}</td>
+                    </tr>
+                {% endif %}
+            </table>               
             <table>
                 <tr class="titre_table">
                     <th>Puissance</th>
@@ -300,17 +314,14 @@
                     <th>Roulements COA</th>
                 </tr>
                 <tr>
-                    <td rowspan="2">Type :</td>
-                    <td></td>
-                    <td></td>
+                    <td>Type</td>
+                    <td>{{ parametre.roulement.typeCa }}</td>
+                    <td>{{ parametre.roulement.typeCoa }}</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
                 </tr>
                     <td>Graisse</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ parametre.roulement.graisseCa }}</td>
+                    <td>{{ parametre.roulement.graisseCoa }}</td>
                 </tr>
             </table>
             <table class="table_sous_page">
@@ -567,27 +578,39 @@
             </table>
         </div>
         <div class="sous_page5_4">
-            <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>
-            <table>   
-                <tr>
-                    <th>Plan CA</th>
-                    <th>Repères ,Désignation des pièces</th>
-                </tr>  
-                <tr>
-                    <th height="25%"></th>
-                    <th></th>
-                </tr> 
-                <tr>
-                    <th>Plan COA</th>
-                    <th>Repères ,Désignation des pièces</th>
-                </tr>
-                <tr>
-                    <th height="25%"></th>
-                    <th></th>
-                </tr>                  
+            <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>                         
+            <span height="15%" class="td_image" ><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="200px" style="align-items: center;"></span>
+            <table style="padding-top:25px;">
+                <thead class="titre_table">
+                    <tr>
+                        <th>Repères,Désignation des pièces</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="titre_table">
+                        <th>PLAN CA</th>
+                    </tr>                                                
+                    {% for item in parametre.synoptiques %}     
+                        <tr> 
+                            {% if item.type == "Plan CA" %}
+                                <td>{{item.repere}}</td>
+                            {% endif %}
+                        </tr> 
+                    {% endfor %}
+                    <tr class="titre_table">
+                        <th>PLAN COA</th>
+                    </tr>                                                
+                    {% for item in parametre.synoptiques %}    
+                        <tr>  
+                            {% if item.type == "Plan COA" %}
+                                <td>{{item.repere}}</td>
+                            {% endif %}
+                        </tr>          
+                    {% endfor %}                                       
+                </tbody>
             </table>
         </div>
-        <div class="sous_page5_5">
+        <div class="sous_page5_5" >
             <h4>B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
             {% if parametre.controleMontageRoulement %}
                 <table>
@@ -1097,7 +1120,7 @@
                     {% for item in parametre.photoExpertiseMecaniques %}
                         <tr>
                             {#<td  style="text-align: center;"><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}"></td>#}
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}" alt="{{ item.libelle }}" height="300px"></td>
+                            <td height="10%" class="td_image"><img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}" alt="{{ item.libelle }}" height="200px" width="200px"></td>
                         </tr>
                         <tr>
                             <th class="titre_table">{{item.libelle}}</th>
@@ -1127,7 +1150,7 @@
                             <td>{{item.critere}}</td>
                             <td>{{item.observation}}</td>
                             <td>{{item.preconisationConclusion}}</td>
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px"></td>
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="100px" width="100px"></td>
                             <td>{{item.retenu}}</td>
                         </tr>                                                    
                     {% endfor %}
@@ -1510,7 +1533,7 @@
                     </tr>
                     {% for item in parametre.photo.images %}
                         <tr>                        
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertises/' ~ item.libelle)) }}" alt="{{ item.photo }}" height="300px" width="300px"></td>
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertises/' ~ item.libelle)) }}" alt="{{ item.photo }}" height="200px" width="200px"></td>
                         </tr>                                                    
                     {% endfor %} 
                 </table>                         
@@ -1535,7 +1558,7 @@
                             <td>{{item.observation}}</td>
                             <td>{{item.preconisationConclusion}}</td>
                             <td>{{item.retenu}}</td>                            
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px"></td>
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="100px" width="100px"></td>
                         </tr>                                                    
                     {% endfor %}
                 </table>                         
@@ -1561,13 +1584,17 @@
         <div class="sous_page8_1">
             {% if parametre.phototheques %}
             <h4>A.  <span class="span_titre">Photothèque après travaux</span></h4>
-            <div style="padding-top: 20px; align-items: center;">
-                {% for item in parametre.phototheques %}
-                    <div>
-                        <img class="p-2" src="{{absolute_url(asset('/phototheques/'~ item.libelle))}}" height="200" width="200" style="padding: 10px;">
-                        <h6>{{item.titre}}</h6>
-                    </div>
-                {% endfor %}    
+            <div style="padding-top: 10px; align-items: center;">
+                <table>
+                    {% for item in parametre.phototheques %}
+                        <tr>
+                            <th style="align-items: center;"><img class="p-2" src="{{absolute_url(asset('/phototheques/'~ item.libelle))}}" height="200" width="200" style="padding: 10px;"></th>
+                        </tr>
+                        <tr class="titre_table">
+                            <th>{{item.titre}}</th>
+                        </tr>
+                    {% endfor %}    
+                </table>
             </div>                                            
         {% endif %}
         </div>

@@ -217,6 +217,15 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Phototheque::class)]
     private Collection $phototheques;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?LPlaque $lplaque = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?Roulement $roulement = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Synoptique::class)]
+    private Collection $synoptiques;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -234,6 +243,7 @@ class Parametre
         $this->controleRecensements = new ArrayCollection();
         $this->plaques = new ArrayCollection();
         $this->phototheques = new ArrayCollection();
+        $this->synoptiques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1309,6 +1319,60 @@ class Parametre
             // set the owning side to null (unless already changed)
             if ($phototheque->getParametre() === $this) {
                 $phototheque->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLplaque(): ?LPlaque
+    {
+        return $this->lplaque;
+    }
+
+    public function setLplaque(?LPlaque $lplaque): self
+    {
+        $this->lplaque = $lplaque;
+
+        return $this;
+    }
+
+    public function getRoulement(): ?Roulement
+    {
+        return $this->roulement;
+    }
+
+    public function setRoulement(?Roulement $roulement): self
+    {
+        $this->roulement = $roulement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Synoptique>
+     */
+    public function getSynoptiques(): Collection
+    {
+        return $this->synoptiques;
+    }
+
+    public function addSynoptique(Synoptique $synoptique): self
+    {
+        if (!$this->synoptiques->contains($synoptique)) {
+            $this->synoptiques->add($synoptique);
+            $synoptique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSynoptique(Synoptique $synoptique): self
+    {
+        if ($this->synoptiques->removeElement($synoptique)) {
+            // set the owning side to null (unless already changed)
+            if ($synoptique->getParametre() === $this) {
+                $synoptique->setParametre(null);
             }
         }
 

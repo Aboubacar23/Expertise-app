@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Roulements CA / COA</h4></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    {{ form_start(formRoulement) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
+                                        <tr  class="table-secondary">
+                                            <th></th>
+                                            <th class="text-center">Roulement CA</th>
+                                            <th class="text-center">Roulement COA</th>
+                                        </tr>
+                                        <tr>
+                                            <td width="10%">Type</td>
+                                            <td>{{ form_widget(formRoulement.type_ca) }}</td>
+                                            <td>{{ form_widget(formRoulement.type_coa) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="10%">Graisse</td>
+                                            <td>{{ form_widget(formRoulement.graisse_ca) }}</td>
+                                            <td>{{ form_widget(formRoulement.graisse_coa) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-secondary btn-sm" name="bouton004" value="roulement_en_cours"> En cours <i class="fa fa-save p-1"></i></button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-success btn-sm" name="bouton004" value="roulement_terminer"> Terminer <i class="fa fa-save p-1"></i></button>
+                            </div>
+                        </div>
+                    {{ form_end(formRoulement) }}                    
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}
