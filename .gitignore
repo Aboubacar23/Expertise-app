@@ -3,13 +3,13 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-.env
+/.env
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /public/.htaccess
 /var/
 /vendor/
-/migrations/
+/migrations/*
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
