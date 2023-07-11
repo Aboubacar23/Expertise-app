@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
    {
         $user = new Admin();
         $user->SetUsername("admin");
-        $password = $this->password->hashPassword($user, 'admin');
+        $password = $this->password->hashPassword($user, 'password123@');
         $user->SetPassword($password); 
         $user->SetEmail("admin@gmail.com");
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
