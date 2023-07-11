@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Remarque index{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+        <h3>Gestion Remarque</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+            <h2>Listes des Remarques</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+            </ul>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                {% for flash_message in app.session.flashbag.get('success') %}
+                    <div class="container alert alert-success p-2" role="alert">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="datatable" class="table table-striped table-hover" style="width:100%">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th width="2">N°</th>
+                                        <th>Titre</th>
+                                        <th>Description</th>
+                                        <th>Image</th>
+                                        <th>Auteur</th>
+                                        <th>Etat</th>
+                                        <th width="150" class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set i = 0 %}
+                                    {% for remarque in remarques %}
+                                        {% set i = i + 1 %}
+                                        <tr>
+                                            <td>{{ i }}</td>
+                                            <td>{{ remarque.titre }}</td>
+                                            <td>{{ remarque.description }}</td>
+                                            <td><img src="{{asset('photo_remarque/'~ remarque.image)}}" alt="" height="80" width="80"></td>
+                                            <td>{{ remarque.auteur }}</td>
+                                            <td>
+                                                {% if remarque.etat == 1 %}
+                                                    <span class="btn btn-success btn-sm">{{ remarque.etat ? 'Terminer' : 'Ouvert' }}</span>
+                                                    {% else %}
+                                                        <span class="btn btn-danger btn-sm">{{ remarque.etat ? 'Terminer' : 'Ouvert' }}</span>
+                                                {% endif %}
+                                                
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ path('app_remarque_edit', {'id': remarque.id}) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a>
+                                                <a href="{{ path('app_remarque_delete', {'id': remarque.id}) }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7">La table des clients est vide </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-sm-6  ">
+    <div class="x_content">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Faites Votre Rémarque</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                </div>
+                {{ form_start(form) }}
+                    <div class="modal-body">
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="nom">Titre <span class="required text-danger">*</span></label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.titre)}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="site">Description <span class="required text-danger">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.description)}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="adresse" class="col-form-label col-md-3 col-sm-3 label-align">Image</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.image)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Ajouter</button>                                
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <!-- /modals -->
+    </div>
+</div>
+{% endblock %}
+ 

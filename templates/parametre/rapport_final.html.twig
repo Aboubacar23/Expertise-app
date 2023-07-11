@@ -520,48 +520,37 @@
         <h2>V.  Expertise mécanique</h2>
         <h4>A.  <span class="span_titre">Démontage</span></h4>
         <h5>1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
-        <div class="sous_page5_1">
-            <table>   
-                {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
-                    <tr>                    
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px"></td>
-                    </tr>
-                {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
-                    <tr>                    
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px"></td>
-                    </tr>
-                {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
-                    <tr>                    
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px"></td>
-                    </tr>
-                {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
-                    <tr>                    
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo" height="150px"></td>
-                    </tr>
-                {% endif %} 
-            </table>
-        </div>
         <div class="sous_page5_2">
             <table>    
                 <tr class="titre_table">
                     <th colspan="2"></th>
                     <th>PHOTO N°5 : ACCOUPLEMENT</th>
-                    <th>Débordant/affleurant /…</th>
+                    {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                        <th>Débordant</th>
+                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                        <th>Affleurant</th>
+                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                        <th>Rentré</th>
+                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                        <th>Aucun</th>
+                    {% endif %} 
                 </tr> 
-                <tr>
-                    <td>Faux ROND Bt.A</td>
-                    <td>mm</td>
-                    <td rowspan="3"></td>
-                    <td rowspan="3"></td>
-                </tr>                 
                 <tr>
                     <td>Présence clavette</td>
                     <td>Oui/Non</td>
-                </tr>                 
-                <tr>
-                    <td>Etat de l’accouplement</td>
-                    <td>mm</td>
-                </tr>               
+                    <td></td>
+                    <td height="15%" class="td_image">  
+                        {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                            <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                           <img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px">
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                            <img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px">
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                            <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo" height="150px">
+                        {% endif %} 
+                    </td>
+                </tr>             
             </table>
         </div>
         <div class="sous_page5_3">

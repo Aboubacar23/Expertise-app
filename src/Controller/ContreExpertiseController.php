@@ -19,7 +19,8 @@ class ContreExpertiseController extends AbstractController
     {
         $contreExpertise = new ContreExpertise();
 
-        if($parametre->getContreExpertise()){
+        if($parametre->getContreExpertise())
+        {
             $contreExpertise = $parametre->getContreExpertise()->getParametre()->getContreExpertise();
         }
 

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Remarque{% endblock %}
+
+{% block body %}
+    <div class="">
+    <div class="page-title">
+        <div class="title_left">
+        <h3>Gestion Remarque</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+            <h2>Modifier</h2>
+            <ul class="nav navbar-right panel_toolbox">
+            </ul>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                {% for flash_message in app.session.flashbag.get('success') %}
+                    <div class="container alert alert-success p-2" role="alert">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{ form_start(form) }}
+                            <div class="modal-body">
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="nom">Titre <span class="required text-danger">*</span></label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.titre)}}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="site">Description <span class="required text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.description)}}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="adresse" class="col-form-label col-md-3 col-sm-3 label-align">Image</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.image)}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary">Modifier</button>                                
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

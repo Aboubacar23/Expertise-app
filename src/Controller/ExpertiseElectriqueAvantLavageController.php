@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Images;
 use App\Entity\Plaque;
+use App\Entity\LPlaque;
 use App\Form\PhotoType;
 use App\Form\PlaqueType;
 use App\Entity\Parametre;
+use App\Form\LPlaqueType;
 use App\Entity\AutreControle;
 use App\Entity\AppareilMesure;
 use App\Entity\MesureIsolement;
@@ -20,6 +22,7 @@ use App\Form\AppareilMesureType;
 use App\Entity\ConstatElectrique;
 use App\Entity\LMesureResistance;
 use App\Form\MesureIsolementType;
+use Symfony\Component\Mime\Email;
 use App\Form\ControleBobinageType;
 use App\Form\LMesureIsolementType;
 use App\Form\MesureResistanceType;
@@ -31,17 +34,16 @@ use App\Repository\PhotoRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\PlaqueRepository;
 use App\Form\PointFonctionnementType;
-use App\Repository\ParametreRepository;
+use App\Repository\LPlaqueRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Entity\ControleVisuelElectrique;
-use App\Entity\LPlaque;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ControleVisuelElectriqueType;
-use App\Form\LPlaqueType;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
 use App\Repository\MesureIsolementRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\ControleBobinageRepository;
 use App\Repository\LMesureIsolementRepository;
 use App\Repository\MesureResistanceRepository;
@@ -52,9 +54,7 @@ use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
-use App\Repository\LPlaqueRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -699,13 +699,30 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerInterface $mailer): Response
     {
             if($parametre)
             {
+               // $email_send = $this->getUser()->getEmail();
+                $email_receve = 'condesidiki274@gmail.com';
+                $subject =" c'est un test d'envoi";
+                $text = "Je suis un test";
+               // dd($email_send);
                 $parametre->setExpertiseElectiqueAvantLavage(1);
+
+                $email = (new Email())
+                    ->from('hello@example.com')
+                    ->to('you@example.com')
+                    ->subject('Time for Symfony Mailer!')
+                    ->text('Sending emails is fun again!')
+                    ->html('<p>See Twig integration for better HTML integration!</p>');  
+
+                //dd($email);
+                $mailer->send($email);
+
                 $entityManager->persist($parametre);
                 $entityManager->flush();
+
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
             }else{
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

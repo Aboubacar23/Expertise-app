@@ -13,6 +13,7 @@ parameters:
     image_controle_recensement: '%kernel.project_dir%/public/photo_controle_recensement'
     image_plaque: '%kernel.project_dir%/public/photo_plaque'
     image_coussinet: '%kernel.project_dir%/public/photo_coussinet'
+    images_remarque: '%kernel.project_dir%/public/photo_remarque'
     image_phototheque: '%kernel.project_dir%/public/phototheques'
     fichier_archives: '%kernel.project_dir%/public/archives'
     

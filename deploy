@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ root@10.13.18.105:~/www/expertise --include=public/build --include=public/.htaccess --exclude=vendor --exclude-from=.gitignore --exclude=".*"
