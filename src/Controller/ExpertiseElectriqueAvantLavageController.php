@@ -33,9 +33,11 @@ use App\Form\LMesureResistanceType;
 use App\Repository\PhotoRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\PlaqueRepository;
+use Symfony\Component\Mailer\Mailer;
 use App\Form\PointFonctionnementType;
 use App\Repository\LPlaqueRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\Mailer\Transport;
 use App\Entity\ControleVisuelElectrique;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ControleVisuelElectriqueType;
@@ -703,26 +705,32 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     {
             if($parametre)
             {
-               // $email_send = $this->getUser()->getEmail();
-                $email_receve = 'condesidiki274@gmail.com';
-                $subject =" c'est un test d'envoi";
-                $text = "Je suis un test";
-               // dd($email_send);
-                $parametre->setExpertiseElectiqueAvantLavage(1);
+                $email_send = $this->getUser()->getEmail();
+                $email_receve = $parametre->getAffaire()->getSuiviPar()->getEmail();
+                $subject = "Validation de l'expertise avant lavage";
+                $text = "Bonjour ".$parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                .$parametre->getAffaire()->getSuiviPar()->getPrenom()
+                                ." vous venez de recevoir une validation de la part de : "
+                                .$this->getUser()->getNom()." ".$this->getUser()->getPrenom()
+                                ." Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
 
+                $transport = Transport::fromDsn("smtp://f858f9f1bd82e8:72bfaa776a018e@sandbox.smtp.mailtrap.io:2525?encryption=tls&auth_mode=login");
+                $mailer = new Mailer($transport);
+                
                 $email = (new Email())
-                    ->from('hello@example.com')
-                    ->to('you@example.com')
-                    ->subject('Time for Symfony Mailer!')
-                    ->text('Sending emails is fun again!')
-                    ->html('<p>See Twig integration for better HTML integration!</p>');  
+                    ->from($email_send)
+                    ->to($email_receve)
+                    ->subject($subject)
+                    ->text($text);
+                   // ->html('<p>See Twig integration for better HTML integration!</p>');  
 
                 //dd($email);
                 $mailer->send($email);
 
+                $parametre->setExpertiseElectiqueAvantLavage(1);
                 $entityManager->persist($parametre);
                 $entityManager->flush();
-
+                $this->addFlash("success", "Bravo : ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
             }else{
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
