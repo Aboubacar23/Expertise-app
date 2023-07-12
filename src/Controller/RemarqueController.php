@@ -33,7 +33,7 @@ class RemarqueController extends AbstractController
                 $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
                 try {
                     $image->move(
-                        $this->getParameter('/images_remarque'),
+                        $this->getParameter('images_remarque'),
                         $newPhotoname
                     );
                 } catch (FileException $e){}
