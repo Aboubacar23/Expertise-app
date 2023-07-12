@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Remarque;
 use App\Form\RemarqueType;
 use App\Repository\RemarqueRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -120,6 +121,22 @@ class RemarqueController extends AbstractController
             $nom = $remarque->getImage();
             unlink($this->getParameter('images_remarque').'/'.$nom);
             $remarqueRepository->remove($remarque, true);
+        }
+
+        return $this->redirectToRoute('app_remarque_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/valider-remarque/{id}', name: 'app_remarque_cloture', methods: ['GET','POST'])]
+    public function valider(Request $request, Remarque $remarque, RemarqueRepository $remarqueRepository, EntityManagerInterface $em): Response
+    {
+        if ($remarque)
+        {
+            if ($remarque->isEtat() == 0)
+            {
+                $remarque->setEtat(1);
+                $em->persist($remarque);
+                $em->flush();
+            }
         }
 
         return $this->redirectToRoute('app_remarque_index', [], Response::HTTP_SEE_OTHER);

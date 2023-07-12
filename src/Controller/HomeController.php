@@ -31,18 +31,39 @@ class HomeController extends AbstractController
         $parametres = $parametreRepository->findAll();
         $affaire = count($affaireRepository->findAll());
         $nombre = 0;
+        $encours = 0;
+        $terminer = 0;
+        $var_encours = 0;
+        $var_terminer = 0;
+        $var_par = count($parametres);
+
         foreach($parametres as $item)
         {
             if($item->isStatut() == 1 && $item->isRemontage() == 1)
             {
                 $nombre = $nombre + 1;
             }
+
+            if($item->isStatut() == 1)
+            {
+                $var_encours = $var_encours + 1;
+            }else{
+                $var_terminer = $var_terminer + 1;
+            }
         }
+
+        $encours = $var_encours;
+        $terminer = $var_terminer;
+
+
         return $this->render('home/index.html.twig', [
             'admin' => $admin,
             'client' => $client,
             'nombre' => $nombre,
             'affaire' => $affaire,
+            'encours' => $encours,
+            'terminer' => $terminer,
+
             
         ]);
     }

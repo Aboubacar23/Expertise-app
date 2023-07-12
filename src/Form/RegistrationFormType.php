@@ -105,6 +105,7 @@ class RegistrationFormType extends AbstractType
                     'VÉRIFICATEUR' => 'ROLE_VERIFICATEUR',
                     'TECHNICIEN ÉLECTRICIEN' => 'ROLE_TECHNICIEN_ELECTRICIEN',
                     'TECHNICIEN MECANICIEN' => 'ROLE_TECHNICIEN_MECANICIEN',
+                    'LECTEUR' => 'ROLE_LECTEUR',
                     ],
                 'multiple' => true,
                 'expanded' => true,

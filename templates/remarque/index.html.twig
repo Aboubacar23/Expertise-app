@@ -54,14 +54,17 @@
                                             <td>
                                                 {% if remarque.etat == 1 %}
                                                     <span class="btn btn-success btn-sm">{{ remarque.etat ? 'Terminer' : 'Ouvert' }}</span>
-                                                    {% else %}
-                                                        <span class="btn btn-danger btn-sm">{{ remarque.etat ? 'Terminer' : 'Ouvert' }}</span>
+                                                {% else %}
+                                                    <span class="btn btn-danger btn-sm">{{ remarque.etat ? 'Terminer' : 'Ouvert' }}</span>
                                                 {% endif %}
                                                 
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_remarque_edit', {'id': remarque.id}) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a>
-                                                <a href="{{ path('app_remarque_delete', {'id': remarque.id}) }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_remarque_edit', {'id': remarque.id}) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="{{ path('app_remarque_delete', {'id': remarque.id}) }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                                    <a href="{{ path('app_remarque_cloture', {'id': remarque.id}) }}" class="btn btn-outline-success btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-check-circle fa-2x" aria-hidden="true"></i></a>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                     {% else %}

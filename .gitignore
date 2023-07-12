@@ -9,7 +9,7 @@
 /public/.htaccess
 /var/
 /vendor/
-/migrations/*
+/migrations/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
