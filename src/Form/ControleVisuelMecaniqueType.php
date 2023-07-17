@@ -28,6 +28,7 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('autres_sondes')
             ->add('numero_serie')
             ->add('nombre_accessoire')
+            ->add('phase_neutre')
             ->add('accouplement',ChoiceType::class, [
                 'choices' => [
                     'Aucun' => 'Aucun',
@@ -39,7 +40,7 @@ class ControleVisuelMecaniqueType extends AbstractType
             ])
             ->add('position_accouplement')
         ;
-    }
+    }  
 
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -30,6 +30,7 @@
                                     {% if parametre.photo %}
                                         {% for item in parametre.photo.images %}
                                             <td class="image"><img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150"></td>
+                                            <td class="text-danger h3 p-4">{{item.lig }}</td>
                                             <td><a href="{{path('delete_photo', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>        
                                         {% endfor %}                                                
                                     {% endif %}

@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\LSondeBobinage;
+use App\Entity\ControleResistance;
 use Symfony\Component\Form\AbstractType;
+use App\Repository\ControleResistanceRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -13,23 +16,12 @@ class LSondeBobinageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('controle',ChoiceType::class, [
-                'choices' => [
-                    'R Sonde phase U' => 'R Sonde phase U',
-                    'R Sonde phase V' => 'R Sonde phase V',
-                    'R Sonde phase W' => 'R Sonde phase W',
-                    'R Sondes Palier CA' => 'R Sondes Palier CA',
-                    'R Sondes Palier COA' => 'R Sondes Palier COA',
-                    'R entrée huile CA' => 'R entrée huile CA',
-                    'R entrée huile COA' => 'R entrée huile COA',
-                    'R sortie huile CA' => 'R sortie huile CA',
-                    'R sortie huile COA' => 'R sortie huile COA',
-                    'R entrée air 1' => 'R entrée air 1',
-                    'R entrée air 2' => 'R entrée air 2',
-                    'R sortie air 1' =>'R sortie air 1',
-                    'R sortie air 2' => 'R sortie air 2',
-                    'RI les X sondes réunies' => 'RI les X sondes réunies'
-                ]
+            ->add('controle',EntityType::class, [
+                'class' => ControleResistance::class,
+                'query_builder' => function(ControleResistanceRepository $em){
+                    $query = $em->createQueryBuilder('a');
+                    return  $query;
+                }
             ])
             ->add('critere')
             ->add('valeur_relevee')
@@ -38,6 +30,7 @@ class LSondeBobinageType extends AbstractType
                 'required' => true,
                 'choices' => [
                     '' => '',
+                    'Sans Objet' => 'Sans Objet',
                     'Oui' => 'Oui',
                     'Non' => 'Non'
                 ]

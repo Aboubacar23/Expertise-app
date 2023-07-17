@@ -75,6 +75,9 @@ class ControleVisuelMecanique
     #[ORM\OneToMany(mappedBy: 'controle_visuel_mecanique', targetEntity: AccessoireSupplementaire::class)]
     private Collection $accessoireSupplementaires;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $phase_neutre = null;
+
     public function __construct()
     {
         $this->accessoireSupplementaires = new ArrayCollection();
@@ -349,6 +352,18 @@ class ControleVisuelMecanique
                 $accessoireSupplementaire->setControleVisuelMecanique(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPhaseNeutre(): ?bool
+    {
+        return $this->phase_neutre;
+    }
+
+    public function setPhaseNeutre(?bool $phase_neutre): static
+    {
+        $this->phase_neutre = $phase_neutre;
 
         return $this;
     }

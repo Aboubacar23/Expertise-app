@@ -28,7 +28,7 @@ class PhotoType extends AbstractType
                 //         ],
                 //         'mimeTypesMessage' => 'Veuillez choisir une image png, jpg ou jpeg',
                 //     ])
-                // ]
+                // ] 
             ])
         ;
     }

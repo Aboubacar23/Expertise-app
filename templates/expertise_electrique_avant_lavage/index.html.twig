@@ -270,86 +270,84 @@
                 <!-- la gestion des valeur saisir automatiquement -->
 
                 <!-- début Mesure d'isolement -->
-                    <form method="post">
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Mesure d'isolement</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.mesureIsolement == null %}
-                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                        {% else %}
-                                            {% if parametre.mesureIsolement.etat == 1 %}
-                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                            {% else %}
-                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                            {% if parametre.affaire.bloque != 1 %}
-                                                <a class="btn btn-primary" href="{{path('app_mesure_isolement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-2">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="true" href="#collapse2_1"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesure d'isolement</h2>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureIsolement == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.mesureIsolement.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_mesure_isolement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="true" href="#collapse2_1"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
                             </div>
-                            <div class="x_content collapse" id="collapse2_1">
-                                {% if parametre.mesureIsolement %}
-                                    <div class="row">
-                                        <table class="table table-bordered table-striped">
-                                            <tr  class="table-secondary">
-                                                <th colspan="5" class="text-center">Paramètres</th>
-                                            </tr>
-                                            <tr>
-                                                <th>T° Ambiante (°C)</th>
-                                                <th>T° Tôlerie (°C)</th>
-                                                <th>Hygrométrie (%)</th>
-                                                <th>Date d'essai</th>
-                                                <th>Critère</th>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
-                                                <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
-                                                <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
-                                                <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
-                                                <td>{{ parametre.critere}} Ω/V </td>
-                                            </tr>   
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <table class="table table-bordered table-striped">
-                                            <tr  class="table-secondary">
-                                                <th width="15%">Contrôle</th>
-                                                <th>Critère (MΩ)</th>
-                                                <th width="25%">Tension d'éssai(V)</th>
-                                                <th width="25%">Valeur relevées (MΩ)</th>
-                                                <th width="15%">Conformité</th>
-                                            </tr>
-                                            {% for item in parametre.mesureIsolement.lmesureIsolements %}
-                                                <tr>
-                                                    <td>{{item.controle}}</td>
-                                                    <td>{{item.critere}}</td>
-                                                    <td>{{item.tension}}</td>
-                                                    <td>{{item.valeur}}</td>
-                                                    <td>{{item.conformite}}</td>
-                                                </tr>                                        
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-                                {% endif %}
-                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                    </form>
+                        <div class="x_content collapse" id="collapse2_1">
+                            {% if parametre.mesureIsolement %}
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th colspan="5" class="text-center">Paramètres</th>
+                                        </tr>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <th>Hygrométrie (%)</th>
+                                            <th>Date d'essai</th>
+                                            <th>Critère</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
+                                            <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
+                                            <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
+                                            <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
+                                            <td>{{ parametre.critere}} Ω/V </td>
+                                        </tr>   
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th width="15%">Contrôle</th>
+                                            <th>Critère (MΩ)</th>
+                                            <th width="25%">Tension d'éssai(V)</th>
+                                            <th width="25%">Valeur relevées (MΩ)</th>
+                                            <th width="15%">Conformité</th>
+                                        </tr>
+                                        {% for item in parametre.mesureIsolement.lmesureIsolements %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.tension}}</td>
+                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.conformite}}</td>
+                                            </tr>                                        
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 <!-- fin Mesure d'isolement -->
                 
                 <!-- début Mesure de resistance -->
@@ -592,23 +590,23 @@
                                     </tr>
                                     <tr>
                                         <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                                        <td>{{ parametre.mesureVibratoire.n10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.a10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.b10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.c10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.d10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.e10 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.f10 }}</td>
+                                        <td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>R.M.S à F0 à 25 Hz(mm/s)</td>
-                                        <td>{{ parametre.mesureVibratoire.n25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.a25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.b25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.c25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.d25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.e25 }}</td>
-                                        <td>{{ parametre.mesureVibratoire.f25 }}</td>
+                                        <td>R.M.S à F0 à 25 Hz</td>
+                                        <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
+                                        <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Observations</td>
@@ -734,6 +732,10 @@
                                         <td>{{ parametre.controleBobinage.conformite2}}</td>
                                         <td>{{ parametre.controleBobinage.preconisation2}}</td>
                                         <td>{{ parametre.controleBobinage.retenu2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-secondary">Observation</th>
+                                        <td colspan="3">{{ parametre.controleBobinage.observation}}</td>
                                     </tr>
                                 </table>                                
                             {% endif %}
@@ -922,6 +924,7 @@
                                     {% for item in parametre.photo.images %}
                                         <div class="col-md-2">
                                             <span class="image"><img class="p-2" src="{{asset('/photo_expertises/'~ item.libelle)}}" height="150" width="150"> </span>
+                                            <span class="text-danger h3">{{item.lig}}</span>
                                         </div>
                                     {% endfor %}                                                
                                 {% endif %}

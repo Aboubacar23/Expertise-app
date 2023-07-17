@@ -269,23 +269,23 @@
                                                 </tr>
                                                 <tr>
                                                     <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                                                    <td>{{ parametre.mesureVibratoire.n10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.a10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.b10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.c10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.d10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.e10 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.f10 }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>R.M.S à F0 à 25 Hz(mm/s)</td>
-                                                    <td>{{ parametre.mesureVibratoire.n25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.a25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.b25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.c25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.d25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.e25 }}</td>
-                                                    <td>{{ parametre.mesureVibratoire.f25 }}</td>
+                                                    <td>R.M.S à F0 à 25 Hz</td>
+                                                    <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
+                                                    <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Observations</td>
@@ -537,111 +537,111 @@
                                     <!-- début plaque --> 
 
                                     <!-- début contrôle et recensement (photo à la réception )--> 
-                                    {% if parametre.controleRecensements %}
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <table class="table table-striped table-bordered">
-                                                    <tbody>
-                                                        <tr>
-                                                            {% for item in parametre.controleRecensements %}
-                                                                <td><img src="{{asset('/photo_controle_recensement/' ~ item.photo)}}" height="200"/></td>
-                                                            {% endfor %}
-                                                        </tr>    
-                                                            <tr>                                                
-                                                            {% for item in parametre.controleRecensements %}
-                                                                <td>{{item.libelle}}</td>
-                                                            {% endfor %}
-                                                        </tr>  
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div> 
-                                    {% endif %}
+                                        {% if parametre.controleRecensements %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                {% for item in parametre.controleRecensements %}
+                                                                    <td><img src="{{asset('/photo_controle_recensement/' ~ item.photo)}}" height="200"/></td>
+                                                                {% endfor %}
+                                                            </tr>    
+                                                                <tr>                                                
+                                                                {% for item in parametre.controleRecensements %}
+                                                                    <td>{{item.libelle}}</td>
+                                                                {% endfor %}
+                                                            </tr>  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div> 
+                                        {% endif %}
                                     <!-- début contrôle et recensement --> 
 
                                     <!-- début contrôle visuel et recensement --> 
-                                    {% if parametre.controleVisuelMecanique %}
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <table class="table table-striped table-bordered">
-                                                    <thead class="table-secondary">
-                                                        <tr>
-                                                            <th class="text-center" colspan="6">Contrôle visuel et recensement</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Bridage</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
-                                                            <td>Clavette</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
-                                                            <td>Sonde palier CA</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Châssis</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
-                                                            <td>Tresse de masse</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
-                                                            <td>Sonde palier COA</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Boite à borne</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
-                                                            <td>Vis vérins</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
-                                                            <td>Autres sondes</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Barrette de neutre</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
-                                                            <td>Peinture (N° RAL)</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
-                                                            <td>Numéro de série</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Référence rotor</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
-                                                            <td>Référence stator (RM)</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
-                                                            <td>Nombre d'accessoires complémentaires (RM)</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Accouplement</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
-                                                            <td>Position de l'accouplement (RM)</td>
-                                                            <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <table class="table table-striped table-bordered">
-                                                    <thead class="table-secondary">
-                                                        <tr>
-                                                            <th colspan="2" class="text-center">Accessoire supplémentaire à la réception</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% set i = 0 %}
-                                                        {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
-                                                            {% set i = i + 1 %}
+                                        {% if parametre.controleVisuelMecanique %}
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <table class="table table-striped table-bordered">
+                                                        <thead class="table-secondary">
                                                             <tr>
-                                                                <td class="table-secondary">Accessoires complémentaires N° {{i}}</td>
-                                                                <td>{{c.libelle}}</td>
-                                                            </tr>                                                     
-                                                        {% endfor %}  
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div> 
-                                    {% endif %}
+                                                                <th class="text-center" colspan="6">Contrôle visuel et recensement</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Bridage</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
+                                                                <td>Clavette</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+                                                                <td>Sonde palier CA</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Châssis</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
+                                                                <td>Tresse de masse</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
+                                                                <td>Sonde palier COA</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Boite à borne</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
+                                                                <td>Vis vérins</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
+                                                                <td>Autres sondes</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Barrette de neutre</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
+                                                                <td>Peinture (N° RAL)</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
+                                                                <td>Numéro de série</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Référence rotor</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
+                                                                <td>Référence stator (RM)</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
+                                                                <td>Nombre d'accessoires complémentaires (RM)</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phase neutre</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
+                                                                <td>Accouplement</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
+                                                                <td>Position de l'accouplement (RM)</td>
+                                                                <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <table class="table table-striped table-bordered">
+                                                        <thead class="table-secondary">
+                                                            <tr>
+                                                                <th colspan="2" class="text-center">Accessoire supplémentaire à la réception</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% set i = 0 %}
+                                                            {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
+                                                                {% set i = i + 1 %}
+                                                                <tr>
+                                                                    <td class="table-secondary">Accessoires complémentaires N° {{i}}</td>
+                                                                    <td>{{c.libelle}}</td>
+                                                                </tr>                                                     
+                                                            {% endfor %}  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div> 
+                                        {% endif %}
                                     <!-- fin contrôle visuel et recensement --> 
 
                                     <!-- fin Mesure contrôle montage roulements -->
@@ -1474,7 +1474,7 @@
                                             </tr>
                                             <tr class="text-center">
                                                 <th class="table-secondary">CD</th>
-                                                <th class="table-secondary">Couple de démarrage à un</th>
+                                                <th class="table-secondary">Couple de démarrage à Un</th>
                                                 <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
                                                 <td>Nm</td>
                                                 <th>CD = (9.81 * M * Un/U)</th>

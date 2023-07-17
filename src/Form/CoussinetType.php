@@ -19,7 +19,7 @@ class CoussinetType extends AbstractType
             ->add('num_code_ca') 
             ->add('photo_ca',FileType::class, [
                 'label' => 'Photo',
-                'required' => false, 
+                'required' => true, 
                 'mapped' => false,
                  'constraints' => [
                      new File([
@@ -36,7 +36,7 @@ class CoussinetType extends AbstractType
             ->add('num_code_coa')
             ->add('photo_coa',FileType::class, [
                 'label' => 'Photo',
-                'required' => false, 
+                'required' => true, 
                 'mapped' => false,
                  'constraints' => [
                      new File([

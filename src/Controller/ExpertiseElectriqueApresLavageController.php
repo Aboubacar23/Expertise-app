@@ -4,13 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Parametre;
 use App\Entity\SondeBobinage;
+use App\Entity\LSondeBobinage;
 use App\Entity\Caracteristique;
 use App\Form\SondeBobinageType;
+use App\Form\LSondeBobinageType;
 use App\Entity\StatorApresLavage;
 use App\Form\CaracteristiqueType;
+use App\Entity\LStatorApresLavage;
+use App\Entity\PointFonctionnement;
 use App\Form\StatorApresLavageType;
 use App\Entity\AutreCaracteristique;
+use App\Form\LStatorApresLavageType;
 use App\Form\AutreCarateristiqueType;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Entity\AppareilMesureElectrique;
 use App\Entity\PointFonctionnementRotor;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,26 +24,22 @@ use App\Form\AppareilMesureElectriqueType;
 use App\Form\PointFonctionnementRotorType;
 use App\Repository\SondeBobinageRepository;
 use App\Entity\ConstatElectriqueApresLavage;
+use App\Repository\LSondeBobinageRepository;
 use App\Entity\AutrePointFonctionnementRotor;
-use App\Entity\LSondeBobinage;
-use App\Entity\LStatorApresLavage;
 use App\Repository\CaracteristiqueRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AutrePointFonctionnementRotorType;
-use App\Form\LSondeBobinageType;
-use App\Form\LStatorApresLavageType;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\LStatorApresLavageRepository;
 use App\Repository\AutreCaracteristiqueRepository;
 use App\Repository\AppareilMesureElectriqueRepository;
 use App\Repository\PointFonctionnementRotorRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
-use App\Repository\LSondeBobinageRepository;
-use App\Repository\LStatorApresLavageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -253,7 +255,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
     ///Caractéristique à vide
     #[Route('/caracteristique/{id}', name: 'app_caracteristique')]
-    public function caractéristique(Parametre $parametre,Request $request,AutreCaracteristiqueRepository $autreCaracteristiqueRepository,CaracteristiqueRepository $caracteristiqueRepository): Response
+    public function caractéristique(Parametre $parametre,Request $request,AutreCaracteristiqueRepository $autreCaracteristiqueRepository,CaracteristiqueRepository $caracteristiqueRepository, EntityManagerInterface $em): Response
     {
         //Caractéristique à vide
         $caracteristique = new Caracteristique(); 
@@ -265,6 +267,41 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             $choix = $request->get('bouton3_1');
             if($choix == 'ajouter')
             {
+                //récuperer le fichier importer 
+                $file = $formCarateristique->get('u')->getData();
+               // dd($file);
+                //charger le fichier et flirer à dans le fichier
+                $fichier = IOFactory::load($file->getPathname());
+
+                //recuperer le contenu dans du fichier et affichier en tableau de chaine de caractère
+                $donnees = $fichier->getActiveSheet()->toArray();
+
+                //parcourir le tableau pour inserer dans la base de donnée
+                foreach($donnees as $item)
+                {
+                    //vérifier s'il y'a une ligne vide dans la base 
+                    if(!empty(array_filter($item)))
+                    {
+                        //initialiser la classe pour chaque ligne
+                        $caracteristique = new Caracteristique(); 
+
+                        //inserer les données dans la base pour chaque ligne
+                        $caracteristique->setU(strval($item[0]));
+                        $caracteristique->setI1(strval($item[1]));
+                        $caracteristique->setI2(strval($item[2]));
+                        $caracteristique->setI3(strval($item[3]));
+                        $caracteristique->setP(strval($item[4]));
+                        $caracteristique->setQ(strval($item[5]));
+                        $caracteristique->setCos(strval($item[6]));
+                        $caracteristique->setN(strval($item[7]));
+                        $caracteristique->setPj(strval($item[8]));
+                        $caracteristique->setPPj(strval($item[9]));
+                        $caracteristique->setParametre($parametre);
+                        
+                        $em->persist($caracteristique);
+                    }
+                }
+                $em->flush();
                 $caracteristique->setParametre($parametre);
                 $caracteristiqueRepository->save($caracteristique, true);
                 $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);

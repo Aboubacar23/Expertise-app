@@ -19,6 +19,9 @@ class Images
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Photo $photo = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $lig = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Images
     public function setPhoto(?Photo $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getLig(): ?int
+    {
+        return $this->lig;
+    }
+
+    public function setLig(?int $lig): static
+    {
+        $this->lig = $lig;
 
         return $this;
     }

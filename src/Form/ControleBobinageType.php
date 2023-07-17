@@ -39,6 +39,7 @@ class ControleBobinageType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
+            ->add('observation')
         ;
     }
 

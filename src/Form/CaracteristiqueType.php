@@ -6,14 +6,17 @@ use App\Entity\Caracteristique;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CaracteristiqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('u')
-            ->add('i1')
+            ->add('u', FileType::class, [
+                'label' => 'Fichier Excel'
+            ])
+          /*  ->add('i1')
             ->add('i2')
             ->add('i3')
             ->add('p')
@@ -22,6 +25,7 @@ class CaracteristiqueType extends AbstractType
             ->add('n')
             ->add('pj')
             ->add('p_pj')
+            */
         ;
     }
 

@@ -22,8 +22,12 @@
                     <div class="row">
                         <table class="table table-bordered">
                             {{ form_start(formCarateristique) }}
+                                <tr>
+                                    <td colspan="11">{{ form_row(formCarateristique.u) }}</td>                                     
+                                    <th width="100px"><button class="btn btn-primary btn-sm" name="bouton3_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                </tr>
                                 <tr  class="table-secondary">
-                                    <th></th>
+                                    <th width="10px">N°</th>
                                     <th>U (v)</th>
                                     <th>I1 (A)</th>
                                     <th>I2 (A)</th>
@@ -34,20 +38,6 @@
                                     <th>N (tr/min)</th>
                                     <th>Pj (W)</th>
                                     <th>P-Pj (KW)</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>{{ form_widget(formCarateristique.u) }}</td>
-                                    <td>{{ form_widget(formCarateristique.i1) }}</td>
-                                    <td>{{ form_widget(formCarateristique.i2) }}</td>
-                                    <td>{{ form_widget(formCarateristique.i3) }}</td>
-                                    <td>{{ form_widget(formCarateristique.p) }}</td>
-                                    <td>{{ form_widget(formCarateristique.q) }}</td>
-                                    <td>{{ form_widget(formCarateristique.cos) }}</td>
-                                    <td>{{ form_widget(formCarateristique.n) }}</td>
-                                    <td>{{ form_widget(formCarateristique.pj) }}</td>  
-                                    <td>{{ form_widget(formCarateristique.p_pj) }}</td>                                      
-                                    <th><button class="btn btn-primary btn-sm" name="bouton3_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
                                 </tr>
                                 {% if parametre.caracteristiques %}
                                     {% set i = 0 %}

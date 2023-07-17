@@ -752,20 +752,20 @@ class ExpertiseMecaniqueController extends AbstractController
 
     }
 
-     //la fonction qui supprime synoptique
-     #[Route('/syno-delete/{id}', name: 'app_delete_synoptique', methods: ['GET'])]
-     public function deleteSynoptique(Synoptique $synoptique, SynoptiqueRepository $synoptiqueRepository): Response
-     {
-         $id = $synoptique->getParametre()->getId();
-         if($synoptique)
-         {
-             $synoptiqueRepository->remove($synoptique, true);
-             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
-         }
-         else
-         {
-             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
-         } 
-     }
+    //la fonction qui supprime synoptique
+    #[Route('/syno-delete/{id}', name: 'app_delete_synoptique', methods: ['GET'])]
+    public function deleteSynoptique(Synoptique $synoptique, SynoptiqueRepository $synoptiqueRepository): Response
+    {
+        $id = $synoptique->getParametre()->getId();
+        if($synoptique)
+        {
+            $synoptiqueRepository->remove($synoptique, true);
+            return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        else
+        {
+            return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } 
+    }
 
 }

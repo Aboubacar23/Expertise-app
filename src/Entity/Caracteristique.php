@@ -14,7 +14,7 @@ class Caracteristique
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?float $u = null;
+    private ?string $u = null;
 
     #[ORM\Column]
     private ?float $i1 = null;
@@ -51,12 +51,12 @@ class Caracteristique
         return $this->id;
     }
 
-    public function getU(): ?float
+    public function getU(): ?string
     {
         return $this->u;
     }
 
-    public function setU(float $u): self
+    public function setU(string $u): self
     {
         $this->u = $u;
 

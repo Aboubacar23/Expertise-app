@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ControleBobinageRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ControleBobinageRepository::class)]
@@ -36,6 +37,9 @@ class ControleBobinage
 
     #[ORM\OneToOne(mappedBy: 'controleBobinage', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $observation = null;
 
     public function getId(): ?int
     {
@@ -144,6 +148,18 @@ class ControleBobinage
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getObservation(): ?string
+    {
+        return $this->observation;
+    }
+
+    public function setObservation(?string $observation): self
+    {
+        $this->observation = $observation;
 
         return $this;
     }

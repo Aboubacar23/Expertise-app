@@ -529,75 +529,80 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $formPhoto->handleRequest($request);
 
         if($formPhoto->isSubmitted() && $formPhoto->isValid())
-        {
-        $choix = $request->get('bouton5');
-        if($choix == 'photo_en_cours')
-        {
-            //dd($formPhoto->get('images')->getData());
-            $images = $formPhoto->get('images')->getData();
-
-            foreach($images as $image)
+        { 
+            $choix = $request->get('bouton5');
+            if($parametre->getPhoto())
             {
-                $img = new Images();
-                if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_expertises'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
-                }
-                if($parametre->getPhoto()){
-                    $photo = $parametre->getPhoto()->getParametre()->getPhoto();
-                }
-                $img->setLibelle($newPhotoname);
-                $photo->addImage($img);
+                $photo = $parametre->getPhoto()->getParametre()->getPhoto();
             }
-            
-            $parametre->setPhoto($photo);
-            $photo->setEtat(0);
-            $photoRepository->save($photo, true);
-        }
-        elseif($choix == 'photo_terminer')
-        {
-            $images = $formPhoto->get('images')->getData();
+            $num = count($photo->getImages());
 
-            foreach($images as $image)
+            if($choix == 'photo_en_cours')
             {
-                $img = new Images();
-                if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_expertises'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
+                $images = $formPhoto->get('images')->getData();
+                foreach($images as $image)
+                {
+                    $num = $num + 1;
+
+                    $img = new Images();
+                    if ($image) 
+                    {
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_expertises'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e){}
+                    }
+                    $img->setLibelle($newPhotoname);
+                    $img->setLig($num);
+                    $photo->addImage($img);
                 }
                 
-                if($parametre->getPhoto()){
-                    $photo = $parametre->getPhoto()->getParametre()->getPhoto();
-                }
-                $img->setLibelle($newPhotoname);
-                $photo->addImage($img);
-
+                $parametre->setPhoto($photo);
+                $photo->setEtat(0);
+                $photoRepository->save($photo, true);
             }
-            $parametre->setPhoto($photo);
-            $photo->setEtat(1);
-            $photoRepository->save($photo, true);
+            elseif($choix == 'photo_terminer')
+            {
+                $images = $formPhoto->get('images')->getData();
+                foreach($images as $image)
+                {
+                    $num = $num + 1;
+                    $img = new Images();
+                    if ($image) {
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_expertises'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e){}
+                    }
+                    
+                    if($parametre->getPhoto()){
+                        $photo = $parametre->getPhoto()->getParametre()->getPhoto();
+                    }
+                    $img->setLibelle($newPhotoname);
+                    $img->setLig($num);
+                    $photo->addImage($img);
+
+                }
+                $parametre->setPhoto($photo);
+                $photo->setEtat(1);
+                $photoRepository->save($photo, true);
+            }
         }
 
-    }
-
-    return $this->render('expertise_electrique_avant_lavage/photo.html.twig', [
-        'parametre' => $parametre,
-        'formPhoto' => $formPhoto->createView()
-    ]);
+        return $this->render('expertise_electrique_avant_lavage/photo.html.twig', [
+            'parametre' => $parametre,
+            'formPhoto' => $formPhoto->createView()
+        ]);
     }
      
     //création des constats
@@ -705,7 +710,6 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     {
             if($parametre)
             {
-                $email_send = $this->getUser()->getEmail();
                 $email_receve = $parametre->getAffaire()->getSuiviPar()->getEmail();
                 $subject = "Validation de l'expertise avant lavage";
                 $text = "Bonjour ".$parametre->getAffaire()->getSuiviPar()->getNom()." "
@@ -714,11 +718,12 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                                 .$this->getUser()->getNom()." ".$this->getUser()->getPrenom()
                                 ." Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
 
-                $transport = Transport::fromDsn("smtp://f858f9f1bd82e8:72bfaa776a018e@sandbox.smtp.mailtrap.io:2525?encryption=tls&auth_mode=login");
+               /* $transport = Transport::fromDsn("smtp://f858f9f1bd82e8:72bfaa776a018e@sandbox.smtp.mailtrap.io:2525?encryption=tls&auth_mode=login");
                 $mailer = new Mailer($transport);
+                */
                 
                 $email = (new Email())
-                    ->from($email_send)
+                    ->from('esayticexpertise@gmail.com')
                     ->to($email_receve)
                     ->subject($subject)
                     ->text($text);

@@ -473,6 +473,12 @@
                     <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
                 </tr> 
                 <tr>
+                    <td>Phase Neutre</td>
+                    <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
+                    <td>Référence stator</td>
+                    <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
+                </tr> 
+                <tr>
                     <td>Numéro de série</td>
                     <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
                     <td>Référence rotor</td>
@@ -487,9 +493,8 @@
                 <tr>
                     <td>Commentaires</td>
                     <td></td>
-                    <td>Référence stator</td>
-                    <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
-                    
+                    <td></td>
+                    <td></td>                    
                 </tr>       
             {% endif %}            
             </table>
@@ -1339,23 +1344,23 @@
                     </tr>
                     <tr>
                         <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                        <td>{{ parametre.mesureVibratoire.n10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.a10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.b10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.c10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.d10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.e10 }}</td>
-                        <td>{{ parametre.mesureVibratoire.f10 }}</td>
+                        <td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
                     </tr>
                     <tr>
-                        <td class="titre_table">R.M.S à F0 à 25 Hz(mm/s)</td>
-                        <td>{{ parametre.mesureVibratoire.n25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.a25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.b25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.c25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.d25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.e25 }}</td>
-                        <td>{{ parametre.mesureVibratoire.f25 }}</td>
+                        <td class="titre_table">R.M.S à F0 à 25 Hz</td>
+                        <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
+                        <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                     </tr>
                     <tr>
                         <td class="titre_table">Observations</td>
@@ -1523,7 +1528,10 @@
                     {% for item in parametre.photo.images %}
                         <tr>                        
                             <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_expertises/' ~ item.libelle)) }}" alt="{{ item.photo }}" height="200px" width="200px"></td>
-                        </tr>                                                    
+                        </tr>  
+                        <tr class="titre_table">
+                            <th>{{item.lig }}</th>
+                        </tr>                                                  
                     {% endfor %} 
                 </table>                         
             {% endif %}
