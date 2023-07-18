@@ -43,7 +43,7 @@ class HydroAeroType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
-            ->add('preconisation1')
+         /*   ->add('preconisation1')
             ->add('preconisation2')
             ->add('preconisation3')
             ->add('preconisation4')
@@ -78,6 +78,7 @@ class HydroAeroType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
+            */
         ;
     }
 

@@ -134,7 +134,7 @@
                                                 <th  class="text-center">Natures des relevés</th>
                                                 <th class="text-center">Diamètre attendu (mm)</th>
                                                 <th class="text-center">Tolérance</th>
-                                                <th class="text-center">Moyenne des relevés (mm)</th>
+                                                <th class="text-center">Moyenne des relevés (mm) <br><em class="text-danger">(Ce champ se Calcul Automatiquement)</em></th>
                                                 <th class="text-center">Conformité</th>
                                                 <th class="text-center">Observation</th>
                                             </tr>
@@ -143,7 +143,7 @@
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_nature_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_diametre_attendu) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_tolerence) }}</td>
-                                                <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve , { value : moyCA | number_format(3)}) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_conformite) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_observation) }}</td>
                                             </tr>
@@ -152,7 +152,7 @@
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_nature_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_diametre_attendu) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_tolerance) }}</td>
-                                                <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve, { value : moyCOA | number_format(3)}) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_conformite) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_observation) }}</td>
                                             </tr>

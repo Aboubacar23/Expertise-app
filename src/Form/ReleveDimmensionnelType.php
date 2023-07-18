@@ -17,6 +17,7 @@ class ReleveDimmensionnelType extends AbstractType
             ->add('cote_attendue')
             ->add('tolerance')
             ->add('cote_relevee')
+            ->add('observation')
             ->add('conformite', ChoiceType::class, [
                 'choices' => [
                     'Non' => 'Non',

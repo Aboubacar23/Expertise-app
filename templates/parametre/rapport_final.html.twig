@@ -842,9 +842,10 @@
                     <th>Tolérance</th>
                     <th>Côte relevée</th>
                     <th class="numero2">Conformité</th>
+                    <th>Observation</th>
                 </tr>
                 <tr>
-                    <th colspan="5" class="titre_table">Côté accouplement</th>
+                    <th colspan="6" class="titre_table">Côté accouplement</th>
                 </tr>
                 {% for item in parametre.releveDimmensionnels %}
                     {% if item.type == 'Côté accoupplement' %}
@@ -853,12 +854,13 @@
                             <td>{{item.coteAttendue}}</td>
                             <td>{{item.tolerance}}</td>
                             <td>{{item.coteRelevee}}</td>
-                            <td>{{item.conformite}}</td>                                                
+                            <td>{{item.conformite}}</td>
+                            <td>{{item.observation}}</td>                                                  
                         </tr>                                                         
                     {% endif %}                                                   
                 {% endfor %}
                 <tr>
-                    <th colspan="5" class="titre_table">Côté opposé accouplement</th>
+                    <th colspan="6" class="titre_table">Côté opposé accouplement</th>
                 </tr>
                 {% for item in parametre.releveDimmensionnels %}
                     {% if item.type == 'Côté opposé accoupplement' %}
@@ -868,6 +870,7 @@
                             <td>{{item.tolerance}}</td>
                             <td>{{item.coteRelevee}}</td>
                             <td>{{item.conformite}}</td>
+                            <td>{{item.observation}}</td>  
                         </tr>                                                         
                     {% endif %}                                                   
                 {% endfor %}
@@ -889,137 +892,38 @@
                     <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/geo.png')) }}" alt="item.photo" height="170px"></td>
                 </tr>
             </table>                            
-            {% if parametre.controleGeometrique %}
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅ A</th>
-                        <th colspan="4" class="text-center">∅ B</th>
-                        <th colspan="4" class="text-center">∅C</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Bt.A Add.)</th>
-                        <th colspan="4" class="text-center">Pivot</th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.add1 }}</td>
-                        <td>{{ parametre.controleGeometrique.add2 }}</td>
-                        <td>{{ parametre.controleGeometrique.add3 }}</td>
-                        <td>{{ parametre.controleGeometrique.add4 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB1 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB2 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB3 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotB4 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieC4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteAdd }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteB }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteC }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅D</th>
-                        <th colspan="4" class="text-center">∅E</th>
-                        <th colspan="4" class="text-center">∅F</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                        <th colspan="4" class="text-center">(Tôlerie)</th>
-                        <th colspan="4" class="text-center">(Pivot)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.tolerieD1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieD4 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE1 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE2 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE3 }}</td>
-                        <td>{{ parametre.controleGeometrique.tolerieE4 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF1 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF2 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF3 }}</td>
-                        <td>{{ parametre.controleGeometrique.pivotF4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteD }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteE }}</td>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteF }}</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th class="text-center" width="10%">Diamètre mesuré</th>
-                        <th colspan="4" class="text-center">∅G</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th colspan="4" class="text-center">(Accouplement)</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Repères</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Faux-Rond</th>
-                        <td>{{ parametre.controleGeometrique.accouplementG1 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG2 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG3 }}</td>
-                        <td>{{ parametre.controleGeometrique.accouplementG4 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center titre_table">Conformité</th>
-                        <td colspan="4" class="text-center">{{ parametre.controleGeometrique.conformiteG }}</td>
-                    </tr>
-                </table>
+            {% if parametre.controleGeometriques %}
+                {% for item in parametre.controleGeometriques %}
+                    <table>
+                        <tr  class="titre_table">
+                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                            <th colspan="4" class="text-center">{{item.diametre}}</th>
+                        </tr>
+                        <tr  class="titre_table">
+                            <th></th>
+                            <th colspan="4" class="text-center">{{item.type}}</th>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Repères</th>
+                            <td class="text-center">1</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">4</td>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Faux-Rond</th>
+                            <td>{{ item.fauxRond1 }}</td>
+                            <td>{{ item.fauxRond2 }}</td>
+                            <td>{{ item.fauxRond3 }}</td>
+                            <td>{{ item.fauxRond4 }}</td>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Conformité</th>
+                            <td colspan="4" class="text-center">{{ item.conformite }}</td>
+                        </tr>
+                    </table>                                          
+                {% endfor %}
             {% endif %}
-
             <table>    
                 <tr>                    
                     <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/critere_acceptation.png')) }}" alt="item.photo" height="270px"></td>
@@ -1050,31 +954,31 @@
             {% if parametre.hydroAero %}
                 <table>
                     <tr class="titre_table">
-                        <th colspan="4">Machine équipée d'hydro ou Aéro</th>
+                        <th colspan="2">Machine équipée d'hydro ou Aéro</th>
                     </tr>
                     <tr class="titre_table">
                         <th>Nature du contrôle</th>
                         <th>Conformité</th>
-                        <th>Préconisation</th>
-                        <th>Retenu</th>
+                        {#<th>Préconisation</th>
+                        <th>Retenu</th>#}
                     </tr>
                     <tr>
                         <td>Essais de presion à x Bars</td>
                         <td>{{ parametre.hydroAero.conformite1}}</td>
-                        <td>{{ parametre.hydroAero.preconisation1}}</td>
-                        <td>{{ parametre.hydroAero.retenu1}}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation1}}</td>
+                        <td>{{ parametre.hydroAero.retenu1}}</td>#}
                     </tr>
                     <tr>
                         <td>Contrôle visuel des ailettes</td>
                         <td>{{ parametre.hydroAero.conformite2}}</td>
-                        <td>{{ parametre.hydroAero.preconisation2}}</td>
-                        <td>{{ parametre.hydroAero.retenu2}}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation2}}</td>
+                        <td>{{ parametre.hydroAero.retenu2}}</td>#}
                     </tr>
                     <tr>
                         <td>Contrôle visuel des boites à eau</td>
                         <td>{{ parametre.hydroAero.conformite3}}</td>
-                        <td>{{ parametre.hydroAero.preconisation3}}</td>
-                        <td>{{ parametre.hydroAero.retenu3}}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation3}}</td>
+                        <td>{{ parametre.hydroAero.retenu3}}</td>#}
                     </tr>
                 </table>    
             {% endif %}
@@ -1084,25 +988,25 @@
             {% if parametre.hydroAero %}
                 <table>
                     <tr class="titre_table">
-                        <th colspan="4">Pression dépend des préconisation constructeurs</th>
+                        <th colspan="2">Pression dépend des préconisation constructeurs</th>
                     </tr>
                     <tr class="titre_table">
                         <th>Nature du contrôle</th>
                         <th>Conformité</th>
-                        <th>Préconisation</th>
-                        <th>Retenu</th>
+                        {#<th>Préconisation</th>
+                        <th>Retenu</th>#}
                     </tr>
                     <tr>
                         <td>Contrôle du dudgeonages des tubes</td>
                         <td>{{ parametre.hydroAero.conformite4}}</td>
-                        <td>{{ parametre.hydroAero.preconisation4}}</td>
-                        <td>{{ parametre.hydroAero.retenu4}}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation4}}</td>
+                        <td>{{ parametre.hydroAero.retenu4}}</td>#}
                     </tr>
                     <tr>
                         <td>Contrôle visuel des tubes</td>
                         <td>{{ parametre.hydroAero.conformite5}}</td>
-                        <td>{{ parametre.hydroAero.preconisation5}}</td>
-                        <td>{{ parametre.hydroAero.retenu5}}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation5}}</td>
+                        <td>{{ parametre.hydroAero.retenu5}}</td>#}
                     </tr>
                 </table>
             {% endif %}

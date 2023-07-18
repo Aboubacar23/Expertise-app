@@ -121,9 +121,6 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?ControleMontageConssinet $controle_montage_coussinet = null;
 
-    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
-    private ?ControleGeometrique $controle_geometrique = null;
-
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesureMecanique::class)]
     private Collection $appareilMesureMecaniques;
 
@@ -226,6 +223,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Synoptique::class)]
     private Collection $synoptiques;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ControleGeometrique::class)]
+    private Collection $controleGeometriques;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -244,6 +244,7 @@ class Parametre
         $this->plaques = new ArrayCollection();
         $this->phototheques = new ArrayCollection();
         $this->synoptiques = new ArrayCollection();
+        $this->controleGeometriques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -721,18 +722,6 @@ class Parametre
     public function setControleMontageCoussinet(?ControleMontageConssinet $controle_montage_coussinet): self
     {
         $this->controle_montage_coussinet = $controle_montage_coussinet;
-
-        return $this;
-    }
-
-    public function getControleGeometrique(): ?ControleGeometrique
-    {
-        return $this->controle_geometrique;
-    }
-
-    public function setControleGeometrique(?ControleGeometrique $controle_geometrique): self
-    {
-        $this->controle_geometrique = $controle_geometrique;
 
         return $this;
     }
@@ -1373,6 +1362,36 @@ class Parametre
             // set the owning side to null (unless already changed)
             if ($synoptique->getParametre() === $this) {
                 $synoptique->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ControleGeometrique>
+     */
+    public function getControleGeometriques(): Collection
+    {
+        return $this->controleGeometriques;
+    }
+
+    public function addControleGeometrique(ControleGeometrique $controleGeometrique): static
+    {
+        if (!$this->controleGeometriques->contains($controleGeometrique)) {
+            $this->controleGeometriques->add($controleGeometrique);
+            $controleGeometrique->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeControleGeometrique(ControleGeometrique $controleGeometrique): static
+    {
+        if ($this->controleGeometriques->removeElement($controleGeometrique)) {
+            // set the owning side to null (unless already changed)
+            if ($controleGeometrique->getParametre() === $this) {
+                $controleGeometrique->setParametre(null);
             }
         }
 

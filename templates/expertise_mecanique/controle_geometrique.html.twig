@@ -19,6 +19,11 @@
                     <div class="clearfix"></div> 
                 </div>
                 <div class="x_content">
+                    {% for flash_message in app.session.flashbag.get('error') %}
+                        <div class="container danger alert-danger p-2 m-2 mr-auto ml-auto" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                     {{ form_start(formControlGeometrique) }}
                         <div class="row">
                             <div class="col-md-12">
@@ -26,166 +31,80 @@
                                     <table class="table table-bordered">
                                         <tr  class="table-secondary">
                                             <th class="text-center" width="10%">Diamètre mesuré</th>
-                                            <th colspan="4" class="text-center">∅A</th>
-                                            <th colspan="4" class="text-center">∅B</th>
+                                            <th colspan="4" class="text-center">{{ form_widget(formControlGeometrique.diametre) }}</th>
                                         </tr>
                                         <tr  class="table-secondary">
-                                            <th></th>
-                                            <th colspan="4" class="text-center">(Bt.A Add.)</th>
-                                            <th colspan="4" class="text-center">Pivot</th>
+                                            <th class="text-center">Type</th>
+                                            <th colspan="4" class="text-center">{{ form_widget(formControlGeometrique.type) }}</th>
                                         </tr>
                                         <tr>
-                                            <th class="text-center table-primary">Repères</th>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
+                                            <th class="text-center table-secondary">Repères</th>
                                             <td class="text-center">1</td>
                                             <td class="text-center">2</td>
                                             <td class="text-center">3</td>
                                             <td class="text-center">4</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center table-primary">Faux-Rond</th>
-                                            <td>{{ form_widget(formControlGeometrique.add_1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.add_2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.add_3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.add_4) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_b1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_b2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_b3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_b4) }}</td>
+                                            <th class="text-center table-secondary">Faux-Rond</th>
+                                            <td>{{ form_widget(formControlGeometrique.faux_rond_1, { value : 0 }) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.faux_rond_2) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.faux_rond_3) }}</td>
+                                            <td>{{ form_widget(formControlGeometrique.faux_rond_4) }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center table-primary">Conformité</th>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_add) }}</td>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_b) }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="item form-group">
-                                    <table class="table table-bordered">
-                                        <tr  class="table-secondary">
-                                            <th class="text-center" width="10%">Diamètre mesuré</th>
-                                            <th colspan="4" class="text-center">∅E</th>
-                                            <th colspan="4" class="text-center">∅F</th>
-                                        </tr>
-                                        <tr  class="table-secondary">
-                                            <th></th>
-                                            <th colspan="4" class="text-center">(Tôlerie)</th>
-                                            <th colspan="4" class="text-center">(Pivot)</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Repères</th>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Faux-Rond</th>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_e1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_e2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_e3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_e4) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_f1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_f2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_f3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.pivot_f4) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Conformité</th>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_e) }}</td>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_f) }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="item form-group">
-                                    <table class="table table-bordered">
-                                        <tr  class="table-secondary">
-                                            <th class="text-center" width="10%">Diamètre mesuré</th>
-                                            <th colspan="4" class="text-center">∅C</th>
-                                            <th colspan="4" class="text-center">∅D</th>
-                                        </tr>
-                                        <tr  class="table-secondary">
-                                            <th></th>
-                                            <th colspan="4" class="text-center">(Tôlerie)</th>
-                                            <th colspan="4" class="text-center">(Tôlerie)</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Repères</th>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Faux-Rond</th>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_c1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_c2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_c3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_c4) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_d1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_d2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_d3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.tolerie_d4) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Conformité</th>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_c) }}</td>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_d) }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="item form-group">
-                                    <table class="table table-bordered">
-                                        <tr  class="table-secondary">
-                                            <th class="text-center" width="10%">Diamètre mesuré</th>
-                                            <th colspan="4" class="text-center">∅G</th>
-                                        </tr>
-                                        <tr  class="table-secondary">
-                                            <th></th>
-                                            <th colspan="4" class="text-center">(Accouplement)</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Repères</th>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">4</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Faux-Rond</th>
-                                            <td>{{ form_widget(formControlGeometrique.accouplement_g1) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.accouplement_g2) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.accouplement_g3) }}</td>
-                                            <td>{{ form_widget(formControlGeometrique.accouplement_g4) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center table-primary">Conformité</th>
-                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite_g) }}</td>
+                                            <th class="text-center table-secondary">Conformité</th>
+                                            <td colspan="4" class="text-center">{{ form_widget(formControlGeometrique.conformite) }}</td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 text-left">
-                                <button class="btn btn-secondary btn-sm" name="bouton5" value="controle_geometrique_en_cours"> En cours <i class="fa fa-save"></i></button>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <button class="btn btn-success btn-sm" name="bouton5" value="controle_geometrique_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-secondary btn-sm" name="bouton5" value="controle_geometrique_en_cours"> Ajouter <i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     {{ form_end(formControlGeometrique) }}
+                    <hr>
+                    {% if parametre.controleGeometriques %}
+                        <div class="row mt-2">
+                            {% for item in parametre.controleGeometriques %}
+                                <div class="col-md-4">
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr  class="table-secondary">
+                                                <th class="text-center" width="10%">Diamètre mesuré</th>
+                                                <th colspan="3" class="text-center">{{ item.diametre}}</th>
+                                                <th class="text-center" rowspan="2"><a onclick="return confirm('Voulez-vous vraiment supprimer !')" href="{{path('app_delete_geom_controle', {'id' : item.id })}}" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-1x"></i></a></th>
+                                            </tr>
+                                            <tr  class="table-secondary">
+                                                <th class="text-center">Type</th>
+                                                <th colspan="3" class="text-center">{{ item.type}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center table-secondary">Repères</th>
+                                                <td class="text-center">1</td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">4</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center table-secondary">Faux-Rond</th>
+                                                <td>{{ item.fauxRond1}}</td>
+                                                <td>{{ item.fauxRond2}}</td>
+                                                <td>{{ item.fauxRond3}}</td>
+                                                <td>{{ item.fauxRond4}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center table-secondary">Conformité</th>
+                                                <td colspan="4" class="text-center">{{item.conformite }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>                                
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
