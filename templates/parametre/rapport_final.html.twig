@@ -332,51 +332,53 @@
                     <th>Balais</th>
                     <th>balais de Masse</th>
                 </tr>
-                <tr>
-                    <td>Dimensions</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
-                </tr>
-                <tr>
-                    <td>Marque</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
-                </tr>
-                <tr>
-                    <td>Quantité</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
-                </tr>
-                <tr>
-                    <td>Nuance</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
-                </tr>
-                <tr>
-                    <td>Longueur Shunt</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
-                </tr>
-                <tr>
-                    <td>Type pression</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
-                </tr>
-                <tr>
-                    <td>Type de Cosses</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
-                </tr>
-                <tr>
-                    <td>Présence de Gaine</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
-                </tr>
-                <tr>
-                    <td>Aspect de la patine</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
-                </tr>
+               {% if parametre.controleVisuelElectrique %}
+                    <tr>
+                        <td>Dimensions</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                    </tr>
+                    <tr>
+                        <td>Marque</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantité</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nuance</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                    </tr>
+                    <tr>
+                        <td>Longueur Shunt</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                    </tr>
+                    <tr>
+                        <td>Type pression</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                    </tr>
+                    <tr>
+                        <td>Type de Cosses</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                    </tr>
+                    <tr>
+                        <td>Présence de Gaine</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aspect de la patine</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
+                        <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                    </tr>                
+               {% endif %}
             </table>
         </div>
         <div class="sous_page4">
