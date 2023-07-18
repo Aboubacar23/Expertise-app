@@ -534,21 +534,24 @@
                 <tr class="titre_table">
                     <th colspan="2"></th>
                     <th>PHOTO N°5 : ACCOUPLEMENT</th>
-                    {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
-                        <th>Débordant</th>
-                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
-                        <th>Affleurant</th>
-                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
-                        <th>Rentré</th>
-                    {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
-                        <th>Aucun</th>
-                    {% endif %} 
+                    {% if parametre.controleVisuelMecanique %}
+                        {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                            <th>Débordant</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                            <th>Affleurant</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                            <th>Rentré</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                            <th>Aucun</th>
+                        {% endif %}                         
+                    {% endif %}
                 </tr> 
                 <tr>
                     <td>Présence clavette</td>
                     <td>Oui/Non</td>
                     <td></td>
                     <td height="15%" class="td_image">  
+                    {% if parametre.controleVisuelMecanique %}
                         {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
                             <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
                         {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
@@ -558,6 +561,7 @@
                         {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
                             <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo" height="150px">
                         {% endif %} 
+                    {% endif %}
                     </td>
                 </tr>             
             </table>
