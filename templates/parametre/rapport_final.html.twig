@@ -589,26 +589,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="titre_table">
-                        <th>PLAN CA</th>
-                    </tr>                                                
-                    {% for item in parametre.synoptiques %}     
-                        <tr> 
-                            {% if item.type == "Plan CA" %}
-                                <td>{{item.repere}}</td>
-                            {% endif %}
-                        </tr> 
-                    {% endfor %}
-                    <tr class="titre_table">
-                        <th>PLAN COA</th>
-                    </tr>                                                
-                    {% for item in parametre.synoptiques %}    
-                        <tr>  
-                            {% if item.type == "Plan COA" %}
-                                <td>{{item.repere}}</td>
-                            {% endif %}
-                        </tr>          
-                    {% endfor %}                                       
+                    {% if  parametre.synoptiques %}
+                        <tr class="titre_table">
+                            <th>PLAN CA</th>
+                        </tr>                                                
+                        {% for item in parametre.synoptiques %}     
+                            <tr> 
+                                {% if item.type == "Plan CA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr> 
+                        {% endfor %}
+                        <tr class="titre_table">
+                            <th>PLAN COA</th>
+                        </tr>                                                
+                        {% for item in parametre.synoptiques %}    
+                            <tr>  
+                                {% if item.type == "Plan COA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>          
+                        {% endfor %}                         
+                    {% endif %}                                      
                 </tbody>
             </table>
         </div>
@@ -815,24 +817,26 @@
                     <th>Conformité</th>
                     <th>Observation</th>
                 </tr>
-                <tr>
-                    <td>CA</td>
-                    <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
-                </tr>
-                <tr>
-                    <td>COA</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
-                    <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
-                </tr>
+                {% if parametre.controleMontageCoussinet %}
+                    <tr>
+                        <td>CA</td>
+                        <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
+                    </tr>
+                    <tr>
+                        <td>COA</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
+                    </tr>                    
+                {% endif %}
             </table>
         </div>
         <div class="sous_page5_9">
@@ -842,7 +846,7 @@
                     <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}" alt="item.photo" height="150px"></td>
                 </tr>
             </table>
-            {% if parametre.releveDimmensionnels%}
+            {% if parametre.releveDimmensionnels %}
             <table>
                 <tr class="titre_table">
                     <th>Désignation diamètre</th>
@@ -1185,24 +1189,26 @@
                     <th>(°C)</th>
                     <th>(°C)</th>
                 </tr>
-                {% for item in parametre.pointFonctionnements %}
-                    <tr>
-                        <td class="tr_table_sous_page_6_2">{{item.t | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.u | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.i1 | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.i2 | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.i3 | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.p | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.q | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.cos | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.n | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.i | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.tamb | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.ca | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.coa | number_format(2)}}</td>
-                        <td class="tr_table_sous_page_6_2">{{item.observation}}</td>
-                    </tr>
-                {% endfor %}
+                {% if parametre.pointFonctionnements %}
+                    {% for item in parametre.pointFonctionnements %}
+                        <tr>
+                            <td class="tr_table_sous_page_6_2">{{item.t | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.u | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.i1 | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.i2 | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.i3 | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.p | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.q | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.cos | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.n | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.i | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.tamb | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.ca | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.coa | number_format(2)}}</td>
+                            <td class="tr_table_sous_page_6_2">{{item.observation}}</td>
+                        </tr>
+                    {% endfor %}                    
+                {% endif %}
             </table>
         </div>
         <div class="sous_page6_3">
@@ -1514,99 +1520,102 @@
                     <td style="text-align: center;"><img src="{{ absolute_url(asset('images/equilibrage_rotor.png')) }}" alt="item.photo" height="150px"></td>
                 </tr>
             </table>
-            <table class="table table-bordered">
-                <tr class="titre_table text-center">
-                    <th colspan="7">Données techniques d'entrée</th>
-                </tr>
-                <tr class="text-center">
-                    <td width="10%">Vitesse</td>
-                    <td>{{ parametre.remontageEquilibrage.vitesse}}</td>
-                    <td width="4%">Tr/min</td>
-                    <td class="titre_table"></td>
-                    <th class="titre_table">Entiére</th>
-                    <th class="titre_table">1/2</th>
-                    <th class="titre_table">Sans</th>
-                </tr>
-                <tr class="text-center">
-                    <td>Poids rotor</td>
-                    <td>{{ parametre.remontageEquilibrage.poidsrotor}}</td>
-                    <td>Kg</td>
-                    <th class="titre_table">Clavatte</th>
-                    <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavetteEntiere ? 'Oui' : 'Non'}}</td>
-                    <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavette12 ? 'Oui' : 'Non'}}</td>
-                    <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavetteSans ? 'Oui' : 'Non'}}</td> 
-                </tr>
-                <tr class="text-center">
-                    <td>Vitesse d'équilibrage</td>
-                    <td>{{ parametre.remontageEquilibrage.vitesseEquilibrage}}</td>
-                    <td>Tr/min</td>
-                    <th class="titre_table">Correction</th>
-                    <td colspan="3">{{ parametre.remontageEquilibrage.correction}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Nb de plan d'équilibrage</td>
-                    <td colspan="6">{{ parametre.remontageEquilibrage.nbPlan}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Qualité d'équilibrage</td>
-                    <td colspan="6">{{ parametre.remontageEquilibrage.qualiteEquilibrage}}</td>
-                </tr>
-            </table>
-            <table>
-                <tr class="titre_table">
-                    <th rowspan="2"></th>
-                    <th colspan="2">Sans ventilateur</th>
-                    <th colspan="2">Avec ventilateur</th>
-                </tr>
-                <tr class="titre_table">
-                    <th>Plan CA</th>
-                    <th>Plan COA</th>
-                    <th>Plan CA</th>
-                    <th>Plan COA</th>
-                </tr>
-                <tr class="text-center">
-                    <td>Rayon d'équilibrage (mm)</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa1}}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa1}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa1}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa1}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Balourd initial (en g)</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa2}}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa2}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa2}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa2}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Angle balourd initial (dégrés)</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa3}}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa3}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa3}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa3}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Balourd résiduel admissible</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa4}}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa4}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa4}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa4}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Balourd Résiduel</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa5}}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa5}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa5}}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa5}}</td>
-                </tr>
-                <tr class="text-center">
-                    <td>Angle balourd résiduel</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCa6 }}</td>
-                    <td>{{ parametre.remontageEquilibrage.sansPlanCoa6 }}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCa6 }}</td>
-                    <td>{{ parametre.remontageEquilibrage.avecPlanCoa6 }}</td>
-                </tr>
-            </table>
+            {% if parametre.remontageEquilibrage %}
+                <table class="table table-bordered">
+                    <tr class="titre_table text-center">
+                        <th colspan="7">Données techniques d'entrée</th>
+                    </tr>
+                    <tr class="text-center">
+                        <td width="10%">Vitesse</td>
+                        <td>{{ parametre.remontageEquilibrage.vitesse}}</td>
+                        <td width="4%">Tr/min</td>
+                        <td class="titre_table"></td>
+                        <th class="titre_table">Entiére</th>
+                        <th class="titre_table">1/2</th>
+                        <th class="titre_table">Sans</th>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Poids rotor</td>
+                        <td>{{ parametre.remontageEquilibrage.poidsrotor}}</td>
+                        <td>Kg</td>
+                        <th class="titre_table">Clavatte</th>
+                        <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavetteEntiere ? 'Oui' : 'Non'}}</td>
+                        <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavette12 ? 'Oui' : 'Non'}}</td>
+                        <td style="text-align: center;">{{ parametre.remontageEquilibrage.clavetteSans ? 'Oui' : 'Non'}}</td> 
+                    </tr>
+                    <tr class="text-center">
+                        <td>Vitesse d'équilibrage</td>
+                        <td>{{ parametre.remontageEquilibrage.vitesseEquilibrage}}</td>
+                        <td>Tr/min</td>
+                        <th class="titre_table">Correction</th>
+                        <td colspan="3">{{ parametre.remontageEquilibrage.correction}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Nb de plan d'équilibrage</td>
+                        <td colspan="6">{{ parametre.remontageEquilibrage.nbPlan}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Qualité d'équilibrage</td>
+                        <td colspan="6">{{ parametre.remontageEquilibrage.qualiteEquilibrage}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="titre_table">
+                        <th rowspan="2"></th>
+                        <th colspan="2">Sans ventilateur</th>
+                        <th colspan="2">Avec ventilateur</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th>Plan CA</th>
+                        <th>Plan COA</th>
+                        <th>Plan CA</th>
+                        <th>Plan COA</th>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Rayon d'équilibrage (mm)</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa1}}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa1}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa1}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa1}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Balourd initial (en g)</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa2}}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa2}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa2}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa2}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Angle balourd initial (dégrés)</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa3}}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa3}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa3}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa3}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Balourd résiduel admissible</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa4}}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa4}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa4}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa4}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Balourd Résiduel</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa5}}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa5}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa5}}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa5}}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>Angle balourd résiduel</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCa6 }}</td>
+                        <td>{{ parametre.remontageEquilibrage.sansPlanCoa6 }}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCa6 }}</td>
+                        <td>{{ parametre.remontageEquilibrage.avecPlanCoa6 }}</td>
+                    </tr>
+                </table>
+                
+            {% endif %}
         </div>
         <div class="sous_page8_3">
             <p style="font-size: 9px; font-style: italic;">*selon la formule : m = ((G x M) / (r x N)) x 4774</p>
