@@ -313,16 +313,18 @@
                     <th>Roulements CA</th>
                     <th>Roulements COA</th>
                 </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>{{ parametre.roulement.typeCa }}</td>
-                    <td>{{ parametre.roulement.typeCoa }}</td>
-                </tr>
-                </tr>
-                    <td>Graisse</td>
-                    <td>{{ parametre.roulement.graisseCa }}</td>
-                    <td>{{ parametre.roulement.graisseCoa }}</td>
-                </tr>
+                {% if parametre.roulement %}
+                    <tr>
+                        <td>Type</td>
+                        <td>{{ parametre.roulement.typeCa }}</td>
+                        <td>{{ parametre.roulement.typeCoa }}</td>
+                    </tr>
+                    </tr>
+                        <td>Graisse</td>
+                        <td>{{ parametre.roulement.graisseCa }}</td>
+                        <td>{{ parametre.roulement.graisseCoa }}</td>
+                    </tr>                    
+                {% endif %}
             </table>
             <table class="table_sous_page">
                 <tr class="titre_table">
