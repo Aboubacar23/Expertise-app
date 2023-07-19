@@ -37,6 +37,9 @@ class LStatorApresLavage
     #[ORM\Column(nullable: true)]
     private ?float $valeur_relevee = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $temp_correction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,18 @@ class LStatorApresLavage
     public function setValeurRelevee(?float $valeur_relevee): self
     {
         $this->valeur_relevee = $valeur_relevee;
+
+        return $this;
+    }
+
+    public function getTempCorrection(): ?float
+    {
+        return $this->temp_correction;
+    }
+
+    public function setTempCorrection(?float $temp_correction): static
+    {
+        $this->temp_correction = $temp_correction;
 
         return $this;
     }

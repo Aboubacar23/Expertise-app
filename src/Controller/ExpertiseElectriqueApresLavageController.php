@@ -90,6 +90,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setValeur($item->getValeur());
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
+                    $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
                     $lstatorApresLavage->setConformite($item->getConformite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
                     $em->persist($lstatorApresLavage);
@@ -99,7 +100,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $statorApresLavage->setEtat(0);
                 $session->remove('stators');
                 $statorApresLavageRepository->save($statorApresLavage, true);
-                $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'stator_terminer')
             {
@@ -114,6 +115,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setValeur($item->getValeur());
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
+                    $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
                     $lstatorApresLavage->setConformite($item->getConformite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
                     $em->persist($lstatorApresLavage);
@@ -123,7 +125,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $statorApresLavage->setEtat(1);
                 $session->remove('stators');
                 $statorApresLavageRepository->save($statorApresLavage, true);
-                $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
                 
             }elseif($choix == 'ajouter')
             {
@@ -190,6 +192,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setCritere($item->getCritere());
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
@@ -199,7 +202,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $sondeBobinage->setEtat(0);
                 $sondeBobinageRepository->save($sondeBobinage, true);
                 $session->clear();
-                $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'sonde_terminer')
             { 
@@ -213,6 +216,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setCritere($item->getCritere());
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
@@ -222,7 +226,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $sondeBobinage->setEtat(1);
                 $sondeBobinageRepository->save($sondeBobinage, true);
                 $session->clear();
-                $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
 
             }
             elseif($choix == 'ajouter')

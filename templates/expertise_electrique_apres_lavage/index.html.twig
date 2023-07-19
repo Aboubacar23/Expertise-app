@@ -156,12 +156,13 @@
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
                                                 <tr  class="table-secondary">
-                                                    <th width="15%">Contrôle</th>
-                                                    <th width="15%">Critère</th>
-                                                    <th class="text-center" width="15%">Tension d'éssai(V)</th>
-                                                    <th class="text-center" width="15%">Valeur relevées avant lavage en  MΩ</th>
-                                                    <th width="15%">Valeur relevées après lavage en  MΩ</th>
-                                                    <th width="8%">Conformité</th>
+                                                    <th width="14%">Contrôle</th>
+                                                    <th width="14%">Critère</th>
+                                                    <th class="text-center" width="14%">Tension d'éssai(V)</th>
+                                                    <th class="text-center" width="14%">Valeur relevées avant lavage en  MΩ</th>
+                                                    <th width="14%">Valeur relevées après lavage en  MΩ</th>
+                                                    <th width="14%">Correction à 20°</th>
+                                                    <th width="14%">Conformité</th> 
                                                 </tr>
                                                 {% for item in parametre.statorApresLavage.lstatorApresLavages %}
                                                     <tr>
@@ -170,6 +171,7 @@
                                                         <td class="text-center">{{item.tensionEssai}}</td>
                                                         <td class="text-center">{{item.valeurRelevee}}</td>
                                                         <td class="text-center">{{ item.valeur}}</td>
+                                                        <td class="text-center">{{item.tempCorrection}}</td>
                                                         <td class="text-center">{{ item.conformite }}</td>
                                                     </tr>                                                    
                                                 {% endfor %}
@@ -242,11 +244,12 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th width="20%">Contrôle</th>
-                                            <th width="20%">Critère (MΩ)</th>
-                                            <th width="20%">Valeur relevée avant lavage (MΩ)</th>
-                                            <th width="20%">Valeur relevées (MΩ)</th>
-                                            <th width="20%">Conformité</th>
+                                            <th width="16%">Contrôle</th>
+                                            <th width="16%">Critère (MΩ)</th>
+                                            <th width="16%">Valeur relevée avant lavage (MΩ)</th>
+                                            <th width="16%">Valeur relevées (MΩ)</th>
+                                            <th width="16%">Correction à 20°</th>
+                                            <th width="16%">Conformité</th>
                                         </tr>
                                         <tr class="bg-primary"></tr>
                                         {% if parametre.sondeBobinage %}
@@ -256,6 +259,7 @@
                                                     <td>{{item.critere}}</td>
                                                     <td>{{item.valeurRelevee}}</td>
                                                     <td>{{item.valeur}}</td>
+                                                    <td>{{item.tempCorrection}}</td>
                                                     <td>{{item.conformite}}</td>
                                                 </tr>                                        
                                             {% endfor %}                                            

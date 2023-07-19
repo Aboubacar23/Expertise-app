@@ -1102,7 +1102,8 @@
                         <th width="15%">Contrôle</th>
                         <th>Critère (MΩ)</th>
                         <th width="25%">Tension d'éssai(V)</th>
-                        <th width="25%">Valeur relevées (MΩ)</th>
+                        <th width="25%">Valeur relevées</th>
+                        <th width="20%">Correction à 20°</th>
                         <th width="15%">Conformité</th>
                     </tr>
                     {% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -1111,6 +1112,7 @@
                             <td>{{item.critere}}</td>
                             <td>{{item.tension}}</td>
                             <td>{{item.valeur}}</td>
+                            <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
                     {% endfor %}
@@ -1140,8 +1142,9 @@
                 <table>
                     <tr class="titre_table">
                         <th width="15%">Contrôle</th>
-                        <th>Critère (MΩ)</th>
-                        <th width="25%">Valeur relevées (MΩ)</th>
+                        <th>Critère</th>
+                        <th width="25%">Valeur relevées</th>
+                        <th width="20%">Correction à 20°</th>
                         <th width="15%">Conformité</th>
                     </tr>
                     {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -1149,6 +1152,7 @@
                             <td>{{item.controle}}</td>
                             <td>{{item.critere}}</td>
                             <td>{{item.valeur}}</td>
+                            <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
                     {% endfor %}

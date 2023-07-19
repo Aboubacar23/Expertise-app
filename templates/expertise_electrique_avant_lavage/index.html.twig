@@ -342,11 +342,12 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th width="15%">Contrôle</th>
-                                            <th>Critère (MΩ)</th>
-                                            <th width="25%">Tension d'éssai(V)</th>
-                                            <th width="25%">Valeur relevées (MΩ)</th>
-                                            <th width="15%">Conformité</th>
+                                            <th width="16%">Contrôle</th>
+                                            <th width="16%">Critère (MΩ)</th>
+                                            <th width="16%">Tension d'éssai</th>
+                                            <th width="16%">Valeur relevées</th>
+                                            <th width="16%">T.Correction à 20°</th>
+                                            <th width="16%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
                                             <tr>
@@ -354,6 +355,7 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
                                                 <td>{{item.valeur}}</td>
+                                                <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}
@@ -425,16 +427,18 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th width="15%">Contrôle</th>
-                                            <th>Critère (MΩ)</th>
-                                            <th width="25%">Valeur relevées (MΩ)</th>
-                                            <th width="15%">Conformité</th>
+                                            <th width="20%">Contrôle</th>
+                                            <th width="20%">Critère</th>
+                                            <th width="20%">Valeur relevées</th>
+                                            <th width="20%">Correction à 20°</th>
+                                            <th width="20%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureResistance.lmesureResistances %}
                                             <tr>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}}</td>
+                                                <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}

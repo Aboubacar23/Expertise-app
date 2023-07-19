@@ -55,25 +55,27 @@
                                         <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
                                         <td>{{parametre.critere}} Ω/V </td>
-                                        <td>{{parametre.statorTension}}</td>
+                                        <td>{{parametre.statorTension}}</td> 
                                     </tr>   
                                 </table>
                             </div>
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="20%">Contrôle</th>
-                                        <th width="20%">Critère (MΩ)</th>
-                                        <th width="20%">Valeur relevée avant lavage (MΩ)</th>
-                                        <th width="20%">Valeur relevées (MΩ)</th>
-                                        <th width="15%">Conformité</th>
-                                        <th width="5%"></th>
+                                        <th width="16%">Contrôle</th>
+                                        <th width="16%">Critère (MΩ)</th>
+                                        <th width="16%">Valeur relevée avant lavage (MΩ)</th>
+                                        <th width="16%">Valeur relevées (MΩ)</th>
+                                        <th width="16%">Correction à 20°</th>
+                                        <th width="16%">Conformité</th>
+                                        <th></th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.controle) }}</td>
                                         <td>{{ form_widget(form.critere, { value : critere }) }}</td>
                                         <td></td>
                                         <td>{{ form_widget(form.valeur) }}</td>
+                                        <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
                                         <td><button class="btn btn-primary btn-sm" name="bouton2" value="ajouter">Ajouter</button></td>
                                     </tr>
@@ -83,6 +85,7 @@
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeurRelevee}}</td>
                                             <td>{{item2.valeur}}</td>
+                                            <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_sonde_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -95,6 +98,7 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeurRelevee}}</td>
                                                 <td>{{item.valeur}}</td>
+                                                <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                             </tr>                                        
@@ -117,4 +121,21 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+            let temp_ambiante = parseFloat(document.getElementById('sonde_bobinage_temp_ambiante').value);
+            let valeurReleve = parseFloat(document.getElementById('l_sonde_bobinage_valeur').value);
+
+            const correction = document.getElementById('l_sonde_bobinage_temp_correction');
+            let valeurCorrection = 0;
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - 20));
+            valeurFinale = valeurCorrection.toFixed(3);
+            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+        }
+        document.getElementById('sonde_bobinage_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('l_sonde_bobinage_valeur').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}

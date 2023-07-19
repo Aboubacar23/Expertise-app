@@ -1146,6 +1146,7 @@
                         <th>T° Tôlerie (°C)</th>
                         <th>Hygrométrie (%)</th>
                         <th>Date d'essai</th>
+                        <th width="20%">T Correction à 20°</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
@@ -1170,6 +1171,7 @@
                             <td>{{item.critere}}</td>
                             <td>{{item.tension}}</td>
                             <td>{{item.valeur}}</td>
+                            <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
                     {% endfor %}
@@ -1200,7 +1202,8 @@
                     <tr class="titre_table">
                         <th width="15%">Contrôle</th>
                         <th>Critère (MΩ)</th>
-                        <th width="25%">Valeur relevées (MΩ)</th>
+                        <th width="25%">Valeur relevées</th>
+                        <th width="20%">T Correction à 20°</th>
                         <th width="15%">Conformité</th>
                     </tr>
                     {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -1208,6 +1211,7 @@
                             <td>{{item.controle}}</td>
                             <td>{{item.critere}}</td>
                             <td>{{item.valeur}}</td>
+                            <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
                     {% endfor %}

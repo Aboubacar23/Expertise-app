@@ -195,13 +195,9 @@ class ExpertiseMecaniqueController extends AbstractController
     {
         //la partie controle montage roulement
         $controleMontageRoulement = new ControleMontageRoulement();
-        $valCA = 0;
-        $valCOA = 0;
         if($parametre->getControleMontageRoulement())
         {
             $controleMontageRoulement = $parametre->getControleMontageRoulement()->getParametre()->getControleMontageRoulement();
-            $valCA = $controleMontageRoulement->getCoteCaJeu();
-            $valCOA = $controleMontageRoulement->getCoteCoaJeu();
         }
 
         $formControlMontageRoulement = $this->createForm(ControleMontageRoulementType::class, $controleMontageRoulement);
@@ -211,34 +207,15 @@ class ExpertiseMecaniqueController extends AbstractController
             $choix = $request->get('bouton2');
             if($choix == 'controle_montage_roulement_en_cours')
             {
-            //  dd($controleMontageRoulement);
-                $valCA1 =  $controleMontageRoulement->getCoteCaB() + $controleMontageRoulement->getCoteCaC() + $controleMontageRoulement->getCoteCaD() + $controleMontageRoulement->getCoteCaVide1();
-                $valCA =  $controleMontageRoulement->getCoteCaA() - $valCA1;
-
-                $valCOA1 =  $controleMontageRoulement->getCoteCoaB() + $controleMontageRoulement->getCoteCoaC() + $controleMontageRoulement->getCoteCoaD() + $controleMontageRoulement->getCoteCoaVide1();
-                $valCOA =  $controleMontageRoulement->getCoteCoaA() - $valCOA1;
-
-               // dd($valCOA);
                 $parametre->setControleMontageRoulement($controleMontageRoulement);
                 $controleMontageRoulement->setEtat(0);
-                $controleMontageRoulement->setCoteCaJeu($valCA);
-                $controleMontageRoulement->setCoteCoaJeu($valCOA);
                 $controleMontageRoulementRepository->save($controleMontageRoulement, true);
                 $this->redirectToRoute('app_controle_montage_roulement', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'controle_montage_roulement_terminer')
             {         
-                $valCA1 =  $controleMontageRoulement->getCoteCaB() + $controleMontageRoulement->getCoteCaC() + $controleMontageRoulement->getCoteCaD() + $controleMontageRoulement->getCoteCaVide1();
-                $valCA =  $controleMontageRoulement->getCoteCaA() - $valCA1;
-
-                $valCOA1 =  $controleMontageRoulement->getCoteCoaB() + $controleMontageRoulement->getCoteCoaC() + $controleMontageRoulement->getCoteCoaD() + $controleMontageRoulement->getCoteCoaVide1();
-                $valCOA =  $controleMontageRoulement->getCoteCoaA() - $valCOA1;
 
                 $parametre->setControleMontageRoulement($controleMontageRoulement);
-
-                $controleMontageRoulement->setCoteCaJeu($valCA);
-                $controleMontageRoulement->setCoteCoaJeu($valCOA);
-
                  $controleMontageRoulement->setEtat(1);
                  $controleMontageRoulementRepository->save($controleMontageRoulement, true);
                  $this->redirectToRoute('app_controle_montage_roulement', ['id' => $parametre->getId()]);
@@ -247,8 +224,8 @@ class ExpertiseMecaniqueController extends AbstractController
 
          return $this->render('expertise_mecanique/controle_montage_roulement.html.twig', [
              'parametre' => $parametre,
-             'valCA' => $valCA,
-             'valCOA' => $valCOA,
+           //  'valCA' => $valCA,
+             //'valCOA' => $valCOA,
              'formControlMontageRoulement' => $formControlMontageRoulement->createView()
              
          ]);
@@ -260,12 +237,9 @@ class ExpertiseMecaniqueController extends AbstractController
     {
         //la partie controle montage coussinet
         $controleMontageCoussinet = new ControleMontageConssinet();
-        $moyCA = 0;
-        $moyCOA = 0;
-        if($parametre->getControleMontageCoussinet()){
+        if($parametre->getControleMontageCoussinet())
+        {
             $controleMontageCoussinet = $parametre->getControleMontageCoussinet()->getParametre()->getControleMontageCoussinet();
-            $moyCA = $controleMontageCoussinet->getCaMoyenneReleve();
-            $moyCOA = $controleMontageCoussinet->getCoaMoyenneReleve();
         }
 
         $formControlMontageCoussinet = $this->createForm(ControleMontageCoussinetType::class, $controleMontageCoussinet);
@@ -275,37 +249,15 @@ class ExpertiseMecaniqueController extends AbstractController
             $choix = $request->get('bouton3');
             if($choix == 'controle_montage_coussinet_en_cours')
             {
-                $somCAAvant = $controleMontageCoussinet->getAccouplementAvant1() + $controleMontageCoussinet->getAccouplementAvant2() + $controleMontageCoussinet->getAccouplementAvant3();
-                $somCOAAvant = $controleMontageCoussinet->getAccouplementOpposeAvant1() + $controleMontageCoussinet->getAccouplementOpposeAvant2() + $controleMontageCoussinet->getAccouplementOpposeAvant3();
-
-                $somCAArriere = $controleMontageCoussinet->getAccouplementArriere1() + $controleMontageCoussinet->getAccouplementArriere2() + $controleMontageCoussinet->getAccouplementArriere3();
-                $somCOAArriere = $controleMontageCoussinet->getAccouplementOpposeArriere1() + $controleMontageCoussinet->getAccouplementOpposeArriere2() + $controleMontageCoussinet->getAccouplementOpposeArriere3();
-                
-                $moyCA = ($somCAAvant + $somCAArriere) / 6;
-                $moyCOA = ($somCOAAvant + $somCOAArriere) / 6;
-
                 $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                 $controleMontageCoussinet->setEtat(0);
-                $controleMontageCoussinet->setCaMoyenneReleve($moyCA);
-                $controleMontageCoussinet->setCoaMoyenneReleve($moyCA);
                 $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
                 $this->redirectToRoute('app_controle_montage_coussinet', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'controle_montage_coussinet_terminer')
             {       
-                $somCAAvant = $controleMontageCoussinet->getAccouplementAvant1() + $controleMontageCoussinet->getAccouplementAvant2() + $controleMontageCoussinet->getAccouplementAvant3();
-                $somCOAAvant = $controleMontageCoussinet->getAccouplementOpposeAvant1() + $controleMontageCoussinet->getAccouplementOpposeAvant2() + $controleMontageCoussinet->getAccouplementOpposeAvant3();
-
-                $somCAArriere = $controleMontageCoussinet->getAccouplementArriere1() + $controleMontageCoussinet->getAccouplementArriere2() + $controleMontageCoussinet->getAccouplementArriere3();
-                $somCOAArriere = $controleMontageCoussinet->getAccouplementOpposeArriere1() + $controleMontageCoussinet->getAccouplementOpposeArriere2() + $controleMontageCoussinet->getAccouplementOpposeArriere3();
-                
-                $moyCA = ($somCAAvant + $somCAArriere) / 6;
-                $moyCOA = ($somCOAAvant + $somCOAArriere) / 6;
-
                 $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                 $controleMontageCoussinet->setEtat(1);
-                $controleMontageCoussinet->setCaMoyenneReleve($moyCA);
-                $controleMontageCoussinet->setCoaMoyenneReleve($moyCA);
                 $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
                 $this->redirectToRoute('app_controle_montage_coussinet', ['id' => $parametre->getId()]);
             }
@@ -313,8 +265,6 @@ class ExpertiseMecaniqueController extends AbstractController
 
         return $this->render('expertise_mecanique/controle_montage_coussinet.html.twig', [
             'parametre' => $parametre,
-            'moyCA' => $moyCA,
-            'moyCOA' => $moyCOA,
             'formControlMontageCoussinet' => $formControlMontageCoussinet->createView(),
             
         ]);

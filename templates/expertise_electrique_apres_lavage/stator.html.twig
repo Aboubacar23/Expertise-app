@@ -62,13 +62,14 @@
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="20%">Contrôle</th>
-                                        <th>Critère (MΩ)</th>
-                                        <th width="17%">Tension d'éssai(V)</th>
-                                        <th width="17%">Valeur relevées avant Lavage(MΩ)</th>
-                                        <th width="17%">Valeur relevées (MΩ)</th>
-                                        <th width="10%">Conformité</th>
-                                        <th width="100"></th>
+                                        <th width="14%">Contrôle</th>
+                                        <th width="14%">Critère (MΩ)</th>
+                                        <th width="14%">Tension d'éssai</th>
+                                        <th width="14%">Valeur relevées avant Lavage</th>
+                                        <th width="14%">Valeur relevées </th>
+                                        <th width="14%">Correction à 20°</th>
+                                        <th width="14%">Conformité</th>
+                                        <th width="100"></th> 
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.controle) }}</td>
@@ -76,6 +77,7 @@
                                         <td>{{ form_widget(form.tension_essai, { value : tension_essaie }) }}</td>
                                         <td></td>
                                         <td>{{ form_widget(form.valeur) }}</td>
+                                        <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
                                         <td><button class="btn btn-primary btn-sm" name="bouton1" value="ajouter">Ajouter</button></td>
                                     </tr>
@@ -86,6 +88,7 @@
                                             <td>{{item2.tensionEssai}}</td>
                                             <td>{{item2.valeurRelevee}}</td>
                                             <td>{{item2.valeur}}</td>
+                                            <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_stator_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -99,6 +102,7 @@
                                                 <td>{{item.tensionEssai}}</td>
                                                 <td>{{item.valeurRelevee}}</td>
                                                 <td>{{item.valeur}}</td>
+                                                <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_stator_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                             </tr>                                        
@@ -126,4 +130,20 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+            let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_ambiante').value);
+            const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+            let valeurCorrection = 0;
+            if(temp_ambiante >= 10 || temp_ambiante <=30){
+                valeurCorrection = Math.pow(0.50,(20 - temp_ambiante)/10);
+                valeurFinale = valeurCorrection.toFixed(2);
+            }
+            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+        }
+        document.getElementById('stator_apres_lavage_temp_ambiante').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}

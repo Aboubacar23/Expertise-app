@@ -25,6 +25,7 @@ class LMesureResistanceType extends AbstractType
                 }
             ])
             ->add('critere')
+            ->add('temp_correction')
             ->add('valeur', NumberType::class, [
                 'required' => true,
             ])

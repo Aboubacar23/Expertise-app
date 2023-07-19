@@ -32,46 +32,46 @@ class ControleMontageRoulement
     private ?bool $coa_kit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_a = null;
+    private ?float $cote_ca_a = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_b = null;
+    private ?float $cote_ca_b = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_c = null;
+    private ?float $cote_ca_c = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_d = null;
+    private ?float $cote_ca_d = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_vide1 = null;
+    private ?float $cote_ca_vide1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_jeu = null;
+    private ?float $cote_ca_jeu = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_ca_vide2 = null;
+    private ?float $cote_ca_vide2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_a = null;
+    private ?float $cote_coa_a = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_b = null;
+    private ?float $cote_coa_b = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_c = null;
+    private ?float $cote_coa_c = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_d = null;
+    private ?float $cote_coa_d = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_vide1 = null;
+    private ?float $cote_coa_vide1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_jeu = null;
+    private ?float $cote_coa_jeu = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cote_coa_vide2 = null;
+    private ?float $cote_coa_vide2 = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
@@ -156,168 +156,168 @@ class ControleMontageRoulement
         return $this;
     }
 
-    public function getCoteCaA(): ?string
+    public function getCoteCaA(): ?float
     {
         return $this->cote_ca_a;
     }
 
-    public function setCoteCaA(?string $cote_ca_a): self
+    public function setCoteCaA(?float $cote_ca_a): self
     {
         $this->cote_ca_a = $cote_ca_a;
 
         return $this;
     }
 
-    public function getCoteCaB(): ?string
+    public function getCoteCaB(): ?float
     {
         return $this->cote_ca_b;
     }
 
-    public function setCoteCaB(?string $cote_ca_b): self
+    public function setCoteCaB(?float $cote_ca_b): self
     {
         $this->cote_ca_b = $cote_ca_b;
 
         return $this;
     }
 
-    public function getCoteCaC(): ?string
+    public function getCoteCaC(): ?float
     {
         return $this->cote_ca_c;
     }
 
-    public function setCoteCaC(?string $cote_ca_c): self
+    public function setCoteCaC(?float $cote_ca_c): self
     {
         $this->cote_ca_c = $cote_ca_c;
 
         return $this;
     }
 
-    public function getCoteCaD(): ?string
+    public function getCoteCaD(): ?float
     {
         return $this->cote_ca_d;
     }
 
-    public function setCoteCaD(?string $cote_ca_d): self
+    public function setCoteCaD(?float $cote_ca_d): self
     {
         $this->cote_ca_d = $cote_ca_d;
 
         return $this;
     }
 
-    public function getCoteCaVide1(): ?string
+    public function getCoteCaVide1(): ?float
     {
         return $this->cote_ca_vide1;
     }
 
-    public function setCoteCaVide1(?string $cote_ca_vide1): self
+    public function setCoteCaVide1(?float $cote_ca_vide1): self
     {
         $this->cote_ca_vide1 = $cote_ca_vide1;
 
         return $this;
     }
 
-    public function getCoteCaJeu(): ?string
+    public function getCoteCaJeu(): ?float
     {
         return $this->cote_ca_jeu;
     }
 
-    public function setCoteCaJeu(?string $cote_ca_jeu): self
+    public function setCoteCaJeu(?float $cote_ca_jeu): self
     {
         $this->cote_ca_jeu = $cote_ca_jeu;
 
         return $this;
     }
 
-    public function getCoteCaVide2(): ?string
+    public function getCoteCaVide2(): ?float
     {
         return $this->cote_ca_vide2;
     }
 
-    public function setCoteCaVide2(?string $cote_ca_vide2): self
+    public function setCoteCaVide2(?float $cote_ca_vide2): self
     {
         $this->cote_ca_vide2 = $cote_ca_vide2;
 
         return $this;
     }
 
-    public function getCoteCoaA(): ?string
+    public function getCoteCoaA(): ?float
     {
         return $this->cote_coa_a;
     }
 
-    public function setCoteCoaA(?string $cote_coa_a): self
+    public function setCoteCoaA(?float $cote_coa_a): self
     {
         $this->cote_coa_a = $cote_coa_a;
 
         return $this;
     }
 
-    public function getCoteCoaB(): ?string
+    public function getCoteCoaB(): ?float
     {
         return $this->cote_coa_b;
     }
 
-    public function setCoteCoaB(?string $cote_coa_b): self
+    public function setCoteCoaB(?float $cote_coa_b): self
     {
         $this->cote_coa_b = $cote_coa_b;
 
         return $this;
     }
 
-    public function getCoteCoaC(): ?string
+    public function getCoteCoaC(): ?float
     {
         return $this->cote_coa_c;
     }
 
-    public function setCoteCoaC(?string $cote_coa_c): self
+    public function setCoteCoaC(?float $cote_coa_c): self
     {
         $this->cote_coa_c = $cote_coa_c;
 
         return $this;
     }
 
-    public function getCoteCoaD(): ?string
+    public function getCoteCoaD(): ?float
     {
         return $this->cote_coa_d;
     }
 
-    public function setCoteCoaD(?string $cote_coa_d): self
+    public function setCoteCoaD(?float $cote_coa_d): self
     {
         $this->cote_coa_d = $cote_coa_d;
 
         return $this;
     }
 
-    public function getCoteCoaVide1(): ?string
+    public function getCoteCoaVide1(): ?float
     {
         return $this->cote_coa_vide1;
     }
 
-    public function setCoteCoaVide1(?string $cote_coa_vide1): self
+    public function setCoteCoaVide1(?float $cote_coa_vide1): self
     {
         $this->cote_coa_vide1 = $cote_coa_vide1;
 
         return $this;
     }
 
-    public function getCoteCoaJeu(): ?string
+    public function getCoteCoaJeu(): ?float
     {
         return $this->cote_coa_jeu;
     }
 
-    public function setCoteCoaJeu(?string $cote_coa_jeu): self
+    public function setCoteCoaJeu(?float $cote_coa_jeu): self
     {
         $this->cote_coa_jeu = $cote_coa_jeu;
 
         return $this;
     }
 
-    public function getCoteCoaVide2(): ?string
+    public function getCoteCoaVide2(): ?float
     {
         return $this->cote_coa_vide2;
     }
 
-    public function setCoteCoaVide2(?string $cote_coa_vide2): self
+    public function setCoteCoaVide2(?float $cote_coa_vide2): self
     {
         $this->cote_coa_vide2 = $cote_coa_vide2;
 

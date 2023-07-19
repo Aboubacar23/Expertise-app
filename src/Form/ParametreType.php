@@ -83,6 +83,7 @@ class ParametreType extends AbstractType
                         'class' => Machine::class,
                         'choices' => $machines,
                         'required' => false,
+                        'disabled' => $machines === null,
                         'placeholder' => 'Choisir une Machine',
                             'attr' => ['class' => 'custom-select'],
                         ]);

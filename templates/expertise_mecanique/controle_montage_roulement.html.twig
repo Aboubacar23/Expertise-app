@@ -85,9 +85,9 @@
                                             </tr>
                                             <tr>
                                                 <td>Jeu</td>
-                                                <td>J = A - (B+C+D+Soupape)</td>
-                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_jeu, { value : valCA }) }}</td>
-                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_jeu, { value : valCOA }) }}</td>
+                                                <td>J = A - (B+C+D+rondelles)</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_ca_jeu) }}</td>
+                                                <td>{{ form_widget(formControlMontageRoulement.cote_coa_jeu) }}</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -111,9 +111,45 @@
                         {{ form_end(formControlMontageRoulement) }}
                     </div>
                 <!-- fin contrôle montage roulements --> 
-
             </div>
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() {
+            const cote_ca_a = parseFloat(document.getElementById('controle_montage_roulement_cote_ca_a').value);
+            const cote_ca_b = parseFloat(document.getElementById('controle_montage_roulement_cote_ca_b').value);
+            const cote_ca_c = parseFloat(document.getElementById('controle_montage_roulement_cote_ca_c').value);
+            const cote_ca_d = parseFloat(document.getElementById('controle_montage_roulement_cote_ca_d').value);
+            const cote_ca_vide1 = parseFloat(document.getElementById('controle_montage_roulement_cote_ca_vide1').value);
+            const somCA = document.getElementById('controle_montage_roulement_cote_ca_jeu');
+
+            const cote_coa_a = parseFloat(document.getElementById('controle_montage_roulement_cote_coa_a').value);
+            const cote_coa_b = parseFloat(document.getElementById('controle_montage_roulement_cote_coa_b').value);
+            const cote_coa_c = parseFloat(document.getElementById('controle_montage_roulement_cote_coa_c').value);
+            const cote_coa_d = parseFloat(document.getElementById('controle_montage_roulement_cote_coa_d').value);
+            const cote_coa_vide1 = parseFloat(document.getElementById('controle_montage_roulement_cote_coa_vide1').value);
+            const somCOA = document.getElementById('controle_montage_roulement_cote_coa_jeu');
+
+            somCA.value = isNaN(cote_ca_a) || isNaN(cote_ca_b) || isNaN(cote_ca_c) 
+            || isNaN(cote_ca_d) || isNaN(cote_ca_vide1) ? '' : (cote_ca_a - (cote_ca_b + cote_ca_c + cote_ca_d + cote_ca_vide1));
+
+            somCOA.value = (isNaN(cote_coa_a) || isNaN(cote_coa_b) || isNaN(cote_coa_c) 
+            || isNaN(cote_coa_d) || isNaN(cote_coa_vide1) ? '' : (cote_coa_a - (cote_coa_b + cote_coa_c + cote_coa_d + cote_coa_vide1)));
+        }
+        document.getElementById('controle_montage_roulement_cote_ca_a').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_ca_b').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_ca_c').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_ca_d').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_ca_vide1').addEventListener('input', updateSumField);
+
+
+        document.getElementById('controle_montage_roulement_cote_coa_a').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_coa_b').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_coa_c').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_coa_d').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_roulement_cote_coa_vide1').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}

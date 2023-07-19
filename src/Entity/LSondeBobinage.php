@@ -34,6 +34,9 @@ class LSondeBobinage
     #[ORM\Column(nullable: true)]
     private ?int $lig = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $temp_correction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class LSondeBobinage
     public function setLig(?int $lig): self
     {
         $this->lig = $lig;
+
+        return $this;
+    }
+
+    public function getTempCorrection(): ?float
+    {
+        return $this->temp_correction;
+    }
+
+    public function setTempCorrection(?float $temp_correction): static
+    {
+        $this->temp_correction = $temp_correction;
 
         return $this;
     }

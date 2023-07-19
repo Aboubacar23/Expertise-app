@@ -165,6 +165,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolement($mesureIsolement);
                     $em->persist($lmesureIsolement);
@@ -173,7 +174,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $mesureIsolement->setEtat(0);
                 $mesureIsolementRepository->save($mesureIsolement, true);
                 $session->clear();
-                $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'mesure_isolement_terminer')
             {
@@ -187,6 +188,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolement($mesureIsolement);
                     $em->persist($lmesureIsolement);
@@ -195,7 +197,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $mesureIsolement->setEtat(1);
                 $mesureIsolementRepository->save($mesureIsolement, true);
                 $session->clear();
-                $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'ajouter')
             {
@@ -251,6 +253,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureResistance($mesureResistance);
                     $em->persist($lmesureResistance);
@@ -260,7 +263,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $mesureResistance->setEtat(0);
                 $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'mesure_resistance_terminer')
             {
@@ -273,6 +276,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureResistance($mesureResistance);
                     $em->persist($lmesureResistance);
@@ -282,7 +286,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $mesureResistance->setEtat(1);
                 $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
-                $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'ajouter')
             {
@@ -300,7 +304,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
            'form' => $form->createView(),
            'items' => $tables,
        ]);
-   }
+   } 
 
     //création de point de fonctionnement
     #[Route('/point/fonctionnement/{id}', name: 'app_point_fonctionnement', methods: ['POST', 'GET'])]

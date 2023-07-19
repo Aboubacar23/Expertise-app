@@ -511,13 +511,13 @@
                                                     <td width="3%">CA</td>
                                                     <td>{{ parametre.controleMontageRoulement.caRoulement }}</td>
                                                     <td>{{ parametre.controleMontageRoulement.caMontage }}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.caKit }}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.caKit ? 'Oui' : 'Non' }}</td>
                                                 </tr> 
                                                 <tr>
                                                     <td width="3%">COA</td>
                                                     <td>{{ parametre.controleMontageRoulement.coaRoulement }}</td>
                                                     <td>{{ parametre.controleMontageRoulement.coaMontage }}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coaKit }}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coaKit ? 'Oui' : 'Non' }}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -532,44 +532,44 @@
                                                 <tr>
                                                     <td>A</td>
                                                     <td>Moyeu palier</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaA | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaA | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>B</td>
                                                     <td>Emboitage C-Rit extérieur</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaB | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaB | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>C</td>
                                                     <td>Roulement</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaC | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaC | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>D</td>
                                                     <td>Emboitage C-Rit intérieur</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaD | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaD | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>2 rondelles isolantes</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide1 | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide1 | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Jeu</td>
                                                     <td>J = A - (B+C+D+Soupape)</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaJeu | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaJeu | number_format(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>Graisse</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide2 | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide2 | number_format(2)}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -737,7 +737,7 @@
                                                     <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
-                                                    <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve | number_format(3) }}</td>
+                                                    <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve | number_format(2) }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
                                                 </tr>
@@ -746,7 +746,7 @@
                                                     <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
-                                                    <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve | number_format(3) }}</td>
+                                                    <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve | number_format(2) }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
                                                     <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
                                                 </tr>
@@ -1021,26 +1021,18 @@
                                                     <tr  class="table-secondary">
                                                         <th class="text-center">Nature du contrôle</th>
                                                         <th class="text-center">Conformité</th>
-                                                       {# <th class="text-center">Préconisation</th>
-                                                        <th class="text-center">Retenu</th>#}
                                                     </tr>
                                                     <tr>
                                                         <td>Essais de presion à x Bars</td>
                                                         <td>{{ parametre.hydroAero.conformite1}}</td>
-                                                        {#<td>{{ parametre.hydroAero.preconisation1}}</td>
-                                                        <td>{{ parametre.hydroAero.retenu1}}</td>#}
                                                     </tr>
                                                     <tr>
                                                         <td>Contrôle visuel des ailettes</td>
                                                         <td>{{ parametre.hydroAero.conformite2}}</td>
-                                                       {# <td>{{ parametre.hydroAero.preconisation2}}</td>
-                                                        <td>{{ parametre.hydroAero.retenu2}}</td>#}
                                                     </tr>
                                                     <tr>
                                                         <td>Contrôle visuel des boites à eau</td>
                                                         <td>{{ parametre.hydroAero.conformite3}}</td>
-                                                       {# <td>{{ parametre.hydroAero.preconisation3}}</td>
-                                                        <td>{{ parametre.hydroAero.retenu3}}</td>#}
                                                     </tr>
                                                 </table>
                                             </div>
@@ -1052,20 +1044,14 @@
                                                     <tr  class="table-secondary">
                                                         <th class="text-center">Nature du contrôle</th>
                                                         <th class="text-center">Conformité</th>
-                                                       {# <th class="text-center">Préconisation</th>
-                                                        <th class="text-center">Retenu</th>#}
                                                     </tr>
                                                     <tr>
                                                         <td>Contrôle du dudgeonages des tubes</td>
                                                         <td>{{ parametre.hydroAero.conformite4}}</td>
-                                                       {# <td>{{ parametre.hydroAero.preconisation4}}</td>
-                                                        <td>{{ parametre.hydroAero.retenu4}}</td>#}
                                                     </tr>
                                                     <tr>
                                                         <td>Contrôle visuel des tubes</td>
                                                         <td>{{ parametre.hydroAero.conformite5}}</td>
-                                                        {#<td>{{ parametre.hydroAero.preconisation5}}</td>
-                                                        <td>{{ parametre.hydroAero.retenu5}}</td>#}
                                                     </tr>
                                                 </table>
                                             </div>

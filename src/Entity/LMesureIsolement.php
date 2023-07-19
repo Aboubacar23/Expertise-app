@@ -34,6 +34,9 @@ class LMesureIsolement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $conformite = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $temp_correction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class LMesureIsolement
     public function setConformite(?string $conformite): self
     {
         $this->conformite = $conformite;
+
+        return $this;
+    }
+
+    public function getTempCorrection(): ?float
+    {
+        return $this->temp_correction;
+    }
+
+    public function setTempCorrection(?float $temp_correction): static
+    {
+        $this->temp_correction = $temp_correction;
 
         return $this;
     }

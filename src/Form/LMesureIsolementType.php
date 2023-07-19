@@ -26,6 +26,7 @@ class LMesureIsolementType extends AbstractType
             ])
             ->add('critere')
             ->add('tension')
+            ->add('temp_correction')
             ->add('valeur', NumberType::class, [
                 'required' => true,
             ])

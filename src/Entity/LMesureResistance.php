@@ -31,6 +31,9 @@ class LMesureResistance
     #[ORM\ManyToOne(inversedBy: 'lMesureResistances')]
     private ?MesureResistance $mesure_resistance = null;
 
+    #[ORM\Column]
+    private ?float $temp_correction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,18 @@ class LMesureResistance
     public function setMesureResistance(?MesureResistance $mesure_resistance): self
     {
         $this->mesure_resistance = $mesure_resistance;
+
+        return $this;
+    }
+
+    public function getTempCorrection(): ?float
+    {
+        return $this->temp_correction;
+    }
+
+    public function setTempCorrection(float $temp_correction): static
+    {
+        $this->temp_correction = $temp_correction;
 
         return $this;
     }

@@ -143,7 +143,7 @@
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_nature_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_diametre_attendu) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_tolerence) }}</td>
-                                                <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve , { value : moyCA | number_format(3)}) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.ca_moyenne_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_conformite) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.ca_observation) }}</td>
                                             </tr>
@@ -152,7 +152,7 @@
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_nature_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_diametre_attendu) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_tolerance) }}</td>
-                                                <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve, { value : moyCOA | number_format(3)}) }}</td>
+                                                <td>{{ form_widget(formControlMontageCoussinet.coa_moyenne_releve) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_conformite) }}</td>
                                                 <td>{{ form_widget(formControlMontageCoussinet.coa_observation) }}</td>
                                             </tr>
@@ -176,4 +176,48 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField()
+        {
+            const val_ca1 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_avant1').value);
+            const val_ca2 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_arriere1').value);
+            const val_ca3 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_avant2').value);
+            const val_ca4 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_arriere2').value);
+            const val_ca5 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_avant3').value);
+            const val_ca6 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_arriere3').value);
+
+            const val_coa1 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_avant1').value);
+            const val_coa2 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere1').value);
+            const val_coa3 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_avant2').value);
+            const val_coa4 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere2').value);
+            const val_coa5 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_avant3').value);
+            const val_coa6 = parseFloat(document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere3').value);
+
+            const moyCA = document.getElementById('controle_montage_coussinet_ca_moyenne_releve');
+            const moyCOA = document.getElementById('controle_montage_coussinet_coa_moyenne_releve');
+
+            moyCA.value = isNaN(val_ca1) || isNaN(val_ca2) || isNaN(val_ca3) || isNaN(val_ca4) || isNaN(val_ca5) || isNaN(val_ca6) ? '' : ((val_ca1 + val_ca2 + val_ca3 + val_ca4 + val_ca5 + val_ca6)/6);
+            moyCOA.value = isNaN(val_coa1) || isNaN(val_coa2) || isNaN(val_coa3) || isNaN(val_coa4) || isNaN(val_coa5) || isNaN(val_coa6) ? '' : ((val_coa1 + val_coa2 + val_coa3 + val_coa4 + val_coa5 + val_coa6)/6);
+
+           // somCOA.value = (isNaN(cote_coa_a) || isNaN(cote_coa_b) || isNaN(cote_coa_c) || isNaN(cote_coa_d) || isNaN(cote_coa_vide1) ? '' : (cote_coa_a - (cote_coa_b + cote_coa_c + cote_coa_d + cote_coa_vide1)));
+        }
+
+        document.getElementById('controle_montage_coussinet_accouplement_avant1').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_arriere1').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_avant2').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_arriere2').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_avant3').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_arriere3').addEventListener('input', updateSumField);
+
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_avant1').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere1').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_avant2').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere2').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_avant3').addEventListener('input', updateSumField);
+        document.getElementById('controle_montage_coussinet_accouplement_oppose_arriere3').addEventListener('input', updateSumField);
+
+
+    });
+</script>
 {% endblock %}
