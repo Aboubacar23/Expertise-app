@@ -96,15 +96,19 @@
                         {% endif %}
                       </ul>
                     </li>
-                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
                       <li>
                         <a><i class="fa fa-cog"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                          <li><a href="{{path('app_machine_index')}}">Machines</a></li>
-                          <li><a href="{{path('app_type_index')}}">Types</a></li>
-                          <li><a href="{{path('app_appareil_index')}}">Apareilles</a></li>
-                          <li><a href="{{path('app_controle_index')}}">Controles</a></li>
-                          <li><a href="{{path('app_critere_index')}}">Critères</a></li>
+                          {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                              <li><a href="{{path('app_machine_index')}}">Machines</a></li>
+                              <li><a href="{{path('app_type_index')}}">Types</a></li>
+                              <li><a href="{{path('app_appareil_index')}}">Apareilles</a></li>
+                              <li><a href="{{path('app_critere_index')}}">Critères</a></li>
+                          {% endif %}
+                          {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
+                              <li><a href="{{path('app_controle_index')}}">Controles</a></li>
+                          {% endif %}
                         </ul>
                       </li>
                     {% endif %}

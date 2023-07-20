@@ -226,6 +226,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: ControleGeometrique::class)]
     private Collection $controleGeometriques;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $temp_correction = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1394,6 +1397,18 @@ class Parametre
                 $controleGeometrique->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTempCorrection(): ?float
+    {
+        return $this->temp_correction;
+    }
+
+    public function setTempCorrection(?float $temp_correction): static
+    {
+        $this->temp_correction = $temp_correction;
 
         return $this;
     }

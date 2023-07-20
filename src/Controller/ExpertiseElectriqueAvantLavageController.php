@@ -161,6 +161,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $i = $i + 1;
                     $lmesureIsolement = new LMesureIsolement();
                     $lmesureIsolement->setLig($i);
+                    $lmesureIsolement->setType($item->getType());
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
@@ -184,6 +185,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $i = $i + 1;
                     $lmesureIsolement = new LMesureIsolement();
                     $lmesureIsolement->setLig($i);
+                    $lmesureIsolement->setType($item->getType());
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());

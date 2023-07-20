@@ -69,11 +69,15 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 ">
-                                    {{ form_widget(form.presence_balais) }}
+                            <div class="col-md-3 col-sm-3 ">
+                                {{ form_widget(form.presence_balais) }}
                             </div>
-                            <div class="col-md-6 col-sm-6">
-                                    {{ form_widget(form.presence_balais_masse) }}
+                            <div class="col-md-3 col-sm-3">
+                                {{ form_widget(form.presence_balais_masse) }}
+                            </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4">                            
+                                {{ form_widget(form.temp_correction, { value : correction }) }}
                             </div>
                         </div>
                     </div>

@@ -39,6 +39,14 @@ class LMesureIsolementType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
+            ->add('type', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    '' => '',
+                    'Stator' => 'Stator',
+                    'Rotor' => 'Rotor'
+                ]
+            ])
         ;
     }
 

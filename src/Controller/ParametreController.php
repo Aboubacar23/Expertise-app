@@ -19,6 +19,7 @@ use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\ConstatElectriqueRepository;
 use App\Repository\ConstatMecaniqueRepository;
 use App\Repository\ControleVisuelMecaniqueRepository;
+use App\Repository\CorrectionRepository;
 use App\Repository\CritereRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\LMesureIsolementRepository;
@@ -55,7 +56,7 @@ class ParametreController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository): Response
+    public function new(Request $request,Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
     {
         $parametre = new Parametre();
         $form = $this->createForm(ParametreType::class, $parametre);
@@ -68,6 +69,16 @@ class ParametreController extends AbstractController
             if ($item->isEtat() == 1)
             {
                 $critere = $item->getMontant();
+            }
+        }
+ 
+        $corrections = $correctionRepository->findAll();
+        $correction = 0;
+        foreach ($corrections as $item2)
+        {
+            if ($item2->isEtat() == 1)
+            {
+                $correction = $item2->getTemperature();
             }
         }
         
@@ -85,6 +96,7 @@ class ParametreController extends AbstractController
             'form' => $form,
             'affaire' => $affaire,
             'critere' => $critere,
+            'correction' => $correction,
         ]);
     }
 

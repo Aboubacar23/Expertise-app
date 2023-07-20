@@ -37,6 +37,9 @@ class LMesureIsolement
     #[ORM\Column(nullable: true)]
     private ?float $temp_correction = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,18 @@ class LMesureIsolement
     public function setTempCorrection(?float $temp_correction): static
     {
         $this->temp_correction = $temp_correction;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

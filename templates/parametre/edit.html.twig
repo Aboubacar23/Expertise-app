@@ -17,7 +17,7 @@
                     <div class="x_title">
                         <h2>Paramètres généraux</h2>
                         <ul class="nav navbar-center panel_toolbox">
-                        <a href="{{path('app_machine_new')}}" target="_blank" class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
+                            <a href="{{path('app_machine_new')}}" target="_blank" class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
                         </ul>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -69,89 +69,93 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 ">
-                                    {{ form_widget(form.presence_balais) }}
+                            <div class="col-md-3 col-sm-3 ">
+                                {{ form_widget(form.presence_balais) }}
                             </div>
-                            <div class="col-md-6 col-sm-6">
-                                    {{ form_widget(form.presence_balais_masse) }}
+                            <div class="col-md-3 col-sm-3">
+                                {{ form_widget(form.presence_balais_masse) }}
+                            </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4">                            
+                                {{ form_widget(form.temp_correction) }}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-md-6">
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <h2>Stator</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <br />
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(V)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_tension) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_courant) }}
-                                    </div>
+                    <div class="col-md-6">
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <h2>Stator</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_frequence) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_couplage) }}
-                                    </div>
-                            </div>
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.date_arrivee) }}
-                                    </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(V)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_tension) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_courant) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence(Hz)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_frequence) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.stator_couplage) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.date_arrivee) }}
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <h2>Rotor</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
+                    <div class="col-md-6">
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <h2>Rotor</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(V)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.rotor_tension) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.rotor_courant) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.rotor_expertise_refrigeant) }}
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            {{ form_widget(form.presence_plans) }}
+                                        </div>
+                                </div>
+                            </div> 
                         </div>
-                        <div class="x_content">
-                            <br />
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(V)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_tension) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_courant) }}
-                                    </div>
-                            </div>
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_expertise_refrigeant) }}
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        {{ form_widget(form.presence_plans) }}
-                                    </div>
-                            </div>
-                        </div> 
                     </div>
-                </div>
                 </div>
                 <div class="x_panel">
                     <div class="x_content">                                

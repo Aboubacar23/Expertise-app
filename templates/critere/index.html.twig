@@ -6,17 +6,16 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion Client</h3>
+        <h3>Gestion Critère et Temperature de Correction</h3>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
-        <div class="col-md-12 col-sm-12 ">
+        <div class="col-md-6 col-sm-6 ">
             <div class="x_panel">
                 <div class="x_title">
-                <h2>Listes des clients</h2>
+                <h2>Critères</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="#" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
                 </ul>
                 <div class="clearfix"></div>
                 </div>
@@ -63,6 +62,73 @@
                                                 <td class="text-center">                                                   
                                                      <a href="{{ path('app_critere_delete', {'id': critere.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
                                                     <a href="{{ path('app_critere_edit', {'id': critere.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">La table des clients est vide </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 ">
+            <div class="x_panel">
+                <div class="x_title">
+                <h2>Temperature</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                </ul>
+                <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form_start(form2) }}
+                                <table class="table table-bordered table-striped" style="width:100%">
+                                    <tr  class="table-secondary">
+                                        <th>Température</th>
+                                        <th class="text-center">Etat</th>
+                                        <th width="100"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form2.temperature) }}</td>
+                                        <td>{{ form_row(form2.etat) }}</td>
+                                        <td><button class="btn btn-primary btn-sm" name="bouton" value="ajouter">Ajouter</button></td>
+                                    </tr>
+                                </table>
+                            {{ form_end(form2) }}
+                            
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <table id="datatable" class="table table-striped table-hover" style="width:100%">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th width="2">N°</th>
+                                            <th>Température</th>
+                                            <th>Activer</th>
+                                            <th width="150" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% set i = 0 %}
+                                        {% for correction in corrections %}
+                                            {% set i = i + 1 %}
+                                            <tr>
+                                                <td>{{ i }}</td>
+                                                <td>{{ correction.temperature }}</td>
+                                                <td>{{ correction.etat ? 'Oui' :'Non' }}</td>
+                                                <td class="text-center">                                                   
+                                                     <a href="{{ path('app_correction_delete', {'id': correction.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
+                                                    <a href="{{ path('app_correction_edit', {'id': correction.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x" aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}
