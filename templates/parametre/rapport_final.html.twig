@@ -205,18 +205,20 @@
     <div class="page3">
         <h2>III.  Caractéristiques générales</h2>           
         <div class="sous_page">
-            <table>
-                <tr>
-                    {% for item in parametre.plaques %}
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" height="250px"></td>
-                    {% endfor %}
-                </tr>    
-                <tr>                                                
-                    {% for item in parametre.plaques %}
-                        <td>{{item.libelle}}</td>
-                    {% endfor %}
-                </tr> 
-            </table>
+            {% if parametre.plaques %}
+                <table>
+                    <tr>
+                        {% for item in parametre.plaques %}
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" height="250px"></td>
+                        {% endfor %}
+                    </tr>    
+                    <tr>                                                
+                        {% for item in parametre.plaques %}
+                            <td>{{item.libelle}}</td>
+                        {% endfor %}
+                    </tr> 
+                </table>                
+            {% endif %}
         </div> 
         <div class="sous_page1">
             <table>
@@ -245,8 +247,8 @@
                     <td>{{parametre.affaire.numFabrication}}</td>
                 </tr>
             </table>
-            <table>
-                {% if parametre.lplaque %}
+            {% if parametre.lplaque %}
+                <table>
                     <tr class="titre_table">
                         <th>Service</th>
                         <th>Classe Isolation</th>
@@ -257,8 +259,8 @@
                         <td>{{ parametre.lplaque.classeIsolation }}</td>
                         <td>{{ parametre.lplaque.indiceProtection }}</td>
                     </tr>
-                {% endif %}
-            </table>               
+                </table>               
+            {% endif %}
             <table>
                 <tr class="titre_table">
                     <th>Puissance</th>
@@ -307,32 +309,32 @@
             </table>
         </div>
         <div class="sous_page3">
-            <table class="table_sous_page">    
-                <tr class="titre_table">
-                    <th></th>
-                    <th>Roulements CA</th>
-                    <th>Roulements COA</th>
-                </tr>
-                {% if parametre.roulement %}
-                    <tr>
-                        <td>Type</td>
-                        <td>{{ parametre.roulement.typeCa }}</td>
-                        <td>{{ parametre.roulement.typeCoa }}</td>
+            {% if parametre.roulement %}
+                <table class="table_sous_page">    
+                    <tr class="titre_table">
+                        <th></th>
+                        <th>Roulements CA</th>
+                        <th>Roulements COA</th>
                     </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ parametre.roulement.typeCa }}</td>
+                            <td>{{ parametre.roulement.typeCoa }}</td>
+                        </tr>
+                        </tr>
+                            <td>Graisse</td>
+                            <td>{{ parametre.roulement.graisseCa }}</td>
+                            <td>{{ parametre.roulement.graisseCoa }}</td>
+                        </tr>   
+                </table>                 
+            {% endif %}
+            {% if parametre.controleVisuelElectrique %}
+                <table class="table_sous_page">
+                    <tr class="titre_table">
+                        <th>Caractéristiques</th>
+                        <th>Balais</th>
+                        <th>balais de Masse</th>
                     </tr>
-                        <td>Graisse</td>
-                        <td>{{ parametre.roulement.graisseCa }}</td>
-                        <td>{{ parametre.roulement.graisseCoa }}</td>
-                    </tr>                    
-                {% endif %}
-            </table>
-            <table class="table_sous_page">
-                <tr class="titre_table">
-                    <th>Caractéristiques</th>
-                    <th>Balais</th>
-                    <th>balais de Masse</th>
-                </tr>
-               {% if parametre.controleVisuelElectrique %}
                     <tr>
                         <td>Dimensions</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
@@ -378,8 +380,8 @@
                         <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
                     </tr>                
-               {% endif %}
-            </table>
+                </table>
+            {% endif %}
         </div>
         <div class="sous_page4">
             {% if parametre.coussinet %}
@@ -435,90 +437,90 @@
             {% endif %}
         </div>
         <div class="sous_page4_2">
-            <table>    
             {% if parametre.controleVisuelMecanique %}
-                <tr class="titre_table">
-                    <th colspan="4">Controle Visuel et Recensement</th>
-                </tr> 
-                <tr>
-                    <td>Accouplement</td>
-                    <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
-                    <td>Peinture (N° RAL)</td>
-                    <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
-                </tr>  
-                <tr>
-                    <td>Châssis</td>
-                    <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
-                    <td>Tresse de masse (nb)</td>
-                    <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
-                </tr>  
-                <tr>
-                    <td>Boite à borne</td>
-                    <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
-                    <td>Vis vérins (nb)</td>
-                    <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
-                </tr>    
-                <tr>
-                    <td>Barrette neutre</td>
-                    <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
-                    <td>Sonde palier CA</td>
-                    <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
-                </tr>    
-                <tr>
-                    <td>Bridage</td>
-                    <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
-                    <td>Autres Sondes</td>
-                    <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
-                </tr>   
-                <tr>
-                    <td>Clavette</td>
-                    <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
-                    <td>Sonde palier COA</td>
-                    <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
-                </tr> 
-                <tr>
-                    <td>Phase Neutre</td>
-                    <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
-                    <td>Référence stator</td>
-                    <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
-                </tr> 
-                <tr>
-                    <td>Numéro de série</td>
-                    <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
-                    <td>Référence rotor</td>
-                    <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
-                </tr>  
-                <tr>
-                    <td>Position de l'accouplement</td>
-                    <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
-                    <td>Nombre d'accessoires complémentaires</td>
-                    <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
-                </tr>
-                <tr>
-                    <td>Commentaires</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>                    
-                </tr>       
-            {% endif %}            
-            </table>
+                <table>    
+                    <tr class="titre_table">
+                        <th colspan="4">Controle Visuel et Recensement</th>
+                    </tr> 
+                    <tr>
+                        <td>Accouplement</td>
+                        <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
+                        <td>Peinture (N° RAL)</td>
+                        <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
+                    </tr>  
+                    <tr>
+                        <td>Châssis</td>
+                        <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
+                        <td>Tresse de masse (nb)</td>
+                        <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
+                    </tr>  
+                    <tr>
+                        <td>Boite à borne</td>
+                        <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
+                        <td>Vis vérins (nb)</td>
+                        <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
+                    </tr>    
+                    <tr>
+                        <td>Barrette neutre</td>
+                        <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
+                        <td>Sonde palier CA</td>
+                        <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
+                    </tr>    
+                    <tr>
+                        <td>Bridage</td>
+                        <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
+                        <td>Autres Sondes</td>
+                        <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
+                    </tr>   
+                    <tr>
+                        <td>Clavette</td>
+                        <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+                        <td>Sonde palier COA</td>
+                        <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
+                    </tr> 
+                    <tr>
+                        <td>Phase Neutre</td>
+                        <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
+                        <td>Référence stator</td>
+                        <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
+                    </tr> 
+                    <tr>
+                        <td>Numéro de série</td>
+                        <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
+                        <td>Référence rotor</td>
+                        <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
+                    </tr>  
+                    <tr>
+                        <td>Position de l'accouplement</td>
+                        <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
+                        <td>Nombre d'accessoires complémentaires</td>
+                        <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+                    </tr>
+                    <tr>
+                        <td>Commentaires</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>                    
+                    </tr>              
+                </table>    
+            {% endif %} 
         </div>
         <div class="sous_page4_3">
-            <table>    
-                <tr class="titre_table">
-                    <th colspan="2">Liste des accessoires complémentaires</th>
-                </tr>
-                {% if parametre.controleVisuelMecanique %}
-                    {% set i = 0 %}
-                    {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
-                        {% set i = i + 1 %}
-                        <tr>
-                            <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
-                            <td>{{c.libelle}}</td>
-                        </tr>                                                   
-                    {% endfor %} 
-                {% endif %}                
-            </table>
+            {% if parametre.controleVisuelMecanique %}
+                <table>    
+                    <tr class="titre_table">
+                        <th colspan="2">Liste des accessoires complémentaires</th>
+                    </tr>
+                        {% set i = 0 %}
+                        {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
+                            {% set i = i + 1 %}
+                            <tr>
+                                <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
+                                <td>{{c.libelle}}</td>
+                            </tr>                                                   
+                        {% endfor %}              
+                </table>
+            {% endif %}   
         </div>
     </div>
 {# fin la page 4 #}
@@ -530,11 +532,11 @@
         <h4>A.  <span class="span_titre">Démontage</span></h4>
         <h5>1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
         <div class="sous_page5_2">
-            <table>    
-                <tr class="titre_table">
-                    <th colspan="2"></th>
-                    <th>PHOTO N°5 : ACCOUPLEMENT</th>
-                    {% if parametre.controleVisuelMecanique %}
+            {% if parametre.controleVisuelMecanique %}
+                <table>    
+                    <tr class="titre_table">
+                        <th colspan="2"></th>
+                        <th>PHOTO N°5 : ACCOUPLEMENT</th>
                         {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
                             <th>Débordant</th>
                         {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
@@ -543,28 +545,26 @@
                             <th>Rentré</th>
                         {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
                             <th>Aucun</th>
-                        {% endif %}                         
-                    {% endif %}
-                </tr> 
-                <tr>
-                    <td>Présence clavette</td>
-                    <td>Oui/Non</td>
-                    <td></td>
-                    <td height="15%" class="td_image">  
-                    {% if parametre.controleVisuelMecanique %}
-                        {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
-                            <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
-                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
-                           <img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px">
-                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
-                            <img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px">
-                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
-                            <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo" height="150px">
-                        {% endif %} 
-                    {% endif %}
-                    </td>
-                </tr>             
-            </table>
+                        {% endif %}   
+                    </tr> 
+                    <tr>
+                        <td>Présence clavette</td>
+                        <td>Oui/Non</td>
+                        <td></td>
+                        <td height="15%" class="td_image">  
+                            {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                                <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                            <img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                                <img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                                <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo" height="150px">
+                            {% endif %} 
+                        </td>
+                    </tr>             
+                </table>
+            {% endif %}
         </div>
         <div class="sous_page5_3">
             <h5>2.  <span class="span_titre">Relevé Boîte à Bornes (ou Bornier CC)</span></h5>
@@ -575,21 +575,22 @@
                 </tr>
                 <tr>
                     <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}" alt="item.photo" height="150px"></td>
-                    <td></td>
+                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}" alt="item.photo" height="150px"></td>
                 </tr>                  
             </table>
         </div>
         <div class="sous_page5_4">
             <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>                         
             <span height="15%" class="td_image" ><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="200px" style="align-items: center;"></span>
-            <table style="padding-top:25px;">
-                <thead class="titre_table">
-                    <tr>
-                        <th>Repères,Désignation des pièces</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if  parametre.synoptiques %}
+            
+            {% if  parametre.synoptiques %}
+                <table style="padding-top:25px;">
+                    <thead class="titre_table">
+                        <tr>
+                            <th>Repères,Désignation des pièces</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr class="titre_table">
                             <th>PLAN CA</th>
                         </tr>                                                
@@ -609,10 +610,10 @@
                                     <td>{{item.repere}}</td>
                                 {% endif %}
                             </tr>          
-                        {% endfor %}                         
-                    {% endif %}                                      
-                </tbody>
-            </table>
+                        {% endfor %}                                     
+                    </tbody>
+                </table>                       
+            {% endif %}   
         </div>
         <div class="sous_page5_5" >
             <h4>B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
@@ -697,15 +698,15 @@
         <div class="sous_page5_6">
             <h4>C.  <span class="span_titre">Contrôle des coussinets</span></h4>
             <h5>1.  <span class="span_titre">Expertise des soies</span></h5>
-            <table>    
-                <tr>                    
-                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_accouplement1.png')) }}" alt="item.photo" height="120px"></td>
-                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_accouplement2.png')) }}" alt="item.photo" height="120px"></td>
-                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_op_accouplement1.png')) }}" alt="item.photo" height="120px"></td>
-                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_op_accouplement2.png')) }}" alt="item.photo" height="120px"></td>
-                </tr>
-            </table>
             {% if parametre.controleMontageCoussinet %}
+                <table>    
+                    <tr>                    
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_accouplement1.png')) }}" alt="item.photo" height="120px"></td>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_accouplement2.png')) }}" alt="item.photo" height="120px"></td>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_op_accouplement1.png')) }}" alt="item.photo" height="120px"></td>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_op_accouplement2.png')) }}" alt="item.photo" height="120px"></td>
+                    </tr>
+                </table>
                 <table class="table_sous_page5_6_1">
                     <tr>
                         <th class="titre_table" colspan="6">Côté Accouplement</th>
@@ -759,8 +760,8 @@
             {% endif %}
         </div>
         <div class="sous_page5_7">
-            <h5>2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
             {% if parametre.controleMontageCoussinet %}
+                <h5>2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
                 <table class="table_sous_page5_7_1">
                     <tr class="titre_table">
                         <th colspan="2">Côté accouplement</th>
@@ -807,6 +808,7 @@
         </div>
         <div class="sous_page5_8">
             <h5>3.  <span class="span_titre">Expertise des coussinets</span></h5>
+            {% if parametre.controleMontageCoussinet %}
             <table>
                 <tr class="titre_table">
                     <th class="numero2"></th>
@@ -817,7 +819,6 @@
                     <th>Conformité</th>
                     <th>Observation</th>
                 </tr>
-                {% if parametre.controleMontageCoussinet %}
                     <tr>
                         <td>CA</td>
                         <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
@@ -835,9 +836,9 @@
                         <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve }}</td>
                         <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
                         <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
-                    </tr>                    
-                {% endif %}
-            </table>
+                    </tr>     
+            </table>               
+        {% endif %}
         </div>
         <div class="sous_page5_9">
             <h4>D.  <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
