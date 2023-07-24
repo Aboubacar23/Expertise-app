@@ -26,6 +26,17 @@ class LSondeBobinageType extends AbstractType
             ->add('critere')
             ->add('valeur_relevee')
             ->add('valeur')   
+            ->add('unite', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Ω' => 'Ω',
+                    'mΩ' => 'mΩ',
+                    'µΩ' => 'µΩ',
+                    'kΩ' => 'kΩ',
+                    'MΩ' => 'MΩ',
+                    'GΩ' => 'GΩ',
+                ]
+            ])
             ->add('temp_correction')
             ->add('conformite', ChoiceType::class, [
                 'required' => true,

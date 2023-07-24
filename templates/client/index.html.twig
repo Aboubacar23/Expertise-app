@@ -37,6 +37,7 @@
                                         <th>Site</th>
                                         <th>Adresse</th>
                                         <th>Ville</th>
+                                        <th>Code Postal</th>
                                         <th>Contact</th>
                                         <th width="150" class="text-center">Action</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                             <td>{{ client.site }}</td>
                                             <td>{{ client.adresse }}</td>
                                             <td>{{ client.ville }}</td>
+                                            <td>{{ client.codePostal }}</td>
                                             <td>{{ client.contact }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('app_client_compte', {'id': client.id}) }}" class="btn btn-outline-info btn-sm"><i class="fa fa-folder fa-1x"></i></a>
@@ -87,7 +89,9 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="nom">Nom <span class="required text-danger">*</span></label>
                             <div class="col-md-6 col-sm-6 ">
-                                {{ form_widget(form.nom)}}
+                                {{ form_widget(form.nom, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
                                 <div class="my-custom-class-for-errors">
                                     {{ form_errors(form.nom) }}
                                 </div>
@@ -97,7 +101,9 @@
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="site">Site <span class="required text-danger">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                {{ form_widget(form.site)}}
+                                {{ form_widget(form.site, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
                                 <div class="my-custom-class-for-errors">
                                     {{ form_errors(form.site) }}
                                 </div>
@@ -106,19 +112,33 @@
                         <div class="item form-group">
                             <label for="adresse" class="col-form-label col-md-3 col-sm-3 label-align">Adresse</label>
                             <div class="col-md-6 col-sm-6 ">
-                                {{ form_widget(form.adresse)}}
+                                {{ form_widget(form.adresse, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
                             </div>
-                        </div>
+                        </div> 
                         <div class="item form-group">
                             <label for="ville" class="col-form-label col-md-3 col-sm-3 label-align">Ville</label>
                             <div class="col-md-6 col-sm-6 ">
-                                {{ form_widget(form.ville)}}
+                                {{ form_widget(form.ville, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact</label>
+                            <label for="ville" class="col-form-label col-md-3 col-sm-3 label-align">Code Postal</label>
                             <div class="col-md-6 col-sm-6 ">
-                                {{ form_widget(form.contact)}}
+                                {{ form_widget(form.code_postal, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact (Nom ou N° Téléphone)</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                {{ form_widget(form.contact, { attr : {
+                                    "class" : "text-uppercase"
+                                }})}}
                             </div>
                         </div>
                     </div>

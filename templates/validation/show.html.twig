@@ -131,8 +131,6 @@
                                     <!-- fin contrôle visuel et recensement --> 
 
                                     <!-- fin Mesure d'isolement et resistance -->
-                                        {% set critere1 = 0 %}
-                                        {% set critere1 = (20000 * parametre.puissance) / 1000000 %}
                                         {% if parametre.mesureIsolement %}
                                             <div class="row">
                                                 <table class="table table-bordered table-striped">
@@ -170,7 +168,7 @@
                                                             <td>{{item.controle}}</td>
                                                             <td>{{item.critere}}</td>
                                                             <td>{{item.tension}}</td>
-                                                            <td>{{item.valeur}}</td>
+                                                            <td>{{item.valeur}} {{item.unite}}</td>
                                                             <td>{{item.tempAmbiante}}</td>
                                                             <td>{{item.conformite}}</td>
                                                         </tr>                                        
@@ -282,7 +280,7 @@
                                                     <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>R.M.S à F0 à 25 Hz</td>
+                                                    <td>R.M.S à F0 (mm/s)</td>
                                                     <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
                                                     <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
                                                     <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
@@ -327,26 +325,25 @@
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
                                                 <tr  class="table-secondary">
-                                                    <th class="text-center" colspan="4">Contrôles de bobinages</th>
+                                                    <th class="text-center" colspan="3">Contrôles de bobinages</th>
                                                 </tr>
                                                 <tr  class="table-secondary">
                                                     <th>Nature du contrôle</th>
                                                     <th>Conformité</th>
-                                                    <th>Préconisation</th>
-                                                    <th>Retenu</th>
+                                                    <th>Constats</th>
                                                 </tr>
-                                                <tr>
-                                                    <th class="table-secondary">Contrôle calage des encoches</th>
-                                                    <td>{{ parametre.controleBobinage.conformite1}}</td>
-                                                    <td>{{ parametre.controleBobinage.preconisation1}}</td>
-                                                    <td>{{ parametre.controleBobinage.retenu1}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="table-secondary">Contrôle laçage des développantes</th>
-                                                    <td>{{ parametre.controleBobinage.conformite2}}</td>
-                                                    <td>{{ parametre.controleBobinage.preconisation2}}</td>
-                                                    <td>{{ parametre.controleBobinage.retenu2}}</td>
-                                                </tr>
+                                                {% if parametre.controleBobinage %}
+                                                    <tr>
+                                                        <th class="table-secondary">Contrôle calage des encoches</th>
+                                                        <td>{{ parametre.controleBobinage.conformite1}}</td>
+                                                        <td>{{ parametre.controleBobinage.constat1}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="table-secondary">Contrôle laçage des développantes</th>
+                                                        <td>{{ parametre.controleBobinage.conformite2}}</td>
+                                                        <td>{{ parametre.controleBobinage.constat2}}</td>
+                                                    </tr>                                                    
+                                                {% endif %}
                                             </table>
                                         </div>
                                     <!-- /fin Contrôles de bobinages -->
@@ -997,56 +994,50 @@
                                                         <div class="col-md-6">
                                                             <table class="table table-bordered table-striped">
                                                                 <tr  class="table-secondary">
-                                                                    <th class="text-center" colspan="2">Machine équipée d'hydro ou Aéro</th>
+                                                                    <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
                                                                 </tr>
                                                                 <tr  class="table-secondary">
-                                                                    <th class="text-center">Nature du contrôle</th>
+                                                                    <th colspan="2" class="text-center">Nature du contrôle</th>
                                                                     <th class="text-center">Conformité</th>
-                                                                    {#<th class="text-center">Préconisation</th>
-                                                                    <th class="text-center">Retenu</th>#}
+                                                                    <th class="text-center">Constats</th>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Essais de presion à x Bars</td>
+                                                                    <td>{{ parametre.hydroAero.nature}}</td>
                                                                     <td>{{ parametre.hydroAero.conformite1}}</td>
-                                                                   {# <td>{{ parametre.hydroAero.preconisation1}}</td>
-                                                                    <td>{{ parametre.hydroAero.retenu1}}</td>#}
+                                                                    <td>{{ parametre.hydroAero.constat1}}</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>Contrôle visuel des ailettes</td>
+                                                                <tr> 
+                                                                    <td colspan="2">Contrôle visuel des ailettes</td>
                                                                     <td>{{ parametre.hydroAero.conformite2}}</td>
-                                                                    {#<td>{{ parametre.hydroAero.preconisation2}}</td>
-                                                                    <td>{{ parametre.hydroAero.retenu2}}</td>#}
+                                                                    <td>{{ parametre.hydroAero.constat2}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Contrôle visuel des boites à eau</td>
+                                                                    <td colspan="2">Contrôle visuel des boites à eau</td>
                                                                     <td>{{ parametre.hydroAero.conformite3}}</td>
-                                                                    {#<td>{{ parametre.hydroAero.preconisation3}}</td>
-                                                                    <td>{{ parametre.hydroAero.retenu3}}</td>#}
+                                                                    <td>{{ parametre.hydroAero.constat3}}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <table class="table table-bordered table-striped">
                                                                 <tr  class="table-secondary">
-                                                                    <th class="text-center" colspan="2">Pression dépend des préconisation constructeurs</th>
+                                                                    <th class="text-center" colspan="3">Pression dépend des préconisation constructeurs</th>
                                                                 </tr>
                                                                 <tr  class="table-secondary">
                                                                     <th class="text-center">Nature du contrôle</th>
                                                                     <th class="text-center">Conformité</th>
-                                                                    {#<th class="text-center">Préconisation</th>
-                                                                    <th class="text-center">Retenu</th>#}
+                                                                    <th class="text-center">Constats</th>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Contrôle du dudgeonages des tubes</td>
                                                                     <td>{{ parametre.hydroAero.conformite4}}</td>
-                                                                    {#<td>{{ parametre.hydroAero.preconisation4}}</td>
-                                                                    <td>{{ parametre.hydroAero.retenu4}}</td>
+                                                                    <td>{{ parametre.hydroAero.constat4}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Contrôle visuel des tubes</td>
                                                                     <td>{{ parametre.hydroAero.conformite5}}</td>
-                                                                    {#<td>{{ parametre.hydroAero.preconisation5}}</td>
-                                                                    <td>{{ parametre.hydroAero.retenu5}}</td>#}
+                                                                    <td>{{ parametre.hydroAero.constat5}}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -1149,25 +1140,7 @@
                                                         </tr>
                                                     </table>
                                                 </div>
-                                            </div> 
-        
-                                            <!-- la gestion des valeur saisir automatiquement -->
-                                                {% set tension_essaie = 0 %}
-                                                {% if parametre.statorTension < 500 %}
-                                                    {% set tension_essaie = 500 %}
-                                                {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
-                                                    {% set tension_essaie = 1000 %}
-                                                {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
-                                                    {% set tension_essaie = 2500 %}
-                                                {% elseif parametre.statorTension > 5000 %}
-                                                    {% set tension_essaie = 5000 %}
-                                                {% endif %}
-                                                <!-- la gestion des valeur saisir automatiquement -->
-                            
-                                                {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                                                
-                                            <!-- fin des valeurs -->
-            
+                                            </div>             
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <table class="table table-bordered table-striped">
@@ -1175,8 +1148,8 @@
                                                             <th width="14%">Contrôle</th>
                                                             <th width="14%">Critère</th>
                                                             <th class="text-center" width="14%">Tension d'éssai(V)</th>
-                                                            <th class="text-center" width="14%">Valeur relevées avant lavage en  MΩ</th>
-                                                            <th width="14%">Valeur relevées après lavage en  MΩ</th>
+                                                            <th class="text-center" width="14%">Valeur relevées avant lavage</th>
+                                                            <th width="14%">Valeur relevées après lavage</th>
                                                             <th width="14%">Correction à 20°</th>
                                                             <th width="14%">Conformité</th>
                                                         </tr>
@@ -1186,7 +1159,7 @@
                                                                 <td class="text-center">{{ item.critere }}</td>
                                                                 <td class="text-center">{{item.tensionEssai}}</td>
                                                                 <td class="text-center">{{item.valeurRelevee}}</td>
-                                                                <td class="text-center">{{ item.valeur}}</td>
+                                                                <td class="text-center">{{ item.valeur}} {{item.unite}}</td>
                                                                 <td class="text-center">{{item.tempCorrection}}</td>
                                                                 <td class="text-center">{{ item.conformite }}</td>
                                                             </tr>                                                    
@@ -1225,8 +1198,8 @@
                                                     <tr  class="table-secondary">
                                                         <th width="16%">Contrôle</th>
                                                         <th width="16%">Critère (MΩ)</th>
-                                                        <th width="16%">Valeur relevée avant lavage (MΩ)</th>
-                                                        <th width="16%">Valeur relevées (MΩ)</th>
+                                                        <th width="16%">Valeur relevée avant lavage</th>
+                                                        <th width="16%">Valeur relevées</th>
                                                         <th width="16%">Correction à 20°</th>
                                                         <th width="16%">Conformité</th>
                                                     </tr>
@@ -1237,7 +1210,7 @@
                                                                 <td>{{item.controle}}</td>
                                                                 <td>{{item.critere}}</td>
                                                                 <td>{{item.valeurRelevee}}</td>
-                                                                <td>{{item.valeur}}</td>
+                                                                <td>{{item.valeur}} {{item.unite}}</td>
                                                                 <td>{{item.tempCorrection}}</td>
                                                                 <td>{{item.conformite}}</td>
                                                             </tr>                                        
@@ -1249,171 +1222,171 @@
                                     <!-- début sonde bobinage -->
 
                                     <!-- début caractéristique -->
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-bordered table-striped">
+                                                    <tr  class="table-secondary">
+                                                        <th></th>
+                                                        <th>U (v)</th>
+                                                        <th>I1 (A)</th>
+                                                        <th>I2 (A)</th>
+                                                        <th>I3 (A)</th>
+                                                        <th>P (kW)</th>
+                                                        <th>Q (kVAR)</th>
+                                                        <th>cos</th>
+                                                        <th>N (tr/min)</th>
+                                                        <th>Pj (W)</th>
+                                                        <th>P-Pj (KW)</th>
+                                                    </tr>
+                                                    {% if parametre.caracteristiques %}
+                                                        {% set i = 0 %}
+                                                        {% for item in parametre.caracteristiques %}
+                                                            {% set i = i + 1 %}
+                                                            <tr>
+                                                                <td>{{i}}</td>
+                                                                <td>{{item.u}}</td>
+                                                                <td>{{item.i1 }}</td>
+                                                                <td>{{item.i2 }}</td>
+                                                                <td>{{item.i3 }}</td>
+                                                                <td>{{item.p}}</td>
+                                                                <td>{{item.q}}</td>
+                                                                <td>{{item.cos }}</td>
+                                                                <td>{{item.n}}</td>
+                                                                <td>{{item.pj }}</td>  
+                                                                <td>{{item.Ppj }}</td> 
+                                                            </tr> 
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </table>
+                                                {% if parametre.autreCaracteristique %}
+                                                    <table class="table table-bordered table-striped">
+                                                        <tr>
+                                                            <th class="table-secondary">Résistance</th>
+                                                            <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="table-secondary">Pertes</th>
+                                                            <td>{{ parametre.autreCaracteristique.perte1}}</td>
+                                                            <td>tr/min</td>
+                                                            <td>{{ parametre.autreCaracteristique.perte2}}</td>
+                                                            <td>W</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="table-secondary">Pertes Fer à </th>
+                                                            <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
+                                                            <td>V</td>
+                                                            <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
+                                                            <td>W</td>
+                                                        </tr>
+                                                    </table>
+                                                {% endif %}
+                                            </div>
+                                        </div>  
+                                    <!-- fin caractéristique -->
+                                            
+                                    <!-- début point fonctionnement rotor -->
+                                        <div class="row">
                                             <table class="table table-bordered table-striped">
                                                 <tr  class="table-secondary">
-                                                    <th></th>
+                                                    <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
+                                                </tr>
+                                                <tr class="table-secondary text-center">
                                                     <th>U (v)</th>
                                                     <th>I1 (A)</th>
                                                     <th>I2 (A)</th>
                                                     <th>I3 (A)</th>
-                                                    <th>P (kW)</th>
-                                                    <th>Q (kVAR)</th>
-                                                    <th>cos</th>
-                                                    <th>N (tr/min)</th>
-                                                    <th>Pj (W)</th>
-                                                    <th>P-Pj (KW)</th>
+                                                    <th>Imoy (A)</th>
+                                                    <th>Pabs (kW)</th>
+                                                    <th>Pjoule (kW)</th>
                                                 </tr>
-                                                {% if parametre.caracteristiques %}
-                                                    {% set i = 0 %}
-                                                    {% for item in parametre.caracteristiques %}
-                                                        {% set i = i + 1 %}
-                                                        <tr>
-                                                            <td>{{i}}</td>
-                                                            <td>{{item.u}}</td>
-                                                            <td>{{item.i1 }}</td>
-                                                            <td>{{item.i2 }}</td>
-                                                            <td>{{item.i3 }}</td>
-                                                            <td>{{item.p}}</td>
-                                                            <td>{{item.q}}</td>
-                                                            <td>{{item.cos }}</td>
-                                                            <td>{{item.n}}</td>
-                                                            <td>{{item.pj }}</td>  
-                                                            <td>{{item.Ppj }}</td> 
-                                                        </tr> 
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </table>
-                                            {% if parametre.autreCaracteristique %}
-                                                <table class="table table-bordered table-striped">
+                                            {% if parametre.pointFonctionnementRotors %}
+                                                {% for item in parametre.pointFonctionnementRotors %}
                                                     <tr>
-                                                        <th class="table-secondary">Résistance</th>
-                                                        <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
+                                                        <td>{{item.u }}</td>
+                                                        <td>{{item.i1 }}</td>
+                                                        <td>{{item.i2 }}</td>
+                                                        <td>{{item.i3 }}</td>
+                                                        <td>{{item.imoy }}</td>
+                                                        <td>{{item.pabs }}</td>
+                                                        <td>{{item.pjoule }}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th class="table-secondary">Pertes</th>
-                                                        <td>{{ parametre.autreCaracteristique.perte1}}</td>
-                                                        <td>tr/min</td>
-                                                        <td>{{ parametre.autreCaracteristique.perte2}}</td>
-                                                        <td>W</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="table-secondary">Pertes Fer à </th>
-                                                        <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
-                                                        <td>V</td>
-                                                        <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
-                                                        <td>W</td>
-                                                    </tr>
-                                                </table>
+                                                {% endfor %}
                                             {% endif %}
+                                            </table>
                                         </div>
-                                    </div>  
-                                    <!-- fin caractéristique -->
-                                            
-                                    <!-- début point fonctionnement rotor -->
-                                    <div class="row">
-                                        <table class="table table-bordered table-striped">
-                                            <tr  class="table-secondary">
-                                                <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
-                                            </tr>
-                                            <tr class="table-secondary text-center">
-                                                <th>U (v)</th>
-                                                <th>I1 (A)</th>
-                                                <th>I2 (A)</th>
-                                                <th>I3 (A)</th>
-                                                <th>Imoy (A)</th>
-                                                <th>Pabs (kW)</th>
-                                                <th>Pjoule (kW)</th>
-                                            </tr>
-                                        {% if parametre.pointFonctionnementRotors %}
-                                            {% for item in parametre.pointFonctionnementRotors %}
-                                                <tr>
-                                                    <td>{{item.u }}</td>
-                                                    <td>{{item.i1 }}</td>
-                                                    <td>{{item.i2 }}</td>
-                                                    <td>{{item.i3 }}</td>
-                                                    <td>{{item.imoy }}</td>
-                                                    <td>{{item.pabs }}</td>
-                                                    <td>{{item.pjoule }}</td>
+                                        {% if parametre.autrePointFonctionnementRotor %}
+                                        <div class="row">
+                                            <table class="table table-bordered table-striped">
+                                                <tr class="text-center">
+                                                    <th class="table-secondary">M</th>
+                                                    <th class="table-secondary">Indication du peson</th>
+                                                    <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
+                                                    <td>kg</td>
+                                                    <td></td>
                                                 </tr>
-                                            {% endfor %}
+                                                <tr class="text-center">
+                                                    <th class="table-secondary">ID</th>
+                                                    <th class="table-secondary">Courant de démarrage à Un</th>
+                                                    <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
+                                                    <td>A</td>
+                                                    <th>ID = Imoy * Un/U</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <th class="table-secondary">CD</th>
+                                                    <th class="table-secondary">Couple de démarrage à Un</th>
+                                                    <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
+                                                    <td>Nm</td>
+                                                    <th>CD = (9.81 * M * Un/U)</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                         {% endif %}
-                                        </table>
-                                    </div>
-                                    {% if parametre.autrePointFonctionnementRotor %}
-                                    <div class="row">
-                                        <table class="table table-bordered table-striped">
-                                            <tr class="text-center">
-                                                <th class="table-secondary">M</th>
-                                                <th class="table-secondary">Indication du peson</th>
-                                                <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
-                                                <td>kg</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <th class="table-secondary">ID</th>
-                                                <th class="table-secondary">Courant de démarrage à Un</th>
-                                                <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
-                                                <td>A</td>
-                                                <th>ID = Imoy * Un/U</th>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <th class="table-secondary">CD</th>
-                                                <th class="table-secondary">Couple de démarrage à Un</th>
-                                                <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
-                                                <td>Nm</td>
-                                                <th>CD = (9.81 * M * Un/U)</th>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    {% endif %}
                                      <!-- fin point fonctionnement rotor --> 
                
                                     <!-- début Appareils de mesure utilisés -->
-                                    <div class="row">
-                                        {% if parametre.appareilMesures %}
-                                            <table class="table table-bordered">
-                                                <tr  class="table-secondary">
-                                                    <th>Désignation du moyen de contrôle</th>
-                                                    <th>N° de l'appareil</th>
-                                                    <th>Date de validité</th>
-                                                </tr>
-                                                {% for item in parametre.appareilMesureElectriques %}
-                                                    <tr>
-                                                        <td>{{item.appareil.designation}}</td>
-                                                        <td>{{item.appareil.numAppareil}}</td>
-                                                        <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                        <div class="row">
+                                            {% if parametre.appareilMesures %}
+                                                <table class="table table-bordered">
+                                                    <tr  class="table-secondary">
+                                                        <th>Désignation du moyen de contrôle</th>
+                                                        <th>N° de l'appareil</th>
+                                                        <th>Date de validité</th>
                                                     </tr>
-                                                {% endfor %} 
-                                            </table>                                        
-                                        {% endif %}
-                                    </div>
+                                                    {% for item in parametre.appareilMesureElectriques %}
+                                                        <tr>
+                                                            <td>{{item.appareil.designation}}</td>
+                                                            <td>{{item.appareil.numAppareil}}</td>
+                                                            <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                        </tr>
+                                                    {% endfor %} 
+                                                </table>                                        
+                                            {% endif %}
+                                        </div>
                                     <!-- /fin Appareils de mesure utilisés -->
                                     
                                     <!-- début constats eléc après lavage -->
-                                    <div class="row">
-                                        <table class="table table-bordered">
-                                            <tr  class="table-secondary">
-                                                <th>Vérification</th>
-                                                <th>Critères</th>
-                                                <th>Observation</th>
-                                                <th>Préconisations et conclusion</th>
-                                                <th>Retenu</th>
-                                                <th>Photo</th>
-                                            </tr>
-                                            {% for item in parametre.constatElectriqueApresLavages %}
-                                                <tr class="table-striped">
-                                                    <td>{{item.verification}}</td>
-                                                    <td>{{item.critere}}</td>
-                                                    <td>{{item.observation}}</td>
-                                                    <td>{{item.preconisationConclusion}}</td>
-                                                    <td>{{item.retenu}}</td>
-                                                    <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
-                                                </tr>                                                    
-                                            {% endfor %}
-                                        </table>
-                                    </div>
+                                        <div class="row">
+                                            <table class="table table-bordered">
+                                                <tr  class="table-secondary">
+                                                    <th>Vérification</th>
+                                                    <th>Critères</th>
+                                                    <th>Observation</th>
+                                                    <th>Préconisations et conclusion</th>
+                                                    <th>Retenu</th>
+                                                    <th>Photo</th>
+                                                </tr>
+                                                {% for item in parametre.constatElectriqueApresLavages %}
+                                                    <tr class="table-striped">
+                                                        <td>{{item.verification}}</td>
+                                                        <td>{{item.critere}}</td>
+                                                        <td>{{item.observation}}</td>
+                                                        <td>{{item.preconisationConclusion}}</td>
+                                                        <td>{{item.retenu}}</td>
+                                                        <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
+                                                    </tr>                                                    
+                                                {% endfor %}
+                                            </table>
+                                        </div>
                                     <!-- /fin constats eléc après lavage -->
                                 </div>
                             </div>
@@ -1422,15 +1395,15 @@
                 {# fin expertise électrique après lavage #}
                 
                 <!-- début bouton -->
-                <div class="x_panel"> 
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <a href="{{path('app_validation_valide', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation Rapport Expertise<i class="fa fa-check-circle p-2"></i></a>
-                            </div>
-                        </div> 
+                    <div class="x_panel"> 
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a href="{{path('app_validation_valide', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation Rapport Expertise<i class="fa fa-check-circle p-2"></i></a>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                </div>
             <!-- /fin bouton -->
             </div>
         </div>

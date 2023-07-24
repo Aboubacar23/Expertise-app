@@ -34,7 +34,8 @@ class RevueEnclenchementType extends AbstractType
             ->add('description_prestation')
             ->add('contre_expertise')
             ->add('re7_client', DateType::class,[
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('observation')
             ->add('clarification')

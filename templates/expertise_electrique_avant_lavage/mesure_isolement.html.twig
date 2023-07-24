@@ -67,13 +67,20 @@
                                 </table>
                             </div>
                             <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
                                         <th width="14%">Type</th>
                                         <th width="14%">Contrôle</th>
                                         <th width="14%">Critère (MΩ)</th>
-                                        <th width="14%">Tension d'éssai</th>
-                                        <th width="14%">Valeur relevées</th>
+                                        <th width="14%">Tension d'éssai (V)</th>
+                                        <th width="14%">Valeur relevées {{ form_widget(form.unite) }}</></th>
                                         <th width="14%">Correction à 20°</th>
                                         <th width="14%">Conformité</th>
                                         <th width="100"></th>
@@ -94,7 +101,7 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.tension}}</td>
-                                            <td>{{item2.valeur}}</td>
+                                            <td>{{item2.valeur}} {{ item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_mesure', {'id' : item2.lig, 'paramID' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -108,7 +115,7 @@
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
-                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.valeur}} {{ item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -136,18 +143,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            /*
-            {% set tension_essaie = 0 %}
-                {% if parametre.statorTension < 500 %}
-                    {% set tension_essaie = 500 %}
-                {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
-                    {% set tension_essaie = 1000 %}
-                {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
-                    {% set tension_essaie = 2500 %}
-                {% elseif parametre.statorTension > 5500 %}
-                    {% set tension_essaie = 5000 %}
-                {% endif %}
-            */
             let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_temp_ambiante').value);
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_type');
@@ -155,6 +150,7 @@
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
             const critere = {{ parametre.critere }};
+            const valeur_temp = {{ parametre.tempCorrection }};
 
             if(var_type.value == 'Stator')
             {
@@ -228,7 +224,7 @@
             let valeurCorrection = 0;
             if(temp_ambiante >= 10 && temp_ambiante <=30)
             {
-                val = (Math.pow(0.50,(20 - temp_ambiante)/10));
+                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
                 valeurFinale = valeurCorrection.toFixed(2);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);

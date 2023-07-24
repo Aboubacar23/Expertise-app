@@ -25,20 +25,9 @@ class ControleBobinageType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
-            ->add('preconisation1')
-            ->add('preconisation2')
-            ->add('retenu1', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
-            ->add('retenu2', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
+            ->add('constat1')
+            ->add('constat2')
+
             ->add('observation')
         ;
     }

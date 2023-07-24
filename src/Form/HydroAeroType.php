@@ -43,18 +43,13 @@ class HydroAeroType extends AbstractType
                     'Non' => 'Non'
                 ]
             ])
-         /*   ->add('preconisation1')
-            ->add('preconisation2')
-            ->add('preconisation3')
-            ->add('preconisation4')
-            ->add('preconisation5')
-            ->add('retenu1', ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
-            ->add('retenu2', ChoiceType::class, [
+           ->add('constat1')
+            ->add('constat2')
+            ->add('constat3')
+            ->add('constat4')
+            ->add('constat5')
+           ->add('nature')
+           /*   ->add('retenu2', ChoiceType::class, [
                 'choices' => [
                     'Oui' => 'Oui',
                     'Non' => 'Non'

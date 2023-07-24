@@ -36,6 +36,9 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Affaire::class)]
     private Collection $affaires;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $code_postal = null;
+
     public function __construct()
     {
         $this->affaires = new ArrayCollection();
@@ -151,5 +154,17 @@ class Client
     public function __toString()
     {
         return $this->getNom().' - '.$this->getSite();
+    }
+
+    public function getCodePostal(): ?int
+    {
+        return $this->code_postal;
+    }
+
+    public function setCodePostal(?int $code_postal): static
+    {
+        $this->code_postal = $code_postal;
+
+        return $this;
     }
 }

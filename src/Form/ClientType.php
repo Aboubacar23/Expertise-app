@@ -17,6 +17,9 @@ class ClientType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom',
                 'required' => false,
+                'attr' => [
+                    'class' => 'text-transform'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le nom du client est obligatoire'
@@ -36,6 +39,7 @@ class ClientType extends AbstractType
                 'required' => false
             ])
             ->add('ville')
+            ->add('code_postal')
             ->add('contact')
         ;
     }

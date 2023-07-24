@@ -966,31 +966,28 @@
             {% if parametre.hydroAero %}
                 <table>
                     <tr class="titre_table">
-                        <th colspan="2">Machine équipée d'hydro ou Aéro</th>
+                        <th colspan="4">Machine équipée d'hydro ou Aéro</th>
                     </tr>
                     <tr class="titre_table">
-                        <th>Nature du contrôle</th>
+                        <th colspan="2">Nature du contrôle</th>
                         <th>Conformité</th>
-                        {#<th>Préconisation</th>
-                        <th>Retenu</th>#}
+                        <th>Constats</th>
                     </tr>
                     <tr>
                         <td>Essais de presion à x Bars</td>
+                        <td>{{ parametre.hydroAero.nature}}</td>
                         <td>{{ parametre.hydroAero.conformite1}}</td>
-                        {#<td>{{ parametre.hydroAero.preconisation1}}</td>
-                        <td>{{ parametre.hydroAero.retenu1}}</td>#}
+                        <td>{{ parametre.hydroAero.constat1}}</td>
                     </tr>
-                    <tr>
-                        <td>Contrôle visuel des ailettes</td>
+                    <tr> 
+                        <td colspan="2">Contrôle visuel des ailettes</td>
                         <td>{{ parametre.hydroAero.conformite2}}</td>
-                        {#<td>{{ parametre.hydroAero.preconisation2}}</td>
-                        <td>{{ parametre.hydroAero.retenu2}}</td>#}
+                        <td>{{ parametre.hydroAero.constat2}}</td>
                     </tr>
                     <tr>
-                        <td>Contrôle visuel des boites à eau</td>
+                        <td colspan="2">Contrôle visuel des boites à eau</td>
                         <td>{{ parametre.hydroAero.conformite3}}</td>
-                        {#<td>{{ parametre.hydroAero.preconisation3}}</td>
-                        <td>{{ parametre.hydroAero.retenu3}}</td>#}
+                        <td>{{ parametre.hydroAero.constat3}}</td>
                     </tr>
                 </table>    
             {% endif %}
@@ -1000,23 +997,24 @@
             {% if parametre.hydroAero %}
                 <table>
                     <tr class="titre_table">
-                        <th colspan="2">Pression dépend des préconisation constructeurs</th>
+                        <th colspan="3">Pression dépend des préconisation constructeurs</th>
                     </tr>
                     <tr class="titre_table">
                         <th>Nature du contrôle</th>
                         <th>Conformité</th>
-                        {#<th>Préconisation</th>
-                        <th>Retenu</th>#}
+                        <th>Constsat</th>
+                       {# <th>Retenu</th>#}
                     </tr>
                     <tr>
                         <td>Contrôle du dudgeonages des tubes</td>
                         <td>{{ parametre.hydroAero.conformite4}}</td>
-                        {#<td>{{ parametre.hydroAero.preconisation4}}</td>
-                        <td>{{ parametre.hydroAero.retenu4}}</td>#}
+                        <td>{{parametre.hydroAero.constat4 }}</td>
+                        {#  <td>{{ parametre.hydroAero.retenu4}}</td>#}
                     </tr>
                     <tr>
                         <td>Contrôle visuel des tubes</td>
                         <td>{{ parametre.hydroAero.conformite5}}</td>
+                        <td>{{parametre.hydroAero.constat5 }}</td>
                         {#<td>{{ parametre.hydroAero.preconisation5}}</td>
                         <td>{{ parametre.hydroAero.retenu5}}</td>#}
                     </tr>
@@ -1073,7 +1071,7 @@
 {# la partie 6 expertise electrique #}
     <div class="page_break"></div>
     <div class="page6">
-        <h2>V.  Expertise électrique</h2>
+        <h2>VI.  Expertise électrique</h2>
         <div class="sous_page6_1">
             <h4>A.  <span class="span_titre">Essais plate-forme (suivant SAQ 94 100) à Réception</span></h4>
             <h5>1.  <span class="span_titre">Mesure d’isolement et Index</span></h5>
@@ -1111,7 +1109,7 @@
                             <td>{{item.controle}}</td>
                             <td>{{item.critere}}</td>
                             <td>{{item.tension}}</td>
-                            <td>{{item.valeur}}</td>
+                            <td>{{item.valeur}} {{item.unite}}</td>
                             <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
@@ -1151,7 +1149,7 @@
                         <tr>
                             <td>{{item.controle}}</td>
                             <td>{{item.critere}}</td>
-                            <td>{{item.valeur}}</td>
+                            <td>{{item.valeur}} {{item.unite}}</td>
                             <td>{{item.tempCorrection}}</td>
                             <td>{{item.conformite}}</td>
                         </tr>                                        
@@ -1318,20 +1316,17 @@
                     <tr class="titre_table">
                         <th class="aligne_cellulle_left">Nature du contrôle</th>
                         <th class="taille_cellulle80">Conformité</th>
-                        <th>Préconisation</th>
-                        <th class="taille_cellulle80">Retenu</th>
+                        <th>Constats</th>
                     </tr>
                     <tr>
                         <th class="aligne_cellulle_left">Contrôle calage des encoches</th>
                         <td>{{ parametre.controleBobinage.conformite1}}</td>
-                        <td>{{ parametre.controleBobinage.preconisation1}}</td>
-                        <td>{{ parametre.controleBobinage.retenu1}}</td>
+                        <td>{{ parametre.controleBobinage.constat1}}</td>
                     </tr>
                     <tr>
                         <th class="aligne_cellulle_left">Contrôle laçage des développantes</th>
                         <td>{{ parametre.controleBobinage.conformite2}}</td>
-                        <td>{{ parametre.controleBobinage.preconisation2}}</td>
-                        <td>{{ parametre.controleBobinage.retenu2}}</td>
+                        <td>{{ parametre.controleBobinage.constat2}}</td>
                     </tr>
                 </table>                                
             {% endif %}
@@ -1877,7 +1872,6 @@
     </div>
 {# fin de la partie 9 #}
 
-
 {# la partie 10 Essais en rotation #}
     <div class="page_break"></div>
     <div class="page10">
@@ -1901,30 +1895,14 @@
                         <td>{{parametre.critere}}</td>
                     </tr>
                 </table>
-
-                <!-- la gestion des valeur saisir automatiquement -->
-                    {% set tension_essaie = 0 %}
-                    {% if parametre.statorTension < 500 %}
-                        {% set tension_essaie = 500 %}
-                    {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
-                        {% set tension_essaie = 1000 %}
-                    {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
-                        {% set tension_essaie = 2500 %}
-                    {% elseif parametre.statorTension > 5000 %}
-                        {% set tension_essaie = 5000 %}
-                    {% endif %}
-                    <!-- la gestion des valeur saisir automatiquement -->
-
-                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                    
-                <!-- fin des valeurs -->
                 <table>
                     <tr  class="titre_table">
                         <th style="width: 150px;">Contrôle</th>
                         <th style="width: 80px; text-align: center;">Critère</th>
                         <th style="width: 80px; text-align: center;">Tension d'éssai(V)</th>
-                        <th style="width: 80px; text-align: center;">Valeur relevées avant lavage en  MΩ</th>
-                        <th style="width: 80px; text-align: center;">Valeur relevées après lavage en  MΩ</th>
+                        <th style="width: 80px; text-align: center;">Valeur relevées avant lavage</th>
+                        <th style="width: 80px; text-align: center;">Valeur relevées après lavage</th>
+                        <th style="width: 80px; text-align: center;">T. Correction</th>
                         <th style="width: 80px; text-align: center;">Conformité</th>
                     </tr>
                     {% for item in parametre.statorApresLavage.lstatorApresLavages %}
@@ -1933,7 +1911,8 @@
                             <td style="text-align: center;">{{ item.critere }}</td>
                             <td style="text-align: center;">{{item.tensionEssai}}</td>
                             <td style="text-align: center;">{{item.valeurRelevee}}</td>
-                            <td style="text-align: center;">{{ item.valeur}}</td>
+                            <td style="text-align: center;">{{ item.valeur}} {{item.unite}}</td>
+                            <td style="text-align: center;">{{ item.tempCorrection }}</td>
                             <td style="text-align: center;">{{ item.conformite }}</td>
                         </tr>                                                    
                     {% endfor %}
@@ -1942,45 +1921,47 @@
             <!-- fin  stator après lavage --> 
             <h5>2.  <span class="span_titre">Mesure des résistances ohmiques</span></h5>
             <!-- début sonde bobinage -->
-            {% if parametre.sondeBobinage %}
-                <table>
-                    <tr  class="titre_table">
-                        <th colspan="5" class="text-center">Paramètres</th>
-                    </tr>
-                    <tr>
-                        <th>T° Ambiante (°C)</th>
-                        <th>T° Tôlerie (°C)</th>
-                        <th>Hygrométrie (%)</th>
-                        <th>Critère</th>
-                        <th>Tension Machine</th>
-                    </tr>
-                    <tr>
-                        <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
-                        <td >{{parametre.sondeBobinage.tempTolerie }}</td>
-                        <td >{{parametre.sondeBobinage.hygrometrie }}</td>
-                        <td>{{parametre.critere}} Ω/V </td>
-                        <td>{{parametre.statorTension}}</td>
-                    </tr>   
-                </table>
-                <table>
-                    <tr  class="titre_table">
-                        <th style="width: 150px;">Contrôle</th>
-                        <th style="width: 80px;">Critère (MΩ)</th>
-                        <th style="width: 80px;">Valeur relevée avant lavage (MΩ)</th>
-                        <th style="width: 80px;">Valeur relevées (MΩ)</th>
-                        <th style="width: 80px;">Conformité</th>
-                    </tr>
-                    {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                {% if parametre.sondeBobinage %}
+                    <table>
+                        <tr  class="titre_table">
+                            <th colspan="5" class="text-center">Paramètres</th>
+                        </tr>
                         <tr>
-                            <td>{{item.controle}}</td>
-                            <td style="text-align: center;">{{item.critere}}</td>
-                            <td style="text-align: center;">{{item.valeurRelevee}}</td>
-                            <td style="text-align: center;">{{item.valeur}}</td>
-                            <td style="text-align: center;">{{item.conformite}}</td>
-                        </tr>                                        
-                    {% endfor %}   
-                </table>
-            {% endif %}
+                            <th>T° Ambiante (°C)</th>
+                            <th>T° Tôlerie (°C)</th>
+                            <th>Hygrométrie (%)</th>
+                            <th>Critère</th>
+                            <th>Tension Machine</th>
+                        </tr>
+                        <tr>
+                            <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
+                            <td >{{parametre.sondeBobinage.tempTolerie }}</td>
+                            <td >{{parametre.sondeBobinage.hygrometrie }}</td>
+                            <td>{{parametre.critere}} Ω/V </td>
+                            <td>{{parametre.statorTension}}</td>
+                        </tr>   
+                    </table>
+                    <table>
+                        <tr  class="titre_table">
+                            <th style="width: 150px;">Contrôle</th>
+                            <th style="width: 80px;">Critère (MΩ)</th>
+                            <th style="width: 80px;">Valeur relevée avant lavage</th>
+                            <th style="width: 80px;">Valeur relevées</th>
+                            <th style="width: 80px;">T. Correction</th>
+                            <th style="width: 80px;">Conformité</th>
+                        </tr>
+                        {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                            <tr>
+                                <td>{{item.controle}}</td>
+                                <td style="text-align: center;">{{item.critere}}</td>
+                                <td style="text-align: center;">{{item.valeurRelevee}}</td>
+                                <td style="text-align: center;">{{item.valeur}} {{item.unite}}</td>
+                                <td style="text-align: center;">{{item.tempCorrection}}</td>
+                                <td style="text-align: center;">{{item.conformite}}</td>
+                            </tr>                                        
+                        {% endfor %}   
+                    </table>
+                {% endif %}
             <!-- début sonde bobinage -->
             <h5>3.  <span class="span_titre">Fac simile de la boîte à bornes</span></h5>
             <table>

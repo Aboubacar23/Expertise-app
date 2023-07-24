@@ -56,6 +56,7 @@ use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
+use SebastianBergmann\Environment\Console;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -166,6 +167,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setUnite($item->getUnite());
                     $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolement($mesureIsolement);
@@ -190,6 +192,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setUnite($item->getUnite());
                     $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolement($mesureIsolement);
@@ -205,6 +208,23 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             {
                 $lig = sizeof($tables)+1;
                 $lmesureIsolement->setLig($lig);
+                foreach($tables as $i)
+                {
+                    if($i->getType() == $lmesureIsolement->getType() and $i->getControle() == $lmesureIsolement->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                    }
+                }
+
+                foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $j)
+                {
+                    if($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                    }
+                }
                 $tables[$lig] = $lmesureIsolement;
                 $session->set('mesures', $tables);
             }
@@ -255,6 +275,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureResistance($mesureResistance);
@@ -278,6 +299,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
+                    $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureResistance($mesureResistance);
@@ -294,6 +316,25 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             {
                 $lig = sizeof($tables)+1;
                 $lmesureResistance->setLig($lig);
+
+                foreach($tables as $i)
+                {
+                    if($i->getControle() == $lmesureResistance->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                    }
+                }
+
+                foreach($parametre->getMesureResistance()->getLMesureResistances() as $j)
+                {
+                    if($j->getControle() == $lmesureResistance->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                    }
+                }
+
                 $tables[$lig] = $lmesureResistance;
                 $session->set('resistances', $tables);
             }

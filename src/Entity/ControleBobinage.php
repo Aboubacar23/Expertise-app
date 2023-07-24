@@ -21,16 +21,10 @@ class ControleBobinage
     private ?string $conformite2 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $preconisation1 = null;
+    private ?string $constat1 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $preconisation2 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $retenu1 = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $retenu2 = null;
+    private ?string $constat2 = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
@@ -70,50 +64,26 @@ class ControleBobinage
         return $this;
     }
 
-    public function getPreconisation1(): ?string
+    public function getConstat1(): ?string
     {
-        return $this->preconisation1;
+        return $this->constat1;
     }
 
-    public function setPreconisation1(string $preconisation1): self
+    public function setConstat1(string $constat1): self
     {
-        $this->preconisation1 = $preconisation1;
+        $this->constat1 = $constat1;
 
         return $this;
     }
 
-    public function getPreconisation2(): ?string
+    public function getConstat2(): ?string
     {
-        return $this->preconisation2;
+        return $this->constat2;
     }
 
-    public function setPreconisation2(string $preconisation2): self
+    public function setConstat2(string $constat2): self
     {
-        $this->preconisation2 = $preconisation2;
-
-        return $this;
-    }
-
-    public function getRetenu1(): ?string
-    {
-        return $this->retenu1;
-    }
-
-    public function setRetenu1(string $retenu1): self
-    {
-        $this->retenu1 = $retenu1;
-
-        return $this;
-    }
-
-    public function getRetenu2(): ?string
-    {
-        return $this->retenu2;
-    }
-
-    public function setRetenu2(string $retenu2): self
-    {
-        $this->retenu2 = $retenu2;
+        $this->constat2 = $constat2;
 
         return $this;
     }

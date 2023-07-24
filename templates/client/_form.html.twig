@@ -43,7 +43,13 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact</label>
+                        <label for="ville" class="col-form-label col-md-3 col-sm-3 label-align">Code Postal</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.code_postal)}}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label for="contact" class="col-form-label col-md-3 col-sm-3 label-align">Contact (Nom ou N° Téléphone)</label>
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.contact)}}
                         </div>

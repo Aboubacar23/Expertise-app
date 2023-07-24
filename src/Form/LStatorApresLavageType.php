@@ -28,8 +28,27 @@ class LStatorApresLavageType extends AbstractType
             ])
             ->add('critere')
             ->add('temp_correction')
+            ->add('unite', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Ω' => 'Ω',
+                    'mΩ' => 'mΩ',
+                    'µΩ' => 'µΩ',
+                    'kΩ' => 'kΩ',
+                    'MΩ' => 'MΩ',
+                    'GΩ' => 'GΩ',
+                ]
+            ])
             ->add('valeur', NumberType::class, [
                 'required' => true,
+            ])
+            ->add('type', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    '' => '',
+                    'Stator' => 'Stator',
+                    'Rotor' => 'Rotor'
+                ]
             ])
             ->add('conformite', ChoiceType::class, [
                 'required' => true,

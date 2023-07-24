@@ -29,22 +29,22 @@ class HydroAero
     private ?string $conformite5 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $preconisation1 = null;
+    private ?string $constat1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $preconisation2 = null;
+    private ?string $constat2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $preconisation3 = null;
+    private ?string $constat3 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $preconisation4 = null;
+    private ?string $constat4 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $preconisation5 = null;
+    private ?string $constat5 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $retenu1 = null;
+    private ?string $nature = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $retenu2 = null;
@@ -129,74 +129,74 @@ class HydroAero
         return $this;
     }
 
-    public function getPreconisation1(): ?string
+    public function getConstat1(): ?string
     {
-        return $this->preconisation1;
+        return $this->constat1;
     }
 
-    public function setPreconisation1(?string $preconisation1): self
+    public function setConstat1(?string $constat1): self
     {
-        $this->preconisation1 = $preconisation1;
+        $this->constat1 = $constat1;
 
         return $this;
     }
 
-    public function getPreconisation2(): ?string
+    public function getConstat2(): ?string
     {
-        return $this->preconisation2;
+        return $this->constat2;
     }
 
-    public function setPreconisation2(?string $preconisation2): self
+    public function setConstat2(?string $constat2): self
     {
-        $this->preconisation2 = $preconisation2;
+        $this->constat2 = $constat2;
 
         return $this;
     }
 
-    public function getPreconisation3(): ?string
+    public function getConstat3(): ?string
     {
-        return $this->preconisation3;
+        return $this->constat3;
     }
 
-    public function setPreconisation3(?string $preconisation3): self
+    public function setConstat3(?string $constat3): self
     {
-        $this->preconisation3 = $preconisation3;
+        $this->constat3 = $constat3;
 
         return $this;
     }
 
-    public function getPreconisation4(): ?string
+    public function getConstat4(): ?string
     {
-        return $this->preconisation4;
+        return $this->constat4;
     }
 
-    public function setPreconisation4(?string $preconisation4): self
+    public function setConstat4(?string $constat4): self
     {
-        $this->preconisation4 = $preconisation4;
+        $this->constat4 = $constat4;
 
         return $this;
     }
 
-    public function getPreconisation5(): ?string
+    public function getConstat5(): ?string
     {
-        return $this->preconisation5;
+        return $this->constat5;
     }
 
-    public function setPreconisation5(?string $preconisation5): self
+    public function setConstat5(?string $constat5): self
     {
-        $this->preconisation5 = $preconisation5;
+        $this->constat5 = $constat5;
 
         return $this;
     }
 
-    public function getRetenu1(): ?string
+    public function getNature(): ?string
     {
-        return $this->retenu1;
+        return $this->nature;
     }
 
-    public function setRetenu1(?string $retenu1): self
+    public function setNature(?string $nature): self
     {
-        $this->retenu1 = $retenu1;
+        $this->nature = $nature;
 
         return $this;
     }

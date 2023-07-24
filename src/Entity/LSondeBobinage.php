@@ -37,6 +37,9 @@ class LSondeBobinage
     #[ORM\Column(nullable: true)]
     private ?float $temp_correction = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $unite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,18 @@ class LSondeBobinage
     public function setTempCorrection(?float $temp_correction): static
     {
         $this->temp_correction = $temp_correction;
+
+        return $this;
+    }
+
+    public function getUnite(): ?string
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(string $unite): static
+    {
+        $this->unite = $unite;
 
         return $this;
     }

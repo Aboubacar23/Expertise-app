@@ -92,6 +92,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
                     $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
                     $lstatorApresLavage->setConformite($item->getConformite());
+                    $lstatorApresLavage->setType($item->getType());
+                    $lstatorApresLavage->setUnite($item->getUnite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
                     $em->persist($lstatorApresLavage);
                 }
@@ -117,6 +119,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
                     $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
                     $lstatorApresLavage->setConformite($item->getConformite());
+                    $lstatorApresLavage->setType($item->getType());
+                    $lstatorApresLavage->setUnite($item->getUnite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
                     $em->persist($lstatorApresLavage);
                 }
@@ -142,6 +146,25 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $lig = sizeof($listes)+1;
                 $lstatorApresLavage->setLig($lig);
                 $lstatorApresLavage->setValeurRelevee($val);
+
+                foreach($listes as $i)
+                {
+                    if($i->getType() == $lstatorApresLavage->getType() and $i->getControle() == $lstatorApresLavage->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                    }
+                }
+
+                foreach($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j)
+                {
+                    if($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                    }
+                }
+
                 $listes[$lig] = $lstatorApresLavage;
                 $session->set('stators', $listes);
             }
@@ -184,7 +207,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             {
                 $i = 0;
                 foreach($tables as $item)
-                {
+                { 
                     $i = $i + 1;
                     $lsondeBobinage = new LSondeBobinage();
                     $lsondeBobinage->setLig($i);
@@ -194,6 +217,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setValeur($item->getValeur());
                     $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
+                    $lsondeBobinage->setUnite($item->getUnite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
                 }
@@ -216,6 +240,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setCritere($item->getCritere());
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setUnite($item->getUnite());
                     $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
@@ -241,11 +266,29 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         $lsondeBobinage->setValeurRelevee(0);
                      }
                 } 
+
                 $lig = sizeof($tables)+1;
                 $lsondeBobinage->setLig($lig);
-                $lsondeBobinage->setValeurRelevee($val);
+                $lsondeBobinage->setValeurRelevee($val);         
+                foreach($tables as $i)
+                {
+                    if($i->getControle() == $lsondeBobinage->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                    }
+                }
+
+                foreach($parametre->getSondeBobinage()->getLSondeBobinages() as $j)
+                {
+                    if($j->getControle() == $lsondeBobinage->getControle())
+                    {                    
+                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                    }
+                }
                 $tables[$lig] = $lsondeBobinage;
-                $session->set('sondes', $tables);
+                $session->set('sondes', $tables); 
             }
         }
 

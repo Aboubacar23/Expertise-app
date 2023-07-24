@@ -159,8 +159,8 @@
                                                     <th width="14%">Contrôle</th>
                                                     <th width="14%">Critère</th>
                                                     <th class="text-center" width="14%">Tension d'éssai(V)</th>
-                                                    <th class="text-center" width="14%">Valeur relevées avant lavage en  MΩ</th>
-                                                    <th width="14%">Valeur relevées après lavage en  MΩ</th>
+                                                    <th class="text-center" width="14%">Valeur relevées avant lavage</th>
+                                                    <th width="14%">Valeur relevées après lavage</th>
                                                     <th width="14%">Correction à 20°</th>
                                                     <th width="14%">Conformité</th> 
                                                 </tr>
@@ -170,7 +170,7 @@
                                                         <td class="text-center">{{ item.critere }}</td>
                                                         <td class="text-center">{{item.tensionEssai}}</td>
                                                         <td class="text-center">{{item.valeurRelevee}}</td>
-                                                        <td class="text-center">{{ item.valeur}}</td>
+                                                        <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
                                                         <td class="text-center">{{item.tempCorrection}}</td>
                                                         <td class="text-center">{{ item.conformite }}</td>
                                                     </tr>                                                    
@@ -246,8 +246,8 @@
                                         <tr  class="table-secondary">
                                             <th width="16%">Contrôle</th>
                                             <th width="16%">Critère (MΩ)</th>
-                                            <th width="16%">Valeur relevée avant lavage (MΩ)</th>
-                                            <th width="16%">Valeur relevées (MΩ)</th>
+                                            <th width="16%">Valeur relevée avant lavage</th>
+                                            <th width="16%">Valeur relevées</th>
                                             <th width="16%">Correction à 20°</th>
                                             <th width="16%">Conformité</th>
                                         </tr>
@@ -258,7 +258,7 @@
                                                     <td>{{item.controle}}</td>
                                                     <td>{{item.critere}}</td>
                                                     <td>{{item.valeurRelevee}}</td>
-                                                    <td>{{item.valeur}}</td>
+                                                    <td>{{item.valeur}} {{ item.unite }}</td>
                                                     <td>{{item.tempCorrection}}</td>
                                                     <td>{{item.conformite}}</td>
                                                 </tr>                                        

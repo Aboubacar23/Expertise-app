@@ -17,11 +17,11 @@ class LStatorApresLavage
     private ?string $controle = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $critere = null;
+    private ?float $critere = null;
 
     #[ORM\Column]
     private ?float $tension_essai = null;
-
+ 
     #[ORM\Column]
     private ?float $valeur = null;
 
@@ -40,6 +40,12 @@ class LStatorApresLavage
     #[ORM\Column(nullable: true)]
     private ?float $temp_correction = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $unite = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,12 +63,12 @@ class LStatorApresLavage
         return $this;
     }
 
-    public function getCritere(): ?string
+    public function getCritere(): ?float
     {
         return $this->critere;
     }
 
-    public function setCritere(string $critere): self
+    public function setCritere(float $critere): self
     {
         $this->critere = $critere;
 
@@ -149,6 +155,30 @@ class LStatorApresLavage
     public function setTempCorrection(?float $temp_correction): static
     {
         $this->temp_correction = $temp_correction;
+
+        return $this;
+    }
+
+    public function getUnite(): ?string
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(string $unite): static
+    {
+        $this->unite = $unite;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

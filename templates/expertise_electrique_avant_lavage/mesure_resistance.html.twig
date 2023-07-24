@@ -61,16 +61,23 @@
                                         <td>{{parametre.statorTension}}</td>
                                     </tr>   
                                 </table>
+                            </div> 
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
                                         <th width="20%">Contrôle</th>
                                         <th width="20%">Critère (MΩ)</th>
-                                        <th width="20%">Valeur relevées (MΩ)</th>
+                                        <th width="20%">Valeur relevées {{ form_widget(form.unite) }}</></th>
                                         <th width="20%">Correction à 20°</th>
                                         <th width="20%">Conformité</th>
-                                        <th width="100"></th> 
+                                        <th width="100"></th>  
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.controle) }}</td>
@@ -84,7 +91,7 @@
                                         <tr>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
-                                            <td>{{item2.valeur}}</td>
+                                            <td>{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -96,7 +103,7 @@
                                             <tr>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.valeur}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -129,8 +136,11 @@
             let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_valeur').value);
 
             const correction = document.getElementById('l_mesure_resistance_temp_correction');
+            const valeur_temp = {{ parametre.tempCorrection }};
+
             let valeurCorrection = 0;
-            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - 20));
+
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
             valeurFinale = valeurCorrection.toFixed(3);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
         }

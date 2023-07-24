@@ -53,24 +53,28 @@ class RemontageController extends AbstractController
             $choix = $request->get('bouton1');
             if($choix ==  'remontage_palier_en_cours')
             {
-                $caJeu = $remontagePalier->getCaa() + $remontagePalier->getCab() + $remontagePalier->getCac() + $remontagePalier->getCad();
-                $coaJeu = $remontagePalier->getCoaa() + $remontagePalier->getCoab() + $remontagePalier->getCoac() + $remontagePalier->getCoad();
+                /*
+                    $caJeu = $remontagePalier->getCaa() + $remontagePalier->getCab() + $remontagePalier->getCac() + $remontagePalier->getCad();
+                    $coaJeu = $remontagePalier->getCoaa() + $remontagePalier->getCoab() + $remontagePalier->getCoac() + $remontagePalier->getCoad();  
+                    $remontagePalier->setCaJeu($caJeu);
+                    $remontagePalier->setCoaJeu($coaJeu);
+                */
                 $parametre->setRemontagePalier($remontagePalier);
                 $remontagePalier->setEtat(0);
-                $remontagePalier->setCaJeu($caJeu);
-                $remontagePalier->setCoaJeu($coaJeu);
                 $remontagePalierRepository->save($remontagePalier, true);
                 $this->redirectToRoute('app_remontage_palier', ['id' => $parametre->getId()]);
 
             }
             elseif($choix == 'remontage_palier_terminer')
             {
-                $caJeu = $remontagePalier->getCaa() + $remontagePalier->getCab() + $remontagePalier->getCac() + $remontagePalier->getCad();
-                $coaJeu = $remontagePalier->getCoaa() + $remontagePalier->getCoab() + $remontagePalier->getCoac() + $remontagePalier->getCoad();
+                /*
+                    $caJeu = $remontagePalier->getCaa() + $remontagePalier->getCab() + $remontagePalier->getCac() + $remontagePalier->getCad();
+                    $coaJeu = $remontagePalier->getCoaa() + $remontagePalier->getCoab() + $remontagePalier->getCoac() + $remontagePalier->getCoad();
+                    $remontagePalier->setCaJeu($caJeu);
+                    $remontagePalier->setCoaJeu($coaJeu);
+                */
                 $parametre->setRemontagePalier($remontagePalier);
                 $remontagePalier->setEtat(1);
-                $remontagePalier->setCaJeu($caJeu);
-                $remontagePalier->setCoaJeu($coaJeu);
                 $remontagePalierRepository->save($remontagePalier, true);
                 $this->redirectToRoute('app_remontage_palier', ['id' => $parametre->getId()]);
             }            

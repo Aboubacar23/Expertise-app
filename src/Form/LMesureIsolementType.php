@@ -26,6 +26,17 @@ class LMesureIsolementType extends AbstractType
             ])
             ->add('critere')
             ->add('tension')
+            ->add('unite', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Ω' => 'Ω',
+                    'mΩ' => 'mΩ',
+                    'µΩ' => 'µΩ',
+                    'kΩ' => 'kΩ',
+                    'MΩ' => 'MΩ',
+                    'GΩ' => 'GΩ',
+                ]
+            ])
             ->add('temp_correction')
             ->add('valeur', NumberType::class, [
                 'required' => true,

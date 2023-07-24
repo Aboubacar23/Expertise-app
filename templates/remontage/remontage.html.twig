@@ -38,7 +38,7 @@
                                             <td>{{ form_widget(formRemontagePalier.caa) }}</td>
                                             <td>{{ form_widget(formRemontagePalier.coaa) }}</td>
                                         </tr>
-                                        <tr>
+                                        <tr> 
                                             <td>B</td>
                                             <td>Emboîtage C-Rlt extérieur</td>
                                             <td>{{ form_widget(formRemontagePalier.cab) }}</td>
@@ -59,10 +59,8 @@
                                         <tr>
                                             <td>Jeu</td>
                                             <td>Jeu axial</td>
-                                            {% if parametre.remontagePalier %}
-                                                <td>{{ remontagePalier.caJeu }}</td>
-                                                <td>{{ remontagePalier.coaJeu }}</td>
-                                            {% endif %}
+                                            <td>{{ form_widget(formRemontagePalier.ca_jeu) }}</td>
+                                            <td>{{ form_widget(formRemontagePalier.coa_jeu) }}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -73,7 +71,7 @@
                                         <tr>
                                             <td></td>
                                             <td class="table-secondary">Type de graisse</td>
-                                            <td <thead class="table-secondary"> colspan="2">{{ form_widget(formRemontagePalier.type_graisse) }}</td>
+                                            <td class="table-secondary" colspan="2">{{ form_widget(formRemontagePalier.type_graisse) }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -93,4 +91,43 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+
+            let caa = parseFloat(document.getElementById('remontage_palier_caa').value);
+            let cab = parseFloat(document.getElementById('remontage_palier_cab').value);
+            let cac = parseFloat(document.getElementById('remontage_palier_cac').value);
+            let cad = parseFloat(document.getElementById('remontage_palier_cad').value);
+
+            let coaa = parseFloat(document.getElementById('remontage_palier_coaa').value);
+            let coab = parseFloat(document.getElementById('remontage_palier_coab').value);
+            let coac = parseFloat(document.getElementById('remontage_palier_coac').value);
+            let coad = parseFloat(document.getElementById('remontage_palier_coad').value);
+            
+            const som_jeu_ca = document.getElementById('remontage_palier_ca_jeu');
+            const som_jeu_coa = document.getElementById('remontage_palier_coa_jeu');
+
+            const valeur1 = caa + cab + cac + cad;
+            valeurFinale = valeur1.toFixed(2);
+            som_jeu_ca.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+
+            const valeur2 = coaa + coab + coac + coad;
+            valeurFinale = valeur2.toFixed(2);
+            som_jeu_coa.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+
+        }
+
+        document.getElementById('remontage_palier_caa').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_cab').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_cac').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_cad').addEventListener('input', updateSumField);
+
+        document.getElementById('remontage_palier_coaa').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_coab').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_coac').addEventListener('input', updateSumField);
+        document.getElementById('remontage_palier_coad').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}

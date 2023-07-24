@@ -23,7 +23,8 @@ class ParametreType extends AbstractType
             ->add('type_machine', ChoiceType::class, [
                 'choices' => [
                     'Moteur' => 'Moteur',
-                    'Alternateur' => 'Alternateur'
+                    'Alternateur' => 'Alternateur',
+                    'Génératrice' => 'Génératrice'
                 ],
                 'placeholder' => 'Choisir le type de machine'
             ])

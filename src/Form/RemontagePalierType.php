@@ -22,6 +22,8 @@ class RemontagePalierType extends AbstractType
             ->add('coab')
             ->add('coac')
             ->add('coad')
+            ->add('ca_jeu')
+            ->add('coa_jeu')
             ->add('coa_roulement')
         ;
     }

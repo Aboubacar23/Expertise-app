@@ -51,30 +51,38 @@
                                     <tr>
                                         <th>Critère</th>
                                         <td>{{parametre.critere}} Ω/V </td>
-                                        <th>Tension Machine</th>
+                                        <th>Tension Stator</th>
                                         <td>{{parametre.statorTension}}</td>
-                                        <th></th>
-                                        <td></td>
+                                        <th>Tension Rotor</th>
+                                        <td>{{parametre.rotorTension}}</td>
                                     </tr>  
                                 </table>
                             </div>
-                            
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>              
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="14%">Contrôle</th>
-                                        <th width="14%">Critère (MΩ)</th>
-                                        <th width="14%">Tension d'éssai</th>
-                                        <th width="14%">Valeur relevées avant Lavage</th>
-                                        <th width="14%">Valeur relevées </th>
-                                        <th width="14%">Correction à 20°</th>
-                                        <th width="14%">Conformité</th>
+                                        <th width="12%">Type</th>
+                                        <th width="12%">Contrôle</th>
+                                        <th width="12%">Critère (MΩ)</th>
+                                        <th width="12%">Tension d'éssai (V)</th>
+                                        <th width="12%">Valeur relevées avant Lavage</th>
+                                        <th width="12%">Valeur relevées {{form_widget(form.unite)}}</th>
+                                        <th width="12%">Correction à 20°</th>
+                                        <th width="12%">Conformité</th>
                                         <th width="100"></th> 
                                     </tr>
                                     <tr>
+                                        <td>{{ form_widget(form.type) }}</td>
                                         <td>{{ form_widget(form.controle) }}</td>
-                                        <td>{{ form_widget(form.critere, { value : critere }) }}</td>
-                                        <td>{{ form_widget(form.tension_essai, { value : tension_essaie }) }}</td>
+                                        <td>{{ form_widget(form.critere) }}</td>
+                                        <td>{{ form_widget(form.tension_essai) }}</td>
                                         <td></td>
                                         <td>{{ form_widget(form.valeur) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
@@ -83,25 +91,27 @@
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
+                                            <td></td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.tensionEssai}}</td>
                                             <td>{{item2.valeurRelevee}}</td>
-                                            <td>{{item2.valeur}}</td>
+                                            <td>{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_stator_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
-                                    {% endfor %}
+                                    {% endfor %} 
                                     <tr class="bg-primary"></tr>
                                     {% if parametre.statorApreslavage %}
                                         {% for item in parametre.statorApreslavage.lstatorApresLavages %}
                                             <tr>
+                                                <td></td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tensionEssai}}</td>
                                                 <td>{{item.valeurRelevee}}</td>
-                                                <td>{{item.valeur}}</td>
+                                                <td>{{item.valeur}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_stator_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -121,10 +131,6 @@
                             </div>
                         </div>
                     </form>
-
-                    {{ form_start(formStatorApresLavage) }}   
-
-                    {{ form_end(formStatorApresLavage) }}
                 </div>
             </div>
         </div>
@@ -135,15 +141,94 @@
         function updateSumField() 
         {
             let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_ambiante').value);
-            const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
-            let valeurCorrection = 0;
-            if(temp_ambiante >= 10 || temp_ambiante <=30){
-                valeurCorrection = Math.pow(0.50,(20 - temp_ambiante)/10);
-                valeurFinale = valeurCorrection.toFixed(2);
+            let valeur = parseFloat(document.getElementById('l_stator_apres_lavage_valeur').value);
+            var var_type = document.getElementById('l_stator_apres_lavage_type');
+
+            let tension_rotor = {{ parametre.rotorTension }};
+            let tension_stator = {{ parametre.statorTension }};
+            const critere = {{ parametre.critere }};
+            const valeur_temp = {{ parametre.tempCorrection }};
+
+            if(var_type.value == 'Stator')
+            {
+                if (tension_stator< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_stator >= 500 && tension_stator < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator > 1100 && tension_stator <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }   
+
+                const ol_critre = (critere*tension_stator)/1000000;
+                const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }
-            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            else if (var_type.value == 'Rotor')
+            {
+                if (tension_rotor< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_rotor >= 500 && tension_rotor < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor > 1100 && tension_rotor <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }  
+
+                const ol_critre = (critere*tension_rotor)/1000000;
+                const new_critere = document.getElementById('l_mesure_isolement_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+            }
+
+            const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+
+            let valeurCorrection = 0;
+            if(temp_ambiante >= 10 && temp_ambiante <=30)
+            {
+                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
+                valeurCorrection = val*valeur;
+                valeurFinale = valeurCorrection.toFixed(2);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }
+
         }
         document.getElementById('stator_apres_lavage_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_valeur').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_type').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

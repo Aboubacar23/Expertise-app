@@ -166,7 +166,7 @@
                                             <tr>
                                                 <td></td>
                                                 <td class="table-secondary">Type de graisse</td>
-                                                <td <thead class="table-secondary"> colspan="2">{{ parametre.remontagePalier.typeGraisse}}</td>
+                                                <td class="table-secondary" colspan="2">{{ parametre.remontagePalier.typeGraisse}}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -627,7 +627,7 @@
                             <div class="x_content">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <a href="{{path('valider_remontage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="confirm('Voulez-vous vraiment valider ?')">Validation du Rapport final<i class="fa fa-check-circle p-2"></i></a>
+                                        <a href="{{path('valider_remontage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous vraiment valider ?')">Validation du Rapport final<i class="fa fa-check-circle p-2"></i></a>
                                     </div>
                                 </div> 
                             </div>
