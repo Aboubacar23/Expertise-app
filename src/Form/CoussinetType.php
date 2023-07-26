@@ -23,7 +23,7 @@ class CoussinetType extends AbstractType
                 'mapped' => false,
                  'constraints' => [
                      new File([
-                         'maxSize' => '5000000k',
+                         'maxSize' => '40M',
                          'mimeTypes' => [
                              'image/png',
                              'image/jpg',
@@ -40,7 +40,7 @@ class CoussinetType extends AbstractType
                 'mapped' => false,
                  'constraints' => [
                      new File([
-                         'maxSize' => '5000000k',
+                         'maxSize' => '40M',
                          'mimeTypes' => [
                              'image/png',
                              'image/jpg',
