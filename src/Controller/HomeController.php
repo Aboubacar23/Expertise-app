@@ -55,6 +55,8 @@ class HomeController extends AbstractController
         $encours = $var_encours;
         $terminer = $var_terminer;
 
+        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+
 
         return $this->render('home/index.html.twig', [
             'admin' => $admin,
@@ -63,16 +65,17 @@ class HomeController extends AbstractController
             'affaire' => $affaire,
             'encours' => $encours,
             'terminer' => $terminer,
+            'affaires' => $affaires,
 
             
         ]);
     }
 
 
-     //la fonction qui affiche la liste des affaires terminer
-     #[Route('/corbeille-listes', name: 'app_corbeille_listes', methods: ['GET'])]
-     public function rapport(ParametreRepository $parametreRepository): Response
-     {
+    //la fonction qui affiche la liste des affaires terminer
+    #[Route('/corbeille-listes', name: 'app_corbeille_listes', methods: ['GET'])]
+    public function rapport(ParametreRepository $parametreRepository): Response
+    {
         $listes = $parametreRepository->findBy([],['id' => 'desc']);
         $parametres = [];
 
@@ -87,5 +90,5 @@ class HomeController extends AbstractController
         return $this->render('home/corbeille.html.twig', [
             'parametres' => $parametres,
         ]);
-     }
+    }
 }

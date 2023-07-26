@@ -1,47 +1,23 @@
 <?php
-
 namespace App\Controller;
 
-use App\Entity\AccessoireSupplementaire;
-use TCPDF;
 use Dompdf\Dompdf;
-use Dompdf\Adapter\CPDF;
 use Dompdf\Options;
 use App\Entity\Affaire;
 use App\Entity\Parametre;
 use App\Form\ParametreType;
-use App\Repository\AccessoireSupplementaireRepository;
-use App\Repository\AppareilMesureElectriqueRepository;
-use App\Repository\AppareilMesureMecaniqueRepository;
 use App\Repository\AppareilMesureRepository;
-use App\Repository\CaracteristiqueRepository;
-use App\Repository\ConstatElectriqueApresLavageRepository;
-use App\Repository\ConstatElectriqueRepository;
-use App\Repository\ConstatMecaniqueRepository;
-use App\Repository\ControleVisuelMecaniqueRepository;
 use App\Repository\CorrectionRepository;
 use App\Repository\CritereRepository;
-use App\Repository\ImagesRepository;
-use App\Repository\LMesureIsolementRepository;
-use App\Repository\LMesureResistanceRepository;
-use App\Repository\LSondeBobinageRepository;
-use App\Repository\LStatorApresLavageRepository;
-use App\Repository\MesureIsolementRepository;
-use App\Repository\MesureResistanceRepository;
 use App\Repository\ParametreRepository;
-use App\Repository\PhotoExpertiseMecaniqueRepository;
 use App\Repository\PhotoRepository;
-use App\Repository\PointFonctionnementRepository;
-use App\Repository\PointFonctionnementRotorRepository;
 use App\Repository\ReleveDimmensionnelRepository;
-use App\Repository\RemontagePhotoRepository;
-use App\Repository\SondeBobinageRepository;
-use App\Repository\StatorApresLavageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Snappy\Pdf;
 
 
 #[Route('/parametre')]
@@ -134,29 +110,8 @@ class ParametreController extends AbstractController
         EntityManagerInterface $em,
         ParametreRepository $parametreRepository,
         AppareilMesureRepository $appareilMesureRepository,
-        AppareilMesureElectriqueRepository $appareilMesureElectriqueRepository,
-        AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,
         ReleveDimmensionnelRepository $releveDimmensionnelRepository,
-        PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository,
-        ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository,
-        ConstatMecaniqueRepository $constatMecaniqueRepository,
-        ConstatElectriqueRepository $constatElectriqueRepository,
-        CaracteristiqueRepository $caracteristiqueRepository,
-        PointFonctionnementRepository $pointFonctionnementRepository,
-        PointFonctionnementRotorRepository $pointFonctionnementRotorRepository,
-        ImagesRepository $imagesRepository,
-        RemontagePhotoRepository $remontagePhotoRepository,
         PhotoRepository $photoRepository,
-        AccessoireSupplementaireRepository $accessoireSupplementaireRepository,
-        ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,
-        MesureIsolementRepository $mesureIsolementRepository,
-        MesureResistanceRepository $mesureResistanceRepository,
-        LMesureIsolementRepository $lmesureIsolementRepository,
-        LMesureResistanceRepository $lmesureResistanceRepository,
-        SondeBobinageRepository $sondeBobinageRepository,
-        LSondeBobinageRepository $lSondeBobinageRepository,
-        StatorApresLavageRepository $statorApresLavageRepository,
-        LStatorApresLavageRepository $lStatorApresLavageRepository
          ): Response
     {
         if ($parametre)
@@ -318,7 +273,7 @@ class ParametreController extends AbstractController
     public function rapportExpertise(Parametre $parametre): Response
     {
         $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Times New Roman');
+        $pdfOptions->set('defaultFont', 'sans-serif');
         $pdfOptions->setIsRemoteEnabled(true);
 
         // On instancie Dompdf
@@ -348,19 +303,6 @@ class ParametreController extends AbstractController
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
-
-        // Génération du numéro de page
-      /*  $dompdf->getCanvas()->getDom()->addEventListener('load', function($event) use ($dompdf) {
-                $pageNumber = $dompdf->getCanvas()->get_page_number();
-                $totalPages = $dompdf->getCanvas()->get_page_count();
-                $font = $dompdf->getFontMetrics()->get_font('helvetica', 'regular');
-                $size = 10;
-                $color = array(0, 0, 0); // Couleur du numéro de page (noir)
-
-                $canvas = $dompdf->getCanvas();
-                $canvas->page_text(550, 20, "Page $pageNumber / $totalPages", $font, $size, $color);
-            });
-            */
         $dompdf->render();
 
         // On génère un nom de fichier
@@ -372,51 +314,26 @@ class ParametreController extends AbstractController
         ]);
 
         exit();
-      /*
-        $pdf = new TCPDF();
-        $pdf->SetMargins(5, 5, 5);
-        $pdf->AddPage();
-        $pdf->SetTitle($parametre->getAffaire()->getNomRapport());
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        // Récupérez le contenu de la page Twig
-        $content = $this->renderView('parametre/rapport_pdf.html.twig', [
-            'parametre' => $parametre,
-            'hello' => 'bonjour'
-        ]);
-
-        // Ajoutez le contenu à votre PDF
-        $pdf->writeHTML($content);
-
-        // Définissez le nom du fichier PDF généré
-        $filename = $parametre->getAffaire()->getNomRapport();
-
-        // Renvoyez le PDF en tant que réponse
-        return new Response($pdf->Output($filename, 'I'), 200, array(
-            'Content-Type' => 'application/pdf',
-        ));
-        */
-    
-
     }
 
     #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
     public function rapporFinal(Parametre $parametre): Response
     {
         $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);
 
+        $html = $this->renderView('parametre/rapport_final.html.twig', [
+            'parametre' => $parametre
+        ]);
+
         // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
+        $dompdf = new Dompdf($pdfOptions); 
+        $dompdf->getOptions()->set('defaultMediaType', 'print');
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
-        $dompdf->setCallbacks([
-            'event' => function ($event) use ($dompdf) {
-                if ($event['event'] === 'dompdf.page_number') {
-                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
-                }
-            }
-        ]);
+        $dompdf->getOptions()->set('defaultFont', 'Arial');
+        $dompdf->getOptions()->set('default_charset', 'UTF-8');
+        $dompdf->getOptions()->set('fontHeightRatio', 1.1);
 
         $context = stream_context_create([
             'ssl' => [
@@ -425,27 +342,10 @@ class ParametreController extends AbstractController
                 'allow_self_signed' => TRUE
             ]
         ]);
-
+        
         $dompdf->setHttpContext($context);
-        $html = $this->renderView('parametre/rapport_final.html.twig', [
-            'parametre' => $parametre
-        ]);
-
-        $dompdf->loadHtml($html);
+        $dompdf->loadHtml($html,'UTF-8');
         $dompdf->setPaper('A4', 'portrait');
-
-        // Génération du numéro de page
-      /*  $dompdf->getCanvas()->getDom()->addEventListener('load', function($event) use ($dompdf) {
-                $pageNumber = $dompdf->getCanvas()->get_page_number();
-                $totalPages = $dompdf->getCanvas()->get_page_count();
-                $font = $dompdf->getFontMetrics()->get_font('helvetica', 'regular');
-                $size = 10;
-                $color = array(0, 0, 0); // Couleur du numéro de page (noir)
-
-                $canvas = $dompdf->getCanvas();
-                $canvas->page_text(550, 20, "Page $pageNumber / $totalPages", $font, $size, $color);
-            });
-            */
         $dompdf->render();
 
         // On génère un nom de fichier
@@ -457,31 +357,6 @@ class ParametreController extends AbstractController
         ]);
 
         exit();
-      /*
-        $pdf = new TCPDF();
-        $pdf->SetMargins(5, 5, 5);
-        $pdf->AddPage();
-        $pdf->SetTitle($parametre->getAffaire()->getNomRapport());
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        // Récupérez le contenu de la page Twig
-        $content = $this->renderView('parametre/rapport_pdf.html.twig', [
-            'parametre' => $parametre,
-            'hello' => 'bonjour'
-        ]);
-
-        // Ajoutez le contenu à votre PDF
-        $pdf->writeHTML($content);
-
-        // Définissez le nom du fichier PDF généré
-        $filename = $parametre->getAffaire()->getNomRapport();
-
-        // Renvoyez le PDF en tant que réponse
-        return new Response($pdf->Output($filename, 'I'), 200, array(
-            'Content-Type' => 'application/pdf',
-        ));
-        */
-    
-
     }
 
     #[Route('/reunion-validation/{id}', name: 'app_parametre_valided', methods: ['GET'])]

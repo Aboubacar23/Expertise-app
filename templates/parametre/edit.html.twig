@@ -196,7 +196,10 @@
                     content.innerHTML = html;
                     let nouveauSelect = content.querySelector("#parametre_machine");
                     console.log(nouveauSelect); 
-                    document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
+                    if(nouveauSelect)
+                    {
+                        document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
+                    }
                 })
                 .catch(error => {
                     console.log(error);

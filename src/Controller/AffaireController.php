@@ -90,6 +90,7 @@ class AffaireController extends AbstractController
                 }
             }
         }
+        //dd($active);
         //traitement des archives
         $archive = new Archive();
         $form = $this->createForm(ArchiveType::class, $archive);
