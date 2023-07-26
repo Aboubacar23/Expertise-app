@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Appareil;
 use App\Form\AppareilType;
 use App\Entity\AppareilMesure;
+use App\Entity\AppareilMesureEssais;
 use App\Repository\AppareilRepository;
 use App\Entity\AppareilMesureMecanique;
 use App\Entity\AppareilMesureElectrique;
@@ -12,6 +13,7 @@ use App\Repository\AppareilMesureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AppareilMesureEssaisRepository;
 use App\Repository\AppareilMesureMecaniqueRepository;
 use App\Repository\AppareilMesureElectriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,6 +132,20 @@ class AppareilController extends AbstractController
         return $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
        }else{
             return $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+       } 
+    }
+
+
+    #[Route('delete-essais/{id}', name: 'delete_appareil_essais', methods: ['GET'])]
+    public function deleteAppareilMesureEssais(AppareilMesureEssais $appareilMesureEssais, AppareilMesureEssaisRepository $appareilMesureEssaisRepository): Response
+    {
+        $idApp = $appareilMesureEssais;
+        $id = $idApp->getParametre()->getId();
+       if($appareilMesureEssais){
+        $appareilMesureEssaisRepository->remove($appareilMesureEssais, true);
+        return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
+       }else{
+            return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
        } 
     }
 }

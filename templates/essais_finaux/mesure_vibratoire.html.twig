@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Mesure de Vibratoire</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_essais_finaux',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                   
+                <!-- début Mesures vibratoires -->
+                <div class="x_content">
+                {{ form_start(formMesureVibratoire) }}
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tr class="table-secondary text-center">
+                                <th colspan="5">Mesures Vibratoires</th>
+                            </tr>
+                            <tr class="table-secondary text-center">
+                                <th>Position</th>
+                                <th>Montage</th>
+                                <th>Accouplement</th>
+                                <th>Clavette</th>
+                                <th>Commentaire</th>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formMesureVibratoire.position) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.montage) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.accouplement) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.clavette) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.commentaire) }}</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <table class="table table-bordered">
+                            <tr  class="table-secondary">
+                                <th>Critère acceptation max 25mm/s</th>
+                                <th>N (tr/min)</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                            </tr>
+                            <tr>
+                                <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                <td>{{ form_widget(formMesureVibratoire.n10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.a10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.b10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.c10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.d10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.e10) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.f10) }}</td>
+                            </tr>
+                            <tr>
+                                <td>R.M.S à F0 (mm/s)</td>
+                                <td>{{ form_widget(formMesureVibratoire.n25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.a25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.b25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.c25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.d25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.e25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.f25) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Observations</td>
+                                <td colspan="7">{{ form_widget(formMesureVibratoire.obervation) }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <button class="btn btn-secondary btn-sm" name="bouton2" value="essai_en_cours"> En cours <i class="fa fa-save"></i></button>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-success btn-sm" name="bouton2" value="essai_terminer"> Terminer <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+                {{ form_end(formMesureVibratoire) }}
+                </div>
+                <!-- fin Mesures vibratoires -->
+    
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

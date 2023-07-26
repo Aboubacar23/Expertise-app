@@ -216,13 +216,15 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
                     }
                 }
-
-                foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $j)
+                if($parametre->getMesureIsolement())
                 {
-                    if($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle())
-                    {                    
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
-                        return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                    foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $j)
+                    {
+                        if($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle())
+                        {                    
+                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                            return $this->redirectToRoute('app_mesure_isolement', ['id' => $parametre->getId()]);
+                        }
                     }
                 }
                 $tables[$lig] = $lmesureIsolement;
@@ -326,12 +328,15 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     }
                 }
 
-                foreach($parametre->getMesureResistance()->getLMesureResistances() as $j)
+                if($parametre->getMesureResistance())
                 {
-                    if($j->getControle() == $lmesureResistance->getControle())
-                    {                    
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
-                        return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                    foreach($parametre->getMesureResistance()->getLMesureResistances() as $j)
+                    {
+                        if($j->getControle() == $lmesureResistance->getControle())
+                        {                    
+                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                            return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
+                        }
                     }
                 }
 
@@ -426,6 +431,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
         $formMesureVibratoire = $this->createForm(MesureVibratoireType::class, $mesureVibratoire);
         $formMesureVibratoire->handleRequest($request);
+        
         if($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid())
         {
             $choix = $request->get('bouton2');

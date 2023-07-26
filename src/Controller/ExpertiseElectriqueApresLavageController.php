@@ -156,12 +156,15 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     }
                 }
 
-                foreach($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j)
+                if($parametre->getStatorApresLavage())
                 {
-                    if($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle())
-                    {                    
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
-                        return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                    foreach($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j)
+                    {
+                        if($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle())
+                        {                    
+                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                            return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
+                        }
                     }
                 }
 
@@ -279,12 +282,15 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     }
                 }
 
-                foreach($parametre->getSondeBobinage()->getLSondeBobinages() as $j)
+                if($parametre->getSondeBobinage())
                 {
-                    if($j->getControle() == $lsondeBobinage->getControle())
-                    {                    
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
-                        return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                    foreach($parametre->getSondeBobinage()->getLSondeBobinages() as $j)
+                    {
+                        if($j->getControle() == $lsondeBobinage->getControle())
+                        {                    
+                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                            return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
+                        }
                     }
                 }
                 $tables[$lig] = $lsondeBobinage;
@@ -476,7 +482,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         ]);
     }
 
-    //appareil de mesure
+    //constat electrique
     #[Route('/constact/{id}', name: 'app_constact_expertise_apres_lavage')]
     public function constact(Parametre $parametre,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
     {     

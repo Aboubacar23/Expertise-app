@@ -1,0 +1,521 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Essais Finaux</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
+                        {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                        {% endif %}  
+                    
+                        {% if parametre.expertiseElectiqueApresLavage == 1 %}
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                        {% endif %}                                                              
+                    {% endif %}
+
+                    {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
+                        {% if parametre.expertiseMecanique == 1 %}
+                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                        {% else %}
+                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
+                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
+                        
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}          
+                        {% if is_granted('ROLE_CHEF_PROJET') %}
+                            {% if parametre.contreExpertise %}
+                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
+                            {% if parametre.remontage == 1 %}
+                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
+                            {% endif %}                                    
+                        {% endif %}
+
+                        {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
+                            {% if parametre.phototheques | length > 1 %}
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                            {% endif %} 
+                        {% endif %}
+                        
+                        {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
+                            {% if parametre.essaisFinaux == 1 %}
+                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux <i class="fa fa-check"></i></a>
+                            {% else %}
+                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
+                            {% endif %}                                    
+                        {% endif %}
+                    {% endif %}
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div> 
+            </div> 
+        </div>
+    </div> 
+    <!-- début contenu formulaire --> 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">  
+
+                <!-- début Mesure d'isolement -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesure d'isolement</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureIsolementEssai == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.mesureIsolementEssai.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_mesure_isolement_essai', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="true" href="#collapse2_1"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2_1">
+                            {% if parametre.mesureIsolementEssai %}
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th colspan="5" class="text-center">Paramètres</th>
+                                        </tr>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <th>Hygrométrie (%)</th>
+                                            <th>Date d'essai</th>
+                                            <th>Critère</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ parametre.mesureIsolementEssai.tempAmbiante}}</td>
+                                            <td >{{ parametre.mesureIsolementEssai.tempTolerie}}</td>
+                                            <td >{{ parametre.mesureIsolementEssai.hygrometrie}}</td>
+                                            <td >{{ parametre.mesureIsolementEssai.dateEssais ? parametre.mesureIsolementEssai.dateEssais| date('Y-m-d') }}</td>
+                                            <td>{{ parametre.critere}} Ω/V </td>
+                                        </tr>   
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th width="16%">Contrôle</th>
+                                            <th width="16%">Critère (MΩ)</th>
+                                            <th width="16%">Tension d'éssai (V)</th>
+                                            <th width="16%">Valeur relevées</th>
+                                            <th width="16%">T.Correction à 20°</th>
+                                            <th width="16%">Conformité</th>
+                                        </tr>
+                                        {% for item in parametre.mesureIsolementEssai.lmesureIsolementEssais %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.tension}}</td>
+                                                <td>{{item.valeur}} {{item.unite}}</td>
+                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.conformite}}</td>
+                                            </tr>                                        
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin Mesure d'isolement -->
+                      
+                <!-- début Mesure de resistance -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesure Resistance</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureResistanceEssai == null %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.mesureResistanceEssai.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_mesure_resistance_essai', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="x_content collapse" id="collapse2">
+                            {% if parametre.mesureResistanceEssai %}
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th colspan="6" class="text-center">Paramètres</th>
+                                        </tr>
+                                        <tr>
+                                            <th>T° Ambiante (°C)</th>
+                                            <td>{{ parametre.mesureResistanceEssai.tempAmbiante}}</td>
+                                            <th>T° Tôlerie (°C)</th>
+                                            <td >{{ parametre.mesureResistanceEssai.tempTolerie}}</td>
+                                            <th>Date d'essai</th>
+                                            <td >{{ parametre.mesureResistanceEssai.dateEssais ? parametre.mesureResistanceEssai.dateEssais| date('Y-m-d') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hygrométrie (%)</th>
+                                            <td >{{ parametre.mesureResistanceEssai.hygrometrie}}</td>
+                                            <th>Critère</th>
+                                            <td>20 000 Ω/V </td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>   
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th width="20%">Contrôle</th>
+                                            <th width="20%">Critère</th>
+                                            <th width="20%">Valeur relevées</th>
+                                            <th width="20%">Correction à 20°</th>
+                                            <th width="20%">Conformité</th>
+                                        </tr>
+                                        {% for item in parametre.mesureResistanceEssai.lmesureResistanceEssais %}
+                                            <tr>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.valeur}} {{item.unite}}</td>
+                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.conformite}}</td>
+                                            </tr>                                        
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin Mesure de resistance -->
+                
+                <!-- début Point de fonctionnement à vide -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Point de fonctionnement à vide</h2> 
+                                </div> 
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.pointFonctionnementVides |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.pointFonctionnementVides |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_point_fonctionnement_vide', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2_3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse2_3">
+                            <div class="row table-responsive">
+                                {% if parametre.pointFonctionnementVides %}
+                                    <table class="table table-bordered table-striped">
+                                        <tr class="table-secondary text-center">
+                                            <th width="2%">t</th>
+                                            <th>U</th>
+                                            <th>I1</th>
+                                            <th>I2</th>
+                                            <th>I3</th>
+                                            <th>P</th>
+                                            <th>Q</th>
+                                            <th>cos</th>
+                                            <th>N</th>
+                                            <th>I</th>
+                                            <th>TAmb</th>
+                                            <th>CA</th>
+                                            <th>COA</th>
+                                            <th rowspan="2">Observation</th>
+                                        </tr>
+                                        <tr  class="table-secondary">
+                                            <th class="text-center">(min)</th>
+                                            <th class="text-center">(V)</th>
+                                            <th class="text-center">(A)</th>
+                                            <th class="text-center">(A)</th>
+                                            <th class="text-center">(A)</th>
+                                            <th class="text-center">(kW)</th>
+                                            <th class="text-center">(kVAR)</th>
+                                            <th class="text-center">cos</th>
+                                            <th class="text-center">(tr/min)</th>
+                                            <th class="text-center">(A)</th>
+                                            <th class="text-center">(°C)</th>
+                                            <th class="text-center">(°C)</th>
+                                            <th class="text-center">(°C)</th>
+                                        </tr>
+                                        {% for item in parametre.pointFonctionnementVides %}
+                                            <tr>
+                                                <td class="text-center">{{item.t}}</td>
+                                                <td class="text-center">{{item.u}}</td>
+                                                <td class="text-center">{{item.i1}}</td>
+                                                <td class="text-center">{{item.i2}}</td>
+                                                <td class="text-center">{{item.i3}}</td>
+                                                <td class="text-center">{{item.p}}</td>
+                                                <td class="text-center">{{item.q}}</td>
+                                                <td class="text-center">{{item.cos}}</td>
+                                                <td class="text-center">{{item.n}}</td>
+                                                <td class="text-center">{{item.i}}</td>
+                                                <td class="text-center">{{item.tamb}}</td>
+                                                <td class="text-center">{{item.ca}}</td>
+                                                <td class="text-center">{{item.coa}}</td>
+                                                <td class="text-center">{{item.observation}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <!-- fin Point de fonctionnement à vide -->
+
+                <!-- début Mesures vibratoires -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Mesures vibratoires</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.mesureVibratoireEssais == null %}
+                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.mesureVibratoireEssais.etat == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div> 
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_mesure_vibratoire_essais', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse3"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse3">
+                            {% if parametre.mesureVibratoireEssais %}
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <tr class="table-secondary text-center">
+                                            <th colspan="5">Mesures Vibratoires</th>
+                                        </tr>
+                                        <tr class="table-secondary text-center">
+                                            <th>Position</th>
+                                            <th>Montage</th>
+                                            <th>Accouplement</th>
+                                            <th>Clavette</th>
+                                            <th>Commentaire</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ parametre.mesureVibratoireEssais.position}}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.montage}}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.accouplement}}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.clavette}}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.commentaire}}</td>
+                                        </tr>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <tr  class="table-secondary">
+                                            <th>Critère acceptation max 25mm/s</th>
+                                            <th>N (tr/min)</th>
+                                            <th>A</th>
+                                            <th>B</th>
+                                            <th>C</th>
+                                            <th>D</th>
+                                            <th>E</th>
+                                            <th>F</th>
+                                        </tr>
+                                        <tr>
+                                            <td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.n10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.a10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.b10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.c10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.d10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.e10 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.f10 | number_format(2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R.M.S à F0 (mm/s)</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.n25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.a25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.b25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.c25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.d25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.e25 | number_format(2) }}</td>
+                                            <td>{{ parametre.mesureVibratoireEssais.f25 | number_format(2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Observations</td>
+                                            <td colspan="7">{{ parametre.mesureVibratoireEssais.obervation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- fin Mesures vibratoires -->
+
+                 <!-- début Appareils de mesure utilisés -->
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Appareils de mesure utilisés</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.appareilMesureEssais |length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.appareilMesureEssais |length  > 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_appareil_essais', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse4"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse4">
+                            {% if parametre.appareilMesureEssais %}
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <tr  class="table-secondary">
+                                            <th colspan="3" class="text-center">Appareils de mesure utilisés</th>
+                                        </tr>
+                                        <tr  class="table-secondary">
+                                            <th>Désignation du moyen de contrôle</th>
+                                            <th>N° de l'appareil</th>
+                                            <th>Date de validité</th>
+                                        </tr>
+                                        {% for item in parametre.appareilMesureEssais %}
+                                            <tr>
+                                                <td>{{item.appareil.designation}}</td>
+                                                <td>{{item.appareil.numAppareil}}</td>
+                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </table>                                        
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!-- /fin Appareils de mesure utilisés -->
+             
+                <!-- début bouton -->
+                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                        <div class="x_panel"> 
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="{{path('valider_essais_finaux', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise mécanique<i class="fa fa-check-circle p-2"></i></a>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    {% endif %}
+                <!-- /fin bouton -->
+            </div>
+        </div>                    
+    <!-- /fin contenu du formulaire--> 
+</div>
+{% endblock %}

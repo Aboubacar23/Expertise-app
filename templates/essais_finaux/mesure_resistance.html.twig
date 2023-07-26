@@ -18,23 +18,6 @@
                     </ul>
                     <div class="clearfix"></div> 
                 </div>    
-                 <!-- la gestion des valeur saisir automatiquement -->
-                 {% set tension_essaie = 0 %}
-                    {% if parametre.statorTension < 500 %}
-                        {% set tension_essaie = 500 %}
-                    {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
-                        {% set tension_essaie = 1000 %}
-                    {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
-                        {% set tension_essaie = 2500 %}
-                    {% elseif parametre.statorTension > 5500 %}
-                        {% set tension_essaie = 5000 %}
-                    {% endif %}
-                    <!-- la gestion des valeur saisir automatiquement -->
-
-                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                    
-                <!-- fin des valeurs -->
-            
                 <div class="x_content">
                     <!-- début Mesure de resistance -->
                     <form method="post">
@@ -97,12 +80,12 @@
                                             <td>{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
-                                            <td class="text-center"><a href="{{path('delete_lmesure_resistance_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                            <td class="text-center"><a href="{{path('delete_lmesure_resistance_essai_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
                                     {% endfor %}
                                     <tr class="bg-primary"></tr>
-                                    {% if parametre.mesureResistance %}
-                                        {% for item in parametre.mesureResistance.lmesureResistances %}
+                                    {% if parametre.mesureResistanceEssai %}
+                                        {% for item in parametre.mesureResistanceEssai.lmesureResistanceEssais %}
                                             <tr>
                                                 <td></td>
                                                 <td>{{item.controle}}</td>
@@ -110,7 +93,7 @@
                                                 <td>{{item.valeur}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_lmesure_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                                <td class="text-center"><a href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                             </tr>                                        
                                         {% endfor %}                                            
                                     {% endif %}
@@ -136,10 +119,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_ambiante').value);
-            let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_valeur').value);
+            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_essai_temp_ambiante').value);
+            let valeurReleve = parseFloat(document.getElementById('l_mesure_reistance_essai_valeur').value);
 
-            const correction = document.getElementById('l_mesure_resistance_temp_correction');
+            const correction = document.getElementById('l_mesure_reistance_essai_temp_correction');
             const valeur_temp = {{ parametre.tempCorrection }};
 
             let valeurCorrection = 0;
@@ -148,8 +131,8 @@
             valeurFinale = valeurCorrection.toFixed(3);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
         }
-        document.getElementById('mesure_resistance_temp_ambiante').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_resistance_valeur').addEventListener('input', updateSumField);
+        document.getElementById('mesure_resistance_essai_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_reistance_essai_valeur').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

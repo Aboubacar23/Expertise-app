@@ -2,29 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\LMesureResistance;
-use App\Entity\ControleResistance;
+use App\Entity\ControleIsolement;
+use App\Entity\LMesureIsolementEssai;
 use Symfony\Component\Form\AbstractType;
-use App\Repository\ControleResistanceRepository;
+use App\Repository\ControleIsolementRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class LMesureResistanceType extends AbstractType
+class LMesureIsolementEssaiType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('controle', EntityType::class, [
-                'class' => ControleResistance::class,
-                'query_builder' => function(ControleResistanceRepository $em){
+                'class' => ControleIsolement::class,
+                'query_builder' => function(ControleIsolementRepository $em){
                     $query = $em->createQueryBuilder('a');
                     return  $query;
                 }
             ])
             ->add('critere')
+            ->add('tension')
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
@@ -57,14 +58,13 @@ class LMesureResistanceType extends AbstractType
                     'Rotor' => 'Rotor'
                 ]
             ])
-            ;
-           
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => LMesureResistance::class,
+            'data_class' => LMesureIsolementEssai::class,
         ]);
     }
 }

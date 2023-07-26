@@ -34,12 +34,16 @@ class Appareil
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: AppareilMesureElectrique::class)]
     private Collection $appareilMesureElectriques;
 
+    #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: AppareilMesureEssais::class)]
+    private Collection $appareilMesureEssais;
+
 
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
         $this->appareilMesureMecaniques = new ArrayCollection();
         $this->appareilMesureElectriques = new ArrayCollection();
+        $this->appareilMesureEssais = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +175,36 @@ class Appareil
             // set the owning side to null (unless already changed)
             if ($appareilMesureElectrique->getAppareil() === $this) {
                 $appareilMesureElectrique->setAppareil(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AppareilMesureEssais>
+     */
+    public function getAppareilMesureEssais(): Collection
+    {
+        return $this->appareilMesureEssais;
+    }
+
+    public function addAppareilMesureEssai(AppareilMesureEssais $appareilMesureEssai): static
+    {
+        if (!$this->appareilMesureEssais->contains($appareilMesureEssai)) {
+            $this->appareilMesureEssais->add($appareilMesureEssai);
+            $appareilMesureEssai->setAppareil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesureEssai(AppareilMesureEssais $appareilMesureEssai): static
+    {
+        if ($this->appareilMesureEssais->removeElement($appareilMesureEssai)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesureEssai->getAppareil() === $this) {
+                $appareilMesureEssai->setAppareil(null);
             }
         }
 

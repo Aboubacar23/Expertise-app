@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Mesure d'isolement</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+    
+                <!-- début Mesure d'isolement -->
+                    <form method="post">
+                        <div class="x_content">
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr  class="table-secondary">
+                                        <th colspan="8" class="text-center">Paramètres</th>
+                                    </tr>
+                                    <tr>
+                                        <th>T° Ambiante (°C)</th>
+                                        <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
+                                        <th>T° Tôlerie (°C)</th>
+                                        <td >{{ form_widget(formMesureIsolement.temp_tolerie) }}</td>
+                                        <th colspan="2">Date d'essai</th>
+                                        <td colspan="2">{{ form_widget(formMesureIsolement.date_essais) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hygrométrie (%)</th>
+                                        <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
+                                        <th>Critère</th>
+                                        <td>{{parametre.critere | number_format(2)}}</td>
+                                        <th>Tension Stator</th>
+                                        <td id="tension_stator">{{parametre.statorTension | number_format}}</td>
+                                        <th>Tension Rotor</th>
+                                        <td id="tension_rotor">{{parametre.rotorTension | number_format}}</td>
+                                    </tr>   
+                                </table>
+                            </div>
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row">
+                                <table class="table table-bordered table-striped">
+                                    <tr  class="table-secondary">
+                                        <th width="14%">Type</th>
+                                        <th width="14%">Contrôle</th>
+                                        <th width="14%">Critère (MΩ)</th>
+                                        <th width="14%">Tension d'éssai (V)</th>
+                                        <th width="14%">Valeur relevées {{ form_widget(form.unite) }}</></th>
+                                        <th width="14%">Correction à 20°</th>
+                                        <th width="14%">Conformité</th>
+                                        <th width="100"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form.type) }}</td>
+                                        <td>{{ form_widget(form.controle) }}</td>
+                                        <td>{{ form_widget(form.critere) }}</td>
+                                        <td>{{ form_widget(form.tension) }}</td>
+                                        <td>{{ form_widget(form.valeur) }}</td>
+                                        <td>{{ form_widget(form.temp_correction) }}</td>
+                                        <td>{{ form_widget(form.conformite) }}</td>
+                                        <td><button class="btn btn-primary btn-sm" name="bouton7" value="ajouter">Ajouter</button></td>
+                                    </tr>
+                                    {% for item2 in items %}
+                                        <tr>
+                                            <td></td>
+                                            <td>{{item2.controle}}</td>
+                                            <td>{{item2.critere}}</td>
+                                            <td>{{item2.tension}}</td>
+                                            <td>{{item2.valeur}} {{ item2.unite}}</td>
+                                            <td>{{item2.tempCorrection}}</td>
+                                            <td>{{item2.conformite}}</td>
+                                            <td class="text-center"><a href="{{path('delete_mesure_essai', {'id' : item2.lig, 'paramID' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                        </tr>                                        
+                                    {% endfor %}
+                                    <tr class="bg-primary"></tr>
+                                    {% if parametre.mesureIsolementEssai %}
+                                        {% for item in parametre.mesureIsolementEssai.lmesureIsolementEssais %}
+                                            <tr>
+                                                <td></td>
+                                                <td>{{item.controle}}</td>
+                                                <td>{{item.critere}}</td>
+                                                <td>{{item.tension}}</td>
+                                                <td>{{item.valeur}} {{ item.unite}}</td>
+                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.conformite}}</td>
+                                                <td class="text-center"><a href="{{path('delete_lmesure_isolement_essai', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                            </tr>                                        
+                                        {% endfor %}                                            
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <button class="btn btn-secondary btn-sm" name="bouton7" value="mesure_isolement_en_cours"> En cours <i class="fa fa-save"></i></button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" name="bouton7" value="mesure_isolement_terminer"> Terminer <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <!-- fin Mesure d'isolement -->  
+            </div>
+        </div>
+    </div> 
+</div> 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+            let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_essai_temp_ambiante').value);
+            let valeur = parseFloat(document.getElementById('l_mesure_isolement_essai_valeur').value);
+            var var_type = document.getElementById('l_mesure_isolement_essai_type');
+
+            let tension_rotor = {{ parametre.rotorTension }};
+            let tension_stator = {{ parametre.statorTension }};
+            const critere = {{ parametre.critere }};
+            const valeur_temp = {{ parametre.tempCorrection }};
+
+            if(var_type.value == 'Stator')
+            {
+                if (tension_stator< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_stator >= 500 && tension_stator < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator > 1100 && tension_stator <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }   
+
+                const ol_critre = (critere*tension_stator)/1000000;
+                const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+            }
+
+
+            else if (var_type.value == 'Rotor')
+            {
+                if (tension_rotor< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_rotor >= 500 && tension_rotor < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor > 1100 && tension_rotor <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_mesure_isolement_essai_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }  
+
+                const ol_critre = (critere*tension_rotor)/1000000;
+                const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+            }
+
+            const correction = document.getElementById('l_mesure_isolement_essai_temp_correction');
+
+            let valeurCorrection = 0;
+            if(temp_ambiante >= 10 && temp_ambiante <=30)
+            {
+                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
+                valeurCorrection = val*valeur;
+                valeurFinale = valeurCorrection.toFixed(2);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }
+
+        }
+        document.getElementById('mesure_isolement_essai_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_isolement_essai_valeur').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_isolement_essai_type').addEventListener('input', updateSumField);
+    });
+</script>
+{% endblock %}

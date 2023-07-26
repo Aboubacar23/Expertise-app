@@ -229,6 +229,24 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?float $temp_correction = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $essais_finaux = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: AppareilMesureEssais::class)]
+    private Collection $appareilMesureEssais;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureVibratoireEssais $mesure_vibratoire_essais = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PointFonctionnementVide::class)]
+    private Collection $pointFonctionnementVides;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureIsolementEssai $mesure_isolement_essai = null;
+
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?MesureResistanceEssai $mesure_resistance_essai = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -248,6 +266,8 @@ class Parametre
         $this->phototheques = new ArrayCollection();
         $this->synoptiques = new ArrayCollection();
         $this->controleGeometriques = new ArrayCollection();
+        $this->appareilMesureEssais = new ArrayCollection();
+        $this->pointFonctionnementVides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1409,6 +1429,114 @@ class Parametre
     public function setTempCorrection(?float $temp_correction): static
     {
         $this->temp_correction = $temp_correction;
+
+        return $this;
+    }
+
+    public function isEssaisFinaux(): ?bool
+    {
+        return $this->essais_finaux;
+    }
+
+    public function setEssaisFinaux(?bool $essais_finaux): static
+    {
+        $this->essais_finaux = $essais_finaux;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AppareilMesureEssais>
+     */
+    public function getAppareilMesureEssais(): Collection
+    {
+        return $this->appareilMesureEssais;
+    }
+
+    public function addAppareilMesureEssai(AppareilMesureEssais $appareilMesureEssai): static
+    {
+        if (!$this->appareilMesureEssais->contains($appareilMesureEssai)) {
+            $this->appareilMesureEssais->add($appareilMesureEssai);
+            $appareilMesureEssai->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppareilMesureEssai(AppareilMesureEssais $appareilMesureEssai): static
+    {
+        if ($this->appareilMesureEssais->removeElement($appareilMesureEssai)) {
+            // set the owning side to null (unless already changed)
+            if ($appareilMesureEssai->getParametre() === $this) {
+                $appareilMesureEssai->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMesureVibratoireEssais(): ?MesureVibratoireEssais
+    {
+        return $this->mesure_vibratoire_essais;
+    }
+
+    public function setMesureVibratoireEssais(?MesureVibratoireEssais $mesure_vibratoire_essais): static
+    {
+        $this->mesure_vibratoire_essais = $mesure_vibratoire_essais;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PointFonctionnementVide>
+     */
+    public function getPointFonctionnementVides(): Collection
+    {
+        return $this->pointFonctionnementVides;
+    }
+
+    public function addPointFonctionnementVide(PointFonctionnementVide $pointFonctionnementVide): static
+    {
+        if (!$this->pointFonctionnementVides->contains($pointFonctionnementVide)) {
+            $this->pointFonctionnementVides->add($pointFonctionnementVide);
+            $pointFonctionnementVide->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePointFonctionnementVide(PointFonctionnementVide $pointFonctionnementVide): static
+    {
+        if ($this->pointFonctionnementVides->removeElement($pointFonctionnementVide)) {
+            // set the owning side to null (unless already changed)
+            if ($pointFonctionnementVide->getParametre() === $this) {
+                $pointFonctionnementVide->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMesureIsolementEssai(): ?MesureIsolementEssai
+    {
+        return $this->mesure_isolement_essai;
+    }
+
+    public function setMesureIsolementEssai(?MesureIsolementEssai $mesure_isolement_essai): static
+    {
+        $this->mesure_isolement_essai = $mesure_isolement_essai;
+
+        return $this;
+    }
+
+    public function getMesureResistanceEssai(): ?MesureResistanceEssai
+    {
+        return $this->mesure_resistance_essai;
+    }
+
+    public function setMesureResistanceEssai(?MesureResistanceEssai $mesure_resistance_essai): static
+    {
+        $this->mesure_resistance_essai = $mesure_resistance_essai;
 
         return $this;
     }

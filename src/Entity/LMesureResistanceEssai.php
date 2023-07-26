@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\LMesureResistanceRepository;
+use App\Repository\LMesureResistanceEssaiRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LMesureResistanceRepository::class)]
-class LMesureResistance
+#[ORM\Entity(repositoryClass: LMesureResistanceEssaiRepository::class)]
+class LMesureResistanceEssai
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,14 +28,14 @@ class LMesureResistance
     #[ORM\Column(nullable: true)]
     private ?int $lig = null;
 
-    #[ORM\ManyToOne(inversedBy: 'lMesureResistances')]
-    private ?MesureResistance $mesure_resistance = null;
-
     #[ORM\Column]
     private ?float $temp_correction = null;
 
     #[ORM\Column(length: 255)]
     private ?string $unite = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lMesureResistanceEssais')]
+    private ?MesureResistanceEssai $mesure_reistance_essai = null;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -103,20 +103,8 @@ class LMesureResistance
         $this->lig = $lig;
 
         return $this;
-    }
-
-    public function getMesureResistance(): ?MesureResistance
-    {
-        return $this->mesure_resistance;
-    }
-
-    public function setMesureResistance(?MesureResistance $mesure_resistance): self
-    {
-        $this->mesure_resistance = $mesure_resistance;
-
-        return $this;
-    }
-
+    }  
+    
     public function getTempCorrection(): ?float
     {
         return $this->temp_correction;
@@ -137,6 +125,18 @@ class LMesureResistance
     public function setUnite(string $unite): static
     {
         $this->unite = $unite;
+
+        return $this;
+    }
+
+    public function getMesureReistanceEssai(): ?MesureResistanceEssai
+    {
+        return $this->mesure_reistance_essai;
+    }
+
+    public function setMesureReistanceEssai(?MesureResistanceEssai $mesure_reistance_essai): static
+    {
+        $this->mesure_reistance_essai = $mesure_reistance_essai;
 
         return $this;
     }
