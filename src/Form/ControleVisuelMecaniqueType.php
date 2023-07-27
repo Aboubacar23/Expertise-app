@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\ControleVisuelMecanique;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ControleVisuelMecaniqueType extends AbstractType
@@ -15,7 +17,9 @@ class ControleVisuelMecaniqueType extends AbstractType
         $builder
             ->add('bridage')
             ->add('chassis')
-            ->add('boite_borne')
+            ->add('boite_borne',CheckboxType::class,[
+                'label' => 'Boite à Borne Neutre'
+            ])
             ->add('barrette_neutre')
             ->add('reference_rotor')
             ->add('reference_stator')
@@ -28,7 +32,9 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('autres_sondes')
             ->add('numero_serie')
             ->add('nombre_accessoire')
-            ->add('phase_neutre')
+            ->add('phase_neutre', CheckboxType::class,[
+                'label' => 'Boite à Borne Phase'
+            ])
             ->add('accouplement',ChoiceType::class, [
                 'choices' => [
                     'Aucun' => 'Aucun',
