@@ -20,13 +20,13 @@ class Coussinet
     private ?string $ref_palier_coa = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $num_code_ca = null;
+    private ?string $num_code_ca = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo_ca = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $num_code_coa = null;
+    private ?string $num_code_coa = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo_coa = null;
@@ -66,12 +66,12 @@ class Coussinet
         return $this;
     }
 
-    public function getNumCodeCa(): ?int
+    public function getNumCodeCa(): ?string
     {
         return $this->num_code_ca;
     }
 
-    public function setNumCodeCa(?int $num_code_ca): self
+    public function setNumCodeCa(?string $num_code_ca): self
     {
         $this->num_code_ca = $num_code_ca;
 
@@ -90,12 +90,12 @@ class Coussinet
         return $this;
     }
 
-    public function getNumCodeCoa(): ?int
+    public function getNumCodeCoa(): ?string
     {
         return $this->num_code_coa;
     }
 
-    public function setNumCodeCoa(?int $num_code_coa): self
+    public function setNumCodeCoa(?string $num_code_coa): self
     {
         $this->num_code_coa = $num_code_coa;
 
