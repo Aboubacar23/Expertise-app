@@ -32,10 +32,16 @@ class MesureVibratoire
     private ?float $n10 = null;
 
     #[ORM\Column(nullable: true)]
+    private ?float $n30 = null;
+
+    #[ORM\Column(nullable: true)]
     private ?float $n25 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $a10 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $a30 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $a25 = null;
@@ -44,10 +50,16 @@ class MesureVibratoire
     private ?float $b10 = null;
 
     #[ORM\Column(nullable: true)]
+    private ?float $b30 = null;
+
+    #[ORM\Column(nullable: true)]
     private ?float $b25 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $c10 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $c30 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $c25 = null;
@@ -56,10 +68,16 @@ class MesureVibratoire
     private ?float $d10 = null;
 
     #[ORM\Column(nullable: true)]
+    private ?float $d30 = null;
+
+    #[ORM\Column(nullable: true)]
     private ?float $d25 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $e10 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $e30 = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $e25 = null;
@@ -68,10 +86,16 @@ class MesureVibratoire
     private ?float $f10 = null;
 
     #[ORM\Column(nullable: true)]
+    private ?float $f30 = null;
+
+    #[ORM\Column(nullable: true)]
     private ?float $f25 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $obervation = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titre = null;
 
     #[ORM\OneToOne(mappedBy: 'mesure_vibratoire', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
@@ -156,6 +180,19 @@ class MesureVibratoire
         return $this;
     }
 
+
+    public function getN30(): ?float
+    {
+        return $this->n30;
+    }
+
+    public function setN30(?float $n30): self
+    {
+        $this->n30 = $n30;
+
+        return $this;
+    }
+
     public function getN25(): ?float
     {
         return $this->n25;
@@ -176,6 +213,18 @@ class MesureVibratoire
     public function setA10(?float $a10): self
     {
         $this->a10 = $a10;
+
+        return $this;
+    }
+
+    public function getA30(): ?float
+    {
+        return $this->a30;
+    }
+
+    public function setA30(?float $a30): self
+    {
+        $this->a30 = $a30;
 
         return $this;
     }
@@ -204,6 +253,18 @@ class MesureVibratoire
         return $this;
     }
 
+    public function getB30(): ?float
+    {
+        return $this->b30;
+    }
+
+    public function setB30(?float $b30): self
+    {
+        $this->b30 = $b30;
+
+        return $this;
+    }
+
     public function getB25(): ?float
     {
         return $this->b25;
@@ -224,6 +285,18 @@ class MesureVibratoire
     public function setC10(?float $c10): self
     {
         $this->c10 = $c10;
+
+        return $this;
+    }
+
+    public function getC30(): ?float
+    {
+        return $this->c30;
+    }
+
+    public function setC30(?float $c30): self
+    {
+        $this->c30 = $c30;
 
         return $this;
     }
@@ -252,6 +325,18 @@ class MesureVibratoire
         return $this;
     }
 
+    public function getD30(): ?float
+    {
+        return $this->d30;
+    }
+
+    public function setD30(?float $d30): self
+    {
+        $this->d30 = $d30;
+
+        return $this;
+    }
+
     public function getD25(): ?float
     {
         return $this->d25;
@@ -272,6 +357,18 @@ class MesureVibratoire
     public function setE10(?float $e10): self
     {
         $this->e10 = $e10;
+
+        return $this;
+    }
+
+    public function getE30(): ?float
+    {
+        return $this->e30;
+    }
+
+    public function setE30(?float $e30): self
+    {
+        $this->e30 = $e30;
 
         return $this;
     }
@@ -300,6 +397,18 @@ class MesureVibratoire
         return $this;
     }
 
+    public function getF30(): ?float
+    {
+        return $this->f30;
+    }
+
+    public function setF30(?float $f30): self
+    {
+        $this->f30 = $f30;
+
+        return $this;
+    }
+
     public function getF25(): ?float
     {
         return $this->f25;
@@ -320,6 +429,18 @@ class MesureVibratoire
     public function setObervation(?string $obervation): self
     {
         $this->obervation = $obervation;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
 
         return $this;
     }

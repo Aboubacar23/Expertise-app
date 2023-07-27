@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\ControleIsolement;
 use App\Entity\ControleResistance;
+use App\Entity\TypeControleGeo;
+use App\Form\ControleGeoType;
 use App\Form\ControleIsolementType;
 use App\Form\ControleResistanceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ControleIsolementRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ControleResistanceRepository;
+use App\Repository\TypeControleGeoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -72,4 +75,25 @@ class ControleController extends AbstractController
         }
         
     }
+
+
+    #[Route('/type-controle-geometrique', name: 'app_type_geo_index')]
+    public function controleGeo(Request $request,TypeControleGeoRepository $typeControleGeoRepository): Response
+    {
+        $type = new TypeControleGeo();
+        $form = $this->createForm(ControleGeoType::class, $type);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $typeControleGeoRepository->save($type, true);
+            return $this->redirectToRoute('app_type_geo_index');
+        }
+
+        return $this->render('controle/type.html.twig', [
+            'types' => $typeControleGeoRepository->findAll(),
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

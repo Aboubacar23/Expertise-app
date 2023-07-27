@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\TypeControleGeo;
 use App\Entity\ControleGeometrique;
 use Symfony\Component\Form\AbstractType;
+use App\Repository\TypeControleGeoRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -31,16 +34,14 @@ class ControleGeometriqueType extends AbstractType
 
                 ]
             ])
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    '' => '',
-                    "Bt.A Add" => "Bt.A Add",
-                    "Pivot" => "Pivot",
-                    "Tôlerie" => "Tôlerie",
-                    "Accouplement" => "Accouplement"
-                ],
+            ->add('type',EntityType::class, [
+                'class' => TypeControleGeo::class,
+                'query_builder' => function(TypeControleGeoRepository $em){
+                    $query = $em->createQueryBuilder('a');
+                    return  $query;
+                },
                 'required' => true
-            ])
+            ]) 
             ->add('conformite', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',

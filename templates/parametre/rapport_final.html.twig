@@ -210,7 +210,7 @@
                     <table>
                         <tr>
                             {% for item in parametre.plaques %}
-                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" height="250px"></td>
+                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" height="150px"></td>
                             {% endfor %}
                         </tr>    
                         <tr>                                                
@@ -1283,6 +1283,16 @@
                             <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
                             <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
                             <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ parametre.mesureVibratoire.titre}}</td>
+                            <td>{{ parametre.mesureVibratoire.n30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.a30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.b30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.c30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.d30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.e30 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoire.f30 | number_format(2) }}</td>
                         </tr>
                         <tr>
                             <td class="titre_table">Observations</td>

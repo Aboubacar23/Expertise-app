@@ -15,12 +15,14 @@ class PlaqueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle',ChoiceType::class, [
+           /* ->add('libelle',ChoiceType::class, [
                 'choices' => [
                     'Plaque signalétique' => 'Plaque signalétique',
                     'Plaque révision' => 'Plaque révision',
                 ]
             ])
+            */
+            ->add('libelle')
             ->add('photo',FileType::class, [
                 'label' => 'Photo',
                 'required' => true, 
