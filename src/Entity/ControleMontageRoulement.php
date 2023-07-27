@@ -24,7 +24,7 @@ class ControleMontageRoulement
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $coa_roulement = null;
-
+ 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $coa_montage = null;
 
@@ -50,7 +50,7 @@ class ControleMontageRoulement
     private ?float $cote_ca_jeu = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?float $cote_ca_vide2 = null;
+    private ?string $cote_ca_vide2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?float $cote_coa_a = null;
@@ -71,7 +71,7 @@ class ControleMontageRoulement
     private ?float $cote_coa_jeu = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?float $cote_coa_vide2 = null;
+    private ?string $cote_coa_vide2 = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
@@ -228,12 +228,12 @@ class ControleMontageRoulement
         return $this;
     }
 
-    public function getCoteCaVide2(): ?float
+    public function getCoteCaVide2(): ?string
     {
         return $this->cote_ca_vide2;
     }
 
-    public function setCoteCaVide2(?float $cote_ca_vide2): self
+    public function setCoteCaVide2(?string $cote_ca_vide2): self
     {
         $this->cote_ca_vide2 = $cote_ca_vide2;
 
@@ -312,12 +312,12 @@ class ControleMontageRoulement
         return $this;
     }
 
-    public function getCoteCoaVide2(): ?float
+    public function getCoteCoaVide2(): ?string
     {
         return $this->cote_coa_vide2;
     }
 
-    public function setCoteCoaVide2(?float $cote_coa_vide2): self
+    public function setCoteCoaVide2(?string $cote_coa_vide2): self
     {
         $this->cote_coa_vide2 = $cote_coa_vide2;
 

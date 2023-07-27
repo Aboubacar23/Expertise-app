@@ -32,10 +32,10 @@ class PhotoExpertiseMecaniqueType extends AbstractType
                 ],
                  'constraints' => [
                      new File([
-                         'maxSize' => '5000000k',
+                         'maxSize' => '40M',
                          'mimeTypes' => [
-                             'image/png',
-                             'image/jpg',
+                            'image/png',
+                            'image/jpg',
                             'image/jpeg'
                          ],
                          'mimeTypesMessage' => 'Veuillez choisir une image png, jpg ou jpeg',
