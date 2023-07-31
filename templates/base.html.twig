@@ -103,10 +103,12 @@
                           {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                               <li><a href="{{path('app_machine_index')}}">Machines</a></li>
                               <li><a href="{{path('app_type_index')}}">Types</a></li>
-                              <li><a href="{{path('app_appareil_index')}}">Apareilles</a></li>
                               <li><a href="{{path('app_critere_index')}}">Critères</a></li>
                           {% endif %}
-                          {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_AGENT_MAITRISE') %}
+                          {% if is_granted('ROLE_AGENT_MAITRISE') %}
+                            <li><a href="{{path('app_appareil_index')}}">Apareilles</a></li>
+                          {% endif %}
+                          {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') %}
                               <li><a href="{{path('app_controle_index')}}">Controles</a></li>
                           {% endif %}
                           {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_AGENT_MAITRISE') %}

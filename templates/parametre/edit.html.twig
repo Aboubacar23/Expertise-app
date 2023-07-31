@@ -115,10 +115,14 @@
                                         </div>
                                 </div>
                                 <div class="item form-group">
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.date_arrivee) }}
-                                        </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.date_arrivee) }}
+                                    </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.stator_tension2) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,13 +149,19 @@
                                         </div>
                                 </div>
                                 <div class="item form-group">
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.rotor_expertise_refrigeant) }}
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 ">
-                                            {{ form_widget(form.presence_plans) }}
-                                        </div>
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_expertise_refrigeant) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.presence_plans) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_tension2) }}
+                                    </div>
                                 </div>
                             </div> 
                         </div>

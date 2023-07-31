@@ -60,9 +60,9 @@
                                         <th>Critère</th>
                                         <td>{{parametre.critere | number_format(2)}}</td>
                                         <th>Tension Stator</th>
-                                        <td id="tension_stator">{{parametre.statorTension | number_format}}</td>
+                                        <td id="tension_stator">{{parametre.statorTension | number_format}} et {{parametre.statorTension2 | number_format}} </td>
                                         <th>Tension Rotor</th>
-                                        <td id="tension_rotor">{{parametre.rotorTension | number_format}}</td>
+                                        <td id="tension_rotor">{{parametre.rotorTension | number_format}} et {{parametre.rotorTension2 | number_format}}</td>
                                     </tr>   
                                 </table>
                             </div>
@@ -149,6 +149,9 @@
 
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
+            let tension_rotor2 = {{ parametre.rotorTension2 }};
+            let tension_stator2 = {{ parametre.statorTension2 }};
+
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
 
@@ -213,6 +216,70 @@
                 }  
 
                 const ol_critre = (critere*tension_rotor)/1000000;
+                const new_critere = document.getElementById('l_mesure_isolement_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+            }
+            else if (var_type.value == 'Stator 2')
+            {
+                if (tension_stator2< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_stator2 >= 500 && tension_stator2 < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator2 > 1100 && tension_stator2 <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_stator2 > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }  
+
+                const ol_critre = (critere*tension_stator2)/1000000;
+                const new_critere = document.getElementById('l_mesure_isolement_critere');
+                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+            }
+            else if (var_type.value == 'Rotor 2')
+            {
+                if (tension_rotor2< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }       
+                else if (tension_rotor2 >= 500 && tension_rotor2 < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor2 > 1100 && tension_rotor2 <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+                }
+                else if (tension_rotor2 > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }  
+
+                const ol_critre = (critere*tension_rotor2)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }

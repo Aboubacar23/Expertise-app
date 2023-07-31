@@ -43,6 +43,7 @@ class ParametreType extends AbstractType
             ])
             ->add('presence_balais_masse')
             ->add('stator_tension')
+            ->add('stator_tension2')
             ->add('stator_frequence')
             ->add('stator_courant')
             ->add('stator_couplage', ChoiceType::class, [
@@ -55,6 +56,7 @@ class ParametreType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('rotor_tension')
+            ->add('rotor_tension2')
             ->add('rotor_expertise_refrigeant',ChoiceType::class, [
                 'choices' => [
                     'Hydro' => 'Hydro',

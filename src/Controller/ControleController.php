@@ -55,7 +55,7 @@ class ControleController extends AbstractController
         ]);
     }
 
-    #[Route('delete-isolement/{id}', name : 'app_delete_isolement')]
+    #[Route('/delete-isolement/{id}', name : 'app_delete_isolement')]
     public function deleteIsolement(ControleIsolement $controleIsolement, ControleIsolementRepository $controleIsolementRepository)
     {
         if($controleIsolement)
@@ -65,7 +65,7 @@ class ControleController extends AbstractController
         }
     }
 
-    #[Route('delete-resistance/{id}', name : 'app_delete_resistance')]
+    #[Route('/delete-resistance/{id}', name : 'app_delete_resistance')]
     public function deleteResistance(ControleResistance $controleResistance, ControleResistanceRepository $controleResistanceRepository)
     {
         if($controleResistance)
@@ -94,6 +94,17 @@ class ControleController extends AbstractController
             'types' => $typeControleGeoRepository->findAll(),
             'form' => $form->createView(),
         ]);
+    }
+
+
+    #[Route('/delete-geo/{id}', name : 'app_delete_type_geo_index')]
+    public function deleteGeo(TypeControleGeo $typeControleGeo, TypeControleGeoRepository $typeControleGeoRepository)
+    {
+        if($typeControleGeo)
+        {
+            $typeControleGeoRepository->remove($typeControleGeo, true);
+            return $this->redirectToRoute('app_type_geo_index');
+        }
     }
 
 }

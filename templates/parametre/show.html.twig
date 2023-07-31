@@ -171,6 +171,10 @@
                                                         <th>Date Arrivée</th>
                                                         <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('Y-m-d') : '' }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>Stator Tension 2</th>
+                                                        <td>{{ parametre.statorTension2 }} V</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -195,6 +199,10 @@
                                                     <tr>
                                                         <th>Presence Plans</th>
                                                         <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rotor Tension 2</th>
+                                                        <td>{{ parametre.rotorTension2}} V</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

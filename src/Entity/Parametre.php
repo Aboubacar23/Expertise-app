@@ -247,6 +247,12 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?MesureResistanceEssai $mesure_resistance_essai = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $stator_tension2 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $rotor_tension2 = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1537,6 +1543,30 @@ class Parametre
     public function setMesureResistanceEssai(?MesureResistanceEssai $mesure_resistance_essai): static
     {
         $this->mesure_resistance_essai = $mesure_resistance_essai;
+
+        return $this;
+    }
+
+    public function getStatorTension2(): ?float
+    {
+        return $this->stator_tension2;
+    }
+
+    public function setStatorTension2(?float $stator_tension2): static
+    {
+        $this->stator_tension2 = $stator_tension2;
+
+        return $this;
+    }
+
+    public function getRotorTension2(): ?float
+    {
+        return $this->rotor_tension2;
+    }
+
+    public function setRotorTension2(?float $rotor_tension2): static
+    {
+        $this->rotor_tension2 = $rotor_tension2;
 
         return $this;
     }
