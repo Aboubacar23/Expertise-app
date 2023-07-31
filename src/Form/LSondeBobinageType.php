@@ -37,6 +37,16 @@ class LSondeBobinageType extends AbstractType
                     'GΩ' => 'GΩ',
                 ]
             ])
+            ->add('type', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    '' => '',
+                    'Stator' => 'Stator',
+                    'Rotor' => 'Rotor',
+                    "Stator 2" => "Stator 2",
+                    "Rotor 2" => "Rotor 2",
+                ]
+            ]) 
             ->add('temp_correction')
             ->add('conformite', ChoiceType::class, [
                 'required' => true,

@@ -58,7 +58,18 @@ class ParametreController extends AbstractController
             }
         }
         
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if ($parametre->getStatorTension2() == null)
+            {
+                $parametre->setStatorTension2(0);
+            }
+
+            if ($parametre->getRotorTension2() == null)
+            {
+                $parametre->setRotorTension2(0);
+            }
+
             $parametre->setAffaire($affaire);
             $parametreRepository->save($parametre, true);
 

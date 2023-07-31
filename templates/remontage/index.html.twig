@@ -630,7 +630,7 @@
                 <!-- /fin photo -->
                     
                  <!-- début bouton -->
-                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_AGENT_MAITRISE') %}
                         <div class="x_panel"> 
                             <div class="x_content">
                                 <div class="row">

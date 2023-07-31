@@ -19,25 +19,6 @@
                     <div class="clearfix"></div> 
                 </div>
                     
-                <!-- la gestion des valeur saisir automatiquement -->
-
-                    <!-- la gestion des valeur saisir automatiquement -->
-                        {% set tension_essaie = 0 %}
-                        {% if parametre.statorTension < 500 %}
-                            {% set tension_essaie = 500 %}
-                        {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
-                            {% set tension_essaie = 1000 %}
-                        {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
-                            {% set tension_essaie = 2500 %}
-                        {% elseif parametre.statorTension > 5500 %}
-                            {% set tension_essaie = 5000 %}
-                        {% endif %}
-                    <!-- la gestion des valeur saisir automatiquement -->
-    
-                        {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                        
-                    <!-- fin des valeurs -->
-    
                 <!-- début Mesure d'isolement -->
                     <form method="post">
                         <div class="x_content">
@@ -47,22 +28,30 @@
                                         <th colspan="8" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
-                                        <th>T° Ambiante (°C)</th>
-                                        <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
-                                        <th>T° Tôlerie (°C)</th>
-                                        <td >{{ form_widget(formMesureIsolement.temp_tolerie) }}</td>
-                                        <th colspan="2">Date d'essai</th>
-                                        <td colspan="2">{{ form_widget(formMesureIsolement.date_essais) }}</td>
+                                        <th width="15%">T° Ambiante (°C)</th>
+                                        <th width="15%">T° Tôlerie (°C)</th>
+                                        <th width="15%">Hygrométrie (%)</th>
+                                        <th width="15%">Date d'essai</th>
+                                        <th width="10%">Critère</th>
+                                        <th width="10%">Tension Rotor</th>
+                                        <th width="10%">Tension Stator</th>
                                     </tr>
                                     <tr>
-                                        <th>Hygrométrie (%)</th>
+                                        <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
+                                        <td >{{ form_widget(formMesureIsolement.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
-                                        <th>Critère</th>
+                                        <td>{{ form_widget(formMesureIsolement.date_essais) }}</td>
                                         <td>{{parametre.critere | number_format(2)}}</td>
-                                        <th>Tension Stator</th>
-                                        <td id="tension_stator">{{parametre.statorTension | number_format}} et {{parametre.statorTension2 | number_format}} </td>
-                                        <th>Tension Rotor</th>
-                                        <td id="tension_rotor">{{parametre.rotorTension | number_format}} et {{parametre.rotorTension2 | number_format}}</td>
+                                        <td>{{parametre.statorTension}} 
+                                            {% if parametre.statorTension2 != 0 %}
+                                                et {{parametre.statorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                        <td>{{parametre.rotorTension}} 
+                                            {% if parametre.rotorTension2 != 0 %}
+                                                et {{parametre.rotorTension2 }}
+                                            {% endif %} 
+                                        </td>
                                     </tr>   
                                 </table>
                             </div>
@@ -97,7 +86,7 @@
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
-                                            <td></td>
+                                            <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.tension}}</td>
@@ -111,7 +100,7 @@
                                     {% if parametre.mesureIsolement %}
                                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
                                             <tr>
-                                                <td></td>
+                                                <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
@@ -139,6 +128,117 @@
         </div>
     </div> 
 </div> 
+<div>
+    {% set var_idUVW = 0 %}
+    {% set var_idU = 0 %}
+    {% set var_idV = 0 %}
+    {% set var_idW = 0 %}
+    {% set var_UVW1 = 1 %}
+    {% set var_UVW10 = 0 %}
+    {% set var_U1 = 1 %}
+    {% set var_U10 = 0 %}
+    {% set var_V1 = 1 %}
+    {% set var_V10 = 0 %}
+    {% set var_W1 = 1 %}
+    {% set var_W10 = 0 %}
+    {% set var_UVW = 0 %}
+    {% set var_U = 0 %}
+    {% set var_V = 0 %}
+    {% set var_W = 0 %}
+
+    {% for it in items %}
+        {% if it.type == 'Stator' %}
+            {% if it.controle == 'RI - UVW/masse - 1 min' %}
+                {% set var_UVW1 = it.tension %}
+            {% elseif it.controle == 'RI - UVW/masse - 10 min' %}
+                {% set var_UVW10 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 1 min' %}
+                {% set var_U1 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 10 min' %}
+                {% set var_U10 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 1 min' %}
+                {% set var_V1 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 10 min' %}
+                {% set var_V10 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 1 min' %}
+                {% set var_W1 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 10 min' %}
+                {% set var_W10 = it.tension %}
+            {% endif %} 
+        {% elseif it.type == 'Stator 2' %}
+            {% if it.controle == 'RI - UVW/masse - 1 min' %}
+                {% set var_UVW1 = it.tension %}
+            {% elseif it.controle == 'RI - UVW/masse - 10 min' %}
+                {% set var_UVW10 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 1 min' %}
+                {% set var_U1 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 10 min' %}
+                {% set var_U10 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 1 min' %}
+                {% set var_V1 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 10 min' %}
+                {% set var_V10 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 1 min' %}
+                {% set var_W1 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 10 min' %}
+                {% set var_W10 = it.tension %}
+            {% endif %} 
+        {% elseif it.type == 'Rotor' %}
+            {% if it.controle == 'RI - UVW/masse - 1 min' %}
+                {% set var_UVW1 = it.tension %}
+            {% elseif it.controle == 'RI - UVW/masse - 10 min' %}
+                {% set var_UVW10 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 1 min' %}
+                {% set var_U1 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 10 min' %}
+                {% set var_U10 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 1 min' %}
+                {% set var_V1 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 10 min' %}
+                {% set var_V10 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 1 min' %}
+                {% set var_W1 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 10 min' %}
+                {% set var_W10 = it.tension %}
+            {% endif %} 
+        {% elseif it.type == 'Rotor 2' %}
+            {% if it.controle == 'RI - UVW/masse - 1 min' %}
+                {% set var_UVW1 = it.tension %}
+            {% elseif it.controle == 'RI - UVW/masse - 10 min' %}
+                {% set var_UVW10 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 1 min' %}
+                {% set var_U1 = it.tension %}
+            {% elseif it.controle == 'RI - U/VW+masse - 10 min' %}
+                {% set var_U10 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 1 min' %}
+                {% set var_V1 = it.tension %}
+            {% elseif it.controle == 'RI - V/UW+masse - 10 min' %}
+                {% set var_V10 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 1 min' %}
+                {% set var_W1 = it.tension %}
+            {% elseif it.controle == 'RI - W/UV+masse - 10 min' %}
+                {% set var_W10 = it.tension %}
+            {% endif %} 
+        {% endif %}                                      
+    {% endfor %}
+
+    {% set var_UVW = var_UVW10 / var_UVW1 %}
+    {% set var_U = var_U10 / var_U1 %}
+    {% set var_V = var_V10 / var_V1 %}
+    {% set var_W = var_W10 / var_W1 %}
+
+    {% for l in listes_controles %}
+        {% if l.libelle == 'IP-UVW/masse' %}
+            {% set var_idUVW = l.id %}
+        {% elseif l.libelle == 'IP-U/VW+masse' %}
+            {% set var_idU = l.id %}
+        {% elseif l.libelle == 'IP-V/UW+masse' %}
+            {% set var_idV = l.id %}
+        {% elseif l.libelle == 'IP-W/UV+masse' %}
+            {% set var_idW = l.id %}
+        {% endif %}
+    {% endfor %}
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
@@ -146,34 +246,98 @@
             let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_temp_ambiante').value);
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_type');
+            var var_controle = document.getElementById('l_mesure_isolement_controle');
 
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
             let tension_rotor2 = {{ parametre.rotorTension2 }};
             let tension_stator2 = {{ parametre.statorTension2 }};
 
+            let var_id_UVW = {{ var_idUVW }}
+            let var_id_U = {{ var_idU }}
+            let var_id_V = {{ var_idV }}
+            let var_id_W = {{ var_idW }} 
+
+            let var_j_UVW = {{ var_UVW }}
+            let var_j_U = {{ var_U }}
+            let var_j_V = {{ var_V }}
+            let var_j_W = {{ var_W }} 
+           // console.log(var_id_UVW);
+
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
-
+            
             if(var_type.value == 'Stator')
-            {
-                if (tension_stator< 500)
+            {  
+                if(var_controle.value == var_id_UVW )
+                {
+                    const tension_essaie = var_j_UVW;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }     
+                else if(var_controle.value == var_id_U )
+                {
+                    const tension_essaie = var_j_U;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_V )
+                {
+                    const tension_essaie = var_j_V;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_W )
+                {
+                    const tension_essaie = var_j_W;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator< 500)
                 {
                     const tension_essaie = 500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }       
                 else if (tension_stator >= 500 && tension_stator < 1100 )
                 {
                     const tension_essaie = 1000;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }
                 else if (tension_stator > 1100 && tension_stator <= 3300)
                 {
                     const tension_essaie = 2500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }
                 else if (tension_stator > 5500)
                 {
@@ -181,31 +345,83 @@
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
-                }   
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
 
-                const ol_critre = (critere*tension_stator)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_critere');
-                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                } 
             }
             else if (var_type.value == 'Rotor')
             {
-                if (tension_rotor< 500)
+                if(var_controle.value == var_id_UVW )
+                {
+                    const tension_essaie = var_j_UVW;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }     
+                else if(var_controle.value == var_id_U )
+                {
+                    const tension_essaie = var_j_U;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_V )
+                {
+                    const tension_essaie = var_j_V;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_W )
+                {
+                    const tension_essaie = var_j_W;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor< 500)
                 {
                     const tension_essaie = 500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_rotor)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }       
                 else if (tension_rotor >= 500 && tension_rotor < 1100 )
                 {
                     const tension_essaie = 1000;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_rotor)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }
                 else if (tension_rotor > 1100 && tension_rotor <= 3300)
                 {
                     const tension_essaie = 2500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_rotor)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
                 }
                 else if (tension_rotor > 5500)
                 {
@@ -213,15 +429,55 @@
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
-                }  
+                    const ol_critre = (critere*tension_rotor)/1000000;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
 
-                const ol_critre = (critere*tension_rotor)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_critere');
-                new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }  
             }
             else if (var_type.value == 'Stator 2')
             {
-                if (tension_stator2< 500)
+                if(var_controle.value == var_id_UVW )
+                {
+                    const tension_essaie = var_j_UVW;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }     
+                else if(var_controle.value == var_id_U )
+                {
+                    const tension_essaie = var_j_U;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_V )
+                {
+                    const tension_essaie = var_j_V;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_W )
+                {
+                    const tension_essaie = var_j_W;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator2< 500)
                 {
                     const tension_essaie = 500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
@@ -253,7 +509,47 @@
             }
             else if (var_type.value == 'Rotor 2')
             {
-                if (tension_rotor2< 500)
+                if(var_controle.value == var_id_UVW )
+                {
+                    const tension_essaie = var_j_UVW;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }     
+                else if(var_controle.value == var_id_U )
+                {
+                    const tension_essaie = var_j_U;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_V )
+                {
+                    const tension_essaie = var_j_V;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }    
+                else if(var_controle.value == var_id_W )
+                {
+                    const tension_essaie = var_j_W;
+                    const new_tension = document.getElementById('l_mesure_isolement_tension');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = 2.5;
+                    const new_critere = document.getElementById('l_mesure_isolement_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor2< 500)
                 {
                     const tension_essaie = 500;
                     const new_tension = document.getElementById('l_mesure_isolement_tension');
@@ -283,7 +579,6 @@
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }
-
             const correction = document.getElementById('l_mesure_isolement_temp_correction');
 
             let valeurCorrection = 0;
@@ -299,6 +594,7 @@
         document.getElementById('mesure_isolement_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_valeur').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_type').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_isolement_controle').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

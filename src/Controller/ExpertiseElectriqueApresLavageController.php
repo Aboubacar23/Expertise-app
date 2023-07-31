@@ -221,6 +221,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setUnite($item->getUnite());
+                    $lsondeBobinage->setType($item->getType());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
                 }
@@ -244,6 +245,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
                     $lsondeBobinage->setUnite($item->getUnite());
+                    $lsondeBobinage->setType($item->getType());
                     $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
@@ -275,7 +277,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $lsondeBobinage->setValeurRelevee($val);         
                 foreach($tables as $i)
                 {
-                    if($i->getControle() == $lsondeBobinage->getControle())
+                    if($i->getType() == $lsondeBobinage->getType() and $i->getControle() == $lsondeBobinage->getControle())
                     {                    
                         $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                         return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);
@@ -286,7 +288,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 {
                     foreach($parametre->getSondeBobinage()->getLSondeBobinages() as $j)
                     {
-                        if($j->getControle() == $lsondeBobinage->getControle())
+                        if($j->getType() == $lsondeBobinage->getType() and $j->getControle() == $lsondeBobinage->getControle())
                         {                    
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_sonde_bobinage', ['id' => $parametre->getId()]);

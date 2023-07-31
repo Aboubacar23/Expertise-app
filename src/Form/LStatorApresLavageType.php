@@ -47,9 +47,11 @@ class LStatorApresLavageType extends AbstractType
                 'choices' => [
                     '' => '',
                     'Stator' => 'Stator',
-                    'Rotor' => 'Rotor'
+                    'Rotor' => 'Rotor',
+                    "Stator 2" => "Stator 2",
+                    "Rotor 2" => "Rotor 2",
                 ]
-            ])
+            ]) 
             ->add('conformite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [

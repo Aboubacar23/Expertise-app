@@ -145,15 +145,17 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th width="16%">Contrôle</th>
-                                            <th width="16%">Critère (MΩ)</th>
-                                            <th width="16%">Tension d'éssai (V)</th>
-                                            <th width="16%">Valeur relevées</th>
-                                            <th width="16%">T.Correction à 20°</th>
-                                            <th width="16%">Conformité</th>
+                                            <th width="13%">Type</th>
+                                            <th width="13%">Contrôle</th>
+                                            <th width="13%">Critère (MΩ)</th>
+                                            <th width="13%">Tension d'éssai (V)</th>
+                                            <th width="13%">Valeur relevées</th>
+                                            <th width="13%">T.Correction à 20°</th>
+                                            <th width="13%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureIsolementEssai.lmesureIsolementEssais %}
                                             <tr>
+                                                <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
@@ -230,14 +232,16 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th width="20%">Contrôle</th>
-                                            <th width="20%">Critère</th>
-                                            <th width="20%">Valeur relevées</th>
-                                            <th width="20%">Correction à 20°</th>
-                                            <th width="20%">Conformité</th>
+                                            <th width="13%">type</th>
+                                            <th width="13%">Contrôle</th>
+                                            <th width="13%">Critère</th>
+                                            <th width="13%">Valeur relevées</th>
+                                            <th width="13%">Correction à 20°</th>
+                                            <th width="13%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureResistanceEssai.lmesureResistanceEssais %}
                                             <tr>
+                                                <td>{{item.Type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}} {{item.unite}}</td>
@@ -502,7 +506,7 @@
                 <!-- /fin Appareils de mesure utilisés -->
              
                 <!-- début bouton -->
-                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_AGENT_MAITRISE') %}
                         <div class="x_panel"> 
                             <div class="x_content">
                                 <div class="row">

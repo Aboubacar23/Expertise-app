@@ -74,7 +74,7 @@
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
-                                            <td></td>
+                                            <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeur}} {{item2.unite}}</td>
@@ -87,7 +87,7 @@
                                     {% if parametre.mesureResistanceEssai %}
                                         {% for item in parametre.mesureResistanceEssai.lmesureResistanceEssais %}
                                             <tr>
-                                                <td></td>
+                                                <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}} {{item.unite}}</td>

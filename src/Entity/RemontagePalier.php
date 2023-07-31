@@ -29,7 +29,7 @@ class RemontagePalier
     private ?float $ca_jeu = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $ca_roulement = null;
+    private ?string $ca_roulement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_graisse = null;
@@ -50,7 +50,7 @@ class RemontagePalier
     private ?float $coa_jeu = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $coa_roulement = null;
+    private ?string $coa_roulement = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $etat = null;
@@ -123,12 +123,12 @@ class RemontagePalier
         return $this;
     }
 
-    public function getCaRoulement(): ?float
+    public function getCaRoulement(): ?string
     {
         return $this->ca_roulement;
     }
 
-    public function setCaRoulement(?float $ca_roulement): self
+    public function setCaRoulement(?string $ca_roulement): self
     {
         $this->ca_roulement = $ca_roulement;
 
@@ -207,12 +207,12 @@ class RemontagePalier
         return $this;
     }
 
-    public function getCoaRoulement(): ?float
+    public function getCoaRoulement(): ?string
     {
         return $this->coa_roulement;
     }
 
-    public function setCoaRoulement(?float $coa_roulement): self
+    public function setCoaRoulement(?string $coa_roulement): self
     {
         $this->coa_roulement = $coa_roulement;
 

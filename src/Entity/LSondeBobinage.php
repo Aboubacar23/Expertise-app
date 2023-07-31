@@ -40,6 +40,9 @@ class LSondeBobinage
     #[ORM\Column(length: 255)]
     private ?string $unite = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -149,6 +152,18 @@ class LSondeBobinage
     public function setUnite(string $unite): static
     {
         $this->unite = $unite;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

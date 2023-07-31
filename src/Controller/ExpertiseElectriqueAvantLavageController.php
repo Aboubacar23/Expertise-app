@@ -52,6 +52,7 @@ use App\Repository\MesureResistanceRepository;
 use App\Repository\MesureVibratoireRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ConstatElectriqueRepository;
+use App\Repository\ControleIsolementRepository;
 use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
@@ -133,7 +134,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création de mesure d'isolement
     #[Route('/mesure/isolement/{id}', name: 'app_mesure_isolement', methods: ['POST', 'GET'])]
-    public function mesureIso(Parametre $parametre,Request $request,MesureIsolementRepository $mesureIsolementRepository,EntityManagerInterface $em): Response
+    public function mesureIso(Parametre $parametre,Request $request,
+    MesureIsolementRepository $mesureIsolementRepository,EntityManagerInterface $em,ControleIsolementRepository $controleIsolementRepository): Response
     {
         //Mesure d'isolement
         $mesureIsolement = new MesureIsolement();
@@ -227,6 +229,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         }
                     }
                 }
+                
                 $tables[$lig] = $lmesureIsolement;
                 $session->set('mesures', $tables);
             }
@@ -238,7 +241,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             'formMesureIsolement' => $formMesureIsolement->createView(),
             'form'=>$form->createView(),
             'items' => $tables,
-            'val' => $val
+            'val' => $val,
+            'listes_controles' => $controleIsolementRepository->findAll(),
         ]);
     }
 
@@ -321,7 +325,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
                 foreach($tables as $i)
                 {
-                    if($i->getControle() == $lmesureResistance->getControle())
+                    if($i->getType() == $lmesureResistance->getType() and $i->getControle() == $lmesureResistance->getControle())
                     {                    
                         $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                         return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);
@@ -332,7 +336,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 {
                     foreach($parametre->getMesureResistance()->getLMesureResistances() as $j)
                     {
-                        if($j->getControle() == $lmesureResistance->getControle())
+                        if($j->getType() == $lmesureResistance->getType() and $j->getControle() == $lmesureResistance->getControle())
                         {                    
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_mesure_resistance', ['id' => $parametre->getId()]);

@@ -18,23 +18,7 @@
                     </ul>
                     <div class="clearfix"></div> 
                 </div>    
-                 <!-- la gestion des valeur saisir automatiquement -->
-                 {% set tension_essaie = 0 %}
-                    {% if parametre.statorTension < 500 %}
-                        {% set tension_essaie = 500 %}
-                    {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
-                        {% set tension_essaie = 1000 %}
-                    {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
-                        {% set tension_essaie = 2500 %}
-                    {% elseif parametre.statorTension > 5500 %}
-                        {% set tension_essaie = 5000 %}
-                    {% endif %}
-                    <!-- la gestion des valeur saisir automatiquement -->
-
-                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                    
-                <!-- fin des valeurs -->
-            
+                      
                 <div class="x_content">
                     <!-- début Mesure de resistance -->
                     <form method="post">
@@ -42,24 +26,34 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="6" class="text-center">Paramètres</th>
+                                        <th colspan="7" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
-                                        <th>T° Ambiante (°C)</th>
+                                        <th width="15%">T° Ambiante (°C)</th>
+                                        <th width="15%">T° Tôlerie (°C)</th>
+                                        <th width="15%">Hygrométrie (%)</th>
+                                        <th width="15%">Date d'essai</th>
+                                        <th width="10%">Critère</th>
+                                        <th width="10%">Tension Rotor</th>
+                                        <th width="10%">Tension Stator</th>
+                                    </tr>
+                                    <tr>
                                         <td>{{ form_widget(formMesureResistance.temp_ambiante) }}</td>
-                                        <th>T° Tôlerie (°C)</th>
                                         <td >{{ form_widget(formMesureResistance.temp_tolerie) }}</td>
-                                        <th>Date d'essai</th>
-                                        <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Hygrométrie (%)</th>
                                         <td >{{ form_widget(formMesureResistance.hygrometrie) }}</td>
-                                        <th>Critère</th>
+                                        <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
                                         <td>{{parametre.critere}} Ω/V </td>
-                                        <th>Tension Machine</th>
-                                        <td>{{parametre.statorTension}}</td>
-                                    </tr>   
+                                        <td>{{parametre.statorTension}} 
+                                            {% if parametre.statorTension2 != 0 %}
+                                                et {{parametre.statorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                        <td>{{parametre.rotorTension}} 
+                                            {% if parametre.rotorTension2 != 0 %}
+                                                et {{parametre.rotorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                    </tr>    
                                 </table>
                             </div> 
                             <div class="row">
@@ -91,8 +85,7 @@
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
-                                            <td></td>
-                                            <td>{{item2.controle}}</td>
+                                            <td>{{item2.type}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
@@ -104,7 +97,7 @@
                                     {% if parametre.mesureResistance %}
                                         {% for item in parametre.mesureResistance.lmesureResistances %}
                                             <tr>
-                                                <td></td>
+                                                <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}} {{item.unite}}</td>
@@ -135,7 +128,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
-        {
+        { 
             let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_ambiante').value);
             let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_valeur').value);
 

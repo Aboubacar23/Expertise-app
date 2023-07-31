@@ -18,22 +18,6 @@
                     </ul>
                     <div class="clearfix"></div> 
                 </div>
-
-                 <!-- la gestion des valeur saisir automatiquement -->
-                    {% set tension_essaie = 0 %}
-                    {% if parametre.statorTension < 500 %}
-                        {% set tension_essaie = 500 %}
-                    {% elseif parametre.statorTension >= 500 and parametre.statorTension < 1100 %}
-                        {% set tension_essaie = 1000 %}
-                    {% elseif parametre.statorTension > 1100 and parametre.statorTension <= 3300 %}
-                        {% set tension_essaie = 2500 %}
-                    {% elseif parametre.statorTension > 5500 %}
-                        {% set tension_essaie = 5000 %}
-                    {% endif %}
-                    <!-- la gestion des valeur saisir automatiquement -->
-
-                    {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                    
                 <!-- fin des valeurs -->
                 <div class="x_content">
                     <form method="post">
@@ -48,17 +32,27 @@
                                         <th>T° Tôlerie (°C)</th>
                                         <th>Hygrométrie (%)</th>
                                         <th>Critère</th>
-                                        <th>Tension Machine</th>
+                                        <th>Tension Stator</th>
+                                        <th>Tension Rotor</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
                                         <td>{{parametre.critere}} Ω/V </td>
-                                        <td>{{parametre.statorTension}}</td> 
+                                        <td>{{parametre.statorTension}} 
+                                            {% if parametre.statorTension2 != 0 %}
+                                                et {{parametre.statorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                        <td>{{parametre.rotorTension}} 
+                                            {% if parametre.rotorTension2 != 0 %}
+                                                et {{parametre.rotorTension2 }}
+                                            {% endif %} 
+                                        </td>
                                     </tr>   
                                 </table>
-                            </div> 
+                            </div>  
                             <div class="row">
                                 {% for flash_message in app.session.flashbag.get('message') %}
                                     <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
@@ -69,15 +63,17 @@
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="16%">Contrôle</th>
-                                        <th width="16%">Critère (MΩ)</th>
-                                        <th width="16%">Valeur relevée avant lavage (MΩ)</th>
-                                        <th width="16%">Valeur relevées (MΩ)</th>
-                                        <th width="16%">Correction à 20°</th>
-                                        <th width="16%">Conformité</th>
+                                        <th width="13%">Type</th>
+                                        <th width="13%">Contrôle</th>
+                                        <th width="13%">Critère (MΩ)</th>
+                                        <th width="13%">Valeur relevée avant lavage (MΩ)</th>
+                                        <th width="13%">Valeur relevées (MΩ)</th>
+                                        <th width="13%">Correction à 20°</th>
+                                        <th width="13%">Conformité</th>
                                         <th></th>
                                     </tr>
                                     <tr>
+                                        <td>{{ form_widget(form.type) }}</td>
                                         <td>{{ form_widget(form.controle) }}</td>
                                         <td>{{ form_widget(form.critere) }}</td>
                                         <td></td>
@@ -88,6 +84,7 @@
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
+                                            <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeurRelevee}}</td>
@@ -101,6 +98,7 @@
                                     {% if parametre.sondeBobinage %}
                                         {% for item in parametre.sondeBobinage.lsondeBobinages %}
                                             <tr>
+                                                <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeurRelevee}}</td>

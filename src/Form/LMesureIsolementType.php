@@ -19,7 +19,8 @@ class LMesureIsolementType extends AbstractType
         $builder
             ->add('controle', EntityType::class, [
                 'class' => ControleIsolement::class,
-                'query_builder' => function(ControleIsolementRepository $em){
+                'query_builder' => function(ControleIsolementRepository $em)
+                {
                     $query = $em->createQueryBuilder('a');
                     return  $query;
                 }
