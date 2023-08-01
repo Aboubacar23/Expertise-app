@@ -61,7 +61,7 @@ class RevueEnclenchementController extends AbstractController
                 array_push($parametre,$item);
             }
         }
-
+      //  dd($parametre);
         $atelier = new Atelier();
         $formAtelier = $this->createForm(AtelierType::class, $atelier);
         $formAtelier->handleRequest($request);
@@ -234,7 +234,7 @@ class RevueEnclenchementController extends AbstractController
         $dompdf->render();
 
         // On génère un nom de fichier
-        $fichier = $revueEnclenchement->getAffaire()->getNomRapport();
+        $fichier = "Revue d'enclenchement du projet : ".$revueEnclenchement->getAffaire()->getNumAffaire();
 
         // On envoie le PDF au navigateur
         $dompdf->stream($fichier, [

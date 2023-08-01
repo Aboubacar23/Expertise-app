@@ -24,6 +24,17 @@ class RevueEnclenchementType extends AbstractType
                     'Peut être' => 'Peut être'
                 ]
             ])
+            ->add('indice', ChoiceType::class,[
+                'choices' => [
+                    '' => '',
+                    'Indice A' => 'Indice A',
+                    'Indice B' => 'Indice B',
+                    'Indice C' => 'Indice C',
+                    'Indice D' => 'Indice D',
+                    'Indice E' => 'Indice E',
+                ],
+                'required' => false
+            ])
             ->add('libelle', ChoiceType::class, [
                 'choices' => [
                     'Pour travaux de base' => 'Pour travaux de base',

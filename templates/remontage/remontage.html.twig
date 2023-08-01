@@ -109,11 +109,11 @@
             const som_jeu_ca = document.getElementById('remontage_palier_ca_jeu');
             const som_jeu_coa = document.getElementById('remontage_palier_coa_jeu');
 
-            const valeur1 = caa + cab + cac + cad;
+            const valeur1 = caa - (cab + cac + cad);
             valeurFinale = valeur1.toFixed(2);
             som_jeu_ca.value = isNaN(valeurFinale) ? '' : (valeurFinale);
 
-            const valeur2 = coaa + coab + coac + coad;
+            const valeur2 = coaa - (coab + coac + coad);
             valeurFinale = valeur2.toFixed(2);
             som_jeu_coa.value = isNaN(valeurFinale) ? '' : (valeurFinale);
 

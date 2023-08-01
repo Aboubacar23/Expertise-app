@@ -15,14 +15,14 @@
             <div class="x_panel">
                 <div class="x_title">
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div>  
                 </div>
                 <div class="x_content">
                     {{ form_start(form) }}
                         <div class="row">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered">
                                 <tr  class="table-secondary">
                                     <th class="text-center" colspan="6">Revue D'enclenchement</th>
                                 </tr>
@@ -32,7 +32,7 @@
                                     <td>DESCRIPTION PRESTATION</td>
                                     <td>Chef de Projet</td>
                                     <td>CLIENT</td>
-                                    <td></td>
+                                    <td>INDICE</td>
                                 </tr> 
                                 <tr>
                                     <td>{{ form_widget(form.libelle) }}</td>
@@ -40,7 +40,7 @@
                                     <td>{{ form_widget(form.description_prestation) }}</td>
                                     <td>{{ affaire.suiviPar }}</td>
                                     <td>{{ affaire.client }}</td>
-                                    <td></td>
+                                    <td>{{ form_widget(form.indice) }}</td>
                                 </tr> 
                                 <tr  class="table-secondary">
                                     <td>Type</td>
@@ -51,9 +51,17 @@
                                     <td>Cahier des Charges</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ parametre[0].type }}</td>
+                                    {% if parametre %}
+                                        <td>{{ parametre[0].type }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
                                     <td>{{ form_widget(form.plan) }}</td>
-                                    <td>{{ parametre[0].typePalier }}</td>
+                                    {% if parametre %}
+                                        <td>{{ parametre[0].typePalier }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
                                     <td>{{ form_widget(form.amiante) }}</td>
                                     <td>{{ form_widget(form.numero_contrat) }}</td>
                                     <td>{{ form_widget(form.cahier_charge) }}</td>

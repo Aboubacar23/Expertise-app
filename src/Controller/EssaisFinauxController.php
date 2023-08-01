@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AppareilMesureEssaisRepository;
+use App\Repository\ControleIsolementRepository;
 use App\Repository\MesureIsolementEssaiRepository;
 use App\Repository\LMesureIsolementEssaiRepository;
 use App\Repository\MesureResistanceEssaiRepository;
@@ -44,7 +45,7 @@ class EssaisFinauxController extends AbstractController
  
     //création de mesure d'isolement
     #[Route('/mesure-isolement/{id}', name: 'app_mesure_isolement_essai', methods: ['POST', 'GET'])]
-    public function mesureIso(Parametre $parametre,Request $request,MesureIsolementEssaiRepository $mesureIsolementRepository,EntityManagerInterface $em): Response
+    public function mesureIso(Parametre $parametre,Request $request,MesureIsolementEssaiRepository $mesureIsolementRepository,EntityManagerInterface $em,ControleIsolementRepository $controleIsolementRepository): Response
     {
         //Mesure d'isolement
         $mesureIsolement = new MesureIsolementEssai();
@@ -150,7 +151,8 @@ class EssaisFinauxController extends AbstractController
             'formMesureIsolement' => $formMesureIsolement->createView(),
             'form'=>$form->createView(),
             'items' => $tablesEssais,
-            'val' => $val
+            'val' => $val,
+            'listes_controles' => $controleIsolementRepository->findAll(),
         ]);
     }
 

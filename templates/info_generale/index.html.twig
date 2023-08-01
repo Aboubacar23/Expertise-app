@@ -5,7 +5,8 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Contre-Expertise</h4></div>
+        <div class="title_left"><h4>Contre-Expertise</h4>
+        </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
@@ -35,8 +36,12 @@
                     
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
                        
-                        <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Contre-Expertise</a> 
-                        
+                        {% if parametre.contreExpertise.etat == 1 %}
+                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise</a> 
+                        {% else %}
+                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a> 
+                        {% endif %} 
+
                         {% if parametre.remontage == 1 %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
                         {% else %}
@@ -58,11 +63,7 @@
                         {% endif %}  
 
                         {% if is_granted('ROLE_CHEF_PROJET') %}
-                            {% if parametre.infoGenerale %}
-                                <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Info Générale <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Info Générale</a>
-                            {% endif %} 
+                            <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Info Générale</a>
                         {% endif %}                                
                     {% endif %}
                     <ul class="nav navbar-right panel_toolbox">
@@ -74,42 +75,42 @@
         </div>
     </div> 
     <!-- début contenu formulaire --> 
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
 
-            <!-- début plaque --> 
-                <div class="x_panel"> 
-                    <div class="x_title">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h2>Contre-Expertise</h2>
+                <!-- début plaque --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Information Générale</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                </div>
+                                <div class="col-md-2 text-right">
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" href="#collapse02"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div> 
                             </div>
-                            <div class="col-md-4 text-center">
-                            </div>
-                            <div class="col-md-2 text-right">
-                            </div>
-                            <div class="col-md-2">
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse02" aria-expanded="false" href="#collapse02"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>                                                
-                            </div> 
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="x_content" id="collapse02">
+                            {{ form_start(form) }}
+                                <div class="form-group">
+                                    <div class="col-md-12 col-sm-12">{{ form_row(form.contenu ) }}</div>
+                                <div>
+                                <div class="col-md-12 text-center">
+                                    <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
                     </div>
-                    <div class="x_content" id="collapse02">
-                        {{ form_start(form) }}
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12">{{ form_row(form.recapitulatif ) }}</div>
-                            <div>
-                            <div class="col-md-12 text-center">
-                                <button class="btn btn-primary btn-sm"> Enregistrer <i class="fa fa-save"></i></button>
-                            </div>
-                        {{ form_end(form) }}
-                    </div>
-                </div>
-            <!-- fin plaque --> 
-        </div>
-    </div>                    
+                <!-- fin plaque --> 
+            </div>
+        </div>                    
     <!-- /fin contenu du formulaire--> 
 </div>
 {% endblock %}

@@ -253,6 +253,9 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?float $rotor_tension2 = null;
 
+    #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?InfoGenerale $info_generale = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1567,6 +1570,18 @@ class Parametre
     public function setRotorTension2(?float $rotor_tension2): static
     {
         $this->rotor_tension2 = $rotor_tension2;
+
+        return $this;
+    }
+
+    public function getInfoGenerale(): ?InfoGenerale
+    {
+        return $this->info_generale;
+    }
+
+    public function setInfoGenerale(?InfoGenerale $info_generale): static
+    {
+        $this->info_generale = $info_generale;
 
         return $this;
     }

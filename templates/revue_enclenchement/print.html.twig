@@ -1,55 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jeumont Electric Expertise</title>
+        <meta charset="utf-8">
+        <link href="{{ asset('admin/build/css/rapport.css') }}" rel="stylesheet">
+</head>
 <style>
-table, th, td {
-    border: 1px solid;
-    border-collapse: collapse;
-    font-size: 10px;
-    padding: 5px;
-    width: 100%;
-}
- 
-.titre_table{
-    background-color: #AFA8A8;
-}
-.table-primary{
-    background-color: #B9B8B8;
-}
-.text-center{
-    text-align: center;
-}
-.taille_th{
-    width: 50px;
-}
+    table, th, td {
+        border: 1px solid;
+        border-collapse: collapse;
+        font-size: 10px;
+        padding: 5px;
+        width: 100%;
+    }
+    
+    .titre_table{
+        background-color: #AFA8A8;
+    }
+    .table-primary{
+        background-color: #B9B8B8;
+    }
+    .text-center{
+        text-align: center;
+    }
+    .taille_th{
+        width: 50px;
+    }
 
-.taille2{
-    width: 250px;
-}
-.taille3{
-    width: 140px;
-}
-.taille1{
-    width: 80px;
-}
+    .taille2{
+        width: 250px;
+    }
+    .taille3{
+        width: 140px;
+    }
+    .taille1{
+        width: 80px;
+    }
 </style>
 {% block body %}
 <div class="row">
     <table>
         <tr  class="table-primary">
-            <th class="text-center" colspan="4">Revue D'enclenchement</th>
+            <th class="text-center" colspan="5">Revue D'enclenchement</th>
         </tr>
         <tr>
-            <td class="text-center" colspan="4">{{revue_enclenchement.libelle}}</td>
+            <td class="text-center" colspan="5">{{revue_enclenchement.libelle}}</td>
         </tr> 
         <tr  class="table-primary">
             <th class="taille1">N° PROJET</th>
             <th class="taille2">DESCRIPTION PRESTATION</th>
             <th class="taille1">CHEF DE PROJET</th>
-            <th class="taille3">CLIENT</th>
+            <th class="taille1">CLIENT</th>
+            <th class="taille1">INDICE</th>
         </tr> 
         <tr>
-            <td>{{ revue_enclenchement.affaire.numAffaire}}</td>
-            <td>{{revue_enclenchement.descriptionPrestation}}</td>
-            <td>{{ revue_enclenchement.affaire.suiviPar}}</td>
-            <td>{{ revue_enclenchement.affaire.client.nom}}</td>
+            <td class="text-center">{{ revue_enclenchement.affaire.numAffaire}}</td>
+            <td class="text-center">{{revue_enclenchement.descriptionPrestation}}</td>
+            <td class="text-center">{{ revue_enclenchement.affaire.suiviPar}}</td>
+            <td class="text-center">{{ revue_enclenchement.affaire.client.nom}}</td>
+            <td class="text-center">{{ revue_enclenchement.indice}}</td>
         </tr>
     </table>
     <table>
@@ -57,39 +66,47 @@ table, th, td {
             <th colspan="6">Caractéristiques de la  machine</th>
         </tr>
         <tr>
-            <td  class="table-primary">Type</td>
-            <td>{{ parametre[0].type}}</td>
-            <td  class="table-primary">Plan</td>
+            <th  class="table-primary">Type</th>
+            {% if parametre %}
+                <td>{{ parametre[0].type }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            <th  class="table-primary">Plan</th>
             <td>{{revue_enclenchement.plan}}</td>
-            <td  class="table-primary">Paliers</td>
-            <td>{{ parametre[0].typePalier}}</td>table
+            <th  class="table-primary">Paliers</th>
+            {% if parametre %}
+                <td>{{ parametre[0].typePalier }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
         </tr>
     </table>
     <table>      
         <tr>
-            <td  class="table-primary">Amiante</td>
+            <th class="table-primary">Amiante</th>
             <td>{{revue_enclenchement.amiante}}</td>
-            <td  class="table-primary">N° Contrat</td>
+            <th class="table-primary">N° Contrat</th>
             <td>{{revue_enclenchement.numeroContrat}}</td>
-            <td  class="table-primary">Cahier des Charges</td>
+            <th class="table-primary">Cahier des Charges</th>
             <td>{{revue_enclenchement.cahierCharge}}</td>
         </tr>    
     </table>
     <table>
         <tr>
-            <td class="table-primary">N° PCQ</td>
+            <th class="table-primary">N° PCQ</th>
             <td>{{revue_enclenchement.numeroPcq}}</td>
-            <td class="table-primary">Point d'arrêt</td>
+            <th class="table-primary">Point d'arrêt</th>
             <td>{{revue_enclenchement.pointArret}}</td>
-            <td class="table-primary">Contre expertise</td>
+            <th class="table-primary">Contre expertise</th>
             <td>{{revue_enclenchement.contreExpertise}}</td>
         </tr>
     </table>
     <table>
         <tr>
-            <td class="table-primary">Re7 client</td>
+            <th class="table-primary">Re7 client</th>
             <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
-            <td class="table-primary">Observation</td>
+            <th class="table-primary">Observation</th>
             <td>{{revue_enclenchement.observation}}</td>
         </tr> 
     </table>
@@ -98,37 +115,37 @@ table, th, td {
             <th colspan="4" class="text-center">PLANIFICATION / JALONS</th>
         </tr>
         <tr  class="table-primary">
-            <td>Délai Demande client</td>
-            <td>Arrivée de la commande</td>
-            <td>ARC</td>    
-            <td>Revue d'enclenchement</td>
+            <th>Délai Demande client</th>
+            <th>Arrivée de la commande</th>
+            <th>ARC</th>    
+            <th>Revue d'enclenchement</th>
         </tr>
         <tr>
-            <td>{{revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient | date('d-m-Y') : ''}}</td>
-            <td>{{revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande| date('d-m-Y') : ''}}</td>
-            <td>{{revue_enclenchement.arc ? revue_enclenchement.arc | date('d-m-Y') : ''  }}</td>
-            <td>{{revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande| date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.arc ? revue_enclenchement.arc | date('d-m-Y') : ''  }}</td>
+            <td class="text-center">{{revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement | date('d-m-Y') : ''}}</td>
 
         </tr>
     </table>
     <table>
 
-        <tr  class="table-primary">
-            <td>Arrivée de la machine</td>
-            <td>Objectif rapport expertise (jours)</td>
-            <td>Objectif mise à dispo machine pour exp(jours)</td>
-            <td>Date rapport expertise finalisé</td>
+        <tr class="table-primary">
+            <th>Arrivée de la machine</th>
+            <th>Objectif rapport expertise (jours)</th>
+            <th>Objectif mise à dispo machine pour exp(jours)</th>
+            <th>Date rapport expertise finalisé</th>
         </tr>
         <tr>
-            <td>{{revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine | date('d-m-Y') : ''}}</td>
-            <td>{{revue_enclenchement.objectifRapportExpertise}}</td>
-            <td>{{revue_enclenchement.objectifMiseDispo}}</td>
-            <td>{{revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.objectifRapportExpertise}}</td>
+            <td class="text-center">{{revue_enclenchement.objectifMiseDispo}}</td>
+            <td class="text-center">{{revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise | date('d-m-Y') : ''}}</td>
         </tr> 
     </table>
     <table>
         <tr  class="table-primary">
-            <td>Date machine prête pour expé</td>
+            <th>Date machine prête pour expé</th>
         </tr>
         <tr>
             <td>{{revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete | date('d-m-Y') : ''}}</td>

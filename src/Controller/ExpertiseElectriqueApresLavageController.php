@@ -40,6 +40,7 @@ use App\Repository\PointFonctionnementRotorRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
+use App\Repository\ControleIsolementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -56,7 +57,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
     //stator après lavage
     #[Route('/stator/{id}', name: 'app_stator_apres_lavage')]
-    public function stator(Parametre $parametre,Request $request,EntityManagerInterface $em,StatorApresLavageRepository $statorApresLavageRepository,): Response
+    public function stator(Parametre $parametre,Request $request,EntityManagerInterface $em,StatorApresLavageRepository $statorApresLavageRepository,ControleIsolementRepository $controleIsolementRepository): Response
     {  
         //stator après lavage
         $statorApresLavage = new StatorApresLavage();
@@ -178,6 +179,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             'formStatorApresLavage' => $formStatorApresLavage->createView(),
             'form'=>$form->createView(),
             'items' => $listes,
+            'listes_controles' => $controleIsolementRepository->findAll(),
         ]);
     }
 

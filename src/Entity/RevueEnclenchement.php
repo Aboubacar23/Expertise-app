@@ -91,6 +91,9 @@ class RevueEnclenchement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $utilisateur = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $indice = null;
+
     public function __construct()
     {
         $this->ateliers = new ArrayCollection();
@@ -444,6 +447,18 @@ class RevueEnclenchement
     public function setUtilisateur(?string $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getIndice(): ?string
+    {
+        return $this->indice;
+    }
+
+    public function setIndice(?string $indice): static
+    {
+        $this->indice = $indice;
 
         return $this;
     }

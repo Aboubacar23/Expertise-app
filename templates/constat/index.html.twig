@@ -15,15 +15,15 @@
                     <div class="x_title">
                         {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
                             {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique avant lavage <i class="fa fa-check"></i></a>
+                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Elec Avant Lavage <i class="fa fa-check"></i></a>
                             {% else %}
-                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique avant lavage</a>
+                                <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Elec Avant Lavage</a>
                             {% endif %}  
                         
                             {% if parametre.expertiseElectiqueApresLavage == 1 %}
-                                <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. électrique après lavage <i class="fa fa-check"></i></a>
+                                <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Élec Après Lavage <i class="fa fa-check"></i></a>
                             {% else %}
-                                <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. électrique après lavage</a>
+                                <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Élec Après Lavage</a>
                             {% endif %}                                                              
                         {% endif %}
 
@@ -35,12 +35,8 @@
                             {% endif %}
                         {% endif %}
 
-                        {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
-                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
-                        {% else %}
-                                <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
-                        {% endif %}
-                            
+                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Constats</a>
+
                         {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}          
                             {% if is_granted('ROLE_CHEF_PROJET') %}
                                 {% if parametre.contreExpertise %}
@@ -71,6 +67,14 @@
                                     <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
                                 {% else %}
                                     <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                                {% endif %} 
+                            {% endif %}
+
+                            {% if is_granted('ROLE_CHEF_PROJET') %}
+                                {% if parametre.infoGenerale %}
+                                    <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Info Générale <i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Info Générale</a>
                                 {% endif %} 
                             {% endif %}
 
