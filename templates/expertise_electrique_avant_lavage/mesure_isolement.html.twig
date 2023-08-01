@@ -33,8 +33,8 @@
                                         <th width="15%">Hygrométrie (%)</th>
                                         <th width="15%">Date d'essai</th>
                                         <th width="10%">Critère</th>
-                                        <th width="10%">Tension Rotor</th>
                                         <th width="10%">Tension Stator</th>
+                                        <th width="10%">Tension Rotor</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
@@ -59,7 +59,7 @@
                                 {% for flash_message in app.session.flashbag.get('message') %}
                                     <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
                                         {{ flash_message }}
-                                    </div>
+                                    </div> 
                                 {% endfor %}
                             </div>
                             <div class="row">

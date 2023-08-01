@@ -64,11 +64,20 @@ class ParametreController extends AbstractController
             {
                 $parametre->setStatorTension2(0);
             }
+            if ($parametre->getStatorTension() == null)
+            {
+                $parametre->setStatorTension(0);
+            }
 
             if ($parametre->getRotorTension2() == null)
             {
                 $parametre->setRotorTension2(0);
-            }
+            } 
+            
+            if ($parametre->getRotorTension() == null)
+            {
+                $parametre->setRotorTension(0);
+            } 
 
             $parametre->setAffaire($affaire);
             $parametreRepository->save($parametre, true);
@@ -102,6 +111,25 @@ class ParametreController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            if ($parametre->getStatorTension2() == null)
+            {
+                $parametre->setStatorTension2(0);
+            }
+            if ($parametre->getStatorTension() == null)
+            {
+                $parametre->setStatorTension(0);
+            }
+
+            if ($parametre->getRotorTension2() == null)
+            {
+                $parametre->setRotorTension2(0);
+            } 
+            
+            if ($parametre->getRotorTension() == null)
+            {
+                $parametre->setRotorTension(0);
+            } 
+            
             $parametreRepository->save($parametre, true);
 
             return $this->redirectToRoute('app_affaire_show', [
