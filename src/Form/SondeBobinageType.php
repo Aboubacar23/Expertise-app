@@ -17,7 +17,7 @@ class SondeBobinageType extends AbstractType
             ->add('temp_tolerie')
             ->add('hygrometrie')
         ;
-    }
+    } 
 
     public function configureOptions(OptionsResolver $resolver): void
     {
