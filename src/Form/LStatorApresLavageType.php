@@ -26,7 +26,9 @@ class LStatorApresLavageType extends AbstractType
                     return  $query;
                 }
             ])
-            ->add('critere')
+            ->add('critere', NumberType::class,[
+                'required' => false
+            ])
             ->add('temp_correction')
             ->add('unite', ChoiceType::class, [
                 'required' => true,

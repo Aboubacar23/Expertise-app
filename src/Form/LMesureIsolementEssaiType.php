@@ -24,7 +24,9 @@ class LMesureIsolementEssaiType extends AbstractType
                     return  $query;
                 }
             ])
-            ->add('critere')
+            ->add('critere', NumberType::class,[
+                'required' => false
+            ])
             ->add('tension')
             ->add('unite', ChoiceType::class, [
                 'required' => true,

@@ -23,7 +23,9 @@ class LSondeBobinageType extends AbstractType
                     return  $query;
                 }
             ])
-            ->add('critere')
+            ->add('critere', NumberType::class,[
+                'required' => false
+            ])
             ->add('valeur_relevee')
             ->add('valeur')   
             ->add('unite', ChoiceType::class, [

@@ -16,10 +16,10 @@ class SondeBobinage
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $temp_ambiante = null;
+    private ?float $temp_ambiante = null;
 
     #[ORM\Column]
-    private ?int $temp_tolerie = null;
+    private ?float $temp_tolerie = null;
 
     #[ORM\Column]
     private ?float $hygrometrie = null;
@@ -44,24 +44,24 @@ class SondeBobinage
     } 
 
 
-    public function getTempAmbiante(): ?int
+    public function getTempAmbiante(): ?float
     {
         return $this->temp_ambiante;
     }
 
-    public function setTempAmbiante(?int $temp_ambiante): self
+    public function setTempAmbiante(?float $temp_ambiante): self
     {
         $this->temp_ambiante = $temp_ambiante;
 
         return $this;
     }
 
-    public function getTempTolerie(): ?int
+    public function getTempTolerie(): ?float
     {
         return $this->temp_tolerie;
     }
 
-    public function setTempTolerie(?int $temp_tolerie): self
+    public function setTempTolerie(?float $temp_tolerie): self
     {
         $this->temp_tolerie = $temp_tolerie;
 
