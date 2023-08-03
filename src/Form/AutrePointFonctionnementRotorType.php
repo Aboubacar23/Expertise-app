@@ -15,6 +15,13 @@ class AutrePointFonctionnementRotorType extends AbstractType
             ->add('m')
             ->add('iden')
             ->add('cd')
+            ->add('u')
+            ->add('i1')
+            ->add('i2')
+            ->add('i3')
+            ->add('imoy')
+            ->add('pabs')
+            ->add('pjoule')
         ;
     }
 

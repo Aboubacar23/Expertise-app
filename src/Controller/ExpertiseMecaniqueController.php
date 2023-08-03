@@ -110,7 +110,6 @@ class ExpertiseMecaniqueController extends AbstractController
                 return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
 
             }else{
-
                 $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$controleRecensement->getLibelle());
                 return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
             }
@@ -189,7 +188,7 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-     //controle montage de roulement
+    //controle montage de roulement
     #[Route('/controle-montage-roulement/{id}', name: 'app_controle_montage_roulement')]
     public function consoleMontage(ControleMontageRoulementRepository $controleMontageRoulementRepository,Parametre $parametre, Request $request,ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
@@ -270,7 +269,7 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-     //relevé dimensionnel
+    //relevé dimensionnel
     #[Route('/releve-dimensionnel/{id}', name: 'app_releve_dimensionnel')]
     public function releveDimensionnel(ReleveDimmensionnelRepository $releveDimmensionnelRepository,Parametre $parametre, Request $request): Response
     {

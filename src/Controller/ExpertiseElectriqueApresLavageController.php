@@ -405,20 +405,21 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     public function fonctionnement(Parametre $parametre,Request $request,AutrePointFonctionnementRotorRepository $autrePointFonctionnementRotorRepository, PointFonctionnementRotorRepository $pointFonctionnementRotorRepository): Response
     {     
         //point de fonctionnement rotor
-        $pointFonctionnementRotor = new PointFonctionnementRotor(); 
+       /* $pointFonctionnementRotor = new PointFonctionnementRotor(); 
         $formPointFonctionnementRotor = $this->createForm(PointFonctionnementRotorType::class, $pointFonctionnementRotor);
         $formPointFonctionnementRotor->handleRequest($request);
-
-        if($formPointFonctionnementRotor->isSubmitted() && $formPointFonctionnementRotor->isValid())
-        {
-            $choix = $request->get('bouton4_1');
-            if($choix == 'ajouter')
+        
+            if($formPointFonctionnementRotor->isSubmitted() && $formPointFonctionnementRotor->isValid())
             {
-                $pointFonctionnementRotor->setParametre($parametre);
-                $pointFonctionnementRotorRepository->save($pointFonctionnementRotor, true);
-                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
-            }
-        } 
+                $choix = $request->get('bouton4_1');
+                if($choix == 'ajouter')
+                {
+                    $pointFonctionnementRotor->setParametre($parametre);
+                    $pointFonctionnementRotorRepository->save($pointFonctionnementRotor, true);
+                    $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                }
+            }  
+        */
 
         //autre point de fonctionnement rotor
         $autrePointFonctionnementRotor = new AutrePointFonctionnementRotor(); 
@@ -449,7 +450,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         
         return $this->render('expertise_electrique_apres_lavage/point_fonctionnement.html.twig', [
             'parametre' => $parametre,
-            'formPointFonctionnementRotor' => $formPointFonctionnementRotor->createView(),
+           // 'formPointFonctionnementRotor' => $formPointFonctionnementRotor->createView(),
             'formAutrePointFonctionnementRotor' => $formAutrePointFonctionnementRotor->createView(),
         ]);
     }

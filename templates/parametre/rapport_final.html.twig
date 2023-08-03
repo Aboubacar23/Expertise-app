@@ -140,11 +140,11 @@
     .taille_cellulle80{width: 80px;}
 
     .sous_page5_7{
-        padding-top: 174px;
+        padding-top: 120px;
     }
 
     .aligne_cellulle_left{text-align: left;}
-    .sous_page3{padding-top: 120px;}
+    .sous_page3{padding-top: 80px;}
     .table_sous_page3{padding-top: 250px;}
     .numero{width: 100px;}
     .numero2{width: 50px;}
@@ -404,8 +404,8 @@
                         </tr>
                         <tr>
                             <td>Photo Plaque</td>
-                            <td style="text-align: center;"><img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCa))}}" alt="{{parametre.coussinet.photoCa}}" height="150"/></td>
-                            <td style="text-align: center;"><img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCoa))}}" alt="{{parametre.coussinet.photoCoa}}" height="150"/></td>  
+                            <td style="text-align: center;"><img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCa))}}" alt="{{parametre.coussinet.photoCa}}" width="150" height="150"/></td>
+                            <td style="text-align: center;"><img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCoa))}}" alt="{{parametre.coussinet.photoCoa}}" width="150" height="150"/></td>  
                         </tr>
                     </table>                
                 {% endif %}
@@ -426,7 +426,7 @@
                         </tr> 
                         <tr>
                             {% for item in parametre.controleRecensements %}
-                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo" height="150px"></td>
+                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo" width="150px" height="150px"></td>
                             {% endfor %}
                         </tr>    
                         <tr>                                                
@@ -448,7 +448,7 @@
                             <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
                             <td>Peinture (N° RAL)</td>
                             <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
-                        </tr>  
+                        </tr>   
                         <tr>
                             <td>Châssis</td>
                             <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
@@ -496,13 +496,7 @@
                             <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
                             <td>Nombre d'accessoires complémentaires</td>
                             <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
-                        </tr>
-                        <tr>
-                            <td>Commentaires</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>                    
-                        </tr>              
+                        </tr>          
                     </table>    
                 {% endif %} 
             </div>
@@ -512,14 +506,14 @@
                         <tr class="titre_table">
                             <th colspan="2">Liste des accessoires complémentaires</th>
                         </tr>
-                            {% set i = 0 %}
-                            {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
-                                {% set i = i + 1 %}
-                                <tr>
-                                    <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
-                                    <td>{{c.libelle}}</td>
-                                </tr>                                                   
-                            {% endfor %}              
+                        {% set i = 0 %}
+                        {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
+                            {% set i = i + 1 %}
+                            <tr>
+                                <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
+                                <td>{{c.libelle}}</td>
+                            </tr>                                                   
+                        {% endfor %}              
                     </table>
                 {% endif %}   
             </div>
@@ -550,8 +544,8 @@
                         </tr> 
                         <tr>
                             <td>Présence clavette</td>
-                            <td>Oui/Non</td>
-                            <td></td>
+                            <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+                            <td></td> 
                             <td height="15%" class="td_image">  
                                 {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
                                     <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
@@ -568,7 +562,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_3">
-                <h5>2.  <span class="span_titre">Relevé Boîte à Bornes (ou Bornier CC)</span></h5>
+                <h5>2.  <span class="span_titre">Relevé Boîte à Bornes</span></h5>
                 <table>    
                     <tr class="titre_table">
                         <th>FAC-SIMILE BOITE à BORNES</th>
@@ -583,8 +577,11 @@
             <div class="sous_page5_4">
                 <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>                         
                 {% if  parametre.synoptiques %}
-                <span height="15%" class="td_image" ><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="200px" style="align-items: center;"></span>
-                
+                    <table>
+                        <tr style="text-align: center;">
+                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="270px"></td>
+                        </tr>
+                    </table>
                     <table style="padding-top:25px;">
                         <thead class="titre_table">
                             <tr>
@@ -1029,7 +1026,6 @@
                     <table>
                         {% for item in parametre.photoExpertiseMecaniques %}
                             <tr>
-                                {#<td  style="text-align: center;"><img class="p-2" src="{{asset('/photo_expertise_mecanique/'~ item.image)}}"></td>#}
                                 <td height="10%" class="td_image"><img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}" alt="{{ item.libelle }}" height="200px" width="200px"></td>
                             </tr>
                             <tr>
@@ -1070,12 +1066,95 @@
         </div> 
     {# fin la page 5 #}
 
-    {# la partie 6 expertise electrique #}
+    {# la partie 6 expertise electrique avant lavage #}
         <div class="page_break"></div>
         <div class="page6">
-            <h2>VI.  Expertise électrique</h2>
+            <h2>VI.  Expertise électrique avant lavage</h2>
+            <div class="sous_page6_1_1">
+                <h4>A.  <span class="span_titre">Contrôle visuel et recensement</span></h4>
+                {% if parametre.controleVisuelElectrique %}
+                    <table>
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="titre_table" colspan="5">Contrôle visuel et recensement</th>
+                            </tr>
+                            <tr class="titre_table">
+                                <th></th>
+                                <th>Balais</th>
+                                <th>Balais de masse</th>
+                                <th class="titre_table" colspan="2">Fac-similé boîte à borne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="titre_table">Dimension</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                                <td class="titre_table">Sens rotation</td>
+                                <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Marque</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                                <td class="titre_table">Remarque</td>
+                                <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Quantité</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Nuance</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Longueur Shunt</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Type de Cosses</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Aspect de la patine</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Type pression</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="titre_table">Présence de Gaine</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
+                                <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
             <div class="sous_page6_1">
-                <h4>A.  <span class="span_titre">Essais plate-forme (suivant SAQ 94 100) à Réception</span></h4>
+                <h4>B.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
                 <h5>1.  <span class="span_titre">Mesure d’isolement et Index</span></h5>
                 {% if parametre.mesureIsolement %}
                     <table>
@@ -1253,7 +1332,7 @@
                     </table>
                 </div>
                 {% if parametre.mesureVibratoire %}
-                    <table style="padding-top: 250px;">
+                    <table style="padding-top: 180px;">
                         <tr class="titre_table">
                             <th class="titre_table">Critère acceptation max 25mm/s</th>
                             <th style="width: 50px;">N (tr/min)</th>
@@ -1285,7 +1364,7 @@
                             <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                         </tr>
                         <tr>
-                            <td>{{ parametre.mesureVibratoire.titre}}</td>
+                            <td class="titre_table">{{ parametre.mesureVibratoire.titre}}</td>
                             <td>{{ parametre.mesureVibratoire.n30 | number_format(2) }}</td>
                             <td>{{ parametre.mesureVibratoire.a30 | number_format(2) }}</td>
                             <td>{{ parametre.mesureVibratoire.b30 | number_format(2) }}</td>
@@ -1302,7 +1381,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_4">
-                <h4>B.  <span class="span_titre">Essais électriques</span></h4>
+                <h4>C.  <span class="span_titre">Essais électriques</span></h4>
                 <h5>1.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesures %}
                     <table>
@@ -1322,7 +1401,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_5">
-                <h4>C.  <span class="span_titre">Contrôles bobinage</span></h4>
+                <h4>D.  <span class="span_titre">Contrôles bobinage</span></h4>
                 {% if parametre.controleBobinage %}
                     <table>
                         <tr class="titre_table">
@@ -1344,7 +1423,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_6">
-                <h4>D.  <span class="span_titre">Balais & balais de masse</span></h4>
+                <h4>E.  <span class="span_titre">Balais & balais de masse</span></h4>
                 {% if parametre.autreControle %}
                     {% if parametre.presenceBalais == 1 %}
                         <table>
@@ -1352,10 +1431,10 @@
                                 <th colspan="4" class="text-center">Balais</th>
                             </tr>
                             <tr class="titre_table">
-                                <th>Constats</th>
-                                <th>Critères</th>
-                                <th>Préconisation</th>
-                                <th>Conformité</th>
+                                <th style="width: 200px;">Constats</th>
+                                <th style="width: 200px;">Critères</th>
+                                <th style="width: 50px;">Préconisation</th>
+                                <th style="width: 50px;">Conformité</th>
                             </tr>
                             <tr>
                                 <td>Distance porte-balais/bague</td>
@@ -1394,7 +1473,6 @@
                                 <td>{{ parametre.autreControle.balaisConformite6 }}</td>
                             </tr>
                         </table>
-                        
                     {% endif %}
                     {% if parametre.presenceBalaisMasse == 1 %}
                         <table>
@@ -1402,10 +1480,10 @@
                                 <th colspan="4" class="text-center">Balais de masse</th>
                             </tr>
                             <tr class="titre_table">
-                                <th>Constats</th>
-                                <th>Critères</th>
-                                <th>Préconisation</th>
-                                <th>Conformité</th>
+                                <th style="width: 200px;">Constats</th>
+                                <th style="width: 200px;">Critères</th>
+                                <th style="width: 50px;">Préconisation</th>
+                                <th style="width: 50px;">Conformité</th>
                             </tr>
                             <tr>
                                 <td>Distance porte-balais/bague</td>
@@ -1448,7 +1526,7 @@
                 {% endif %}     
             </div>
             <div class="sous_page6_7">
-                <h4>E.  <span class="span_titre">Illustrations</span></h4> 
+                <h4>F.  <span class="span_titre">Illustrations</span></h4> 
                 {% if parametre.photo %}
                     <table>
                         <tr class="titre_table">
@@ -1466,7 +1544,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_7">
-                <h4>F.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
+                <h4>G.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
                 {% if parametre.constatElectriques %}
                     <table>
                         <tr class="titre_table">
@@ -1880,6 +1958,21 @@
                     </div>
                 {% endif %}
             </div>
+            <div class="sous_page6_7" style="padding-top: 310px;">
+                <h4>F.  <span class="span_titre">Illustrations</span></h4> 
+                {% if parametre.remontagePhotos %}
+                    <table>
+                        {% for item in parametre.remontagePhotos %}
+                            <tr>                        
+                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_remontages/' ~ item.image)) }}" alt="{{ item.image }}" height="200px" width="200px"></td>
+                            </tr>  
+                            <tr class="titre_table">
+                                <th>{{item.libelle }}</th>
+                            </tr>                                                  
+                        {% endfor %} 
+                    </table>                         
+                {% endif %}
+            </div>
         </div>
     {# fin de la partie 9 #}
 
@@ -2044,7 +2137,7 @@
         </div>
         <div class="sous_page10_3">
             <h4>B.  <span class="span_titre">Points de fonctionnement rotor bloqué</span></h4>
-            {% if parametre.pointFonctionnementRotors %}
+            {% if parametre.autrePointFonctionnementRotor %}
                 <table>
                     <tr class="titre_table">
                         <th colspan="7" class="text-center">Point de fonctionnement rotor bloqué</th>
@@ -2058,43 +2151,39 @@
                         <th>Pabs (kW)</th>
                         <th>Pjoule (kW)</th>
                     </tr>
-                    {% for item in parametre.pointFonctionnementRotors %}
-                        <tr>
-                            <td>{{item.u }}</td>
-                            <td>{{item.i1 }}</td>
-                            <td>{{item.i2 }}</td>
-                            <td>{{item.i3 }}</td>
-                            <td>{{item.imoy }}</td>
-                            <td>{{item.pabs }}</td>
-                            <td>{{item.pjoule }}</td>
-                        </tr>
-                    {% endfor %}
+                    <tr>
+                        <td>{{parametre.autrePointFonctionnementRotor.u }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.i1 }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.i2 }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.i3 }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.imoy }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.pabs }}</td>
+                        <td>{{parametre.autrePointFonctionnementRotor.pjoule }}</td>
+                    </tr>
                 </table>
-            {% endif %}
-            {% if parametre.autrePointFonctionnementRotor %}
-                    <table>
-                        <tr>
-                            <th class="titre_table" style="width: 10; text-align: left;">M</th>
-                            <th class="titre_table" style="width: 150; text-align: left;">Indication du peson</th>
-                            <td style="width: 80px;">{{ parametre.autrePointFonctionnementRotor.m}}</td>
-                            <td style="width: 80px;">kg</td>
-                            <td style="width: 80px;"></td>
-                        </tr>
-                        <tr>
-                            <th class="titre_table" style="text-align: left;">ID</th>
-                            <th class="titre_table" style=" text-align: left;">Courant de démarrage à Un</th>
-                            <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
-                            <td>A</td>
-                            <th>ID = Imoy * Un/U</th>
-                        </tr>
-                        <tr>
-                            <th class="titre_table" style="text-align: left;">CD</th>
-                            <th class="titre_table" style=" text-align: left;">Couple de démarrage à un</th>
-                            <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
-                            <td>Nm</td>
-                            <th>CD = (9.81 * M * Un/U)</th>
-                        </tr>
-                    </table>
+                <table>
+                    <tr>
+                        <th class="titre_table" style="width: 10; text-align: left;">M</th>
+                        <th class="titre_table" style="width: 150; text-align: left;">Indication du peson</th>
+                        <td style="width: 80px;">{{ parametre.autrePointFonctionnementRotor.m}}</td>
+                        <td style="width: 40px;">kg</td>
+                        <td style="width: 80px;"></td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table" style="text-align: left;">ID</th>
+                        <th class="titre_table" style=" text-align: left;">Courant de démarrage à Un</th>
+                        <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
+                        <td>A</td>
+                        <th>ID = Imoy * Un/U</th>
+                    </tr>
+                    <tr>
+                        <th class="titre_table" style="text-align: left;">CD</th>
+                        <th class="titre_table" style=" text-align: left;">Couple de démarrage à Un</th>
+                        <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
+                        <td>Nm</td>
+                        <th>CD = (9.81 * M * Un/U)</th>
+                    </tr>
+                </table>
             {% endif %}
         </div>
         <div class="sous_page10_3">

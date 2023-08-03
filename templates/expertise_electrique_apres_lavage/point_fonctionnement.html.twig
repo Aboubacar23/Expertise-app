@@ -20,9 +20,9 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="item form-group">
-                                <table class="table table-bordered">
-                                    {{ form_start(formPointFonctionnementRotor) }}
+                            {{ form_start(formAutrePointFonctionnementRotor) }}
+                                <div class="item form-group">
+                                    <table class="table table-bordered">
                                         <tr  class="table-secondary">
                                             <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
                                         </tr>
@@ -37,33 +37,16 @@
                                             <th></th>
                                         </tr>
                                         <tr>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.u) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.i1) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.i2) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.i3) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.imoy) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.pabs) }}</td>
-                                            <td>{{ form_widget(formPointFonctionnementRotor.pjoule) }}</td>
-                                            <th><button class="btn btn-primary btn-sm" name="bouton4_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.u) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.i1) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.i2) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.i3) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.imoy) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.pabs) }}</td>
+                                            <td>{{ form_widget(formAutrePointFonctionnementRotor.pjoule) }}</td>
                                         </tr>
-                                    {{ form_end(formPointFonctionnementRotor) }}
-                                    {% if parametre.pointFonctionnementRotors %}
-                                        {% for item in parametre.pointFonctionnementRotors %}
-                                            <tr>
-                                                <td>{{item.u }}</td>
-                                                <td>{{item.i1 }}</td>
-                                                <td>{{item.i2 }}</td>
-                                                <td>{{item.i3 }}</td>
-                                                <td>{{item.imoy }}</td>
-                                                <td>{{item.pabs }}</td>
-                                                <td>{{item.pjoule }}</td>
-                                                <th class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_point', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endif %}
-                                </table>
-                            </div>
-                            {{ form_start(formAutrePointFonctionnementRotor) }}
+                                    </table>
+                                </div>
                                 <div class="item form-group">
                                     <table class="table table-bordered">
                                         <tr class="text-center">
@@ -106,4 +89,42 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+            let u = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_u').value);
+            let i1 = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_i1').value);
+            let i2 = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_i2').value);
+            let i3 = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_i3').value);
+            let imoy = document.getElementById('autre_point_fonctionnement_rotor_imoy');
+            let m = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_m').value);
+            let idn = document.getElementById('autre_point_fonctionnement_rotor_iden');
+            let cd = document.getElementById('autre_point_fonctionnement_rotor_cd');
+            let tension_rotor = {{ parametre.rotorTension }};
+
+            let valeurImoy = (i1 + i2 + i3)/3;
+            valeurFinaleImoy = valeurImoy.toFixed(2);
+            imoy.value = isNaN(valeurFinaleImoy) ? '' : (valeurFinaleImoy);
+
+
+            let imoy2 = parseFloat(document.getElementById('autre_point_fonctionnement_rotor_imoy').value);
+            let valeurId = (imoy2 *(tension_rotor/u));
+            valeurFinaleId = valeurId.toFixed(2);
+            idn.value = isNaN(valeurFinaleId) ? '' : (valeurFinaleId);
+
+            let valeurCD = (9.81 * m * (tension_rotor/u));
+            valeurFinaleCD = valeurCD.toFixed(2);
+            cd.value = isNaN(valeurFinaleCD) ? '' : (valeurFinaleCD);
+            
+        }
+
+        document.getElementById('autre_point_fonctionnement_rotor_u').addEventListener('input', updateSumField);
+        document.getElementById('autre_point_fonctionnement_rotor_i1').addEventListener('input', updateSumField);
+        document.getElementById('autre_point_fonctionnement_rotor_i2').addEventListener('input', updateSumField);
+        document.getElementById('autre_point_fonctionnement_rotor_i3').addEventListener('input', updateSumField);
+        document.getElementById('autre_point_fonctionnement_rotor_imoy').addEventListener('input', updateSumField);
+        document.getElementById('autre_point_fonctionnement_rotor_m').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}

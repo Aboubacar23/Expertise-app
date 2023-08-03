@@ -145,25 +145,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </div> 
-
-                                    <!-- la gestion des valeur saisir automatiquement -->
-                                        {% set tension_essaie = 0 %}
-                                        {% if parametre.statorTension < 500 %}
-                                            {% set tension_essaie = 500 %}
-                                        {% elseif parametre.statorTension >= 500 and parametre.statorTension <= 1000 %}
-                                            {% set tension_essaie = 1000 %}
-                                        {% elseif parametre.statorTension > 1000 and parametre.statorTension <= 5000 %}
-                                            {% set tension_essaie = 2500 %}
-                                        {% elseif parametre.statorTension > 5000 %}
-                                            {% set tension_essaie = 5000 %}
-                                        {% endif %}
-                                        <!-- la gestion des valeur saisir automatiquement -->
-                    
-                                        {% set critere = (parametre.critere * parametre.statorTension) / 1000 %}
-                                        
-                                    <!-- fin des valeurs -->
-    
+                                    </div>     
                                     <div class="row">
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
@@ -418,7 +400,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content collapse" id="collapse4">
-                            {% if parametre.pointFonctionnementRotors %}
+                            {% if parametre.autrePointFonctionnementRotor %}
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
@@ -433,17 +415,15 @@
                                             <th>Pabs (kW)</th>
                                             <th>Pjoule (kW)</th>
                                         </tr>
-                                        {% for item in parametre.pointFonctionnementRotors %}
-                                            <tr>
-                                                <td>{{item.u }}</td>
-                                                <td>{{item.i1 }}</td>
-                                                <td>{{item.i2 }}</td>
-                                                <td>{{item.i3 }}</td>
-                                                <td>{{item.imoy }}</td>
-                                                <td>{{item.pabs }}</td>
-                                                <td>{{item.pjoule }}</td>
-                                            </tr>
-                                        {% endfor %}
+                                        <tr>
+                                            <td>{{parametre.autrePointFonctionnementRotor.u }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.i1 }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.i2 }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.i3 }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.imoy }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.pabs }}</td>
+                                            <td>{{parametre.autrePointFonctionnementRotor.pjoule }}</td>
+                                        </tr>
                                     </table>
                                 </div>
                             {% endif %}
