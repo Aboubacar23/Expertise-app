@@ -32,7 +32,7 @@ class PhotoExpertiseMecaniqueType extends AbstractType
                 ],
                  'constraints' => [
                      new File([
-                         'maxSize' => '510Mo',
+                         'maxSize' => '510M',
                          'mimeTypes' => [
                             'image/png',
                             'image/jpg',
