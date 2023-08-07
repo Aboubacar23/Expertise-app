@@ -35,35 +35,54 @@ class HomeController extends AbstractController
         $terminer = 0;
         $var_encours = 0;
         $var_terminer = 0;
+        $encoursPourc = 0;
+        $terminerPourc = 0;
+        $bloque = 0;
         $var_par = count($parametres);
 
-        foreach($parametres as $item)
-        {
-            if($item->isStatut() == 1 && $item->isRemontage() == 1)
-            {
-                $nombre = $nombre + 1;
-            }
+        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
 
-            if($item->isStatut() == 1)
+        foreach($affaires as $item2)
+        {
+            foreach($item2->getParametres() as $item)
             {
-                $var_encours = $var_encours + 1;
-            }else{
-                $var_terminer = $var_terminer + 1;
+                if($item->isStatut() == 1 && $item->isRemontage() == 1)
+                {
+                    $nombre = $nombre + 1;
+                }
+    
+                if($item->isStatut() == 1)
+                {
+                    $var_encours = $var_encours + 1;
+                }else{
+                    $var_terminer = $var_terminer + 1;
+                }
+
+                if($item->getAffaire()->isBloque())
+                {
+                    $bloque = $bloque + 1;
+                }
             }
         }
 
+        $encoursPourc = 100 *($var_encours/$var_par);
+        $terminerPourc = 100 *($var_terminer/$var_par);
+
         $encours = $var_encours;
         $terminer = $var_terminer;
-
-        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+      //  dd($var_par);
 
 
         return $this->render('home/index.html.twig', [
             'admin' => $admin,
             'client' => $client,
             'nombre' => $nombre,
+            'var_par' => $var_par,
             'affaire' => $affaire,
             'encours' => $encours,
+            'encoursPourc' => $encoursPourc,
+            'terminerPourc' => $terminerPourc,
+            'bloque' => $bloque,
             'terminer' => $terminer,
             'affaires' => $affaires,
 
