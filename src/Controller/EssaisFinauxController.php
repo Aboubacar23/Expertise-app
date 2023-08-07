@@ -389,6 +389,7 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
+                    $lmesureResistance->setType($item->getType());
                     $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
@@ -413,6 +414,7 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setCritere($item->getCritere());
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
+                    $lmesureResistance->setType($item->getType());
                     $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);

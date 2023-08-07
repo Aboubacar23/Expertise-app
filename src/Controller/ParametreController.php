@@ -60,6 +60,7 @@ class ParametreController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            //cette 
             if ($parametre->getStatorTension2() == null)
             {
                 $parametre->setStatorTension2(0);
@@ -312,13 +313,16 @@ class ParametreController extends AbstractController
     public function rapportExpertise(Parametre $parametre): Response
     {
         $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'sans-serif');
         $pdfOptions->setIsRemoteEnabled(true);
 
         // On instancie Dompdf
         $dompdf = new Dompdf($pdfOptions);        
+        $dompdf->getOptions()->set('defaultMediaType', 'print');
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
+        $dompdf->getOptions()->set('defaultFont', 'Arial');
+        $dompdf->getOptions()->set('default_charset', 'UTF-8');
+        $dompdf->getOptions()->set('fontHeightRatio', 1.1);
         $dompdf->setCallbacks([
             'event' => function ($event) use ($dompdf) {
                 if ($event['event'] === 'dompdf.page_number') {

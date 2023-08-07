@@ -5,7 +5,7 @@
 {% block body %}
 <div class="page-title">
     <div class="title_left">
-    <h3>Affaire</h3>
+    <h3>Affaire en attentes de validation</h3>
     </div>
 </div>
 <div class="clearfix"></div>
@@ -13,7 +13,7 @@
     <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Affaire en attentes de validation</h2>
+            <h2>Rapport Expertise</h2>
             <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -53,6 +53,66 @@
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{path('app_validation_show', {'id' : item.id })}}" class="btn btn-outline-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
+                                                </td>
+                                            </tr>     
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="13">Pas d'affaire dans le système</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Rapport Final</h2>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead class="table-secondary">
+                                    <tr>
+                                    <th width="2">N°</th>
+                                    <th>N° Affaire JE</th>
+                                    <th>Nom Client</th>
+                                    <th>Référence code client</th>
+                                    <th>N° de fabrication</th>
+                                    <th>N° d'article client</th>
+                                    <th>Type Machine</th>
+                                    <th>Machine</th>
+                                    <th>Affaire suivie par</th>
+                                    <th>Date prévisionnelle de livraison</th>
+                                    <th width="100" class="text-center">Action</th>
+                                    </tr>
+                                </thead> 
+                                <tbody> 
+                                    {% set i = 0 %}
+                                    {% for item in parametres2 %}
+                                            {% set i = i + 1 %}
+                                            <tr>
+                                                <td>{{i}}</td>
+                                                <td>{{ item.affaire.numAffaire }}</td> 
+                                                <td>{{ item.affaire.client }}</td>
+                                                <td>{{ item.affaire.codeClient }}</td>
+                                                <td>{{ item.affaire.numFabrication }}</td>
+                                                <td>{{ item.affaire.numArticleClient }}</td>
+                                                <td>{{ item.type }}</td>
+                                                <td>{{ item.machine }}</td>
+                                                <td>{{ item.affaire.suiviPar }}</td>
+                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{path('app_validation_show_final', {'id' : item.id })}}" class="btn btn-outline-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>     
                                     {% else %}

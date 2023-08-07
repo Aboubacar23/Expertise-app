@@ -432,10 +432,10 @@ class ExpertiseMecaniqueController extends AbstractController
         if($formPhotoExpertiseMecanique->isSubmitted() && $formPhotoExpertiseMecanique->isValid())
         {
             $choix = $request->get('bouton8');
-            $image = $formPhotoExpertiseMecanique->get('image')->getData();
             if($choix == 'ajouter')
             {
-                if ($image)
+                $image = $formPhotoExpertiseMecanique->get('image')->getData();
+                if ($formPhotoExpertiseMecanique)
                 {
                     $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
                     $safePhotoname = $slugger->slug($originalePhoto);
@@ -445,7 +445,7 @@ class ExpertiseMecaniqueController extends AbstractController
                             $this->getParameter('image_expertise_mecaniques'),
                             $newPhotoname
                         );
-                    } catch (FileException $e){}
+                    } catch (FileException $e){} 
                 }
 
                 $photoExpertiseMecanique->setParametre($parametre); 

@@ -18,6 +18,9 @@ class ValidationController extends AbstractController
     {
         $lists = $parametreRepository->findBy([],['id'=> 'desc']);
         $parametres  = [];
+        $parametres2  = [];
+        $tabs  = [];
+
         foreach ($lists as $item)
         {
             if($item->isStatut() == null && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)           
@@ -26,8 +29,25 @@ class ValidationController extends AbstractController
             }
         }
 
+        foreach ($lists as $item)
+        {
+            if($item->isRemontage() == 1 && $item->isEssaisFinaux() == 1 && $item->isStatut() == 1 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)           
+            {
+                array_push($tabs, $item);
+            }
+        }
+
+        foreach ($tabs as $item)
+        {
+            if($item->getAffaire()->isEtat() == null)           
+            {
+                array_push($parametres2, $item);
+            }
+        }
+
         return $this->render('validation/index.html.twig', [
             'parametres' => $parametres,
+            'parametres2' => $parametres2,
         ]);
     }
 
@@ -44,12 +64,40 @@ class ValidationController extends AbstractController
         }
     }
 
-    #[Route('/validation/{id}', name: 'app_validation_valide')]
-    public function validation(Parametre $parametre, EntityManagerInterface $em): Response
+    #[Route('/show-final/{id}', name: 'app_validation_show_final')]
+    public function showFinal(Parametre $parametre): Response
+    {
+        if($parametre)
+        {
+            return $this->render('validation/show_final.html.twig', [
+                'parametre' => $parametre,
+            ]);
+
+        }
+    }
+
+    #[Route('/validation-expertise/{id}', name: 'app_validation_valide_expertise')]
+    public function validationExpertise(Parametre $parametre, EntityManagerInterface $em): Response
     {
         if($parametre)
         {
             $parametre->setStatut(1);
+            $em->persist($parametre);
+            $em->flush();
+            return $this->redirectToRoute('app_affaire_rapport');
+        }
+    }
+
+    #[Route('/validation-finale/{id}', name: 'app_validation_valide_finale')]
+    public function validationFinale(Parametre $parametre, EntityManagerInterface $em): Response
+    {
+       // dd($parametre->getAffaire());
+        $affaire = $parametre->getAffaire();
+        if($affaire)
+        {
+            $parametre->setStatutFinal(1);
+            $affaire->setEtat(1);
+            $em->persist($affaire);
             $em->persist($parametre);
             $em->flush();
             return $this->redirectToRoute('app_affaire_rapport');

@@ -37,12 +37,14 @@ class HomeController extends AbstractController
         $var_terminer = 0;
         $encoursPourc = 0;
         $terminerPourc = 0;
+        $bloqueVal = 0;
         $bloque = 0;
         $var_par = count($parametres);
 
-        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+        $tables = $affaireRepository->findBy([],['id' => 'desc']);
+        $affaires = [];
 
-        foreach($affaires as $item2)
+        foreach($tables as $item2)
         {
             foreach($item2->getParametres() as $item)
             {
@@ -51,7 +53,7 @@ class HomeController extends AbstractController
                     $nombre = $nombre + 1;
                 }
     
-                if($item->isStatut() == 1)
+                if($item->isStatut() == 0)
                 {
                     $var_encours = $var_encours + 1;
                 }else{
@@ -60,13 +62,19 @@ class HomeController extends AbstractController
 
                 if($item->getAffaire()->isBloque())
                 {
-                    $bloque = $bloque + 1;
+                    $bloqueVal = $bloqueVal + 1;
                 }
+            }
+
+            if($item2->isEtat() != 1)
+            {
+                array_push($affaires, $item2);
             }
         }
 
         $encoursPourc = 100 *($var_encours/$var_par);
         $terminerPourc = 100 *($var_terminer/$var_par);
+        $bloque = 100 *($bloqueVal/$var_par);
 
         $encours = $var_encours;
         $terminer = $var_terminer;
@@ -83,6 +91,7 @@ class HomeController extends AbstractController
             'encoursPourc' => $encoursPourc,
             'terminerPourc' => $terminerPourc,
             'bloque' => $bloque,
+            'bloqueVal' => $bloqueVal,
             'terminer' => $terminer,
             'affaires' => $affaires,
 
