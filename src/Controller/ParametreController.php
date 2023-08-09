@@ -377,8 +377,6 @@ class ParametreController extends AbstractController
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
         $dompdf->getOptions()->set('defaultFont', 'Arial');
-        $dompdf->getOptions()->set('default_charset', 'UTF-8');
-        $dompdf->getOptions()->set('fontHeightRatio', 1.1);
 
         $context = stream_context_create([
             'ssl' => [
@@ -417,7 +415,6 @@ class ParametreController extends AbstractController
             'id' => $id
         ], Response::HTTP_SEE_OTHER);
     }
-
 
     //la fonction qui permet d'activer et réactiver une affaire
     #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
