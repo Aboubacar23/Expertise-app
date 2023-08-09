@@ -50,7 +50,7 @@
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Axe de la machine<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
+                            <div class="col-md-4 col-sm-4 "> 
                                     {{ form_widget(form.montage) }}
                             </div>
                             <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span class="required text-danger">*</span></label>
@@ -128,44 +128,44 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <h2>Rotor</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
+                        <div class="x_panel"> 
+                            <div class="x_title">
+                                <h2>Rotor</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="item form-group">
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension (V)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.rotor_tension) }}
+                                        </div>
+                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant (A)</label>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            {{ form_widget(form.rotor_courant) }}
+                                        </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_expertise_refrigeant) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        {{ form_widget(form.presence_plans) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        {{ form_widget(form.rotor_tension2) }}
+                                    </div>
+                                </div>
+                            </div> 
                         </div>
-                        <div class="x_content">
-                            <br />
-                            <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension (V)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_tension) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant (A)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_courant) }}
-                                    </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
-                                <div class="col-md-4 col-sm-4 ">
-                                    {{ form_widget(form.rotor_expertise_refrigeant) }}
-                                </div>
-                                <div class="col-md-6 col-sm-6 ">
-                                    {{ form_widget(form.presence_plans) }}
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
-                                <div class="col-md-4 col-sm-4 ">
-                                    {{ form_widget(form.rotor_tension2) }}
-                                </div>
-                            </div>
-                        </div> 
                     </div>
-                </div>
                 </div>
                 <div class="x_panel">
                     <div class="x_content">                                
@@ -190,7 +190,8 @@
         window.onload = () => {
             // On va chercher la région
             let region = document.querySelector("#parametre_type");
-            region.addEventListener("change", function(){
+            region.addEventListener("change", function()
+            {
                 let form = this.closest("form");
                 let data = this.name + "=" + this.value;                    
                 fetch(form.action, {
@@ -206,11 +207,68 @@
                     content.innerHTML = html;
                     let nouveauSelect = content.querySelector("#parametre_machine");
                     document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
+                    console.log(nouveauSelect);
+                    var machines = document.getElementById('parametre_machine');
+                    machines?.addEventListener('click', function()
+                    {
+                        var machineID = this.value;
+                        console.log(machineID);
+
+                        //Envoyer une requête AJAX pour récupérer les données de la personne sélectionnée
+                        fetch('/parametre/info/' + machineID) // Remplacez l'URL par celle de votre route Symfony
+                        .then(response => response.json())
+                        .then(data => {
+                            // Mettre à jour les champs du formulaire Congé avec les données récupérées
+                            document.getElementById('parametre_type_machine').value = data.type_machine;
+                            document.getElementById('parametre_puissance').value = data.puissance;
+                            document.getElementById('parametre_vitesse').value = data.vitesse;
+                            document.getElementById('parametre_montage').value = data.montage;
+                            document.getElementById('parametre_fabricant').value = data.fabricant;
+                            document.getElementById('parametre_masse').value = data.masse;
+                            document.getElementById('parametre_type_palier').value = data.type_palier;
+                            document.getElementById('parametre_presence_balais').value = data.presence_balais;
+                            document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
+
+
+                            document.getElementById('parametre_stator_tension').value = data.stator_tension;
+                            document.getElementById('parametre_stator_tension2').value = data.stator_tension2;
+                            document.getElementById('parametre_stator_frequence').value = data.stator_frequence;
+                            document.getElementById('parametre_stator_courant').value = data.stator_courant;
+                            document.getElementById('parametre_date_arrivee').value = data.date_arrivee;
+                            document.getElementById('parametre_stator_couplage').value = data.stator_couplage;
+
+                            document.getElementById('parametre_rotor_tension').value = data.rotor_tension;
+                            document.getElementById('parametre_rotor_tension2').value = data.rotor_tension2;
+                            document.getElementById('parametre_rotor_expertise_refrigeant').value = data.rotor_expertise_refrigeant;
+                            document.getElementById('parametre_rotor_courant').value = data.rotor_courant;
+                            document.getElementById('parametre_rotor_couplage').value = data.presence_plans;
+
+                            //document.getElementById('affaire_num_article_client').value = data.prenom;
+                        });
+                    });
                 })
                 .catch(error => {
                     console.log(error);
                 })
             });
+
+        // JavaScript pour détecter le changement de sélection dans le champ Personne
+       // var machines = document.getElementById('parametre_machine');
+        //machines?.addEventListener('change', function()
+        //{
+          //  var personneId = this.value;
+            //console.log(personneId);
+        // Envoyer une requête AJAX pour récupérer les données de la personne sélectionnée
+       /* fetch('/affaire/info/' + personneId) // Remplacez l'URL par celle de votre route Symfony
+            .then(response => response.json())
+            .then(data => {
+                // Mettre à jour les champs du formulaire Congé avec les données récupérées
+                document.getElementById('affaire_num_fabrication').value = data.nom;
+                document.getElementById('affaire_num_article_client').value = data.prenom;
+            });
+            */
+       // });
         }
+        
     </script>
  {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class MachineType extends AbstractType
@@ -28,7 +29,7 @@ class MachineType extends AbstractType
                     'À courant continu' => 'À courant continu',
                     'Autres' => 'Autres',
                 ]
-            ])
+            ]) 
             ->add('sous_categorie', ChoiceType::class, [
                 'label' => 'Sous Categorie',
                 'placeholder' => 'Choisir une sous catégorie',
@@ -69,6 +70,55 @@ class MachineType extends AbstractType
                     'Neutre Interne' => 'Neutre Interne',
                 ]
             ])
+            ->add('type_machine', ChoiceType::class, [
+                'choices' => [
+                    'Moteur' => 'Moteur',
+                    'Alternateur' => 'Alternateur',
+                    'Génératrice' => 'Génératrice'
+                ],
+                'placeholder' => 'Choisir le type de machine'
+            ])
+            ->add('puissance')
+            ->add('montage')
+            ->add('fabricant')
+            ->add('presence_balais')
+            ->add('vitesse') 
+            ->add('masse')
+            ->add('type_palier', ChoiceType::class, [
+                'choices' => [
+                    'Roulements' => 'Roulements',
+                    'Coussinets' => 'Coussinets'
+                ],
+                'placeholder' => 'Choisir un type de palier'
+            ])
+            ->add('presence_balais_masse')
+            ->add('stator_tension')
+            ->add('stator_tension2')
+            ->add('stator_frequence')
+            ->add('stator_courant')
+            ->add('stator_couplage', ChoiceType::class, [
+                'choices' => [
+                    'Etoile' => 'Etoile'
+                ],
+                'placeholder' => 'Choisir couplage'
+            ])
+            ->add('date_arrivee', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('rotor_tension')
+            ->add('rotor_tension2')
+            ->add('rotor_expertise_refrigeant',ChoiceType::class, [
+                'choices' => [
+                    'Hydro' => 'Hydro',
+                    'Aéro' => 'Aéro',
+                    'Aucun' => 'Aucun'
+                ],
+                'placeholder' => 'Choisir expertise'
+            ])
+            ->add('rotor_courant')
+            ->add('presence_plans')
+            ->add('critere')
+            ->add('temp_correction')
         ;
     }
 

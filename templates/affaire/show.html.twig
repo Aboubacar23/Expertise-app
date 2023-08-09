@@ -52,6 +52,12 @@
                                     {{ flash_message }}
                                 </div>
                             {% endfor %}
+
+                            {% for flash_message in app.session.flashbag.get('danger') %}
+                                <div class="container alert alert-danger p-2" role="alert">
+                                    {{ flash_message }}  
+                                </div>
+                            {% endfor %}
                         </div>
                         <div class="col-md-4"></div>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Repository\AffaireRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -79,12 +80,22 @@ class ClientController extends AbstractController
 
     //la fonction pour supprimer un client
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST','GET'])]
-    public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
+    public function delete(Request $request, Client $client, ClientRepository $clientRepository, AffaireRepository $affaireRepository): Response
     {
-        if($client){
-            $clientRepository->remove($client, true);
-            $this->addFlash('success', "Le client a été bien supprimer ");
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+        $affaire = $affaireRepository->findByClient($client);
+       // dd($affaire);
+        if($client)
+        {
+            if (!$affaire)
+            {
+                $clientRepository->remove($client, true);
+                $this->addFlash('success', "Le client a été bien supprimer ");
+                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+
+            }else{
+                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer ce client car il possède des affaires ! ");
+                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            }
         }else{
             $this->addFlash('success', "Le client n'existe pas ");
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);

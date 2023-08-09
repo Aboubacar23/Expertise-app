@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Machine;
 use App\Form\MachineType;
+use App\Repository\CritereRepository;
 use App\Repository\MachineRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CorrectionRepository;
+use App\Repository\ParametreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/machine')]
 class MachineController extends AbstractController
@@ -22,13 +25,53 @@ class MachineController extends AbstractController
     }
 
     #[Route('/new', name: 'app_machine_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MachineRepository $machineRepository): Response
+    public function new(Request $request, MachineRepository $machineRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
     {
         $machine = new Machine();
         $form = $this->createForm(MachineType::class, $machine);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $criteres = $critereRepository->findAll();
+        $critere = 0;
+        foreach ($criteres as $item)
+        {
+            if ($item->isEtat() == 1)
+            {
+                $critere = $item->getMontant();
+            }
+        }
+ 
+        $corrections = $correctionRepository->findAll();
+        $correction = 0;
+        foreach ($corrections as $item2)
+        {
+            if ($item2->isEtat() == 1)
+            {
+                $correction = $item2->getTemperature();
+            }
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            if ($machine->getStatorTension2() == null)
+            {
+                $machine->setStatorTension2(0);
+            }
+            if ($machine->getStatorTension() == null)
+            {
+                $machine->setStatorTension(0);
+            }
+
+            if ($machine->getRotorTension2() == null)
+            {
+                $machine->setRotorTension2(0);
+            } 
+            
+            if ($machine->getRotorTension() == null)
+            {
+                $machine->setRotorTension(0);
+            } 
+
             $machineRepository->save($machine, true);
             $this->addFlash('success', "Machine  a été créer");
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
@@ -37,6 +80,8 @@ class MachineController extends AbstractController
         return $this->renderForm('machine/new.html.twig', [
             'machine' => $machine,
             'form' => $form,
+            'critere' => $critere,
+            'correction' => $correction,
         ]);
     }
 
@@ -49,29 +94,85 @@ class MachineController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_machine_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Machine $machine, MachineRepository $machineRepository): Response
+    public function edit(Request $request, Machine $machine, MachineRepository $machineRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
     {
         $form = $this->createForm(MachineType::class, $machine);
-        $form->handleRequest($request);
+        $form->handleRequest($request);     
+        
+        //on envoi ici le critère activer on formulaire
+        $criteres = $critereRepository->findAll();
+        $critere = 0;
+        foreach ($criteres as $item)
+        {
+            if ($item->isEtat() == 1)
+            {
+                $critere = $item->getMontant();
+            }
+        }
+ 
+        $corrections = $correctionRepository->findAll();
+        $correction = 0;
+        foreach ($corrections as $item2)
+        {
+            if ($item2->isEtat() == 1)
+            {
+                $correction = $item2->getTemperature();
+            }
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+
+            /**
+            * on vérifiie si l'un de ces attributs sont nulls 
+            * pouur les attribuer 0 pour pouvoir calculer les mesures 
+            */
+            if ($machine->getStatorTension2() == null)
+            {
+                $machine->setStatorTension2(0);
+            }
+            if ($machine->getStatorTension() == null)
+            {
+                $machine->setStatorTension(0);
+            }
+
+            if ($machine->getRotorTension2() == null)
+            {
+                $machine->setRotorTension2(0);
+            } 
+            
+            if ($machine->getRotorTension() == null)
+            {
+                $machine->setRotorTension(0);
+            } 
+
             $machineRepository->save($machine, true);
-
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('machine/edit.html.twig', [
             'machine' => $machine,
             'form' => $form,
+            'critere' => $critere,
+            'correction' => $correction
         ]);
     }
 
     #[Route('/delete/{id}', name: 'app_machine_delete', methods: ['GET'])]
-    public function delete(Request $request, Machine $machine, MachineRepository $machineRepository): Response
+    public function delete(Request $request, Machine $machine, MachineRepository $machineRepository, ParametreRepository $parametreRepository): Response
     {
-        if ($machine) {
-            $machineRepository->remove($machine, true);
-            return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
+        $parametre = $parametreRepository->findByMachine($machine);
+        if ($machine) 
+        {
+            if (!$parametre)
+            {
+                $machineRepository->remove($machine, true);
+                return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
+            }else{ 
+
+                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cette machine, car y a des paramètres sur la machine ! ");
+                return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
         return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
     }

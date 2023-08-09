@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Type;
 use App\Form\TypeType;
+use App\Repository\MachineRepository;
 use App\Repository\TypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,6 @@ class TypeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $typeRepository->save($type, true);
-
             return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,11 +67,20 @@ class TypeController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_type_delete', methods: ['GET'])]
-    public function delete(Request $request, Type $type, TypeRepository $typeRepository): Response
+    public function delete(Request $request, Type $type, TypeRepository $typeRepository,MachineRepository $machineRepository): Response
     {
+        $machines = $machineRepository->findByType($type);
         if ($type) {
-            $typeRepository->remove($type, true);
-            return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
+            if (!$machines)
+            {
+                $typeRepository->remove($type, true);
+                return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else{
+                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cet type, car y a des machines sur la machine ! ");
+                return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
+
+            }
         }
         return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
     }

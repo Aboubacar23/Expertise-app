@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Affaire;
 use App\Entity\Archive;
 use App\Entity\Parametre;
@@ -14,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -27,6 +29,8 @@ class AffaireController extends AbstractController
     {
         $affaires = [];
         $tabs = $affaireRepository->findBy([],['id' => 'desc']);
+
+        //cette boucle permet de retourner un tableau des affaires en cours
         foreach($tabs as $item){
             if($item->isEtat() == 0){
                 array_push($affaires, $item);
@@ -167,25 +171,38 @@ class AffaireController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST', 'GET'])]
-    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository): Response
+    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository,ParametreRepository $parametreRepository): Response
     {
-        if ($affaire) {
-            $affaireRepository->remove($affaire, true);
-            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+        $parametre = $parametreRepository->findByAffaire($affaire);
+        if ($affaire) 
+        {
+            if (!$parametre)
+            {
+                $affaireRepository->remove($affaire, true);
+                return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+            {
+                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cette affaire car il possède des paramètres ! ");
+                return $this->redirectToRoute('app_affaire_show', [
+                    'id' => $affaire->getId()
+                ], Response::HTTP_SEE_OTHER);
+
+            }
         }
         return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
 
     }
 
      //la fonction qui affiche la liste des affaires terminer
-     #[Route('/rapports/listes', name: 'app_affaire_rapport', methods: ['GET'])]
-     public function rapport(ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
-     {
-         $affaires = $affaireRepository->findBy([],['id' => 'desc']);
-         return $this->render('affaire/rapport.html.twig', [
-             'affaires' => $affaires,
-         ]);
-     }
+    #[Route('/rapports/listes', name: 'app_affaire_rapport', methods: ['GET'])]
+    public function rapport(ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
+    {
+        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+        return $this->render('affaire/rapport.html.twig', [
+            'affaires' => $affaires,
+        ]);
+    }
 
     //la fonction qui permet d'activer et réactiver une affaire
     #[Route('/bloque-activer/{id}', name: 'app_bloque', methods: ['GET'])]

@@ -120,7 +120,7 @@ class RegistrationController extends AbstractController
         {
             $entityManager->remove($admin);
             $entityManager->flush();
-            $this->addFlash('success', 'Administrateur supprimer avec succès');
+            $this->addFlash('danger', 'Administrateur supprimer avec succès');
             return $this->redirectToRoute('app_register_index', [], Response::HTTP_SEE_OTHER);
         }
     }

@@ -21,6 +21,11 @@
                 <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
+                    {% for flash_message in app.session.flashbag.get('danger') %}
+                        <div class="container alert alert-danger p-2" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card-box table-responsive">

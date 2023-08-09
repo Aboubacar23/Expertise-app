@@ -74,12 +74,32 @@ class AppareilController extends AbstractController
     }
 
     #[Route('delete/{id}', name: 'app_appareil_delete', methods: ['GET'])]
-    public function delete(Request $request, Appareil $appareil, AppareilRepository $appareilRepository): Response
-    {
-       if($appareil){
-        $appareilRepository->remove($appareil, true);
-            return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
+    public function delete(Request $request, Appareil $appareil, AppareilRepository $appareilRepository,
+                        AppareilMesureRepository $appareilMesureRepository,
+                        AppareilMesureEssaisRepository $appareilMesureEssaisRepository,
+                        AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,
+                        AppareilMesureElectriqueRepository $appareilMesureElectriqueRepository,
+                
 
+                        ): Response
+    {
+        $appareilMesure1 = $appareilMesureRepository->findByAppareil($appareil);
+        $appareilMesure2 = $appareilMesureEssaisRepository->findByAppareil($appareil);
+        $appareilMesure3 = $appareilMesureMecaniqueRepository->findByAppareil($appareil);
+        $appareilMesure4 = $appareilMesureElectriqueRepository->findByAppareil($appareil);
+        
+       if($appareil)
+       {
+            if(!$appareilMesure1 and !$appareilMesure2 and !$appareilMesure3 and !$appareilMesure4)
+            {
+                $appareilRepository->remove($appareil, true);
+                return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+            {
+                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cet Appareil, car y a des expertise sur l'appareil ! ");
+                return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
+            }
        }else{
             return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
 
@@ -141,9 +161,10 @@ class AppareilController extends AbstractController
     {
         $idApp = $appareilMesureEssais;
         $id = $idApp->getParametre()->getId();
-       if($appareilMesureEssais){
-        $appareilMesureEssaisRepository->remove($appareilMesureEssais, true);
-        return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
+       if($appareilMesureEssais)
+       {
+            $appareilMesureEssaisRepository->remove($appareilMesureEssais, true);
+            return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
        }else{
             return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
        } 

@@ -3,21 +3,23 @@ namespace App\Controller;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Knp\Snappy\Pdf;
 use App\Entity\Affaire;
+use App\Entity\Machine;
 use App\Entity\Parametre;
 use App\Form\ParametreType;
-use App\Repository\AppareilMesureRepository;
-use App\Repository\CorrectionRepository;
+use App\Repository\PhotoRepository;
 use App\Repository\CritereRepository;
 use App\Repository\ParametreRepository;
-use App\Repository\PhotoRepository;
-use App\Repository\ReleveDimmensionnelRepository;
+use App\Repository\CorrectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\AppareilMesureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ReleveDimmensionnelRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Knp\Snappy\Pdf;
 
 
 #[Route('/parametre')]
@@ -414,5 +416,39 @@ class ParametreController extends AbstractController
         return $this->redirectToRoute('app_affaire_show', [
             'id' => $id
         ], Response::HTTP_SEE_OTHER);
+    }
+
+
+    //la fonction qui permet d'activer et réactiver une affaire
+    #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
+    public function test(Machine $machine, EntityManagerInterface $em): JsonResponse
+    {
+      //  dd($admin);
+        if (!$machine)
+        {
+            return new JsonResponse(['erreur' => 'machine non trouvée'], 404);
+        }
+        return new JsonResponse([
+            'type_machine' => $machine->getTypeMachine(),
+            'puissance' => $machine->getPuissance(),
+            'montage' => $machine->getMontage(),
+            'fabricant' => $machine->getFabricant(),
+            'vitesse' => $machine->getVitesse(),
+            'masse' => $machine->getMasse(),
+            'type_palier' => $machine->getTypepalier(),
+            'presence_balais' => $machine->isPresenceBalais(),
+            'presence_masse_balais' => $machine->isPresenceBalaisMasse(),
+            'stator_tension' => $machine->getStatorTension(),
+            'stator_tension2' => $machine->getStatorTension2(),
+            'stator_frequence' => $machine->getStatorFrequence(),
+            'stator_courant' => $machine->getStatorCourant(),
+            'stator_couplage' => $machine->getStatorCouplage(),
+            'date_arrivee' => $machine->getDateArrivee(),
+            'rotor_tension' => $machine->getRotorTension(),
+            'rotor_tension2' => $machine->getRotorTension2(),
+            'rotor_expertise_refrigeant' => $machine->getRotorExpertiseRefrigeant(),
+            'rotor_courant' => $machine->getRotorCourant(),
+            'presence_plans' => $machine->isPresencePlans(),
+        ]);
     }
 }
