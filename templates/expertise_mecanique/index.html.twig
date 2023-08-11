@@ -354,6 +354,56 @@
                     </div>
                 <!-- fin contrôle  recensement --> 
 
+                <!-- début coussinet --> 
+                    <div class="x_panel"> 
+                        <div class="x_title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Photo Rotor</h2>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    {% if parametre.photoRotors | length == 0 %}
+                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                                    {% else %}
+                                        {% if parametre.photoRotors | length    == 1 %}
+                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                                        {% else %}
+                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                        {% if parametre.affaire.bloque != 1 %}
+                                            <a class="btn btn-primary" href="{{path('app_photo_rotor', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse031" aria-expanded="false" href="#collapse031"><i class="fa fa-chevron-up"></i></a></li>
+                                    </ul>                                                
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content collapse" id="collapse031">
+                            {% if parametre.photoRotors %}
+                                 <table class="table table-bordered">
+                                     <tr  class="table-secondary">
+                                         <th>Photo</th>
+                                     </tr>
+                                     {% for item in parametre.photoRotors %}
+                                         <tr>
+                                             <td class="text-center"><img class="p-2" src="{{asset('/photo_rotor/'~ item.libelle)}}" height="400" width="400"></td>
+                                         </tr>                                    
+                                     {% endfor %}
+                                 </table>                                        
+                             {% endif %}
+                        </div>
+                    </div>
+                <!-- fin coussinet --> 
+
                 <!-- début contrôle visuel et recensement --> 
                     <div class="x_panel"> 
                         <div class="x_title">

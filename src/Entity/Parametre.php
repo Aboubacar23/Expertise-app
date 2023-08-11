@@ -256,6 +256,9 @@ class Parametre
     #[ORM\OneToOne(inversedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?InfoGenerale $info_generale = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PhotoRotor::class)]
+    private Collection $photoRotors;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -277,6 +280,7 @@ class Parametre
         $this->controleGeometriques = new ArrayCollection();
         $this->appareilMesureEssais = new ArrayCollection();
         $this->pointFonctionnementVides = new ArrayCollection();
+        $this->photoRotors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1582,8 +1586,36 @@ class Parametre
     public function setInfoGenerale(?InfoGenerale $info_generale): static
     {
         $this->info_generale = $info_generale;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PhotoRotor>
+     */
+    public function getPhotoRotors(): Collection
+    {
+        return $this->photoRotors;
+    }
+
+    public function addPhotoRotor(PhotoRotor $photoRotor): static
+    {
+        if (!$this->photoRotors->contains($photoRotor)) {
+            $this->photoRotors->add($photoRotor);
+            $photoRotor->setParametre($this);
+        }
 
         return $this;
     }
 
+    public function removePhotoRotor(PhotoRotor $photoRotor): static
+    {
+        if ($this->photoRotors->removeElement($photoRotor)) {
+            // set the owning side to null (unless already changed)
+            if ($photoRotor->getParametre() === $this) {
+                $photoRotor->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
 }

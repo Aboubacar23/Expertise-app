@@ -26,7 +26,7 @@ class Affaire
     #[ORM\Column(length: 255)]
     private ?string $num_fabrication = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $num_article_client = null;
 
     #[ORM\Column(length: 255, nullable: true)]

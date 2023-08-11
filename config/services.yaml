@@ -16,6 +16,7 @@ parameters:
     images_remarque: '%kernel.project_dir%/public/photo_remarque'
     image_phototheque: '%kernel.project_dir%/public/phototheques'
     fichier_archives: '%kernel.project_dir%/public/archives'
+    image_rotor: '%kernel.project_dir%/public/photo_rotor'
     
 services:
     # default configuration for services in *this* file 

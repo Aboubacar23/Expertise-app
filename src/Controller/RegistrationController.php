@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-
+            //ddddddddddd
             foreach($user->getRoles() as $item)
             {
                 if($item == 'ROLE_CHEF_PROJET')

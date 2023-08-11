@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Plaque;
-use App\Form\PlaqueType;
 use App\Entity\Coussinet;
 use App\Entity\HydroAero;
 use App\Entity\Parametre;
 use App\Entity\Roulement;
+use App\Entity\PhotoRotor;
 use App\Entity\Synoptique;
 use App\Form\CoussinetType;
 use App\Form\HydroAeroType;
@@ -18,7 +17,6 @@ use App\Form\ConstatMecaniqueType;
 use App\Entity\ControleGeometrique;
 use App\Entity\ControleRecensement;
 use App\Entity\ReleveDimmensionnel;
-use App\Repository\PlaqueRepository;
 use App\Form\ControleGeometriqueType;
 use App\Form\ControleRecensementType;
 use App\Form\ReleveDimmensionnelType;
@@ -27,11 +25,11 @@ use App\Entity\ControleVisuelMecanique;
 use App\Entity\PhotoExpertiseMecanique;
 use App\Repository\CoussinetRepository;
 use App\Repository\HydroAeroRepository;
-use App\Repository\ParametreRepository;
 use App\Repository\RoulementRepository;
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\ControleMontageConssinet;
 use App\Entity\ControleMontageRoulement;
+use App\Repository\PhotoRotorRepository;
 use App\Repository\SynoptiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\AppareilMesureMecaniqueType;
@@ -40,9 +38,10 @@ use App\Form\PhotoExpertiseMecaniqueType;
 use App\Form\AccessoireSupplementaireType;
 use App\Form\ControleMontageCoussinetType;
 use App\Form\ControleMontageRoulementType;
+use App\Form\PhotoRotorType;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\ConstatMecaniqueRepository;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ConstatMecaniqueRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ControleGeometriqueRepository;
 use App\Repository\ControleRecensementRepository;
@@ -118,6 +117,54 @@ class ExpertiseMecaniqueController extends AbstractController
         return $this->render('expertise_mecanique/controle_recensement.html.twig', [
         'parametre' => $parametre,
         'formControleRecensement' => $formControleRecensement->createView()
+        
+        ]);
+
+    }
+
+    //photo rotor 
+    #[Route('/photo-rotor-mecanique/{id}', name: 'app_photo_rotor')]
+    public function photoRotor(Parametre $parametre, PhotoRotorRepository $photoRotorRepository,Request $request,SluggerInterface $slugger)
+    {       
+        $photoRotor = new PhotoRotor();
+        $taille = count($photoRotorRepository->findAll());
+        $formPhotoRotor = $this->createForm(PhotoRotorType::class, $photoRotor);
+        $formPhotoRotor->handleRequest($request);
+        
+        if($formPhotoRotor->isSubmitted() && $formPhotoRotor->isValid())
+        {
+            if ($taille == 0)
+            {
+                $photo = $formPhotoRotor->get('libelle')->getData();
+                if ($photo)
+                {
+                  //  dd($photo);
+                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                    try {
+                        $photo->move(
+                            $this->getParameter('image_rotor'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+
+                    $photoRotor->setLibelle($newPhotoname);
+                }
+    
+                $photoRotor->setParametre($parametre); 
+                $photoRotor->setEtat(1);
+                $photoRotorRepository->save($photoRotor, true);
+                return $this->redirectToRoute('app_photo_rotor', ['id' => $parametre->getId()]);  
+            }
+            else{
+                $this->addFlash("danger", "Désolé vous avez déjà ajouté cette photo");  
+            }        
+        }
+
+        return $this->render('expertise_mecanique/photo_rotor.html.twig', [
+        'parametre' => $parametre,
+        'formPhotoRotor' => $formPhotoRotor->createView()
         
         ]);
 
@@ -799,4 +846,18 @@ class ExpertiseMecaniqueController extends AbstractController
         } 
     }
 
+    #[Route('/drop-ro-photo/{id}', name: 'drop_ro_ph', methods: ['GET','POST'])]
+    public function dropPhoto(PhotoRotor $photoRotor, PhotoRotorRepository $photoRotorRepository)
+    {
+         $id = $photoRotor->getParametre()->getId();
+        //dd($photoRotor);
+        if($photoRotor)
+        {
+            $nom = $photoRotor->getLibelle();
+            unlink($this->getParameter('image_rotor').'/'.$nom);
+            $photoRotorRepository->remove($photoRotor, true);
+            return $this->redirectToRoute('app_photo_rotor', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        return $this->redirectToRoute('app_photo_rotor', ['id' => $id], Response::HTTP_SEE_OTHER);
+    }
 }
