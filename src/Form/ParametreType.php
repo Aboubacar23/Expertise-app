@@ -69,6 +69,8 @@ class ParametreType extends AbstractType
             ->add('presence_plans')
             ->add('critere')
             ->add('temp_correction')
+
+            //On affiche tous les types de machines de la machine
             ->add('type', EntityType::class, [
                 //'mapped' => false,
                 'class' => Type::class,
@@ -76,11 +78,13 @@ class ParametreType extends AbstractType
                 'placeholder' => 'Choisir un Type',
                 'required' => false
             ]);
-          /*  ->add('machine', ChoiceType::class, [
-                'placeholder' => 'Choisir une Machine',
-                'required' => false
-            ]);
-*/
+
+            /**
+             * Par défaut, on retourne un tableau de machine vide
+             * et on attend un clic sur la liste déroulante de type de machine voir (2)
+             * si y'a le clic sur la liste on cherche dans la liste des machines les types liés par rélation de table (n..1)
+             * et affiche le resultat sous forme de tableau
+             */
             $formModifier = function (FormInterface $form, Type $type = null) {
                     $machines = (null === $type) ? [] : $type->getMachines();
                     $form->add('machine', EntityType::class, [
@@ -92,7 +96,8 @@ class ParametreType extends AbstractType
                             'attr' => ['class' => 'custom-select'],
                         ]);
                 };  
-
+            
+                //pour le premier clic on récupere le type et on l'envoi pour le filtre
             $builder->addEventListener(
                     FormEvents::PRE_SET_DATA,
                     function (FormEvent $event) use ($formModifier) {
@@ -101,6 +106,7 @@ class ParametreType extends AbstractType
                     }
                 );
 
+            //et le type envoyer récupere tous les éléments parent du type de machine 
             $builder->get('type')->addEventListener(
                     FormEvents::POST_SUBMIT,
                     function (FormEvent $event) use ($formModifier) {

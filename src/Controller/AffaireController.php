@@ -62,6 +62,7 @@ class AffaireController extends AbstractController
         $form->handleRequest($request);
 
         $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $affaire->setUser($user);
             $affaire->setEtat(0);

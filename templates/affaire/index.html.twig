@@ -22,24 +22,24 @@
                 <div class="card-box table-responsive">
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                         <thead class="table-secondary" cellspacing="0">
-                            <tr>
-                            <th width="2">N°</th>
-                            <th>N° Affaire JE</th>
-                            <th>Nom Client</th>
-                            <th>Type Machine</th>
-                            <th>Machine</th>
-                            <th>Suivi Par</th>
-                            <th>Reunion Enc</th>
-                            <th>Date d'arrivée</th>
-                            <th>Expertise Electrique Avant lavage</th>
-                            <th>Expertise Méca</th>
-                            <th>Expertise Electrique Après lavage</th>
-                            <th>Validation Rapport Expertise</th>
-                            <th>Remontage</th>
-                            <th>Fin Essais Finaux</th>
-                            <th>Validation Rapport Final</th>
-                            <th>Date livraison</th>
-                            <th width="50" class="text-center">Action</th>
+                            <tr class="text-center">
+                                <th width="2">N°</th>
+                                <th>N° Affaire JE</th>
+                                <th>Nom Client</th>
+                                <th>Type Machine</th>
+                                {#<th>Machine</th>#}
+                                <th>Suivi Par</th>
+                                <th>Reunion Enc</th>
+                                <th>Date d'arrivée</th>
+                                <th>Expertise Electrique Avant lavage</th>
+                                <th>Expertise Méca</th>
+                                <th>Expertise Electrique Après lavage</th>
+                                <th>Validation Rapport Expertise</th>
+                                <th>Remontage</th>
+                                <th>Fin Essais Finaux</th>
+                                <th>Validation Rapport Final</th>
+                                <th>Date livraison</th>
+                                <th width="50" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,7 +52,7 @@
                                     <td>{{ item.affaire.numAffaire }}</td>
                                     <td>{{ item.affaire.client }}</td>
                                     <td>{{ item.type }}</td>
-                                    <td>{{ item.machine }}</td>
+                                    {#<td>{{ item.machine }}</td>#}
                                     <td>{{ item.affaire.suiviPar }}</td>
                                     {% if item.affaire.revueEnclenchement %}
                                         <td class="text-center text-success">ok</td>
@@ -100,7 +100,7 @@
                                     {% endif %}
                                     <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
                                     <td class="text-center">
-                                        <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-1x"></i></a>
+                                        <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-2x"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

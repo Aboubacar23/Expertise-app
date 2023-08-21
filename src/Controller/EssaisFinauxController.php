@@ -30,6 +30,7 @@ use App\Repository\MesureResistanceEssaiRepository;
 use App\Repository\LMesureResistanceEssaiRepository;
 use App\Repository\MesureVibratoireEssaisRepository;
 use App\Repository\PointFonctionnementVideRepository;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/essais-finaux')]
@@ -294,13 +295,28 @@ class EssaisFinauxController extends AbstractController
 
     //valider essais finaux
     #[Route('/validation/{id}', name: 'valider_essais_finaux', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
         if($parametre)
         {
+            $dossier = 'email/email.html.twig';
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $subject = "Essais Finaux";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation des essais Finaux";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
+            //envoyer le mail
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
             $parametre->setEssaisFinaux(1);
             $entityManager->persist($parametre);
-            $entityManager->flush();
+            $entityManager->flush();                
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé les essais finaux");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }else
         {

@@ -41,8 +41,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
 use App\Repository\ControleIsolementRepository;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Mailer\MailerInterface;
 
 #[Route('/expertiseEpAL')]
 class ExpertiseElectriqueApresLavageController extends AbstractController
@@ -559,13 +561,28 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('validation/{id}', name: 'valider_expertise_electrique_apres_lavage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         if($parametre)
         {
+            $dossier = 'email/email.html.twig';
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $subject = "Expertise électrique après lavage";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation de l'expertise électrique après lavage";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
+            //envoyer le mail
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
             $parametre->setExpertiseElectiqueApresLavage(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }else
         {

@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\RemontageFinitionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RemontageEquilibrageRepository;
+use App\Service\MailerService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -128,7 +129,6 @@ class RemontageController extends AbstractController
        
     }
 
-
     //le remontage finition
     #[Route('/remontage-finition/{id}', name: 'app_remontage_finition', methods: ['GET','POST'])]
     public function remontageFinitions(Parametre $parametre,Request $request,RemontageFinitionRepository $remontageFinitionRepository): Response
@@ -228,17 +228,32 @@ class RemontageController extends AbstractController
 
     //la fonction qui valide remontage
     #[Route('validation/{id}/rapport', name: 'valider_remontage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
-            if($parametre)
-            { 
-                $parametre->setRemontage(1);
-                $parametre->setStatutFinal(1);
-                $entityManager->persist($parametre);
-                $entityManager->flush();
-                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-            }else{
-                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-            } 
+        if($parametre)
+        { 
+            $dossier = 'email/email.html.twig';
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $subject = "Remontage";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation de remontage";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
+            //envoyer le mail
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
+            $parametre->setRemontage(1);
+            $parametre->setStatutFinal(1);
+            $entityManager->persist($parametre);
+            $entityManager->flush();
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        } 
     }
 }

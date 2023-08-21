@@ -188,10 +188,13 @@
 {% block javascripts %}
     <script>
         window.onload = () => {
-            // On va chercher la région
+            // On va chercher le type selectionner dans le formulaire
             let region = document.querySelector("#parametre_type");
+
+            //Créer une fonction d'écouter grâce à la fonction prédéfinir addEventListener
             region.addEventListener("change", function()
             {
+                //on recupère le nom et la valeur du type de machine sélectionner 
                 let form = this.closest("form");
                 let data = this.name + "=" + this.value;                    
                 fetch(form.action, {
@@ -203,18 +206,22 @@
                 })
                 .then(response => response.text())
                 .then(html => {
+                    //on crée une variable content pour sélectionner les machines en fonction des types de machines
                     let content = document.createElement("html");
                     content.innerHTML = html;
+                    //puis on recupère les machines
                     let nouveauSelect = content.querySelector("#parametre_machine");
                     document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
                     console.log(nouveauSelect);
+
+                    //si on choisir une machine / on doit remplir les champs de paramêtre automatiquement
                     var machines = document.getElementById('parametre_machine');
                     machines?.addEventListener('click', function()
                     {
                         var machineID = this.value;
                         console.log(machineID);
 
-                        //Envoyer une requête AJAX pour récupérer les données de la personne sélectionnée
+                        //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
                         fetch('/parametre/info/' + machineID) // Remplacez l'URL par celle de votre route Symfony
                         .then(response => response.json())
                         .then(data => {

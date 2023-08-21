@@ -57,6 +57,7 @@ use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
+use App\Service\MailerService;
 use SebastianBergmann\Environment\Console;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -763,36 +764,30 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerInterface $mailer): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
             if($parametre)
             {
-                $email_receve = $parametre->getAffaire()->getSuiviPar()->getEmail();
-                $subject = "Validation de l'expertise avant lavage";
-                $text = "Bonjour ".$parametre->getAffaire()->getSuiviPar()->getNom()." "
-                                .$parametre->getAffaire()->getSuiviPar()->getPrenom()
-                                ." vous venez de recevoir une validation de la part de : "
-                                .$this->getUser()->getNom()." ".$this->getUser()->getPrenom()
-                                ." Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+                $dossier = 'email/email.html.twig';
+                $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+                $subject = "Expertise électrique avant lavage";
 
-               /* $transport = Transport::fromDsn("smtp://f858f9f1bd82e8:72bfaa776a018e@sandbox.smtp.mailtrap.io:2525?encryption=tls&auth_mode=login");
-                $mailer = new Mailer($transport);
-                */
+                $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                            .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+                $message = "Vous avez une validation de l'expertise électrique avant lavage";
+                $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+ 
                 
-                $email = (new Email())
-                    ->from('esayticexpertise@gmail.com')
-                    ->to($email_receve)
-                    ->subject($subject)
-                    ->text($text);
-                   // ->html('<p>See Twig integration for better HTML integration!</p>');  
-
-                //dd($email);
-                $mailer->send($email);
-
                 $parametre->setExpertiseElectiqueAvantLavage(1);
                 $entityManager->persist($parametre);
                 $entityManager->flush();
-                $this->addFlash("success", "Bravo : ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+                  
+                //envoyer le mail
+                $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
+                $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
             }else{
                 return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

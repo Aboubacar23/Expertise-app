@@ -1,0 +1,10 @@
+{% block title %}{% endblock %}
+{% block body %}
+<div class="container">
+    <h3>Bonjour  {{ cpd }} !</h3>
+    <p>{{message}}</p>
+    <p style="font-style: italic;">{{ num_affaire }}</p>
+    <p>Par : {{ users }}</p>
+    <p>{{ "now"|date("m/d/Y")}}</p>
+</div>
+{% endblock %}
