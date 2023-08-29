@@ -222,7 +222,7 @@
                         console.log(machineID);
 
                         //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
-                        fetch('/parametre/info/' + machineID) // Remplacez l'URL par celle de votre route Symfony
+                        fetch('/index.php/parametre/info/' + machineID) // Remplacez l'URL par celle de votre route Symfony
                         .then(response => response.json())
                         .then(data => {
                             // Mettre à jour les champs du formulaire Congé avec les données récupérées
@@ -235,7 +235,7 @@
                             document.getElementById('parametre_type_palier').value = data.type_palier;
                             document.getElementById('parametre_presence_balais').value = data.presence_balais;
                             document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
-
+ 
 
                             document.getElementById('parametre_stator_tension').value = data.stator_tension;
                             document.getElementById('parametre_stator_tension2').value = data.stator_tension2;

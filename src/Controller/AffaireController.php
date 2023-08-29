@@ -57,15 +57,24 @@ class AffaireController extends AbstractController
     #[Route('/new', name: 'app_affaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AffaireRepository $affaireRepository): Response
     {
+        //inialiser une variable de classe
         $affaire = new Affaire();
+
+        //créer une variable form, qui contient la classe de du formulaire des affaires
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
+        //récupérer l'utilisateur connecter 
         $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
         
-        if ($form->isSubmitted() && $form->isValid()) {
+        //on vérifie l'envoi du l'ormulaire avant d'ajouté les informations dans la base
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            //ajouter l'utilisateur sur une affaire
             $affaire->setUser($user);
             $affaire->setEtat(0);
+
+            //enregistrer les informations dans la base de données
             $affaireRepository->save($affaire, true);
 
             return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);

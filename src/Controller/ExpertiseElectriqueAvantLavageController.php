@@ -861,7 +861,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     }
 
     //plaque signalétique et révision 
-    #[Route('/plaque/{id}', name: 'app_photo_plaque')]
+    #[Route('/plaque/{id}/add-photo', name: 'app_photo_plaque')]
     public function plauqe(Parametre $parametre, PlaqueRepository $plaqueRepository,Request $request,SluggerInterface $slugger, LPlaqueRepository $lPlaqueRepository)
     {       
         $plaque = new Plaque();
@@ -886,16 +886,17 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
         }
 
+        $count = count($parametre->getPlaques());
         if($formPlaque->isSubmitted() && $formPlaque->isValid())
         {
             $trouve = false;
-            foreach($parametre->getPlaques() as $item)
+          //  foreach($parametre->getPlaques() as $item)
+          //  {
+            if ($count == 3)
             {
-                if ($item->getLibelle() == $plaque->getLibelle())
-                {
-                    $trouve = true;
-                }
+                $trouve = true;
             }
+            //}
 
             if ($trouve == false)
             {
@@ -920,7 +921,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
             }else{
 
-                $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : ".$plaque->getLibelle());
+                $this->addFlash("message", "Oups ! vous pouvez ajouter que trois photos pour les plaques");
                 return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
             }
                     

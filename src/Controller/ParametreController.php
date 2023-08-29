@@ -420,7 +420,6 @@ class ParametreController extends AbstractController
     #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
     public function test(Machine $machine, EntityManagerInterface $em): JsonResponse
     {
-      //  dd($admin);
         if (!$machine)
         {
             return new JsonResponse(['erreur' => 'machine non trouvée'], 404);

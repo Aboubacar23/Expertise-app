@@ -122,7 +122,7 @@
                       <li><a href="{{path('app_corbeille_listes')}}"><i class="fa fa-trash"></i> Corbeilles</a></li>
                       <li><a href="{{path('app_archive_index')}}"><i class="fa fa-archive"></i> Archives</a></li>
                   {% endif %}
-                      <li><a href="{{path('app_remarque_index')}}"><i class="fa fa-bars"></i> Remarques ( {{ listes.getRemarque | length }} )</a></li>
+                     {# <li><a href="{{path('app_remarque_index')}}"><i class="fa fa-bars"></i> Remarques ( {{ listes.getRemarque | length }} )</a></li>#}
                   </ul>
                 </div>
               </div>
@@ -248,6 +248,5 @@
   <script src="{{asset('admin/vendors/jszip/dist/jszip.min.js')}}"></script>
   <script src="{{asset('admin/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
   <script src="{{asset('admin/vendors/pdfmake/build/vfs_fonts.js')}}"></script> 
-
 </body>
 </html>

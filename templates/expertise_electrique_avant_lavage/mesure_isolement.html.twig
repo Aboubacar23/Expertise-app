@@ -145,7 +145,7 @@
     {% set var_U = 0 %}
     {% set var_V = 0 %}
     {% set var_W = 0 %}
-
+{# calculer ip chaque masse de 1min et 10min #}
     {% for it in items %}
         {% if it.type == 'Stator' %}
             {% if it.controle == 'RI - UVW/masse - 1 min' %}
@@ -243,16 +243,22 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
+            /**
+             *récupérer le contenu des champs qui seront à l'origine des calculs.
+             * 1- on a besoin du champ température ambiante, du champ valeur, du champ type et controle.
+            */
             let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_temp_ambiante').value);
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_type');
             var var_controle = document.getElementById('l_mesure_isolement_controle');
 
+            //récupérer les tensions(tension rotor et stator)
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
             let tension_rotor2 = {{ parametre.rotorTension2 }};
             let tension_stator2 = {{ parametre.statorTension2 }};
-
+            
+            //ici on on recupérer les variables que nous avons calculer un peu en haut
             let var_id_UVW = {{ var_idUVW }}
             let var_id_U = {{ var_idU }}
             let var_id_V = {{ var_idV }}
@@ -264,11 +270,13 @@
             let var_j_W = {{ var_W }} 
            // console.log(var_id_UVW);
 
+           //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
             
             if(var_type.value == 'Stator')
             {  
+                //comparer la chaine du controle choisir à la chaine déjà choisir, puis calucer son critère
                 if(var_controle.value == var_id_UVW )
                 {
                     const tension_essaie = var_j_UVW;

@@ -50,6 +50,14 @@ class RegistrationFormType extends AbstractType
             ->add('telephone',TextType::class, [
                 'label' => 'Téléphone',
                 'required' => false,
+                'constraints' => [
+                    new Length([
+                        'min' => 9,
+                        'minMessage' => 'Le numéro de téléphone est de {{ limit }} chiffres',
+                        'max' => 9,
+                        'maxMessage' => 'Le numéro de téléphone est de {{ limit }} chiffres'
+                    ]),
+                ],
             ])
             ->add('prenom',TextType::class, [
                 'label' => 'Prenom',
