@@ -40,7 +40,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
     #[ORM\OneToMany(mappedBy: 'suivi_par', targetEntity: Affaire::class)]
