@@ -1,0 +1,162 @@
+   /**
+    *  else if (tension_rotor< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }       
+                else if (tension_rotor >= 500 && tension_rotor < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor > 1100 && tension_rotor <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }  
+    */
+   
+   /**
+    *               
+                if (tension_rotor2< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }       
+                else if (tension_rotor2 >= 500 && tension_rotor2 < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor2 > 1100 && tension_rotor2 <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_rotor2 > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                } 
+    */
+   
+   /*   
+                if (tension_stator< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }       
+                else if (tension_stator >= 500 && tension_stator < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator > 1100 && tension_stator <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                }   
+                */
+        /**
+         *                 else if (tension_stator2< 500)
+                {
+                    const tension_essaie = 500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                }       
+                else if (tension_stator2 >= 500 && tension_stator2 < 1100 )
+                {
+                    const tension_essaie = 1000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator2 > 1100 && tension_stator2 <= 3300)
+                {
+                    const tension_essaie = 2500;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                }
+                else if (tension_stator2 > 5500)
+                {
+                    const tension_essaie = 5000;
+                    const new_tension = document.getElementById('l_stator_apres_lavage_tension_essai');
+                    new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
+
+                    const ol_critre = (critere*tension_stator)/1000000;
+                    const new_critere = document.getElementById('l_stator_apres_lavage_critere');
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                }  
+         */

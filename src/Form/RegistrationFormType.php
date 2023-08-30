@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new Length([
-                        'min' => 6,
+                        'min' => 4,
                         'minMessage' => 'Le nom utilisateur doit comporter au moins {{ limit }} caractères',
                         'max' => 14,
                         'maxMessage' => 'Le nom utilisateur ne doit pas dépasser {{ limit }} caractères'

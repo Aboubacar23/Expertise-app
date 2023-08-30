@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class LSondeBobinageType extends AbstractType
 {
@@ -55,8 +56,8 @@ class LSondeBobinageType extends AbstractType
                 'choices' => [
                     '' => '',
                     'Sans Objet' => 'Sans Objet',
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non Conforme' => 'Non Conforme'
                 ]
             ])
         ;

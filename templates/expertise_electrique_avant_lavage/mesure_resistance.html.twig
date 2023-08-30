@@ -68,7 +68,7 @@
                                     <tr  class="table-secondary">
                                         <th width="16%">Type</th>
                                         <th width="16%">Contrôle</th>
-                                        <th width="16%">Critère (MΩ)</th>
+                                        <th width="16%">Critère</th>
                                         <th width="16%">Valeur relevées {{ form_widget(form.unite) }}</></th>
                                         <th width="16%">Correction à 20°</th>
                                         <th width="16%">Conformité</th>
@@ -86,6 +86,7 @@
                                     {% for item2 in items %}
                                         <tr>
                                             <td>{{item2.type}}</td>
+                                            <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
