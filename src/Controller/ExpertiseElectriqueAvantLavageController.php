@@ -690,8 +690,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $constatElectrique->setPhoto($newPhotoname);
                 }           
-                $constatElectrique->setPhoto($newPhotoname);
                 $constatElectrique->setParametre($parametre);
                 $constatElectrique->setEtat(1);
                 $constatElectriqueRepository->save($constatElectrique, true);
@@ -755,11 +755,14 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
           if($constatElectrique)
           {
             $nom = $constatElectrique->getPhoto();
-            unlink($this->getParameter('images_constat_electrique').'/'.$nom);
+            if($nom != null)
+            {
+                unlink($this->getParameter('images_constat_electrique').'/'.$nom);
+            }
             $constatElectriqueRepository->remove($constatElectrique, true);
-            return $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_constat_electrique', ['id' => $id], Response::HTTP_SEE_OTHER);
           }else{
-              return $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+              return $this->redirectToRoute('app_constat_electrique', ['id' => $id], Response::HTTP_SEE_OTHER);
           } 
           
     }

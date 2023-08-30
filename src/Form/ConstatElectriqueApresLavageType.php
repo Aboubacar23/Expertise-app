@@ -19,16 +19,11 @@ class ConstatElectriqueApresLavageType extends AbstractType
             ->add('critere')
             ->add('observation')
             ->add('preconisation_conclusion')
-            ->add('retenu',ChoiceType::class, [
-                'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
-            ])
+            ->add('retenu')
             ->add('photo',FileType::class, [
                 'label' => 'Images',
                 'mapped' => false,
-                'required' => true, 
+                'required' => false, 
                 'constraints' => [
                     new File([
                         'maxSize' => '5000000k',

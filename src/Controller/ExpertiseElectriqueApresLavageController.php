@@ -590,7 +590,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         } 
     }
 
-     //la fonction qui supprime un point de fonctionnement
+     //la fonction qui supprime constat
      #[Route('constat/{id}/electrique', name: 'delete_constat_electrique_apres_lavage', methods: ['GET'])]
     public function deleteConstat(ConstatElectriqueApresLavage $constatElectriqueApresLavage,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
     {

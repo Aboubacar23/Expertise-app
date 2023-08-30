@@ -47,7 +47,7 @@
                                                 <td>{{item.observation}}</td>
                                                 <td>{{item.preconisationConclusion}}</td>
                                                 <td>{{item.retenu}}</td>
-                                                <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
+                                                <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="100" width="100"></td>
                                                 <td class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" href="{{path('delete_constat_electrique_apres_lavage', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                             </tr>                                                    
                                         {% endfor %}

@@ -536,9 +536,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $constatMecanique->setPhoto($newPhotoname);
                 } 
-
-                $constatMecanique->setPhoto($newPhotoname);
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
 
@@ -593,7 +592,10 @@ class ExpertiseMecaniqueController extends AbstractController
         if($constatMecanique)
         {
             $nom = $constatMecanique->getPhoto();
-            unlink($this->getParameter('images_constat_mecanique').'/'.$nom);
+            if($nom != null)
+            {
+                unlink($this->getParameter('images_constat_mecanique').'/'.$nom);
+            }
             $constatMecaniqueRepository->remove($constatMecanique, true);
             return $this->redirectToRoute('app_constat_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }else{

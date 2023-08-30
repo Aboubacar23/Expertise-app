@@ -49,7 +49,7 @@
                                                   <td>{{item.observation}}</td>
                                                   <td>{{item.preconisationConclusion}}</td>
                                                   <td>{{item.retenu}}</td>
-                                                  <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                                  <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="100" width="100"></td>
                                                   <td class="text-center"><a href="{{path('delete_constat_electrique', {'id' :  item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                               </tr>                                                    
                                           {% endfor %}

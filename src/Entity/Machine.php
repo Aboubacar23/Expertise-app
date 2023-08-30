@@ -93,12 +93,6 @@ class Machine
 
     #[ORM\Column(nullable: true)]
     private ?float $rotor_tension2 = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $temp_correction = null;
-    
-    #[ORM\Column(nullable: true)]
-    private ?float $critere = null;
  
     public function __construct()
     {
@@ -250,18 +244,6 @@ class Machine
     public function setFabricant(string $fabricant): self
     {
         $this->fabricant = $fabricant;
-
-        return $this;
-    }
-
-    public function getCritere()
-    {
-        return $this->critere;
-    }
-
-    public function setCritere($critere)
-    {
-        $this->critere = $critere;
 
         return $this;
     }
@@ -457,18 +439,4 @@ class Machine
 
         return $this;
     }
-
-
-    public function getTempCorrection(): ?float
-    {
-        return $this->temp_correction;
-    }
-
-    public function setTempCorrection(?float $temp_correction): static
-    {
-        $this->temp_correction = $temp_correction;
-
-        return $this;
-    }
-
 }

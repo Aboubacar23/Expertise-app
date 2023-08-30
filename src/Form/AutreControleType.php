@@ -21,38 +21,38 @@ class AutreControleType extends AbstractType
             ->add('balais_masse_preconisation6')
             ->add('balaisMasseConformite1', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])            
             ->add('balaisMasseConformite2', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])            
             ->add('balaisMasseConformite3', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])            
             ->add('balaisMasseConformite4', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])            
             ->add('balaisMasseConformite5', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])            
             ->add('balaisMasseConformite6', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balais_preconisation1')
@@ -63,38 +63,38 @@ class AutreControleType extends AbstractType
             ->add('balais_preconisation6')
             ->add('balaisConformite1', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balaisConformite2', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balaisConformite3', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balaisConformite4', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balaisConformite5', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('balaisConformite6', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ]) 
             

@@ -23,6 +23,7 @@ class RegistrationFormType extends AbstractType
             ->add('username',TextType::class, [
                 'label' => 'Nom Utilisateur',
                 'required' => false,
+               // 'disabled' => true,
                 'attr' => [
                     'placeholder' => 'au moins 6 caractères'
                 ],
@@ -54,7 +55,7 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 9,
                         'minMessage' => 'Le numéro de téléphone est de {{ limit }} chiffres',
-                        'max' => 9,
+                        'max' => 14,
                         'maxMessage' => 'Le numéro de téléphone est de {{ limit }} chiffres'
                     ]),
                 ],

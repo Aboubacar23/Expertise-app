@@ -98,7 +98,8 @@ class MachineType extends AbstractType
             ->add('stator_courant')
             ->add('stator_couplage', ChoiceType::class, [
                 'choices' => [
-                    'Etoile' => 'Etoile'
+                    'Etoile' => 'Etoile',
+                    'Triangle' => 'Triangle'
                 ],
                 'placeholder' => 'Choisir couplage'
             ])
@@ -117,8 +118,6 @@ class MachineType extends AbstractType
             ])
             ->add('rotor_courant')
             ->add('presence_plans')
-            ->add('critere')
-            ->add('temp_correction')
         ;
     }
 

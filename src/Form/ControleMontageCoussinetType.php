@@ -31,9 +31,9 @@ class ControleMontageCoussinetType extends AbstractType
             ->add('ca_moyenne_releve')
             ->add('ca_conformite', ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
-                ]
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
+                ] 
             ])
             ->add('ca_observation')
             ->add('coa_nature_releve')
@@ -42,8 +42,8 @@ class ControleMontageCoussinetType extends AbstractType
             ->add('coa_moyenne_releve')
             ->add('coa_conformite',ChoiceType::class, [
                 'choices' => [
-                    'Oui' => 'Oui',
-                    'Non' => 'Non'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('coa_observation') 

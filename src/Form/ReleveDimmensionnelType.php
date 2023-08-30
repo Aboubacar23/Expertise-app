@@ -20,8 +20,8 @@ class ReleveDimmensionnelType extends AbstractType
             ->add('observation')
             ->add('conformite', ChoiceType::class, [
                 'choices' => [
-                    'Non' => 'Non',
-                    'Oui' => 'Oui'
+                    'Conforme' => 'Conforme',
+                    'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('type', ChoiceType::class, [

@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion Critère et Temperature de Correction</h3>
+        <h3>Gestion du critère et température de référence</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -25,7 +25,7 @@
                             {{ form_start(form) }}
                                 <table class="table table-bordered table-striped" style="width:100%">
                                     <tr  class="table-secondary">
-                                        <th>Montant</th>
+                                        <th>Critère (Ω/V)</th>
                                         <th class="text-center">Etat</th>
                                         <th width="100"></th>
                                     </tr>
@@ -46,7 +46,7 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th width="2">N°</th>
-                                            <th>Montant</th>
+                                            <th>Critère (Ω/V)</th>
                                             <th>Activer</th>
                                             <th width="150" class="text-center">Action</th>
                                         </tr>
@@ -57,7 +57,7 @@
                                             {% set i = i + 1 %}
                                             <tr>
                                                 <td>{{ i }}</td>
-                                                <td>{{ critere.montant | number_format }}</td>
+                                                <td>{{ critere.montant }}</td>
                                                 <td>{{ critere.etat ? 'Oui' :'Non' }}</td>
                                                 <td class="text-center">                                                   
                                                      <a href="{{ path('app_critere_delete', {'id': critere.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>

@@ -24,9 +24,9 @@
                     <br />
                     {{ form_start(registrationForm) }}
                         <div class="item form-group">
-                            <div class="col-md-4 col-sm-4 ">{{ form_row(registrationForm.username) }}</div>
                             <div class="col-md-4 col-sm-4 ">{{ form_row(registrationForm.nom) }}</div>
                             <div class="col-md-4 col-sm-4 ">{{ form_row(registrationForm.prenom) }}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(registrationForm.username) }}</div>
                         </div>
                         <div class="item form-group">
                             <div class="col-md-4 col-sm-4 ">{{ form_row(registrationForm.email) }}</div>
@@ -56,5 +56,24 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        { 
+            var nom = document.getElementById('registration_form_nom').value;
+            var prenom = document.getElementById('registration_form_prenom').value;
 
+            var nom_1 = nom.charAt(0);
+            name = nom_1+prenom;
+            var username = document.getElementById('registration_form_username');
+            username.value = name;
+            console.log(username);
+
+        }
+
+        document.getElementById('registration_form_nom').addEventListener('input', updateSumField);
+        document.getElementById('registration_form_prenom').addEventListener('input', updateSumField);
+        document.getElementById('registration_form_username').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}
