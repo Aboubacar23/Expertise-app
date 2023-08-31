@@ -71,10 +71,12 @@ class HomeController extends AbstractController
                 array_push($affaires, $item2);
             }
         }
-
-        $encoursPourc = 100 *($var_encours/$var_par);
-        $terminerPourc = 100 *($var_terminer/$var_par);
-        $bloque = 100 *($bloqueVal/$var_par);
+        if($affaires)
+        {
+            $encoursPourc = 100 *($var_encours/$var_par);
+            $terminerPourc = 100 *($var_terminer/$var_par);
+            $bloque = 100 *($bloqueVal/$var_par);
+        }
 
         $encours = $var_encours;
         $terminer = $var_terminer;
