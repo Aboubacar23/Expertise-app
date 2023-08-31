@@ -13,10 +13,14 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+
+                    {% if is_granted('ROLE_AGENT_MAITRISE') %}
                         {% if active == false %}
                             <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>
-                        {% endif %}
+                        {% endif %}                            
+                    {% endif %}
+                    
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                         <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>       
                         {% if affaire.revueEnclenchement %}
                             {% if active == true %}
@@ -30,14 +34,19 @@
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                        
-                        {% if affaire.revueEnclenchement %}
-                            <a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
-                        {% else %}
-                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
-                        {% endif %}
                         <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
                     {% endif %} 
+
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_LECTEUR') %}
+                        {% if affaire.revueEnclenchement %}
+                            <a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %} 
+                        {% if affaire.revueEnclenchement == null %}
+                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
+                        {% endif %}
+                    {% endif %}
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Admin;
 use App\Entity\Affaire;
 use App\Entity\Archive;
@@ -63,21 +64,29 @@ class AffaireController extends AbstractController
         //créer une variable form, qui contient la classe de du formulaire des affaires
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
-
+        $date = date("Y-m-d");
+        //dd($date);
         //récupérer l'utilisateur connecter 
         $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
         
         //on vérifie l'envoi du l'ormulaire avant d'ajouté les informations dans la base
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            //ajouter l'utilisateur sur une affaire
-            $affaire->setUser($user);
-            $affaire->setEtat(0);
+            if ($affaire->getDateLivraison()->format('Y-m-d') > $date)
+            {
+                //ajouter l'utilisateur sur une affaire
+                $affaire->setUser($user);
+                $affaire->setEtat(0);
 
-            //enregistrer les informations dans la base de données
-            $affaireRepository->save($affaire, true);
+                //enregistrer les informations dans la base de données
+                $affaireRepository->save($affaire, true);
 
-            return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
+
+            }else{       
+                $this->addFlash('error',"Désolé ! La date de livraison est inférieur à la date du jour");         
+                return $this->redirectToRoute('app_affaire_new', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('affaire/new.html.twig', [

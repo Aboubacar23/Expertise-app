@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class MachineType extends AbstractType
 {
@@ -37,7 +38,7 @@ class MachineType extends AbstractType
                 'choices' => [
                     'A cage' => 'A cage',
                     'A Rotor bobiné' => 'A Rotor bobiné',
-                    'Rotor à aimant permenant' => 'Rotor à aimant permenant',
+                   'Rotor à aimant permenant' => 'Rotor à aimant permenant',
                     'Stator Seul' => 'Stator Seul',
                     'Induit Seul' => 'Induit Seul',
                     'Self' => 'Self',
@@ -92,10 +93,18 @@ class MachineType extends AbstractType
                 'placeholder' => 'Choisir un type de palier'
             ])
             ->add('presence_balais_masse')
-            ->add('stator_tension')
-            ->add('stator_tension2')
-            ->add('stator_frequence')
-            ->add('stator_courant')
+            ->add('stator_tension', NumberType::class, [
+                'label' => 'Tension (V)'
+            ])
+            ->add('stator_tension2',NumberType::class, [
+                'label' => 'Tension (V)'
+            ])
+            ->add('stator_frequence',NumberType::class, [
+                'label' => 'Fréquence (Hz)'
+            ])
+            ->add('stator_courant',NumberType::class, [
+                'label' => 'Courant (A)'
+            ])
             ->add('stator_couplage', ChoiceType::class, [
                 'choices' => [
                     'Etoile' => 'Etoile',
@@ -106,9 +115,14 @@ class MachineType extends AbstractType
             ->add('date_arrivee', DateType::class, [
                 'widget' => 'single_text'
             ])
-            ->add('rotor_tension')
-            ->add('rotor_tension2')
+            ->add('rotor_tension',NumberType::class, [
+                'label' => 'Tension (V)'
+            ])
+            ->add('rotor_tension2',NumberType::class, [
+                'label' => 'Tension 2 (V)'
+            ])
             ->add('rotor_expertise_refrigeant',ChoiceType::class, [
+                'label'=> 'Expertise Réfrigeant',
                 'choices' => [
                     'Hydro' => 'Hydro',
                     'Aéro' => 'Aéro',
@@ -116,7 +130,9 @@ class MachineType extends AbstractType
                 ],
                 'placeholder' => 'Choisir expertise'
             ])
-            ->add('rotor_courant')
+            ->add('rotor_courant',NumberType::class, [
+                'label' => 'Courant (A)'
+            ])
             ->add('presence_plans')
         ;
     }

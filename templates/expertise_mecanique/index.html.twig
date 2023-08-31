@@ -425,7 +425,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_controle_visuel_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_controle_visuel_mecanique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -548,7 +548,7 @@
                                     {% if parametre.typePalier ==  "Roulements" %}
                                         {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                             {% if parametre.affaire.bloque != 1 %}
-                                                <a class="btn btn-primary" href="{{path('app_controle_montage_roulement', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                                <a class="btn btn-primary" href="{{path('app_controle_montage_roulement', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                             {% endif %}
                                         {% endif %}                                        
                                     {% endif %}
@@ -668,7 +668,7 @@
                                     {% if parametre.typePalier ==  "Coussinets" %}
                                         {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                             {% if parametre.affaire.bloque != 1 %}
-                                                <a class="btn btn-primary" href="{{path('app_controle_montage_coussinet', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                                <a class="btn btn-primary" href="{{path('app_controle_montage_coussinet', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
@@ -850,7 +850,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_releve_dimensionnel', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_releve_dimensionnel', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div> 
@@ -933,7 +933,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_controle_geometrique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_controle_geometrique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -1007,7 +1007,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_appareil_mesure_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_appareil_mesure_mecanique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -1066,7 +1066,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_hydro_aero', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_hydro_aero', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -1158,7 +1158,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_photos_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_photos_mecanique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -1209,7 +1209,7 @@
                                 <div class="col-md-2 text-right">
                                     {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                                         {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_constat_mecanique', {'id' : parametre.id })}}" target="_blank"><i class="fa fa-plus-circle"></i></a>
+                                            <a class="btn btn-primary" href="{{path('app_constat_mecanique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
                                         {% endif %}
                                     {% endif %}
                                 </div>

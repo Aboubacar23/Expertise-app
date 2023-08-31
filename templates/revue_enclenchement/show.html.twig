@@ -15,8 +15,10 @@
             <div class="x_panel">
                 <div class="x_title">           
                     <div class="row">
-                        <div class="col-md-4">                    
-                            <a href="{{path('app_revue_enclenchement_new', {'id' : revue_enclenchement.affaire.id })}}" class="btn btn-outline-warning btn-sm p-2 text-uppercase">Modifier<i class="fa fa-edit p-1"></i></a>
+                        <div class="col-md-4">   
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') %}
+                                <a href="{{path('app_revue_enclenchement_new', {'id' : revue_enclenchement.affaire.id })}}" class="btn btn-outline-warning btn-sm p-2 text-uppercase">Modifier<i class="fa fa-edit p-1"></i></a>
+                            {% endif %}                 
                         </div>
                         <div class="col-md-4 text-center">                   
                              <a target="_blank" href="{{path('app_revue_enclenchement_print', {'id' : revue_enclenchement.id })}}" class="btn btn-outline-info btn-sm p-2 text-uppercase">Voir en PDF<i class="fa fa-arrow-circle-left p-1"></i></a>
