@@ -39,7 +39,11 @@ class HomeController extends AbstractController
         $terminerPourc = 0;
         $bloqueVal = 0;
         $bloque = 0;
-        $var_par = count($parametres);
+        $var_par = 1;
+        if ($parametres)
+        {
+            $var_par = count($parametres);
+        }
 
         $tables = $affaireRepository->findBy([],['id' => 'desc']);
         $affaires = [];
