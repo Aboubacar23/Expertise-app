@@ -100,7 +100,7 @@ class AffaireType extends AbstractType
             ])
             ->add('client', EntityType::class, [
                 'class' => Client::class,   
-                'placeholder' => 'Choissir un client',
+                'placeholder' => 'Choisir un client',
                 'query_builder' => function(ClientRepository $clientRepository)
                 {
                     $query = $clientRepository->createQueryBuilder('c')->andWhere('c.etat = 1');

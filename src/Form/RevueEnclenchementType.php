@@ -55,7 +55,6 @@ class RevueEnclenchementType extends AbstractType
             ])
             ->add('point_arret', ChoiceType::class,[
                 'choices' => [
-                    'Sans' => 'Sans',
                     'Avec Client' => 'Avec Client',
                     'Sans Client' => 'Sans Client'
                 ]
