@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MetrologieController!{% endblock %}
+
+{% block body %}
+<style>
+    .btn{
+        background-color: #2f3f64;
+        border-radius: 10px;
+        border: 2px double #6E87C2;
+        color: #ffffff;
+        text-align: center;
+        font-size: 18px;
+        width: 200px;
+    } 
+</style>
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h3>Base Métrologie</h3></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title m-2 text-center">
+                        <a href="{{path('app_appareil_index')}}" class="btn btn-outline-info p-1">Gestion Appareils</a>
+                        <a href="" class="btn btn-outline-info p-1">Gestion Affaire</a>
+                        <a href="" class="btn btn-outline-info p-1">Sortie sur DA</a>
+                        <a href="" class="btn btn-outline-info p-1">Retour sur DA</a>
+                        <a href="" class="btn btn-outline-info p-1">Sortie sur Chantier</a>
+                        <a href="" class="btn btn-outline-info p-1">Retour sur Chantier</a>
+                        <a href="{{path('app_service_responsable_index')}}" class="btn btn-outline-info p-1">Gestion Service</a>
+                    </div>
+                </div>
+                <div class="row mx-auto my-auto" style="display: inline-block;">
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-comments-o"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-auto my-auto" style="display: inline-block;">
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-comments-o"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                            <div class="count">179</div>
+                            <h3>Total Affaire</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock %}

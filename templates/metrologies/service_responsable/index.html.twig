@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste client{% endblock %}
+{% block title %}ServiceResponsable index{% endblock %}
 
-{% block body %}   
+{% block body %}
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion des Appareilles</h3>
+        <h3>Gestion Services</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -14,10 +14,9 @@
         <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-            <h2>Listes des appareils</h2>
+            <h2>Listes des services</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_appareil_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
-                <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
+                <a href="{{path('app_service_responsable_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
             </ul>
             <div class="clearfix"></div>
             </div>
@@ -39,24 +38,22 @@
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
-                                        <th>N° Appareil</th>
-                                        <th>Designation</th>
-                                        <th>Date validité</th>
+                                        <th>Numero Service</th>
+                                        <th>Nom Service</th>
                                         <th width="150" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% set i = 0 %}
-                                    {% for appareil in appareils %}
+                                    {% for service_responsable in service_responsables %}
                                         {% set i = i + 1 %}
                                         <tr>
                                             <td>{{ i }}</td>
-                                            <td>{{ appareil.numAppareil }}</td>
-                                            <td>{{ appareil.designation }}</td>
-                                            <td>{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+                                            <td>{{ service_responsable.numeroService }}</td>
+                                            <td>{{ service_responsable.nom }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_service_responsable_edit', {'id': service_responsable.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ path('app_service_responsable_delete', {'id': service_responsable.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

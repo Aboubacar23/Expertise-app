@@ -126,16 +126,18 @@
                     {% endif %}
 
                     {% if is_granted('ROLE_METROLOGUE') %}
-                      <li>
+                        <li><a href="{{path('app_metrologie')}}"><i class="fa fa-retweet"></i> Base Métrologie</a></li>
+                     {# <li>
                           <a><i class="fa fa-retweet"></i> Base Métrologie <span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
+                          <ul class="nav child_menu">app_metrologie
                             <li><a href="{{path('app_appareil_index')}}">Apareils</a></li>
                             <li><a href="{{path('app_appareil_index')}}">Affaires</a></li>
                             <li><a href="{{path('app_appareil_index')}}">Gestion DA</a></li>
                             <li><a href="{{path('app_appareil_index')}}">Gestion Chantier</a></li>
-                            <li><a href="{{path('app_appareil_index')}}">Services</a></li>
+                            <li><a href="{{path('app_service_responsable_index')}}">Services</a></li>
                           </ul>
                       </li>
+                      #}
                     {% endif %}
                      {# <li><a href="{{path('app_remarque_index')}}"><i class="fa fa-bars"></i> Remarques ( {{ listes.getRemarque | length }} )</a></li>#}
                   </ul>

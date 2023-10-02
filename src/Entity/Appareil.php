@@ -37,6 +37,66 @@ class Appareil
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: AppareilMesureEssais::class)]
     private Collection $appareilMesureEssais;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code_barre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $numero_serie = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $marque = null;
+
+    #[ORM\ManyToOne(inversedBy: 'appareils')]
+    private ?ServiceResponsable $service_responsable = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $affectation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $periodicite = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $unite_mesure = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $classe_ap = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_achat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $prix_achat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero_da = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nom_fournisseur = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero_certificat = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $classe_definition = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $en_tendance = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $etat = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_etat = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $observation = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $statut = null;
+
 
     public function __construct()
     {
@@ -207,6 +267,246 @@ class Appareil
                 $appareilMesureEssai->setAppareil(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCodeBarre(): ?string
+    {
+        return $this->code_barre;
+    }
+
+    public function setCodeBarre(?string $code_barre): static
+    {
+        $this->code_barre = $code_barre;
+
+        return $this;
+    }
+
+    public function getNumeroSerie(): ?string
+    {
+        return $this->numero_serie;
+    }
+
+    public function setNumeroSerie(string $numero_serie): static
+    {
+        $this->numero_serie = $numero_serie;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMarque(): ?string
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?string $marque): static
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    public function getServiceResponsable(): ?ServiceResponsable
+    {
+        return $this->service_responsable;
+    }
+
+    public function setServiceResponsable(?ServiceResponsable $service_responsable): static
+    {
+        $this->service_responsable = $service_responsable;
+
+        return $this;
+    }
+
+    public function getAffectation(): ?string
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?string $affectation): static
+    {
+        $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    public function getPeriodicite(): ?string
+    {
+        return $this->periodicite;
+    }
+
+    public function setPeriodicite(string $periodicite): static
+    {
+        $this->periodicite = $periodicite;
+
+        return $this;
+    }
+
+    public function getUniteMesure(): ?string
+    {
+        return $this->unite_mesure;
+    }
+
+    public function setUniteMesure(?string $unite_mesure): static
+    {
+        $this->unite_mesure = $unite_mesure;
+
+        return $this;
+    }
+
+    public function getClasseAp(): ?string
+    {
+        return $this->classe_ap;
+    }
+
+    public function setClasseAp(?string $classe_ap): static
+    {
+        $this->classe_ap = $classe_ap;
+
+        return $this;
+    }
+
+    public function getDateAchat(): ?\DateTimeInterface
+    {
+        return $this->date_achat;
+    }
+
+    public function setDateAchat(?\DateTimeInterface $date_achat): static
+    {
+        $this->date_achat = $date_achat;
+
+        return $this;
+    }
+
+    public function getPrixAchat(): ?string
+    {
+        return $this->prix_achat;
+    }
+
+    public function setPrixAchat(?string $prix_achat): static
+    {
+        $this->prix_achat = $prix_achat;
+
+        return $this;
+    }
+
+    public function getNumeroDa(): ?string
+    {
+        return $this->numero_da;
+    }
+
+    public function setNumeroDa(?string $numero_da): static
+    {
+        $this->numero_da = $numero_da;
+
+        return $this;
+    }
+
+    public function getNomFournisseur(): ?string
+    {
+        return $this->nom_fournisseur;
+    }
+
+    public function setNomFournisseur(?string $nom_fournisseur): static
+    {
+        $this->nom_fournisseur = $nom_fournisseur;
+
+        return $this;
+    }
+
+    public function getNumeroCertificat(): ?string
+    {
+        return $this->numero_certificat;
+    }
+
+    public function setNumeroCertificat(?string $numero_certificat): static
+    {
+        $this->numero_certificat = $numero_certificat;
+
+        return $this;
+    }
+
+    public function isClasseDefinition(): ?bool
+    {
+        return $this->classe_definition;
+    }
+
+    public function setClasseDefinition(?bool $classe_definition): static
+    {
+        $this->classe_definition = $classe_definition;
+
+        return $this;
+    }
+
+    public function isEnTendance(): ?bool
+    {
+        return $this->en_tendance;
+    }
+
+    public function setEnTendance(?bool $en_tendance): static
+    {
+        $this->en_tendance = $en_tendance;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getDateEtat(): ?\DateTimeInterface
+    {
+        return $this->date_etat;
+    }
+
+    public function setDateEtat(?\DateTimeInterface $date_etat): static
+    {
+        $this->date_etat = $date_etat;
+
+        return $this;
+    }
+
+    public function getObservation(): ?string
+    {
+        return $this->observation;
+    }
+
+    public function setObservation(?string $observation): static
+    {
+        $this->observation = $observation;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }
