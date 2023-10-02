@@ -84,15 +84,16 @@
                         </ul>
                       </li>
                       {% endif %}
-                    <li><a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="{{path('app_affaire_index')}}">Affaire en cours</a></li>
-                        {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                          <li><a href="{{path('app_affaire_new')}}">Nouvelle affaire</a></li>
-                        {% endif %}
-                        <li><a href="{{path('app_affaire_liste')}}">Liste des affaires</a></li>
-                      </ul>
-                    </li>
+                      <li>
+                          <a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li><a href="{{path('app_affaire_index')}}">Affaire en cours</a></li>
+                            {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                              <li><a href="{{path('app_affaire_new')}}">Nouvelle affaire</a></li>
+                            {% endif %}
+                            <li><a href="{{path('app_affaire_liste')}}">Liste des affaires</a></li>
+                          </ul>
+                      </li>
                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_VERIFICATEUR') %}                   
                       <li><a href="{{path('app_validation_index')}}"><i class="fa fa-check-circle"></i>Validations</a></li>
                     {% endif %}
@@ -104,9 +105,6 @@
                               <li><a href="{{path('app_machine_index')}}">Machines</a></li>
                               <li><a href="{{path('app_type_index')}}">Types</a></li>
                               <li><a href="{{path('app_critere_index')}}">Critères</a></li>
-                          {% endif %}
-                          {% if is_granted('ROLE_AGENT_MAITRISE') %}
-                            <li><a href="{{path('app_appareil_index')}}">Apareils Mesure</a></li>
                           {% endif %}
                           {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') %}
                               <li><a href="{{path('app_controle_index')}}">Controles</a></li>
@@ -125,7 +123,20 @@
                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
                       <li><a href="{{path('app_corbeille_listes')}}"><i class="fa fa-trash"></i> Corbeilles</a></li>
                       <li><a href="{{path('app_archive_index')}}"><i class="fa fa-archive"></i> Archives</a></li>
-                  {% endif %}
+                    {% endif %}
+
+                    {% if is_granted('ROLE_METROLOGUE') %}
+                      <li>
+                          <a><i class="fa fa-retweet"></i> Base Métrologie <span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li><a href="{{path('app_appareil_index')}}">Apareils</a></li>
+                            <li><a href="{{path('app_appareil_index')}}">Affaires</a></li>
+                            <li><a href="{{path('app_appareil_index')}}">Gestion DA</a></li>
+                            <li><a href="{{path('app_appareil_index')}}">Gestion Chantier</a></li>
+                            <li><a href="{{path('app_appareil_index')}}">Services</a></li>
+                          </ul>
+                      </li>
+                    {% endif %}
                      {# <li><a href="{{path('app_remarque_index')}}"><i class="fa fa-bars"></i> Remarques ( {{ listes.getRemarque | length }} )</a></li>#}
                   </ul>
                 </div>

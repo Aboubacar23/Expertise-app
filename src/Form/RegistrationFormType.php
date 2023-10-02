@@ -120,6 +120,7 @@ class RegistrationFormType extends AbstractType
                     'TECHNICIEN MECANICIEN' => 'ROLE_TECHNICIEN_MECANICIEN',
                     'LECTEUR' => 'ROLE_LECTEUR',
                     'MAGASINIER' => 'ROLE_MAGASINIER',
+                    'METROLOGUE' => 'ROLE_METROLOGUE',
                     ],
                 'multiple' => true,
                 'expanded' => true,
