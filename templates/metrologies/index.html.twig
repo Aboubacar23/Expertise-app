@@ -24,71 +24,96 @@
             <div class="x_panel">
                 <div class="x_title m-2 text-center">
                         <a href="{{path('app_appareil_index')}}" class="btn btn-outline-info p-1">Gestion Appareils</a>
-                        <a href="" class="btn btn-outline-info p-1">Gestion Affaire</a>
-                        <a href="" class="btn btn-outline-info p-1">Sortie sur DA</a>
+                        <a href="{{path('app_affaire_metrologie_index')}}" class="btn btn-outline-info p-1">Gestion Affaire</a>
+                        <a href="{{path('app_intervention_index')}}" class="btn btn-outline-info p-1">Sortie sur DA</a>
                         <a href="" class="btn btn-outline-info p-1">Retour sur DA</a>
                         <a href="" class="btn btn-outline-info p-1">Sortie sur Chantier</a>
                         <a href="" class="btn btn-outline-info p-1">Retour sur Chantier</a>
                         <a href="{{path('app_service_responsable_index')}}" class="btn btn-outline-info p-1">Gestion Service</a>
                     </div>
                 </div>
-                <div class="row mx-auto my-auto" style="display: inline-block;">
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                <div class="row mx-auto my-auto" style="">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-life-ring"></i></div>
+                            <div class="count">{{ affaireMetrologies }}</div>
+                            <h3>Affaires</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-comments-o"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">{{appareils}}</div>
+                            <h3>Appareils</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
-                        </div>
-                    </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
-                        <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">0</div>
+                            <h3>Appareils Fonctionnels</h3>
                         </div>
                     </div>
                 </div>
-                <div class="row mx-auto my-auto" style="display: inline-block;">
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                <div class="row mx-auto my-auto">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">0</div>
+                            <h3>Appareils Hors Validite</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-comments-o"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">0</div>
+                            <h3>Appareils Perdu</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">0</div>
+                            <h3>Appareils HS</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-lg-12 col-md-12 col-sm-12">
+                </div>
+                <div class="row mx-auto my-auto">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
-                            <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                            <div class="count">179</div>
-                            <h3>Total Affaire</h3>
+                            <div class="icon"><i class="fa fa-arrow-right"></i></div>
+                            <div class="count">0</div>
+                            <h3>Sortie DA</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-arrow-left"></i></div>
+                            <div class="count">0</div>
+                            <h3>Entrer DA</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-arrow-right"></i></div>
+                            <div class="count">0</div>
+                            <h3>Sortie Affaire</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-auto my-auto">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-arrow-right"></i></div>
+                            <div class="count">0</div>
+                            <h3>Retour Affaire</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-certificate"></i></div>
+                            <div class="count">0</div>
+                            <h3>Services</h3>
                         </div>
                     </div>
                 </div>

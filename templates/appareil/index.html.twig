@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion des Appareilles</h3>
+        <h3>Gestion des Appareils</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -41,7 +41,18 @@
                                         <th width="2">N°</th>
                                         <th>N° Appareil</th>
                                         <th>Designation</th>
+                                        <th>Périodicité</th>
+                                        <th>Marque</th>
+                                        <th>Type</th>
+                                        <th>N° Série</th>
+                                        <th>Service Responsable</th>
+                                        <th>Affectation</th>
+                                        <th>Prix Achat</th>
+                                        <th>Date Achat</th>
+                                        <th>Date État</th>
                                         <th>Date validité</th>
+                                        <th>Statut</th>
+                                        <th>Éta</th>
                                         <th width="150" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -53,7 +64,18 @@
                                             <td>{{ i }}</td>
                                             <td>{{ appareil.numAppareil }}</td>
                                             <td>{{ appareil.designation }}</td>
+                                            <td>{{ appareil.periodicite }}</td>
+                                            <td>{{ appareil.marque }}</td>
+                                            <td>{{ appareil.type }}</td>
+                                            <td>{{ appareil.numeroSerie }}</td>
+                                            <td>{{ appareil.serviceResponsable }}</td>
+                                            <td>{{ appareil.affectation }}</td>
+                                            <td>{{ appareil.prixAchat }}</td>
+                                            <td>{{ appareil.dateAchat ? appareil.dateAchat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ appareil.dateEtat ? appareil.dateEtat|date('Y-m-d') : '' }}</td>
                                             <td>{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+                                            <td>{{ appareil.statut }}</td>
+                                            <td>{{ appareil.etat }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

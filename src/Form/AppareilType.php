@@ -23,6 +23,7 @@ class AppareilType extends AbstractType
             ->add('designation', ChoiceType::class, [
                 'label' => 'Désignation du moyen de contrôle',
                 'required' => false,
+                'placeholder' => 'Choisissez',
                 'choices' => [
                     'ACCELEROMETRE' => 'ACCELEROMETRE',
                     'AMPEREMETRES' => 'AMPEREMETRES',
@@ -81,12 +82,15 @@ class AppareilType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'La désignation est obligatoire'
-                    ])
+                    ]) 
                 ]
             ])
             ->add('num_appareil', TextType::class,[
-                'label' => 'N° appareil',
+                'label' => 'Repère',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Repère appareil'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le numéro est obligatoire'
@@ -94,12 +98,11 @@ class AppareilType extends AbstractType
                 ]
             ])
             ->add('date_validite', DateType::class, [
-                'label' => 'Date validitée de la carte',
+                'label' => 'Date validitée',
                 'required' => true,
                 'widget' => 'single_text',
 
             ])
-            ->add('code_barre')
             ->add('numero_serie',TextType::class, [
                 'label' =>'Numéro de serie'
             ])
@@ -151,7 +154,7 @@ class AppareilType extends AbstractType
                 'currency' => 'EUR'
             ])
             ->add('numero_da', TextType::class, [
-                'label'=> 'Numéro de DA'
+                'label'=> "N° d'achat( IFS ou autre )",
             ])
             ->add('nom_fournisseur')
             ->add('numero_certificat')
@@ -182,7 +185,7 @@ class AppareilType extends AbstractType
                 'widget' => 'single_text',
 
             ])
-            ->add('observation', CKEditorType::class, [
+            ->add('observation', TextType::class, [
                 'required' => false,
             ])
         ;

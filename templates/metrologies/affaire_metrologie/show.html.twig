@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AffaireMetrologie{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Gestion des Services Responsables</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>  <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a class="btn btn-danger btn-sm" href="{{ path('app_affaire_metrologie_delete', {'id': affaire_metrologie.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
+                    <a class="btn btn-warning btn-sm" href="{{ path('app_affaire_metrologie_edit', {'id': affaire_metrologie.id}) }}" >Modifier</a>
+                    <a class="btn btn-secondary btn-sm" href="{{ path('app_affaire_metrologie_index') }}">Retour</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Num Affaire</th>
+                                <td>{{ affaire_metrologie.numAffaire }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom Affaire</th>
+                                <td>{{ affaire_metrologie.nomAffaire }}</td>
+                            </tr>
+                            <tr>
+                                <th>Chef Chantier</th>
+                                <td>{{ affaire_metrologie.chefChantier }}</td>
+                            </tr>
+                            <tr>
+                                <th>Observation</th>
+                                <td>{{ affaire_metrologie.observation }}</td>
+                            </tr>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+{% endblock %}
+ 

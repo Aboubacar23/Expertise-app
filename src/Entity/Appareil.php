@@ -91,11 +91,17 @@ class Appareil
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_etat = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(length:255, nullable: true)]
     private ?string $observation = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $statut = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $status = null;
+
+    #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Lintervention::class)]
+    private Collection $linterventions;
 
 
     public function __construct()
@@ -104,6 +110,7 @@ class Appareil
         $this->appareilMesureMecaniques = new ArrayCollection();
         $this->appareilMesureElectriques = new ArrayCollection();
         $this->appareilMesureEssais = new ArrayCollection();
+        $this->linterventions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,7 +185,7 @@ class Appareil
     }
 
     public function __toString(){
-        return $this->getDesignation().' - '.$this->getNumAppareil(). ' - '.$this->getDateValidite()->format('Y-m-d');
+        return $this->getNumAppareil();
     }
 
     /**
@@ -507,6 +514,48 @@ class Appareil
     public function setStatut(?string $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lintervention>
+     */
+    public function getLinterventions(): Collection
+    {
+        return $this->linterventions;
+    }
+
+    public function addLintervention(Lintervention $lintervention): static
+    {
+        if (!$this->linterventions->contains($lintervention)) {
+            $this->linterventions->add($lintervention);
+            $lintervention->setAppareil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLintervention(Lintervention $lintervention): static
+    {
+        if ($this->linterventions->removeElement($lintervention)) {
+            // set the owning side to null (unless already changed)
+            if ($lintervention->getAppareil() === $this) {
+                $lintervention->setAppareil(null);
+            }
+        }
 
         return $this;
     }

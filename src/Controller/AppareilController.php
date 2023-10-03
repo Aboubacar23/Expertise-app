@@ -37,6 +37,7 @@ class AppareilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $appareil->setStatus(0);
             $appareilRepository->save($appareil, true);
 
             return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
