@@ -75,7 +75,9 @@
                                                     {% elseif role == "ROLE_LECTEUR" %}
                                                         LECTEUR ||
                                                     {% elseif role == "ROLE_MAGASINIER" %}
-                                                        LECTEUR ||
+                                                        MAGASINIER ||
+                                                    {% elseif role == "ROLE_METROLOGUE" %}
+                                                        METROLOGUE ||
                                                     {% endif %}
                                                 {% endfor %}
                                             </td>
