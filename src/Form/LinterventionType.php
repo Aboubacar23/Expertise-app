@@ -39,6 +39,7 @@ class LinterventionType extends AbstractType
             ->add('observation')
             ->add('appareil', EntityType::class, [
                 'label' => 'Repère',
+                'placeholder' => 'Choisissez',
                 'class' => Appareil::class, 
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {

@@ -7,6 +7,7 @@ use App\Entity\Lintervention;
 use App\Repository\AppareilRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\AffaireMetrologieRepository;
+use App\Repository\InterventionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +16,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MetrologieController extends AbstractController
 {
     #[Route('/index-metrologie', name: 'app_metrologie')]
-    public function index(AppareilRepository $appareilRepository, AffaireMetrologieRepository $affaireMetrologieRepository): Response
+    public function index(
+        AppareilRepository $appareilRepository,
+        AffaireMetrologieRepository $affaireMetrologieRepository,
+        InterventionRepository $interventionRepository,
+        ): Response
     {
         $appareils = count($appareilRepository->findAll());
         $affaireMetrologies = count($affaireMetrologieRepository->findAll());
+        $interventions = count($interventionRepository->findAll());
         return $this->render('metrologies/index.html.twig', [
             'appareils' => $appareils,
             'affaireMetrologies' => $affaireMetrologies,
+            'interventions' => $interventions,
         ]);
     }
 

@@ -11,7 +11,7 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>{{button_label | default('Ajouter')}} un service</h2>
+                    <h2>{{button_label | default('Ajouter')}}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
@@ -48,7 +48,7 @@
                                     <td>{{ form_widget(f.type_intervention) }}</td>
                                     <td>{{ form_widget(f.date_retour) }}</td>
                                     <td>{{ form_widget(f.observation) }}</td>
-                                    <td><button class="btn btn-success btn-sm" name="bouton1" value="add">Add</button></td>
+                                    <td><button class="btn btn-success btn-sm" name="bouton2" value="add">Add</button></td>
                                 </tr>
                                 {% for item in items %}
                                     <tr> 
@@ -68,7 +68,7 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="row">
                                   <div class="col-md-6">
-                                      <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                                      <button type="submit" name="bouton2" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
                                   </div>
                                     <div class="col-md-6 text-right">
                                         <a class="btn btn-secondary btn-sm" href="{{path('app_intervention_index')}}">Retour  <i class="fa fa-reply p-1"></i></a>

@@ -9,9 +9,110 @@
             <h3>Gestion Intervention</h3>
         </div>
     </div>
-    <div class="clearfix"></div>
-        {{ include('metrologies/intervention/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <div class="clearfix"></div><div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{button_label | default('Modification')}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form method="post"> 
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 ">{{ form_row(form.numero_da)}}</div>
+                            <div class="col-md-6 col-sm-6 ">{{ form_row(form.prestataire)}}</div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_da)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_envoi)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.demandeur)}}</div>
+                        </div>
+                        <hr>
+                        <div class="item form-group">
+                            <table class="table table-bordered table-striped">
+                                <tr  class="table-secondary">
+                                    <th width="10%">Repère</th>
+                                    <th width="22%">Désignation</th>
+                                    <th width="16%">Marque</th>
+                                    <th width="16%">Type Intervention</th>
+                                    <th width="16%">Date Retour</th>
+                                    <th width="16%">Observation</th>
+                                    <th width="100"></th>
+                                </tr>
+                                <tr>
+                                    <td>{{ form_widget(f.appareil) }}</td>
+                                    <td>{{ form_widget(f.designation) }}</td>
+                                    <td>{{ form_widget(f.marque) }}</td>
+                                    <td>{{ form_widget(f.type_intervention) }}</td>
+                                    <td>{{ form_widget(f.date_retour) }}</td>
+                                    <td>{{ form_widget(f.observation) }}</td>
+                                    <td><button class="btn btn-success btn-sm" name="bouton1" value="add">Add</button></td>
+                                </tr>
+                                {% for item in items %}
+                                    <tr> 
+                                        <td>{{item.appareil}}</td>
+                                        <td>{{item.designation}}</td>
+                                        <td>{{item.marque}}</td>
+                                        <td>{{item.typeIntervention}}</td>
+                                        <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{item.observation}}</td>
+                                        {#   <td class="text-center"><a href="{{path('delete_mesure', {'id' : item.lig})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>  #} 
+                                    </tr>                                        
+                                {% endfor %} 
+                                <tr class="bg-secondary"></tr>
+                                {% for item in intervention.linterventions %}
+                                    <tr> 
+                                        <td>{{item.appareil}}</td>
+                                        <td>{{item.designation}}</td>
+                                        <td>{{item.marque}}</td>
+                                        <td>{{item.typeIntervention}}</td>
+                                        <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{item.observation}}</td>
+                                        {#   <td class="text-center"><a href="{{path('delete_mesure', {'id' : item.lig})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>  #} 
+                                    </tr>                                        
+                                {% endfor %} 
+                            </table>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-secondary btn-sm" href="{{path('app_intervention_index')}}">Retour  <i class="fa fa-reply p-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    window.onload = () => {
+        var repere = document.getElementById('lintervention_appareil');
+        repere?.addEventListener('click', function()
+        {
+            var repere = this.value;
+            console.log(repere);
+            fetch('/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('lintervention_designation').value = data.designation;
+                document.getElementById('lintervention_marque').value = data.marque;
+                document.getElementById('lintervention_observation').value = data.observation;
+
+            });
+        });
+    }
+</script>
 {% endblock %}
  

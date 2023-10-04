@@ -43,7 +43,7 @@
                                         <th>Date Envoi</th>
                                         <th>Demandeur</th>
                                         <th>Prestataire</th>
-                                        <th width="150" class="text-center">Action</th>
+                                        <th width="200" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,9 +58,10 @@
                                             <td>{{ intervention.demandeur }}</td>
                                             <td>{{ intervention.prestataire }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('app_intervention_edit', {'id': intervention.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('app_intervention_delete', {'id': intervention.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>
+                                                <a href="{{ path('app_intervention_edit', {'id': intervention.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="{{ path('app_intervention_delete', {'id': intervention.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_intervention_print', {'id': intervention.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon Intervention</title>
+</head>
+<style>
+table{
+    width: 100%;
+}
+.table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    }    
+.tr:nth-of-type(odd) { 
+    background: #eee; 
+    }
+
+.th { 
+    background: #3B6857; 
+    color: white; 
+    font-weight: bold; 
+    text-align: center; 
+}
+
+.td, .th { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    font-size: 14px;
+    }
+td{
+    padding: 10px;
+}
+.p{
+    border-bottom: 2px solid green;
+}
+h2{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: x-large;
+    font-family: serif;
+}
+</style>
+<body>
+    <h2>Bon de sortie da n° {{ intervention.numeroDa}}</h2>
+    <p class="p"></p>
+    <div class="header">
+        <table>
+            <tr>
+                <th>Prestataire : </th>
+                <td>{{ intervention.prestataire }}</td>
+                <th>Demandeur : </th>
+                <td>{{ intervention.demandeur }}</td>
+            </tr>
+            <tr>
+                <th>Date de DA : </th>
+                <td>{{ intervention.dateDa ? intervention.dateDa|date('Y-m-d') : '' }}</td>
+                <th>Date d'envoi : </th>
+                <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('Y-m-d') : '' }}</td>
+            </tr>
+        </table>
+    </div>
+    <p class="p"></p>
+    <div class="body">
+        <table class="table">
+            <thead>
+                <tr  class="tr">
+                    <th class="th" width="10%">Repère</th>
+                    <th class="th" width="22%">Désignation</th>
+                    <th class="th" width="16%">Marque</th>
+                    <th class="th" width="16%">Type Intervention</th>
+                    <th class="th" width="16%">Date Retour prevue</th>
+                    <th class="th" width="16%">Observation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in intervention.linterventions %}
+                    <tr> 
+                        <td class="td">{{item.appareil}}</td>
+                        <td class="td">{{item.designation}}</td>
+                        <td class="td">{{item.marque}}</td>
+                        <td class="td">{{item.typeIntervention}}</td>
+                        <td class="td">{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                        <td class="td">{{item.observation}}</td>
+                    </tr>                                        
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
