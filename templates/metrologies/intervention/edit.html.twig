@@ -50,7 +50,7 @@
                                     <td>{{ form_widget(f.type_intervention) }}</td>
                                     <td>{{ form_widget(f.date_retour) }}</td>
                                     <td>{{ form_widget(f.observation) }}</td>
-                                    <td><button class="btn btn-success btn-sm" name="bouton1" value="add">Add</button></td>
+                                    <td><button class="btn btn-success btn-sm" name="bouton2" value="add">Add</button></td>
                                 </tr>
                                 {% for item in items %}
                                     <tr> 
@@ -60,19 +60,19 @@
                                         <td>{{item.typeIntervention}}</td>
                                         <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
                                         <td>{{item.observation}}</td>
-                                        {#   <td class="text-center"><a href="{{path('delete_mesure', {'id' : item.lig})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>  #} 
+                                        <td class="text-center"><a href="{{path('app_delete_ledit', {'id' : item.lig , 'parID' : intervention.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                     </tr>                                        
                                 {% endfor %} 
                                 <tr class="bg-secondary"></tr>
-                                {% for item in intervention.linterventions %}
+                                {% for it in intervention.linterventions %}
                                     <tr> 
-                                        <td>{{item.appareil}}</td>
-                                        <td>{{item.designation}}</td>
-                                        <td>{{item.marque}}</td>
-                                        <td>{{item.typeIntervention}}</td>
-                                        <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
-                                        <td>{{item.observation}}</td>
-                                        {#   <td class="text-center"><a href="{{path('delete_mesure', {'id' : item.lig})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>  #} 
+                                        <td>{{it.appareil}}</td>
+                                        <td>{{it.designation}}</td>
+                                        <td>{{it.marque}}</td>
+                                        <td>{{it.typeIntervention}}</td>
+                                        <td>{{it.dateRetour ? it.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{it.observation}}</td>
+                                        <td class="text-center"><a href="{{path('app_delete_lintervention', {'id' : it.id})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                     </tr>                                        
                                 {% endfor %} 
                             </table>
@@ -82,7 +82,7 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                                        <button type="submit" name="bouton2" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
                                     </div>
                                     <div class="col-md-6 text-right">
                                         <a class="btn btn-secondary btn-sm" href="{{path('app_intervention_index')}}">Retour  <i class="fa fa-reply p-1"></i></a>
@@ -103,7 +103,7 @@
         {
             var repere = this.value;
             console.log(repere);
-            fetch('/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
+            fetch('/index.php/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
             .then(response => response.json())
             .then(data => {
                 document.getElementById('lintervention_designation').value = data.designation;

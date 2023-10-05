@@ -34,6 +34,12 @@ class Intervention
     #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Lintervention::class)]
     private Collection $linterventions;
 
+    #[ORM\OneToOne(mappedBy: 'intervention', cascade: ['persist', 'remove'])]
+    private ?RetourIntervention $retourIntervention = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $retour = null;
+
     public function __construct()
     {
         $this->linterventions = new ArrayCollection();
@@ -137,5 +143,39 @@ class Intervention
     public function __toString()
     {
         return $this->getNumeroDa();
+    }
+
+    public function getRetourIntervention(): ?RetourIntervention
+    {
+        return $this->retourIntervention;
+    }
+
+    public function setRetourIntervention(?RetourIntervention $retourIntervention): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($retourIntervention === null && $this->retourIntervention !== null) {
+            $this->retourIntervention->setIntervention(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($retourIntervention !== null && $retourIntervention->getIntervention() !== $this) {
+            $retourIntervention->setIntervention($this);
+        }
+
+        $this->retourIntervention = $retourIntervention;
+
+        return $this;
+    }
+
+    public function isRetour(): ?bool
+    {
+        return $this->retour;
+    }
+
+    public function setRetour(?bool $retour): static
+    {
+        $this->retour = $retour;
+
+        return $this;
     }
 }

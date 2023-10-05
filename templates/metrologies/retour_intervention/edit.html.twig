@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RetourIntervention{% endblock %}
+
+{% block body %}
+    <h1>Edit RetourIntervention</h1>
+
+    {{ include('metrologies/retour_intervention/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_retour_intervention_index') }}">back to list</a>
+
+    {{ include('metrologies/retour_intervention/_delete_form.html.twig') }}
+{% endblock %}

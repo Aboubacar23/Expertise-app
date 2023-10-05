@@ -38,6 +38,21 @@ class Lintervention
     #[ORM\ManyToOne(inversedBy: 'linterventions',cascade : ["persist"])]
     private ?Intervention $intervention = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero_certificat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $etat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $statut = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_etalonnage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +150,66 @@ class Lintervention
     public function setIntervention(?Intervention $intervention): static
     {
         $this->intervention = $intervention;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNumeroCertificat(): ?string
+    {
+        return $this->numero_certificat;
+    }
+
+    public function setNumeroCertificat(?string $numero_certificat): static
+    {
+        $this->numero_certificat = $numero_certificat;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getDateEtalonnage(): ?\DateTimeInterface
+    {
+        return $this->date_etalonnage;
+    }
+
+    public function setDateEtalonnage(?\DateTimeInterface $date_etalonnage): static
+    {
+        $this->date_etalonnage = $date_etalonnage;
 
         return $this;
     }

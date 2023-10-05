@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}New Intervention{% endblock %}
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Gestion Intervention</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div><div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{button_label | default('Modifier')}} : {{ lintervention.appareil }}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    {{ form_start(form) }}
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.designation)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.type)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.marque)}}</div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_retour)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_etalonnage)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.numero_certificat)}}</div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.statut)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.etat)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.observation)}}</div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                      <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Modifier')}} <i class="fa fa-save p-1"></i></button>
+                                  </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-secondary btn-sm" href="{{path('app_retour_intervention_show', {'id' : lintervention.intervention.retourIntervention.id })}}">Retour  <i class="fa fa-reply p-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

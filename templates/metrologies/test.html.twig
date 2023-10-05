@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Liste des articles</h1>
+    {% for flash_message in app.session.flashbag.get('success') %}
+        <div class="container alert alert-success p-2" role="alert">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashbag.get('danger') %}
+        <div class="container alert alert-danger p-2" role="alert">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {% for id,form in forms %}
+        {{ form_start(form) }}     
+            <div class="item form-group">
+                <table class="table table-bordered table-striped">
+                    <tr  class="table-secondary">
+                        <th width="10%">Repère</th>
+                        <th width="22%">Désignation</th>
+                        <th width="16%">Marque</th>
+                        <th width="16%">Type Intervention</th>
+                        <th width="16%">Date Retour</th>
+                        <th width="16%">Observation</th>
+                        <th width="100"></th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.appareil) }}</td>
+                        <td>{{ form_widget(form.designation) }}</td>
+                        <td>{{ form_widget(form.marque) }}</td>
+                        <td>{{ form_widget(form.type_intervention) }}</td>
+                        <td>{{ form_widget(form.date_retour) }}</td>
+                        <td>{{ form_widget(form.observation) }}</td>
+                        <td><button class="btn btn-success btn-sm" type="submit">Modifier</button></td>
+                    </tr>
+                </table>
+            </div>
+        {{ form_end(form) }}
+    {% endfor %}
+{% endblock %}

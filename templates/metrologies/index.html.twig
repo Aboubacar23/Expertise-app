@@ -26,7 +26,7 @@
                         <a href="{{path('app_appareil_index')}}" class="btn btn-outline-info p-1">Gestion Appareils</a>
                         <a href="{{path('app_affaire_metrologie_index')}}" class="btn btn-outline-info p-1">Gestion Affaire</a>
                         <a href="{{path('app_intervention_index')}}" class="btn btn-outline-info p-1">Sortie sur DA</a>
-                        <a href="" class="btn btn-outline-info p-1">Retour sur DA</a>
+                        <a href="{{path('app_retour_intervention_index')}}" class="btn btn-outline-info p-1">Retour sur DA</a>
                         <a href="" class="btn btn-outline-info p-1">Sortie sur Chantier</a>
                         <a href="" class="btn btn-outline-info p-1">Retour sur Chantier</a>
                         <a href="{{path('app_service_responsable_index')}}" class="btn btn-outline-info p-1">Gestion Service</a>
@@ -60,6 +60,13 @@
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
                             <div class="count">0</div>
+                            <h3>Appareils Conformes</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-compass"></i></div>
+                            <div class="count">0</div>
                             <h3>Appareils Hors Validite</h3>
                         </div>
                     </div>
@@ -70,6 +77,8 @@
                             <h3>Appareils Perdu</h3>
                         </div>
                     </div>
+                </div>
+                <div class="row mx-auto my-auto">
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
@@ -77,8 +86,6 @@
                             <h3>Appareils HS</h3>
                         </div>
                     </div>
-                </div>
-                <div class="row mx-auto my-auto">
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-right"></i></div>
@@ -93,6 +100,8 @@
                             <h3>Entrer DA</h3>
                         </div>
                     </div>
+                </div>
+                <div class="row mx-auto my-auto">
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-right"></i></div>
@@ -100,8 +109,6 @@
                             <h3>Sortie Affaire</h3>
                         </div>
                     </div>
-                </div>
-                <div class="row mx-auto my-auto">
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-right"></i></div>
@@ -112,7 +119,7 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-certificate"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{ services }}</div>
                             <h3>Services</h3>
                         </div>
                     </div>

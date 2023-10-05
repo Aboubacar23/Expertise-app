@@ -32,7 +32,7 @@ td{
     padding: 10px;
 }
 .p{
-    border-bottom: 2px solid green;
+    border-bottom: 4px solid #3B6857;
 }
 h2{
     text-align: center;
@@ -42,45 +42,47 @@ h2{
 }
 </style>
 <body>
-    <h2>Bon de sortie da n° {{ intervention.numeroDa}}</h2>
+    <h2>Bon de Retour da n° {{ retourIntervention.intervention.numeroDa}}</h2>
     <p class="p"></p>
     <div class="header">
         <table>
             <tr>
                 <th>Prestataire : </th>
-                <td>{{ intervention.prestataire }}</td>
+                <td>{{ retourIntervention.intervention.prestataire }}</td>
                 <th>Demandeur : </th>
-                <td>{{ intervention.demandeur }}</td>
+                <td>{{ retourIntervention.intervention.demandeur }}</td>
             </tr>
             <tr>
                 <th>Date de DA : </th>
-                <td>{{ intervention.dateDa ? intervention.dateDa|date('d-m-Y') : '' }}</td>
+                <td>{{ retourIntervention.intervention.dateDa ? retourIntervention.intervention.dateDa|date('d-m-Y') : '' }}</td>
                 <th>Date d'envoi : </th>
-                <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
+                <td>{{ retourIntervention.intervention.dateEnvoi ? retourIntervention.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
             </tr>
         </table>
     </div>
-    <p class="p"></p>
+    <br>
     <div class="body">
         <table class="table">
             <thead>
                 <tr  class="tr">
-                    <th class="th" width="10%">Repère</th>
-                    <th class="th" width="22%">Désignation</th>
-                    <th class="th" width="16%">Marque</th>
-                    <th class="th" width="16%">Type Intervention</th>
-                    <th class="th" width="16%">Date Retour prevue</th>
-                    <th class="th" width="16%">Observation</th>
+                    <th class="th" width="15%">Repère</th>
+                    <th class="th" width="15%">Appareil</th>
+                    <th class="th" width="15%">Type Intervention</th>
+                    <th class="th" width="15%">Date Retour</th>
+                    <th class="th" width="15%">Date Etalonnage</th>
+                    <th class="th" width="15%">Numéro Certificat</th>
+                    <th class="th" width="15%">Observation</th>
                 </tr>
             </thead>
             <tbody>
-                {% for item in intervention.linterventions %}
+                {% for item in retourIntervention.intervention.linterventions %}
                     <tr> 
                         <td class="td">{{item.appareil}}</td>
                         <td class="td">{{item.designation}}</td>
-                        <td class="td">{{item.marque}}</td>
                         <td class="td">{{item.typeIntervention}}</td>
                         <td class="td">{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
+                        <td class="td">{{item.dateEtalonnage ? item.dateEtalonnage|date('d-m-Y') : '' }}</td>
+                        <td class="td">{{item.numeroCertificat}}</td>
                         <td class="td">{{item.observation}}</td>
                     </tr>                                        
                 {% endfor %} 

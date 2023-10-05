@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RetourIntervention{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Gestion Retour Intervention</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div><div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{button_label | default('Ajouter')}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                        {{ form_start(form) }}
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.intervention)}}</div>
+                        </div>
+                        <div>
+                            <table id="datatable" class="table table-striped table-hover" style="width:100%">
+                                <thead class="table-secondary">
+                                    <tr> 
+                                        <th colspan="8" class="text-center">Les appareils</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Repere</th>
+                                        <th>Désignation</th>
+                                        <th>Type</th>
+                                        <th>Marque</th>
+                                        <th>Date Retour</th>
+                                        <th>Date Etalonnage</th>
+                                        <th>Numre Certificat</th>
+                                        <th>Etat</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="my-table">
+                                    <!-- La liste des produits sera affichée ici via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-secondary btn-sm" href="{{path('app_retour_intervention_index')}}">Retour  <i class="fa fa-reply p-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = () => {
+        var numero_da = document.getElementById('retour_intervention_intervention');
+        const items = document.getElementById('my-table');
+        numero_da?.addEventListener('click', function()
+        {
+            var numero_da = this.value;
+            fetch('/index.php/metrologie/numero-da/'+numero_da) // Remplacez l'URL par celle de votre route Symfony
+            .then(response => response.json())
+            .then(data => {
+                items.innerHTML = ''; // Effacez le contenu précédent
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const cell1 = document.createElement('td');
+                    const cell2 = document.createElement('td');
+                    const cell3 = document.createElement('td');
+                    const cell4 = document.createElement('td');
+                    const cell5 = document.createElement('td');
+                    const cell6 = document.createElement('td');
+                    const cell7 = document.createElement('td');
+                    const cell8 = document.createElement('td');
+                    const cell9 = document.createElement('td');
+
+                    cell1.textContent = item.appareil;
+                    cell2.textContent = item.designation;
+                    cell6.textContent = item.marque;
+                    cell3.textContent = item.type;
+                    cell4.textContent = item.etat;
+                    cell5.textContent = item.statut;
+                    cell7.textContent = item.dateR;
+                    cell8.textContent = item.numero;
+                    cell9.textContent = item.dateEta;
+
+                    row.appendChild(cell1);
+                    row.appendChild(cell2);
+                    row.appendChild(cell3);
+                    row.appendChild(cell6);
+                    row.appendChild(cell7);
+                    row.appendChild(cell9);
+                    row.appendChild(cell8);
+                    row.appendChild(cell5);
+                    
+                    items.appendChild(row);
+                });
+
+            }); 
+        });
+    }
+</script>
+{% endblock %}
+ 
