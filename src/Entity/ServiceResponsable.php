@@ -24,9 +24,13 @@ class ServiceResponsable
     #[ORM\OneToMany(mappedBy: 'sercice_responsable', targetEntity: Appareil::class)]
     private Collection $appareils;
 
+    #[ORM\OneToMany(mappedBy: 'service_affectation', targetEntity: Affectation::class)]
+    private Collection $date_sortie;
+
     public function __construct()
     {
         $this->appareils = new ArrayCollection();
+        $this->date_sortie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,5 +95,35 @@ class ServiceResponsable
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    /**
+     * @return Collection<int, Affectation>
+     */
+    public function getDateSortie(): Collection
+    {
+        return $this->date_sortie;
+    }
+
+    public function addDateSortie(Affectation $dateSortie): static
+    {
+        if (!$this->date_sortie->contains($dateSortie)) {
+            $this->date_sortie->add($dateSortie);
+            $dateSortie->setServiceAffectation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDateSortie(Affectation $dateSortie): static
+    {
+        if ($this->date_sortie->removeElement($dateSortie)) {
+            // set the owning side to null (unless already changed)
+            if ($dateSortie->getServiceAffectation() === $this) {
+                $dateSortie->setServiceAffectation(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon Affectation</title>
+</head>
+<style>
+    table{
+        width: 100%;
+    }
+    .table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        }    
+    .tr:nth-of-type(odd) { 
+        background: #eee; 
+        }
+    
+    .th { 
+        background: #3B6857; 
+        color: white; 
+        font-weight: bold; 
+        text-align: center; 
+    }
+    
+    .td, .th { 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        font-size: 12px;
+        }
+    td{
+        padding: 10px;
+    }
+    .p{
+        border-bottom: 2px solid green;
+    }
+    h2{
+        text-align: center;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-family: serif;
+    }
+</style>
+<body>
+    <h2>Bon de sortie Affaire n° {{ affectation.affaire}}</h2>
+    <p class="p"></p>
+    <div class="header">
+        <table>
+            <tr>
+                <th style="text-align: left;">Nom Affaire : </th>
+                <td>{{ affectation.nomAffaire }}</td>
+                <th style="text-align: left;">Service Affectation : </th>
+                <td>{{ affectation.serviceAffectation }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: left;">Date Sortie</th>
+                <td>{{ affectation.dateSortie ? affectation.dateSortie|date('Y-m-d') : '' }}</td>
+                <th style="text-align: left;">Sortie Par</th>
+                <td>{{ affectation.sortiePar}}</td>
+            </tr>
+        </table>
+    </div>
+    <p class="p"></p>
+    <div class="body">
+        <table class="table">
+            <thead>
+                <tr  class="tr">
+                    <th class="th" width="10%">Repère</th>
+                    <th class="th" width="22%">Désignation</th>
+                    <th class="th" width="16%">Type</th>
+                    <th class="th" width="16%">Numéro Série</th>
+                    <th class="th" width="16%">Date Retour</th>
+                    <th class="th" width="16%">Observation</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for item in affectation.laffectations %}
+                    <tr> 
+                        <td class="td">{{item.appareil}}</td>
+                        <td class="td">{{item.designation}}</td>
+                        <td class="td">{{item.type}}</td>
+                        <td class="td">{{item.numeroSerie}}</td>
+                        <td class="td">{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                        <td class="td">{{item.observation}}</td>
+                    </tr>                                        
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

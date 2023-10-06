@@ -84,16 +84,18 @@
                         </ul>
                       </li>
                       {% endif %}
-                      <li>
-                          <a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li><a href="{{path('app_affaire_index')}}">Affaire en cours</a></li>
-                            {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                              <li><a href="{{path('app_affaire_new')}}">Nouvelle affaire</a></li>
-                            {% endif %}
-                            <li><a href="{{path('app_affaire_liste')}}">Liste des affaires</a></li>
-                          </ul>
-                      </li>
+                      {% if  is_granted('ROLE_MAGASINIER') or is_granted('ROLE_LECTEUR') or is_granted('ROLE_VERIFICATEUR') or  is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}                 
+                        <li>
+                            <a><i class="fa fa-folder"></i> Gestion Expertises <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                              <li><a href="{{path('app_affaire_index')}}">Affaire en cours</a></li>
+                              {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                                <li><a href="{{path('app_affaire_new')}}">Nouvelle affaire</a></li>
+                              {% endif %}
+                              <li><a href="{{path('app_affaire_liste')}}">Liste des affaires</a></li>
+                            </ul>
+                        </li>
+                      {% endif %}
                     {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_VERIFICATEUR') %}                   
                       <li><a href="{{path('app_validation_index')}}"><i class="fa fa-check-circle"></i>Validations</a></li>
                     {% endif %}

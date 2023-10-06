@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use App\Entity\Intervention;
 use App\Entity\Lintervention;
-use Doctrine\ORM\EntityManager;
 use App\Entity\RetourIntervention;
 use App\Form\RetourInterventionType;
 use App\Form\LinterventionRetourType;
@@ -160,8 +158,8 @@ class RetourInterventionController extends AbstractController
         // On envoie le PDF au navigateur
         $dompdf->stream($fichier, [
             'Attachment' => false
-        ]);
-
+        ]); 
+ 
         exit();    
     }
     

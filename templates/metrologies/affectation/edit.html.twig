@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Intervention{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Gestion Intervention</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div><div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{button_label | default('Modification')}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form method="post"> 
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.affaire)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.nom_affaire)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.service_affectation)}}</div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.sortie_par)}}</div>
+                            <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_sortie)}}</div>
+                        </div>
+                        <hr>
+                        <div class="item form-group">
+                            <table class="table table-bordered table-striped">
+                                <tr  class="table-secondary">
+                                    <th width="10%">Repère</th>
+                                    <th width="22%">Désignation</th>
+                                    <th width="16%">Type</th>
+                                    <th width="16%">Numéro Série</th>
+                                    <th width="16%">Date Retour</th>
+                                    <th width="16%">Observation</th>
+                                    <th width="100"></th>
+                                </tr>
+                                <tr>
+                                    <td>{{ form_widget(f.appareil) }}</td>
+                                    <td>{{ form_widget(f.designation) }}</td>
+                                    <td>{{ form_widget(f.type) }}</td>
+                                    <td>{{ form_widget(f.numero_serie) }}</td>
+                                    <td>{{ form_widget(f.date_retour) }}</td>
+                                    <td>{{ form_widget(f.observation) }}</td>
+                                    <td><button class="btn btn-success btn-sm" name="bouton3" value="add">Add</button></td>
+                                </tr>
+                                {% for item in items %}
+                                    <tr> 
+                                        <td>{{item.appareil}}</td>
+                                        <td>{{item.designation}}</td>
+                                        <td>{{item.type}}</td>
+                                        <td>{{item.numeroSerie}}</td>
+                                        <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{item.observation}}</td>
+                                        <td class="text-center"><a href="{{path('app_delete_laffectation', {'id' : item.lig , 'parID' : affectation.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                    </tr>                                        
+                                {% endfor %}  
+                                <tr class="bg-secondary"></tr>
+                                {% for it in affectation.laffectations %}
+                                    <tr> 
+                                        <td>{{it.appareil}}</td>
+                                        <td>{{it.designation}}</td> 
+                                        <td>{{it.type}}</td>
+                                        <td>{{it.numeroSerie}}</td>
+                                        <td>{{it.dateRetour ? it.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{it.observation}}</td>
+                                        <td class="text-center"><a href="{{path('app_delete_laff', {'id' : it.id})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                    </tr>                                        
+                                {% endfor %} 
+                            </table>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="bouton3" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Ajouter')}} <i class="fa fa-save p-1"></i></button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-secondary btn-sm" href="{{path('app_affectation_index')}}">Retour  <i class="fa fa-reply p-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+        var repere = document.getElementById('laffectation_appareil');
+        var affaire = document.getElementById('affectation_affaire');
+        repere?.addEventListener('click', function()
+        {
+            var repere = this.value;
+            fetch('/index.php/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('laffectation_designation').value = data.designation;
+                document.getElementById('laffectation_type').value = data.type;
+                document.getElementById('laffectation_numero_serie').value = data.numero_serie;
+                document.getElementById('laffectation_observation').value = data.observation;
+            }); 
+        });
+
+        affaire?.addEventListener('click', function()
+        {
+            var affaire = this.value;
+            fetch('/index.php/metrologie/affaire/'+affaire) // Remplacez l'URL par celle de votre route Symfony
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('affectation_nom_affaire').value = data.nom;
+
+            }); 
+        });
+    }
+</script>
+{% endblock %}
+ 

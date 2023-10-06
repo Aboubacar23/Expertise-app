@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bon Intervention</title>
+    <title>Bon Affectation</title>
 </head>
 <style>
 table{
@@ -61,23 +61,23 @@ footer:after {
 
 </style>
 <body>
-    <h2>Bon de Retour da n° {{ retourIntervention.intervention.numeroDa}}</h2>
+    <h2>Bon de Retour Affaire n° {{ retourAffectation.affectation}}</h2>
     <p class="p"></p>
     <div class="header">
         <table>
             <tr>
-                <th>Prestataire : </th>
-                <td>{{ retourIntervention.intervention.prestataire }}</td>
-                <th>Demandeur : </th>
-                <td>{{ retourIntervention.intervention.demandeur }}</td>
+                <th style="text-align: left;">Nom affaire : </th>
+                <td>{{ retourAffectation.affectation.affaire.nomAffaire }}</td>
+                <th style="text-align: left;">Service Affectation : </th>
+                <td>{{ retourAffectation.affectation.serviceAffectation }}</td>
             </tr>
             <tr>
-                <th>Date de DA : </th>
-                <td>{{ retourIntervention.intervention.dateDa ? retourIntervention.intervention.dateDa|date('d-m-Y') : '' }}</td>
-                <th>Date d'envoi : </th>
-                <td>{{ retourIntervention.intervention.dateEnvoi ? retourIntervention.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
+                <th style="text-align: left;">Retour Saisie par  : </th>
+                <td>{{ retourAffectation.retourSaisiePar }}</td>
+                <th style="text-align: left;">Date Retour : </th>
+                <td>{{ retourAffectation.dateSortie ? retourAffectation.dateSortie|date('d-m-Y') : '' }}</td>
             </tr>
-        </table>
+        </table> 
     </div>
     <br>
     <div class="body">
@@ -85,24 +85,22 @@ footer:after {
             <thead>
                 <tr  class="tr">
                     <th class="th" width="15%">Repère</th>
-                    <th class="th" width="15%">Appareil</th>
-                    <th class="th" width="15%">Type Intervention</th>
+                    <th class="th" width="15%">Désignation</th>
+                    <th class="th" width="15%">Type</th>
                     <th class="th" width="15%">Date Retour</th>
-                    <th class="th" width="15%">Date Etalonnage</th>
-                    <th class="th" width="15%">Numéro Certificat</th>
+                    <th class="th" width="15%">Etat</th>
                     <th class="th" width="15%">Observation</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for item in retourIntervention.intervention.linterventions %}
+            <tbody> 
+                {% for item in retourAffectation.affectation.laffectations %}
                     <tr> 
                         <td class="td">{{item.appareil}}</td>
                         <td class="td">{{item.designation}}</td>
-                        <td class="td">{{item.typeIntervention}}</td>
+                        <td class="td">{{item.type}}</td>
                         <td class="td">{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
-                        <td class="td">{{item.dateEtalonnage ? item.dateEtalonnage|date('d-m-Y') : '' }}</td>
-                        <td class="td">{{item.numeroCertificat}}</td>
-                        <td class="td">{{item.observation}}</td>
+                        <td class="td">{{item.etat}}</td> 
+                        <td class="td">{{item.observation}}</td> 
                     </tr>                                        
                 {% endfor %} 
             </tbody>

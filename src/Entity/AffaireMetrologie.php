@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AffaireMetrologieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,17 @@ class AffaireMetrologie
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $observation = null;
+
+    #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Affectation::class)]
+    private Collection $affectations;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut = null;
+
+    public function __construct()
+    {
+        $this->affectations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +88,53 @@ class AffaireMetrologie
     public function setObservation(?string $observation): static
     {
         $this->observation = $observation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Affectation>
+     */
+    public function getAffectations(): Collection
+    {
+        return $this->affectations;
+    }
+
+    public function addAffectation(Affectation $affectation): static
+    {
+        if (!$this->affectations->contains($affectation)) {
+            $this->affectations->add($affectation);
+            $affectation->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffectation(Affectation $affectation): static
+    {
+        if ($this->affectations->removeElement($affectation)) {
+            // set the owning side to null (unless already changed)
+            if ($affectation->getAffaire() === $this) {
+                $affectation->setAffaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNumAffaire();
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?bool $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }

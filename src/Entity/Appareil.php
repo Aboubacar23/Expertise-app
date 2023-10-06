@@ -103,6 +103,9 @@ class Appareil
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Lintervention::class)]
     private Collection $linterventions;
 
+    #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Laffectation::class)]
+    private Collection $laffectations;
+
 
     public function __construct()
     {
@@ -111,6 +114,7 @@ class Appareil
         $this->appareilMesureElectriques = new ArrayCollection();
         $this->appareilMesureEssais = new ArrayCollection();
         $this->linterventions = new ArrayCollection();
+        $this->laffectations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -554,6 +558,36 @@ class Appareil
             // set the owning side to null (unless already changed)
             if ($lintervention->getAppareil() === $this) {
                 $lintervention->setAppareil(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Laffectation>
+     */
+    public function getLaffectations(): Collection
+    {
+        return $this->laffectations;
+    }
+
+    public function addLaffectation(Laffectation $laffectation): static
+    {
+        if (!$this->laffectations->contains($laffectation)) {
+            $this->laffectations->add($laffectation);
+            $laffectation->setAppareil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLaffectation(Laffectation $laffectation): static
+    {
+        if ($this->laffectations->removeElement($laffectation)) {
+            // set the owning side to null (unless already changed)
+            if ($laffectation->getAppareil() === $this) {
+                $laffectation->setAppareil(null);
             }
         }
 

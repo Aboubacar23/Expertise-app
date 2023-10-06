@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RetourIntervention index{% endblock %}
+{% block title %}affectation index{% endblock %}
 
 {% block body %}
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion Retour Intervention</h3>
+        <h3>Gestion Affectation</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -14,9 +14,9 @@
         <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-            <h2>Listes des retours DA</h2>
+            <h2>Listes des affectations</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_retour_intervention_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                <a href="{{path('app_affectation_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
                 <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
             </ul>
             <div class="clearfix"></div>
@@ -39,29 +39,30 @@
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
-                                        <th>Numero DA</th>
-                                        <th>Date DA</th>
-                                        <th>Date Envoi</th>
-                                        <th>Demandeur</th>
-                                        <th>Prestataire</th>
+                                        <th>Numéro Affaire</th>
+                                        <th>Nom Affaire</th>
+                                        <th>Service Affectation</th>
+                                        <th>Date Sortie</th>
+                                        <th>Sortie Par</th>
                                         <th width="200" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% set i = 0 %}
-                                    {% for item in retour_interventions %}
+                                    {% for affectation in affectations %}
                                         {% set i = i + 1 %}
-                                        <tr>
+                                        <tr> 
                                             <td>{{ i }}</td>
-                                            <td>{{ item.intervention.numeroDa }}</td>
-                                            <td>{{ item.intervention.dateDa ? item.intervention.dateDa|date('d-m-Y') : '' }}</td>
-                                            <td>{{ item.intervention.dateEnvoi ? item.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
-                                            <td>{{ item.intervention.demandeur }}</td>
-                                            <td>{{ item.intervention.prestataire }}</td>
+                                            <td>{{ affectation.affaire }}</td>
+                                            <td>{{ affectation.nomAffaire }}</td>
+                                            <td>{{ affectation.serviceAffectation }}</td>
+                                            <td>{{ affectation.dateSortie ? affectation.dateSortie|date('Y-m-d') : '' }}</td>
+                                            <td>{{ affectation.sortiePar }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_retour_intervention_show', {'id': item.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>
-                                                <a href="{{ path('app_retour_intervention_delete', {'id': item.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
-                                                <a href="{{ path('app_intervention_retour_print', {'id': item.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-1x"></i></a>
+                                                <a href="{{ path('app_affectation_edit', {'id': affectation.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a>
+                                                <a href="{{ path('app_affectation_delete', {'id': affectation.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affectation_print', {'id': affectation.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-1x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -78,6 +79,5 @@
         </div>
         </div>
     </div>
-</div>
+</div>    
 {% endblock %}
- 

@@ -27,8 +27,8 @@
                         <a href="{{path('app_affaire_metrologie_index')}}" class="btn btn-outline-info p-1">Gestion Affaire</a>
                         <a href="{{path('app_intervention_index')}}" class="btn btn-outline-info p-1">Sortie sur DA</a>
                         <a href="{{path('app_retour_intervention_index')}}" class="btn btn-outline-info p-1">Retour sur DA</a>
-                        <a href="" class="btn btn-outline-info p-1">Sortie sur Chantier</a>
-                        <a href="" class="btn btn-outline-info p-1">Retour sur Chantier</a>
+                        <a href="{{path('app_affectation_index')}}" class="btn btn-outline-info p-1">Sortie sur Chantier</a>
+                        <a href="{{path('app_retour_affectation_index')}}" class="btn btn-outline-info p-1">Retour sur Chantier</a>
                         <a href="{{path('app_service_responsable_index')}}" class="btn btn-outline-info p-1">Gestion Service</a>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{fonctionnels}}</div>
                             <h3>Appareils Fonctionnels</h3>
                         </div>
                     </div>
@@ -59,21 +59,21 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{conformes}}</div>
                             <h3>Appareils Conformes</h3>
                         </div>
-                    </div>
+                    </div> 
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{hors_validite}}</div>
                             <h3>Appareils Hors Validite</h3>
                         </div>
                     </div>
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{perdu}}</div>
                             <h3>Appareils Perdu</h3>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-compass"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{hs}}</div>
                             <h3>Appareils HS</h3>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-left"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{ retours}}</div>
                             <h3>Entrer DA</h3>
                         </div>
                     </div>
@@ -105,14 +105,14 @@
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-right"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{affectations }}</div>
                             <h3>Sortie Affaire</h3>
                         </div>
                     </div>
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-12">
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-arrow-right"></i></div>
-                            <div class="count">0</div>
+                            <div class="count">{{retourA}}</div>
                             <h3>Retour Affaire</h3>
                         </div>
                     </div>

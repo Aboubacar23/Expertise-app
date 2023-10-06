@@ -84,7 +84,7 @@ class AppareilType extends AbstractType
                         'message' => 'La désignation est obligatoire'
                     ]) 
                 ]
-            ])
+            ]) 
             ->add('num_appareil', TextType::class,[
                 'label' => 'Repère',
                 'required' => false,

@@ -49,7 +49,6 @@ class InterventionController extends AbstractController
         if ($f->isSubmitted() && $form->isSubmitted()) 
         {
             $choix = $request->get('bouton1');
-            //dd($choix);
             if ($choix == 'ajouter')
             {
                 $i = 0;

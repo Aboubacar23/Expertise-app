@@ -29,6 +29,7 @@ class AffaireMetrologieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $affaireMetrologie->setStatut(0);
             $affaireMetrologieRepository->save($affaireMetrologie, true);
             return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
             $this->addFlash('success', "Ajouter avec succès");
