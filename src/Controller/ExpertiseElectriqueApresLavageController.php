@@ -212,7 +212,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             $choix = $request->get('bouton2');
             if($choix == 'sonde_en_cours')
             {
-                $i = 0;
+                $i = 0; 
                 foreach($tables as $item)
                 { 
                     $i = $i + 1;

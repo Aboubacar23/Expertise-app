@@ -20,7 +20,7 @@ class LMesureResistance
     private ?float $critere = null;
 
     #[ORM\Column]
-    private ?float $valeur = null;
+    private ?string $valeur = null;
 
     #[ORM\Column(length: 255)]
     private ?string $conformite = null;
@@ -69,12 +69,12 @@ class LMesureResistance
         return $this;
     }
 
-    public function getValeur(): ?float
+    public function getValeur(): ?string
     {
         return $this->valeur;
     }
 
-    public function setValeur(float $valeur): self
+    public function setValeur(string $valeur): self
     {
         $this->valeur = $valeur;
 

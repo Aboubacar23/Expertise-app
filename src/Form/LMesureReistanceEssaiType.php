@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class LMesureReistanceEssaiType extends AbstractType
 {
@@ -39,7 +40,7 @@ class LMesureReistanceEssaiType extends AbstractType
                     ]
                 ])
                 ->add('temp_correction')
-                ->add('valeur', NumberType::class, [
+                ->add('valeur', TextType::class, [
                     'required' => true,
                 ])
                 ->add('conformite', ChoiceType::class, [

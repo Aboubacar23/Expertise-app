@@ -79,7 +79,7 @@
                                             <td class="text-center">
                                                 <a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-print" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_print_fiche_de_vie', {'id': appareil.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

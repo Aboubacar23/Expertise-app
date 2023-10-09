@@ -33,8 +33,8 @@
                     <div class="item form-group">
                         <div class="col-md-3 col-sm-3 mt-1">{{ form_row(form.service_responsable)}}</div>
                         <div class="col-md-3 col-sm-3 mt-1">{{ form_row(form.affectation)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.classe_definition)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.en_tendance)}}</div>
+                        <div class="col-md-3 col-sm-3" id="classe_df" style="display: disabled;">{{ form_row(form.classe_definition , {'attr' : {'id' : 'check1'}})}}</div>
+                        <div class="col-md-3 col-sm-3" id="en_tendance" style="display: block;">{{ form_row(form.en_tendance , {'attr' : {'id' : 'check1'}})}}</div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-3 col-sm-3 ">{{ form_row(form.numero_certificat)}}</div>
@@ -61,3 +61,62 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () 
+    {
+        const checktype1 = document.querySelector("#form_checktype1");
+        const checktype2 = document.querySelector("#form_checktype2");
+
+        checktype1.addEventListener("change", function () {
+            checktype2.disabled = this.checked;
+        });
+
+        checktype2.addEventListener("change", function () {
+            checktype1.disabled = this.checked;
+        });
+    });
+
+/*
+    $(document).ready(function() {
+        $('#check1').change(function() {
+            if ($(this).is(':checked')) {
+                $('#check2').prop('disabled', true);
+            } else {
+                $('#check2').prop('disabled', false);
+            }
+        });
+
+        $('#check2').change(function() {
+            if ($(this).is(':checked')) {
+                $('#check1').prop('disabled', true);
+            } else {
+                $('#check1').prop('disabled', false);
+            }
+        });
+        })
+
+    const df = document.getElementById('classe_df');
+    const et = document.getElementById('en_tendance');
+
+    df.addEventListener("change", function()
+    {
+        const etVal = document.getElementById('appareil_classe_definition');
+        if(etVal === 1)
+        {
+            console.log(etVal.value);
+            et.style.display = 'none';
+            dt.style.display = 'block';
+        }
+        else{
+            et.style.display = 'block';
+        }
+    });
+
+    et.addEventListener("change", function()
+    {
+        df.style.display = 'none'
+        et.style.display = 'block'
+    })
+    */
+</script>

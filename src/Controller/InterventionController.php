@@ -24,7 +24,7 @@ class InterventionController extends AbstractController
     public function index(InterventionRepository $interventionRepository): Response
     {
         return $this->render('metrologies/intervention/index.html.twig', [
-            'interventions' => $interventionRepository->findAll(),
+            'interventions' => $interventionRepository->findBy([],['id' => 'desc']),
         ]);
     }
 

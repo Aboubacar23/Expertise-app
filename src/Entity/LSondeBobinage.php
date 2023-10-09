@@ -20,10 +20,10 @@ class LSondeBobinage
     private ?float $critere = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $valeur_relevee = null;
+    private ?string $valeur_relevee = null;
 
     #[ORM\Column]
-    private ?float $valeur = null;
+    private ?string $valeur = null;
 
     #[ORM\Column(length: 255)]
     private ?string $conformite = null;
@@ -72,24 +72,24 @@ class LSondeBobinage
         return $this;
     }
 
-    public function getValeurRelevee(): ?float
+    public function getValeurRelevee(): ?string
     {
         return $this->valeur_relevee;
     }
 
-    public function setValeurRelevee(?float $valeur_relevee): self
+    public function setValeurRelevee(?string $valeur_relevee): self
     {
         $this->valeur_relevee = $valeur_relevee;
 
         return $this;
     }
 
-    public function getValeur(): ?float
+    public function getValeur(): ?string
     {
         return $this->valeur;
     }
 
-    public function setValeur(float $valeur): self
+    public function setValeur(string $valeur): self
     {
         $this->valeur = $valeur;
 

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ChercherController!{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+        <h3>Chercher</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_content">
+                    {{ form_start(form) }}
+                        <div class="item form-group">
+                            <div class="col-md-3 col-sm-3 ">{{ form_row(form.etat)}}</div>
+                            <div class="col-md-3 col-sm-3 ">{{ form_row(form.periodicite)}}</div>
+                            <div class="col-md-3 col-sm-3 ">{{ form_row(form.date_min)}}</div>
+                            <div class="col-md-3 col-sm-3 ">{{ form_row(form.date_max)}}</div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" name="bouton" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Chercher')}} <i class="fa fa-save p-1"></i></button>
+                                </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-secondary btn-sm" href="{{path('app_metrologie')}}">Retour  <i class="fa fa-reply p-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ 

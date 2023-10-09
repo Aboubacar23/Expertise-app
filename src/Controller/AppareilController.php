@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Appareil;
 use App\Form\AppareilType;
 use App\Entity\AppareilMesure;
@@ -169,5 +171,54 @@ class AppareilController extends AbstractController
        }else{
             return $this->redirectToRoute('app_appareil_essais', ['id' => $id], Response::HTTP_SEE_OTHER);
        } 
+    }
+
+    //imprimer le bon de sortie
+    #[Route('/print-fiche-de-vie/{id}', name: 'app_print_fiche_de_vie', methods: ['POST','GET'])]
+    public function print(Appareil $appareil): Response
+    {  
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Times New Roman');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);        
+        $dompdf->getOptions()->set('isPhpEnabled', true);
+        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
+        $dompdf->setCallbacks([
+            'event' => function ($event) use ($dompdf) {
+                if ($event['event'] === 'dompdf.page_number') {
+                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
+                }
+            }
+        ]);
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+
+        $dompdf->setHttpContext($context);
+        $html = $this->renderView('appareil/print.html.twig', [
+            'appareil' => $appareil,
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        //$dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = "Fiche de vie de l'appareil n° : ".$appareil->getNumAppareil();
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => false
+        ]);
+
+        exit();    
     }
 }

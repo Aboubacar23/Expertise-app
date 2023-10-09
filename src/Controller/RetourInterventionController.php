@@ -23,7 +23,7 @@ class RetourInterventionController extends AbstractController
     public function index(RetourInterventionRepository $retourInterventionRepository): Response
     {
         return $this->render('metrologies/retour_intervention/index.html.twig', [
-            'retour_interventions' => $retourInterventionRepository->findAll(),
+            'retour_interventions' => $retourInterventionRepository->findBy([],['id' => 'desc']),
         ]);
     }
 

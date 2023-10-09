@@ -1,0 +1,211 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de vie</title>
+</head>
+<style>
+    table{
+        width: 100%;
+        font-family: serif;
+        font-size: 14px !important;
+    }
+    .table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        }    
+    .th { 
+        font-weight: bold; 
+        text-align: center; 
+    }
+    
+    .td, .th { 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        font-size: 12px;
+        }
+    td{
+        padding: 10px;
+        font-family: serif;
+    }
+    .p{
+        border-bottom: 3px solid #219C90;
+    }
+    h2{
+        text-align: center;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-family: serif;
+    }
+
+    .h2_1{
+        text-align: center!important;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-family: serif;
+        padding-left: 250px;
+    }
+    .h2_2{
+        text-align: right;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-family: serif;
+        padding-left: 170px;
+    }
+
+    #top-bar{
+        width: 130px;
+        color: #219C90;
+        border-style: double;
+        border-top: none;
+        border-left: none;
+        border-radius: 10px;
+        box-shadow: #E48586;
+        text-align: left;
+    }
+    .validite
+    {
+        text-transform: uppercase;
+        font-size: 8px;
+        font-family: serif;
+    }
+    .header{
+        border: 1px solid #219C90;
+        border-radius: 5px;
+        padding: 2px;
+    }
+    .td_header{
+        font-size: 12px;
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+
+</style>
+<body>
+    <div id="top-bar">
+        <p style="text-align: left; color : black !important; font-size: 8px;">{{appareil.numAppareil}}</p>
+        <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
+        <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+    </div>
+    <div id="nav-bar">
+        <div>
+            <span class="h2_1">Fiche de vie</span>
+            <span class="h2_2">{{appareil.numAppareil}}</span>
+        </div>
+    </div>
+    <p class="p"></p>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Appareil : </th>
+                <td class="td_header">{{ appareil.designation }}</td>
+                <th style="text-align: left;">Type : </th>
+                <td class="td_header">{{ appareil.type }}</td>
+                <th style="text-align: left;">Numéro de Série : </th>
+                <td class="td_header">{{ appareil.numeroSerie }}</td>
+            </tr>
+            <tr class="tr_header">
+                <th style="text-align: left;">Marque : </th>
+                <td class="td_header">{{ appareil.marque }}</td>
+                <th style="text-align: left;">Unité de mesure : </th>
+                <td class="td_header">{{ appareil.uniteMesure}}</td>
+                <th style="text-align: left;">Classe : </th>
+                <td class="td_header">{{ appareil.classeAp}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Date d'achat : </th>
+                <td class="td_header">{{ appareil.dateAchat ? appareil.dateAchat|date('d-m-Y') : ''}}</td>
+                <th style="text-align: left;">Prix d'achat : </th>
+                <td class="td_header">{{ appareil.prixAchat }}</td>
+                <th style="text-align: left;">Nom Fournisseur : </th>
+                <td class="td_header">{{ appareil.nomFournisseur }}</td>
+            </tr>
+            <tr class="tr_header">
+                <th style="text-align: left;">Numéro DA : </th>
+                <td class="td_header">{{ appareil.numeroDa }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Service Responsable : </th>
+                <td class="td_header">{{ appareil.serviceResponsable }}</td>
+                <th style="text-align: left;">Affectation : </th>
+                <td class="td_header">{{ appareil.affectation }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Périodicité : </th>
+                <td class="td_header">{{ appareil.periodicite }} Mois</td>
+                {% if appareil.classeDefinition == 1 %}
+                    <th style="text-align: left;">Classe de définition : </th>
+                    <td class="td_header">{{ appareil.classeDefinition ? 'Oui' : 'Non' }}</td>                    
+                {% endif %}
+                {% if appareil.enTendance == 1 %}
+                    <th style="text-align: left;">En tendance : </th>
+                    <td class="td_header">{{ appareil.enTendance ? 'Oui' : 'Non' }}</td>                  
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Etat : </th>
+                <td class="td_header">{{ appareil.etat }} </td>
+                <th style="text-align: left;">Date d'état: </th>
+                <td class="td_header">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : ''}}</td>
+            </tr>
+            <tr class="tr_header">
+                <th style="text-align: left;">Statut : </th>
+                <td class="td_header">{{ appareil.statut }} </td>
+                <th style="text-align: left;">Numéro de Certicat en cours: </th>
+                <td class="td_header">{{ appareil.numeroCertificat}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px;">
+        <table>
+            <tr class="tr_header">
+                <th style="text-align: left;">Observation : </th>
+                <td class="td_header2">{{ appareil.observation }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" style="margin-bottom: 5px; padding: 5px;">
+        <h4>Historiques</h4>
+        <table class="table">
+            <thead>
+                <tr  class="tr">
+                    <th class="th" width="15%">Date DA</th>
+                    <th class="th" width="22%">Numéro DA</th>
+                    <th class="th" width="16%">Prestataire</th>
+                    <th class="th" width="16%">Type Intervention</th>
+                    <th class="th" width="16%">Numéro Certicat</th>
+                    <th class="th" width="16%">Observation</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for item in appareil.linterventions %}
+                    <tr> 
+                        <td class="td">{{item.intervention.dateEnvoi ? item.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
+                        <td class="td">{{item.intervention.numeroDa}}</td>
+                        <td class="td">{{item.intervention.prestataire}}</td>
+                        <td class="td">{{item.typeIntervention}}</td>
+                        <td class="td">{{item.numeroCertificat}}</td>
+                        <td class="td">{{item.observation}}</td>
+                    </tr>                                        
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

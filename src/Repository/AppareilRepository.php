@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Appareil;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Chercher;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Appareil>
@@ -63,4 +64,37 @@ class AppareilRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+     /**
+     * Recherche les annonces en fonction du formulaire
+     * @return void 
+    */
+    public function findChercher(Chercher $recherche)
+    {
+        $query = $this->createQueryBuilder('a');
+
+            if($recherche->getEtat()){
+                $query = $query->andWhere('a.etat = :valEtat')
+                                ->setParameter('valEtat', $recherche->getEtat());
+            }
+
+            if($recherche->getPeriodicite()){
+                $query = $query->andWhere('a.periodicite = :valPeriodicite')
+                                ->setParameter('valPeriodicite', $recherche->getPeriodicite());
+            }
+
+            if($recherche->getDateMin()){
+                $query = $query->andWhere('a.date_validite >= :minperiode')
+                                ->setParameter('minperiode', $recherche->getDateMin());
+            }
+
+            if($recherche->getDateMax()){
+                $query = $query->andWhere('a.date_validite <= :maxperiode')
+                                ->setParameter('maxperiode', $recherche->getDateMax());
+            }
+            
+
+
+        return $query->orderBy('a.id', 'DESC')->getQuery()->getResult();
+    }
 }

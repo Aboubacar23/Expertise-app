@@ -9,6 +9,7 @@ use App\Repository\ControleResistanceRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -39,7 +40,7 @@ class LMesureResistanceType extends AbstractType
                 ]
             ])
             ->add('temp_correction')
-            ->add('valeur', NumberType::class, [
+            ->add('valeur', TextType::class, [
                 'required' => true,
             ])
             ->add('conformite', ChoiceType::class, [
