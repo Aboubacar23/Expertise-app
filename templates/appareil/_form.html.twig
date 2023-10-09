@@ -61,9 +61,8 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () 
+   /* document.addEventListener("DOMContentLoaded", function () 
     {
         const checktype1 = document.querySelector("#form_checktype1");
         const checktype2 = document.querySelector("#form_checktype2");
@@ -76,32 +75,12 @@
             checktype1.disabled = this.checked;
         });
     });
-
-/*
-    $(document).ready(function() {
-        $('#check1').change(function() {
-            if ($(this).is(':checked')) {
-                $('#check2').prop('disabled', true);
-            } else {
-                $('#check2').prop('disabled', false);
-            }
-        });
-
-        $('#check2').change(function() {
-            if ($(this).is(':checked')) {
-                $('#check1').prop('disabled', true);
-            } else {
-                $('#check1').prop('disabled', false);
-            }
-        });
-        })
-
+*/
     const df = document.getElementById('classe_df');
     const et = document.getElementById('en_tendance');
 
     df.addEventListener("change", function()
     {
-        const etVal = document.getElementById('appareil_classe_definition');
         if(etVal === 1)
         {
             console.log(etVal.value);
@@ -118,5 +97,4 @@
         df.style.display = 'none'
         et.style.display = 'block'
     })
-    */
 </script>
