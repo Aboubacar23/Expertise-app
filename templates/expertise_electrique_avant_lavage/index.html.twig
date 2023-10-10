@@ -102,7 +102,7 @@
                                     {% if parametre.plaques |length == 0 %}
                                         <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% else %}
-                                        {% if parametre.plaques |length  > 1 %}
+                                        {% if parametre.plaques |length  >= 1 %}
                                             <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
                                         {% else %}
                                             <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
