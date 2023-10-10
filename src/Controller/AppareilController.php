@@ -185,14 +185,6 @@ class AppareilController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);        
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
-        $dompdf->setCallbacks([
-            'event' => function ($event) use ($dompdf) {
-                if ($event['event'] === 'dompdf.page_number') {
-                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
-                }
-            }
-        ]);
-
         $context = stream_context_create([
             'ssl' => [
                 'verify_peer' => FALSE,
@@ -210,7 +202,18 @@ class AppareilController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_script(
+            function ($pageNumber, $pageCount, $canvas, $fontMetrics){
+                $text = "Page $pageNumber sur $pageCount";
+                $font = $fontMetrics->getFont('Times New Roman');
+                $pageWidth = $canvas->get_width();
+                $pageHeight = $canvas->get_height();
+                $size = 12;
+                $width = $fontMetrics->getTextWidth($text, $font, $size);
+                $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text,$font,$size);
+            }
+        );
         // On génère un nom de fichier
         $fichier = "Fiche de vie de l'appareil n° : ".$appareil->getNumAppareil();
 
