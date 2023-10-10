@@ -350,6 +350,18 @@ class ParametreController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_script(
+            function ($pageNumber, $pageCount, $canvas, $fontMetrics){
+                $text = "Page $pageNumber sur $pageCount";
+                $font = $fontMetrics->getFont('Times New Roman');
+                $pageWidth = $canvas->get_width();
+                $pageHeight = $canvas->get_height();
+                $size = 8;
+                $width = $fontMetrics->getTextWidth($text, $font, $size);
+                $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text,$font,$size);
+            }
+        );
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
 
@@ -391,6 +403,18 @@ class ParametreController extends AbstractController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_script(
+            function ($pageNumber, $pageCount, $canvas, $fontMetrics){
+                $text = "Page $pageNumber sur $pageCount";
+                $font = $fontMetrics->getFont('Times New Roman');
+                $pageWidth = $canvas->get_width();
+                $pageHeight = $canvas->get_height();
+                $size = 8;
+                $width = $fontMetrics->getTextWidth($text, $font, $size);
+                $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text,$font,$size);
+            }
+        );
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
 
