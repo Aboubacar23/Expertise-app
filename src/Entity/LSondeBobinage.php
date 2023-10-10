@@ -16,7 +16,7 @@ class LSondeBobinage
     #[ORM\Column(length: 255)]
     private ?string $controle = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $critere = null;
 
     #[ORM\Column(nullable: true)]
