@@ -17,6 +17,7 @@
             <h2>Listes des services</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <a href="{{path('app_service_responsable_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
             </ul>
             <div class="clearfix"></div>
             </div>
@@ -52,8 +53,8 @@
                                             <td>{{ service_responsable.numeroService }}</td>
                                             <td>{{ service_responsable.nom }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_service_responsable_edit', {'id': service_responsable.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('app_service_responsable_delete', {'id': service_responsable.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_service_responsable_edit', {'id': service_responsable.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="{{ path('app_service_responsable_delete', {'id': service_responsable.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

@@ -69,32 +69,46 @@ class AppareilRepository extends ServiceEntityRepository
      * Recherche les annonces en fonction du formulaire
      * @return void 
     */
-    public function findChercher(Chercher $recherche)
+    public function findChercherEtat(Chercher $recherche)
     {
         $query = $this->createQueryBuilder('a');
 
-            if($recherche->getEtat()){
-                $query = $query->andWhere('a.etat = :valEtat')
-                                ->setParameter('valEtat', $recherche->getEtat());
-            }
+        if($recherche->getEtat()){
+            $query = $query->andWhere('a.etat = :valEtat')
+                            ->setParameter('valEtat', $recherche->getEtat());
+        }
+        return $query->getQuery()->getResult();
+    }
 
-            if($recherche->getPeriodicite()){
-                $query = $query->andWhere('a.periodicite = :valPeriodicite')
-                                ->setParameter('valPeriodicite', $recherche->getPeriodicite());
-            }
+    /**
+     * Recherche les annonces en fonction du formulaire
+     * @return void
+     */
+    public function findChercherPeriodicite(Chercher $recherche)
+    {
+        $query = $this->createQueryBuilder('a');
+        if($recherche->getPeriodicite()){
+            $query = $query->andWhere('a.periodicite = :valPeriodicite')
+                ->setParameter('valPeriodicite', $recherche->getPeriodicite());
+        }
+        return $query->getQuery()->getResult();
+    }
 
-            if($recherche->getDateMin()){
-                $query = $query->andWhere('a.date_validite >= :minperiode')
-                                ->setParameter('minperiode', $recherche->getDateMin());
-            }
-
-            if($recherche->getDateMax()){
-                $query = $query->andWhere('a.date_validite <= :maxperiode')
-                                ->setParameter('maxperiode', $recherche->getDateMax());
-            }
-            
-
-
-        return $query->orderBy('a.id', 'DESC')->getQuery()->getResult();
+    /**
+     * Recherche les annonces en fonction du formulaire
+     * @return void
+     */
+    public function findChercherDateValidite(Chercher $recherche)
+    {
+        $query = $this->createQueryBuilder('a');
+        if($recherche->getDateMin()){
+            $query = $query->andWhere('a.date_validite >= :minperiode')
+                ->setParameter('minperiode', $recherche->getDateMin());
+        }
+        if($recherche->getDateMax()){
+            $query = $query->andWhere('a.date_validite <= :maxperiode')
+                ->setParameter('maxperiode', $recherche->getDateMax());
+        }
+        return $query->getQuery()->getResult();
     }
 }

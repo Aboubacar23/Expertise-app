@@ -9,19 +9,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChercherType extends AbstractType
+class ChercherPeriodiqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('etat', ChoiceType::class, [
-                'label' => 'Etat',
-                'placeholder' => 'Choisissez un état',
+            ->add('periodicite',ChoiceType::class, [
+                'label' => 'Périodicité',
                 'choices' => [
-                    'Fonctionnel' => 'Fonctionnel',
-                    'Hors Validite' => 'Hors Validite',
-                    'Perdu' => 'Perdu',
-                    'HS' => 'HS',
+                    '0' => '0',
+                    '3' => '3',
+                    '6' => '6',
+                    '9' => '9',
+                    '12' => '12',
+                    '18' => '18',
+                    '24' => '24',
+                    '36' => '36',
+                    '48' => '48',
+                    '60' => '60',
                 ]
             ]);
     }

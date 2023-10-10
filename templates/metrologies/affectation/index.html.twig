@@ -59,10 +59,10 @@
                                             <td>{{ affectation.dateSortie ? affectation.dateSortie|date('Y-m-d') : '' }}</td>
                                             <td>{{ affectation.sortiePar }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-1x"></i></a>
-                                                <a href="{{ path('app_affectation_edit', {'id': affectation.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a>
-                                                <a href="{{ path('app_affectation_delete', {'id': affectation.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a>
-                                                <a href="{{ path('app_affectation_print', {'id': affectation.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-1x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>
+                                                <a href="{{ path('app_affectation_edit', {'id': affectation.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="{{ path('app_affectation_delete', {'id': affectation.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affectation_print', {'id': affectation.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

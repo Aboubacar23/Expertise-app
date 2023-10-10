@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appareils</title>
+</head>
+<style>
+    table{
+        width: 100%;
+    }
+    .table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        }    
+    .tr:nth-of-type(odd) { 
+        background: #eee; 
+        }
+    
+    .th { 
+        background: #3B6857; 
+        color: white; 
+        font-weight: bold; 
+        text-align: center; 
+    }
+    
+    .td, .th { 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        font-size: 12px;
+        }
+    td{
+        padding: 10px;
+    }
+    .p{
+        border-bottom: 2px solid green;
+    }
+    h2{
+        text-align: center;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-family: serif;
+    }
+</style>
+<body>
+    <h2>Liste des appareils avec Périodicité de : {{ etat }} Mois</h2>
+    <p class="p"></p>
+    <div class="body">
+        <table class="table">
+            <thead>
+            <tr  class="tr">
+                <th width="2" class="th">N°</th>
+                <th class="th">N° Appareil</th>
+                <th class="th">Marque</th>
+                <th class="th">Type</th>
+                <th class="th">Service Responsable</th>
+                <th class="th">Affectation</th>
+                <th class="th">Date État</th>
+                <th class="th">Date validité</th>
+                <th class="th">Statut</th>
+                <th class="th">Etat</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set i = 0 %}
+            {% for appareil in appareils %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td class="td">{{ i }}</td>
+                    <td class="td">{{ appareil.numAppareil }}</td>
+                    <td class="td">{{ appareil.marque }}</td>
+                    <td class="td">{{ appareil.type }}</td>
+                    <td class="td">{{ appareil.serviceResponsable }}</td>
+                    <td class="td">{{ appareil.affectation }}</td>
+                    <td class="td">{{ appareil.dateEtat ? appareil.dateEtat|date('Y-m-d') : '' }}</td>
+                    <td class="td">{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+                    <td class="td">{{ appareil.statut }}</td>
+                    <td class="td">{{ appareil.etat }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

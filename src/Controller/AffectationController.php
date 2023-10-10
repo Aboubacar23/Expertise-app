@@ -159,13 +159,17 @@ class AffectationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_affectation_delete', methods: ['POST'])]
+    #[Route('sup//{id}', name: 'app_affectation_delete', methods: ['GET'])]
     public function delete(Request $request, Affectation $affectation, AffectationRepository $affectationRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$affectation->getId(), $request->request->get('_token'))) {
+        if ($affectation) {
+            if(count($affectation->getLaffectations()) !=0)
+            {
+                $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette affaire !');
+                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
+            }
             $affectationRepository->remove($affectation, true);
         }
-
         return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
     }
 

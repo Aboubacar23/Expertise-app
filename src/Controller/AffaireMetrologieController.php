@@ -17,7 +17,7 @@ class AffaireMetrologieController extends AbstractController
     public function index(AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
         return $this->render('metrologies/affaire_metrologie/index.html.twig', [
-            'affaire_metrologies' => $affaireMetrologieRepository->findAll(),
+            'affaire_metrologies' => $affaireMetrologieRepository->findBy([],['id' =>'desc']),
         ]);
     }
 
@@ -71,9 +71,13 @@ class AffaireMetrologieController extends AbstractController
     public function delete(Request $request, AffaireMetrologie $affaireMetrologie, AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
         if ($affaireMetrologie) {
-            $affaireMetrologie->removeLaffectation($affaireMetrologie->getLaffectations());
+            if(count($affaireMetrologie->getAffectations()) != 0)
+            {
+                $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette affaire !');
+                return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
+            }
             $affaireMetrologieRepository->remove($affaireMetrologie, true);
-            $this->addFlash('danger', "Supprimer avec succès");
+            $this->addFlash('success', "Supprimer avec succès");
         }
 
         return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);

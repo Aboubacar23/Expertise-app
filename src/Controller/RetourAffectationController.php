@@ -79,11 +79,16 @@ class RetourAffectationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_retour_affectation_delete', methods: ['POST'])]
+    #[Route('/sup/{id}', name: 'app_retour_affectation_delete', methods: ['GET'])]
     public function delete(Request $request, RetourAffectation $retourAffectation, RetourAffectationRepository $retourAffectationRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$retourAffectation->getId(), $request->request->get('_token'))) {
+        if ($retourAffectation) {
+            if ($retourAffectation->getAffectation()) {
+                $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette affectation !');
+                return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);
+            }
             $retourAffectationRepository->remove($retourAffectation, true);
+            return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);

@@ -78,13 +78,19 @@ class RetourInterventionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_retour_intervention_delete', methods: ['POST'])]
+    #[Route('/sup/{id}', name: 'app_retour_intervention_delete', methods: ['GET'])]
     public function delete(Request $request, RetourIntervention $retourIntervention, RetourInterventionRepository $retourInterventionRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$retourIntervention->getId(), $request->request->get('_token'))) {
-            $retourInterventionRepository->remove($retourIntervention, true);
+        if ($retourIntervention)
+        {
+            if ($retourIntervention->getIntervention())
+            {
+                $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette intervention !');
+                return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
+            }
+            $retourInterventionRepository->remove($retourIntervention,true);
+            return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
     }
 

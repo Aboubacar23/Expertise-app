@@ -9,19 +9,25 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChercherType extends AbstractType
+class ChercherValiditeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('etat', ChoiceType::class, [
-                'label' => 'Etat',
-                'placeholder' => 'Choisissez un état',
-                'choices' => [
-                    'Fonctionnel' => 'Fonctionnel',
-                    'Hors Validite' => 'Hors Validite',
-                    'Perdu' => 'Perdu',
-                    'HS' => 'HS',
+            ->add('date_min', DateType::class, [ 
+                'required' => false,
+                'widget' => 'single_text',
+                'label'=> 'Date Min',
+                'attr' => [
+                    'placeholder' => 'Date Min'
+                ] 
+            ])
+            ->add('date_max', DateType::class, [
+                'required' => false,
+                'widget' => 'single_text',
+                'label'=> 'Date Max',
+                'attr' => [
+                    'placeholder' => 'Date Max'
                 ]
             ]);
     }
