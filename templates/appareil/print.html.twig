@@ -79,7 +79,13 @@
         text-decoration: underline;
         text-transform: uppercase;
     }
-
+    .footer .page-number:after { content: counter(page);}
+    .footer {
+        position: fixed;
+        left: 20px;
+        bottom: 0;
+        text-align: center;
+    }
 </style>
 <body>
     <div id="top-bar">
@@ -206,6 +212,10 @@
                 {% endfor %} 
             </tbody>
         </table>
+    </div>
+
+    <div class="footer">
+        <span class="page-number">Page : </span>
     </div>
 </body>
 </html>
