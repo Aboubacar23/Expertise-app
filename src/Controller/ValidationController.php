@@ -40,7 +40,7 @@ class ValidationController extends AbstractController
 
         foreach ($tabs as $item)
         {
-            if($item->getAffaire()->isEtat() == null)           
+            if($item->getAffaire()->isEtat() == 0)
             {
                 array_push($parametres2, $item);
             }
