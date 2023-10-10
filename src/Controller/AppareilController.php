@@ -76,7 +76,7 @@ class AppareilController extends AbstractController
         ]);
     }
 
-    #[Route('delete/{id}', name: 'app_appareil_delete', methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'app_appareil_delete', methods: ['GET'])]
     public function delete(Request $request, Appareil $appareil, AppareilRepository $appareilRepository,
                         AppareilMesureRepository $appareilMesureRepository,
                         AppareilMesureEssaisRepository $appareilMesureEssaisRepository,

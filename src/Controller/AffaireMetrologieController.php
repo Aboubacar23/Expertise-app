@@ -71,6 +71,7 @@ class AffaireMetrologieController extends AbstractController
     public function delete(Request $request, AffaireMetrologie $affaireMetrologie, AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
         if ($affaireMetrologie) {
+            $affaireMetrologie->removeLaffectation($affaireMetrologie->getLaffectations());
             $affaireMetrologieRepository->remove($affaireMetrologie, true);
             $this->addFlash('danger', "Supprimer avec succès");
         }
