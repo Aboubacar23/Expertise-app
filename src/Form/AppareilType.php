@@ -7,6 +7,8 @@ use App\Entity\ServiceResponsable;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -158,8 +160,12 @@ class AppareilType extends AbstractType
             ])
             ->add('nom_fournisseur')
             ->add('numero_certificat')
-            ->add('classe_definition')
-            ->add('en_tendance')
+            ->add('classe_definition', CheckboxType::class, [
+                'label' => 'Classe Définition'
+            ])
+            ->add('en_tendance', CheckboxType::class, [
+                'label' => 'En tendance'
+            ])
             ->add('etat', ChoiceType::class, [
                 'label' => 'Etat',
                 'placeholder' => 'Choisissez un état',

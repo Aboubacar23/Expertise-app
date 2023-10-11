@@ -210,7 +210,7 @@
                                                     {% if affaire.revueEnclenchement %}
                                                         <a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-2x"></i></a>
                                                     {% endif %}
-                                                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                                                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
                                                         <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
                                                         <a class="btn btn-danger btn-sm p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-2x"></i></a>
                                                     {% endif %}

@@ -135,8 +135,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création de mesure d'isolement
     #[Route('/mesure/isolement/{id}', name: 'app_mesure_isolement', methods: ['POST', 'GET'])]
-    public function mesureIso(Parametre $parametre,Request $request,
-    MesureIsolementRepository $mesureIsolementRepository,EntityManagerInterface $em,ControleIsolementRepository $controleIsolementRepository): Response
+    public function mesureIso(Parametre $parametre,Request $request, MesureIsolementRepository $mesureIsolementRepository,EntityManagerInterface $em,ControleIsolementRepository $controleIsolementRepository): Response
     {
         //Mesure d'isolement
         $mesureIsolement = new MesureIsolement();
