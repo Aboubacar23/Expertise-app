@@ -475,13 +475,13 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
         $formAppareilMesure = $this->createForm(AppareilMesureType::class, $appareilMesure);
         $formAppareilMesure->handleRequest($request);
-        $date = date('Y-m-d');
+        $date = date('d-m-Y');
         if($formAppareilMesure->isSubmitted() && $formAppareilMesure->isValid())
         {
             $choix = $request->get('bouton6');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareilMesure->getAppareil()->getDateValidite()->format('Y-m-d');
+                $dateAppareil = $appareilMesure->getAppareil()->getDateValidite()->format('d-m-Y');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{
@@ -940,7 +940,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     }
 
     //la fonction qui supprime les plaques
-    #[Route('/plaque-supprimer/{id}', name: 'app_delete_plaque', methods: ['GET'])]
+    #[Route('/plaque-supprimer/{id}', name: 'app_delete_plaquexxxx', methods: ['GET'])]
     public function deletePlaque(Plaque $plaque, PlaqueRepository $plaqueRepository): Response
     {
         $id = $plaque->getParametre()->getId();

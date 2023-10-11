@@ -270,13 +270,13 @@ class EssaisFinauxController extends AbstractController
 
         $formAppareil = $this->createForm(AppareilMesureEssaisType::class, $appareil);
         $formAppareil->handleRequest($request);
-        $date = date('Y-m-d');
+        $date = date('d-m-Y');
         if($formAppareil->isSubmitted() && $formAppareil->isValid())
         {
             $choix = $request->get('bouton5');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareil->getAppareil()->getDateValidite()->format('Y-m-d');
+                $dateAppareil = $appareil->getAppareil()->getDateValidite()->format('d-m-Y');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{

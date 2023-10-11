@@ -72,8 +72,8 @@
                     <td class="td">{{ appareil.type }}</td>
                     <td class="td">{{ appareil.serviceResponsable }}</td>
                     <td class="td">{{ appareil.affectation }}</td>
-                    <td class="td">{{ appareil.dateEtat ? appareil.dateEtat|date('Y-m-d') : '' }}</td>
-                    <td class="td">{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+                    <td class="td">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>
+                    <td class="td">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
                     <td class="td">{{ appareil.statut }}</td>
                 </tr>
             {% endfor %}

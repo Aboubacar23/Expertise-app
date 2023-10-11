@@ -466,13 +466,13 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
         $formAppareilMesureElectrique = $this->createForm(AppareilMesureElectriqueType::class, $appareilMesureElectrique);
         $formAppareilMesureElectrique->handleRequest($request);
-        $date = date('Y-m-d');
+        $date = date('d-m-Y');
         if($formAppareilMesureElectrique->isSubmitted() && $formAppareilMesureElectrique->isValid())
         {
             $choix = $request->get('bouton5');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareilMesureElectrique->getAppareil()->getDateValidite()->format('Y-m-d');
+                $dateAppareil = $appareilMesureElectrique->getAppareil()->getDateValidite()->format('d-m-Y');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{

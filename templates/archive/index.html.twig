@@ -50,7 +50,7 @@
                                     <td>{{ item2.machine }}</td>
                                     <td>{{ item2.typeMachine }}</td>                                    
                                 {% endfor %}
-                                <td class="text-center">{{ item.dateArchive ? item.dateArchive|date('Y-m-d') : '' }}</td>
+                                <td class="text-center">{{ item.dateArchive ? item.dateArchive|date('d-m-Y') : '' }}</td>
                                 <td class="text-center">{{ item.version }}</td>
                                 <td class="text-center"><a class="text-danger" target="_blank" href="{{asset('/archives/'~ item.fichier)}}" alt="" height="75"><i class="fa fa-file-pdf-o fa-2x"></i></a></td>
                                 <td class="text-center">

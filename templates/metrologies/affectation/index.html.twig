@@ -56,7 +56,7 @@
                                             <td>{{ affectation.affaire }}</td>
                                             <td>{{ affectation.nomAffaire }}</td>
                                             <td>{{ affectation.serviceAffectation }}</td>
-                                            <td>{{ affectation.dateSortie ? affectation.dateSortie|date('Y-m-d') : '' }}</td>
+                                            <td>{{ affectation.dateSortie ? affectation.dateSortie|date('d-m-Y') : '' }}</td>
                                             <td>{{ affectation.sortiePar }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>

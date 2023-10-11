@@ -184,7 +184,7 @@
 										{% else %}
 											<td class="text-center text-danger">Non OK</td>
 										{% endif %}
-										<td>{{ item.dateArrivee ? item.dateArrivee|date('Y-m-d') : '' }}</td>
+										<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
 										{% if item.expertiseElectiqueAvantLavage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
@@ -247,7 +247,7 @@
 											</td>
 										{% endif %}
 
-										<td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+										<td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
 									</tr>
 								{% endfor %}
 							{% else %}

@@ -56,7 +56,7 @@
                                     <tr>
                                         <td>{{item.appareil.designation}}</td>
                                         <td>{{item.appareil.numAppareil}}</td>
-                                        <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                        <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                                         <td><a href="{{path('delete_appareil_electrique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                     </tr>
                                 {% endfor %} 

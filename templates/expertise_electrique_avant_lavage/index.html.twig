@@ -343,7 +343,7 @@
                                             <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
                                             <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
                                             <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
-                                            <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
+                                            <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('d-m-Y') }}</td>
                                             <td>{{ parametre.critere}} Ω/V </td>
                                         </tr>   
                                     </table>
@@ -423,7 +423,7 @@
                                             <th>T° Tôlerie (°C)</th>
                                             <td >{{ parametre.mesureResistance.tempTolerie}}</td>
                                             <th>Date d'essai</th>
-                                            <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('Y-m-d') }}</td>
+                                            <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y') }}</td>
                                         </tr>
                                         <tr>
                                             <th>Hygrométrie (%)</th>
@@ -706,7 +706,7 @@
                                             <tr>
                                                 <td>{{item.appareil.designation}}</td>
                                                 <td>{{item.appareil.numAppareil}}</td>
-                                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                                             </tr>
                                         {% endfor %} 
                                     </table>

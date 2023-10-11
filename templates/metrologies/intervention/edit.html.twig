@@ -58,7 +58,7 @@
                                         <td>{{item.designation}}</td>
                                         <td>{{item.marque}}</td>
                                         <td>{{item.typeIntervention}}</td>
-                                        <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
                                         <td>{{item.observation}}</td>
                                         <td class="text-center"><a href="{{path('app_delete_ledit', {'id' : item.lig , 'parID' : intervention.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                     </tr>                                        
@@ -70,7 +70,7 @@
                                         <td>{{it.designation}}</td>
                                         <td>{{it.marque}}</td>
                                         <td>{{it.typeIntervention}}</td>
-                                        <td>{{it.dateRetour ? it.dateRetour|date('Y-m-d') : '' }}</td>
+                                        <td>{{it.dateRetour ? it.dateRetour|date('d-m-Y') : '' }}</td>
                                         <td>{{it.observation}}</td>
                                         <td class="text-center"><a href="{{path('app_delete_lintervention', {'id' : it.id})}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                     </tr>                                        

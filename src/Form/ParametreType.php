@@ -28,6 +28,13 @@ class ParametreType extends AbstractType
                 ],
                 'placeholder' => 'Choisir le type de machine'
             ])
+            ->add('essais_plateforme', ChoiceType::class, [
+                'label' => 'Essais Plate-forme à reception',
+                'choices' => [
+                    'Oui' => 'Oui',
+                    'Non' => 'Non',
+                ]
+            ])
             ->add('puissance')
             ->add('montage')
             ->add('fabricant')

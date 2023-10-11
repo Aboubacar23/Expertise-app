@@ -259,6 +259,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PhotoRotor::class)]
     private Collection $photoRotors;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $essais_plateforme = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1615,6 +1618,18 @@ class Parametre
                 $photoRotor->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEssaisPlateforme(): ?string
+    {
+        return $this->essais_plateforme;
+    }
+
+    public function setEssaisPlateforme(?string $essais_plateforme): static
+    {
+        $this->essais_plateforme = $essais_plateforme;
 
         return $this;
     }

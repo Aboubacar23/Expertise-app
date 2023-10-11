@@ -29,8 +29,8 @@
                                 <th>Prestataire</th>
                             </tr>
                             <tr>
-                               <td>{{ retour_intervention.intervention.dateDa ? retour_intervention.intervention.dateDa|date('Y-m-d') : '' }}</td>
-                               <td>{{ retour_intervention.intervention.dateEnvoi ? retour_intervention.intervention.dateEnvoi|date('Y-m-d') : '' }}</td>
+                               <td>{{ retour_intervention.intervention.dateDa ? retour_intervention.intervention.dateDa|date('d-m-Y') : '' }}</td>
+                               <td>{{ retour_intervention.intervention.dateEnvoi ? retour_intervention.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
                                <td>{{ retour_intervention.intervention.demandeur }}</td>
                                <td>{{ retour_intervention.intervention.prestataire }}</td>
                            </tr>

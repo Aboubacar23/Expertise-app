@@ -50,7 +50,7 @@
                                                 <td>{{ item.type }}</td>
                                                 <td>{{ item.machine }}</td>
                                                 <td>{{ item.affaire.suiviPar }}</td>
-                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{path('app_validation_show', {'id' : item.id })}}" class="btn btn-outline-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
                                                 </td>
@@ -110,7 +110,7 @@
                                                 <td>{{ item.type }}</td>
                                                 <td>{{ item.machine }}</td>
                                                 <td>{{ item.affaire.suiviPar }}</td>
-                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{path('app_validation_show_final', {'id' : item.id })}}" class="btn btn-outline-primary btn-sm">Vérifier <i class="fa fa-eye"></i></a>
                                                 </td>

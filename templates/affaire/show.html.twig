@@ -127,7 +127,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Date prévisionnelle de livraison</th>
-                                                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                             </tr>
                                             <tr>
                                                 <th colspan="2">Réalisations des travaux Supplémentaires</th>
@@ -201,7 +201,7 @@
                                                 <td>{{ parametre.statorFrequence }}</td>
                                                 <td>{{ parametre.statorCourant }}</td>
                                                 <td>{{ parametre.statorCouplage }}</td>
-                                                <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('Y-m-d') : '' }}</td>
+                                                <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('d-m-Y') : '' }}</td>
                                                 <td>{{ parametre.rotorTension }}</td>
                                                 <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
                                                 <td>{{ parametre.rotorCourant }}</td>

@@ -178,7 +178,7 @@
             <div class="card2">
                 <div class="card-content2">
                     <p>Affaire suivie par : <strong>{{parametre.affaire.suiviPar}}</strong></p>
-                    <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('Y-m-d') : '' }}</strong></p>
+                    <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('d-m-Y') : '' }}</strong></p>
                     <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
                     <br>
                     <p>Référence client : <strong>{{parametre.affaire.codeClient}}</strong></p>
@@ -268,8 +268,14 @@
                 
             </div>
             <div>
-                <h2>II.  Présentation des travaux</h2>
+                <h2>II.1.  Présentation des travaux</h2>
                 <p>{{parametre.affaire.presentationTravaux | raw}}</p>
+            </div>
+            <div>
+                {% if parametre.affaire.travauxSup %}
+                    <h2>II.2.  Travaux Sup</h2>
+                    <p>{{parametre.affaire.travauxSup | raw}}</p>
+                {% endif %}
             </div>
         </div>
     {# fin de la page 2 #}
@@ -406,53 +412,93 @@
                     <table class="table_sous_page">
                         <tr class="titre_table">
                             <th>Caractéristiques</th>
-                            <th>Balais</th>
-                            <th>balais de Masse</th>
+                            {% if parametre.presenceBalais == 1 %}
+                                <th>Balais</th>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <th>Balais de Masse</th>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Dimensions</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Marque</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Quantité</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Nuance</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Longueur Shunt</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Type pression</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Type de Cosses</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Présence de Gaine</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td>Aspect de la patine</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                            {% endif %}
                         </tr>                
                     </table>
                 {% endif %}
@@ -567,14 +613,18 @@
                         <tr>
                             <td>Position de l'accouplement</td>
                             <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
-                            <td>Nombre d'accessoires complémentaires</td>
-                            <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+                            {% if parametre.controleVisuelMecanique.nombreAccessoire != null  %}
+                                <td>Nombre d'accessoires complémentaires</td>
+                                <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+                            {% else %}
+                                <td colspan="2"></td>
+                            {% endif %}
                         </tr>          
                     </table>    
                 {% endif %} 
             </div>
             <div class="sous_page4_3">
-                {% if parametre.controleVisuelMecanique %}
+                {% if parametre.controleVisuelMecanique.accessoireSupplementaires | length > 0 %}
                     <table>    
                         <tr class="titre_table">
                             <th colspan="2">Liste des accessoires complémentaires</th>
@@ -604,7 +654,7 @@
                     <table>    
                         <tr class="titre_table">
                             <th colspan="2"></th>
-                            <th>PHOTO N°5 : ACCOUPLEMENT</th>
+                            <th>PHOTO ACCOUPLEMENT</th>
                             {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
                                 <th>Débordant</th>
                             {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
@@ -639,7 +689,7 @@
                 <table>    
                     <tr class="titre_table">
                         <th>FAC-SIMILE BOITE à BORNES</th>
-                        <th>PHOTO N°6 : INTERIEUR BOITE à BORNES</th>
+                        <th>PHOTO  INTERIEUR BOITE à BORNES</th>
                     </tr>
                     <tr>
                         <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}" alt="item.photo" height="150px"></td>
@@ -652,7 +702,7 @@
                 {% if  parametre.synoptiques %}
                     <table>
                         <tr style="text-align: center;">
-                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="270px"></td>
+                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px"></td>
                         </tr>
                     </table>
                     <table style="padding-top:25px;">
@@ -981,39 +1031,39 @@
                             <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/geo.png')) }}" alt="item.photo" height="170px"></td>
                         </tr>
                     </table>                            
-                        {% for item in parametre.controleGeometriques %}
-                            <table>
-                                <tr  class="titre_table">
-                                    <th class="text-center" width="10%">Diamètre mesuré</th>
-                                    <th colspan="4" class="text-center my_police">{{item.diametre}}</th>
-                                </tr>
-                                <tr  class="titre_table">
-                                    <th></th>
-                                    <th colspan="4" class="text-center">{{item.type}}</th>
-                                </tr>
-                                <tr>
-                                    <th class="titre_table">Repères</th>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">3</td>
-                                    <td class="text-center">4</td>
-                                </tr>
-                                <tr>
-                                    <th class="titre_table">Faux-Rond</th>
-                                    <td>{{ item.fauxRond1 }}</td>
-                                    <td>{{ item.fauxRond2 }}</td>
-                                    <td>{{ item.fauxRond3 }}</td>
-                                    <td>{{ item.fauxRond4 }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="titre_table">Conformité</th>
-                                    <td colspan="4" class="text-center">{{ item.conformite }}</td>
-                                </tr>
-                            </table>                                          
-                        {% endfor %}
+                    {% for item in parametre.controleGeometriques %}
+                        <table>
+                            <tr  class="titre_table">
+                                <th class="text-center" width="10%">Diamètre mesuré</th>
+                                <th colspan="4" class="text-center my_police">{{item.diametre}}</th>
+                            </tr>
+                            <tr  class="titre_table">
+                                <th></th>
+                                <th colspan="4" class="text-center">{{item.type}}</th>
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Repères</th>
+                                <td class="text-center">1</td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">3</td>
+                                <td class="text-center">4</td>
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Faux-Rond</th>
+                                <td>{{ item.fauxRond1 }}</td>
+                                <td>{{ item.fauxRond2 }}</td>
+                                <td>{{ item.fauxRond3 }}</td>
+                                <td>{{ item.fauxRond4 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Conformité</th>
+                                <td colspan="4" class="text-center">{{ item.conformite }}</td>
+                            </tr>
+                        </table>
+                    {% endfor %}
                     <table>    
                         <tr>                    
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/critere_acceptation.png')) }}" alt="item.photo" height="270px"></td>
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/critere_acceptation.png')) }}" alt="item.photo" height="250px"></td>
                         </tr>
                     </table>  
                 {% endif %}
@@ -1031,7 +1081,7 @@
                             <tr>
                                 <td>{{item.appareil.designation}}</td>
                                 <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                             </tr>
                         {% endfor %} 
                     </table>     
@@ -1231,7 +1281,11 @@
                 {% endif %}
             </div>
             <div class="sous_page6_1">
-                <h4>B.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
+                {% if parametre.essaisPlateforme == 'Oui' %}
+                    <h4>B.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
+                {% elseif parametre.essaisPlateforme == 'Non' %}
+                    <h4>B.  <span class="span_titre">Essais plate-forme</span></h4>
+                {% endif %}
                 <h5>1.  <span class="span_titre">Mesure d’isolement</span></h5>
                 {% if parametre.mesureIsolement %}
                     <table>
@@ -1248,25 +1302,25 @@
                         <tr>
                             <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
                             <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
-                            <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
                             <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
+                            <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('d-m-Y') }}</td>
                             <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>   
                     </table>
                     <table>
                         <tr class="titre_table">
-                            <th style="width: 150px;">Contrôle</th>
-                            <th style="width: 100px;">Critère</th>
-                            <th style="width: 100px;">Tension d'éssai(V)</th>
-                            <th style="width: 100px;">Valeur relevées</th>
-                            <th style="width: 100px;">Correction à 20°</th>
-                            <th style="width: 100px;">Conformité</th>
+                            <th style="width: 22%">Contrôle</th>
+                            <th style="width: 10%;">Critère</th>
+                            <th style="width: 16%;">Tension d'éssai(V)</th>
+                            <th style="width: 16%;">Valeur relevées</th>
+                            <th style="width: 16%;">Correction à 20°</th>
+                            <th style="width: 16%;">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
                             <tr>
                                 <td>{{item.controle}}</td>
                                 <td>{{item.critere}}</td>
-                                <td>{{item.tension}}</td>
+                                <td style="text-align: center">{{item.tension}}</td>
                                 <td>
                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                         {{item.valeur}}
@@ -1297,23 +1351,27 @@
                             <td>{{ parametre.mesureResistance.tempAmbiante}}</td>
                             <td >{{ parametre.mesureResistance.hygrometrie}}</td>
                             <td >{{ parametre.mesureResistance.tempTolerie}}</td>
-                            <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('Y-m-d') }}</td>
-                            <td>{{parametre.critere}}</td>
+                            <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y') }}</td>
+                            <td>+ ou - 5% de la valeur Rmoy</td>
                         </tr>   
                     </table>
                     <table>
                         <tr class="titre_table">
-                            <th width="15%">Contrôle</th>
+                            <th style="width: 22%">Contrôle</th>
                             <th>Critère</th>
-                            <th width="25%">Valeur relevées</th>
-                            <th width="20%">Correction à 20°</th>
-                            <th width="15%">Conformité</th>
+                            <th style="width: 20%">Valeur relevées</th>
+                            <th style="width: 20%">Correction à 20°</th>
+                            <th style="width: 20%">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureResistance.lmesureResistances %}
                             <tr>
                                 <td>{{item.controle}}</td>
-                                <td>{{item.critere}}</td>
-                                <td>{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
+                                <td>
+                                    {% if item.critere != 0 %}
+                                        {{item.critere}}
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
                                 <td>{{item.tempCorrection}}</td>
                                 <td>{{item.conformite}}</td>
                             </tr>                                        
@@ -1321,151 +1379,154 @@
                     </table>
                 {% endif %}
             </div>
-            <div class="sous_page6_2">
-                <h5>3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
-                {% if parametre.pointFonctionnements %}
-                    <table class="table_sous_page_6_2">
-                        <tr class="titre_table">
-                            <th width="2%">t</th>
-                            <th>U</th>
-                            <th>I1</th>
-                            <th>I2</th>
-                            <th>I3</th>
-                            <th>P</th>
-                            <th>Q</th>
-                            <th>cos</th>
-                            <th>N</th>
-                            <th>I</th>
-                            <th>TAmb</th>
-                            <th>CA</th>
-                            <th>COA</th>
-                            <th rowspan="2">Observation</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th>(min)</th>
-                            <th>(V)</th>
-                            <th>(A)</th>
-                            <th>(A)</th>
-                            <th>(A)</th>
-                            <th>(kW)</th>
-                            <th>(kVAR)</th>
-                            <th>cos</th>
-                            <th>(tr/min)</th>
-                            <th>(A)</th>
-                            <th>(°C)</th>
-                            <th>(°C)</th>
-                            <th>(°C)</th>
-                        </tr>
-                        {% for item in parametre.pointFonctionnements %}
-                            <tr>
-                                <td class="tr_table_sous_page_6_2">{{item.t | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.u | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.i1 | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.i2 | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.i3 | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.p | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.q | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.cos | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.n | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.i | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.tamb | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.ca | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.coa | number_format(2)}}</td>
-                                <td class="tr_table_sous_page_6_2">{{item.observation}}</td>
+            {% if parametre.essaisPlateforme == 'Oui' %}
+                <div class="sous_page6_2">
+                    <h5>3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
+                    {% if parametre.pointFonctionnements %}
+                        <table class="table_sous_page_6_2">
+                            <tr class="titre_table">
+                                <th width="2%">t</th>
+                                <th>U</th>
+                                <th>I1</th>
+                                <th>I2</th>
+                                <th>I3</th>
+                                <th>P</th>
+                                <th>Q</th>
+                                <th>cos</th>
+                                <th>N</th>
+                                <th>I</th>
+                                <th>TAmb</th>
+                                <th>CA</th>
+                                <th>COA</th>
+                                <th rowspan="2">Observation</th>
                             </tr>
-                        {% endfor %}                    
-                    </table>
-                {% endif %}
-            </div>
-            <div class="sous_page6_3">
-                <h5>4.  <span class="span_titre">Mesures de vibrations</span></h5>
-                <div class="table_sous_page5_6_1">
-                    {% if parametre.mesureVibratoire %}
+                            <tr class="titre_table">
+                                <th>(min)</th>
+                                <th>(V)</th>
+                                <th>(A)</th>
+                                <th>(A)</th>
+                                <th>(A)</th>
+                                <th>(kW)</th>
+                                <th>(kVAR)</th>
+                                <th>cos</th>
+                                <th>(tr/min)</th>
+                                <th>(A)</th>
+                                <th>(°C)</th>
+                                <th>(°C)</th>
+                                <th>(°C)</th>
+                            </tr>
+                            {% for item in parametre.pointFonctionnements %}
+                                <tr>
+                                    <td class="tr_table_sous_page_6_2">{{item.t | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.u | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.i1 | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.i2 | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.i3 | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.p | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.q | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.cos | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.n | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.i | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.tamb | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.ca | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.coa | number_format}}</td>
+                                    <td class="tr_table_sous_page_6_2">{{item.observation}}</td>
+                                </tr>
+                            {% endfor %}                    
+                        </table>
+                    {% endif %}
+                </div>
+                <div class="sous_page6_3">
+                    <h5>4.  <span class="span_titre">Mesures de vibrations</span></h5>
+                    <div class="table_sous_page5_6_1">
+                        {% if parametre.mesureVibratoire %}
+                            <table>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Position</th>
+                                    <td>{{ parametre.mesureVibratoire.position}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Montage</th>
+                                    <td>{{ parametre.mesureVibratoire.montage}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Accouplement</th>
+                                    <td>{{ parametre.mesureVibratoire.accouplement}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Clavette</th>
+                                    <td>{{ parametre.mesureVibratoire.clavette}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Commentaire</th>
+                                    <td>{{ parametre.mesureVibratoire.commentaire}}</td>
+                                </tr>
+                            </table>
+                        {% endif %}
+                    </div>
+                    <div class="table_sous_page5_6_2">
                         <table>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Position</th>
-                                <td>{{ parametre.mesureVibratoire.position}}</td>
+                                <td height="15%" class="td_image">
+                                    <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
+                                </td>      
+                            </tr>
+                        </table>
+                    </div>
+                    {% if parametre.mesureVibratoire %}
+                        <table style="padding-top: 180px;">
+                            <tr class="titre_table">
+                                <th class="titre_table">Critère acceptation max 25mm/s</th>
+                                <th style="width: 50px;">N (tr/min)</th>
+                                <th style="width: 50px;">A</th>
+                                <th style="width: 50px;">B</th>
+                                <th style="width: 50px;">C</th>
+                                <th style="width: 50px;">D</th>
+                                <th style="width: 50px;">E</th>
+                                <th style="width: 50px;">F</th>
                             </tr>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Montage</th>
-                                <td>{{ parametre.mesureVibratoire.montage}}</td>
+                                <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                <td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
                             </tr>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Accouplement</th>
-                                <td>{{ parametre.mesureVibratoire.accouplement}}</td>
+                                <td class="titre_table">R.M.S à F0 à 25 Hz</td>
+                                <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                             </tr>
+                            {% if parametre.mesureVibratoire.titre != null %}
+                                <tr>
+                                    <td class="titre_table">{{ parametre.mesureVibratoire.titre}}</td>
+                                    <td>{{ parametre.mesureVibratoire.n30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.a30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.b30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.c30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.d30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.e30 | number_format(2) }}</td>
+                                    <td>{{ parametre.mesureVibratoire.f30 | number_format(2) }}</td>
+                                </tr>                                
+                            {% endif %}
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Clavette</th>
-                                <td>{{ parametre.mesureVibratoire.clavette}}</td>
-                            </tr>
-                            <tr>
-                                <th class="titre_table" style="text-align: left;">Commentaire</th>
-                                <td>{{ parametre.mesureVibratoire.commentaire}}</td>
+                                <td class="titre_table">Observations</td>
+                                <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
                             </tr>
                         </table>
                     {% endif %}
                 </div>
-                <div class="table_sous_page5_6_2">
-                    <table>
-                        <tr>
-                            <td height="15%" class="td_image">
-                                <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
-                            </td>      
-                        </tr>
-                    </table>
-                </div>
-                {% if parametre.mesureVibratoire %}
-                    <table style="padding-top: 180px;">
-                        <tr class="titre_table">
-                            <th class="titre_table">Critère acceptation max 25mm/s</th>
-                            <th style="width: 50px;">N (tr/min)</th>
-                            <th style="width: 50px;">A</th>
-                            <th style="width: 50px;">B</th>
-                            <th style="width: 50px;">C</th>
-                            <th style="width: 50px;">D</th>
-                            <th style="width: 50px;">E</th>
-                            <th style="width: 50px;">F</th>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                            <td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">R.M.S à F0 à 25 Hz</td>
-                            <td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">{{ parametre.mesureVibratoire.titre}}</td>
-                            <td>{{ parametre.mesureVibratoire.n30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.a30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.b30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.c30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.d30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.e30 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoire.f30 | number_format(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Observations</td>
-                            <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
-                        </tr>
-                    </table>
-                {% endif %}
-            </div>
+            {% endif %}
             <div class="sous_page6_4">
-                <h4>C.  <span class="span_titre">Essais électriques</span></h4>
-                <h5>1.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                <h5>5.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesures %}
                     <table>
                         <tr class="titre_table">
@@ -1477,7 +1538,7 @@
                             <tr>
                                 <td>{{item.appareil.designation}}</td>
                                 <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                             </tr>
                         {% endfor %} 
                     </table>                        
@@ -1659,8 +1720,7 @@
         <div class="page6">
             <h2>VII.  Expertise électrique après lavage</h2>
             <div class="sous_page6_1">
-                <h4>A.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
-                <h5>1.  <span class="span_titre">Stator Après Lavage</span></h5>
+                <h5>1.  <span class="span_titre">Mesure d'isolement</span></h5>
                 {% if parametre.statorApresLavage %}
                     <table>
                         <tr class="titre_table">
@@ -1709,7 +1769,7 @@
                     </table>
                 {% endif %}
 
-                <h5>2.  <span class="span_titre">Sondes Bobinages Après Lavage</span></h5>
+                <h5>2.  <span class="span_titre">Mesure de Résistances</span></h5>
                 {% if parametre.sondeBobinage %}
                     <table>
                         <tr class="titre_table">
@@ -1725,26 +1785,26 @@
                             <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                             <td >{{parametre.sondeBobinage.tempTolerie }}</td>
                             <td >{{parametre.sondeBobinage.hygrometrie }}</td>
-                            <td>{{parametre.critere}} <span class="my_police"> Ω/V </span></td>
+                            <td>+ ou - 5% de la valeur Rmoy</span></td>
                         </tr>   
                     </table>
                     <table>
                         <tr class="titre_table">
                             <th width="16%">Contrôle</th>
-                            <th width="16%">Critère</th>
-                            <th width="16%">Valeur relevée avant lavage</th>
-                            <th width="16%">Valeur relevées</th>
-                            <th width="16%">Correction à 20°</th>
-                            <th width="16%">Conformité</th>
+                            <th  width="10%">Critère <span class="my_police">(MΩ) <span></span></th>
+                            <th  width="16%">Valeur relevée avant lavage</th>
+                            <th  width="16%">Valeur relevées</th>
+                            <th  width="16%">Correction à 20°</th>
+                            <th  width="16%">Conformité</th>
                         </tr> 
                         {% for item in parametre.sondeBobinage.lsondeBobinages %}
                             <tr>
                                 <td>{{item.controle}}</td>
-                                <td>{{item.critere}}</td>
-                                <td>{{item.valeurRelevee}}</td>
-                                <td>{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
-                                <td>{{item.tempCorrection}}</td>
-                                <td>{{item.conformite}}</td>
+                                <td style="text-align: center;">{{item.critere}}</td>
+                                <td style="text-align: center;">{{item.valeurRelevee}}</td>
+                                <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
+                                <td style="text-align: center;">{{item.tempCorrection}}</td>
+                                <td style="text-align: center;">{{item.conformite}}</td>
                             </tr>                                        
                         {% endfor %}
                     </table>
@@ -1860,8 +1920,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_4">
-                <h4>C.  <span class="span_titre">Essais électriques</span></h4>
-                <h5>1.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                <h5>4.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesureElectriques %}
                     <table>
                         <tr class="titre_table">
@@ -1873,7 +1932,7 @@
                             <tr>
                                 <td>{{item.appareil.designation}}</td>
                                 <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                             </tr>
                         {% endfor %} 
                     </table>                        
@@ -2339,7 +2398,7 @@
             <h2>XI. Essais en rotation</h2>
             <h4>A.  <span class="span_titre">Essais en rotation</span></h4>
             <div class="sous_page10_1">
-                <h5>1.  <span class="span_titre">Mesure d’isolement et Index</span></h5>
+                <h5>1.  <span class="span_titre">Mesure d’isolement</span></h5>
                 <!-- début  stator après lavage --> 
                 {% if parametre.mesureIsolementEssai %}
                     <table>
@@ -2354,7 +2413,7 @@
                             <th class="titre_table">Hygrométrie (%)</th>
                             <td>{{ parametre.mesureIsolementEssai.hygrometrie }}</td>
                             <th>Date d'essai</th>                                            
-                            <td >{{ parametre.mesureIsolementEssai.dateEssais ? parametre.mesureIsolementEssai.dateEssais| date('Y-m-d') }}</td>
+                            <td >{{ parametre.mesureIsolementEssai.dateEssais ? parametre.mesureIsolementEssai.dateEssais| date('d-m-Y') }}</td>
                             <th class="titre_table">Isolation</th>
                             <td class="my_police">{{parametre.critere}} Ω/V</td>
                         </tr> 
@@ -2389,7 +2448,7 @@
                     </table>
                 {% endif %}
                 <!-- fin  stator après lavage --> 
-                <h5>2.  <span class="span_titre">Mesure des résistances ohmiques</span></h5>
+                <h5>2.  <span class="span_titre">Mesure des résistances</span></h5>
                 <!-- début sonde bobinage -->
                     {% if parametre.mesureResistanceEssai %}
                         <table>
@@ -2408,7 +2467,7 @@
                                 <td>{{parametre.mesureResistanceEssai.tempAmbiante }}</td>
                                 <td >{{parametre.mesureResistanceEssai.tempTolerie }}</td>
                                 <td >{{parametre.mesureResistanceEssai.hygrometrie }}</td>                                            
-                                <td >{{ parametre.mesureResistanceEssai.dateEssais ? parametre.mesureResistanceEssai.dateEssais| date('Y-m-d') }}</td>
+                                <td >{{ parametre.mesureResistanceEssai.dateEssais ? parametre.mesureResistanceEssai.dateEssais| date('d-m-Y') }}</td>
                                 <td class="my_police">{{parametre.critere}} Ω/V</td>
                                 <td>{{parametre.statorTension}}</td>
                             </tr>   
@@ -2492,80 +2551,82 @@
                     </table>
                 {% endif %}
             </div>
-            <div class="sous_page6_3">
-                <h5>4.  <span class="span_titre">Mesures de vibrations</span></h5>
-                {% if parametre.mesureVibratoireEssais %}
-                    <div class="table_sous_page5_6_1">
-                        <table>
-                            <tr>
-                                <th class="titre_table" style="text-align: left;">Position</th>
-                                <td>{{ parametre.mesureVibratoireEssais.position}}</td>
+            {% if parametre.essaisPlateforme == 'Oui' %}
+                <div class="sous_page6_3">
+                    <h5>4.  <span class="span_titre">Mesures de vibrations</span></h5>
+                    {% if parametre.mesureVibratoireEssais %}
+                        <div class="table_sous_page5_6_1">
+                            <table>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Position</th>
+                                    <td>{{ parametre.mesureVibratoireEssais.position}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Montage</th>
+                                    <td>{{ parametre.mesureVibratoireEssais.montage}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Accouplement</th>
+                                    <td>{{ parametre.mesureVibratoireEssais.accouplement}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Clavette</th>
+                                    <td>{{ parametre.mesureVibratoireEssais.clavette}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="titre_table" style="text-align: left;">Commentaire</th>
+                                    <td>{{ parametre.mesureVibratoireEssais.commentaire}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table_sous_page5_6_2">
+                            <table>
+                                <tr>
+                                    <td height="15%" class="td_image">
+                                        <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
+                                    </td>      
+                                </tr>
+                            </table>
+                        </div>
+                        <table style="padding-top: 180px;">
+                            <tr class="titre_table">
+                                <th class="titre_table">Critère acceptation max 25mm/s</th>
+                                <th style="width: 50px;">N (tr/min)</th>
+                                <th style="width: 50px;">A</th>
+                                <th style="width: 50px;">B</th>
+                                <th style="width: 50px;">C</th>
+                                <th style="width: 50px;">D</th>
+                                <th style="width: 50px;">E</th>
+                                <th style="width: 50px;">F</th>
                             </tr>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Montage</th>
-                                <td>{{ parametre.mesureVibratoireEssais.montage}}</td>
+                                <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
+                                <td>{{ parametre.mesureVibratoireEssais.n10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.a10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.b10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.c10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.d10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.e10 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.f10 | number_format(2) }}</td>
                             </tr>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Accouplement</th>
-                                <td>{{ parametre.mesureVibratoireEssais.accouplement}}</td>
+                                <td class="titre_table">R.M.S à F0 à 25 Hz</td>
+                                <td>{{ parametre.mesureVibratoireEssais.n25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.a25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.b25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.c25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.d25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.e25 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.f25 | number_format(2) }}</td>
                             </tr>
                             <tr>
-                                <th class="titre_table" style="text-align: left;">Clavette</th>
-                                <td>{{ parametre.mesureVibratoireEssais.clavette}}</td>
-                            </tr>
-                            <tr>
-                                <th class="titre_table" style="text-align: left;">Commentaire</th>
-                                <td>{{ parametre.mesureVibratoireEssais.commentaire}}</td>
+                                <td class="titre_table">Observations</td>
+                                <td colspan="7">{{ parametre.mesureVibratoireEssais.obervation}}</td>
                             </tr>
                         </table>
-                    </div>
-                    <div class="table_sous_page5_6_2">
-                        <table>
-                            <tr>
-                                <td height="15%" class="td_image">
-                                    <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
-                                </td>      
-                            </tr>
-                        </table>
-                    </div>
-                    <table style="padding-top: 180px;">
-                        <tr class="titre_table">
-                            <th class="titre_table">Critère acceptation max 25mm/s</th>
-                            <th style="width: 50px;">N (tr/min)</th>
-                            <th style="width: 50px;">A</th>
-                            <th style="width: 50px;">B</th>
-                            <th style="width: 50px;">C</th>
-                            <th style="width: 50px;">D</th>
-                            <th style="width: 50px;">E</th>
-                            <th style="width: 50px;">F</th>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                            <td>{{ parametre.mesureVibratoireEssais.n10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.a10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.b10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.c10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.d10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.e10 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.f10 | number_format(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">R.M.S à F0 à 25 Hz</td>
-                            <td>{{ parametre.mesureVibratoireEssais.n25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.a25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.b25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.c25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.d25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.e25 | number_format(2) }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.f25 | number_format(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Observations</td>
-                            <td colspan="7">{{ parametre.mesureVibratoireEssais.obervation}}</td>
-                        </tr>
-                    </table>
-                {% endif %}
-            </div>
+                    {% endif %}
+                </div>
+            {% endif %}
             <div class="sous_page6_4">
                 <h5>5.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesureEssais %}
@@ -2579,7 +2640,7 @@
                             <tr>
                                 <td>{{item.appareil.designation}}</td>
                                 <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                             </tr>
                         {% endfor %} 
                     </table>                        

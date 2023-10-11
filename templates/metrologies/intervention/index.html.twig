@@ -54,8 +54,8 @@
                                         <tr>
                                             <td>{{ i }}</td>
                                             <td>{{ intervention.numeroDa }}</td>
-                                            <td>{{ intervention.dateDa ? intervention.dateDa|date('Y-m-d') : '' }}</td>
-                                            <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('Y-m-d') : '' }}</td>
+                                            <td>{{ intervention.dateDa ? intervention.dateDa|date('d-m-Y') : '' }}</td>
+                                            <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
                                             <td>{{ intervention.demandeur }}</td>
                                             <td>{{ intervention.prestataire }}</td>
                                             <td class="text-center">

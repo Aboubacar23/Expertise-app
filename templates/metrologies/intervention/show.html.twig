@@ -24,9 +24,9 @@
                         <tbody>
                             <tr>
                                 <th>Date DA</th>
-                                <td>{{ intervention.dateDa ? intervention.dateDa|date('Y-m-d') : '' }}</td>
+                                <td>{{ intervention.dateDa ? intervention.dateDa|date('d-m-Y') : '' }}</td>
                                 <th>Date Envoi</th>
-                                <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('Y-m-d') : '' }}</td>
+                                <td>{{ intervention.dateEnvoi ? intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
                             </tr>
                             <tr>
                                 <th>Demandeur</th>
@@ -51,7 +51,7 @@
                                 <td>{{item.designation}}</td>
                                 <td>{{item.marque}}</td>
                                 <td>{{item.typeIntervention}}</td>
-                                <td>{{item.dateRetour ? item.dateRetour|date('Y-m-d') : '' }}</td>
+                                <td>{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
                                 <td>{{item.observation}}</td>
                             </tr>                                        
                         {% endfor %} 

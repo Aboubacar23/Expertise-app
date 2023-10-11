@@ -403,13 +403,13 @@ class ExpertiseMecaniqueController extends AbstractController
 
         $formAppareilMesureMecanique = $this->createForm(AppareilMesureMecaniqueType::class, $appareilMesureMecanique);
         $formAppareilMesureMecanique->handleRequest($request);
-        $date = date('Y-m-d');
+        $date = date('d-m-Y');
         if($formAppareilMesureMecanique->isSubmitted() && $formAppareilMesureMecanique->isValid())
         {
             $choix = $request->get('bouton6');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareilMesureMecanique->getAppareil()->getDateValidite()->format('Y-m-d');
+                $dateAppareil = $appareilMesureMecanique->getAppareil()->getDateValidite()->format('d-m-Y');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{

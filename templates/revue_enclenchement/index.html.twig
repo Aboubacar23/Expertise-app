@@ -38,18 +38,18 @@
                 <td>{{ revue_enclenchement.numeroPcq }}</td>
                 <td>{{ revue_enclenchement.amiante }}</td>
                 <td>{{ revue_enclenchement.contreExpertise }}</td>
-                <td>{{ revue_enclenchement.re7Client ? revue_enclenchement.re7Client|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.re7Client ? revue_enclenchement.re7Client|date('d-m-Y') : '' }}</td>
                 <td>{{ revue_enclenchement.observation }}</td>
-                <td>{{ revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient|date('d-m-Y') : '' }}</td>
                 <td>{{ revue_enclenchement.pointArret }}</td>
-                <td>{{ revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande|date('Y-m-d') : '' }}</td>
-                <td>{{ revue_enclenchement.arc ? revue_enclenchement.arc|date('Y-m-d') : '' }}</td>
-                <td>{{ revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement|date('Y-m-d') : '' }}</td>
-                <td>{{ revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande|date('d-m-Y') : '' }}</td>
+                <td>{{ revue_enclenchement.arc ? revue_enclenchement.arc|date('d-m-Y') : '' }}</td>
+                <td>{{ revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement|date('d-m-Y') : '' }}</td>
+                <td>{{ revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine|date('d-m-Y') : '' }}</td>
                 <td>{{ revue_enclenchement.objectifRapportExpertise }}</td>
                 <td>{{ revue_enclenchement.objectifMiseDispo }}</td>
-                <td>{{ revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise|date('Y-m-d') : '' }}</td>
-                <td>{{ revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete|date('Y-m-d') : '' }}</td>
+                <td>{{ revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise|date('d-m-Y') : '' }}</td>
+                <td>{{ revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete|date('d-m-Y') : '' }}</td>
                 <td>
                     <a href="{{ path('app_revue_enclenchement_show', {'id': revue_enclenchement.id}) }}">show</a>
                     <a href="{{ path('app_revue_enclenchement_edit', {'id': revue_enclenchement.id}) }}">edit</a>

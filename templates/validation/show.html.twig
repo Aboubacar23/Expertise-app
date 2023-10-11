@@ -147,7 +147,7 @@
                                                     <tr>
                                                         <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
                                                         <td >{{ parametre.mesureIsolement.tempTolerie}}</td>
-                                                        <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('Y-m-d') }}</td>
+                                                        <td >{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('d-m-Y') }}</td>
                                                         <td >{{ parametre.mesureIsolement.hygrometrie}}</td>
                                                         <td>{{ parametre.critere}} Ω/V </td>
                                                     </tr>   
@@ -316,7 +316,7 @@
                                                         <tr>
                                                             <td>{{item.appareil.designation}}</td>
                                                             <td>{{item.appareil.numAppareil}}</td>
-                                                            <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                            <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                                                         </tr>
                                                     {% endfor %} 
                                                 </table>                                        
@@ -983,7 +983,7 @@
                                                         <tr>
                                                             <td>{{item.appareil.designation}}</td>
                                                             <td>{{item.appareil.numAppareil}}</td>
-                                                            <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                            <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                                                         </tr>
                                                     {% endfor %} 
                                                 </table>                                        
@@ -1357,7 +1357,7 @@
                                                         <tr>
                                                             <td>{{item.appareil.designation}}</td>
                                                             <td>{{item.appareil.numAppareil}}</td>
-                                                            <td>{{item.appareil.dateValidite | date('Y-m-d')}}</td>
+                                                            <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
                                                         </tr>
                                                     {% endfor %} 
                                                 </table>                                        

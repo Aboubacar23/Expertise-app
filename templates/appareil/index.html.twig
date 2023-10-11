@@ -71,9 +71,9 @@
                                             <td>{{ appareil.serviceResponsable }}</td>
                                             <td>{{ appareil.affectation }}</td>
                                             <td>{{ appareil.prixAchat }}</td>
-                                            <td>{{ appareil.dateAchat ? appareil.dateAchat|date('Y-m-d') : '' }}</td>
-                                            <td>{{ appareil.dateEtat ? appareil.dateEtat|date('Y-m-d') : '' }}</td>
-                                            <td>{{ appareil.dateValidite ? appareil.dateValidite|date('Y-m-d') : '' }}</td>
+                                            <td>{{ appareil.dateAchat ? appareil.dateAchat|date('d-m-Y') : '' }}</td>
+                                            <td>{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>
+                                            <td>{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
                                             <td>{{ appareil.statut }}</td>
                                             <td>{{ appareil.etat }}</td>
                                             <td class="text-center">

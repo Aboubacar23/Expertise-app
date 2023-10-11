@@ -47,10 +47,10 @@
                                 </thead>
                                 <tbody> 
                                     {% set i = 0 %}
-                                    {% set dateJour = "now" | date('Y-m-d') %}
+                                    {% set dateJour = "now" | date('d-m-Y') %}
                                     {% for affaire in client.affaires %}
                                     {% set i = i + 1 %}
-                                        {% set dateLivre = affaire.dateLivraison | date('Y-m-d') %}
+                                        {% set dateLivre = affaire.dateLivraison | date('d-m-Y') %}
                                         {% set dateDiff = date(dateLivre).diff(date(dateJour)) %}
                                         {% set jourRestant = dateDiff.days %}
                                     <tr>
@@ -61,7 +61,7 @@
                                         <td>{{ affaire.numFabrication }}</td>
                                         <td>{{ affaire.numArticleClient }}</td>
                                         <td>{{ affaire.suiviPar }}</td>
-                                        <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                        <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                         <td class="text-center">
                                             {% if affaire.revueEnclenchement %}
                                                 <span class="btn btn-outline-danger btn-sm">En-cours</span>

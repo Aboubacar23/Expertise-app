@@ -52,7 +52,7 @@
                                                 <td>{{ item.type }}</td>
                                                 <td>{{ item.machine }}</td>
                                                 <td>{{ item.affaire.suiviPar }}</td>
-                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('Y-m-d') : '' }}</td>
+                                                <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{path('app_parametre_expertise', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Rapport Exp <i class="fa fa-print"></i></a>
                                                     {% if item.statutFinal == 1 %}
