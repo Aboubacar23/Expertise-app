@@ -18,7 +18,8 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('bridage')
             ->add('chassis')
             ->add('boite_borne',CheckboxType::class,[
-                'label' => 'Boite à Borne Neutre'
+                'label' => 'Boite à Borne Neutre',
+                'required' => false
             ])
             ->add('barrette_neutre')
             ->add('reference_rotor')

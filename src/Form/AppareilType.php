@@ -161,9 +161,11 @@ class AppareilType extends AbstractType
             ->add('nom_fournisseur')
             ->add('numero_certificat')
             ->add('classe_definition', CheckboxType::class, [
+                'required' => false,
                 'label' => 'Classe Définition'
             ])
             ->add('en_tendance', CheckboxType::class, [
+                'required' => false,
                 'label' => 'En tendance'
             ])
             ->add('etat', ChoiceType::class, [
