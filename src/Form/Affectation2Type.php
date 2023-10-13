@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-class AffectationType extends AbstractType
+class Affectation2Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -25,11 +25,6 @@ class AffectationType extends AbstractType
             ])
             ->add('sortie_par')
             ->add('retour')
-            ->add('affaire', EntityType::class, [
-                'label' => 'Repère',
-                'placeholder' => 'Choisissez',
-                'class' => AffaireMetrologie::class, 
-            ])
             ->add('service_affectation', EntityType::class, [
                 'label' => 'Service Responsable',
                 'class' => ServiceResponsable::class,

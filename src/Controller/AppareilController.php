@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Entity\Appareil;
+use App\Entity\Certificat;
 use App\Form\AppareilType;
+use App\Form\CertificatType;
+use App\Service\PdfServiceP;
 use App\Entity\AppareilMesure;
 use App\Entity\AppareilMesureEssais;
 use App\Repository\AppareilRepository;
@@ -18,16 +19,96 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AppareilMesureEssaisRepository;
 use App\Repository\AppareilMesureMecaniqueRepository;
 use App\Repository\AppareilMesureElectriqueRepository;
+use App\Repository\CertificatRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/appareil')]
 class AppareilController extends AbstractController
 {
-    #[Route('/', name: 'app_appareil_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_appareil_index', methods: ['GET'])]
     public function index(AppareilRepository $appareilRepository): Response
     {
+        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        $appareils = [];
+        foreach($items as $item)
+        {
+            if ($item->getEtat() == 'Fonctionnel' && $item->getStatut() ==  'Conforme')
+            {
+                array_push($appareils, $item);
+            }
+        }
         return $this->render('appareil/index.html.twig', [
-            'appareils' => $appareilRepository->findAll(),
+            'appareils' => $appareils,
+        ]);
+    }
+
+    #[Route('/hors-validite/index', name: 'app_appareil_hv_index', methods: ['GET'])]
+    public function horsValidite(AppareilRepository $appareilRepository): Response
+    {
+        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        $appareils = [];
+        foreach($items as $item)
+        {
+            if ($item->getEtat() == 'Hors Validite')
+            {
+                array_push($appareils, $item);
+            }
+        }
+        return $this->render('appareil/hv.html.twig', [
+            'appareils' => $appareils,
+        ]);
+    }
+
+    #[Route('/perdu/index', name: 'app_appareil_perdu_index', methods: ['GET'])]
+    public function perdu(AppareilRepository $appareilRepository): Response
+    {
+        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        $appareils = [];
+        foreach($items as $item)
+        {
+            if ($item->getEtat() == 'Perdu')
+            {
+                array_push($appareils, $item);
+            }
+        }
+        return $this->render('appareil/perdu.html.twig', [
+            'appareils' => $appareils,
+        ]);
+    }
+
+    #[Route('/hs/index', name: 'app_appareil_hs_index', methods: ['GET'])]
+    public function hs(AppareilRepository $appareilRepository): Response
+    {
+        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        $appareils = [];
+        foreach($items as $item)
+        {
+            if ($item->getEtat() == 'HS')
+            {
+                array_push($appareils, $item);
+            }
+        }
+        return $this->render('appareil/hs.html.twig', [
+            'appareils' => $appareils,
+        ]);
+    }
+
+    #[Route('/reserve/index', name: 'app_appareil_reserve_index', methods: ['GET'])]
+    public function reserve(AppareilRepository $appareilRepository): Response
+    {
+        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        $appareils = [];
+        foreach($items as $item)
+        {
+            if ($item->getAffectation() == 'Réserve')
+            {
+                array_push($appareils, $item);
+            }
+        }
+        return $this->render('appareil/reserve.html.twig', [
+            'appareils' => $appareils,
         ]);
     }
 
@@ -51,11 +132,35 @@ class AppareilController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_appareil_show', methods: ['GET'])]
-    public function show(Appareil $appareil): Response
+    #[Route('/show-app/{id}', name: 'app_appareil_show', methods: ['GET','POST'])]
+    public function show(Appareil $appareil, Request $request, SluggerInterface $slugger, CertificatRepository $certificatRepository): Response
     {
+        $certificat = new Certificat();
+        $form = $this->createForm(CertificatType::class, $certificat);
+        $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid())
+         {
+            $document = $form->get('document')->getData();
+            if ($document) {
+                $originalePhoto = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME); 
+                $safePhotoname = $slugger->slug($originalePhoto);
+                $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $document->guessExtension();
+                try {
+                    $document->move(
+                        $this->getParameter('certificats'),
+                        $newPhotoname
+                    );
+                } catch (FileException $e){}
+
+                $certificat->setDocument($newPhotoname);
+            }
+            $certificat->setAppareil($appareil);
+            $certificatRepository->save($certificat, true);
+            return $this->redirectToRoute('app_appareil_show', ['id' => $appareil->getId()]);
+         }
         return $this->render('appareil/show.html.twig', [
             'appareil' => $appareil,
+            'form' => $form->createView()
         ]);
     }
 
@@ -175,53 +280,10 @@ class AppareilController extends AbstractController
 
     //imprimer le bon de sortie
     #[Route('/print-fiche-de-vie/{id}', name: 'app_print_fiche_de_vie', methods: ['POST','GET'])]
-    public function print(Appareil $appareil): Response
+    public function print(Appareil $appareil, PdfServiceP $pdfServiceP): Response
     {  
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Times New Roman');
-        $pdfOptions->setIsRemoteEnabled(true);
-
-        // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
-        $dompdf->getOptions()->set('isPhpEnabled', true);
-        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed' => TRUE
-            ]
-        ]);
-
-        $dompdf->setHttpContext($context);
-        $html = $this->renderView('appareil/print.html.twig', [
-            'appareil' => $appareil,
-        ]);
-
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        //$dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        $canvas = $dompdf->getCanvas();
-        $canvas->page_script(
-            function ($pageNumber, $pageCount, $canvas, $fontMetrics){
-                $text = "Page $pageNumber sur $pageCount";
-                $font = $fontMetrics->getFont('Times New Roman');
-                $pageWidth = $canvas->get_width();
-                $pageHeight = $canvas->get_height();
-                $size = 12;
-                $width = $fontMetrics->getTextWidth($text, $font, $size);
-                $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text,$font,$size);
-            }
-        );
-        // On génère un nom de fichier
+        $html = $this->renderView('appareil/print.html.twig', ['appareil' => $appareil]);
         $fichier = "Fiche de vie de l'appareil n° : ".$appareil->getNumAppareil();
-
-        // On envoie le PDF au navigateur
-        $dompdf->stream($fichier, [
-            'Attachment' => false
-        ]);
-
-        exit();    
+        return $pdfServiceP->showPdfFile($html, $fichier);
     }
 }

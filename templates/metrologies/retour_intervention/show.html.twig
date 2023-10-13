@@ -63,7 +63,7 @@
                                 <td>{{item.typeIntervention}}</td>
                                 <td>{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
                                 <td>{{item.dateEtalonnage ? item.dateEtalonnage|date('d-m-Y') : '' }}</td>
-                                <td>{{item.appareil.numeroCertificat}}</td> 
+                                <td>{{item.numeroCertificat}}</td> 
                                 <td>{{item.appareil.etat}}</td> 
                                 <td class="text-center"><a href="{{ path('app_retour_intervention_app_edit', {'id': item.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a></td>
                             </tr>                                        

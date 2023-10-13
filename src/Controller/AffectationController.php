@@ -6,8 +6,11 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\Affectation;
 use App\Entity\Laffectation;
+use App\Service\PdfServiceP;
 use App\Form\AffectationType;
+use App\Form\Affectation2Type;
 use App\Form\LaffectationType;
+use App\Entity\AffaireMetrologie;
 use App\Form\AffectationEditType;
 use App\Repository\AppareilRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,6 +89,70 @@ class AffectationController extends AbstractController
             'form' => $form,
             'f' => $f,
             'items' => $items,
+        ]);
+    }
+
+    #[Route('/new-affectation/{id}', name: 'app_affect_aff_new', methods: ['GET', 'POST'])]
+    public function new2(Request $request,AffaireMetrologie $affaireMetrologie, AffectationRepository $affectationRepository,EntityManagerInterface $em,AppareilRepository $appareilRepository): Response
+    {
+        $affectation = new Affectation();
+        $affectation->setAffaire($affaireMetrologie);
+        $laffectation = new Laffectation();
+        $form = $this->createForm(Affectation2Type::class, $affectation);
+        $f = $this->createForm(LaffectationType::class, $laffectation);
+        $form->handleRequest($request);
+        $f->handleRequest($request);
+
+        $session = $request->getSession();
+        $items = $session->get('affects', []);
+
+        if ($form->isSubmitted() && $f->isSubmitted()) {
+            
+            $choix = $request->get('bouton3');
+            if ($choix == 'ajouter')
+            {
+                $i = 0;
+                foreach($items as $item)
+                {
+                    $i = $i + 1;
+                    $laffectation = new Laffectation(); 
+                    $laffectation->setLig($i);
+                    $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
+                    $laffectation->setAppareil($appareil);
+                    $appareil->setStatus(1);
+                    $laffectation->setDesignation($item->getDesignation());
+                    $laffectation->setType($item->getType());
+                    $laffectation->setNumeroSerie($item->getNumeroSerie());
+                    $laffectation->setDateRetour($item->getDateRetour());
+                    $laffectation->setObservation($item->getObservation());
+                    $laffectation->setAffectation($affectation);
+                    $em->persist($laffectation);
+ 
+                }
+                $affectation->setRetour(1);
+                $affectation->setAffaire($affaireMetrologie);
+                $affectation->getAffaire()->setStatut(1);
+                $affectationRepository->save($affectation, true);
+                $session->clear();
+                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
+
+            } 
+            elseif($choix == 'add')
+            {
+                $lig = sizeof($items)+1;
+                $laffectation->setLig($lig);
+                $items[$lig] = $laffectation;
+                $session->set('affects', $items);
+            }
+        }
+
+        return $this->renderForm('metrologies/affectation/new_affectation.html.twig', [
+            'affectation' => $affectation,
+            'laffectation' => $laffectation,
+            'form' => $form,
+            'f' => $f,
+            'items' => $items,
+            'affaire' => $affaireMetrologie
         ]);
     }
 
@@ -190,51 +257,15 @@ class AffectationController extends AbstractController
 
     //imprimer le bon de sortie
     #[Route('/print-affecatation/{id}', name: 'app_affectation_print', methods: ['POST','GET'])]
-    public function print(Affectation $affectation): Response
-    {  
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Times New Roman');
-        $pdfOptions->setIsRemoteEnabled(true);
-
-        // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
-        $dompdf->getOptions()->set('isPhpEnabled', true);
-        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
-        $dompdf->setCallbacks([
-            'event' => function ($event) use ($dompdf) {
-                if ($event['event'] === 'dompdf.page_number') {
-                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
-                }
-            }
-        ]);
-
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed' => TRUE
-            ]
-        ]);
-
-        $dompdf->setHttpContext($context);
+    public function print(Affectation $affectation,PdfServiceP $pdfServicePd): Response
+    { 
         $html = $this->renderView('metrologies/affectation/print.html.twig', [
             'affectation' => $affectation,
         ]);
-
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        //$dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-
-        // On génère un nom de fichier
         $fichier = "Affectation : ".$affectation->getAffaire();
 
-        // On envoie le PDF au navigateur
-        $dompdf->stream($fichier, [
-            'Attachment' => false
-        ]);
+        return $pdfServicePd->showPdfFile($html, $fichier);
 
-        exit();    
     }
     
     //delete session tables mesures isolement

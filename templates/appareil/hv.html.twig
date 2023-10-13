@@ -25,14 +25,14 @@
         <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <a width="150px" href="{{path('app_appareil_hv_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Hors Validité</a>
+                <a width="150px" href="{{path('app_appareil_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Acceuil</a>
                 <a width="150px" href="{{path('app_appareil_perdu_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Perdu</a>
                 <a width="150px" href="{{path('app_appareil_hs_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">HS</a>
                 <a width="150px" href="{{path('app_appareil_reserve_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Reserve</a>
-            <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_appareil_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
-                <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
-            </ul>
+                <ul class="nav navbar-right panel_toolbox">
+                    <a href="{{path('app_appareil_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                    <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
+                </ul>
             <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -68,7 +68,7 @@
                                         <th>Date validité</th>
                                         <th>Statut</th>
                                         <th>État</th>
-                                        <th width="250" class="text-center">Action</th>
+                                        <th width="150" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,12 +93,10 @@
                                             <td>{{ appareil.statut }}</td>
                                             <td>{{ appareil.etat }}</td>
                                             <td class="text-center">
-                                                {# <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>#}
-                                                <a href="{{ path('app_appareil_show', {'id': appareil.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-1x" aria-hidden="true"></i></a>
-                                                <a href="{{ path('app_print_fiche_de_vie', {'id': appareil.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-1x" aria-hidden="true"></i></a>
-                                                {% if appareil.certificats|length > 0 %}
-                                                    <a href="{{asset('/certificats/'~ appareil.certificats.last().document )}}" class="btn btn-success btn-sm" target="_blank"><i class="fa fa-file-pdf-o fa-1x"></i></a>
-                                                {% endif %}
+                                                {#<a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>#}
+                                                <a href="{{ path('app_appareil_show', {'id': appareil.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_print_fiche_de_vie', {'id': appareil.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr> 
                                     {% else %}

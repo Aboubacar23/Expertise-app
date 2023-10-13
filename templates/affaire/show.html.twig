@@ -13,7 +13,6 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-
                     {% if is_granted('ROLE_AGENT_MAITRISE') %}
                         {% if active == false %}
                             <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>

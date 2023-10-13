@@ -770,32 +770,32 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
     public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
-            if($parametre)
-            {
-                $dossier = 'email/email.html.twig';
-                $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-                $subject = "Expertise électrique avant lavage";
+        if($parametre)
+        {
+            $dossier = 'email/email.html.twig';
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $subject = "Expertise électrique avant lavage";
 
-                $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                            .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
 
-                $message = "Vous avez une validation de l'expertise électrique avant lavage";
-                $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
- 
+            $message = "Vous avez une validation de l'expertise électrique avant lavage";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
+            
+            $parametre->setExpertiseElectiqueAvantLavage(1);
+            $entityManager->persist($parametre);
+            $entityManager->flush();
                 
-                $parametre->setExpertiseElectiqueAvantLavage(1);
-                $entityManager->persist($parametre);
-                $entityManager->flush();
-                  
-                //envoyer le mail
-                $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+            //envoyer le mail
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
 
-                $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
-                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-            }else{
-                return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
-            } 
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
+        } 
     }
 
     //delete session tables mesures isolement

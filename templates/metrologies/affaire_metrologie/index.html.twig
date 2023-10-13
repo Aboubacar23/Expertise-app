@@ -58,11 +58,10 @@
                                             <td>{{ affaire_metrologie.observation }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('app_affaire_metrologie_show', {'id': affaire_metrologie.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-2x"></i></a>
-                                                <a href="{{ path('app_affaire_metrologie_edit', {'id': affaire_metrologie.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x"></i></a>
-                                                <a href="{{ path('app_affaire_metrologie_delete', {'id': affaire_metrologie.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affect_aff_new', {'id': affaire_metrologie.id}) }}" class="btn btn-success btn-sm" target="_blank"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                    {% else %}
+                                    {% else %} 
                                         <tr>
                                             <td colspan="7">La table est vide </td>
                                         </tr>

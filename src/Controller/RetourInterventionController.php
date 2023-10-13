@@ -108,6 +108,7 @@ class RetourInterventionController extends AbstractController
             $app->setType($lintervention->getType());
             $app->setEtat($lintervention->getEtat());
             $app->setStatut($lintervention->getStatut());
+            $app->setNumeroCertificat($lintervention->getNumeroCertificat());
             $em->persist($app);
             $em->flush($app);
             $linterventionRepository->save($lintervention, true);
@@ -123,7 +124,7 @@ class RetourInterventionController extends AbstractController
         //imprimer le bon de sortie
     #[Route('/print-intervention/{id}', name: 'app_intervention_retour_print', methods: ['POST','GET'])]
     public function print(RetourIntervention $intervention): Response
-    {  
+    {   
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);

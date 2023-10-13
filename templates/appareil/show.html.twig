@@ -3,32 +3,118 @@
 {% block title %}Appareil{% endblock %}
 
 {% block body %}
-    <h1>Appareil</h1>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Appareil : {{ appareil.numAppareil }} </h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>  <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a class="btn btn-info btn-sm p-2" href="{{ path('app_print_fiche_de_vie', {'id': appareil.id}) }}" target="_blank" >Imprimer <i class="fa fa-print fa-1x"></i></a>
+                    <a class="btn btn-danger btn-sm p-2" href="{{ path('app_appareil_delete', {'id': appareil.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="fa fa-trash fa-1x"></i></a>
+                    <a class="btn btn-warning btn-sm p-2" href="{{ path('app_appareil_edit', {'id': appareil.id}) }}" >Modifier <i class="fa fa-edit fa-1x"></i></a>
+                    <a class="btn btn-success btn-sm p-2" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Certificat <i class="fa fa-plus fa-1x"></i></a>
+                    <a class="btn btn-secondary btn-sm p-2" href="{{ path('app_appareil_index') }}">Retour <i class="fa fa-arrow-circle-o-left fa-1x"></i></a>
+                    <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
+                    <table class="table table-bordered table-striped table-secondary">
+                        <thead>
+                            <tr>
+                                <th>Designation</th>
+                                <td>{{ appareil.designation }}</td>
+                                <th>Périodicité</th>
+                                <td>{{ appareil.periodicite }}</td>
+                                <th>Marque</th>
+                                <td>{{ appareil.marque }}</td>
+                                <th>Type</th>
+                                <td>{{ appareil.type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ appareil.type }}</td>
+                                <th>N° Série</th>
+                                <td>{{ appareil.numeroSerie }}</td>
+                                <th>Service Responsable</th>
+                                <td>{{ appareil.serviceResponsable }}</td>
+                                <th>Affectation</th>
+                                <td>{{ appareil.affectation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prix Achat</th>
+                                <td>{{ appareil.prixAchat }}</td>
+                                <th>Date Achat</th>
+                                <td>{{ appareil.dateAchat ? appareil.dateAchat|date('d-m-Y') : '' }}</td>
+                                <th>Date État</th>
+                                <td>{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>      
+                                <th>Date validité</th>
+                                <td>{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>          
+                            </tr>
+                            <tr>
+                                <th>Statut</th>
+                                <td>{{ appareil.statut }}</td>
+                                <th>État</th>
+                                <td>{{ appareil.etat }}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-bordered table-striped" style="width: 30%;">
+                        <thead class="table-secondary">
+                            <tr class="text-center">
+                                <th>N°</th>
+                                <th>Certificat</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set i = 0 %}
+                            {% for item in appareil.certificats %}
+                                {% set i = i + 1 %}
+                                <tr> 
+                                    <td>{{i}}</td>
+                                    <td>{{item.document}}</td>                                
+                                    <td class="text-center"><a class="text-danger" target="_blank" href="{{asset('/certificats/'~ item.document)}}" alt="" height="75"><i class="fa fa-file-pdf-o fa-2x"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ appareil.id }}</td>
-            </tr>
-            <tr>
-                <th>Designation</th>
-                <td>{{ appareil.designation }}</td>
-            </tr>
-            <tr>
-                <th>Num_appareil</th>
-                <td>{{ appareil.numAppareil }}</td>
-            </tr>
-            <tr>
-                <th>Date_validite</th>
-                <td>{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_appareil_index') }}">back to list</a>
-
-    <a href="{{ path('app_appareil_edit', {'id': appareil.id}) }}">edit</a>
-
-    {{ include('appareil/_delete_form.html.twig') }}
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un Certificat</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            {{ form_start(form) }}
+                <div class="modal-body">
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12 ">
+                            {{ form_row(form.document)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col-md-6 text-left">
+                            <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button type="submit" class="btn btn-primary">Ajouter</button>                                
+                        </div> 
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
 {% endblock %}
+ 

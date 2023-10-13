@@ -24,7 +24,7 @@ class ValidationController extends AbstractController
 
         foreach ($lists as $item)
         {
-            if($item->isStatut() == null && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)
+            if($item->isStatut() == null && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1 && $item->isExpertiseMecanique() == 1)
             {
                 array_push($parametres, $item);
             }
@@ -32,7 +32,7 @@ class ValidationController extends AbstractController
 
         foreach ($lists as $item)
         {
-            if($item->isRemontage() == 1 && $item->isEssaisFinaux() == 1 && $item->isStatut() == 1 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)           
+            if($item->isExpertiseMecanique() == 1 && $item->isRemontage() == 1 && $item->isEssaisFinaux() == 1 && $item->isStatut() == 1 && $item->isExpertiseElectiqueAvantLavage() == 1 && $item->isExpertiseElectiqueApresLavage() == 1)           
             {
                 array_push($tabs, $item);
             }

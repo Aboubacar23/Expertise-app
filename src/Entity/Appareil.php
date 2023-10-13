@@ -106,6 +106,9 @@ class Appareil
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Laffectation::class)]
     private Collection $laffectations;
 
+    #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Certificat::class)]
+    private Collection $certificats;
+
 
     public function __construct()
     {
@@ -115,6 +118,7 @@ class Appareil
         $this->appareilMesureEssais = new ArrayCollection();
         $this->linterventions = new ArrayCollection();
         $this->laffectations = new ArrayCollection();
+        $this->certificats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -588,6 +592,36 @@ class Appareil
             // set the owning side to null (unless already changed)
             if ($laffectation->getAppareil() === $this) {
                 $laffectation->setAppareil(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Certificat>
+     */
+    public function getCertificats(): Collection
+    {
+        return $this->certificats;
+    }
+
+    public function addCertificat(Certificat $certificat): static
+    {
+        if (!$this->certificats->contains($certificat)) {
+            $this->certificats->add($certificat);
+            $certificat->setAppareil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertificat(Certificat $certificat): static
+    {
+        if ($this->certificats->removeElement($certificat)) {
+            // set the owning side to null (unless already changed)
+            if ($certificat->getAppareil() === $this) {
+                $certificat->setAppareil(null);
             }
         }
 

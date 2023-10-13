@@ -12,6 +12,7 @@ use App\Repository\AppareilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterventionRepository;
 use App\Repository\LinterventionRepository;
+use App\Service\PdfServiceP;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,6 +34,7 @@ class InterventionController extends AbstractController
     {
         $intervention = new Intervention();
         $repere = new Lintervention(); 
+        $listes = $interventionRepository->findAll();
 
         $form = $this->createForm(InterventionType::class, $intervention);
         $f = $this->createForm(LinterventionType::class, $repere);
@@ -43,8 +45,20 @@ class InterventionController extends AbstractController
         $session = $request->getSession();
         $items = $session->get('inters', []);
         
-        $date = date('Ymhi');
-        $numero_sortie = $date.'1';
+        /**
+         * numéro de sortie auto
+         */
+        $compte = 0;
+        $date = date('Ym');
+        $an = date('Y');
+        foreach($listes as $item)
+        {
+            if ($item->getDateDa()->format("Y") == $an)
+            {
+                $compte = $compte + 1;
+            }
+        }
+        $numero_sortie = $date.''.$compte;
 
         if ($f->isSubmitted() && $form->isSubmitted()) 
         {
@@ -63,7 +77,6 @@ class InterventionController extends AbstractController
                     $repere->setDesignation($item->getDesignation());
                     $repere->setMarque($item->getMarque());
                     $repere->setType($appareil->getType());
-                    $repere->setNumeroCertificat($appareil->getNumeroCertificat());
                     $repere->setEtat($appareil->getEtat());
                     $repere->setStatut($appareil->getStatut());
                     $repere->setTypeIntervention($item->getTypeIntervention());
@@ -186,51 +199,15 @@ class InterventionController extends AbstractController
 
     //imprimer le bon de sortie
     #[Route('/print-intervention/{id}', name: 'app_intervention_print', methods: ['POST','GET'])]
-    public function print(Intervention $intervention): Response
+    public function print(Intervention $intervention,PdfServiceP $pdfServiceP): Response
     {  
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Times New Roman');
-        $pdfOptions->setIsRemoteEnabled(true);
-
-        // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
-        $dompdf->getOptions()->set('isPhpEnabled', true);
-        $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
-        $dompdf->setCallbacks([
-            'event' => function ($event) use ($dompdf) {
-                if ($event['event'] === 'dompdf.page_number') {
-                    $dompdf->getCanvas()->page_text(500, 18, 'Page {PAGE_NUM} sur {PAGE_COUNT}', null, 10, [0, 0, 0]);
-                }
-            }
-        ]);
-
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed' => TRUE
-            ]
-        ]);
-
-        $dompdf->setHttpContext($context);
         $html = $this->renderView('metrologies/intervention/print.html.twig', [
             'intervention' => $intervention,
         ]);
-
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        //$dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-
         // On génère un nom de fichier
         $fichier = "Intetrvention : ".$intervention->getNumeroDa();
 
-        // On envoie le PDF au navigateur
-        $dompdf->stream($fichier, [
-            'Attachment' => false
-        ]);
-
-        exit();    
+        return $pdfServiceP->showPdfFile($html, $fichier);
     }
 
     //delete session tables mesures isolement
