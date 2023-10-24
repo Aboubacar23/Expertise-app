@@ -271,7 +271,7 @@
                                     {% if parametre.pointFonctionnementVides |length == 0 %}
                                         <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
                                     {% else %}
-                                        {% if parametre.pointFonctionnementVides |length  > 1 %}
+                                        {% if parametre.pointFonctionnementVides |length  >= 1 %}
                                             <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
                                         {% else %}
                                             <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
@@ -297,53 +297,9 @@
                             <div class="row table-responsive">
                                 {% if parametre.pointFonctionnementVides %}
                                     <table class="table table-bordered table-striped">
-                                        <tr class="table-secondary text-center">
-                                            <th width="2%">t</th>
-                                            <th>U</th>
-                                            <th>I1</th>
-                                            <th>I2</th>
-                                            <th>I3</th>
-                                            <th>P</th>
-                                            <th>Q</th>
-                                            <th>cos</th>
-                                            <th>N</th>
-                                            <th>I</th>
-                                            <th>TAmb</th>
-                                            <th>CA</th>
-                                            <th>COA</th>
-                                            <th rowspan="2">Observation</th>
-                                        </tr>
-                                        <tr  class="table-secondary">
-                                            <th class="text-center">(min)</th>
-                                            <th class="text-center">(V)</th>
-                                            <th class="text-center">(A)</th>
-                                            <th class="text-center">(A)</th>
-                                            <th class="text-center">(A)</th>
-                                            <th class="text-center">(kW)</th>
-                                            <th class="text-center">(kVAR)</th>
-                                            <th class="text-center">cos</th>
-                                            <th class="text-center">(tr/min)</th>
-                                            <th class="text-center">(A)</th>
-                                            <th class="text-center">(°C)</th>
-                                            <th class="text-center">(°C)</th>
-                                            <th class="text-center">(°C)</th>
-                                        </tr>
                                         {% for item in parametre.pointFonctionnementVides %}
                                             <tr>
-                                                <td class="text-center">{{item.t}}</td>
-                                                <td class="text-center">{{item.u}}</td>
-                                                <td class="text-center">{{item.i1}}</td>
-                                                <td class="text-center">{{item.i2}}</td>
-                                                <td class="text-center">{{item.i3}}</td>
-                                                <td class="text-center">{{item.p}}</td>
-                                                <td class="text-center">{{item.q}}</td>
-                                                <td class="text-center">{{item.cos}}</td>
-                                                <td class="text-center">{{item.n}}</td>
-                                                <td class="text-center">{{item.i}}</td>
-                                                <td class="text-center">{{item.tamb}}</td>
-                                                <td class="text-center">{{item.ca}}</td>
-                                                <td class="text-center">{{item.coa}}</td>
-                                                <td class="text-center">{{item.observation}}</td>
+                                                <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt=""></td>
                                             </tr>
                                         {% endfor %}
                                     </table>

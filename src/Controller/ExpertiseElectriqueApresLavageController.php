@@ -314,7 +314,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
     ///Caractéristique à vide
     #[Route('/caracteristique/{id}', name: 'app_caracteristique')]
-    public function caractéristique(Parametre $parametre,Request $request,AutreCaracteristiqueRepository $autreCaracteristiqueRepository,CaracteristiqueRepository $caracteristiqueRepository, EntityManagerInterface $em): Response
+    public function caractéristique(Parametre $parametre,Request $request,SluggerInterface $slugger,AutreCaracteristiqueRepository $autreCaracteristiqueRepository,CaracteristiqueRepository $caracteristiqueRepository, EntityManagerInterface $em): Response
     {
         //Caractéristique à vide
         $caracteristique = new Caracteristique(); 
@@ -326,41 +326,20 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             $choix = $request->get('bouton3_1');
             if($choix == 'ajouter')
             {
-                //récuperer le fichier importer 
-                $file = $formCarateristique->get('u')->getData();
-               // dd($file);
-                //charger le fichier et flirer à dans le fichier
-                $fichier = IOFactory::load($file->getPathname());
-
-                //recuperer le contenu dans du fichier et affichier en tableau de chaine de caractère
-                $donnees = $fichier->getActiveSheet()->toArray();
-
-                //parcourir le tableau pour inserer dans la base de donnée
-                foreach($donnees as $item)
-                {
-                    //vérifier s'il y'a une ligne vide dans la base 
-                    if(!empty(array_filter($item)))
-                    {
-                        //initialiser la classe pour chaque ligne
-                        $caracteristique = new Caracteristique(); 
-
-                        //inserer les données dans la base pour chaque ligne
-                        $caracteristique->setU(strval($item[0]));
-                        $caracteristique->setI1(strval($item[1]));
-                        $caracteristique->setI2(strval($item[2]));
-                        $caracteristique->setI3(strval($item[3]));
-                        $caracteristique->setP(strval($item[4]));
-                        $caracteristique->setQ(strval($item[5]));
-                        $caracteristique->setCos(strval($item[6]));
-                        $caracteristique->setN(strval($item[7]));
-                        $caracteristique->setPj(strval($item[8]));
-                        $caracteristique->setPPj(strval($item[9]));
-                        $caracteristique->setParametre($parametre);
-                        
-                        $em->persist($caracteristique);
-                    }
-                }
-                $em->flush();
+                $image = $formCarateristique->get('image')->getData();
+                if ($image) {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('point_fonctionnement_vide'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                    
+                    $caracteristique->setImage($newPhotoname);
+                } 
                 $caracteristique->setParametre($parametre);
                 $caracteristiqueRepository->save($caracteristique, true);
                 $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
@@ -530,22 +509,23 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     }
 
     //Supprimer carcatéristique
-    #[Route('caracteristique/{id}', name: 'delete_caracteristique', methods: ['GET'])]
+    #[Route('/caracteristique-delete/{id}', name: 'delete_caracteristique', methods: ['GET'])]
     public function deleteCaract(Caracteristique $caracteristique,CaracteristiqueRepository $caracteristiqueRepository): Response
     {
         $id = $caracteristique->getParametre()->getId();
         if($caracteristique)
         {
-            $caracteristiqueRepository->remove($caracteristique, true);
-            return $this->redirectToRoute('app_caracteristique', ['id' => $id], Response::HTTP_SEE_OTHER);
+             $nom = $caracteristique->getImage();
+             unlink($this->getParameter('point_fonctionnement_vide').'/'.$nom);
+             $caracteristiqueRepository->remove($caracteristique, true);
+             return $this->redirectToRoute('app_caracteristique', [ 'id' => $id ], Response::HTTP_SEE_OTHER);
         }else{
-            return $this->redirectToRoute('app_caracteristique', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_caracteristique', [ 'id' => $id], Response::HTTP_SEE_OTHER);
         } 
-            
     }
 
     //Supprimer carcatéristique
-    #[Route('point/{id}/fonctionnement', name: 'delete_point', methods: ['GET'])]
+    #[Route('/point/{id}/fonctionnement', name: 'delete_point', methods: ['GET'])]
     public function deletePoint(PointFonctionnementRotor $pointFonctionnementRotor,PointFonctionnementRotorRepository $pointFonctionnementRotorRepository): Response
     {
         $id = $pointFonctionnementRotor->getParametre()->getId();
@@ -560,7 +540,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     }
 
     //la fonction qui valide l'expertise
-    #[Route('validation/{id}', name: 'valider_expertise_electrique_apres_lavage', methods: ['GET'])]
+    #[Route('/validation/{id}', name: 'valider_expertise_electrique_apres_lavage', methods: ['GET'])]
     public function validation(Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         if($parametre)
@@ -591,7 +571,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     }
 
      //la fonction qui supprime constat
-     #[Route('constat/{id}/electrique', name: 'delete_constat_electrique_apres_lavage', methods: ['GET'])]
+     #[Route('/constat/{id}/electrique', name: 'delete_constat_electrique_apres_lavage', methods: ['GET'])]
     public function deleteConstat(ConstatElectriqueApresLavage $constatElectriqueApresLavage,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
     {
         $id = $constatElectriqueApresLavage->getParametre()->getId();

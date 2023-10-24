@@ -362,7 +362,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création de point de fonctionnement
     #[Route('/point/fonctionnement/{id}', name: 'app_point_fonctionnement', methods: ['POST', 'GET'])]
-    public function pointFonctionnement(Parametre $parametre,Request $request,EntityManagerInterface $em): Response
+    public function pointFonctionnement(Parametre $parametre,Request $request,EntityManagerInterface $em,SluggerInterface $slugger): Response
     {
             //la partie point de fonctionnement
         $pointFonctionnement = new PointFonctionnement();
@@ -374,44 +374,23 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $choix = $request->get('bouton9');
             if($choix == 'ajouter')
             {
-                //récuperer le fichier importer 
-                $file = $formPointFonctionnement->get('observation')->getData();
+                $image = $formPointFonctionnement->get('image')->getData();
+                if ($image) {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('point_fonctionnement_vide'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                    
+                    $pointFonctionnement->setImage($newPhotoname);
+                } 
 
-                //charger le fichier et flirer à dans le fichier
-                $fichier = IOFactory::load($file->getPathname());
-
-                //recuperer le contenu dans du fichier et affichier en tableau de chaine de caractère
-                $donnees = $fichier->getActiveSheet()->toArray();
-
-                //parcourir le tableau pour inserer dans la base de donnée
-                foreach($donnees as $item)
-                {
-                    //vérifier s'il y'a une ligne vide dans la base 
-                    if(!empty(array_filter($item)))
-                    {
-                        //initialiser la classe pour chaque ligne
-                        $pointFonctionnement = new PointFonctionnement();
-
-                        //inserer les données dans la base pour chaque ligne
-                        $pointFonctionnement->setT(strval($item[0]));
-                        $pointFonctionnement->setU(strval($item[1]));
-                        $pointFonctionnement->setI1(strval($item[2]));
-                        $pointFonctionnement->setI2(strval($item[3]));
-                        $pointFonctionnement->setI3(strval($item[4]));
-                        $pointFonctionnement->setP(strval($item[5]));
-                        $pointFonctionnement->setQ(strval($item[6]));
-                        $pointFonctionnement->setCos(strval($item[7]));
-                        $pointFonctionnement->setN(strval($item[8]));
-                        $pointFonctionnement->setI(strval($item[9]));
-                        $pointFonctionnement->setTamb(strval($item[10]));
-                        $pointFonctionnement->setCa(strval($item[11]));
-                        $pointFonctionnement->setCoa(strval($item[12]));
-                        $pointFonctionnement->setObservation($item[13]);
-                        $pointFonctionnement->setParametre($parametre);
-                        
-                        $em->persist($pointFonctionnement);
-                    }
-                }
+                $pointFonctionnement->setParametre($parametre);
+                $em->persist($pointFonctionnement);
                 $em->flush();
                 return $this->redirectToRoute('app_point_fonctionnement', ['id' => $parametre->getId()]);
             }
@@ -427,8 +406,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     //création de mesure vibratoire
     #[Route('/mesure/vibratoire/{id}', name: 'app_mesure_vibratoire', methods: ['POST', 'GET'])]
     public function mesureVibratoire(Parametre $parametre,Request $request,MesureVibratoireRepository $mesureVibratoireRepository): Response
-    {
-         
+    {       
         //la partie du mesures vibratoires
         $mesureVibratoire = new MesureVibratoire();
         if($parametre->getMesureVibratoire()){
@@ -707,7 +685,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
  
       
     //la fonction qui supprime une photo une fois ajouter
-    #[Route('photo/{id}', name: 'delete_photo', methods: ['GET'])]
+    #[Route('/photo/{id}', name: 'delete_photo', methods: ['GET'])]
     public function deletePhoto(Request $request,Images $images, ImagesRepository $imagesRepository): Response
     {
         $id = $images->getPhoto()->getParametre()->getId();
@@ -728,26 +706,24 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     }
 
     //la fonction qui supprime un point de fonctionnement
-    #[Route('fonctionnement/{id}/point', name: 'delete_point_fonctionnement', methods: ['GET'])]
+    #[Route('/fonctionnement/{id}/point', name: 'delete_point_fonctionnement', methods: ['GET'])]
     public function deletePointFonctionnement(Request $request,PointFonctionnement $pointFonctionnement, PointFonctionnementRepository $pointFonctionnementRepository): Response
     {
         $id = $pointFonctionnement->getParametre()->getId();
-        if($pointFonctionnement){
-        $pointFonctionnementRepository->remove($pointFonctionnement, true);
-        return $this->redirectToRoute('app_point_fonctionnement', [
-            'id' => $id
-        ], Response::HTTP_SEE_OTHER);
-
-        }else{
-            return $this->redirectToRoute('app_point_fonctionnement', [
-                'id' => $id
-            ], Response::HTTP_SEE_OTHER);
-        } 
+       if($pointFonctionnement)
+       {
+            $nom = $pointFonctionnement->getImage();
+            unlink($this->getParameter('point_fonctionnement_vide').'/'.$nom);
+            $pointFonctionnementRepository->remove($pointFonctionnement, true);
+            return $this->redirectToRoute('app_point_fonctionnement', [ 'id' => $id ], Response::HTTP_SEE_OTHER);
+       }else{
+           return $this->redirectToRoute('app_point_fonctionnement', [ 'id' => $id], Response::HTTP_SEE_OTHER);
+       } 
         
     }
 
     //la fonction qui supprime constat électrique
-    #[Route('constat/{id}/electrique', name: 'delete_constat_electrique', methods: ['GET'])]
+    #[Route('/constat/{id}/electrique', name: 'delete_constat_electrique', methods: ['GET'])]
     public function deleteConstat(ConstatElectrique $constatElectrique,ConstatElectriqueRepository $constatElectriqueRepository): Response
     {
           $id = $constatElectrique->getParametre()->getId();
@@ -767,7 +743,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     }
 
     //la fonction qui valide l'expertise
-    #[Route('validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
+    #[Route('/validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
     public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
         if($parametre)

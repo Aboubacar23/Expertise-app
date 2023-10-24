@@ -48,8 +48,8 @@ class LMesureReistanceEssaiType extends AbstractType
                     'choices' => [
                         '' => '',
                         'Sans Objet' => 'Sans Objet',
-                        'Oui' => 'Oui',
-                        'Non' => 'Non'
+                        'Conforme' => 'Conforme',
+                        'Non Conforme' => 'Non Conforme'
                     ]
                 ])
                 ->add('type', ChoiceType::class, [

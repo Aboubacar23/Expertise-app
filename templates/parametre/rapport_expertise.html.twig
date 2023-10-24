@@ -1376,55 +1376,11 @@
                     <h5>3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
                     {% if parametre.pointFonctionnements %}
                         <table class="table_sous_page_6_2">
-                            <tr class="titre_table">
-                                <th width="2%">t</th>
-                                <th>U</th>
-                                <th>I1</th>
-                                <th>I2</th>
-                                <th>I3</th>
-                                <th>P</th>
-                                <th>Q</th>
-                                <th>cos</th>
-                                <th>N</th>
-                                <th>I</th>
-                                <th>TAmb</th>
-                                <th>CA</th>
-                                <th>COA</th>
-                                <th rowspan="2">Observation</th>
-                            </tr>
-                            <tr class="titre_table">
-                                <th>(min)</th>
-                                <th>(V)</th>
-                                <th>(A)</th>
-                                <th>(A)</th>
-                                <th>(A)</th>
-                                <th>(kW)</th>
-                                <th>(kVAR)</th>
-                                <th>cos</th>
-                                <th>(tr/min)</th>
-                                <th>(A)</th>
-                                <th>(°C)</th>
-                                <th>(°C)</th>
-                                <th>(°C)</th>
-                            </tr>
                             {% for item in parametre.pointFonctionnements %}
                                 <tr>
-                                    <td class="tr_table_sous_page_6_2">{{item.t | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.u | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.i1 | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.i2 | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.i3 | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.p | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.q | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.cos | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.n | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.i | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.tamb | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.ca | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.coa | number_format}}</td>
-                                    <td class="tr_table_sous_page_6_2">{{item.observation}}</td>
-                                </tr>
-                            {% endfor %}                    
+                                    <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="620px"></td>
+                                </tr> 
+                            {% endfor %}                 
                         </table>
                     {% endif %}
                 </div>
@@ -1810,36 +1766,11 @@
                 <h5>3.  <span class="span_titre">Carctérisques à vide</span></h5>
                 {% if parametre.caracteristiques %}
                     <table class="table_sous_page_6_2">
-                        <tr class="titre_table">
-                            <th width="2%"></th>
-                            <th>U (v)</th>
-                            <th>I1 (A)</th>
-                            <th>I2 (A)</th>
-                            <th>I3 (A)</th>
-                            <th>P (kW)</th>
-                            <th>Q (kVAR)</th>
-                            <th>cos</th>
-                            <th>N (tr/min)</th>
-                            <th>Pj (W)</th>
-                            <th>P-Pj (KW)</th>
-                        </tr>
-                        {% set i = 0 %}
                         {% for item in parametre.caracteristiques %}
-                            {% set i = i + 1 %}
                             <tr>
-                                <td>{{i}}</td>
-                                <td>{{item.u | number_format(2)}}</td>
-                                <td>{{item.i1 | number_format(2) }}</td>
-                                <td>{{item.i2 | number_format(2) }}</td>
-                                <td>{{item.i3 | number_format(2) }}</td>
-                                <td>{{item.p| number_format(2)}}</td>
-                                <td>{{item.q| number_format(2)}}</td>
-                                <td>{{item.cos | number_format(2) }}</td>
-                                <td>{{item.n | number_format(2)}}</td>
-                                <td>{{item.pj | number_format(2) }}</td>  
-                                <td>{{item.Ppj | number_format(2) }}</td> 
-                            </tr>
-                        {% endfor %}                    
+                                <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="620px"></td>
+                            </tr> 
+                        {% endfor %}             
                     </table>
                     {% if parametre.autreCaracteristique %}
                         <table>

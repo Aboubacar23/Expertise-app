@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Parametre;
+use App\Service\MailerService;
 use App\Entity\AppareilMesureEssais;
 use App\Entity\MesureIsolementEssai;
 use App\Entity\LMesureIsolementEssai;
@@ -21,17 +22,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PointFonctionnementVideType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ControleIsolementRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AppareilMesureEssaisRepository;
-use App\Repository\ControleIsolementRepository;
 use App\Repository\MesureIsolementEssaiRepository;
 use App\Repository\LMesureIsolementEssaiRepository;
 use App\Repository\MesureResistanceEssaiRepository;
 use App\Repository\LMesureResistanceEssaiRepository;
 use App\Repository\MesureVibratoireEssaisRepository;
 use App\Repository\PointFonctionnementVideRepository;
-use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/essais-finaux')]
 class EssaisFinauxController extends AbstractController
@@ -159,7 +161,7 @@ class EssaisFinauxController extends AbstractController
 
     //création de point de fonctionnement
     #[Route('/point-fonctionnement/{id}', name: 'app_point_fonctionnement_vide', methods: ['POST', 'GET'])]
-    public function pointFonctionnement(Parametre $parametre,Request $request,EntityManagerInterface $em): Response
+    public function pointFonctionnement(Parametre $parametre,Request $request,EntityManagerInterface $em,SluggerInterface $slugger): Response
     {
             //la partie point de fonctionnement
         $pointFonctionnement = new PointFonctionnementVide();
@@ -172,44 +174,23 @@ class EssaisFinauxController extends AbstractController
             $choix = $request->get('bouton9');
             if($choix == 'ajouter')
             {
-                //récuperer le fichier importer 
-                $file = $formPointFonctionnement->get('observation')->getData();
+                $image = $formPointFonctionnement->get('image')->getData();
+                if ($image) {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('point_fonctionnement_vide'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+                    
+                    $pointFonctionnement->setImage($newPhotoname);
+                } 
 
-                //charger le fichier et flirer à dans le fichier
-                $fichier = IOFactory::load($file->getPathname());
-
-                //recuperer le contenu dans du fichier et affichier en tableau de chaine de caractère
-                $donnees = $fichier->getActiveSheet()->toArray();
-
-                //parcourir le tableau pour inserer dans la base de donnée
-                foreach($donnees as $item)
-                {
-                    //vérifier s'il y'a une ligne vide dans la base 
-                    if(!empty(array_filter($item)))
-                    {
-                        //initialiser la classe pour chaque ligne
-                        $pointFonctionnement = new PointFonctionnementVide();
-
-                        //inserer les données dans la base pour chaque ligne
-                        $pointFonctionnement->setT(strval($item[0]));
-                        $pointFonctionnement->setU(strval($item[1]));
-                        $pointFonctionnement->setI1(strval($item[2]));
-                        $pointFonctionnement->setI2(strval($item[3]));
-                        $pointFonctionnement->setI3(strval($item[4]));
-                        $pointFonctionnement->setP(strval($item[5]));
-                        $pointFonctionnement->setQ(strval($item[6]));
-                        $pointFonctionnement->setCos(strval($item[7]));
-                        $pointFonctionnement->setN(strval($item[8]));
-                        $pointFonctionnement->setI(strval($item[9]));
-                        $pointFonctionnement->setTamb(strval($item[10]));
-                        $pointFonctionnement->setCa(strval($item[11]));
-                        $pointFonctionnement->setCoa(strval($item[12]));
-                        $pointFonctionnement->setObservation($item[13]);
-                        $pointFonctionnement->setParametre($parametre);
-                        
-                        $em->persist($pointFonctionnement);
-                    }
-                }
+                $pointFonctionnement->setParametre($parametre);
+                $em->persist($pointFonctionnement);
                 $em->flush();
                 return $this->redirectToRoute('app_point_fonctionnement_vide', ['id' => $parametre->getId()]);
             }
@@ -329,16 +310,14 @@ class EssaisFinauxController extends AbstractController
     public function deletePointFonctionnement(Request $request,PointFonctionnementVide $pointFonctionnementVide, PointFonctionnementVideRepository $pointFonctionnementVideRepository): Response
     {
         $id = $pointFonctionnementVide->getParametre()->getId();
-        if($pointFonctionnementVide){
-        $pointFonctionnementVideRepository->remove($pointFonctionnementVide, true);
-        return $this->redirectToRoute('app_point_fonctionnement_vide', [
-            'id' => $id
-        ], Response::HTTP_SEE_OTHER);
-
+        if($pointFonctionnementVide)
+        {
+             $nom = $pointFonctionnementVide->getImage();
+             unlink($this->getParameter('point_fonctionnement_vide').'/'.$nom);
+             $pointFonctionnementVideRepository->remove($pointFonctionnementVide, true);
+             return $this->redirectToRoute('app_point_fonctionnement_vide', [ 'id' => $id ], Response::HTTP_SEE_OTHER);
         }else{
-            return $this->redirectToRoute('app_point_fonctionnement_vide', [
-                'id' => $id
-            ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_point_fonctionnement_vide', [ 'id' => $id], Response::HTTP_SEE_OTHER);
         } 
     }
 

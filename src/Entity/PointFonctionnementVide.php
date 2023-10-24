@@ -13,9 +13,10 @@ class PointFonctionnementVide
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $t = null;
+    #[ORM\Column(nullable: false, length: 255)]
+    private ?string $image = null;
 
+   /*
     #[ORM\Column(nullable: true)]
     private ?string $u = null;
 
@@ -54,7 +55,7 @@ class PointFonctionnementVide
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $observation = null;
-
+*/
     #[ORM\ManyToOne(inversedBy: 'pointFonctionnementVides')]
     private ?Parametre $parametre = null;
 
@@ -63,18 +64,18 @@ class PointFonctionnementVide
         return $this->id;
     }
 
-    public function getT(): ?string
+    public function getImage(): ?string
     {
-        return $this->t;
+        return $this->image;
     }
 
-    public function setT(string $t): self
+    public function setImage(string $image): self
     {
-        $this->t = $t;
+        $this->image = $image;
 
         return $this;
     }
-
+/*
     public function getU(): ?string
     {
         return $this->u;
@@ -230,6 +231,7 @@ class PointFonctionnementVide
 
         return $this;
     }
+    */
 
     public function getParametre(): ?Parametre
     {

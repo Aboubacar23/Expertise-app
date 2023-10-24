@@ -23,39 +23,14 @@
                         <table class="table table-bordered">
                             {{ form_start(formCarateristique) }}
                                 <tr>
-                                    <td colspan="11">{{ form_row(formCarateristique.u) }}</td>                                     
+                                    <td>{{ form_row(formCarateristique.image) }}</td>                                     
                                     <th width="100px"><button class="btn btn-primary btn-sm" name="bouton3_1" value="ajouter"> Ajouter <i class="fa fa-plus"></i></button></th>
                                 </tr>
-                                <tr  class="table-secondary">
-                                    <th width="10px">N°</th>
-                                    <th>U (v)</th>
-                                    <th>I1 (A)</th>
-                                    <th>I2 (A)</th>
-                                    <th>I3 (A)</th>
-                                    <th>P (kW)</th>
-                                    <th>Q (kVAR)</th>
-                                    <th>cos</th>
-                                    <th>N (tr/min)</th>
-                                    <th>Pj (W)</th>
-                                    <th>P-Pj (KW)</th>
-                                </tr>
                                 {% if parametre.caracteristiques %}
-                                    {% set i = 0 %}
                                     {% for item in parametre.caracteristiques %}
-                                        {% set i = i + 1 %}
                                         <tr>
-                                            <td>{{i}}</td>
-                                            <td>{{item.u}}</td>
-                                            <td>{{item.i1 }}</td>
-                                            <td>{{item.i2 }}</td>
-                                            <td>{{item.i3 }}</td>
-                                            <td>{{item.p}}</td>
-                                            <td>{{item.q}}</td>
-                                            <td>{{item.cos }}</td>
-                                            <td>{{item.n}}</td>
-                                            <td>{{item.pj }}</td>  
-                                            <td>{{item.Ppj }}</td> 
-                                            <th class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></th>
+                                            <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt=""></td>
+                                            <td class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" class="btn btn-danger btn-sm" href="{{path('delete_caracteristique', {'id' : item.id})}}"><i class="fa fa-trash fa-1x text-white"></i></a></td>
                                         </tr> 
                                     {% endfor %}
                                 {% endif %}

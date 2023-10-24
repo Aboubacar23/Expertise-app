@@ -184,55 +184,11 @@
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
                                                 <tr class="table-secondary">
-                                                    <th class="text-center" colspan="14">Point de fonctionnement à vide</th> 
-                                                </tr>
-                                                <tr class="table-secondary text-center">
-                                                    <th>t</th>
-                                                    <th>U</th>
-                                                    <th>I1</th>
-                                                    <th>I2</th>
-                                                    <th>I3</th>
-                                                    <th>P</th>
-                                                    <th>Q</th>
-                                                    <th>cos</th>
-                                                    <th>N</th>
-                                                    <th>I</th>
-                                                    <th>TAmb</th>
-                                                    <th>CA</th>
-                                                    <th>COA</th>
-                                                    <th rowspan="2">Observation</th>
-                                                </tr>
-                                                <tr  class="table-secondary">
-                                                    <th class="text-center">(min)</th>
-                                                    <th class="text-center">(V)</th>
-                                                    <th class="text-center">(A)</th>
-                                                    <th class="text-center">(A)</th>
-                                                    <th class="text-center">(A)</th>
-                                                    <th class="text-center">(kW)</th>
-                                                    <th class="text-center">(kVAR)</th>
-                                                    <th class="text-center">cos</th>
-                                                    <th class="text-center">(tr/min)</th>
-                                                    <th class="text-center">(A)</th>
-                                                    <th class="text-center">(°C)</th>
-                                                    <th class="text-center">(°C)</th>
-                                                    <th class="text-center">(°C)</th>
+                                                    <th class="text-center">Point de fonctionnement à vide</th>
                                                 </tr>
                                                 {% for item in parametre.pointFonctionnements %}
                                                     <tr>
-                                                        <td class="text-center">{{item.t}}</td>
-                                                        <td class="text-center">{{item.u}}</td>
-                                                        <td class="text-center">{{item.i1}}</td>
-                                                        <td class="text-center">{{item.i2}}</td>
-                                                        <td class="text-center">{{item.i3}}</td>
-                                                        <td class="text-center">{{item.p}}</td>
-                                                        <td class="text-center">{{item.q}}</td>
-                                                        <td class="text-center">{{item.cos}}</td>
-                                                        <td class="text-center">{{item.n}}</td>
-                                                        <td class="text-center">{{item.i}}</td>
-                                                        <td class="text-center">{{item.tamb}}</td>
-                                                        <td class="text-center">{{item.ca}}</td>
-                                                        <td class="text-center">{{item.coa}}</td>
-                                                        <td class="text-center">{{item.observation}}</td>
+                                                        <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt=""></td>
                                                     </tr>
                                                 {% endfor %}
                                             </table>
@@ -352,105 +308,108 @@
                                     
                                     <!-- début Autres contôles -->
                                         <div class="row">
-                                            {% if parametre.presenceBalais == 1 %}
-                                                <table class="table table-bordered table-striped">
-                                                    <tr  class="table-secondary">
-                                                        <th colspan="4" class="text-center">Balais</th>
-                                                    </tr>
-                                                    <tr  class="table-secondary">
-                                                        <th>Constats</th>
-                                                        <th>Critères</th>
-                                                        <th>Préconisation</th>
-                                                        <th>Conformité</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Distance porte-balais/bague</td>
-                                                        <td>2,5 m à 3 mn</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation1 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite1 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Pression des balais</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite2 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Isolement jeu de bagues à réception</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite3 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Isolement jeu de bagues après lavage</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Rugosité du collecteur</td>
-                                                        <td>Nuancier Mersen</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation5 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite5 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Aspect des patines</td>
-                                                        <td>Nuancier Mersen</td>
-                                                        <td>{{ parametre.autreControle.balaisPreconisation6 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisConformite6 }}</td>
-                                                    </tr>
-                                                </table>
+                                            {% if parametre.autreControle %}
+                                                {% if parametre.presenceBalais == 1 %}
+                                                    <table class="table table-bordered table-striped">
+                                                        <tr  class="table-secondary">
+                                                            <th colspan="4" class="text-center">Balais</th>
+                                                        </tr>
+                                                        <tr  class="table-secondary">
+                                                            <th>Constats</th>
+                                                            <th>Critères</th>
+                                                            <th>Préconisation</th>
+                                                            <th>Conformité</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Distance porte-balais/bague</td>
+                                                            <td>2,5 m à 3 mn</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation1 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite1 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pression des balais</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite2 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Isolement jeu de bagues à réception</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite3 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Isolement jeu de bagues après lavage</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite4 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Rugosité du collecteur</td>
+                                                            <td>Nuancier Mersen</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation5 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite5 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Aspect des patines</td>
+                                                            <td>Nuancier Mersen</td>
+                                                            <td>{{ parametre.autreControle.balaisPreconisation6 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisConformite6 }}</td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                {% endif %}
+                                                {% if parametre.presenceBalaisMasse == 1 %}
+                                                    <table class="table table-bordered table-striped">
+                                                        <tr  class="table-secondary">
+                                                            <th colspan="4" class="text-center">Balais de masse</th>
+                                                        </tr>
+                                                        <tr  class="table-secondary">
+                                                            <th>Constats</th>
+                                                            <th>Critères</th>
+                                                            <th>Préconisation</th>
+                                                            <th>Conformité</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Distance porte-balais/bague</td>
+                                                            <td>2,5 m à 3 mn</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation1 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite1 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pression des balais</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Isolement jeu de bagues à réception</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Isolement jeu de bagues après lavage</td>
+                                                            <td>À définir suivant le type de balais</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Rugosité du collecteur</td>
+                                                            <td>Nuancier Mersen</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation5 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite5 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Aspect des patines</td>
+                                                            <td>Nuancier Mersen</td>
+                                                            <td>{{ parametre.autreControle.balaisMassePreconisation6 }}</td>
+                                                            <td>{{ parametre.autreControle.balaisMasseConformite6 }}</td>
+                                                        </tr>
+                                                    </table>                                                    
+                                                {% endif %}    
                                                 
-                                            {% endif %}
-                                            {% if parametre.presenceBalaisMasse == 1 %}
-                                                <table class="table table-bordered table-striped">
-                                                    <tr  class="table-secondary">
-                                                        <th colspan="4" class="text-center">Balais de masse</th>
-                                                    </tr>
-                                                    <tr  class="table-secondary">
-                                                        <th>Constats</th>
-                                                        <th>Critères</th>
-                                                        <th>Préconisation</th>
-                                                        <th>Conformité</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Distance porte-balais/bague</td>
-                                                        <td>2,5 m à 3 mn</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation1 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite1 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Pression des balais</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Isolement jeu de bagues à réception</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Isolement jeu de bagues après lavage</td>
-                                                        <td>À définir suivant le type de balais</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Rugosité du collecteur</td>
-                                                        <td>Nuancier Mersen</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation5 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite5 }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Aspect des patines</td>
-                                                        <td>Nuancier Mersen</td>
-                                                        <td>{{ parametre.autreControle.balaisMassePreconisation6 }}</td>
-                                                        <td>{{ parametre.autreControle.balaisMasseConformite6 }}</td>
-                                                    </tr>
-                                                </table>                                                    
-                                            {% endif %}                                  
+                                            {% endif %}                              
                                         </div>
                                     <!-- /fin Autres contôles -->
 
@@ -1228,36 +1187,14 @@
                                             <div class="col-md-12">
                                                 <table class="table table-bordered table-striped">
                                                     <tr  class="table-secondary">
-                                                        <th></th>
-                                                        <th>U (v)</th>
-                                                        <th>I1 (A)</th>
-                                                        <th>I2 (A)</th>
-                                                        <th>I3 (A)</th>
-                                                        <th>P (kW)</th>
-                                                        <th>Q (kVAR)</th>
-                                                        <th>cos</th>
-                                                        <th>N (tr/min)</th>
-                                                        <th>Pj (W)</th>
-                                                        <th>P-Pj (KW)</th>
+                                                        <th>Caractéristique à vide</th>
                                                     </tr>
                                                     {% if parametre.caracteristiques %}
-                                                        {% set i = 0 %}
                                                         {% for item in parametre.caracteristiques %}
-                                                            {% set i = i + 1 %}
                                                             <tr>
-                                                                <td>{{i}}</td>
-                                                                <td>{{item.u}}</td>
-                                                                <td>{{item.i1 }}</td>
-                                                                <td>{{item.i2 }}</td>
-                                                                <td>{{item.i3 }}</td>
-                                                                <td>{{item.p}}</td>
-                                                                <td>{{item.q}}</td>
-                                                                <td>{{item.cos }}</td>
-                                                                <td>{{item.n}}</td>
-                                                                <td>{{item.pj }}</td>  
-                                                                <td>{{item.Ppj }}</td> 
+                                                                <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="700px"></td>
                                                             </tr> 
-                                                        {% endfor %}
+                                                        {% endfor %}    
                                                     {% endif %}
                                                 </table>
                                                 {% if parametre.autreCaracteristique %}
