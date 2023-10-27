@@ -134,7 +134,7 @@ class ExpertiseMecaniqueController extends AbstractController
         
         if($formPhotoRotor->isSubmitted() && $formPhotoRotor->isValid())
         {
-            if ($taille == 0)
+            if ($taille != 0)
             {
                 $photo = $formPhotoRotor->get('libelle')->getData();
                 if ($photo)
