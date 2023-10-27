@@ -128,13 +128,12 @@ class ExpertiseMecaniqueController extends AbstractController
     public function photoRotor(Parametre $parametre, PhotoRotorRepository $photoRotorRepository,Request $request,SluggerInterface $slugger)
     {       
         $photoRotor = new PhotoRotor();
-        $taille = count($photoRotorRepository->findAll());
+        $taille = count($photoRotorRepository->findByParametre($parametre));
         $formPhotoRotor = $this->createForm(PhotoRotorType::class, $photoRotor);
         $formPhotoRotor->handleRequest($request);
-        
         if($formPhotoRotor->isSubmitted() && $formPhotoRotor->isValid())
         {
-            if ($taille != 0)
+            if ($taille == 0)
             {
                 $photo = $formPhotoRotor->get('libelle')->getData();
                 if ($photo)
