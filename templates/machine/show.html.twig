@@ -15,7 +15,7 @@
                     <div class="x_title">
                         <h2 class="text-right">
                             <strong class="pull-right">Détail de la Machine : 
-                                {{ machine.type }} - {{ machine.categorie}} - {{ machine.sousCategorie}} 
+                                {{ machine.categorie}} - {{ machine.sousCategorie}} 
                                 {% if machine.sousCategorie2 %}
                                     - {{ machine.sousCategorie2 }}
                                 {% endif %}
@@ -28,116 +28,118 @@
                         </ul>
                         <div class="clearfix"></div> 
                     </div>
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>Machine</h5>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Type Machine</th>
-                                                <td>{{ machine.typeMachine }}</td>
-                                                <th>Puissance</th>
-                                                <td>{{ machine.puissance }} KW</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Fabricant</th>
-                                                <td>{{ machine.fabricant }}</td>
-                                                <th>Montage</th>
-                                                <td>{{ machine.montage }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Vitesse</th>
-                                                <td>{{ machine.vitesse }} tr/min</td>
-                                                <th>Masse</th>
-                                                <td>{{ machine.masse }} KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Presence Balais</th>
-                                                <td>{{ machine.presenceBalais ? 'Oui' : 'Non' }}</td>
-                                                <th>Presence Balais Masse</th>
-                                                <td>{{ machine.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Type Palier</th>
-                                                <td>{{ machine.typePalier }}</td>
-                                                <th>Critère</th>
-                                                <td>{{ machine.critere | number_format }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Température de Correction</th>
-                                                <td>{{ machine.tempCorrection  }} °C</td>
-                                                <td colspan="2"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        {#
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Machine</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Type Machine</th>
+                                                    <td>{{ machine.typeMachine }}</td>
+                                                    <th>Puissance</th>
+                                                    <td>{{ machine.puissance }} KW</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Fabricant</th>
+                                                    <td>{{ machine.fabricant }}</td>
+                                                    <th>Montage</th>
+                                                    <td>{{ machine.montage }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Vitesse</th>
+                                                    <td>{{ machine.vitesse }} tr/min</td>
+                                                    <th>Masse</th>
+                                                    <td>{{ machine.masse }} KG</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Presence Balais</th>
+                                                    <td>{{ machine.presenceBalais ? 'Oui' : 'Non' }}</td>
+                                                    <th>Presence Balais Masse</th>
+                                                    <td>{{ machine.presenceBalaisMasse ? 'Oui' : 'Non' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Type Palier</th>
+                                                    <td>{{ machine.typePalier }}</td>
+                                                    <th>Critère</th>
+                                                    <td>{{ critere | number_format }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Température de Correction</th>
+                                                    <td>{{ tempCorrection  }} °C</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5>Stator</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Stator Tension</th>
+                                                    <td>{{ machine.statorTension }} V</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Stator Frequence</th>
+                                                    <td>{{ machine.statorFrequence }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Stator Courant</th>
+                                                    <td>{{ machine.statorCourant }} A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Stator Couplage</th>
+                                                    <td>{{ machine.statorCouplage }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date Arrivée</th>
+                                                    <td>{{ machine.dateArrivee ? machine.dateArrivee|date('d-m-Y') : '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Stator Tension 2</th>
+                                                    <td>{{ machine.statorTension2 }} V</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5>Rotor</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Rotor Tension</th>
+                                                    <td>{{ machine.rotorTension }} V</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Rotor Expertise Refrigeant</th>
+                                                    <td>{{ machine.rotorExpertiseRefrigeant }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Rotor Courant</th>
+                                                    <td>{{ machine.rotorCourant }} A</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Presence Plans</th>
+                                                    <td>{{ machine.presencePlans ? 'Oui' : 'Non' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Rotor Tension 2</th>
+                                                    <td>{{ machine.rotorTension2}} V</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <h5>Stator</h5>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Stator Tension</th>
-                                                <td>{{ machine.statorTension }} V</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Stator Frequence</th>
-                                                <td>{{ machine.statorFrequence }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Stator Courant</th>
-                                                <td>{{ machine.statorCourant }} A</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Stator Couplage</th>
-                                                <td>{{ machine.statorCouplage }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Date Arrivée</th>
-                                                <td>{{ machine.dateArrivee ? machine.dateArrivee|date('d-m-Y') : '' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Stator Tension 2</th>
-                                                <td>{{ machine.statorTension2 }} V</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>Rotor</h5>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Rotor Tension</th>
-                                                <td>{{ machine.rotorTension }} V</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Rotor Expertise Refrigeant</th>
-                                                <td>{{ machine.rotorExpertiseRefrigeant }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Rotor Courant</th>
-                                                <td>{{ machine.rotorCourant }} A</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Presence Plans</th>
-                                                <td>{{ machine.presencePlans ? 'Oui' : 'Non' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Rotor Tension 2</th>
-                                                <td>{{ machine.rotorTension2}} V</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
+                        </div> 
+                        #}
                 </div>
             </div>
         </div>

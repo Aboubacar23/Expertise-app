@@ -31,9 +31,9 @@ class Machine
     #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Parametre::class)]
     private Collection $parametres;
 
-    #[ORM\ManyToOne(inversedBy: 'machines')]
-    private ?Type $type = null; 
-
+    #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Type::class)]
+    private Collection $types;
+/*
     #[ORM\Column(length: 255)]
     private ?string $type_machine = null;
 
@@ -93,10 +93,11 @@ class Machine
 
     #[ORM\Column(nullable: true)]
     private ?float $rotor_tension2 = null;
- 
+ */
     public function __construct()
     {
-        $this->parametres = new ArrayCollection(); 
+        $this->parametres = new ArrayCollection();
+        $this->types = new ArrayCollection(); 
     }
 
     public function __toString()
@@ -186,20 +187,7 @@ class Machine
 
         return $this;
     }
-
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-
+/*
     public function getTypeMachine(): ?string
     {
         return $this->type_machine;
@@ -439,4 +427,35 @@ class Machine
 
         return $this;
     }
+    */
+
+/**
+ * @return Collection<int, Type>
+ */
+public function getTypes(): Collection
+{
+    return $this->types;
+}
+
+public function addType(Type $type): static
+{
+    if (!$this->types->contains($type)) {
+        $this->types->add($type);
+        $type->setMachine($this);
+    }
+
+    return $this;
+}
+
+public function removeType(Type $type): static
+{
+    if ($this->types->removeElement($type)) {
+        // set the owning side to null (unless already changed)
+        if ($type->getMachine() === $this) {
+            $type->setMachine(null);
+        }
+    }
+
+    return $this;
+}
 }

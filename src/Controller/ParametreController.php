@@ -8,6 +8,7 @@ use Knp\Snappy\Pdf;
 use App\Entity\Affaire;
 use App\Entity\Machine;
 use App\Entity\Parametre;
+use App\Entity\Type;
 use App\Form\ParametreType;
 use App\Repository\PhotoRepository;
 use App\Repository\CritereRepository;
@@ -349,13 +350,14 @@ class ParametreController extends AbstractController
 
     //la fonction qui permet d'activer et réactiver une affaire
     #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
-    public function test(Machine $machine, EntityManagerInterface $em): JsonResponse
+    public function test(Type $machine): JsonResponse
     {
         if (!$machine)
         {
-            return new JsonResponse(['erreur' => 'machine non trouvée'], 404);
+            return new JsonResponse(['erreur' => 'type machine non trouvée'], 404);
         }
         return new JsonResponse([
+            'machine' => $machine->getMachine()->getId(),
             'type_machine' => $machine->getTypeMachine(),
             'puissance' => $machine->getPuissance(),
             'montage' => $machine->getMontage(),

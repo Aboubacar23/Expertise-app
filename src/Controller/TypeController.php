@@ -30,6 +30,26 @@ class TypeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($type->getStatorTension2() == null)
+            {
+                $type->setStatorTension2(0);
+            }
+            if ($type->getStatorTension() == null)
+            {
+                $type->setStatorTension(0);
+            }
+
+            if ($type->getRotorTension2() == null)
+            {
+                $type->setRotorTension2(0);
+            } 
+            
+            if ($type->getRotorTension() == null)
+            {
+                $type->setRotorTension(0);
+            } 
+
             $typeRepository->save($type, true);
             return $this->redirectToRoute('app_type_index', [], Response::HTTP_SEE_OTHER);
         }

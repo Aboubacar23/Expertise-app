@@ -64,15 +64,15 @@ class AffaireController extends AbstractController
         //créer une variable form, qui contient la classe de du formulaire des affaires
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
-        $date = date("d-m-Y");
-        //dd($date);
+        $date = date("Y-m-d");
+       // dd($date);
         //récupérer l'utilisateur connecter 
         $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
         
         //on vérifie l'envoi du l'ormulaire avant d'ajouté les informations dans la base
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            if ($affaire->getDateLivraison()->format('d-m-Y') > $date)
+            if ($affaire->getDateLivraison()->format('Y-m-d') > $date)
             {
                 //ajouter l'utilisateur sur une affaire
                 $affaire->setUser($user);

@@ -17,10 +17,11 @@ class MachineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', EntityType::class,[
+          /*  ->add('type', EntityType::class,[
                 'class' => Type::class,
                 'placeholder' => 'Choisir le type'
             ])
+            */
             ->add('categorie', ChoiceType::class, [
                 'label' => 'Categorie',
                 'placeholder' => 'Choisir une catégorie',
@@ -71,6 +72,7 @@ class MachineType extends AbstractType
                     'Neutre Interne' => 'Neutre Interne',
                 ]
             ])
+        /*    
             ->add('type_machine', ChoiceType::class, [
                 'choices' => [
                     'Moteur' => 'Moteur',
@@ -134,6 +136,7 @@ class MachineType extends AbstractType
                 'label' => 'Courant (A)'
             ])
             ->add('presence_plans')
+            */
         ;
     }
 

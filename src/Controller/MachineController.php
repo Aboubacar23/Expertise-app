@@ -16,11 +16,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/machine')]
 class MachineController extends AbstractController
 {
-    #[Route('/', name: 'app_machine_index', methods: ['GET'])]
-    public function index(MachineRepository $machineRepository): Response
+    #[Route('/', name: 'app_machine_index', methods: ['GET','POST'])]
+    public function index(MachineRepository $machineRepository,Request $request): Response
     {
+        $machine = new Machine();
+        $form = $this->createForm(MachineType::class, $machine);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $machineRepository->save($machine, true);
+            $this->addFlash('success', "Machine  a été créer");
+            return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('machine/index.html.twig', [
             'machines' => $machineRepository->findAll(),
+            'form' => $form->createView(),
+            'machine' => $machine
         ]);
     }
 
@@ -31,47 +44,8 @@ class MachineController extends AbstractController
         $form = $this->createForm(MachineType::class, $machine);
         $form->handleRequest($request);
 
-        $criteres = $critereRepository->findAll();
-        $critere = 0;
-        foreach ($criteres as $item)
-        {
-            if ($item->isEtat() == 1)
-            {
-                $critere = $item->getMontant();
-            }
-        }
- 
-        $corrections = $correctionRepository->findAll();
-        $correction = 0;
-        foreach ($corrections as $item2)
-        {
-            if ($item2->isEtat() == 1)
-            {
-                $correction = $item2->getTemperature();
-            }
-        }
-
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            if ($machine->getStatorTension2() == null)
-            {
-                $machine->setStatorTension2(0);
-            }
-            if ($machine->getStatorTension() == null)
-            {
-                $machine->setStatorTension(0);
-            }
-
-            if ($machine->getRotorTension2() == null)
-            {
-                $machine->setRotorTension2(0);
-            } 
-            
-            if ($machine->getRotorTension() == null)
-            {
-                $machine->setRotorTension(0);
-            } 
-
             $machineRepository->save($machine, true);
             $this->addFlash('success', "Machine  a été créer");
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
@@ -80,8 +54,6 @@ class MachineController extends AbstractController
         return $this->renderForm('machine/new.html.twig', [
             'machine' => $machine,
             'form' => $form,
-            'critere' => $critere,
-            'correction' => $correction,
         ]);
     }
 
@@ -97,55 +69,10 @@ class MachineController extends AbstractController
     public function edit(Request $request, Machine $machine, MachineRepository $machineRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
     {
         $form = $this->createForm(MachineType::class, $machine);
-        $form->handleRequest($request);     
-        
-        //on envoi ici le critère activer on formulaire
-        $criteres = $critereRepository->findAll();
-        $critere = 0;
-        foreach ($criteres as $item)
-        {
-            if ($item->isEtat() == 1)
-            {
-                $critere = $item->getMontant();
-            }
-        }
- 
-        $corrections = $correctionRepository->findAll();
-        $correction = 0;
-        foreach ($corrections as $item2)
-        {
-            if ($item2->isEtat() == 1)
-            {
-                $correction = $item2->getTemperature();
-            }
-        }
+        $form->handleRequest($request);   
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-
-            /**
-            * on vérifiie si l'un de ces attributs sont nulls 
-            * pouur les attribuer 0 pour pouvoir calculer les mesures 
-            */
-            if ($machine->getStatorTension2() == null)
-            {
-                $machine->setStatorTension2(0);
-            }
-            if ($machine->getStatorTension() == null)
-            {
-                $machine->setStatorTension(0);
-            }
-
-            if ($machine->getRotorTension2() == null)
-            {
-                $machine->setRotorTension2(0);
-            } 
-            
-            if ($machine->getRotorTension() == null)
-            {
-                $machine->setRotorTension(0);
-            } 
-
             $machineRepository->save($machine, true);
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -153,8 +80,6 @@ class MachineController extends AbstractController
         return $this->renderForm('machine/edit.html.twig', [
             'machine' => $machine,
             'form' => $form,
-            'critere' => $critere,
-            'correction' => $correction
         ]);
     }
 

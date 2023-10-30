@@ -172,50 +172,74 @@
 <script>
     window.onload = () => {
         // On va chercher le type selectionner dans le formulaire
-        //let region = document.querySelector("#parametre_machine");
-        //si on choisir une machine / on doit remplir les champs de paramêtre automatiquement
-        var type = document.getElementById('parametre_type');
-        type?.addEventListener('click', function()
+        let region = document.querySelector("#parametre_type");
+
+        //Créer une fonction d'écouter grâce à la fonction prédéfinir addEventListener
+        region.addEventListener("change", function()
         {
-            var typeID = this.value;
-            console.log(typeID);
-
-            //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
-            fetch('/index.php/parametre/info/' + typeID) // Remplacez l'URL par celle de votre route Symfony
-            .then(response => response.json())
-            .then(data => {
-                // Mettre à jour les champs du formulaire Congé avec les données récupérées
-                console.log(data.machine);
-                document.getElementById('parametre_machine').value = data.machine;
-                document.getElementById('parametre_type_machine').value = data.type_machine;
-                document.getElementById('parametre_puissance').value = data.puissance;
-                document.getElementById('parametre_vitesse').value = data.vitesse;
-                document.getElementById('parametre_montage').value = data.montage;
-                document.getElementById('parametre_fabricant').value = data.fabricant;
-                document.getElementById('parametre_masse').value = data.masse;
-                document.getElementById('parametre_type_palier').value = data.type_palier;
-                document.getElementById('parametre_presence_balais').value = data.presence_balais;
-                document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
-
-                function formatDate(date)
-                {
-                    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-                    return new Date(date).toLocaleDateString('fr-FR', options);
+            //on recupère le nom et la valeur du type de machine sélectionner 
+            let form = this.closest("form");
+            let data = this.name + "=" + this.value;                    
+            fetch(form.action, {
+                method: form.getAttribute("method"),
+                body: data,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset:UTF-8"
                 }
-                  
-                document.getElementById('parametre_stator_tension').value = data.stator_tension;
-                document.getElementById('parametre_stator_tension2').value = data.stator_tension2;
-                document.getElementById('parametre_stator_frequence').value = data.stator_frequence;
-                document.getElementById('parametre_stator_courant').value = data.stator_courant;
-                document.getElementById('parametre_date_arrivee').value = formatDate(data.date_arrivee);
-                document.getElementById('parametre_stator_couplage').value = data.stator_couplage;
+            })
+            .then(response => response.text())
+            .then(html => {
+                //on crée une variable content pour sélectionner les machines en fonction des types de machines
+                let content = document.createElement("html");
+                content.innerHTML = html;
+                //puis on recupère les machines
+                let nouveauSelect = content.querySelector("#parametre_machine");
+                document.querySelector("#parametre_machine").replaceWith(nouveauSelect);
+                console.log(nouveauSelect);
 
-                document.getElementById('parametre_rotor_tension').value = data.rotor_tension;
-                document.getElementById('parametre_rotor_tension2').value = data.rotor_tension2;
-                document.getElementById('parametre_rotor_expertise_refrigeant').value = data.rotor_expertise_refrigeant;
-                document.getElementById('parametre_rotor_courant').value = data.rotor_courant;
-                document.getElementById('parametre_rotor_couplage').value = data.presence_plans;
-            });
+                //si on choisir une machine / on doit remplir les champs de paramêtre automatiquement
+                var machines = document.getElementById('parametre_machine');
+                machines?.addEventListener('click', function()
+                {
+                    var machineID = this.value;
+                    console.log(machineID);
+
+                    //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
+                    fetch('/index.php/parametre/info/' + machineID) // Remplacez l'URL par celle de votre route Symfony
+                    .then(response => response.json())
+                    .then(data => {
+                        // Mettre à jour les champs du formulaire Congé avec les données récupérées
+                        document.getElementById('parametre_type_machine').value = data.type_machine;
+                        document.getElementById('parametre_puissance').value = data.puissance;
+                        document.getElementById('parametre_vitesse').value = data.vitesse;
+                        document.getElementById('parametre_montage').value = data.montage;
+                        document.getElementById('parametre_fabricant').value = data.fabricant;
+                        document.getElementById('parametre_masse').value = data.masse;
+                        document.getElementById('parametre_type_palier').value = data.type_palier;
+                        document.getElementById('parametre_presence_balais').value = data.presence_balais;
+                        document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
+
+
+                        document.getElementById('parametre_stator_tension').value = data.stator_tension;
+                        document.getElementById('parametre_stator_tension2').value = data.stator_tension2;
+                        document.getElementById('parametre_stator_frequence').value = data.stator_frequence;
+                        document.getElementById('parametre_stator_courant').value = data.stator_courant;
+                        document.getElementById('parametre_date_arrivee').value = data.date_arrivee;
+                        document.getElementById('parametre_stator_couplage').value = data.stator_couplage;
+
+                        document.getElementById('parametre_rotor_tension').value = data.rotor_tension;
+                        document.getElementById('parametre_rotor_tension2').value = data.rotor_tension2;
+                        document.getElementById('parametre_rotor_expertise_refrigeant').value = data.rotor_expertise_refrigeant;
+                        document.getElementById('parametre_rotor_courant').value = data.rotor_courant;
+                        document.getElementById('parametre_rotor_couplage').value = data.presence_plans;
+
+                        //document.getElementById('affaire_num_article_client').value = data.prenom;
+                    });
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
         });
     }        
 </script> 

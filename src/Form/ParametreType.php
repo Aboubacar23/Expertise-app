@@ -76,14 +76,15 @@ class ParametreType extends AbstractType
             ->add('presence_plans')
             ->add('critere')
             ->add('temp_correction')
-
+            ->add('machine', EntityType::class, [
+                'class' => Machine::class,
+                'placeholder' => 'Choisir une machine',
+            ])
             //On affiche tous les types de machines de la machine
             ->add('type', EntityType::class, [
-                //'mapped' => false,
                 'class' => Type::class,
                 'choice_label' => 'libelle',
                 'placeholder' => 'Choisir un Type',
-                'required' => false
             ]);
 
             /**
@@ -92,7 +93,7 @@ class ParametreType extends AbstractType
              * si y'a le clic sur la liste on cherche dans la liste des machines les types liés par rélation de table (n..1)
              * et affiche le resultat sous forme de tableau
              */
-            $formModifier = function (FormInterface $form, Type $type = null) {
+      /*      $formModifier = function (FormInterface $form, Type $type = null) {
                     $machines = (null === $type) ? [] : $type->getMachines();
                     $form->add('machine', EntityType::class, [
                         'class' => Machine::class,
@@ -121,6 +122,7 @@ class ParametreType extends AbstractType
                         $formModifier($event->getForm()->getParent(), $type);
                     }
                 );
+                */
     }
 
     public function configureOptions(OptionsResolver $resolver): void

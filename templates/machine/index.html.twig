@@ -16,7 +16,7 @@
             <div class="x_title">
             <h2>Listes des machines</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_machine_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
             </ul>
             <div class="clearfix"></div>
             </div>
@@ -37,17 +37,18 @@
                         <div class="card-box table-responsive">
                             <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                 <thead class="table-secondary">
-                                    <tr>
+                                    <tr> 
                                         <th width="2">N°</th>
-                                        <th>Type</th>
                                         <th>Categorie</th>
                                         <th>Sous Categorie</th>
                                         <th>Sous Categorie 2</th>
                                         <th class="text-center">Sous Categorie 3</th>
+                                        {#
                                         <th class="text-center">Type Machine</th>
                                         <th class="text-center">Puissance (kW)</th>
                                         <th class="text-center">Tension Stator (V)</th>
                                         <th class="text-center">Tension Rotor (V)</th>
+                                        #}
                                         <th width="150" class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -57,7 +58,6 @@
                                         {% set i = i + 1 %}
                                         <tr>
                                             <td>{{ i }}</td>
-                                            <td>{{ machine.type }}</td>
                                             <td>{{ machine.categorie }}</td>
                                             <td>{{ machine.sousCategorie }}</td>
                                             <td>{{ machine.sousCategorie2 }}</td>
@@ -68,10 +68,12 @@
                                                     {{ machine.sousCategorie3 }}  
                                                 {% endif %}
                                             </td>
+                                            {#
                                             <td>{{ machine.typeMachine }}</td>
                                             <td>{{ machine.puissance }}</td>
                                             <td>{{ machine.statorTension }}</td>
                                             <td>{{ machine.rotorTension }}</td>
+                                            #}
                                             <td class="text-center">
                                                 <a href="{{ path('app_machine_show', {'id': machine.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-eye p-1"></i></a>
                                                 <a href="{{ path('app_machine_edit', {'id': machine.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit p-1"></i></a>
@@ -91,6 +93,55 @@
             </div>
         </div>
         </div>
+    </div>
+</div>
+<div class="col-md-6 col-sm-6  ">
+    <div class="x_content">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Ajouter une machine</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                </div>            
+                {{ form_start(form) }}
+                    <div class="modal-body">
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12 ">
+                                {{ form_row(form.categorie, { attr : {"class" : "text-uppercase" }})}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12 ">
+                                {{ form_row(form.sous_categorie, { attr : {"class" : "text-uppercase" }})}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12 ">
+                                {{ form_row(form.sous_categorie2, { attr : {"class" : "text-uppercase" }})}}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <div class="col-md-12 col-sm-12 ">
+                                {{ form_row(form.sous_categorie3, { attr : {"class" : "text-uppercase" }})}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                                
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Ajouter</button>                                
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <!-- /modals -->
     </div>
 </div>
 {% endblock %}
