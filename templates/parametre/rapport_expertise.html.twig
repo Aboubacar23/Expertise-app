@@ -533,7 +533,11 @@
                         </tr> 
                         <tr>
                             {% for item in parametre.controleRecensements %}
-                                <td class="td_image"><img src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo" width="300px" height="300px"></td>
+                                {% if item.photo %}
+                                    <td class="td_image"><img src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo" width="300px" height="300px"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
                             {% endfor %}
                         </tr>    
                         <tr>                                                
@@ -1171,7 +1175,11 @@
                                 <td>{{item.critere}}</td>
                                 <td>{{item.observation}}</td>
                                 <td>{{item.preconisationConclusion}}</td>
-                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                {% if item.photo %}
+                                    <td height="15%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}                                
                                 <td>{{item.retenu}}</td>
                             </tr>                                                    
                         {% endfor %}
@@ -1653,8 +1661,12 @@
                                 <td>{{item.critere}}</td>
                                 <td>{{item.observation}}</td>
                                 <td>{{item.preconisationConclusion}}</td>
-                                <td>{{item.retenu}}</td>                            
-                                <td height="20%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                <td>{{item.retenu}}</td>          
+                                {% if item.photo %}
+                                    <td height="20%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}                  
                             </tr>                                                    
                         {% endfor %}
                     </table>                         
@@ -1883,8 +1895,12 @@
                                 <td>{{item.critere}}</td>
                                 <td>{{item.observation}}</td>
                                 <td>{{item.preconisationConclusion}}</td>
-                                <td>{{item.retenu}}</td>                            
-                                <td height="20%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique_apres_lavage/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                <td>{{item.retenu}}</td>     
+                                {% if item.photo %}
+                                    <td height="20%" class="td_image"><img src="{{ absolute_url(asset('photo_constat_electrique_apres_lavage/' ~ item.photo)) }}" alt="{{ item.photo }}" height="150px" width="150px"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}                       
                             </tr>                                                    
                         {% endfor %}
                     </table>                         
