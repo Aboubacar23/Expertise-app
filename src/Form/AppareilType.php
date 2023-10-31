@@ -248,8 +248,8 @@ class AppareilType extends AbstractType
                 'label' => 'Type Service',
                 'placeholder' => 'Choisissez',
                 'choices' => [
-                    'Électrique' => 'Électrique',
-                    'Mécanique' => 'Mécanique',
+                    'electrique' => 'electrique',
+                    'mecanique' => 'mecanique',
                 ]
             ])
             ->add('statut', ChoiceType::class, [

@@ -24,7 +24,7 @@ class LaffectationType extends AbstractType
                 'label' => 'Type Service',
                 'placeholder' => 'Choisissez',
                 'choices' => [
-                    'Électrique' => 'Électrique',
+                    'mecanique' => 'mecanique',
                     'Mécanique' => 'Mécanique',
                 ]
             ])

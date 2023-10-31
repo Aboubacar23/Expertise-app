@@ -97,7 +97,7 @@
             fetch('/index.php/metrologie/service/'+service) // Remplacez l'URL par celle de votre route Symfony
             .then(response => response.json())
             .then(data => {
-                console.log(data.items);
+                console.log(data.items.length);
                 var items = document.getElementById('laffectation_appareil');
                 var optionSelect = document.createElement("option");
                 items.innerHTML = "";
