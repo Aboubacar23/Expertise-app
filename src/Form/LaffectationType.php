@@ -25,7 +25,7 @@ class LaffectationType extends AbstractType
                 'placeholder' => 'Choisissez',
                 'choices' => [
                     'mecanique' => 'mecanique',
-                    'Mécanique' => 'Mécanique',
+                    'electrique' => 'electrique',
                 ]
             ])
             ->add('numero_serie')
