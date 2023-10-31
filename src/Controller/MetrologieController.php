@@ -203,5 +203,31 @@ class MetrologieController extends AbstractController
             'forms' => $forms,
         ]);
     }
+
+    #[Route('/service/{name}', name: 'app_service_get', methods: ['GET'])]
+    public function getAppMetrologie($name, AppareilRepository $appareilRepository): JsonResponse
+    {
+        $items2 = $appareilRepository->findAll();
+        $appareils = []; 
+        foreach($items2 as $item)
+        {
+            if ($item->isStatus() == 0 && $item->getStatut() == "Conforme" && $item->getEtat() == "Fonctionnel" && $item->getTypeService() == $name)
+            {
+                array_push($appareils, $item);
+            }
+        }    
+        
+        foreach ($appareils as $item) 
+        {
+            $items[] = [
+                'id' => $item->getId(),
+                'appareil' => $item->getNumAppareil(),
+            ]; 
+        }
+
+        return new JsonResponse([
+            'items' => $items
+        ]);
+    }
  
 }

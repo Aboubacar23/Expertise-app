@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LaffectationType extends AbstractType
 {
@@ -18,7 +19,15 @@ class LaffectationType extends AbstractType
     {
         $builder
             ->add('designation')
-            ->add('type')
+            ->add('type') 
+            ->add('type_service', ChoiceType::class, [
+                'label' => 'Type Service',
+                'placeholder' => 'Choisissez',
+                'choices' => [
+                    'Électrique' => 'Électrique',
+                    'Mécanique' => 'Mécanique',
+                ]
+            ])
             ->add('numero_serie')
             ->add('date_sortie')
             ->add('observation')

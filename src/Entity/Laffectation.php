@@ -44,6 +44,9 @@ class Laffectation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $etat = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type_service = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class Laffectation
     public function setEtat(?string $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getTypeService(): ?string
+    {
+        return $this->type_service;
+    }
+
+    public function setTypeService(string $type_service): static
+    {
+        $this->type_service = $type_service;
 
         return $this;
     }
