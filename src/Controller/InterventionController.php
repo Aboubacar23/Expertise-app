@@ -2,16 +2,15 @@
 
 namespace App\Controller;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Entity\Intervention;
 use App\Entity\Lintervention;
 use App\Form\InterventionType;
+use App\Form\LinterventionElectriqueType;
+use App\Form\LinterventionMecaniqueType;
 use App\Form\LinterventionType;
 use App\Repository\AppareilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InterventionRepository;
-use App\Repository\LinterventionRepository;
 use App\Service\PdfServiceP;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,22 +31,12 @@ class InterventionController extends AbstractController
     #[Route('/newadd', name: 'app_intervention_new', methods: ['POST','GET'])]
     public function create(Request $request, InterventionRepository $interventionRepository, EntityManagerInterface $entityManagerInterface,AppareilRepository $appareilRepository): Response
     {
+        $action = $request->get('action');
+        $name = "";
         $intervention = new Intervention();
         $repere = new Lintervention(); 
+        //gestion des numéros d'intervention
         $listes = $interventionRepository->findAll();
-
-        $form = $this->createForm(InterventionType::class, $intervention);
-        $f = $this->createForm(LinterventionType::class, $repere);
- 
-        $form->handleRequest($request);
-        $f->handleRequest($request);
-
-        $session = $request->getSession();
-        $items = $session->get('inters', []);
-        
-        /**
-         * numéro de sortie auto
-         */
         $compte = 0;
         $date = date('Ym');
         $an = date('Y');
@@ -58,8 +47,26 @@ class InterventionController extends AbstractController
                 $compte = $compte + 1;
             }
         }
-        $numero_sortie = $date.''.$compte;
 
+        $form = $this->createForm(InterventionType::class, $intervention);
+        $form->handleRequest($request);
+        
+        if ($action == "mecanique"){
+            $f = $this->createForm(LinterventionMecaniqueType::class, $repere);
+            $f->handleRequest($request);
+            $name = "mecanique";
+            $numero_sortie = 'MEC'.'-'.$date.''.$compte;
+        }elseif($action == "electrique")
+        {
+            $f = $this->createForm(LinterventionElectriqueType::class, $repere);
+            $f->handleRequest($request);
+            $name = "electrique";
+            $numero_sortie = 'ELEC'.'-'.$date.''.$compte;
+        }
+
+        $session = $request->getSession();
+        $items = $session->get('inters', []);
+    
         if ($f->isSubmitted() && $form->isSubmitted()) 
         {
             $choix = $request->get('bouton1');
@@ -107,7 +114,8 @@ class InterventionController extends AbstractController
             'form' => $form,
             'f' => $f,
             'items' => $items,
-            'numero_sortie' => $numero_sortie
+            'numero_sortie' => $numero_sortie,
+            'name' => $name
         ]);
     } 
 
@@ -122,7 +130,6 @@ class InterventionController extends AbstractController
     #[Route('/{id}/edit', name: 'app_intervention_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request,EntityManagerInterface $entityManagerInterface, Intervention $intervention, InterventionRepository $interventionRepository,AppareilRepository $appareilRepository): Response
     {
-
         $form = $this->createForm(InterventionType::class, $intervention);
         $form->handleRequest($request);
 

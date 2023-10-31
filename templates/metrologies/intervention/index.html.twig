@@ -16,7 +16,8 @@
             <div class="x_title">
             <h2>Listes des interventions</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <a href="{{path('app_intervention_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
+                <a href="{{path('app_intervention_new', {'action' : 'mecanique'})}}" class="btn btn-primary btn-sm p-2 text-uppercase">Sortir Mécanique<i class="fa fa-plus-circle p-1"></i></a>
+                <a href="{{path('app_intervention_new', {'action' : 'electrique'})}}" class="btn btn-primary btn-sm p-2 text-uppercase">Sortir Électrique<i class="fa fa-plus-circle p-1"></i></a>
                 <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
             </ul>
             <div class="clearfix"></div>

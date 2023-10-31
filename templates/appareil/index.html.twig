@@ -53,6 +53,7 @@
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
+                                        <th>Type Service</th>
                                         <th>N° Appareil</th>
                                         <th>Designation</th>
                                         <th>Périodicité</th>
@@ -77,6 +78,7 @@
                                         {% set i = i + 1 %}
                                         <tr>
                                             <td>{{ i }}</td>
+                                            <td>{{ appareil.typeService }}</td>
                                             <td>{{ appareil.numAppareil }}</td>
                                             <td>{{ appareil.designation }}</td>
                                             <td>{{ appareil.periodicite }}</td>

@@ -2,18 +2,18 @@
 
 namespace App\Form;
 
-use DateTime;
 use App\Entity\Appareil;
 use App\Entity\Lintervention;
 use App\Repository\AppareilRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use DateTime;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class LinterventionType extends AbstractType
+class LinterventionMecaniqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -43,7 +43,7 @@ class LinterventionType extends AbstractType
                 'class' => Appareil::class, 
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {
-                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.statut = 'Conforme' and a.etat = 'Fonctionnel' and a.status = 0 ");
+                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.type_service ='mecanique' and a.statut = 'Conforme' and a.etat = 'Fonctionnel' and a.status = 0 ");
                     return $query;
                 }
             ])

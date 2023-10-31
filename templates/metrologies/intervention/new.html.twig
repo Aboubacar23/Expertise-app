@@ -42,7 +42,7 @@
                                     <th width="100"></th>
                                 </tr>
                                 <tr>
-                                    <td>{{ form_widget(f.appareil) }}</td>
+                                    <td id="lintervention_appareil">{{ form_widget(f.appareil) }}</td>
                                     <td>{{ form_widget(f.designation) }}</td>
                                     <td>{{ form_widget(f.marque) }}</td>
                                     <td>{{ form_widget(f.type_intervention) }}</td>
@@ -84,20 +84,41 @@
 </div>
 <script>
     window.onload = () => {
-        var repere = document.getElementById('lintervention_appareil');
-        repere?.addEventListener('click', function()
+        var val = '{{name}}';
+        console.log(val);
+        if(val == 'electrique')
         {
-            var repere = this.value;
-            console.log(repere);
-            fetch('/index.php/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('lintervention_designation').value = data.designation;
-                document.getElementById('lintervention_marque').value = data.marque;
-                document.getElementById('lintervention_observation').value = data.observation;
-
+            var repere = document.getElementById('lintervention_electrique_appareil');
+            repere?.addEventListener('click', function()
+            {
+                var repere = this.value;
+                console.log(repere);
+                fetch('/index.php/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('lintervention_electrique_designation').value = data.designation;
+                    document.getElementById('lintervention_electrique_marque').value = data.marque;
+                    document.getElementById('lintervention_electrique_observation').value = data.observation;
+    
+                }); 
             }); 
-        });
+        }
+        if(val == 'mecanique')
+        {
+            var repere = document.getElementById('lintervention_mecanique_appareil');
+            repere?.addEventListener('click', function()
+            {
+                var repere = this.value;
+                fetch('/index.php/metrologie/repere/'+repere) // Remplacez l'URL par celle de votre route Symfony
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('lintervention_mecanique_designation').value = data.designation;
+                    document.getElementById('lintervention_mecanique_marque').value = data.marque;
+                    document.getElementById('lintervention_mecanique_observation').value = data.observation;
+    
+                }); 
+            }); 
+        }
     }
 </script>
 {% endblock %}

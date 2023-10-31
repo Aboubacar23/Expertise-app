@@ -109,6 +109,9 @@ class Appareil
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: Certificat::class)]
     private Collection $certificats;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type_service = null;
+
 
     public function __construct()
     {
@@ -624,6 +627,18 @@ class Appareil
                 $certificat->setAppareil(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypeService(): ?string
+    {
+        return $this->type_service;
+    }
+
+    public function setTypeService(string $type_service): static
+    {
+        $this->type_service = $type_service;
 
         return $this;
     }
