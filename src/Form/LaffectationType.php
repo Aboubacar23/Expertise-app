@@ -40,6 +40,7 @@ class LaffectationType extends AbstractType
             ->add('appareil',EntityType::class, [
                 'label' => 'Repère',
                 'placeholder' => 'Choisissez',
+                'required' => false,
                 'class' => Appareil::class, 
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {

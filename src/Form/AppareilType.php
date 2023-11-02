@@ -145,6 +145,9 @@ class AppareilType extends AbstractType
                         'VERIFICATEUR ALESAGE' => 'VERIFICATEUR ALESAGE',
                         'VISCOSIMETRE' => 'VISCOSIMETRE',
                         'VISSEUSE' => 'VISSEUSE',                        
+                    ],
+                    'AUTRES' => [
+                        'autres' => 'autres'
                     ]
                 ],
                 'constraints' => [
@@ -250,6 +253,7 @@ class AppareilType extends AbstractType
                 'choices' => [
                     'electrique' => 'electrique',
                     'mecanique' => 'mecanique',
+                    'autres' => 'autres',
                 ]
             ])
             ->add('statut', ChoiceType::class, [
