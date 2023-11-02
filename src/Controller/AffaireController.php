@@ -1,9 +1,40 @@
 <?php
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Expertise
+ * Entreprise : Jeumont electric & Maintenance
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 18-05-2023
+ * Dérniere date de modification : 08-08-2023
+ * ----------------------------------------------------------------
+ * ********************** Déscription *****************************
+ * ## À savoir que l'accès à la page affaire est obligatoire
+ * Base de données : 
+ *      + nom table : affaire
+ * 
+ * template :
+ *      chaque fonction pointe sur une page vue du projet dans le dossier 
+ * 
+ * Dans ce controleur vous avez 9 fonctions qui assure le bon fonctionnement du module affaire.
+ *      1- la fonction "index", qui permet d'afficher la liste des affaires encours.
+ *      2- la fonction "listes",qui affiche la liste de toutes les affaires
+ *      3- la fonction "new", pour ajouter une nouvelle affaire dans la base de données
+ *      4- la fonction "show", affiche les informations d'une seule affaire en fonction de son ID
+ *      5- la fonction "edit", permet de modifier une affaire
+ *      6- la fonction "delete", permet de supprimer une affaire
+ *      7- la fonction "rapports", qui nous affiche la liste des affaires terminer
+ *      8- la fonction  "bloque", qui permet d'activer et déactiver une affaire c'est à dire de verrouiller
+ *      9- la fonction "corbeille", qui permet de mettre une affaire dans la corbeille
+ */
 
-namespace App\Controller;
-
+namespace App\Controller; 
 use DateTime;
-use App\Entity\Admin;
 use App\Entity\Affaire;
 use App\Entity\Archive;
 use App\Entity\Parametre;

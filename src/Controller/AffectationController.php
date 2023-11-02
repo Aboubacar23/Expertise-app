@@ -1,5 +1,38 @@
 <?php
-
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont electric & Maintenance
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 02-10-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ * ********************** Déscription *****************************
+ * ## À savoir que l'accès à la page affaire est obligatoire
+ * Base de données : 
+ *      + nom table : affectation
+ * 
+ * template :
+ *      c'est le dossier "metrologie/affectation" qui contient toutes les  pages vues des fonctions de controleurs
+ * 
+ * Dans ce controleur vous avez 12 fonctions qui assure le bon fonctionnement du module affectation.
+ *      2- la fonction "index",qui affiche la liste des affectations
+ *      3- la fonction "new", pour ajouter une nouvelle affectation dans la base de données
+ *      4- la fonction "show", affiche les informations d'une seule affectation en fonction de son ID
+ *      5- la fonction "edit", permet de modifier une affectation
+ *      6- la fonction "delete", permet de supprimer une affectation
+ *      7- la fonction "new2", pour ajouter une affecatation par une affaire métrologie
+ *      8- la fonction "suppressionSession", supprimer un élément, ajouter comme une session lors de l'ajout d'une affectation
+ *      9- la fonction "print", permet d'imprimer une affectation
+ *      10- la fonction "supprimeSessionData", permet de supprimer un élément lord de modification d'une affectation
+ *      11- la fonction "supprimeSessionEdit", supprimer un élément, ajouter comme une session lors de modification d'une affectation
+ */
 namespace App\Controller;
 
 use Dompdf\Dompdf;
@@ -226,7 +259,7 @@ class AffectationController extends AbstractController
         ]);
     }
 
-    #[Route('sup//{id}', name: 'app_affectation_delete', methods: ['GET'])]
+    #[Route('sup/{id}', name: 'app_affectation_delete', methods: ['GET'])]
     public function delete(Request $request, Affectation $affectation, AffectationRepository $affectationRepository): Response
     {
         if ($affectation) {
@@ -239,7 +272,6 @@ class AffectationController extends AbstractController
         }
         return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
     }
-
 
     //delete session tables mesures isolement
     #[Route('/delete/{id}', name: 'app_delete_laffec')]

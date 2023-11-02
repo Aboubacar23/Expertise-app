@@ -1,4 +1,41 @@
 <?php
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie & Base Métrologie
+ * Entreprise : Jeumont electric & Maintenance
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 09-05-2023
+ * Dérniere date de modification : 01-09-2023
+ * ----------------------------------------------------------------
+ * ********************** Déscription *****************************
+ * ## À savoir que l'accès à la page appareil obligatoire
+ * Base de données : 
+ *      + nom table : appareil
+ * template :
+ *       c'est le dossier "appareil" qui contient toutes les  pages vues des fonctions de controleurs
+ * 
+ * Dans ce controleur vous avez 14 fonctions qui assure le bon fonctionnement du module appareil.
+ *      2-  la fonction "index",qui affiche la liste de tous les appareils
+ *      3-  la fonction "new", pour ajouter un nouveau appareil dans la base de données
+ *      4-  la fonction "show", affiche les informations d'une seul appareil en fonction de son ID
+ *      5-  la fonction "edit", permet de modifier un appareil
+ *      6-  la fonction "delete", permet de supprimer un appareil
+ *      7-  la fonction "hs", permet d'afficher les appareils hs
+ *      8-  la fonction "perdu", permet d'afficher les appareils perdu
+ *      9-  la fonction "horsValidite", permet d'afficher les appareils hors validite
+ *      10- la fonction "reserve", permet d'afficher les appareils reserve
+ *      11- la fonction "deleteAppareilMesure", permet de supprimer les appareils choisir lors de l'expertise électrique avant lavage
+ *      12- la fonction "deleteAppareilMesureMecanique", permet de supprimer les appareils choisir lors de l'expertise mécanique
+ *      13- la fonction "deleteAppareilMesureElectrique", permet de supprimer les appareils choisir lors de l'expertise électrique après lavage
+ *      14- la fonction "deleteAppareilMesureEssais", permet de supprimer les appareils choisir lors de l'essais éléctrique
+ *      15- la fonction "print", permet d'imprimer la fiche de vie d'un appareiis
+ */
 
 namespace App\Controller;
 

@@ -1,4 +1,33 @@
 <?php
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont electric & Maintenance
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 02-10-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ * ********************** Déscription *****************************
+ * ## À savoir que l'accès à la page affaire est obligatoire
+ * Base de données : 
+ *      + nom table : affaireMetrologie
+ * 
+ * template :
+ *      chaque fonction pointe sur une page vue du projet dans le dossier 
+ * 
+ * Dans ce controleur vous avez 5 fonctions qui assure le bon fonctionnement du module affaireMetrologie.
+ *      2- la fonction "index",qui affiche la liste de tous les appareils
+ *      3- la fonction "new", pour ajouter une nouvelle affaireMetrologie dans la base de données
+ *      4- la fonction "show", affiche les informations d'une seule affaireMetrologie en fonction de son ID
+ *      5- la fonction "edit", permet de modifier une affaireMetrologie
+ *      6- la fonction "delete", permet de supprimer une affaireMetrologie
+ */
 
 namespace App\Controller;
 
