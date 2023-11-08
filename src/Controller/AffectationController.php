@@ -142,7 +142,7 @@ class AffectationController extends AbstractController
 
         $session = $request->getSession();
         $items = $session->get('affects', []);
-
+ 
         if ($form->isSubmitted() && $f->isSubmitted()) {
             
             $choix = $request->get('bouton3');
@@ -156,12 +156,16 @@ class AffectationController extends AbstractController
                     $laffectation->setLig($i);
                     $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
                     $laffectation->setAppareil($appareil);
+                    if ($laffectation->getTypeService() != 'autres') {
+                        $appareil->setStatus(1);
+                    }
                     $appareil->setStatus(1);
                     $laffectation->setDesignation($item->getDesignation());
                     $laffectation->setType($item->getType());
                     $laffectation->setNumeroSerie($item->getNumeroSerie());
                     $laffectation->setDateRetour($item->getDateRetour());
                     $laffectation->setObservation($item->getObservation());
+                    $laffectation->setTypeService($item->getTypeService());
                     $laffectation->setAffectation($affectation);
                     $em->persist($laffectation);
  
@@ -226,12 +230,16 @@ class AffectationController extends AbstractController
                     $laffectation->setLig($i);
                     $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
                     $laffectation->setAppareil($appareil);
+                    if ($laffectation->getTypeService() != 'autres') {
+                        $appareil->setStatus(1);
+                    }
                     $appareil->setStatus(1);
                     $laffectation->setDesignation($item->getDesignation());
                     $laffectation->setType($item->getType());
                     $laffectation->setNumeroSerie($item->getNumeroSerie());
                     $laffectation->setDateSortie($item->getDateSortie());
                     $laffectation->setObservation($item->getObservation());
+                    $laffectation->setTypeService($item->getTypeService());
                     $laffectation->setAffectation($affectation);
                     $em->persist($laffectation);
  
