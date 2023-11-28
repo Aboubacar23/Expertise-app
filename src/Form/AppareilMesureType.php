@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\Appareil;
 use App\Entity\AppareilMesure;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\AppareilRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AppareilMesureType extends AbstractType
@@ -16,8 +17,13 @@ class AppareilMesureType extends AbstractType
         $builder
             ->add('appareil', EntityType::class, [
                 'class' => Appareil::class,
-                'placeholder' => 'Choisir votre appareil de messure'
-            ]);
+                'placeholder' => 'Choisir votre appareil de messure',
+                'query_builder' => function(AppareilRepository $appareilRepository)
+                {
+                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.etat = 'Fonctionnel' and a.statut = 'Conforme'");
+                    return $query;
+                }
+            ]); 
     }
 
     public function configureOptions(OptionsResolver $resolver): void

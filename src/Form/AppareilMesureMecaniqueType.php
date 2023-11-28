@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Appareil;
+use App\Repository\AppareilRepository;
 use App\Entity\AppareilMesureMecanique;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,12 @@ class AppareilMesureMecaniqueType extends AbstractType
         $builder
             ->add('appareil', EntityType::class, [
                 'class' => Appareil::class,
-                'placeholder' => 'Choisir votre appareil de messure'
+                'placeholder' => 'Choisir votre appareil de messure',
+                'query_builder' => function(AppareilRepository $appareilRepository)
+                {
+                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.etat = 'Fonctionnel' and a.statut = 'Conforme'");
+                    return $query;
+                }
             ]);
     }
 

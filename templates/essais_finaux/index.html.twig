@@ -213,24 +213,18 @@
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
                                         <tr  class="table-secondary">
-                                            <th colspan="6" class="text-center">Paramètres</th>
+                                            <th colspan="8" class="text-center">Paramètres</th>
                                         </tr>
                                         <tr>
                                             <th>T° Ambiante (°C)</th>
                                             <td>{{ parametre.mesureResistanceEssai.tempAmbiante}}</td>
                                             <th>T° Tôlerie (°C)</th>
                                             <td >{{ parametre.mesureResistanceEssai.tempTolerie}}</td>
+                                            <th>Hygrométrie (%)</th>
+                                            <td >{{ parametre.mesureResistanceEssai.hygrometrie}}</td>
                                             <th>Date d'essai</th>
                                             <td >{{ parametre.mesureResistanceEssai.dateEssais ? parametre.mesureResistanceEssai.dateEssais| date('d-m-Y') }}</td>
                                         </tr>
-                                        <tr>
-                                            <th>Hygrométrie (%)</th>
-                                            <td >{{ parametre.mesureResistanceEssai.hygrometrie}}</td>
-                                            <th>Critère</th>
-                                            <td>20 000 Ω/V </td>
-                                            <th></th>
-                                            <td></td>
-                                        </tr>   
                                     </table>
                                 </div>
                                 <div class="row">

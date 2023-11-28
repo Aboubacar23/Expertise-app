@@ -152,7 +152,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 foreach($listes as $i)
                 {
-                    if($i->getType() == $lstatorApresLavage->getType() and $i->getControle() == $lstatorApresLavage->getControle())
+                    if($i->getType() == $lstatorApresLavage->getType() and $i->getControle() == $lstatorApresLavage->getControle() and $i->getTensionEssai() == $lstatorApresLavage->getTensionEssai())
                     {                    
                         $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                         return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
@@ -163,7 +163,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 {
                     foreach($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j)
                     {
-                        if($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle())
+                        if($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle() and $j->getTensionEssai() == $lstatorApresLavage->getTensionEssai())
                         {                    
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
@@ -445,13 +445,13 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
         $formAppareilMesureElectrique = $this->createForm(AppareilMesureElectriqueType::class, $appareilMesureElectrique);
         $formAppareilMesureElectrique->handleRequest($request);
-        $date = date('d-m-Y');
+        $date = date('Y-m-d');
         if($formAppareilMesureElectrique->isSubmitted() && $formAppareilMesureElectrique->isValid())
         {
             $choix = $request->get('bouton5');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareilMesureElectrique->getAppareil()->getDateValidite()->format('d-m-Y');
+                $dateAppareil = $appareilMesureElectrique->getAppareil()->getDateValidite()->format('Y-m-d');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{

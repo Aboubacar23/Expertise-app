@@ -126,7 +126,7 @@ class EssaisFinauxController extends AbstractController
                 $lmesureIsolement->setLig($lig);
                 foreach($tablesEssais as $i)
                 {
-                    if($i->getType() == $lmesureIsolement->getType() and $i->getControle() == $lmesureIsolement->getControle())
+                    if($i->getType() == $lmesureIsolement->getType() and $i->getControle() == $lmesureIsolement->getControle() and $i->getTension() == $lmesureIsolement->getTension())
                     {                    
                         $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                         return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
@@ -137,7 +137,7 @@ class EssaisFinauxController extends AbstractController
                 {
                     foreach($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $j)
                     {
-                        if($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle())
+                        if($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle() and $j->getTension() == $lmesureIsolement->getTension())
                         {                    
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
@@ -251,13 +251,13 @@ class EssaisFinauxController extends AbstractController
 
         $formAppareil = $this->createForm(AppareilMesureEssaisType::class, $appareil);
         $formAppareil->handleRequest($request);
-        $date = date('d-m-Y');
+        $date = date('Y-m-d');
         if($formAppareil->isSubmitted() && $formAppareil->isValid())
         {
             $choix = $request->get('bouton5');
             if($choix == 'ajouter')
             {
-                $dateAppareil = $appareil->getAppareil()->getDateValidite()->format('d-m-Y');
+                $dateAppareil = $appareil->getAppareil()->getDateValidite()->format('Y-m-d');
                 if($dateAppareil < $date){
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : ".$dateAppareil);
                 }else{
@@ -428,20 +428,20 @@ class EssaisFinauxController extends AbstractController
                 $lmesureResistance->setLig($lig);
 
                 foreach($tables as $i)
-                {
-                    if($i->getControle() == $lmesureResistance->getControle())
+                {                    
+                    if($i->getType() == $lmesureResistance->getType() and $i->getControle() == $lmesureResistance->getControle())
                     {                    
                         $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                         return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
-                    }
+                    } 
                 }
 
                 if($parametre->getMesureResistanceEssai())
                 {
                     foreach($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $j)
                     {
-                        if($j->getControle() == $lmesureResistance->getControle())
-                        {                    
+                        if($j->getType() == $lmesureResistance->getType() and $j->getControle() == $lmesureResistance->getControle())
+                        {                  
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
                         }

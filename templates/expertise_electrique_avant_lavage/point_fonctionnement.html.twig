@@ -37,7 +37,7 @@
                             </tr>
                             {% for item in parametre.pointFonctionnements %}
                                 <tr>
-                                    <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt=""></td>
+                                    <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt="" width="1000"></td>
                                     <td class="text-center"><a href="{{path('delete_point_fonctionnement', {'id' : item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
                                 </tr>
                             {% endfor %}

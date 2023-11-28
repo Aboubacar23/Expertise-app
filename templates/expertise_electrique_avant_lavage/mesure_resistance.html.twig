@@ -26,14 +26,13 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="7" class="text-center">Paramètres</th>
+                                        <th colspan="6" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th width="15%">T° Ambiante (°C)</th>
                                         <th width="15%">T° Tôlerie (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
                                         <th width="15%">Date d'essai</th>
-                                        <th width="10%">Critère</th>
                                         <th width="10%">Tension Stator</th>
                                         <th width="10%">Tension Rotor</th>
                                     </tr>
@@ -42,7 +41,6 @@
                                         <td >{{ form_widget(formMesureResistance.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formMesureResistance.hygrometrie) }}</td>
                                         <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
-                                        <td>{{parametre.critere}} Ω/V </td>
                                         <td>{{parametre.statorTension}} 
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}

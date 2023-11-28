@@ -24,13 +24,12 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="6" class="text-center">Paramètres</th>
+                                        <th colspan="5" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th>T° Ambiante (°C)</th>
                                         <th>T° Tôlerie (°C)</th>
                                         <th>Hygrométrie (%)</th>
-                                        <th>Critère</th>
                                         <th>Tension Stator</th>
                                         <th>Tension Rotor</th>
                                     </tr>
@@ -38,7 +37,6 @@
                                         <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
-                                        <td>{{parametre.critere}} Ω/V </td>
                                         <td>{{parametre.statorTension}} 
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}
