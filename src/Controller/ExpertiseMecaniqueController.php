@@ -50,6 +50,7 @@ use App\Repository\AppareilMesureMecaniqueRepository;
 use App\Repository\ControleVisuelMecaniqueRepository;
 use App\Repository\PhotoExpertiseMecaniqueRepository;
 use App\Repository\AccessoireSupplementaireRepository;
+use App\Repository\AdminRepository;
 use App\Repository\ControleMontageConssinetRepository;
 use App\Repository\ControleMontageRoulementRepository;
 use App\Service\MailerService;
@@ -620,24 +621,34 @@ class ExpertiseMecaniqueController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('validation/{id}', name: 'valider_expertise_mecanique', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
+    public function validation(AdminRepository $adminRepository ,Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
         if($parametre)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Expertise mécanique";
-
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation de l'expertise mécanique";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = "Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
-
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Expertise mécanique";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation de l'expertise mécanique";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = "Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
+            
             $parametre->setExpertiseMecanique(1);
             $entityManager->persist($parametre);
             $entityManager->flush();

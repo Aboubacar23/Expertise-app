@@ -65,7 +65,7 @@
 
     .logo
     {
-        text-align: right;
+        text-align: left;
         height: 80px;
     }
     .titre_rapport{
@@ -173,7 +173,7 @@
                     <h3>{{parametre.affaire.client.nom}}</h3>
                     <h3>&</h3>
                     <h3>{{parametre.affaire.client.site}}</h3>
-                </div>
+                </div> 
             </div>
             <div class="card2">
                 <div class="card-content2">
@@ -181,7 +181,7 @@
                     <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('d-m-Y') : '' }}</strong></p>
                     <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
                     <br>
-                    <p>Référence client : <strong>{{parametre.affaire.codeClient}}</strong></p>
+                    <p>Code client : <strong>{{parametre.affaire.codeClient}}</strong></p>
                     <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
                     <p>N° d’article client : <strong>{{parametre.affaire.numArticleClient}}</strong></p>
                 </div>

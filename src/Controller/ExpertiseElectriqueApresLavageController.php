@@ -31,6 +31,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AutrePointFonctionnementRotorType;
+use App\Repository\AdminRepository;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LStatorApresLavageRepository;
@@ -136,14 +137,12 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 
             }elseif($choix == 'ajouter')
             {
-                $val = 0;
+               $val = 0;
                foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $item)
                {
-                   if($item->getControle() == $lstatorApresLavage->getControle())
+                   if($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle())
                    {
                        $val = $item->getValeur();
-                    }else{
-                        $lstatorApresLavage->setValeurRelevee(0);
                     }
                }
                 $lig = sizeof($listes)+1;
@@ -268,11 +267,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $val = 0;
                 foreach($parametre->getMesureResistance()->getLMesureResistances() as $item)
                 {
-                     if($item->getControle() == $lsondeBobinage->getControle())
+                     if($item->getControle() == $lsondeBobinage->getControle() and $item->getType() == $lsondeBobinage->getType())
                      {
                         $val = $item->getValeur();
-                     }else{
-                        $lsondeBobinage->setValeurRelevee(0);
                      }
                 } 
 
@@ -541,23 +538,34 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('/validation/{id}', name: 'valider_expertise_electrique_apres_lavage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
+    public function validation(AdminRepository $adminRepository ,Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         if($parametre)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Expertise électrique après lavage";
 
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Expertise électrique après lavage";
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation de l'expertise électrique après lavage";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
 
-            $message = "Vous avez une validation de l'expertise électrique après lavage";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
 
             $parametre->setExpertiseElectiqueApresLavage(1);
             $entityManager->persist($parametre);

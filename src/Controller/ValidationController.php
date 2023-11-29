@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Parametre;
+use App\Repository\AdminRepository;
 use App\Service\MailerService;
 use App\Repository\ParametreRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,23 +79,34 @@ class ValidationController extends AbstractController
     }
 
     #[Route('/validation-expertise/{id}', name: 'app_validation_valide_expertise')]
-    public function validationExpertise(Parametre $parametre, EntityManagerInterface $em,MailerService $mailerService): Response
+    public function validationExpertise(AdminRepository $adminRepository,Parametre $parametre, EntityManagerInterface $em,MailerService $mailerService): Response
     {
         if($parametre)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Validation de rapport Expertise";
 
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation du rapport d'expertise";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Validation de rapport Expertise";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation du rapport d'expertise";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
 
             $parametre->setStatut(1);
             $em->persist($parametre);
@@ -104,26 +116,35 @@ class ValidationController extends AbstractController
     }
 
     #[Route('/validation-finale/{id}', name: 'app_validation_valide_finale')]
-    public function validationFinale(Parametre $parametre, EntityManagerInterface $em, MailerService $mailerService): Response
+    public function validationFinale(AdminRepository $adminRepository,Parametre $parametre, EntityManagerInterface $em, MailerService $mailerService): Response
     {
        // dd($parametre->getAffaire());
         $affaire = $parametre->getAffaire();
         if($affaire)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Validation de rapport Final";
-
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation du rapport Final";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
-
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Validation de rapport Final";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation du rapport Final";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
             $parametre->setStatutFinal(1);
             $affaire->setEtat(1);
             $em->persist($affaire);

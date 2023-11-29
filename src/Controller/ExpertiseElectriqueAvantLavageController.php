@@ -41,6 +41,7 @@ use Symfony\Component\Mailer\Transport;
 use App\Entity\ControleVisuelElectrique;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ControleVisuelElectriqueType;
+use App\Repository\AdminRepository;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
 use App\Repository\MesureIsolementRepository;
@@ -746,28 +747,38 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //la fonction qui valide l'expertise
     #[Route('/validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
+    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService, AdminRepository $adminRepository): Response
     {
         if($parametre)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Expertise électrique avant lavage";
-
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation de l'expertise électrique avant lavage";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            
             $parametre->setExpertiseElectiqueAvantLavage(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
-                
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Expertise électrique avant lavage";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation de l'expertise électrique avant lavage";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire); 
+
+                    };       
+                }
+            }
 
             $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

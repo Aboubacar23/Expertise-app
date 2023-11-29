@@ -11,6 +11,7 @@ use App\Form\RemontagePalierType;
 use App\Form\RemontageFinitionType;
 use App\Entity\RemontageEquilibrage;
 use App\Form\RemontageEquilibrageType;
+use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RemontagePhotoRepository;
 use App\Repository\RemontagePalierRepository;
@@ -228,24 +229,34 @@ class RemontageController extends AbstractController
 
     //la fonction qui valide remontage
     #[Route('validation/{id}/rapport', name: 'valider_remontage', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
+    public function validation(AdminRepository $adminRepository,Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
         if($parametre)
         { 
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Remontage";
-
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation de remontage";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
-
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Remontage";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation de remontage";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
+            
             $parametre->setRemontage(1);
             $parametre->setStatutFinal(1);
             $entityManager->persist($parametre);

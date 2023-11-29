@@ -20,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Form\MesureVibratoireEssaisType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PointFonctionnementVideType;
+use App\Repository\AdminRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ControleIsolementRepository;
@@ -276,23 +277,34 @@ class EssaisFinauxController extends AbstractController
 
     //valider essais finaux
     #[Route('/validation/{id}', name: 'valider_essais_finaux', methods: ['GET'])]
-    public function validation(Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
+    public function validation(AdminRepository $adminRepository,Parametre $parametre, EntityManagerInterface $entityManager,MailerService $mailerService): Response
     {
         if($parametre)
         {
-            $dossier = 'email/email.html.twig';
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $subject = "Essais Finaux";
 
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-
-            $message = "Vous avez une validation des essais Finaux";
-            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-
-            //envoyer le mail
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+            $admins = $adminRepository->findAll();
+            foreach($admins as $admin)
+            {
+                foreach($admin->getRoles() as $role)
+                {
+                    $email = $admin->getEmail();
+                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    {
+                        $dossier = 'email/email.html.twig';
+                        $subject = "Essais Finaux";
+            
+                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+            
+                        $message = "Vous avez une validation des essais Finaux";
+                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            
+                        //envoyer le mail
+                        $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                    };       
+                }
+            }
 
             $parametre->setEssaisFinaux(1);
             $entityManager->persist($parametre);

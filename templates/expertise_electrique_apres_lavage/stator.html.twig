@@ -91,7 +91,7 @@
                                             <td>{{item2.tensionEssai}}</td>
                                             <td>{{item2.valeurRelevee}}</td>
                                             <td>
-                                                {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
+                                                {% if item2.controle == 'IP-UVW/masse' or   item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
                                                     {{item2.valeur}}
                                                 {% else %}
                                                     {{item2.valeur}} {{ item2.unite}}
@@ -285,7 +285,7 @@
             {
                 if(var_controle.value == var_id_UVW )
                 {
-                    const tension_essaie = var_j_UVW;
+                    const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -295,7 +295,7 @@
                 }     
                 else if(var_controle.value == var_id_U )
                 {
-                    const tension_essaie = var_j_U;
+                    const tension_essaie = var_j_U.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -305,7 +305,7 @@
                 }    
                 else if(var_controle.value == var_id_V )
                 {
-                    const tension_essaie = var_j_V;
+                    const tension_essaie = var_j_V.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -315,7 +315,7 @@
                 }    
                 else if(var_controle.value == var_id_W )
                 {
-                    const tension_essaie = var_j_W;
+                    const tension_essaie = var_j_W.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -332,7 +332,7 @@
             {
                 if(var_controle.value == var_id_UVW )
                 {
-                    const tension_essaie = var_j_UVW;
+                    const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -342,7 +342,7 @@
                 }     
                 else if(var_controle.value == var_id_U )
                 {
-                    const tension_essaie = var_j_U;
+                    const tension_essaie = var_j_U.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -352,7 +352,7 @@
                 }    
                 else if(var_controle.value == var_id_V )
                 {
-                    const tension_essaie = var_j_V;
+                    const tension_essaie = var_j_V.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -362,7 +362,7 @@
                 }    
                 else if(var_controle.value == var_id_W )
                 {
-                    const tension_essaie = var_j_W;
+                    const tension_essaie = var_j_W.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -379,7 +379,7 @@
             {
                 if(var_controle.value == var_id_UVW )
                 {
-                    const tension_essaie = var_j_UVW;
+                    const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -389,7 +389,7 @@
                 }     
                 else if(var_controle.value == var_id_U )
                 {
-                    const tension_essaie = var_j_U;
+                    const tension_essaie = var_j_U.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -399,7 +399,7 @@
                 }    
                 else if(var_controle.value == var_id_V )
                 {
-                    const tension_essaie = var_j_V;
+                    const tension_essaie = var_j_V.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -409,7 +409,7 @@
                 }    
                 else if(var_controle.value == var_id_W )
                 {
-                    const tension_essaie = var_j_W;
+                    const tension_essaie = var_j_W.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -427,7 +427,7 @@
             {
                 if(var_controle.value == var_id_UVW )
                 {
-                    const tension_essaie = var_j_UVW;
+                    const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -437,7 +437,7 @@
                 }     
                 else if(var_controle.value == var_id_U )
                 {
-                    const tension_essaie = var_j_U;
+                    const tension_essaie = var_j_U.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -447,7 +447,7 @@
                 }    
                 else if(var_controle.value == var_id_V )
                 {
-                    const tension_essaie = var_j_V;
+                    const tension_essaie = var_j_V.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -457,7 +457,7 @@
                 }    
                 else if(var_controle.value == var_id_W )
                 {
-                    const tension_essaie = var_j_W;
+                    const tension_essaie = var_j_W.toFixed(2);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 

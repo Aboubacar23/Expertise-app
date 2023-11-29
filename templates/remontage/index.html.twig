@@ -582,7 +582,7 @@
                                     <h2>Photos</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    {% if parametre.remontagePhotos %}
+                                    {% if parametre.remontagePhotos| length != null %}
                                         <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a> 
                                     {% else %}
                                         <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>

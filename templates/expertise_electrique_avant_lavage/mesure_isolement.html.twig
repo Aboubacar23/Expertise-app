@@ -42,7 +42,7 @@
                                         <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
                                         <td>{{ form_widget(formMesureIsolement.date_essais) }}</td>
                                         <td>{{parametre.critere}}</td>
-                                        <td>{{parametre.statorTension}} 
+                                        <td>{{parametre.statorTension}}  
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}
                                             {% endif %} 
@@ -280,7 +280,7 @@
             let var_j_U = {{ var_U }}
             let var_j_V = {{ var_V }}
             let var_j_W = {{ var_W }} 
-           // console.log(var_id_UVW);
+            console.log(var_j_UVW);
 
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
@@ -291,6 +291,7 @@
                 //comparer la chaine du controle choisir à la chaine déjà choisir, puis calucer son critère
                 if(var_controle.value == var_id_UVW )
                 {
+                    console.log('je suis là');
                     const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_mesure_isolement_valeur');
                     console.log(tension_essaie);

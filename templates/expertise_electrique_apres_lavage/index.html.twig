@@ -134,14 +134,28 @@
                                                     <th colspan="8" class="text-center">Paramètres</th>
                                                 </tr>
                                                 <tr>
-                                                    <th class="table-secondary">T° Ambiante (°C)</th>
+                                                    <th>T° Ambiante (°C)</th>
+                                                    <th>T° Tôlerie (°C)</th>
+                                                    <th>Hygrométrie (%)</th>
+                                                    <th width="10%">Critère</th>
+                                                    <th width="10%">Tension Stator</th>
+                                                    <th width="10%">Tension Rotor</th>
+                                                </tr>
+                                                <tr>
                                                     <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
-                                                    <th class="table-secondary">T° Tôlerie (°C)</th>
                                                     <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
-                                                    <th class="table-secondary">Hygrométrie (%)</th>
                                                     <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                    <th class="table-secondary">Isolation</th>
-                                                    <td>{{parametre.critere}}</td>
+                                                    <td>{{parametre.critere}}</td> 
+                                                    <td>{{parametre.statorTension}} 
+                                                        {% if parametre.statorTension2 != 0 %}
+                                                            et {{parametre.statorTension2 }}
+                                                        {% endif %} 
+                                                    </td>
+                                                    <td>{{parametre.rotorTension}} 
+                                                        {% if parametre.rotorTension2 != 0 %}
+                                                            et {{parametre.rotorTension2 }}
+                                                        {% endif %} 
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -150,16 +164,18 @@
                                         <div class="col-md-12">
                                             <table class="table table-bordered table-striped">
                                                 <tr  class="table-secondary">
+                                                    <th width="8%">Type</th>
                                                     <th width="14%">Contrôle</th>
-                                                    <th width="14%">Critère</th>
+                                                    <th width="10%">Critère</th>
                                                     <th class="text-center" width="14%">Tension d'éssai(V)</th>
                                                     <th class="text-center" width="14%">Valeur relevées avant lavage</th>
                                                     <th width="14%">Valeur relevées après lavage</th>
                                                     <th width="14%">Correction à 20°</th>
-                                                    <th width="14%">Conformité</th> 
+                                                    <th width="10%">Conformité</th> 
                                                 </tr>
                                                 {% for item in parametre.statorApresLavage.lstatorApresLavages %}
                                                     <tr>
+                                                        <td class="text-left">{{item.type}}</td>
                                                         <td class="text-left">{{item.controle}}</td>
                                                         <td class="text-center">{{ item.critere }}</td>
                                                         <td class="text-center">{{item.tensionEssai}}</td>
@@ -169,7 +185,7 @@
                                                         <td class="text-center">{{ item.conformite }}</td>
                                                     </tr>                                                    
                                                 {% endfor %}
-                                            </table>
+                                            </table> 
                                         </div>
                                     </div>
                                 {% endif %}
@@ -235,7 +251,8 @@
                                 </div>
                                 <div class="row">
                                     <table class="table table-bordered table-striped">
-                                        <tr  class="table-secondary">
+                                        <tr  class="table-secondary"> 
+                                            <th width="10%">Type</th>
                                             <th width="16%">Contrôle</th>
                                             <th width="16%">Critère</th>
                                             <th width="16%">Valeur relevée avant lavage</th>
@@ -247,6 +264,7 @@
                                         {% if parametre.sondeBobinage %}
                                             {% for item in parametre.sondeBobinage.lsondeBobinages %}
                                                 <tr>
+                                                    <td>{{item.type}}</td>
                                                     <td>{{item.controle}}</td>
                                                     <td>{{item.critere}}</td>
                                                     <td>{{item.valeurRelevee}}</td>
