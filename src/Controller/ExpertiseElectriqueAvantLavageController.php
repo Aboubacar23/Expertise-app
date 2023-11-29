@@ -751,9 +751,15 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     {
         if($parametre)
         {
-            $parametre->setExpertiseElectiqueAvantLavage(1);
-            $entityManager->persist($parametre);
-            $entityManager->flush();
+
+            $dossier = 'email/email.html.twig';
+            $subject = "Expertise électrique avant lavage";
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation de l'expertise électrique avant lavage";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
             foreach($admins as $admin)
@@ -761,24 +767,21 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 foreach($admin->getRoles() as $role)
                 {
                     $email = $admin->getEmail();
-                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    if($role == 'ROLE_AGENT_MAITRISE'  )
                     {
-                        $dossier = 'email/email.html.twig';
-                        $subject = "Expertise électrique avant lavage";
-            
-                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-            
-                        $message = "Vous avez une validation de l'expertise électrique avant lavage";
-                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-            
                         //envoyer le mail
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire); 
-
-                    };       
+                    };      
                 }
             }
+            
+            //envoyer le mail
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire); 
+
+            $parametre->setExpertiseElectiqueAvantLavage(1);
+            $entityManager->persist($parametre);
+            $entityManager->flush();
 
             $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

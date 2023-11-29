@@ -282,29 +282,32 @@ class EssaisFinauxController extends AbstractController
         if($parametre)
         {
 
+            $dossier = 'email/email.html.twig';
+            $subject = "Essais Finaux";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation des essais Finaux";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
             $admins = $adminRepository->findAll();
             foreach($admins as $admin)
             {
                 foreach($admin->getRoles() as $role)
                 {
                     $email = $admin->getEmail();
-                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    if($role == 'ROLE_AGENT_MAITRISE')
                     {
-                        $dossier = 'email/email.html.twig';
-                        $subject = "Essais Finaux";
-            
-                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-            
-                        $message = "Vous avez une validation des essais Finaux";
-                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-            
-                        //envoyer le mail
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
                     };       
                 }
             }
+
+            //envoyer le mail
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
 
             $parametre->setEssaisFinaux(1);
             $entityManager->persist($parametre);

@@ -83,6 +83,15 @@ class ValidationController extends AbstractController
     {
         if($parametre)
         {
+            $dossier = 'email/email.html.twig';
+            $subject = "Validation de rapport Expertise";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation du rapport d'expertise";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
             foreach($admins as $admin)
@@ -90,23 +99,17 @@ class ValidationController extends AbstractController
                 foreach($admin->getRoles() as $role)
                 {
                     $email = $admin->getEmail();
-                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    if($role == 'ROLE_AGENT_MAITRISE')
                     {
-                        $dossier = 'email/email.html.twig';
-                        $subject = "Validation de rapport Expertise";
-            
-                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-            
-                        $message = "Vous avez une validation du rapport d'expertise";
-                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-            
                         //envoyer le mail
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
                     };       
                 }
             }
+
+            //envoyer le mail
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
 
             $parametre->setStatut(1);
             $em->persist($parametre);
@@ -120,31 +123,36 @@ class ValidationController extends AbstractController
     {
        // dd($parametre->getAffaire());
         $affaire = $parametre->getAffaire();
-        if($affaire)
+        if($parametre)
         {
+            $dossier = 'email/email.html.twig';
+            $subject = "Validation de rapport Final";
+
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+                        .$parametre->getAffaire()->getSuiviPar()->getPrenom();
+
+            $message = "Vous avez une validation du rapport Final";
+            $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+
+            //envoyer le mail
             $admins = $adminRepository->findAll();
             foreach($admins as $admin)
             {
                 foreach($admin->getRoles() as $role)
                 {
                     $email = $admin->getEmail();
-                    if($role == 'ROLE_AGENT_MAITRISE' or $role == 'ROLE_CHEF_PROJET')
+                    if($role == 'ROLE_AGENT_MAITRISE')
                     {
-                        $dossier = 'email/email.html.twig';
-                        $subject = "Validation de rapport Final";
-            
-                        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
-                                    .$parametre->getAffaire()->getSuiviPar()->getPrenom();
-            
-                        $message = "Vous avez une validation du rapport Final";
-                        $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                        $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
-            
-                        //envoyer le mail
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
                     };       
                 }
             }
+
+            //envoyer le mail
+            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+
             $parametre->setStatutFinal(1);
             $affaire->setEtat(1);
             $em->persist($affaire);
