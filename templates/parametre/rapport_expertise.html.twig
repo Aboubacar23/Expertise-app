@@ -1421,13 +1421,15 @@
                         {% endif %}
                     </div>
                     <div class="table_sous_page5_6_2">
-                        <table>
-                            <tr>
-                                <td height="15%" class="td_image">
-                                    <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
-                                </td>      
-                            </tr>
-                        </table>
+                        {% if parametre.mesureVibratoire %}
+                            <table>
+                                <tr>
+                                    <td height="15%" class="td_image">
+                                        <img src="{{ absolute_url(asset('images/mesure_vibratoire.png')) }}" alt="" height="150px">
+                                    </td>      
+                                </tr>
+                            </table>
+                        {% endif %}
                     </div>
                     {% if parametre.mesureVibratoire %}
                         <table style="padding-top: 180px;">
