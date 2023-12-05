@@ -291,7 +291,6 @@
                 //comparer la chaine du controle choisir à la chaine déjà choisir, puis calucer son critère
                 if(var_controle.value == var_id_UVW )
                 {
-                    console.log('je suis là');
                     const tension_essaie = var_j_UVW.toFixed(2);
                     const new_tension = document.getElementById('l_mesure_isolement_valeur');
                     console.log(tension_essaie);
@@ -300,6 +299,11 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -310,6 +314,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -320,6 +328,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -330,6 +342,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
 
                 const ol_critre = (critere*tension_stator)/1000000;
@@ -347,6 +363,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -357,6 +377,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -367,6 +391,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -377,6 +405,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
                 const ol_critre = (critere*tension_rotor)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
@@ -393,6 +425,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -403,6 +439,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -413,6 +453,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -423,6 +467,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
                 
                 const ol_critre = (critere*tension_stator2)/1000000;
@@ -440,6 +488,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -450,6 +502,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -460,6 +516,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -470,6 +530,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_mesure_isolement_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_mesure_isolement_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
                 const ol_critre = (critere*tension_rotor2)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');

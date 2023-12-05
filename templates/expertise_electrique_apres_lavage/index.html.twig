@@ -54,11 +54,13 @@
                         {% endif %}
                         
                         {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                            {% if parametre.essaisFinaux == 1 %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
-                            {% endif %}                                    
+                           {% if parametre.remontage == 1 %}
+                                {% if parametre.essaisFinaux == 1 %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux <i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
+                                {% endif %}                            
+                           {% endif %}                                    
                         {% endif %}
 
                         {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
@@ -179,8 +181,13 @@
                                                         <td class="text-left">{{item.controle}}</td>
                                                         <td class="text-center">{{ item.critere }}</td>
                                                         <td class="text-center">{{item.tensionEssai}}</td>
-                                                        <td class="text-center">{{item.valeurRelevee}}</td>
-                                                        <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
+                                                        {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                            <td class="text-center">{{item.valeurRelevee}}</td>
+                                                            <td class="text-center">{{ item.valeur}}</td>
+                                                        {% else %}
+                                                            <td class="text-center">{{item.valeurRelevee}} {{ item.unite }}</td>
+                                                            <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
+                                                        {% endif %}
                                                         <td class="text-center">{{item.tempCorrection}}</td>
                                                         <td class="text-center">{{ item.conformite }}</td>
                                                     </tr>                                                    
@@ -267,7 +274,7 @@
                                                     <td>{{item.type}}</td>
                                                     <td>{{item.controle}}</td>
                                                     <td>{{item.critere}}</td>
-                                                    <td>{{item.valeurRelevee}}</td>
+                                                    <td>{{item.valeurRelevee}} {{ item.unite}}</td>
                                                     <td>{{item.valeur}} {{ item.unite }}</td>
                                                     <td>{{item.tempCorrection}}</td>
                                                     <td>{{item.conformite}}</td>
@@ -281,174 +288,7 @@
                         </div>
                     </div>
                 <!-- fin stator bobinage -->
-   
-                <!-- début caractéristique -->
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h2>Carctérisques à vide </h2>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.autreCaracteristique == null %}
-                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% else %}
-                                        {% if parametre.autreCaracteristique.etat == 1 %}
-                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                        {% else %}
-                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                        {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_caracteristique', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false"><i class="fa fa-chevron-up"></i></a></li>
-                                    </ul>                                                
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content collapse" id="collapse3">
-                            <!-- début caractéristique -->
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    {% if parametre.caracteristiques %}
-                                        <table class="table table-bordered table-striped">
-                                            {% for item in parametre.caracteristiques %}
-                                                <tr>
-                                                    <td class="text-center"><img src="{{asset('/photo_point_fonctionnement_vide/'~ item.image)}}" alt=""></td>
-                                                </tr> 
-                                            {% endfor %}
-                                        </table>
-                                        {% endif %}
-                                        {% if parametre.autreCaracteristique %}
-                                            <table class="table table-bordered table-striped">
-                                                <tr>
-                                                    <th class="table-secondary">Résistance</th>
-                                                    <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="table-secondary">Pertes</th>
-                                                    <td>{{ parametre.autreCaracteristique.perte1}}</td>
-                                                    <td>tr/min</td>
-                                                    <td>{{ parametre.autreCaracteristique.perte2}}</td>
-                                                    <td>W</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="table-secondary">Pertes Fer à </th>
-                                                    <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
-                                                    <td>V</td>
-                                                    <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
-                                                    <td>W</td>
-                                                </tr>
-                                            </table>
-                                        {% endif %}
-                                    </div>
-                                </div>  
-                            <!-- fin caractéristique -->
-                        </div>
-                    </div>  
-                <!-- fin caractéristique -->
-                
-                <!-- début point fonctionnement rotor -->
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h2>Point de fonctionnement rotor bloqué</h2>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.autrePointFonctionnementRotor == null %}
-                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% else %}
-                                        {% if parametre.autrePointFonctionnementRotor.etat == 1 %}
-                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                        {% else %}
-                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                        {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_fonctionnement', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="false"><i class="fa fa-chevron-up"></i></a></li>
-                                    </ul>                                                
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content collapse" id="collapse4">
-                            {% if parametre.autrePointFonctionnementRotor %}
-                                <div class="row">
-                                    <table class="table table-bordered table-striped">
-                                        <tr  class="table-secondary">
-                                            <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
-                                        </tr>
-                                        <tr class="table-secondary text-center">
-                                            <th>U (v)</th>
-                                            <th>I1 (A)</th>
-                                            <th>I2 (A)</th>
-                                            <th>I3 (A)</th>
-                                            <th>Imoy (A)</th>
-                                            <th>Pabs (kW)</th>
-                                            <th>Pjoule (kW)</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{parametre.autrePointFonctionnementRotor.u }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.i1 }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.i2 }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.i3 }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.imoy }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.pabs }}</td>
-                                            <td>{{parametre.autrePointFonctionnementRotor.pjoule }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            {% endif %}
-                            {% if parametre.autrePointFonctionnementRotor %}
-                                <div class="row">
-                                    <table class="table table-bordered table-striped">
-                                        <tr class="text-center">
-                                            <th class="table-secondary">M</th>
-                                            <th class="table-secondary">Indication du peson</th>
-                                            <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
-                                            <td>kg</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th class="table-secondary">ID</th>
-                                            <th class="table-secondary">Courant de démarrage à Un</th>
-                                            <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
-                                            <td>A</td>
-                                            <th>ID = Imoy * Un/U</th>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th class="table-secondary">CD</th>
-                                            <th class="table-secondary">Couple de démarrage à Un</th>
-                                            <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
-                                            <td>Nm</td>
-                                            <th>CD = (9.81 * M * Un/U)</th>
-                                        </tr>
-                                    </table>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>  
-                <!-- fin point fonctionnement rotor --> 
-             
+    
                 <!-- début Appareils de mesure utilisés -->
                     <div class="x_panel"> 
                         <div class="x_title">

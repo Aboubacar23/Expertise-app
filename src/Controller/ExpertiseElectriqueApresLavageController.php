@@ -359,19 +359,19 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $parametre->setAutreCaracteristique($autreCaracteristique);
                 $autreCaracteristique->setEtat(0);
                 $autreCaracteristiqueRepository->save($autreCaracteristique, true);
-                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_essais_finaux', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'carac_terminer')
             {
                 $parametre->setAutreCaracteristique($autreCaracteristique);
                 $autreCaracteristique->setEtat(1);
                 $autreCaracteristiqueRepository->save($autreCaracteristique, true);
-                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_essais_finaux', ['id' => $parametre->getId()]);
             }
         }  
        
  
-         return $this->render('expertise_electrique_apres_lavage/caracteristique_vite.html.twig', [
+         return $this->render('essais_finaux/caracteristique_vite.html.twig', [
              'parametre' => $parametre,
              'formCarateristique' => $formCarateristique->createView(),
              'formAutreCaracteristique' => $formAutreCaracteristique->createView(),
@@ -415,18 +415,18 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $parametre->setAutrePointFonctionnementRotor($autrePointFonctionnementRotor);
                 $autrePointFonctionnementRotor->setEtat(0);
                 $autrePointFonctionnementRotorRepository->save($autrePointFonctionnementRotor, true);
-                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_essais_finaux', ['id' => $parametre->getId()]);
             }
             elseif($choix == 'autre_terminer')
             {
                 $parametre->setAutrePointFonctionnementRotor($autrePointFonctionnementRotor);
                 $autrePointFonctionnementRotor->setEtat(1);
                 $autrePointFonctionnementRotorRepository->save($autrePointFonctionnementRotor, true);
-                $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
+                $this->redirectToRoute('app_essais_finaux', ['id' => $parametre->getId()]);
             }
         }
         
-        return $this->render('expertise_electrique_apres_lavage/point_fonctionnement.html.twig', [
+        return $this->render('essais_finaux/point_fonctionnement_rotor.html.twig', [
             'parametre' => $parametre,
            // 'formPointFonctionnementRotor' => $formPointFonctionnementRotor->createView(),
             'formAutrePointFonctionnementRotor' => $formAutrePointFonctionnementRotor->createView(),
@@ -521,7 +521,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         } 
     }
 
-    //Supprimer carcatéristique
+    //Supprimer point de fonctionnement
     #[Route('/point/{id}/fonctionnement', name: 'delete_point', methods: ['GET'])]
     public function deletePoint(PointFonctionnementRotor $pointFonctionnementRotor,PointFonctionnementRotorRepository $pointFonctionnementRotorRepository): Response
     {
@@ -556,9 +556,10 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             {
                 foreach($admin->getRoles() as $role)
                 {
-                    $email = $admin->getEmail();
                     if($role == 'ROLE_AGENT_MAITRISE')
                     {
+                        $email = $admin->getEmail();
+                        $cdp = $admin->getNom().' '.$admin->getPrenom();
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
 
                     };       
@@ -571,7 +572,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             $parametre->setExpertiseElectiqueApresLavage(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
-            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }else
         {

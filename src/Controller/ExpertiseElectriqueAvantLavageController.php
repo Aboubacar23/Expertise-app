@@ -39,8 +39,10 @@ use App\Repository\LPlaqueRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\Mailer\Transport;
 use App\Entity\ControleVisuelElectrique;
+use App\Entity\LMesureVibratoire;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ControleVisuelElectriqueType;
+use App\Form\LmesureVibratoireType;
 use App\Repository\AdminRepository;
 use App\Repository\AutreControleRepository;
 use App\Repository\AppareilMesureRepository;
@@ -58,6 +60,7 @@ use App\Repository\LMesureResistanceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PointFonctionnementRepository;
 use App\Repository\ControleVisuelElectriqueRepository;
+use App\Repository\LMesureVibratoireRepository;
 use App\Service\MailerService;
 use SebastianBergmann\Environment\Console;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -406,34 +409,84 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création de mesure vibratoire
     #[Route('/mesure/vibratoire/{id}', name: 'app_mesure_vibratoire', methods: ['POST', 'GET'])]
-    public function mesureVibratoire(Parametre $parametre,Request $request,MesureVibratoireRepository $mesureVibratoireRepository): Response
+    public function mesureVibratoire(Parametre $parametre,EntityManagerInterface $em,Request $request,MesureVibratoireRepository $mesureVibratoireRepository): Response
     {       
         //la partie du mesures vibratoires
         $mesureVibratoire = new MesureVibratoire();
+        $lmesureVibratoire = new LMesureVibratoire();
         if($parametre->getMesureVibratoire()){
             $mesureVibratoire = $parametre->getMesureVibratoire()->getParametre()->getMesureVibratoire();
         }
 
         $formMesureVibratoire = $this->createForm(MesureVibratoireType::class, $mesureVibratoire);
         $formMesureVibratoire->handleRequest($request);
+
+        $f = $this->createForm(LmesureVibratoireType::class, $lmesureVibratoire);
+        $f->handleRequest($request);
+
+        $session = $request->getSession();
+        $items = $session->get('listes', []);
         
         if($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid())
         {
             $choix = $request->get('bouton2');
             if($choix == 'mesure_vibratoire_en_cours')
             {
+                $i = 0;
+                foreach($items as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureVibratoire = new LMesureVibratoire();
+                    $lmesureVibratoire->setLig($i);
+                    $lmesureVibratoire->setN30($item->getN30());
+                    $lmesureVibratoire->setA30($item->getA30());
+                    $lmesureVibratoire->setB30($item->getB30());
+                    $lmesureVibratoire->setC30($item->getC30());
+                    $lmesureVibratoire->setD30($item->getD30());
+                    $lmesureVibratoire->setE30($item->getE30());
+                    $lmesureVibratoire->setF30($item->getF30());
+                    $lmesureVibratoire->setTitre($item->getTitre());
+                    $lmesureVibratoire->setMesureVibratoire($mesureVibratoire);
+                    $em->persist($lmesureVibratoire);
+
+                }
                 $parametre->setMesureVibratoire($mesureVibratoire);
                 $mesureVibratoire->setEtat(0);
                 $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $session->clear();
                 $this->redirectToRoute('app_mesure_vibratoire', ['id' => $parametre->getId()]);
 
             }
             elseif($choix == 'mesure_vibratoire_terminer')
             {
+                $i = 0;
+                foreach($items as $item)
+                {
+                    $i = $i + 1;
+                    $lmesureVibratoire = new LMesureVibratoire();
+                    $lmesureVibratoire->setN30($item->getN30());
+                    $lmesureVibratoire->setA30($item->getA30());
+                    $lmesureVibratoire->setB30($item->getB30());
+                    $lmesureVibratoire->setC30($item->getC30());
+                    $lmesureVibratoire->setD30($item->getD30());
+                    $lmesureVibratoire->setE30($item->getE30());
+                    $lmesureVibratoire->setF30($item->getF30());
+                    $lmesureVibratoire->setTitre($item->getTitre());
+                    $lmesureVibratoire->setMesureVibratoire($mesureVibratoire);
+                    $em->persist($lmesureVibratoire);
+                }
                 $parametre->setMesureVibratoire($mesureVibratoire);
                 $mesureVibratoire->setEtat(1);
                 $mesureVibratoireRepository->save($mesureVibratoire, true);
+                $session->clear();
                 $this->redirectToRoute('app_mesure_vibratoire', ['id' => $parametre->getId()]);
+            }elseif($choix == 'ajouter')
+            {
+                $lig = sizeof($items)+1;
+                $lmesureVibratoire->setLig($lig);                
+                $items[$lig] = $lmesureVibratoire;
+                $session->set('listes', $items);
+               // dd($items);
             }
         }
 
@@ -442,6 +495,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         return $this->render('expertise_electrique_avant_lavage/mesure_vibratoire.html.twig', [
              'parametre' => $parametre,
              'formMesureVibratoire'=> $formMesureVibratoire->createView(),
+             'f'=> $f->createView(),
+             'items' => $items
          ]);
     }
 
@@ -754,36 +809,37 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
             $dossier = 'email/email.html.twig';
             $subject = "Expertise électrique avant lavage";
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom()." "
+            $cdp1 = $parametre->getAffaire()->getSuiviPar()->getNom()." "
                         .$parametre->getAffaire()->getSuiviPar()->getPrenom();
 
             $message = "Vous avez une validation de l'expertise électrique avant lavage";
             $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
+            $num_affaire = "Num d'affaire : ".$parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
             foreach($admins as $admin)
             {
                 foreach($admin->getRoles() as $role)
                 {
-                    $email = $admin->getEmail();
-                    if($role == 'ROLE_AGENT_MAITRISE'  )
+                    if($role == 'ROLE_AGENT_MAITRISE')
                     {
                         //envoyer le mail
+                        $email = $admin->getEmail();
+                        $cdp = $admin->getNom().' '.$admin->getPrenom();
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire); 
                     };      
                 }
             }
             
             //envoyer le mail
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire); 
+            $email2 = $parametre->getAffaire()->getSuiviPar()->getEmail();
+            $mailerService->sendEmail($email2,$subject,$message,$dossier,$user,$cdp1,$num_affaire); 
 
             $parametre->setExpertiseElectiqueAvantLavage(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
 
-            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
@@ -802,6 +858,20 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $session->set('mesures',$tables);
         }
         return $this->redirectToRoute('app_mesure_isolement',['id' => $paramID]); 
+    }     
+    
+    //suppression session dans la table mesure vibratoire
+    #[Route('/delete-vibratoire/{id}/{paramID}', name: 'delete_vibratoire')]
+    public function supprimeSessionMesure($id,$paramID,Request $request)
+    {
+        $session = $request->getSession();
+        $items = $session->get('listes', []);
+        if (array_key_exists($id, $items))
+        {
+            unset($items[$id]);
+            $session->set('listes',$items);
+        }
+        return $this->redirectToRoute('app_mesure_vibratoire',['id' => $paramID]); 
     } 
 
     //delete session tables mesures resistance
@@ -853,6 +923,17 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         {
             $lmesureIsolementRepository->remove($lmesureIsolement, true);
             return $this->redirectToRoute('app_mesure_isolement',['id' => $id2]); 
+        }
+    }
+
+    //delete tables lmesure vibratoire
+    #[Route('/delete-lmesure-vibratoire/{id}/{id2}', name: 'delete_lmesure_vibratoire')]
+    public function supprimeLVibration(LMesureVibratoire $lMesureVibratoire,$id2,Request $request, LMesureVibratoireRepository $lMesureVibratoireRepository)
+    {
+        if ($lMesureVibratoire)
+        {
+            $lMesureVibratoireRepository->remove($lMesureVibratoire, true);
+            return $this->redirectToRoute('app_mesure_vibratoire',['id' => $id2]); 
         }
     }
 

@@ -54,11 +54,13 @@
                         {% endif %}
                         
                         {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                            {% if parametre.essaisFinaux == 1 %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux<i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
-                            {% endif %}                                    
+                            {% if parametre.remontage == 1 %}
+                                {% if parametre.essaisFinaux == 1 %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux<i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
+                                {% endif %}                                  
+                            {% endif %}                                  
                         {% endif %}
 
                         {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
@@ -589,16 +591,20 @@
                                         <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
                                         <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>{{ parametre.mesureVibratoire.titre}}</td>
-                                        <td>{{ parametre.mesureVibratoire.n30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.a30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.b30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.c30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.d30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.e30 | number_format(2) }}</td>
-                                        <td>{{ parametre.mesureVibratoire.f30 | number_format(2) }}</td>
-                                    </tr>
+                                    {% if parametre.mesureVibratoire.lmesureVibratoires %}
+                                        {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
+                                            <tr>
+                                                <td class="titre_table">{{ item.titre}}</td>
+                                                <td>{{ item.n30 | number_format(2) }}</td>
+                                                <td>{{ item.a30 | number_format(2) }}</td>
+                                                <td>{{ item.b30 | number_format(2) }}</td>
+                                                <td>{{ item.c30 | number_format(2) }}</td>
+                                                <td>{{ item.d30 | number_format(2) }}</td>
+                                                <td>{{ item.e30 | number_format(2) }}</td>
+                                                <td>{{ item.f30 | number_format(2) }}</td>
+                                            </tr>
+                                        {% endfor %}                                        
+                                    {% endif %}
                                     <tr>
                                         <td>Observations</td>
                                         <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
@@ -791,7 +797,7 @@
                                             <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
                                             <td>{{ parametre.autreControle.balaisConformite2 }}</td>
                                         </tr>
-                                        <tr>
+                                        {#<tr>
                                             <td>Isolement jeu de bagues à réception</td>
                                             <td>À définir suivant le type de balais</td>
                                             <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
@@ -802,7 +808,7 @@
                                             <td>À définir suivant le type de balais</td>
                                             <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
                                             <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-                                        </tr>
+                                        </tr>#}
                                         <tr>
                                             <td>Rugosité du collecteur</td>
                                             <td>Nuancier Mersen</td>
@@ -841,7 +847,7 @@
                                             <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
                                             <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
                                         </tr>
-                                        <tr>
+                                        {#<tr>
                                             <td>Isolement jeu de bagues à réception</td>
                                             <td>À définir suivant le type de balais</td>
                                             <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
@@ -852,7 +858,7 @@
                                             <td>À définir suivant le type de balais</td>
                                             <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
                                             <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                                        </tr>
+                                        </tr>#}
                                         <tr>
                                             <td>Rugosité du collecteur</td>
                                             <td>Nuancier Mersen</td>

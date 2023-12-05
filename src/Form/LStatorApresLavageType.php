@@ -33,11 +33,11 @@ class LStatorApresLavageType extends AbstractType
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
+                    'MΩ' => 'MΩ',
                     'Ω' => 'Ω',
                     'mΩ' => 'mΩ',
                     'µΩ' => 'µΩ',
                     'kΩ' => 'kΩ',
-                    'MΩ' => 'MΩ',
                     'GΩ' => 'GΩ',
                 ]
             ])
@@ -52,6 +52,10 @@ class LStatorApresLavageType extends AbstractType
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
                     "Rotor 2" => "Rotor 2",
+                    "Régulation" => "Régulation",
+                    "Jeu de Bague" => "Jeu de Bague",
+                    "Sondes" => "Sondes",
+                    "Rechauffage" => "Rechauffage",
                 ]
             ]) 
             ->add('conformite', ChoiceType::class, [

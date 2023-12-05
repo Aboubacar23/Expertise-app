@@ -59,11 +59,13 @@
                         {% endif %}
                         
                         {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                            {% if parametre.essaisFinaux == 1 %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux<i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
-                            {% endif %}                                    
+                            {% if parametre.remontage == 1 %}
+                                {% if parametre.essaisFinaux == 1 %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux<i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
+                                {% endif %}                                  
+                            {% endif %}                                  
                         {% endif %}
 
                         {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}

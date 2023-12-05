@@ -71,14 +71,15 @@ class RevueEnclenchementType extends AbstractType
             ->add('arrivee_machine', DateType::class,[
                 'widget' => 'single_text'
             ])
-            ->add('objectif_rapport_expertise')
-            ->add('objectif_mise_dispo')
             ->add('date_rapport_expertise_finalise', DateType::class,[
                 'widget' => 'single_text'
             ])
+            /*->add('objectif_rapport_expertise')
+            ->add('objectif_mise_dispo')
             ->add('date_machine_prete', DateType::class,[
                 'widget' => 'single_text'
             ])
+            */
         ;
     }
 

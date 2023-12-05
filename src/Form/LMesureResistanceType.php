@@ -31,8 +31,8 @@ class LMesureResistanceType extends AbstractType
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-                    'Ω' => 'Ω',
                     'mΩ' => 'mΩ',
+                    'Ω' => 'Ω',
                     'µΩ' => 'µΩ',
                     'kΩ' => 'kΩ',
                     'MΩ' => 'MΩ',
@@ -60,6 +60,8 @@ class LMesureResistanceType extends AbstractType
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
                     "Rotor 2" => "Rotor 2",
+                    "Sondes" => "Sondes",
+                    "Rechauffage" => "Rechauffage",
                 ]
             ])
             ;

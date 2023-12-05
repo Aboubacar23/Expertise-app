@@ -3,6 +3,25 @@
 {% block title %}Affaire index{% endblock %}
 
 {% block body %}
+<style>
+	/* Ajouter une animation de clignotement */
+	@keyframes clignotement {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	/* Appliquer l'animation au bouton */
+	.clignotant {
+		animation: clignotement 1s infinite;
+	}
+</style>
 <div class="page-title">
     <div class="title_left">
     <h3>Gestion Affaires</h3>
@@ -47,59 +66,102 @@
                         {% for affaire in affaires %}
                             {% for item in affaire.parametres %}
                                 {% set i = i + 1 %}
-                                <tr>
-                                    <td>{{i}}</td>
-                                    <td>{{ item.affaire.numAffaire }}</td>
-                                    <td>{{ item.affaire.client }}</td>
-                                    <td>{{ item.type }}</td>
-                                    {#<td>{{ item.machine }}</td>#}
-                                    <td>{{ item.affaire.suiviPar }}</td>
-                                    {% if item.affaire.revueEnclenchement %}
-                                        <td class="text-center text-success">ok</td>
-                                    {% else %}
-                                        <td class="text-center text-danger">Non OK</td>
-                                    {% endif %}
-                                    <td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
-                                    {% if item.expertiseElectiqueAvantLavage == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% elseif item.expertiseElectiqueAvantLavage == 0 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
-                                    {% endif %}
-                                    {% if item.expertiseMecanique == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% elseif item.expertiseMecanique == 0 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
-                                    {% endif %}
-                                    {% if item.expertiseElectiqueApresLavage == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% elseif item.expertiseElectiqueApresLavage == 0 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
-                                    {% endif %}
-                                    {% if item.statut == 1 %}
-                                        <td class="text-center text-success">ok</td>
-                                    {% elseif item.statut == 0 %}
-                                        <td class="text-center text-danger">Non OK</td>
-                                    {% endif %}
-                                    
-                                    {% if item.remontage == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% elseif item.remontage == 0 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
-                                    {% endif %}
+                                
+									<tr>
+										<td>{{i}}</td>
+										<td>{{ item.affaire.numAffaire }}</td>
+										<td>{{ item.affaire.client }}</td>
+										<td>{{ item.type }}</td>
+										{#<td>{{ item.machine }}</td>#}
+										<td>{{ item.affaire.suiviPar }}</td>
+										{% if item.affaire.revueEnclenchement %}
+											<td class="text-center text-success">ok</td>
+										{% else %}
+											<td class="text-center text-danger">Non OK</td>
+										{% endif %}
+										<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
+										{% if item.expertiseElectiqueAvantLavage == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.expertiseElectiqueAvantLavage == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+										{% if item.expertiseMecanique == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.expertiseMecanique == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+										{% if item.expertiseElectiqueApresLavage == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.expertiseElectiqueApresLavage == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+										{% if item.expertiseElectiqueApresLavage == 0 or item.expertiseElectiqueAvantLavage == 0 or item.expertiseMecanique == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.statut == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.statut == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+										{% if item.remontage == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.statut == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.remontage == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+										{% if item.essaisFinaux == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.remontage == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% else %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
 
-                                    {% if item.essaisFinaux == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% else %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x"></i></td>
-                                    {% endif %}
-
-                                    {% if item.statut == 1 and item.remontage == 1 %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x green"></i></td>
-                                    {% else %}
-                                        <td class="text-center"><i class="fa fa-circle fa-10x red"></i></td>
-                                    {% endif %}
-                                    <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
-                                    <td class="text-center">
+										{% if item.statutFinal == 1 and item.statut == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.statut == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% else %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
+										{% endif %}
+                                        <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
+                                        <td class="text-center">
                                         <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-2x"></i></a>
                                     </td>
                                 </tr>

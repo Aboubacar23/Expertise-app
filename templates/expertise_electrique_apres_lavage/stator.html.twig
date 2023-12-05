@@ -89,7 +89,13 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.tensionEssai}}</td>
-                                            <td>{{item2.valeurRelevee}}</td>
+                                            <td>
+                                                {% if item2.controle == 'IP-UVW/masse' or   item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
+                                                    {{item2.valeurRelevee}}
+                                                {% else %}
+                                                    {{item2.valeurRelevee}} {{ item2.unite}}
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 {% if item2.controle == 'IP-UVW/masse' or   item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
                                                     {{item2.valeur}}
@@ -109,8 +115,14 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.tensionEssai}}</td>
-                                                <td>{{item.valeurRelevee}}</td>
+                                                <td>{{item.tensionEssai}} </td>
+                                                <td>
+                                                    {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        {{item.valeurRelevee}}
+                                                    {% else %}
+                                                        {{item.valeurRelevee}} {{ item.unite}}
+                                                    {% endif %}
+                                                </td>
                                                 <td>
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         {{item.valeur}}
@@ -291,7 +303,11 @@
 
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
-                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);     
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -302,6 +318,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -312,6 +332,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -322,6 +346,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
                 const ol_critre = (critere*tension_stator)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');
@@ -339,6 +367,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -349,6 +381,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -359,6 +395,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -369,6 +409,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
 
                 const ol_critre = (critere*tension_stator2)/1000000;
@@ -386,6 +430,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -396,6 +444,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -406,6 +458,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -416,6 +472,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
 
                 const ol_critre = (critere*tension_rotor)/1000000;
@@ -434,6 +494,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }     
                 else if(var_controle.value == var_id_U )
                 {
@@ -444,6 +508,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_V )
                 {
@@ -454,6 +522,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }    
                 else if(var_controle.value == var_id_W )
                 {
@@ -464,6 +536,10 @@
                     const ol_critre = 2.5;
                     const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                     new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
+                    
+                    const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+                    valeurFinale = 0;
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
                 const ol_critre = (critere*tension_rotor2)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');

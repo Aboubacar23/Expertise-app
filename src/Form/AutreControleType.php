@@ -15,9 +15,9 @@ class AutreControleType extends AbstractType
         $builder
             ->add('balais_masse_preconisation1')
             ->add('balais_masse_preconisation2')
-            ->add('balais_masse_preconisation3')
-            ->add('balais_masse_preconisation4')
-            ->add('balais_masse_preconisation5')
+           // ->add('balais_masse_preconisation3')
+          //  ->add('balais_masse_preconisation4')
+             ->add('balais_masse_preconisation5')
             ->add('balais_masse_preconisation6')
             ->add('balaisMasseConformite1', ChoiceType::class, [
                 'choices' => [
@@ -31,24 +31,25 @@ class AutreControleType extends AbstractType
                     'Non conforme' => 'Non conforme'
                 ]
             ])            
-            ->add('balaisMasseConformite3', ChoiceType::class, [
+         /*    ->add('balaisMasseConformite3', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])            
-            ->add('balaisMasseConformite4', ChoiceType::class, [
+           ->add('balaisMasseConformite4', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
-            ])            
+            ]) 
+            */            
             ->add('balaisMasseConformite5', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
-            ])            
+            ])           
             ->add('balaisMasseConformite6', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
@@ -57,8 +58,8 @@ class AutreControleType extends AbstractType
             ])
             ->add('balais_preconisation1')
             ->add('balais_preconisation2')
-            ->add('balais_preconisation3')
-            ->add('balais_preconisation4')
+           // ->add('balais_preconisation3')
+            //->add('balais_preconisation4')
             ->add('balais_preconisation5')
             ->add('balais_preconisation6')
             ->add('balaisConformite1', ChoiceType::class, [
@@ -73,7 +74,7 @@ class AutreControleType extends AbstractType
                     'Non conforme' => 'Non conforme'
                 ]
             ])
-            ->add('balaisConformite3', ChoiceType::class, [
+           /* ->add('balaisConformite3', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
@@ -84,7 +85,7 @@ class AutreControleType extends AbstractType
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
-            ])
+            ])*/
             ->add('balaisConformite5', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',

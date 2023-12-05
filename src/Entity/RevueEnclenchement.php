@@ -55,16 +55,16 @@ class RevueEnclenchement
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $arrivee_machine = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $objectif_rapport_expertise = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $objectif_mise_dispo = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_rapport_expertise_finalise = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_machine_prete = null;
 
     #[ORM\OneToOne(mappedBy: 'revue_enclenchement', cascade: ['persist', 'remove'])]

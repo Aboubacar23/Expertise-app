@@ -40,9 +40,11 @@ use App\Entity\Archive;
 use App\Entity\Parametre;
 use App\Form\AffaireType;
 use App\Form\ArchiveType;
+use App\Repository\AdminRepository;
 use App\Repository\AffaireRepository;
 use App\Repository\ArchiveRepository;
 use App\Repository\ParametreRepository;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,7 +89,7 @@ class AffaireController extends AbstractController
 
     //ajouter une nouvelle affaire
     #[Route('/new', name: 'app_affaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AffaireRepository $affaireRepository): Response
+    public function new(Request $request, AffaireRepository $affaireRepository, MailerService $mailerService,AdminRepository $adminRepository): Response
     {
         //inialiser une variable de classe
         $affaire = new Affaire();
@@ -111,7 +113,34 @@ class AffaireController extends AbstractController
 
                 //enregistrer les informations dans la base de données
                 $affaireRepository->save($affaire, true);
+                
+                //envoyer un mail aux agent de maitrise aprés la création d'une nouvelle affaire
+                $dossier = 'email/email.html.twig';
+                $subject = "Création d'une affaire";
+              /*  $cdp = $affaire->getSuiviPar()->getNom()." "
+                            .$affaire->getSuiviPar()->getPrenom();
+                */                
+                $message = "Une nouvelle affaire a été créée";
+                $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
+                $num_affaire = "Num d'affaire : ".$affaire->getNumAffaire();
 
+
+                //envoyer au ageent de maitrise
+                $admins = $adminRepository->findAll();
+                foreach($admins as $admin)
+                {
+                    foreach($admin->getRoles() as $role)
+                    {
+                        if($role == 'ROLE_AGENT_MAITRISE')
+                        {
+                            $email = $admin->getEmail();
+                            $cdp = $admin->getNom().' '.$admin->getPrenom();
+                            //envoyer le mail
+                            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
+                        };       
+                    }
+                }
+                //redirectionner  après l'ajout
                 return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
 
             }else{       

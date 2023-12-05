@@ -248,10 +248,11 @@ class RemontageController extends AbstractController
             {
                 foreach($admin->getRoles() as $role)
                 {
-                    $email = $admin->getEmail();
                     if($role == 'ROLE_AGENT_MAITRISE')
                     {
                         //envoyer le mail
+                        $email = $admin->getEmail();
+                        $cdp = $admin->getNom().' '.$admin->getPrenom();
                         $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
                     };       
                 }
@@ -265,7 +266,7 @@ class RemontageController extends AbstractController
             $parametre->setStatutFinal(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
-            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." ".$this->getUser()->getNom()." Vous avez validé l'expertise");
+            $this->addFlash("success", "Bravo ".$this->getUser()->getNom()." Vous avez validé l'expertise");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

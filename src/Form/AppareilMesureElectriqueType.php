@@ -20,7 +20,7 @@ class AppareilMesureElectriqueType extends AbstractType
                 'placeholder' => 'Choisir votre appareil de messure',
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {
-                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.etat = 'Fonctionnel' and a.statut = 'Conforme'");
+                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.etat = 'Fonctionnel' and a.statut = 'Conforme' and a.type_service ='electrique'");
                     return $query;
                 }
             ]);

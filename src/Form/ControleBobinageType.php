@@ -15,12 +15,14 @@ class ControleBobinageType extends AbstractType
         $builder
             ->add('conformite1', ChoiceType::class, [
                 'choices' => [
+                    'Choisissez' => 'Choisissez',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('conformite2',ChoiceType::class, [
                 'choices' => [
+                    'Choisissez' => 'Choisissez',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]

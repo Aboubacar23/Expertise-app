@@ -57,4 +57,37 @@
         </div>
     </div> 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        {
+            let conforme1 = document.getElementById('controle_bobinage_conformite1');
+            let conforme2 = document.getElementById('controle_bobinage_conformite2');
+            var constat1 = document.getElementById('controle_bobinage_constat1');
+            var constat2 = document.getElementById('controle_bobinage_constat2');
+
+            if(conforme1.value == "Conforme")
+            {
+                constat1.value = "ras";
+            }else if(conforme1.value == "Non conforme")
+            {
+                constat1.value = "";
+            }
+
+            if(conforme2.value == "Conforme")
+            {
+                constat2.value = "ras";
+            }else if(conforme2.value == "Non conforme")
+            {
+                constat2.value = "";
+            }
+
+        }
+        document.getElementById('controle_bobinage_conformite1').addEventListener('input', updateSumField);
+        document.getElementById('controle_bobinage_conformite2').addEventListener('input', updateSumField);
+        document.getElementById('controle_bobinage_constat1').addEventListener('input', updateSumField);
+        document.getElementById('controle_bobinage_constat2').addEventListener('input', updateSumField);
+    });
+</script>
 {% endblock %}
+ 

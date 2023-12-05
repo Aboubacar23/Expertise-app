@@ -57,17 +57,25 @@
                                 <td>{{ revue_enclenchement.indice}}</td>
                             </tr> 
                             <tr  class="table-secondary">
-                                <td>Type</td>
+                                {% if parametre %}
+                                    <td>Type</td>
+                                {% endif %}
                                 <td>Plan</td>
-                                <td>Paliers</td>
+                                {% if parametre %}
+                                    <td>Paliers</td>
+                                {% endif %}
                                 <td>Amiante</td>
                                 <td>N° Contrat</td>
                                 <td>Cahier des Charges</td>
                             </tr>
                             <tr>
-                                <td>{{ parametre[0].type}}</td>
+                                {% if parametre %}
+                                    <td>{{ parametre[0].type}}</td>
+                                {% endif %}
                                 <td>{{revue_enclenchement.plan}}</td>
-                                <td>{{ parametre[0].typePalier}}</td>
+                                {% if parametre %}
+                                    <td>{{ parametre[0].typePalier}}</td>
+                                {% endif %}
                                 <td>{{revue_enclenchement.amiante}}</td>
                                 <td>{{revue_enclenchement.numeroContrat}}</td>
                                 <td>{{revue_enclenchement.cahierCharge}}</td>

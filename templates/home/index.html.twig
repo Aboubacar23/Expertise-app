@@ -195,8 +195,8 @@
 								<th width="2">N°</th>
 								<th>N° Affaire JE</th>
 								{# <th>Nom Client</th>
-																<th>Type Machine</th>
-																<th>Machine</th>#}
+								<th>Type Machine</th>
+								<th>Machine</th>#}
 								<th>Suivi Par</th>
 								<th>Reunion Enc</th>
 								<th>Date d'arrivée</th>
@@ -255,15 +255,26 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
-										{% if item.statut == 1 %}
-											<td class="text-center text-success">ok</td>
+										{% if item.expertiseElectiqueApresLavage == 0 or item.expertiseElectiqueAvantLavage == 0 or item.expertiseMecanique == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.statut == 1 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x green"></i>
+											</td>
 										{% elseif item.statut == 0 %}
-											<td class="text-center text-danger">Non OK</td>
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x red clignotant"></i>
+											</td>
 										{% endif %}
-
 										{% if item.remontage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.statut == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
 											</td>
 										{% elseif item.remontage == 0 %}
 											<td class="text-center">
@@ -274,15 +285,23 @@
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
+										{% elseif item.remontage == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
 										{% else %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
 
-										{% if item.essaisFinaux == 1 and item.expertiseElectiqueApresLavage == 1 and item.expertiseMecanique == 1 and item.expertiseElectiqueAvantLavage == 1 %}
+										{% if item.statutFinal == 1 and item.statut == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
+											</td>
+										{% elseif item.statut == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
 											</td>
 										{% else %}
 											<td class="text-center">

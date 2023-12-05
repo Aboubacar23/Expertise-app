@@ -246,6 +246,20 @@
                                                         <td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
                                                         <td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
                                                     </tr>
+                                                    {% if parametre.mesureVibratoire.lmesureVibratoires %}
+                                                        {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
+                                                            <tr>
+                                                                <td class="titre_table">{{ item.titre}}</td>
+                                                                <td>{{ item.n30 | number_format(2) }}</td>
+                                                                <td>{{ item.a30 | number_format(2) }}</td>
+                                                                <td>{{ item.b30 | number_format(2) }}</td>
+                                                                <td>{{ item.c30 | number_format(2) }}</td>
+                                                                <td>{{ item.d30 | number_format(2) }}</td>
+                                                                <td>{{ item.e30 | number_format(2) }}</td>
+                                                                <td>{{ item.f30 | number_format(2) }}</td>
+                                                            </tr>
+                                                        {% endfor %}                                        
+                                                    {% endif %}
                                                     <tr>
                                                         <td>Observations</td>
                                                         <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
@@ -333,7 +347,7 @@
                                                             <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
                                                             <td>{{ parametre.autreControle.balaisConformite2 }}</td>
                                                         </tr>
-                                                        <tr>
+                                                        {#<tr>
                                                             <td>Isolement jeu de bagues à réception</td>
                                                             <td>À définir suivant le type de balais</td>
                                                             <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
@@ -344,7 +358,7 @@
                                                             <td>À définir suivant le type de balais</td>
                                                             <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
                                                             <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-                                                        </tr>
+                                                        </tr>#}
                                                         <tr>
                                                             <td>Rugosité du collecteur</td>
                                                             <td>Nuancier Mersen</td>
@@ -383,7 +397,7 @@
                                                             <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
                                                             <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
                                                         </tr>
-                                                        <tr>
+                                                       {# <tr>
                                                             <td>Isolement jeu de bagues à réception</td>
                                                             <td>À définir suivant le type de balais</td>
                                                             <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
@@ -394,7 +408,7 @@
                                                             <td>À définir suivant le type de balais</td>
                                                             <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
                                                             <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                                                        </tr>
+                                                        </tr>#}
                                                         <tr>
                                                             <td>Rugosité du collecteur</td>
                                                             <td>Nuancier Mersen</td>
@@ -1170,7 +1184,13 @@
                                                             <tr>
                                                                 <td>{{item.controle}}</td>
                                                                 <td>{{item.critere}}</td>
-                                                                <td>{{item.valeurRelevee}}</td>
+                                                                <td>
+                                                                    {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                                        {{item.valeurRelevee}}
+                                                                    {% else %}
+                                                                        {{item.valeurRelevee}} <span class="my_police">{{item.unite}}</span>
+                                                                    {% endif %}
+                                                                </td>
                                                                 <td>{{item.valeur}} {{item.unite}}</td>
                                                                 <td>{{item.tempCorrection}}</td>
                                                                 <td>{{item.conformite}}</td>
@@ -1181,7 +1201,7 @@
                                             </div>
                                         {% endif %}
                                     <!-- début sonde bobinage -->
-
+                                {#
                                     <!-- début caractéristique -->
                                         <div class="row">
                                             <div class="col-md-12">
@@ -1277,7 +1297,7 @@
                                             </div>
                                         {% endif %}
                                     <!-- fin point fonctionnement rotor --> 
-               
+                                #}       
                                     <!-- début Appareils de mesure utilisés -->
                                         <div class="row">
                                             {% if parametre.appareilMesures %}
@@ -1300,6 +1320,7 @@
                                     <!-- /fin Appareils de mesure utilisés -->
                                     
                                     <!-- début constats eléc après lavage -->
+                                    {% if parametre.constatElectriqueApresLavages|length !=0 %}
                                         <div class="row">
                                             <table class="table table-bordered">
                                                 <tr  class="table-secondary">
@@ -1321,7 +1342,8 @@
                                                     </tr>                                                    
                                                 {% endfor %}
                                             </table>
-                                        </div>
+                                        </div>                                        
+                                    {% endif %}
                                     <!-- /fin constats eléc après lavage -->
                                 </div>
                             </div>
