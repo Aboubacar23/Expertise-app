@@ -1382,14 +1382,16 @@
             {% if parametre.essaisPlateforme == 'Oui' %}
                 <div class="sous_page6_2">
                     <h5>3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
-                    {% if parametre.pointFonctionnements %}
-                        <table class="table_sous_page_6_2">
-                            {% for item in parametre.pointFonctionnements %}
-                                <tr>
-                                    <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="620px"></td>
-                                </tr> 
-                            {% endfor %}                 
-                        </table>
+                    {% if parametre.pointFonctionnements |length != 0 %}
+                        {% if parametre.pointFonctionnements %}
+                            <table class="table_sous_page_6_2">
+                                {% for item in parametre.pointFonctionnements %}
+                                    <tr>
+                                        <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="620px"></td>
+                                    </tr> 
+                                {% endfor %}                 
+                            </table>
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="sous_page6_3">
@@ -1487,21 +1489,23 @@
             {% endif %}
             <div class="sous_page6_4">
                 <h5>5.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
-                {% if parametre.appareilMesures %}
-                    <table>
-                        <tr class="titre_table">
-                            <th>Désignation du moyen de contrôle</th>
-                            <th>N° de l'appareil</th>
-                            <th>Date de validité</th>
-                        </tr>
-                        {% for item in parametre.appareilMesures %}
-                            <tr>
-                                <td>{{item.appareil.designation}}</td>
-                                <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                {% if parametre.appareilMesures|length != 0 %}
+                    {% if parametre.appareilMesures %}
+                        <table>
+                            <tr class="titre_table">
+                                <th>Désignation du moyen de contrôle</th>
+                                <th>N° de l'appareil</th>
+                                <th>Date de validité</th>
                             </tr>
-                        {% endfor %} 
-                    </table>                        
+                            {% for item in parametre.appareilMesures %}
+                                <tr>
+                                    <td>{{item.appareil.designation}}</td>
+                                    <td>{{item.appareil.numAppareil}}</td>
+                                    <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                                </tr>
+                            {% endfor %} 
+                        </table>                        
+                    {% endif %}                     
                 {% endif %}
             </div>
             <div class="sous_page6_5">
