@@ -80,7 +80,11 @@
 											<td class="text-center text-danger">Non OK</td>
 										{% endif %}
 										<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
-										{% if item.expertiseElectiqueAvantLavage == 1 %}
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseElectiqueAvantLavage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
@@ -89,7 +93,12 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
-										{% if item.expertiseMecanique == 1 %}
+
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseMecanique == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
@@ -98,7 +107,12 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
-										{% if item.expertiseElectiqueApresLavage == 1 %}
+
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseElectiqueApresLavage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>

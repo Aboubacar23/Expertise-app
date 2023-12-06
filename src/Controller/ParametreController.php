@@ -192,6 +192,12 @@ class ParametreController extends AbstractController
             //point de fonctionnement
             foreach($parametre->getPointFonctionnements() as $item){
                 $em->remove($item);
+            } 
+
+            //point de fonctionnement à vide
+            foreach($parametre->getPointFonctionnementVides() as $item)
+            {
+                $em->remove($item);
             }
 
             ///point de fonctionnement rotor
@@ -201,6 +207,15 @@ class ParametreController extends AbstractController
 
             ///remontage photo
             foreach($parametre->getRemontagePhotos() as $item){
+                $em->remove($item);
+            }
+
+            ///plauqe
+            foreach($parametre->getPlaques() as $item){
+                $em->remove($item);
+            }
+            ///controle de recensement
+            foreach($parametre->getControleRecensements() as $item){
                 $em->remove($item);
             }
 
@@ -232,6 +247,28 @@ class ParametreController extends AbstractController
                     }
                 }
                 $em->remove($parametre->getMesureIsolement());
+            }
+
+            ///mesure essais
+            if($parametre->getMesureIsolementEssai())
+            {
+                if($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais()){
+                    foreach($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $item){
+                        $em->remove($item);
+                    }
+                }
+                $em->remove($parametre->getMesureIsolementEssai());
+            }
+
+            ///mesure essais
+            if($parametre->getMesureResistanceEssai())
+            {
+                if($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais()){
+                    foreach($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $item){
+                        $em->remove($item);
+                    }
+                }
+                $em->remove($parametre->getMesureResistanceEssai());
             }
 
             ///mesure resistance
@@ -304,7 +341,7 @@ class ParametreController extends AbstractController
                 }
             }
             
-            $parametreRepository->remove($parametre, true);
+            $em->remove($parametre);
             $em->flush();
         }
 

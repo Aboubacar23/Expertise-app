@@ -1,269 +1,346 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Affaire{% endblock %}
+{% block title %}Affaire
+{% endblock %}
 
 {% block body %}
-<div class="">
-    <div class="page-title">
-        <div class="title_left"><h3>Expertise du projet</h3>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    {% if is_granted('ROLE_AGENT_MAITRISE') %}
-                        {% if active == false %}
-                            <a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>
-                        {% endif %}                            
-                    {% endif %}
-                    
-                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                        <a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>       
-                        {% if affaire.revueEnclenchement %}
-                            {% if active == true %}
-                                <a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
-                                {% if fermer == true %}
-                                    {% if affaire.bloque != 1 %}
-                                        <a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase">Fermer</a>
-                                    {% else %}
-                                        <a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-success btn-sm text-uppercase">Activer</a>
-                                    {% endif %}                                    
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-                        <a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
-                    {% endif %}                         
-                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_LECTEUR') %}
-                        {% if affaire.revueEnclenchement %}
-                            <a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
-                        {% endif %}
-                    {% endif %}
-                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %} 
-                        {% if affaire.revueEnclenchement == null %}
-                            <a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
-                        {% endif %}
-                    {% endif %}
-                    <ul class="nav navbar-right panel_toolbox">
-                        <a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
-                    </ul>
-                    <div class="clearfix"></div> 
-                </div>
-                <div class="x_content">
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4 text-center">
-                            {% for flash_message in app.session.flashbag.get('success') %}
-                                <div class="container alert alert-success p-2" role="alert">
-                                    {{ flash_message }}
-                                </div>
-                            {% endfor %}
+	<div class="">
+		<div class="page-title">
+			<div class="title_left">
+				<h3>Expertise du projet</h3>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="x_panel">
+					<div class="x_title">
+						{% if is_granted('ROLE_AGENT_MAITRISE') %}
+							{% if active == false %}
+								<a href="{{path('app_parametre_new', {'id' : affaire.id })}}" class="btn btn-outline-primary btn-sm text-uppercase">Paramètres</a>
+							{% endif %}
+						{% endif %}
 
-                            {% for flash_message in app.session.flashbag.get('danger') %}
-                                <div class="container alert alert-danger p-2" role="alert">
-                                    {{ flash_message }}  
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>
-                    <section class="content invoice">                                      
-                        <div class="row">
-                            <div class="invoice-header">
-                                <h4 class="text-right">
-                                    Numéro projet :  <small class="pull-right"> {{ affaire.numAffaire }}</small>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th style="width:50%">Nom du client </th>
-                                                <td>{{affaire.client }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Réference code client</th>
-                                                <td>{{ affaire.codeClient }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Numéro de fabrication</th>
-                                                <td>{{ affaire.numFabrication }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nom du rapport</th>
-                                                <td>{{ affaire.nomRapport }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Présentation des travaux</th>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">{{affaire.presentationTravaux | raw}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th style="width:50%">Context du projet</th>
-                                                <td>{{ affaire.context }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Numéro d'article client</th>
-                                                <td>{{ affaire.numArticleClient }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Affaire suivie par</th>
-                                                <td>{{ affaire.suiviPar }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Date prévisionnelle de livraison</th>
-                                                <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Réalisations des travaux Supplémentaires</th>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">{{ affaire.travauxSup | raw}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div> 
-                <div class="x_content">
-                    <section class="content invoice">
-                        <div class="row">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover table-bordered" style="width:100%">
-                                    <thead class="table-secondary">
-                                        <tr>
-                                            <th>N°</th>
-                                            <th>Type</th>
-                                            <th>Machine</th>
-                                            <th>Type Machine</th>
-                                            <th>Puissance (KW)</th>
-                                            <th>Montage</th>
-                                            <th>Fabricant</th>
-                                            <th>Vitesse (tr/min)</th>
-                                            <th>Masse (KG)</th>
-                                            <th class="text-center">Etat</th>
-                                            {#<th>Stator Tension</th>
-                                            <th>Critère</th>
-                                            <th>Presence Balais</th>
-                                            <th>Stator Frequence</th>
-                                            <th>Stator Courant</th>
-                                            <th>Stator Couplage</th>
-                                            <th>Date Arrivée</th>
-                                            <th>Rotor Tension</th>
-                                            <th>Rotor Expertise Refrigeant</th>
-                                            <th>Rotor Courant</th>
-                                            <th>Presence Plans</th>#}
-                                            <th class="text-center">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% set i = 0 %}
-                                    {% for parametre in affaire.parametres %}
-                                        {% if parametre.corbeille != 1 %}
-                                            {% set i = i + 1 %}
-                                            <tr>
-                                                <td>{{ i }}</td>
-                                                <td>{{ parametre.type }}</td>
-                                                <td>{{ parametre.machine }}</td>
-                                                <td>{{ parametre.typeMachine }}</td>
-                                                <td>{{ parametre.puissance }}</td>
-                                                <td>{{ parametre.montage }}</td>
-                                                <td>{{ parametre.fabricant }}</td>
-                                                <td>{{ parametre.vitesse }}</td>
-                                                <td>{{ parametre.masse }}</td>
-                                                <td class="text-center">
-                                                    {% if affaire.revueEnclenchement %}
-                                                        <span class="btn btn-outline-danger btn-sm">En-cours</span>
-                                                    {% else %}
-                                                        <span class="btn btn-outline-secondary btn-sm">En Attente</span>
-                                                    {% endif %}
-                                                </td>
-                                                {#<td>{{ parametre.statorTension }}</td>
-                                                <td>{{ parametre.critere | number_format }}</td>
-                                                <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
-                                                <td>{{ parametre.statorFrequence }}</td>
-                                                <td>{{ parametre.statorCourant }}</td>
-                                                <td>{{ parametre.statorCouplage }}</td>
-                                                <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('d-m-Y') : '' }}</td>
-                                                <td>{{ parametre.rotorTension }}</td>
-                                                <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
-                                                <td>{{ parametre.rotorCourant }}</td>
-                                                <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
-                                                <td class="text-center">
-                                                    {% if affaire.revueEnclenchement %}
-                                                        <a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-2x"></i></a>
-                                                    {% endif %}
-                                                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
-                                                        <a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
-                                                        <a class="btn btn-danger btn-sm p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-2x"></i></a>
-                                                    {% endif %}
-                                                  {#
-                                                    {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-                                                        {% if parametre.etat == 0 %}
-                                                            <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                    #}
-                                                </td>
-                                            </tr>                                   
-                                        {% endif %}
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="20">no records found</td>
-                                        </tr>
-                                    {% endfor %}         
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                </div> 
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-md-6 col-sm-6  ">
-    <div class="x_content">
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Archives</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-                </div>
-                {{ form_start(form) }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">{{ form_row(form.fichier) }}</div>
-                            <div class="col-md-12">{{ form_row(form.version, { value : version }) }}</div>
-                            <div class="col-md-12">{{ form_row(form.date_archive) }}</div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-primary">Archiver</button>
-                    </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
-    </div>
-    <!-- /modals --> 
-    </div>
-</div>
+						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+							<a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>
+							{% if affaire.revueEnclenchement %}
+								{% if active == true %}
+									<a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
+									{% if fermer == true %}
+										{% if affaire.bloque != 1 %}
+											<a onclick="return confirm('Voulez-vous vraiment Fermer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase">Fermer</a>
+										{% else %}
+											<a onclick="return confirm('Voulez-vous vraiment activer cette affaire ?')" href="{{path('app_bloque', {'id' : affaire.id })}}" class="btn btn-outline-success btn-sm text-uppercase">Activer</a>
+										{% endif %}
+									{% endif %}
+								{% endif %}
+							{% endif %}
+							<a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
+						{% endif %}
+						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_LECTEUR') %}
+							{% if affaire.revueEnclenchement %}
+								<a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
+							{% endif %}
+						{% endif %}
+						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+							{% if affaire.revueEnclenchement == null %}
+								<a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
+							{% endif %}
+						{% endif %}
+						<ul class="nav navbar-right panel_toolbox">
+							<a href="#" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i>
+							</a>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4 text-center">
+								{% for flash_message in app.session.flashbag.get('success') %}
+									<div class="container alert alert-success p-2" role="alert">
+										{{ flash_message }}
+									</div>
+								{% endfor %}
+
+								{% for flash_message in app.session.flashbag.get('danger') %}
+									<div class="container alert alert-danger p-2" role="alert">
+										{{ flash_message }}
+									</div>
+								{% endfor %}
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+						<section class="content invoice">
+							<div class="row">
+								<div class="invoice-header">
+									<h4 class="text-right">
+										Numéro projet :
+										<small class="pull-right">
+											{{ affaire.numAffaire }}</small>
+									</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="table-responsive">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th style="width:50%">Nom du client
+													</th>
+													<td>{{affaire.client }}</td>
+												</tr>
+												<tr>
+													<th>Réference code client</th>
+													<td>{{ affaire.codeClient }}</td>
+												</tr>
+												<tr>
+													<th>Numéro de fabrication</th>
+													<td>{{ affaire.numFabrication }}</td>
+												</tr>
+												<tr>
+													<th>Nom du rapport</th>
+													<td>{{ affaire.nomRapport }}</td>
+												</tr>
+												<tr>
+													<th colspan="2">Présentation des travaux</th>
+												</tr>
+												<tr>
+													<td colspan="2">{{affaire.presentationTravaux | raw}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="table-responsive">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th style="width:50%">Context du projet</th>
+													<td>{{ affaire.context }}</td>
+												</tr>
+												<tr>
+													<th>Numéro d'article client</th>
+													<td>{{ affaire.numArticleClient }}</td>
+												</tr>
+												<tr>
+													<th>Affaire suivie par</th>
+													<td>{{ affaire.suiviPar }}</td>
+												</tr>
+												<tr>
+													<th>Date prévisionnelle de livraison</th>
+													<td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
+												</tr>
+												<tr>
+													<th colspan="2">Réalisations des travaux Supplémentaires</th>
+												</tr>
+												<tr>
+													<td colspan="2">{{ affaire.travauxSup | raw}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<form class="form-horizontal form-label-left">
+										<label class="control-label col-md-6 col-sm-6">1.	Revue Enclenchement</label>
+										<div class="col-md-6 col-sm-6">
+											{% if affaire.revueEnclenchement %}
+												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+											{% else %}
+												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+											{% endif %}
+										</div>
+										<label class="control-label col-md-6 col-sm-6">2.	Parametre Machine</label>
+										<div class="col-md-6 col-sm-6">
+											{% if affaire.parametres|length == 0 %}
+												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+											{% else %}
+												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+											{% endif %}
+										</div>
+										{% if affaire.parametres %}
+											{% for item in affaire.parametres %}										
+												<label class="control-label col-md-6 col-sm-6">3.	Expertise Electrique avant lavage</label>
+												<div class="col-md-6 col-sm-6">
+													{% if item.expertiseElectiqueAvantLavage == 0 %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+													{% else %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+													{% endif %}	
+												</div>											
+												<label class="control-label col-md-6 col-sm-6">4.	Expertise Electrique après lavage</label>
+												<div class="col-md-6 col-sm-6">
+													{% if item.expertiseElectiqueApresLavage == 0 %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+													{% else %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+													{% endif %}	
+												</div>										
+												<label class="control-label col-md-6 col-sm-6">5.	Expertise mécanique</label>
+												<div class="col-md-6 col-sm-6">
+													{% if item.expertiseMecanique == 0 %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+													{% else %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+													{% endif %}	
+												</div>											
+												<label class="control-label col-md-6 col-sm-6">6.	Essais Finaux</label>
+												<div class="col-md-6 col-sm-6">
+													{% if item.essaisFinaux == 0 %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+													{% else %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+													{% endif %}	
+												</div>									
+												<label class="control-label col-md-6 col-sm-6">7.	Remontage</label>
+												<div class="col-md-6 col-sm-6">
+													{% if item.remontage == 0 %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
+													{% else %}
+														<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
+													{% endif %}	
+												</div>													
+											{% endfor %}											
+										{% endif %}
+									</form>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div class="x_content">
+						<section class="content invoice">
+							<div class="row">
+								<div class="table-responsive">
+									<table class="table table-striped table-hover table-bordered" style="width:100%">
+										<thead class="table-secondary">
+											<tr>
+												<th>N°</th>
+												<th>Type</th>
+												<th>Machine</th>
+												<th>Type Machine</th>
+												<th>Puissance (KW)</th>
+												<th>Montage</th>
+												<th>Fabricant</th>
+												<th>Vitesse (tr/min)</th>
+												<th>Masse (KG)</th>
+												<th class="text-center">Etat</th>
+												{#<th>Stator Tension</th>
+												<th>Critère</th>
+												<th>Presence Balais</th>
+												<th>Stator Frequence</th>
+												<th>Stator Courant</th>
+												<th>Stator Couplage</th>
+												<th>Date Arrivée</th>
+												<th>Rotor Tension</th>
+												<th>Rotor Expertise Refrigeant</th>
+												<th>Rotor Courant</th>
+												<th>Presence Plans</th>#}
+												<th class="text-center">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% set i = 0 %}
+											{% for parametre in affaire.parametres %}
+												{% if parametre.corbeille != 1 %}
+													{% set i = i + 1 %}
+													<tr>
+														<td>{{ i }}</td>
+														<td>{{ parametre.type }}</td>
+														<td>{{ parametre.machine }}</td>
+														<td>{{ parametre.typeMachine }}</td>
+														<td>{{ parametre.puissance }}</td>
+														<td>{{ parametre.montage }}</td>
+														<td>{{ parametre.fabricant }}</td>
+														<td>{{ parametre.vitesse }}</td>
+														<td>{{ parametre.masse }}</td>
+														<td class="text-center">
+															{% if affaire.revueEnclenchement %}
+																<span class="btn btn-outline-danger btn-sm">En-cours</span>
+															{% else %}
+																<span class="btn btn-outline-secondary btn-sm">En Attente</span>
+															{% endif %}
+														</td>
+														{#<td>{{ parametre.statorTension }}</td>
+                                                        <td>{{ parametre.critere | number_format }}</td>
+                                                        <td>{{ parametre.presenceBalais ? 'Oui' : 'Non' }}</td>
+                                                        <td>{{ parametre.statorFrequence }}</td>
+                                                        <td>{{ parametre.statorCourant }}</td>
+                                                        <td>{{ parametre.statorCouplage }}</td>
+                                                        <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('d-m-Y') : '' }}</td>
+                                                        <td>{{ parametre.rotorTension }}</td>
+                                                        <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
+                                                        <td>{{ parametre.rotorCourant }}</td>
+                                                        <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
+														<td class="text-center">
+															{% if affaire.revueEnclenchement %}
+																<a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}">
+																	<i class="fa fa-eye fa-2x"></i>
+																</a>
+															{% endif %}
+															{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
+																<a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}">
+																	<i class="fa fa-edit fa-2x"></i>
+																</a>
+																<a class="btn btn-danger btn-sm p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')">
+																	<i class="fa fa-trash fa-2x"></i>
+																</a>
+															{% endif %}
+															{#
+                                                            {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
+                                                                {% if parametre.etat == 0 %}
+                                                                    <a class="btn btn-warning btn-sm p-1" href="{{ path('app_parametre_valided', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous vraiment confirmer ?')"><i class="fa fa-check fa-2x"></i></a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            #}
+														</td>
+													</tr>
+												{% endif %}
+											{% else %}
+												<tr>
+													<td colspan="20">no records found</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-sm-6  ">
+		<div class="x_content">
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Archives</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						{{ form_start(form) }}
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-12">{{ form_row(form.fichier) }}</div>
+								<div class="col-md-12">{{ form_row(form.version, { value : version }) }}</div>
+								<div class="col-md-12">{{ form_row(form.date_archive) }}</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+							<button type="submit" class="btn btn-primary">Archiver</button>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+			<!-- /modals -->
+		</div>
+	</div>
 {% endblock %}
- 

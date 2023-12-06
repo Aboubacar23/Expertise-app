@@ -16,7 +16,7 @@
 				opacity: 1;
 			}
 		}
-	
+
 		/* Appliquer l'animation au bouton */
 		.clignotant {
 			animation: clignotement 1s infinite;
@@ -195,8 +195,8 @@
 								<th width="2">N°</th>
 								<th>N° Affaire JE</th>
 								{# <th>Nom Client</th>
-								<th>Type Machine</th>
-								<th>Machine</th>#}
+																<th>Type Machine</th>
+																<th>Machine</th>#}
 								<th>Suivi Par</th>
 								<th>Reunion Enc</th>
 								<th>Date d'arrivée</th>
@@ -228,7 +228,12 @@
 											<td class="text-center text-danger">Non OK</td>
 										{% endif %}
 										<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
-										{% if item.expertiseElectiqueAvantLavage == 1 %}
+
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseElectiqueAvantLavage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
@@ -237,7 +242,12 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
-										{% if item.expertiseMecanique == 1 %}
+
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseMecanique == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
@@ -246,7 +256,12 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
-										{% if item.expertiseElectiqueApresLavage == 1 %}
+
+										{% if item.affaire.revueEnclenchement|length == 0 %}
+											<td class="text-center">
+												<i class="fa fa-circle fa-10x black"></i>
+											</td>
+										{% elseif item.expertiseElectiqueApresLavage == 1 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x green"></i>
 											</td>
@@ -255,6 +270,7 @@
 												<i class="fa fa-circle fa-10x red clignotant"></i>
 											</td>
 										{% endif %}
+										
 										{% if item.expertiseElectiqueApresLavage == 0 or item.expertiseElectiqueAvantLavage == 0 or item.expertiseMecanique == 0 %}
 											<td class="text-center">
 												<i class="fa fa-circle fa-10x black"></i>

@@ -43,6 +43,7 @@ use App\Form\ArchiveType;
 use App\Repository\AdminRepository;
 use App\Repository\AffaireRepository;
 use App\Repository\ArchiveRepository;
+use App\Repository\EtudesAchatsRepository;
 use App\Repository\ParametreRepository;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -250,13 +251,34 @@ class AffaireController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST', 'GET'])]
-    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository,ParametreRepository $parametreRepository): Response
+    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository,ParametreRepository $parametreRepository, EntityManagerInterface $em, EtudesAchatsRepository $etudesAchatsRepository): Response
     {
         $parametre = $parametreRepository->findByAffaire($affaire);
         if ($affaire) 
         {
             if (!$parametre)
-            {
+            {    ///mesure essais
+                if($affaire->getRevueEnclenchement())
+                {
+                    $achats =  $affaire->getRevueEnclenchement()->getEtudesAchats();
+                    $ateliers =  $affaire->getRevueEnclenchement()->getAteliers();
+                    if($achats)
+                    {
+                        foreach($achats as $item)
+                        {
+                            $em->remove($item);
+                        }
+                    }
+                    if($ateliers)
+                    {
+                        foreach($ateliers as $item)
+                        {
+                            $em->remove($item);
+                        }
+                    }
+                    $em->remove($affaire->getRevueEnclenchement());
+                }
+    
                 $affaireRepository->remove($affaire, true);
                 return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
             }

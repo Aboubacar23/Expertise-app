@@ -16,40 +16,11 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/remarque')]
 class RemarqueController extends AbstractController
 {
-    #[Route('/', name: 'app_remarque_index', methods: ['GET','POST'])]
-    public function index(RemarqueRepository $remarqueRepository, Request $request,SluggerInterface $slugger): Response
+    #[Route('/aides', name: 'app_remarque_index', methods: ['GET','POST'])]
+    public function index(): Response
     {
-        $remarque = new Remarque();
-        $form = $this->createForm(RemarqueType::class, $remarque);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-            $image = $form->get('image')->getData();
-          
-            if ($image) {
-                $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                $safePhotoname = $slugger->slug($originalePhoto);
-                $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                try {
-                    $image->move(
-                        $this->getParameter('images_remarque'),
-                        $newPhotoname
-                    );
-                } catch (FileException $e){}
-                $remarque->setImage($newPhotoname); 
-            }
-            $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
-            $remarque->setAuteur($user);
-            $remarque->setEtat(0);
-            $remarqueRepository->save($remarque, true);
-            $this->addFlash('success', 'Merci pour votre remarque! ');
-            return $this->redirectToRoute('app_remarque_index', [], Response::HTTP_SEE_OTHER);
-        }
-        
-        return $this->render('remarque/index.html.twig', [
-            'remarques' => $remarqueRepository->findBy([],['id' => 'desc']),
-            'form' => $form->createView(),
+        return $this->render('home/aides.html.twig', [
+            'aides' => 'aides',
         ]);
     }
 

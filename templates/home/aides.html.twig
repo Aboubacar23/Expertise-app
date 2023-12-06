@@ -1,0 +1,324 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello HomeController!
+{% endblock %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{app.user ? app.user.nom }} {{app.user ? app.user.prenom }}, Bienvenue sur la  page <small>« Guide d'utilisation »</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
+                   <p class="ml-4"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>1- Paramètres<small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">1</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Créer un type de machine, si le type n'existe pas déjà</a>
+                        <p>Seulement les agents de maitrise ont le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">2</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Créer une machine, si la machine est nouvelle</a>
+                        <p>Seulement les agents de maitrise ont le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">3</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Ajouter un critère et température de correction</a>
+                        <p>Seul le Super Admin à le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">4</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Gérer les libellés des contrôles ( Isolement et Résistance )</a>
+                        <p>Seulement les agents de maitrise ont le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">5</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Gérer les types des contrôles géométrique</a>
+                        <p>Seulement les agents de maitrise ont le droit sur cette action</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>4- Après Validation d'expertise<small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">1</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Vérification et Validation du rapport d'expertise</a>
+                        <p>Dans cette partie, il s'agit de la Vérification et la Validation du rapport d'expertise après
+                            Validation des expertises (Électrique avant lavage, Électrique après lavage et Mécanique).</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">2</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Vérification et Validation du rapport final</a>
+                        <p>Dans cette partie, il s'agit de la Vérification et la Validation du rapport final après
+                            Validation des expertises (Essais finaux et Remontage).</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">3</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Les rapports expertises</a>
+                        <p>Vous pouvez voir les rapports d'expertises dans la partie « Rapports ».</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>2- Création d'affaire<small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">1</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Créer un client,s'il n'est pas déjà dans la base</a>
+                        <p>Seulement le Chef projet peut le faire</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">2</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Créer une affaire</a>
+                        <p>Seulement le Chef de projet a le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">3</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Revue d'enclenchement avec le bouton « Revue Enc »</a>
+                        <p>Seulement le Chef de projet a le droit sur cette action</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">4</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Créer une machine sur l'affaire avec le bouton « Paramètre »</a>
+                        <p>Seulement les agents de maitrise ont le droit sur cette action</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>5- Archivages<small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">1</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Archives</a>
+                        <p>
+                            Cette partie vous permet d'archiver les rapports d'expertises d'une affaire après le retour d'un client.
+                            <ol>
+                                <li>Télécharger rapport</li>
+                                <li>Ajouter l'archive</li>
+                                <li>Inserer le rapport et l'indice est générer automatiquement</li>
+                                <li>Cliquer sur le bouton « Archiver »</li>
+                                <li>Le Rapport est archivé</li>
+                            </ol>
+                        </p>
+                        <p href="#">Seul le chef de projet peut le faire</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">2</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Corbeilles</a>
+                        <p>Supprimer définitivement une affaire.</p>
+                        <p href="#">Seul le chef de projet peut le faire</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>3- Gestion Expertise<small></small>
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">1</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Expertise Électrique avant lavage</a>
+                        <p>Seul les techniciens Élec</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">2</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Expertise Électrique Après lavage</a>
+                        <p>Seul les techniciens Élec</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">3</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Expertise Mécanique</a>
+                        <p>Seul les techniciens Méca</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">4</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Essai Finaux</a>
+                        <p>Seul les techniciens Élec</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">5</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Remontage</a>
+                        <p>Seul les techniciens Méca</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">6</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Contre-Expertise</a>
+                        <p>Tous les acteurs</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">7</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Photothèque après travaux</a>
+                        <p>Seul le MAGASINIER et le CHEF DE CHEF</p>
+                    </div>
+                </article>
+                <article class="media event mb-2">
+                    <a class="pull-left date">
+                        <p class="day">8</p>
+                    </a>
+                    <div class="media-body">
+                        <a class="title" href="#">Info Générale</a>
+                        <p>Seul les CHEF DE CHEF</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
