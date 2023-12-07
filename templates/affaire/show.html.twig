@@ -23,7 +23,7 @@
 
 						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
 							<a onclick="return confirm('Voulez-vous modifier cette affaire ?')" href="{{path('app_affaire_edit', {'id' : affaire.id })}}" class="btn btn-outline-warning btn-sm text-uppercase">Modifier</a>
-							{% if affaire.revueEnclenchement %}
+							{% if affaire.revueEnclenchements|length != 0 %}
 								{% if active == true %}
 									<a data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-outline-info btn-sm">ARCHIVER</a>
 									{% if fermer == true %}
@@ -38,12 +38,12 @@
 							<a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
 						{% endif %}
 						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_LECTEUR') %}
-							{% if affaire.revueEnclenchement %}
-								<a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchement.id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
+							{% if affaire.revueEnclenchements|length != 0 %}
+								<a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchements[0].id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
 							{% endif %}
 						{% endif %}
 						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
-							{% if affaire.revueEnclenchement == null %}
+							{% if affaire.revueEnclenchements|length == 0 %}
 								<a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
 							{% endif %}
 						{% endif %}
@@ -147,7 +147,7 @@
 									<form class="form-horizontal form-label-left">
 										<label class="control-label col-md-6 col-sm-6">1.	Revue Enclenchement</label>
 										<div class="col-md-6 col-sm-6">
-											{% if affaire.revueEnclenchement %}
+											{% if affaire.revueEnclenchements %}
 												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked/>
 											{% else %}
 												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;"/>
@@ -257,7 +257,7 @@
 														<td>{{ parametre.vitesse }}</td>
 														<td>{{ parametre.masse }}</td>
 														<td class="text-center">
-															{% if affaire.revueEnclenchement %}
+															{% if affaire.revueEnclenchements %}
 																<span class="btn btn-outline-danger btn-sm">En-cours</span>
 															{% else %}
 																<span class="btn btn-outline-secondary btn-sm">En Attente</span>
@@ -275,7 +275,7 @@
                                                         <td>{{ parametre.rotorCourant }}</td>
                                                         <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
 														<td class="text-center">
-															{% if affaire.revueEnclenchement %}
+															{% if affaire.revueEnclenchements|length != 0 %}
 																<a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}">
 																	<i class="fa fa-eye fa-2x"></i>
 																</a>

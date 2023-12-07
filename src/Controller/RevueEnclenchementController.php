@@ -19,6 +19,7 @@ use App\Repository\RevueEnclenchementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Form\RevueEnclenchement2Type;
 
 #[Route('/revue/enclenchement')]
 class RevueEnclenchementController extends AbstractController
@@ -32,16 +33,18 @@ class RevueEnclenchementController extends AbstractController
     }
 
     #[Route('/new-create/{id}', name: 'app_revue_enclenchement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,Affaire $affaire,RevueEnclenchementRepository $revueEnclenchementRepository,ParametreRepository $parametreRepository,EtudesAchatsRepository $etudesAchatsRepository, AtelierRepository $atelierRepository): Response
+    public function newIndiceA(Request $request,Affaire $affaire,RevueEnclenchementRepository $revueEnclenchementRepository,ParametreRepository $parametreRepository,EtudesAchatsRepository $etudesAchatsRepository, AtelierRepository $atelierRepository): Response
     {
         
         $revueEnclenchement = new RevueEnclenchement();
-
-        if($affaire->getRevueEnclenchement())
+        //dd($affaire);
+        if(count($affaire->getRevueEnclenchements()) != 0)
         {
-            $revueEnclenchement = $affaire->getRevueEnclenchement()->getAffaire()->getRevueEnclenchement();
+            $revueEn = $revueEnclenchementRepository->findByAffaire($affaire);
+            //dd($revueEn[0]);
+            $revueEnclenchement = $revueEn[0];
         }
-
+        
         $form = $this->createForm(RevueEnclenchementType::class, $revueEnclenchement);
         $form->handleRequest($request);
 
@@ -69,7 +72,8 @@ class RevueEnclenchementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
         {
             $revueEnclenchement->setUtilisateur($user);
-            $affaire->setRevueEnclenchement($revueEnclenchement);
+            $revueEnclenchement->setAffaire($affaire);
+            //$affaire->setRevueEnclenchement($revueEnclenchement);
             foreach($affaire->getParametres() as $item)
             {
                 $item->setEtat(1);
@@ -103,6 +107,94 @@ class RevueEnclenchementController extends AbstractController
             'affaire' => $affaire,
             'parametre' => $parametre,
             'revue_enclenchement' => $revueEnclenchement,
+            'etudes_achats' => $etudesAchats,
+            'atelier' => $atelier,
+            'form' => $form->createView(),
+            'formAtelier' => $formAtelier->createView(),
+            'formEtudesAchats' => $formEtudesAchats->createView(),
+            
+        ]);
+    }
+
+    #[Route('/indice-revue/{id}', name: 'app_revue_enclenchement_indice', methods: ['GET', 'POST'])]
+    public function newIndiceB(Request $request,Affaire $affaire,RevueEnclenchementRepository $revueEnclenchementRepository,ParametreRepository $parametreRepository,EtudesAchatsRepository $etudesAchatsRepository, AtelierRepository $atelierRepository): Response
+    {
+        
+        $revueEnclenchement = new RevueEnclenchement();
+        $revueEn = $revueEnclenchementRepository->findByAffaire($affaire);
+        $indice = $revueEn[0];
+        //dd($affaire);
+        if(count($affaire->getRevueEnclenchements()) > 1)
+        {
+            $revueEn = $revueEnclenchementRepository->findByAffaire($affaire);
+            $revueEnclenchement = $revueEn[1];
+            $indice = $revueEn[1];
+        }
+        
+        $form = $this->createForm(RevueEnclenchement2Type::class, $revueEnclenchement);
+        $form->handleRequest($request);
+
+        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
+
+
+        $etudesAchats = new EtudesAchats();
+        $formEtudesAchats = $this->createForm(EtudesAchatsType::class, $etudesAchats);
+        $formEtudesAchats->handleRequest($request);
+
+        $listes = $parametreRepository->findAll();
+        $parametre = [];
+        foreach($listes as $item)
+        {
+            if ($item->getAffaire()->getId() == $affaire->getId())
+            {
+                array_push($parametre,$item);
+            }
+        }
+      //  dd($parametre);
+        $atelier = new Atelier();
+        $formAtelier = $this->createForm(AtelierType::class, $atelier);
+        $formAtelier->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $revueEnclenchement->setUtilisateur($user);
+            $revueEnclenchement->setAffaire($affaire);
+            $revueEnclenchement->setIndice('Indice B');
+            //$affaire->setRevueEnclenchement($revueEnclenchement);
+            foreach($affaire->getParametres() as $item)
+            {
+                $item->setEtat(1);
+            }
+            
+            $revueEnclenchementRepository->save($revueEnclenchement, true);
+            return $this->redirectToRoute('app_revue_enclenchement_indice', [
+                'id' => $affaire->getId()
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($formEtudesAchats->isSubmitted() && $formEtudesAchats->isValid()) 
+        {
+            $etudesAchats->setRevueEnclenchement($revueEnclenchement);
+            $etudesAchatsRepository->save($etudesAchats, true);
+            return $this->redirectToRoute('app_revue_enclenchement_indice', [
+                'id' => $affaire->getId()
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($formAtelier->isSubmitted() && $formAtelier->isValid()) 
+        {
+            $atelier->setRevueEnclenchement($revueEnclenchement);
+            $atelierRepository->save($atelier, true);
+            return $this->redirectToRoute('app_revue_enclenchement_indice', [
+                'id' => $affaire->getId()
+            ], Response::HTTP_SEE_OTHER);
+        }
+        
+        return $this->render('revue_enclenchement/new_indice.html.twig', [
+            'affaire' => $affaire,
+            'parametre' => $parametre,
+            'revue_enclenchement' => $revueEnclenchement,
+            'indice' => $indice,
             'etudes_achats' => $etudesAchats,
             'atelier' => $atelier,
             'form' => $form->createView(),

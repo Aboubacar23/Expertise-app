@@ -62,17 +62,18 @@ class Affaire
     #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: Archive::class)]
     private Collection $archives;
 
-    #[ORM\OneToOne(inversedBy: 'affaire', cascade: ['persist', 'remove'])]
-    private ?RevueEnclenchement $revue_enclenchement = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'affaire', targetEntity: RevueEnclenchement::class)]
+    private Collection $revueEnclenchements;
 
 
     public function __construct()
     {
         $this->parametres = new ArrayCollection();
         $this->archives = new ArrayCollection();
+        $this->revueEnclenchements = new ArrayCollection();
     }
 
 
@@ -298,18 +299,6 @@ class Affaire
         return $this;
     }
 
-    public function getRevueEnclenchement(): ?RevueEnclenchement
-    {
-        return $this->revue_enclenchement;
-    }
-
-    public function setRevueEnclenchement(?RevueEnclenchement $revue_enclenchement): self
-    {
-        $this->revue_enclenchement = $revue_enclenchement;
-
-        return $this;
-    }
-
     public function getUser(): ?string
     {
         return $this->user;
@@ -318,6 +307,36 @@ class Affaire
     public function setUser(?string $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RevueEnclenchement>
+     */
+    public function getRevueEnclenchements(): Collection
+    {
+        return $this->revueEnclenchements;
+    }
+
+    public function addRevueEnclenchement(RevueEnclenchement $revueEnclenchement): static
+    {
+        if (!$this->revueEnclenchements->contains($revueEnclenchement)) {
+            $this->revueEnclenchements->add($revueEnclenchement);
+            $revueEnclenchement->setAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRevueEnclenchement(RevueEnclenchement $revueEnclenchement): static
+    {
+        if ($this->revueEnclenchements->removeElement($revueEnclenchement)) {
+            // set the owning side to null (unless already changed)
+            if ($revueEnclenchement->getAffaire() === $this) {
+                $revueEnclenchement->setAffaire(null);
+            }
+        }
 
         return $this;
     }

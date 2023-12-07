@@ -57,7 +57,7 @@
                                     <td>{{ affaire.suiviPar }}</td>
                                     <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                     <td class="text-center">
-                                        {% if affaire.revueEnclenchement %}
+                                        {% if affaire.revueEnclenchements %}
                                             <span class="btn btn-outline-danger btn-sm">En-cours</span>
                                         {% else %}
                                             <span class="btn btn-outline-secondary btn-sm">En Attente</span>

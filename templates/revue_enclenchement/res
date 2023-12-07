@@ -7,7 +7,7 @@
 	<div class="">
 		<div class="page-title">
 			<div class="title_left">
-				<h3>Revue d'Enclenchement</h3>
+				<h3>Revue d'Enclenchement Indice B</h3>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -23,106 +23,106 @@
 					</div>
 					<div class="x_content">
 						{{ form_start(form) }}
-						<div class="row">
-							<table class="table table-bordered">
-								<tr class="table-secondary">
-									<th class="text-center" colspan="6">Revue D'enclenchement</th>
-								</tr>
-								<tr class="table-secondary">
-									<td></td>
-									<td>N° PROJET</td>
-									<td>DESCRIPTION PRESTATION</td>
-									<td>Chef de Projet</td>
-									<td>CLIENT</td>
-									<td>INDICE</td>
-								</tr>
-								<tr>
-									<td>{{ form_widget(form.libelle) }}</td>
-									<td>{{ affaire.numAffaire }}</td>
-									<td>{{ form_widget(form.description_prestation) }}</td>
-									<td>{{ affaire.suiviPar }}</td>
-									<td>{{ affaire.client }}</td>
-									<td>{{ form_widget(form.indice) }}</td>
-								</tr>
-								<tr class="table-secondary">
-									<td>Type</td>
-									<td>Plan</td>
-									<td>Paliers</td>
-									<td>Amiante</td>
-									<td>N° Contrat</td>
-									<td>Cahier des Charges</td>
-								</tr>
-								<tr>
-									{% if parametre %}
-										<td>{{ parametre[0].type }}</td>
-									{% else %}
+							<div class="row">
+								<table class="table table-bordered">
+									<tr class="table-secondary">
+										<th class="text-center" colspan="6">Revue D'enclenchement</th>
+									</tr>
+									<tr class="table-secondary">
 										<td></td>
-									{% endif %}
-									<td>{{ form_widget(form.plan) }}</td>
-									{% if parametre %}
-										<td>{{ parametre[0].typePalier }}</td>
-									{% else %}
-										<td></td>
-									{% endif %}
-									<td>{{ form_widget(form.amiante) }}</td>
-									<td>{{ form_widget(form.numero_contrat) }}</td>
-									<td>{{ form_widget(form.cahier_charge) }}</td>
-								</tr>
-								<tr class="table-secondary">
-									<td>N° PCQ</td>
-									<td>Point d'arrêt</td>
-									<td>Contre expertise</td>
-									<td>Date Recette Client</td>
-									<td>Observation</td>
-									<td>Clarifications suite RE</td>
-								</tr>
-								<tr>
-									<td>{{ form_widget(form.numero_pcq) }}</td>
-									<td>{{ form_widget(form.point_arret) }}</td>
-									<td>{{ form_widget(form.contre_expertise) }}</td>
-									<td>{{ form_widget(form.re7_client) }}</td>
-									<td>{{ form_widget(form.observation) }}</td>
-									<td>{{ form_widget(form.clarification) }}</td>
-								</tr>
-								<tr class="table-secondary">
-									<th colspan="6" class="text-center">PLANIFICATION / JALONS</th>
-								</tr>
-								<tr class="table-secondary">
-									<td colspan="2">Délai Demande client</td>
-									<td colspan="2">Arrivée de la commande</td>
-									<td colspan="2">ARC</td>
-								</tr>
-								<tr>
-									<td colspan="2">{{ form_widget(form.delai_demande_client) }}</td>
-									<td colspan="2">{{ form_widget(form.arrive_commande) }}</td>
-									<td colspan="2">{{ form_widget(form.arc) }}</td>
+										<td>N° PROJET</td>
+										<td>DESCRIPTION PRESTATION</td>
+										<td>Chef de Projet</td>
+										<td>CLIENT</td>
+										<td>INDICE</td>
+									</tr>
+									<tr>
+										<td>{{ form_widget(form.libelle) }}</td>
+										<td>{{ affaire.numAffaire }}</td>
+										<td>{{ form_widget(form.description_prestation, {value : indice.descriptionPrestation}) }}</td>
+										<td>{{ affaire.suiviPar }}</td>
+										<td>{{ affaire.client }}</td>
+										<td>Indice B</td>
+									</tr>
+									<tr class="table-secondary">
+										<td>Type</td>
+										<td>Plan</td>
+										<td>Paliers</td>
+										<td>Amiante</td>
+										<td>N° Contrat</td>
+										<td>Cahier des Charges</td>
+									</tr>
+									<tr>
+										{% if parametre %}
+											<td>{{ parametre[0].type }}</td>
+										{% else %}
+											<td></td>
+										{% endif %}
+										<td>{{ form_widget(form.plan, {value : indice.plan}) }}</td>
+										{% if parametre %}
+											<td>{{ parametre[0].typePalier }}</td>
+										{% else %}
+											<td></td>
+										{% endif %}
+										<td>{{ form_widget(form.amiante, {value : indice.amiante}) }}</td>
+										<td>{{ form_widget(form.numero_contrat, {value : indice.numeroContrat}) }}</td>
+										<td>{{ form_widget(form.cahier_charge, {value : indice.cahierCharge}) }}</td>
+									</tr>
+									<tr class="table-secondary">
+										<td>N° PCQ</td>
+										<td>Point d'arrêt</td>
+										<td>Contre expertise</td>
+										<td>Date Recette Client</td>
+										<td>Observation</td>
+										<td>Clarifications suite RE</td>
+									</tr>
+									<tr>
+										<td>{{ form_widget(form.numero_pcq, {value : indice.numeroPcq}) }}</td>
+										<td>{{ form_widget(form.point_arret, {value : indice.pointArret}) }}</td>
+										<td>{{ form_widget(form.contre_expertise, {value : indice.contreExpertise}) }}</td>
+										<td>{{ form_widget(form.re7_client, {value : indice.re7Client|date("m/d/Y")}) }}</td>
+										<td>{{ form_widget(form.observation, {value : indice.observation}) }}</td>
+										<td>{{ form_widget(form.clarification, {value : indice.clarification}) }}</td>
+									</tr>
+									<tr class="table-secondary">
+										<th colspan="6" class="text-center">PLANIFICATION / JALONS</th>
+									</tr>
+									<tr class="table-secondary">
+										<td colspan="2">Délai Demande client</td>
+										<td colspan="2">Arrivée de la commande</td>
+										<td colspan="2">ARC</td>
+									</tr>
+									<tr>
+										<td colspan="2">{{ form_widget(form.delai_demande_client) }}</td>
+										<td colspan="2">{{ form_widget(form.arrive_commande) }}</td>
+										<td colspan="2">{{ form_widget(form.arc) }}</td>
 
-								</tr>
-								<tr class="table-secondary">
-									<td>Revue d'enclenchement</td>
-									<td>Arrivée de la machine</td>
-									<td>Date rapport expertise finalisé</td>
-									{#<td>Objectif rapport expertise (jours)</td>
-									<td>Objectif mise à dispo machine pour exp(jours)</td>
-									<td>Date machine prête pour expé</td>#}
-								</tr>
-								<tr>
-									<td>{{ form_widget(form.revue_enclenchement) }}</td>
-									<td>{{ form_widget(form.arrivee_machine) }}</td>
-									<td>{{ form_widget(form.date_rapport_expertise_finalise) }}</td>
-									{#<td>{{ form_widget(form.objectif_rapport_expertise) }}</td>
-									<td>{{ form_widget(form.objectif_mise_dispo) }}</td>
-									<td>{{ form_widget(form.date_machine_prete) }}</td>#}
-								</tr>
-							</table>
-						</div>
-						<div class="row">
-							<div class="col-md-12 align-center">
-								<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Enregistrer') }}<i class="fa fa-save p-2"></i></button>
-                                <hr>
-                                <p class="text-danger">Toujours Enregistrer avant de passer à (ACHATS / SOUS-TRAITANCE) et (ETUDES)</p>
+									</tr>
+									<tr class="table-secondary">
+										<td colspan="2">Revue d'enclenchement</td>
+										<td colspan="2">Arrivée de la machine</td>
+										<td colspan="2">Date rapport expertise finalisé</td>
+										{#<td>Objectif rapport expertise (jours)</td>
+										<td>Objectif mise à dispo machine pour exp(jours)</td>
+										<td>Date machine prête pour expé</td>#}
+									</tr>
+									<tr>
+										<td colspan="2">{{ form_widget(form.revue_enclenchement) }}</td>
+										<td colspan="2">{{ form_widget(form.arrivee_machine) }}</td>
+										<td colspan="2">{{ form_widget(form.date_rapport_expertise_finalise) }}</td>
+										{#<td>{{ form_widget(form.objectif_rapport_expertise) }}</td>
+										<td>{{ form_widget(form.objectif_mise_dispo) }}</td>
+										<td>{{ form_widget(form.date_machine_prete) }}</td>#}
+									</tr>
+								</table>
 							</div>
-						</div>
+							<div class="row">
+								<div class="col-md-12 align-center">
+									<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Enregistrer') }}<i class="fa fa-save p-2"></i></button>
+									<hr>
+									<p class="text-danger">Toujours Enregistrer avant de passer à (ACHATS / SOUS-TRAITANCE) et (ETUDES)</p>
+								</div>
+							</div>
 						{{ form_end(form) }}
 					</div>
 				</div>

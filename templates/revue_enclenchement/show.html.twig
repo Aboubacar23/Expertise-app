@@ -15,15 +15,23 @@
             <div class="x_panel">
                 <div class="x_title">           
                     <div class="row">
-                        <div class="col-md-4">   
+                        <div class="col-md-9">   
                             {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') %}
-                                <a href="{{path('app_revue_enclenchement_new', {'id' : revue_enclenchement.affaire.id })}}" class="btn btn-outline-warning btn-sm p-2 text-uppercase">Modifier<i class="fa fa-edit p-1"></i></a>
+                                <a href="{{path('app_revue_enclenchement_new', {'id' : revue_enclenchement.affaire.id })}}" class="btn btn-outline-warning btn-sm p-2 mr-3 text-uppercase">Modifier Indice A<i class="fa fa-edit p-1"></i></a>
                             {% endif %}                 
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') %}
+                                <a href="{{path('app_revue_enclenchement_indice', {'id' : revue_enclenchement.affaire.id })}}" class="btn btn-outline-primary btn-sm p-2 mr-3 text-uppercase">Créer indice B<i class="fa fa-plus-circle p-1"></i></a>
+                            {% endif %}                                 
+                            
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') %}
+                                <a target="_blank" href="{{path('app_revue_enclenchement_print', {'id' : revue_enclenchement.id })}}" class="btn btn-outline-info btn-sm p-2 mr-3 text-uppercase">Imprimer indice A<i class="fa fa-file p-1"></i></a>
+                                
+                                {% if revue_enclenchement.affaire.revueEnclenchements |length > 1 %}
+                                    <a target="_blank" href="{{path('app_revue_enclenchement_print', {'id' : revue_enclenchement.affaire.revueEnclenchements[1].id })}}" class="btn btn-outline-success btn-sm p-2 mr-3 text-uppercase">Imprimer indice B<i class="fa fa-file p-1"></i></a>
+                                {% endif %}
+                            {% endif %}
                         </div>
-                        <div class="col-md-4 text-center">                   
-                             <a target="_blank" href="{{path('app_revue_enclenchement_print', {'id' : revue_enclenchement.id })}}" class="btn btn-outline-info btn-sm p-2 text-uppercase">Voir en PDF<i class="fa fa-arrow-circle-left p-1"></i></a>
-                        </div>
-                        <div class="col-md-4">            
+                        <div class="col-md-3">            
                             <ul class="nav navbar-right panel_toolbox">
                                 <a href="{{path('app_affaire_show', {'id' : revue_enclenchement.affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                             </ul>

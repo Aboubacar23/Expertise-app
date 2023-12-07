@@ -67,9 +67,6 @@ class RevueEnclenchement
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_machine_prete = null;
 
-    #[ORM\OneToOne(mappedBy: 'revue_enclenchement', cascade: ['persist', 'remove'])]
-    private ?Affaire $affaire = null;
-
     #[ORM\OneToMany(mappedBy: 'revue_enclenchement', targetEntity: Atelier::class)]
     private Collection $ateliers;
 
@@ -93,6 +90,9 @@ class RevueEnclenchement
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $indice = null;
+
+    #[ORM\ManyToOne(inversedBy: 'revueEnclenchements')]
+    private ?Affaire $affaire = null;
 
     public function __construct()
     {
@@ -309,28 +309,6 @@ class RevueEnclenchement
         return $this;
     }
 
-    public function getAffaire(): ?Affaire
-    {
-        return $this->affaire;
-    }
-
-    public function setAffaire(?Affaire $affaire): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($affaire === null && $this->affaire !== null) {
-            $this->affaire->setRevueEnclenchement(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($affaire !== null && $affaire->getRevueEnclenchement() !== $this) {
-            $affaire->setRevueEnclenchement($this);
-        }
-
-        $this->affaire = $affaire;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Atelier>
      */
@@ -459,6 +437,18 @@ class RevueEnclenchement
     public function setIndice(?string $indice): static
     {
         $this->indice = $indice;
+
+        return $this;
+    }
+
+    public function getAffaire(): ?Affaire
+    {
+        return $this->affaire;
+    }
+
+    public function setAffaire(?Affaire $affaire): static
+    {
+        $this->affaire = $affaire;
 
         return $this;
     }

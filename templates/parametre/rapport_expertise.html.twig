@@ -194,55 +194,53 @@
         <div class="page2">
             <div>
                 <h2>Sommaire</h2>
-                <p><a href="#">I. Préambule et Context</a></p>
-                <p><a href="#">II. Présentation des travaux</a></p>
-                <p><a href="#">III. Caractéristiques générales</a></p>
-                <p><a href="">IV. Expertise à réception</a></p>
-                <p class="sous_menu1"><a href="#"> A. Contrôles et recensement</a></p>
-                <p><a href="">V. Expertise mécanique</a></p>
-                <p class="sous_menu1"><a href="#"> A. Démontage</a></p>
-                <p class="sous_menu2"><a href="#"> 1. Relevé position de l’accouplement</a></p>
-                <p class="sous_menu2"><a href="#"> 2. Relevé Boîte à Bornes</a></p>
-                <p class="sous_menu2"><a href="#"> 3. Synoptique de démontage</a></p>
-                <p class="sous_menu1"><a href="#"> B. Contrôle Montage Paliers</a></p>
-                <p class="sous_menu1"><a href="#"> C. Contrôle des coussinets</a></p>
-                <p class="sous_menu2"><a href="#"> 1. Expertise des soies</a></p>
-                <p class="sous_menu2"><a href="#"> 2. Relevés alésage coussinets</a></p>
-                <p class="sous_menu2"><a href="#"> 3. Expertise des coussinets</a></p>
-                <p class="sous_menu1"><a href="#"> D. Relevés dimensionnels rotor et paliers</a></p>
-                <p class="sous_menu1"><a href="#"> E. Contrôles géométriques du rotor</a></p>
-                <p class="sous_menu1"><a href="#"> F. Appareils de mesure utilisés</a></p>
-                <p class="sous_menu1"><a href="#"> G. Expertise Hydro-réfrigérant</a></p>
-                <p class="sous_menu1"><a href="#"> H. Expertise Aéroréfrigérant</a></p>
-                <p class="sous_menu1"><a href="#"> I. Illustration des Observations</a></p>
-                <p class="sous_menu1"><a href="#"> J. Observations, constats et préconisations Mécaniques</a></p>
-                <p><a href="">VI. Expertise électrique avant lavage</a></p>
-                <p class="sous_menu1"><a href="#"> A. Contrôle visuel et recensementontage</a></p>
+                <p><a href="#lien1">I. Préambule et Context</a></p>
+                <p><a href="#lien21">II. Présentation des travaux</a></p>
+                <p><a href="#lien3">III. Caractéristiques générales</a></p>
+                <p><a href="#lien4">IV. Expertise à réception</a></p>
+                <p class="sous_menu1"><a href="#lien41"> A. Contrôles et recensement</a></p>
+                <p><a href="#lien5">V. Expertise mécanique</a></p>
+                <p class="sous_menu1"><a href="#lien51"> A. Démontage</a></p>
+                <p class="sous_menu2"><a href="#lien511"> 1. Relevé position de l’accouplement</a></p>
+                <p class="sous_menu2"><a href="#lien512"> 2. Relevé Boîte à Bornes</a></p>
+                <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
+                <p class="sous_menu1"><a href="#lien52"> B. Contrôle Montage Paliers</a></p>
+                <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
+                <p class="sous_menu2"><a href="#lien531"> 1. Expertise des soies</a></p>
+                <p class="sous_menu2"><a href="#lien532"> 2. Relevés alésage coussinets</a></p>
+                <p class="sous_menu2"><a href="#lien533"> 3. Expertise des coussinets</a></p>
+                <p class="sous_menu1"><a href="#lien54"> D. Relevés dimensionnels rotor et paliers</a></p>
+                <p class="sous_menu1"><a href="#lien55"> E. Contrôles géométriques du rotor</a></p>
+                <p class="sous_menu1"><a href="#lien56"> F. Appareils de mesure utilisés</a></p>
+                <p class="sous_menu1"><a href="#lien57"> G. Expertise Hydro-réfrigérant</a></p>
+                <p class="sous_menu1"><a href="#lien58"> H. Expertise Aéroréfrigérant</a></p>
+                <p class="sous_menu1"><a href="#lien59"> I. Illustration des Observations</a></p>
+                <p class="sous_menu1"><a href="#lien510"> J. Observations, constats et préconisations Mécaniques</a></p>
+                <p><a href="#lien6">VI. Expertise électrique avant lavage</a></p>
+                <p class="sous_menu1"><a href="#lien61"> A. Contrôle visuel et recensementontage</a></p>
                 {% if parametre.essaisPlateforme == 'Oui' %}
-                    <p class="sous_menu1"><a href="#"> B. Essais plate-forme à Réception</a></p>
+                    <p class="sous_menu1"><a href="#lien62"> B. Essais plate-forme à Réception</a></p>
                 {% elseif parametre.essaisPlateforme == 'Non' %}
-                    <p class="sous_menu1"><a href="#"> B. Essais plate-forme</a></p>
+                    <p class="sous_menu1"><a href="#lien63"> B. Essais plate-forme</a></p>
                 {% endif %}
-                <p class="sous_menu2"><a href="#"> 1. Mesure d’isolement</a></p>
-                <p class="sous_menu2"><a href="#"> 2. Mesure de Résistance </a></p>
+                <p class="sous_menu2"><a href="#lien631"> 1. Mesure d’isolement</a></p>
+                <p class="sous_menu2"><a href="#lien632"> 2. Mesure de Résistance </a></p>
                 {% if parametre.essaisPlateforme == 'Oui' %}
-                    <p class="sous_menu2"><a href="#"> 3. Points de fonctionnement à vide</a></p>
-                    <p class="sous_menu2"><a href="#"> 4. Mesures de vibrations</a></p>
+                    <p class="sous_menu2"><a href="#lien633"> 3. Points de fonctionnement à vide</a></p>
+                    <p class="sous_menu2"><a href="#lien634"> 4. Mesures de vibrations</a></p>
                 {% endif %}
-                <p class="sous_menu2"><a href="#"> 4. Appareils de mesure utilisés</a></p>
-                <p class="sous_menu1"><a href="#"> D. Contrôles bobinage</a></p>
-                <p class="sous_menu1"><a href="#"> E. Balais & balais de masse</a></p>
-                <p class="sous_menu1"><a href="#"> F. Illustrations</a></p>
-                <p class="sous_menu1"><a href="#"> G. Observations, Préconisations et Conclusions ECE</a></p>
-                <p><a href="">VII. Expertise électrique après lavage</a></p>
-                <p class="sous_menu1"><a href="#"> A. Essais plate-forme à Réception</a></p>
-                <p class="sous_menu2"><a href="#"> 1. Mesure d’isolement</a></p>
-                <p class="sous_menu2"><a href="#"> 2. Mesure de Résistance</a></p>
-                <p class="sous_menu2"><a href="#"> 3. Carctérisques à vide</a></p>
-                <p class="sous_menu2"><a href="#"> 4. Point de fonctionnement rotor bloqué</a></p>
-                <p class="sous_menu2"><a href="#"> 5. Appareils de mesure utilisés</a></p>
-                <p class="sous_menu1"><a href="#"> D. Observations, Préconisations et Conclusions ECE</a></p>
-                <p><a href="">VIII. Contre-Expertise</a></p>
+                <p class="sous_menu2"><a href="#lien635"> 5. Appareils de mesure utilisés</a></p>
+                <p class="sous_menu1"><a href="#lien64"> D. Contrôles bobinage</a></p>
+                <p class="sous_menu1"><a href="#lien65"> E. Balais & balais de masse</a></p>
+                <p class="sous_menu1"><a href="#lien66"> F. Illustrations</a></p>
+                <p class="sous_menu1"><a href="#lien67"> G. Observations, Préconisations et Conclusions ECE</a></p>
+                <p><a href="#lien7">VII. Expertise électrique après lavage</a></p>
+                <p class="sous_menu1"><a href="#lien71"> A. Essais plate-forme</a></p>
+                <p class="sous_menu2"><a href="#lien711"> 1. Mesure d’isolement</a></p>
+                <p class="sous_menu2"><a href="#lien712"> 2. Mesure de Résistance</a></p>
+                <p class="sous_menu2"><a href="#lien713"> 3. Appareils de mesure utilisés</a></p>
+                <p class="sous_menu1"><a href="#lien72"> B. Observations, Préconisations et Conclusions ECE</a></p>
+                <p><a href="#lien8">VIII. Contre-Expertise</a></p>
             </div>
         </div>
     {# fin sommaire #}
@@ -251,17 +249,17 @@
         <div class="page_break"></div>
         <div class="page2">
             <div>
-                <h2>I.  Préambule et Context</h2>
+                <h2 id="lien1">I.  Préambule et Context</h2>
                 <p>{{parametre.affaire.context}}</p>
                 
             </div>
             <div>
-                <h2>II.1.  Présentation des travaux</h2>
+                <h2 id="lien21">II.1.  Présentation des travaux</h2>
                 <p>{{parametre.affaire.presentationTravaux | raw}}</p>
             </div>
             <div>
                 {% if parametre.affaire.travauxSup %}
-                    <h2>II.2.  Travaux Sup</h2>
+                    <h2 id="lien22">II.2.  Travaux Sup</h2>
                     <p>{{parametre.affaire.travauxSup | raw}}</p>
                 {% endif %}
             </div>
@@ -271,7 +269,7 @@
     {# la page 3, Caractéristiques générales  #}
         <div class="page_break"></div>
         <div class="page3">
-            <h2>III.  Caractéristiques générales</h2>           
+            <h2 id="lien3">III.  Caractéristiques générales</h2>           
             <div class="sous_page">
                 {% if parametre.plaques %}
                     <table>
@@ -523,8 +521,8 @@
     {# la page 4, Expertise à réception #}  
         <div class="page_break"></div>
         <div class="page4">
-            <h2>IV.  Expertise à réception</h2>
-            <h4>A.  <span class="span_titre">Contrôles et recensement</span></h4>
+            <h2 id="lien4">IV.  Expertise à réception</h2>
+            <h4 id="lien41">A.  <span class="span_titre">Contrôles et recensement</span></h4>
             <div class="sous_page4_1">
                 {% if parametre.controleRecensements %}
                     <table>    
@@ -638,9 +636,9 @@
     {# la page 5, Expertise mécanique  #}  
         <div class="page_break"></div>
         <div class="page5">
-            <h2>V.  Expertise mécanique</h2>
-            <h4>A.  <span class="span_titre">Démontage</span></h4>
-            <h5>1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
+            <h2 id="lien5">V.  Expertise mécanique</h2>
+            <h4 id="lien51">A.  <span class="span_titre">Démontage</span></h4>
+            <h5 id="lien511">1.  <span class="span_titre">Relevé position de l’accouplement</span></h5>
             <div class="sous_page5_2">
                 {% if parametre.controleVisuelMecanique %}
                     <table>    
@@ -677,7 +675,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_3">
-                <h5>2.  <span class="span_titre">Relevé Boîte à Bornes</span></h5>
+                <h5 id="lien512">2.  <span class="span_titre">Relevé Boîte à Bornes</span></h5>
                 <table>    
                     <tr class="titre_table">
                         <th>FAC-SIMILE BOITE à BORNES</th>
@@ -690,7 +688,7 @@
                 </table>
             </div>
             <div class="sous_page5_4">
-                <h5>3.  <span class="span_titre">Synoptique de démontage</span></h5>                         
+                <h5 id="lien513">3.  <span class="span_titre">Synoptique de démontage</span></h5>                         
                 {% if  parametre.synoptiques %}
                     <table>
                         <tr style="text-align: center;">
@@ -730,7 +728,7 @@
             </div>
             <div class="sous_page5_5" >
                 {% if parametre.controleMontageRoulement %}
-                <h4>B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
+                <h4 id="lien52">B.  <span class="span_titre">Contrôle Montage Paliers</span></h4>
                     <table>
                         <tr class="titre_table">
                             <th class="numero2"></th>
@@ -809,9 +807,9 @@
                 {% endif %}
             </div>
             <div class="sous_page5_6">
+                <h4 id="lien53">C.  <span class="span_titre">Contrôle des coussinets</span></h4>
                 {% if parametre.controleMontageCoussinet %}
-                <h4>C.  <span class="span_titre">Contrôle des coussinets</span></h4>
-                    <h5>1.  <span class="span_titre">Expertise des soies</span></h5>
+                    <h5 id="lien531">1.  <span class="span_titre">Expertise des soies</span></h5>
                     <table>    
                         <tr>                    
                             <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/cote_accouplement1.png')) }}" alt="item.photo" height="120px"></td>
@@ -874,7 +872,7 @@
             </div>
             <div class="sous_page5_7">
                 {% if parametre.controleMontageCoussinet %}
-                    <h5>2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
+                    <h5 id="lien532">2.  <span class="span_titre">Relevés alésage coussinets</span></h5>
                     <table class="table_sous_page5_7_1">
                         <tr class="titre_table">
                             <th colspan="2">Côté accouplement</th>
@@ -921,7 +919,7 @@
             </div>
             <div class="sous_page5_8">
                 {% if parametre.controleMontageCoussinet %}
-                    <h5>3.  <span class="span_titre">Expertise des coussinets</span></h5>
+                    <h5 id="lien533">3.  <span class="span_titre">Expertise des coussinets</span></h5>
                     <table>
                         <tr class="titre_table">
                             <th class="numero2"></th>
@@ -954,7 +952,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_9">
-                <h4>D.  <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
+                <h4 id="lien54">D.  <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
                 {% if parametre.releveDimmensionnels %}
                     <table>    
                         <tr>                    
@@ -1016,7 +1014,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_10">
-                <h4>E.  <span class="span_titre">Contrôles géométriques du rotor</span></h4>
+                <h4 id="lien55">E.  <span class="span_titre">Contrôles géométriques du rotor</span></h4>
                 {% if parametre.controleGeometriques %}
                     <table>    
                         <tr>                    
@@ -1061,7 +1059,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_10">
-                <h4>F.  <span class="span_titre">Appareils de mesure utilisés</span></h4>
+                <h4 id="lien56">F.  <span class="span_titre">Appareils de mesure utilisés</span></h4>
                 {% if parametre.appareilMesureMecaniques %}
                     <table>
                         <tr class="titre_table">
@@ -1080,7 +1078,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_11">
-                <h4>G.  <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
+                <h4 id="lien57">G.  <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
                 {% if parametre.hydroAero %}
                     <table>
                         <tr class="titre_table">
@@ -1111,7 +1109,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_12">
-                <h4>H.  <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
+                <h4 id="lien58">H.  <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
                 {% if parametre.hydroAero %}
                     <table>
                         <tr class="titre_table">
@@ -1140,7 +1138,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_13">
-                <h4>I.  <span class="span_titre">Illustration des Observations</span></h4>
+                <h4 id="lien59">I.  <span class="span_titre">Illustration des Observations</span></h4>
                 {% if parametre.photoExpertiseMecaniques %}
                     <table>
                         {% for item in parametre.photoExpertiseMecaniques %}
@@ -1155,7 +1153,7 @@
                 {% endif %}
             </div>
             <div class="sous_page5_14">
-                <h4>J.  <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
+                <h4 id="lien510">J.  <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
                 {% if parametre.constatMecaniques %}
                     <table>
                         <tr class="titre_table">
@@ -1192,9 +1190,9 @@
     {# la partie 6 expertise electrique avant lavage #}
         <div class="page_break"></div>
         <div class="page6">
-            <h2>VI.  Expertise électrique avant lavage</h2>
+            <h2 id="lien6">VI.  Expertise électrique avant lavage</h2>
             <div class="sous_page6_1_1">
-                <h4>A.  <span class="span_titre">Contrôle visuel et recensement</span></h4>
+                <h4 id="lien61">A.  <span class="span_titre">Contrôle visuel et recensement</span></h4>
                 {% if parametre.controleVisuelElectrique %}
                     <table>
                         <thead class="table-secondary">
@@ -1278,11 +1276,11 @@
             </div>
             <div class="sous_page6_1">
                 {% if parametre.essaisPlateforme == 'Oui' %}
-                    <h4>B.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
+                    <h4 id="lien62">B.  <span class="span_titre">Essais plate-forme à Réception</span></h4>
                 {% elseif parametre.essaisPlateforme == 'Non' %}
-                    <h4>B.  <span class="span_titre">Essais plate-forme</span></h4>
+                    <h4 id="lien62">B.  <span class="span_titre">Essais plate-forme</span></h4>
                 {% endif %}
-                <h5>1.  <span class="span_titre">Mesure d’isolement</span></h5>
+                <h5 id="lien621">1.  <span class="span_titre">Mesure d’isolement</span></h5>
                 {% if parametre.mesureIsolement %}
                     <table>
                         <tr class="titre_table">
@@ -1332,7 +1330,7 @@
                         {% endfor %}
                     </table>
                 {% endif %}
-                <h5>2.  <span class="span_titre">Mesure des résistances</span></h5>
+                <h5 id="lien622">2.  <span class="span_titre">Mesure des résistances</span></h5>
                 {% if parametre.mesureResistance %}
                     <table>
                         <tr class="titre_table">
@@ -1381,7 +1379,7 @@
             </div>
             {% if parametre.essaisPlateforme == 'Oui' %}
                 <div class="sous_page6_2">
-                    <h5>3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
+                    <h5 id="lien623">3.  <span class="span_titre">Points de fonctionnement à vide</span></h5>
                     {% if parametre.pointFonctionnements |length != 0 %}
                         {% if parametre.pointFonctionnements %}
                             <table class="table_sous_page_6_2">
@@ -1395,7 +1393,7 @@
                     {% endif %}
                 </div>
                 <div class="sous_page6_3">
-                    <h5>4.  <span class="span_titre">Mesures de vibrations</span></h5>
+                    <h5 id="lien624">4.  <span class="span_titre">Mesures de vibrations</span></h5>
                     <div class="table_sous_page5_6_1">
                         {% if parametre.mesureVibratoire %}
                             <table>
@@ -1488,7 +1486,7 @@
                 </div>
             {% endif %}
             <div class="sous_page6_4">
-                <h5>5.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                <h5 id="lien625">5.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesures|length != 0 %}
                     {% if parametre.appareilMesures %}
                         <table>
@@ -1509,7 +1507,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_5">
-                <h4>D.  <span class="span_titre">Contrôles bobinage</span></h4>
+                <h4 id="lien64">D.  <span class="span_titre">Contrôles bobinage</span></h4>
                 {% if parametre.controleBobinage %}
                     <table>
                         <tr class="titre_table">
@@ -1531,7 +1529,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_6">
-                <h4>E.  <span class="span_titre">Balais & balais de masse</span></h4>
+                <h4 id="lien65">E.  <span class="span_titre">Balais & balais de masse</span></h4>
                 {% if parametre.autreControle %}
                     {% if parametre.presenceBalais == 1 %}
                         <table>
@@ -1634,7 +1632,7 @@
                 {% endif %}     
             </div>
             <div class="sous_page6_7">
-                <h4>F.  <span class="span_titre">Illustrations</span></h4> 
+                <h4 id="lien66">F.  <span class="span_titre">Illustrations</span></h4> 
                 {% if parametre.photo %}
                     <table>
                         <tr class="titre_table">
@@ -1652,7 +1650,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_7">
-                <h4>G.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
+                <h4 id="lien67">G.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
                 {% if parametre.constatElectriques %}
                     <table>
                         <tr class="titre_table">
@@ -1686,9 +1684,10 @@
     {# la partie 7 expertise electrique après lavage #}
         <div class="page_break"></div>
         <div class="page6">
-            <h2>VII.  Expertise électrique après lavage</h2>
-            <div class="sous_page6_1">
-                <h5>1.  <span class="span_titre">Mesure d'isolement</span></h5>
+            <h2 id="lien7">VII.  Expertise électrique après lavage</h2>
+            <div class="sous_page6_1">                    
+                <h4 id="lien71">A.  <span class="span_titre">Essais plate-forme</span></h4>
+                <h5 id="lien711">1.  <span class="span_titre">Mesure d'isolement</span></h5>
                 {% if parametre.statorApresLavage %}
                     <table>
                         <tr class="titre_table">
@@ -1745,7 +1744,7 @@
                     </table>
                 {% endif %}
 
-                <h5>2.  <span class="span_titre">Mesure de Résistances</span></h5>
+                <h5 id="lien712">2.  <span class="span_titre">Mesure de Résistances</span></h5>
                 {% if parametre.sondeBobinage %}
                     <table>
                         <tr class="titre_table">
@@ -1874,7 +1873,7 @@
                 {% endif %}
             </div>#}
             <div class="sous_page6_4">
-                <h5>3.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                <h5 id="lien713">3.  <span class="span_titre">Appareils de mesure utilisés</span></h5>
                 {% if parametre.appareilMesureElectriques %}
                     <table>
                         <tr class="titre_table">
@@ -1893,7 +1892,7 @@
                 {% endif %}
             </div>
             <div class="sous_page6_7">
-                <h4>D.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
+                <h4 id="lien72">B.  <span class="span_titre">Observations, Préconisations et Conclusions ECE</span></h4>  
                 {% if parametre.constatElectriqueApresLavages %}
                     <table>
                         <tr class="titre_table">
@@ -1928,7 +1927,7 @@
         {% if parametre.contreExpertise %}
             <div class="page_break"></div>
             <div class="page8">
-                <h2>VIII. Contre-Expertise</h2>
+                <h2 id="lien8">VIII. Contre-Expertise</h2>
                 <p>{{ parametre.contreExpertise | raw }}</p>
             </div>    
         {% endif %}

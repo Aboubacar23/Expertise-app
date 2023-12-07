@@ -207,6 +207,7 @@ class AppareilType extends AbstractType
                     'Chantier' => 'Chantier',
                     'Local Métrologie' => 'Local Métrologie',
                     'Réserve' => 'Réserve',
+                    'Usine' => 'Usine'
                 ]
             ])
             ->add('unite_mesure',TextType::class, [

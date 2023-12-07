@@ -4,12 +4,12 @@ namespace App\Form;
 
 use App\Entity\RevueEnclenchement;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class RevueEnclenchementType extends AbstractType
+class RevueEnclenchement2Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -24,16 +24,16 @@ class RevueEnclenchementType extends AbstractType
                     'Peut être' => 'Peut être'
                 ]
             ])
-            ->add('indice', ChoiceType::class,[
+          /*  ->add('indice', ChoiceType::class,[
                 'choices' => [
-                    'Indice A' => 'Indice A',
+                    'Indice B' => 'Indice A',
                 ],
                 'required' => false
-            ])
+            ])*/
             ->add('libelle', ChoiceType::class, [
                 'choices' => [
-                    'Pour travaux de base' => 'Pour travaux de base',
-                    //'Pour travaux complémentaires' => 'Pour travaux complémentaires'
+                    //'Pour travaux de base' => 'Pour travaux de base',
+                    'Pour travaux complémentaires' => 'Pour travaux complémentaires'
                 ]
             ])
             ->add('plan')
@@ -68,14 +68,7 @@ class RevueEnclenchementType extends AbstractType
             ])
             ->add('date_rapport_expertise_finalise', DateType::class,[
                 'widget' => 'single_text'
-            ])
-            /*->add('objectif_rapport_expertise')
-            ->add('objectif_mise_dispo')
-            ->add('date_machine_prete', DateType::class,[
-                'widget' => 'single_text'
-            ])
-            */
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
