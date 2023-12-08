@@ -23,7 +23,7 @@ class Affaire
     #[ORM\Column(length: 255)]
     private ?string $code_client = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $num_fabrication = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -111,7 +111,7 @@ class Affaire
         return $this->num_fabrication;
     }
 
-    public function setNumFabrication(string $num_fabrication): self
+    public function setNumFabrication(?string $num_fabrication): self
     {
         $this->num_fabrication = $num_fabrication;
 
@@ -123,7 +123,7 @@ class Affaire
         return $this->num_article_client;
     }
 
-    public function setNumArticleClient(string $num_article_client): self
+    public function setNumArticleClient(?string $num_article_client): self
     {
         $this->num_article_client = $num_article_client;
 

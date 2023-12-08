@@ -8,6 +8,7 @@ use App\Form\AtelierType;
 use App\Entity\EtudesAchats;
 use App\Form\EtudesAchatsType;
 use App\Entity\RevueEnclenchement;
+use App\Form\AtelierIndiceType;
 use App\Form\RevueEnclenchementType;
 use App\Repository\AtelierRepository;
 use App\Repository\EtudesAchatsRepository;
@@ -73,6 +74,7 @@ class RevueEnclenchementController extends AbstractController
         {
             $revueEnclenchement->setUtilisateur($user);
             $revueEnclenchement->setAffaire($affaire);
+            $revueEnclenchement->setIndice('Indice A');
             //$affaire->setRevueEnclenchement($revueEnclenchement);
             foreach($affaire->getParametres() as $item)
             {
@@ -123,6 +125,7 @@ class RevueEnclenchementController extends AbstractController
         $revueEnclenchement = new RevueEnclenchement();
         $revueEn = $revueEnclenchementRepository->findByAffaire($affaire);
         $indice = $revueEn[0];
+        $indiceDate = $revueEn[0];
         //dd($affaire);
         if(count($affaire->getRevueEnclenchements()) > 1)
         {
@@ -152,7 +155,7 @@ class RevueEnclenchementController extends AbstractController
         }
       //  dd($parametre);
         $atelier = new Atelier();
-        $formAtelier = $this->createForm(AtelierType::class, $atelier);
+        $formAtelier = $this->createForm(AtelierIndiceType::class, $atelier);
         $formAtelier->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
@@ -160,6 +163,14 @@ class RevueEnclenchementController extends AbstractController
             $revueEnclenchement->setUtilisateur($user);
             $revueEnclenchement->setAffaire($affaire);
             $revueEnclenchement->setIndice('Indice B');
+            //dd($indiceDate);
+            $revueEnclenchement->setDelaiDemandeClient($indiceDate->getDelaiDemandeClient());
+            $revueEnclenchement->setRe7Client($indiceDate->getRe7Client());
+            $revueEnclenchement->setArriveCommande($indiceDate->getArriveCommande());
+            $revueEnclenchement->setRevueEnclenchement($indiceDate->getRevueEnclenchement());
+            $revueEnclenchement->setArc($indiceDate->getArc());
+            $revueEnclenchement->setArriveeMachine($indiceDate->getArriveeMachine());
+            $revueEnclenchement->setDateRapportExpertiseFinalise($indiceDate->getDateRapportExpertiseFinalise());
             //$affaire->setRevueEnclenchement($revueEnclenchement);
             foreach($affaire->getParametres() as $item)
             {
@@ -262,6 +273,19 @@ class RevueEnclenchementController extends AbstractController
         }
         return $this->redirectToRoute('app_revue_enclenchement_new', ['id' => $id], Response::HTTP_SEE_OTHER);
 
+    }    
+    //supprimer un élément d'étude et achats
+    #[Route('/etudes-achats-indice/{id}', name: 'delete_etudes_achat_indice', methods: ['POST','GET'])]
+    public function deleteEtudesIndice(Request $request,EtudesAchats $etudesAchats,EtudesAchatsRepository $etudesAchatsRepository): Response
+    {
+        $id = $etudesAchats->getRevueEnclenchement()->getAffaire()->getId();    
+        if ($etudesAchats)
+        {
+            $etudesAchatsRepository->remove($etudesAchats, true);
+            return $this->redirectToRoute('app_revue_enclenchement_indice', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        return $this->redirectToRoute('app_revue_enclenchement_indice', ['id' => $id], Response::HTTP_SEE_OTHER);
+
     }
 
     //supprimer un élément d'étude et achats
@@ -275,6 +299,20 @@ class RevueEnclenchementController extends AbstractController
             return $this->redirectToRoute('app_revue_enclenchement_new', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
         return $this->redirectToRoute('app_revue_enclenchement_new', ['id' => $id], Response::HTTP_SEE_OTHER);
+
+    }  
+    
+    //supprimer un élément d'étude et achats
+    #[Route('/atelier-indice/{id}', name: 'delete_atelier_indicie', methods: ['POST','GET'])]
+    public function atelierIndice(Request $request,Atelier $atelier,AtelierRepository $atelierRepository): Response
+    {
+        $id = $atelier->getRevueEnclenchement()->getAffaire()->getId();    
+        if ($atelier)
+        {
+            $atelierRepository->remove($atelier, true);
+            return $this->redirectToRoute('app_revue_enclenchement_indice', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        return $this->redirectToRoute('app_revue_enclenchement_indice', ['id' => $id], Response::HTTP_SEE_OTHER);
 
     }
 
@@ -316,10 +354,20 @@ class RevueEnclenchementController extends AbstractController
         }
 
         $dompdf->setHttpContext($context);
-        $html = $this->renderView('revue_enclenchement/print.html.twig', [
-            'parametre' => $parametre,
-            'revue_enclenchement' => $revueEnclenchement,
-        ]);
+        if($revueEnclenchement->getIndice()== 'Indice A')
+        {
+            $html = $this->renderView('revue_enclenchement/print.html.twig', [
+                'parametre' => $parametre,
+                'revue_enclenchement' => $revueEnclenchement,
+            ]);
+
+        }else{
+            $html = $this->renderView('revue_enclenchement/printb.html.twig', [
+                'parametre' => $parametre,
+                'revue_enclenchement' => $revueEnclenchement,
+            ]);
+
+        }
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');

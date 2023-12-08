@@ -8,21 +8,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class AtelierType extends AbstractType
+class AtelierIndiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('operations',ChoiceType::class,[
                 'choices' => [
-                    'A réception' => 'A réception',
-                    'Démontage moteur' => 'Démontage moteur',
-                    'Lavage / Etuvage / Nettoyage' => 'Lavage / Etuvage / Nettoyage',
-                    'Expertise électrique' => 'Expertise électrique',
-                    'Expertise mécanique' => 'Expertise mécanique',
-                    'Remontage moteur' => 'Remontage moteur',
-                    'Révision Hydro' => 'Révision Hydro',
-                    'Révision Aéro' => 'Révision Aéro',
                     'Autres' => 'Autres',
                 ]
             ])

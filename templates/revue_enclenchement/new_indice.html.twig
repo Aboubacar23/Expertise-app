@@ -16,8 +16,7 @@
 				<div class="x_panel">
 					<div class="x_title">
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{path('app_affaire_show', {'id' : affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i>
-							</a>
+							<a href="{{path('app_affaire_show', {'id' : affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -80,7 +79,8 @@
 									<td>{{ form_widget(form.numero_pcq, {value : indice.numeroPcq}) }}</td>
 									<td>{{ form_widget(form.point_arret, {value : indice.pointArret}) }}</td>
 									<td>{{ form_widget(form.contre_expertise, {value : indice.contreExpertise}) }}</td>
-									<td>{{ form_widget(form.re7_client, {value : indice.re7Client|date("m/d/Y")}) }}</td>
+									<td>{{ form_widget(form.re7_client, {value : indice.re7Client|date('d-m-Y')}) }}</td>
+									{#<td>{{ indice.re7Client|date("m/d/Y")}}</td>#}
 									<td>{{ form_widget(form.observation, {value : indice.observation}) }}</td>
 									<td>{{ form_widget(form.clarification, {value : indice.clarification}) }}</td>
 								</tr>
@@ -93,9 +93,9 @@
 									<td colspan="2">ARC</td>
 								</tr>
 								<tr>
-									<td colspan="2">{{ form_widget(form.delai_demande_client, {value : indice.delaiDemandeClient|date("m/d/Y")}) }}</td>
-									<td colspan="2">{{ form_widget(form.arrive_commande, {value : indice.arriveCommande|date("m/d/Y")}) }}</td>
-									<td colspan="2">{{ form_widget(form.arc, {value : indice.arc|date("m/d/Y")}) }}</td>
+									<td colspan="2">{{indice.delaiDemandeClient|date("m/d/Y") }}</td>
+									<td colspan="2">{{ indice.arriveCommande|date("m/d/Y") }}</td>
+									<td colspan="2">{{ indice.arc|date("m/d/Y") }}</td>
 
 								</tr>
 								<tr class="table-secondary">
@@ -104,16 +104,15 @@
 									<td colspan="2">Date rapport expertise finalisé</td>
 								</tr>
 								<tr>
-									<td colspan="2">{{ form_widget(form.revue_enclenchement, {value : indice.revueEnclenchement|date("m/d/Y")}) }}</td>
-									<td colspan="2">{{ form_widget(form.arrivee_machine, {value : indice.arriveeMachine|date("m/d/Y")}) }}</td>
-									<td colspan="2">{{ form_widget(form.date_rapport_expertise_finalise, {value : indice.dateRapportExpertiseFinalise|date("m/d/Y")}) }}</td>
+									<td colspan="2">{{indice.revueEnclenchement|date("m/d/Y")}}</td>
+									<td colspan="2">{{indice.arriveeMachine|date("m/d/Y")}}</td>
+									<td colspan="2">{{indice.dateRapportExpertiseFinalise|date("m/d/Y")}}</td>
 								</tr>
 							</table>
 						</div>
 						<div class="row">
 							<div class="col-md-12 align-center">
-								<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Enregistrer') }}<i class="fa fa-save p-2"></i>
-								</button>
+								<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Enregistrer') }}<i class="fa fa-save p-2"></i></button>
 								<hr>
 								<p class="text-danger">Toujours Enregistrer avant de passer à (ACHATS / SOUS-TRAITANCE) et (ETUDES)</p>
 							</div>
@@ -144,7 +143,7 @@
 									<td>{{ form_widget(formEtudesAchats.observation) }}</td>
 									<td>{{ form_widget(formEtudesAchats.type) }}</td>
 									<td>
-										{% if affaire.revueEnclenchements|length != 0 %}
+										{% if affaire.revueEnclenchements|length > 1 %}
 											<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Ajouter') }}<i class="fa fa-save p-2"></i>
 											</button>
 										{% endif %}
@@ -163,7 +162,7 @@
 												<td>{{item.observation}}</td>
 												<td></td>
 												<td width="150" class="text-center">
-													<a href="{{path('delete_etudes_achats', {'id' : item.id})}}" class="btn btn-danger btn-sm">
+													<a href="{{path('delete_etudes_achat_indice', {'id' : item.id})}}" class="btn btn-danger btn-sm">
 														<i class="fa fa-trash-o fa-1x"></i>
 													</a>
 												</td>
@@ -216,7 +215,7 @@
 									<td>{{ form_widget(formAtelier.heures) }}</td>
 									<td></td>
 									<td class="text-right">
-										{% if affaire.revueEnclenchements|length != 0 %}
+										{% if affaire.revueEnclenchements|length > 1 %}
 											<button class="btn btn-primary btn-sm text-uppercase">{{ button_label|default('Ajouter') }}<i class="fa fa-save p-2"></i>
 											</button>
 										{% endif %}
@@ -226,214 +225,35 @@
 								{{ form_end(formAtelier) }}
 
 								{% if revue_enclenchement.ateliers %}
-									<!-- début de la réception -->
-									{% set total_heures_op = 0 %}
-									{% set num1 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'A réception' %}
-											{% set num1 = num1 + 1 %}
-											{% set total_heures_op = total_heures_op + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num1 + 1}}" class="table-secondary ">A réception</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'A réception' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de la réception -->
-
-									<!-- début de la Démontage moteur -->
-									{% set total_heures_dm = 0 %}
-									{% set num2 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Démontage moteur' %}
-											{% set num2 = num2 + 1 %}
-											{% set total_heures_dm = total_heures_dm + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num2 + 1}}" class="table-secondary">Démontage moteur</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Démontage moteur' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de la Démontage moteur -->
-
-									<!-- début de la Lavage / Etuvage / Nettoyage -->
-									{% set total_heures_dm = 0 %}
-									{% set num2 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Lavage / Etuvage / Nettoyage' %}
-											{% set num2 = num2 + 1 %}
-											{% set total_heures_dm = total_heures_dm + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num2 + 1}}" class="table-secondary ">Lavage / Etuvage / Nettoyage</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num2 + 1}}">{{total_heures_dm}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Lavage / Etuvage / Nettoyage' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de la Lavage / Etuvage / Nettoyage -->
-
-									<!-- début de l'Expertise électrique -->
-									{% set total_heures_op = 0 %}
-									{% set num1 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Expertise électrique' %}
-											{% set num1 = num1 + 1 %}
-											{% set total_heures_op = total_heures_op + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num1 + 1}}" class="table-secondary ">Expertise électrique</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Expertise électrique' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de l'Expertise électrique -->
-
-									<!-- début de l'Expertise mécanique -->
-									{% set total_heures_op = 0 %}
-									{% set num1 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Expertise mécanique' %}
-											{% set num1 = num1 + 1 %}
-											{% set total_heures_op = total_heures_op + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num1 + 1}}" class="table-secondary ">Expertise mécanique</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Expertise mécanique' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de l'Expertise mécanique -->
-
-									<!-- début de Remontage moteur -->
-									{% set total_heures_op = 0 %}
-									{% set num1 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Remontage moteur' %}
-											{% set num1 = num1 + 1 %}
-											{% set total_heures_op = total_heures_op + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num1 + 1}}" class="table-secondary">Remontage moteur</td>
-										<td class="table-secondary"></td>
-										<td class="table-secondary"></td>
-										<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Remontage moteur' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-									<!-- fin de Remontage moteur -->
-
+									
 									<!-- début de Autres -->
-									{% set total_heures_op = 0 %}
-									{% set num1 = 0 %}
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Autres' %}
-											{% set num1 = num1 + 1 %}
-											{% set total_heures_op = total_heures_op + item2.heures %}
-										{% endif %}
-									{% endfor %}
-									<tr>
-										<td rowspan="{{num1 + 1}}" class="table-secondary ">Autres</td>
-										<td class="table-secondary "></td>
-										<td class="table-secondary "></td>
-										<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
-									</tr>
-									{% for item2 in revue_enclenchement.ateliers %}
-										{% if item2.operations == 'Autres' %}
-											<tr>
-												<td>{{item2.travaux}}</td>
-												<td>{{item2.heures}}</td>
-												<td width="150" class="text-center">
-													<a href="{{path('delete_atelier', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
-														<i class="fa fa-trash-o fa-1x"></i>
-													</a>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
+										{% set total_heures_op = 0 %}
+										{% set num1 = 0 %}
+										{% for item2 in revue_enclenchement.ateliers %}
+											{% if item2.operations == 'Autres' %}
+												{% set num1 = num1 + 1 %}
+												{% set total_heures_op = total_heures_op + item2.heures %}
+											{% endif %}
+										{% endfor %}
+										<tr>
+											<td rowspan="{{num1 + 1}}" class="table-secondary ">Autres</td>
+											<td class="table-secondary "></td>
+											<td class="table-secondary "></td>
+											<td rowspan="{{num1 + 1}}">{{total_heures_op}}</td>
+										</tr>
+										{% for item2 in revue_enclenchement.ateliers %}
+											{% if item2.operations == 'Autres' %}
+												<tr>
+													<td>{{item2.travaux}}</td>
+													<td>{{item2.heures}}</td>
+													<td width="150" class="text-center">
+														<a href="{{path('delete_atelier_indicie', {'id' : item2.id})}}" class="btn btn-danger btn-sm">
+															<i class="fa fa-trash-o fa-1x"></i>
+														</a>
+													</td>
+												</tr>
+											{% endif %}
+										{% endfor %}
 									<!-- fin de Autres -->
 								{% endif %}
 							</table>

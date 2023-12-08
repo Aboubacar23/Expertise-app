@@ -132,23 +132,11 @@
 
         <tr class="table-primary">
             <th>Arrivée de la machine</th>
-            <th>Objectif rapport expertise (jours)</th>
-            <th>Objectif mise à dispo machine pour exp(jours)</th>
             <th>Date rapport expertise finalisé</th>
         </tr>
         <tr>
             <td class="text-center">{{revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine | date('d-m-Y') : ''}}</td>
-            <td class="text-center">{{revue_enclenchement.objectifRapportExpertise}}</td>
-            <td class="text-center">{{revue_enclenchement.objectifMiseDispo}}</td>
             <td class="text-center">{{revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise | date('d-m-Y') : ''}}</td>
-        </tr> 
-    </table>
-    <table>
-        <tr  class="table-primary">
-            <th>Date machine prête pour expé</th>
-        </tr>
-        <tr>
-            <td>{{revue_enclenchement.dateMachinePrete ? revue_enclenchement.dateMachinePrete | date('d-m-Y') : ''}}</td>
         </tr> 
     </table>
 </div>
@@ -345,6 +333,52 @@
                     {% endif %}
                 {% endfor %}   
             <!-- fin de Remontage moteur -->
+
+            <!-- début de Révision Hydro -->
+                {% set total_heures_rh = 0 %}
+                {% set num11 = 0 %}
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Révision Hydro' %}
+                        {% set num11 = num11 + 1 %}
+                        {% set total_heures_rh = total_heures_rh + item2.heures %}
+                    {% endif %}
+                {% endfor %}
+                <tr class="table-primary">
+                    <th colspan="2">Révision Hydro</th>
+                    <th class="taille_th">{{total_heures_rh}}</th>
+                </tr>
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Révision Hydro' %}
+                        <tr>
+                            <td colspan="2">{{item2.travaux}}</td>
+                            <td class="taille_th">{{item2.heures}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <!-- fin de Révision Hydro -->
+
+            <!-- début de Révision Aéro -->
+                {% set total_heures_ra = 0 %}
+                {% set num11 = 0 %}
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Révision Aéro' %}
+                        {% set num11 = num11 + 1 %}
+                        {% set total_heures_ra = total_heures_ra + item2.heures %}
+                    {% endif %}
+                {% endfor %}
+                <tr class="table-primary">
+                    <th colspan="2">Révision Aéro</th>
+                    <th class="taille_th">{{total_heures_ra}}</th>
+                </tr>
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Révision Aéro' %}
+                        <tr>
+                            <td colspan="2">{{item2.travaux}}</td>
+                            <td class="taille_th">{{item2.heures}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <!-- fin de Révision Aéro -->
 
             <!-- début de Autres -->
                 {% set total_heures_au = 0 %}

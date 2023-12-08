@@ -712,8 +712,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $coussinet->setPhotoCa($newPhotoname);
                 }
-                $coussinet->setPhotoCa($newPhotoname);
 
                 //photo coussinet coa
                 $photo_coa = $formCoussinet->get('photo_coa')->getData();
@@ -728,8 +728,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $coussinet->setPhotoCoa($newPhotoname);
                 }
-                $coussinet->setPhotoCoa($newPhotoname);
 
                 $parametre->setCoussinet($coussinet);
                 $coussinet->setEtat(0);
@@ -752,8 +752,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $coussinet->setPhotoCa($newPhotoname);
                 }
-                $coussinet->setPhotoCa($newPhotoname);
 
                 //photo coussinet coa
                 $photo_coa = $formCoussinet->get('photo_coa')->getData();
@@ -768,9 +768,9 @@ class ExpertiseMecaniqueController extends AbstractController
                             $newPhotoname
                         );
                     } catch (FileException $e){}
+                    $coussinet->setPhotoCoa($newPhotoname);
                 }
-                $coussinet->setPhotoCoa($newPhotoname);
-
+                
                 $parametre->setCoussinet($coussinet);
                 $coussinet->setEtat(1);
                 $coussinetRepository->save($coussinet, true);

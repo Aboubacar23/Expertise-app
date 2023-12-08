@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jeumont Electric Expertise</title>
+        <meta charset="utf-8">
+        <link href="{{ asset('admin/build/css/rapport.css') }}" rel="stylesheet">
+</head>
+<style>
+    table, th, td {
+        border: 1px solid;
+        border-collapse: collapse;
+        font-size: 10px;
+        padding: 5px;
+        width: 100%;
+    }
+    
+    .titre_table{
+        background-color: #AFA8A8;
+    }
+    .table-primary{
+        background-color: #B9B8B8;
+    }
+    .text-center{
+        text-align: center;
+    }
+    .taille_th{
+        width: 50px;
+    }
+
+    .taille2{
+        width: 250px;
+    }
+    .taille3{
+        width: 140px;
+    }
+    .taille1{
+        width: 80px;
+    }
+</style>
+{% block body %}
+<div class="row">
+    <table>
+        <tr  class="table-primary">
+            <th class="text-center" colspan="5">Revue D'enclenchement</th>
+        </tr>
+        <tr>
+            <td class="text-center" colspan="5">{{revue_enclenchement.libelle}}</td>
+        </tr> 
+        <tr  class="table-primary">
+            <th class="taille1">N° PROJET</th>
+            <th class="taille2">DESCRIPTION PRESTATION</th>
+            <th class="taille1">CHEF DE PROJET</th>
+            <th class="taille1">CLIENT</th>
+            <th class="taille1">INDICE</th>
+        </tr> 
+        <tr>
+            <td class="text-center">{{ revue_enclenchement.affaire.numAffaire}}</td>
+            <td class="text-center">{{revue_enclenchement.descriptionPrestation}}</td>
+            <td class="text-center">{{ revue_enclenchement.affaire.suiviPar}}</td>
+            <td class="text-center">{{ revue_enclenchement.affaire.client.nom}}</td>
+            <td class="text-center">{{ revue_enclenchement.indice}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr  class="table-primary">
+            <th colspan="6">Caractéristiques de la  machine</th>
+        </tr>
+        <tr>
+            <th  class="table-primary">Type</th>
+            {% if parametre %}
+                <td>{{ parametre[0].type }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            <th  class="table-primary">Plan</th>
+            <td>{{revue_enclenchement.plan}}</td>
+            <th  class="table-primary">Paliers</th>
+            {% if parametre %}
+                <td>{{ parametre[0].typePalier }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+    </table>
+    <table>      
+        <tr>
+            <th class="table-primary">Amiante</th>
+            <td>{{revue_enclenchement.amiante}}</td>
+            <th class="table-primary">N° Contrat</th>
+            <td>{{revue_enclenchement.numeroContrat}}</td>
+            <th class="table-primary">Cahier des Charges</th>
+            <td>{{revue_enclenchement.cahierCharge}}</td>
+        </tr>    
+    </table>
+    <table>
+        <tr>
+            <th class="table-primary">N° PCQ</th>
+            <td>{{revue_enclenchement.numeroPcq}}</td>
+            <th class="table-primary">Point d'arrêt</th>
+            <td>{{revue_enclenchement.pointArret}}</td>
+            <th class="table-primary">Contre expertise</th>
+            <td>{{revue_enclenchement.contreExpertise}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th class="table-primary">Re7 client</th>
+            <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
+            <th class="table-primary">Observation</th>
+            <td>{{revue_enclenchement.observation}}</td>
+        </tr> 
+    </table>
+    <table>
+        <tr  class="table-primary">
+            <th colspan="4" class="text-center">PLANIFICATION / JALONS</th>
+        </tr>
+        <tr  class="table-primary">
+            <th>Délai Demande client</th>
+            <th>Arrivée de la commande</th>
+            <th>ARC</th>    
+            <th>Revue d'enclenchement</th>
+        </tr>
+        <tr>
+            <td class="text-center">{{revue_enclenchement.delaiDemandeClient ? revue_enclenchement.delaiDemandeClient | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.arriveCommande ? revue_enclenchement.arriveCommande| date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.arc ? revue_enclenchement.arc | date('d-m-Y') : ''  }}</td>
+            <td class="text-center">{{revue_enclenchement.revueEnclenchement ? revue_enclenchement.revueEnclenchement | date('d-m-Y') : ''}}</td>
+
+        </tr>
+    </table>
+    <table>
+
+        <tr class="table-primary">
+            <th>Arrivée de la machine</th>
+            <th>Date rapport expertise finalisé</th>
+        </tr>
+        <tr>
+            <td class="text-center">{{revue_enclenchement.arriveeMachine ? revue_enclenchement.arriveeMachine | date('d-m-Y') : ''}}</td>
+            <td class="text-center">{{revue_enclenchement.dateRapportExpertiseFinalise ? revue_enclenchement.dateRapportExpertiseFinalise | date('d-m-Y') : ''}}</td>
+        </tr> 
+    </table>
+</div>
+<div class="row">
+    <table>
+        <tr class="table-primary">
+            <th colspan="3" class="text-center">ETUDES</th>
+        </tr>
+        <tr  class="table-primary">
+            <th>Quoi </th>
+            <th>Délai/Date</th>
+            <th>Observation</th>
+        </tr>      
+        {% if revue_enclenchement.etudesAchats %}
+            {% for item in revue_enclenchement.etudesAchats %}
+                {% if item.type == 'ETUDES' %}
+                    <tr>
+                        <td>{{item.quoi}}</td>
+                        <td>{{item.delai ? item.delai | date('d-m-Y') : ''}}</td>
+                        <td>{{item.observation}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </table>
+    <table>
+        <tr  class="table-primary">
+            <th colspan="3" class="text-center">ACHATS / SOUS-TRAITANCE</th>
+        </tr>
+        <tr  class="table-primary">
+            <th>Quoi </th>
+            <th>Délai/Date</th>
+            <th>Observation</th>
+        </tr>      
+        {% if revue_enclenchement.etudesAchats %}
+            {% for item in revue_enclenchement.etudesAchats %}
+                {% if item.type == 'ACHATS / SOUS-TRAITANCE' %}
+                    <tr>
+                        <td>{{item.quoi}}</td>
+                        <td>{{item.delai ? item.delai | date('d-m-Y') : ''}}</td>
+                        <td>{{item.observation}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </table>
+</div> 
+<div class="row">
+    <table>
+        <tr  class="table-primary">
+            <th class="text-center" colspan="3">ATELIER</th>
+        </tr>
+        <tr>
+            <th class="taille3">Opération </th>
+            <th>Travaux</th>
+            <th>Heures</th>
+            {#<th>Total</th>#}
+        </tr>
+        {% if revue_enclenchement.ateliers %}
+            <!-- début de Autres -->
+                {% set total_heures_au = 0 %}
+                {% set num1 = 0 %}
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Autres' %}   
+                        {% set num1 = num1 + 1 %}
+                        {% set total_heures_au = total_heures_au + item2.heures %}                          
+                    {% endif %}
+                {% endfor %}   
+                    <tr class="table-primary">
+                        <th colspan="2">Autres</th>
+                        <th class="taille_th">{{total_heures_au}}</th>
+                    </tr>
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations == 'Autres' %}
+                        <tr>
+                            <td colspan="2">{{item2.travaux}}</td>
+                            <td class="taille_th">{{item2.heures}}</td>
+                        </tr>                                  
+                    {% endif %}
+                {% endfor %}   
+            <!-- fin de Autres -->   
+                <tr>
+                    <td class="table-primary" colspan="2">Total</td>
+                    <th class="table-primary">{{ total_heures_au}}</th>
+                </tr>  
+        {% endif %}
+    </table>
+</div>
+<table>
+    <tr>
+        <td class="table-primary taille3">Clarifications suite RE</td>
+        <td>{{revue_enclenchement.clarification}}</td>
+    </tr> 
+</table>
+{% endblock %}
+   

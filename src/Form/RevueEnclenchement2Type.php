@@ -45,16 +45,16 @@ class RevueEnclenchement2Type extends AbstractType
             ])
             ->add('observation')
             ->add('clarification')
-            ->add('delai_demande_client',DateType::class,[
-                'widget' => 'single_text'
-            ])
             ->add('point_arret', ChoiceType::class,[
                 'choices' => [
                     'Avec Client' => 'Avec Client',
                     'Sans Client' => 'Sans Client'
                 ]
             ])
-            ->add('arrive_commande', DateType::class,[
+          /*  ->add('arrive_commande', DateType::class,[
+                'widget' => 'single_text'
+            ])
+            ->add('delai_demande_client',DateType::class,[
                 'widget' => 'single_text'
             ])
             ->add('arc', DateType::class,[
@@ -68,7 +68,8 @@ class RevueEnclenchement2Type extends AbstractType
             ])
             ->add('date_rapport_expertise_finalise', DateType::class,[
                 'widget' => 'single_text'
-            ]);
+            ])*/
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
