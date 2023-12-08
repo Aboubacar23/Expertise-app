@@ -55,7 +55,7 @@ class Appareil
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $affectation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $periodicite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -366,7 +366,7 @@ class Appareil
         return $this->periodicite;
     }
 
-    public function setPeriodicite(string $periodicite): static
+    public function setPeriodicite(?string $periodicite): static
     {
         $this->periodicite = $periodicite;
 
