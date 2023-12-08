@@ -258,25 +258,28 @@ class AffaireController extends AbstractController
         {
             if (!$parametre)
             {    ///mesure essais
-                if($affaire->getRevueEnclenchement())
+                if($affaire->getRevueEnclenchements())
                 {
-                    $achats =  $affaire->getRevueEnclenchement()->getEtudesAchats();
-                    $ateliers =  $affaire->getRevueEnclenchement()->getAteliers();
-                    if($achats)
+                    foreach($affaire->getRevueEnclenchements() as $revue)
                     {
-                        foreach($achats as $item)
+                        $achats =  $revue->getEtudesAchats();
+                        $ateliers =  $revue->getAteliers();
+                        if($achats)
                         {
-                            $em->remove($item);
+                            foreach($achats as $item)
+                            {
+                                $em->remove($item);
+                            }
                         }
-                    }
-                    if($ateliers)
-                    {
-                        foreach($ateliers as $item)
+                        if($ateliers)
                         {
-                            $em->remove($item);
+                            foreach($ateliers as $item)
+                            {
+                                $em->remove($item);
+                            }
                         }
+                        $em->remove($revue);
                     }
-                    $em->remove($affaire->getRevueEnclenchement());
                 }
     
                 $affaireRepository->remove($affaire, true);

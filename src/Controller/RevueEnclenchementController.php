@@ -164,8 +164,14 @@ class RevueEnclenchementController extends AbstractController
             $revueEnclenchement->setAffaire($affaire);
             $revueEnclenchement->setIndice('Indice B');
             //dd($indiceDate);
+            if ($revueEnclenchement->getRe7Client() == null)
+            {
+                $revueEnclenchement->setRe7Client($indiceDate->getRe7Client());
+            }else{
+                $revueEnclenchement->setRe7Client($revueEnclenchement->getRe7Client());
+            }
+
             $revueEnclenchement->setDelaiDemandeClient($indiceDate->getDelaiDemandeClient());
-            $revueEnclenchement->setRe7Client($indiceDate->getRe7Client());
             $revueEnclenchement->setArriveCommande($indiceDate->getArriveCommande());
             $revueEnclenchement->setRevueEnclenchement($indiceDate->getRevueEnclenchement());
             $revueEnclenchement->setArc($indiceDate->getArc());
