@@ -740,6 +740,49 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         ]);
         
     }
+
+    //modifier un constat électrique
+    #[Route('/edit-constat-electrique/{id}/{idC}', name: 'app_constat_electrique_edit', methods: ['POST', 'GET'])]
+    public function editConstatElectrique(Parametre $parametre,$idC,Request $request,SluggerInterface $slugger,ConstatElectriqueRepository $constatElectriqueRepository): Response
+    {
+        //la partie constat electrique avant lavage
+        //$constatElectrique = new ConstatElectrique();
+        $constat_filtre_one = $constatElectriqueRepository->findById($idC);
+        $constatElectrique = $constat_filtre_one[0];
+        //dd($constat);
+        $formConstatElectrique = $this->createForm(ConstatElectriqueType::class, $constatElectrique);
+        $formConstatElectrique->handleRequest($request);
+        if($formConstatElectrique->isSubmitted() && $formConstatElectrique->isValid())
+        {
+            $image = $formConstatElectrique->get('photo')->getData();
+            if ($image) {
+                $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                $safePhotoname = $slugger->slug($originalePhoto);
+                $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                try {
+                    $image->move(
+                        $this->getParameter('images_constat_electrique'),
+                        $newPhotoname
+                    );
+                } catch (FileException $e){}
+                $constatElectrique->setPhoto($newPhotoname);
+            }           
+            $constatElectrique->setParametre($parametre);
+            $constatElectrique->setEtat(1);
+            $constatElectriqueRepository->save($constatElectrique, true);
+            
+            return $this->redirectToRoute('app_constat_electrique', ['id' => $parametre->getId()]);
+            
+        }
+
+        return $this->render('expertise_electrique_avant_lavage/constat.html.twig', [
+            'parametre' => $parametre,
+            'constatElectrique' => $constatElectrique,
+            'formConstatElectrique' => $formConstatElectrique->createView(),
+        ]);
+        
+    }
+     
  
       
     //la fonction qui supprime une photo une fois ajouter
