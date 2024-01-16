@@ -504,6 +504,48 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             'formConstatElectriqueApresLavage' => $formConstatElectriqueApresLavage->createView()
         ]);
     }
+    //constat electrique
+    #[Route('/edit-constact/{id}/{idC}', name: 'app_constact_expertise_apres_lavage_edit')]
+    public function editConstact(Parametre $parametre,$idC,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
+    {     
+        //la partie constat electrique après lavage
+        //$constatElectriqueApresLavage = new ConstatElectriqueApresLavage();
+        $constat = $constatElectriqueApresLavageRepository->findById($idC);
+        $constatElectriqueApresLavage = $constat[0];
+        $formConstatElectriqueApresLavage = $this->createForm(ConstatElectriqueApresLavageType::class, $constatElectriqueApresLavage);
+        $formConstatElectriqueApresLavage->handleRequest($request);
+        if($formConstatElectriqueApresLavage->isSubmitted() && $formConstatElectriqueApresLavage->isValid())
+        {
+            $choix = $request->get('bouton6');
+            if($choix == 'ajouter')
+            {
+                $image = $formConstatElectriqueApresLavage->get('photo')->getData();
+                if ($image)
+                {
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                    try {
+                        $image->move(
+                            $this->getParameter('images_constat_electrique_apres_lavage'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e){}
+
+                    $constatElectriqueApresLavage->setPhoto($newPhotoname);
+                }     
+                $constatElectriqueApresLavage->setParametre($parametre);
+                $constatElectriqueApresLavageRepository->save($constatElectriqueApresLavage, true);
+                return $this->redirectToRoute('app_constact_expertise_apres_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+        
+        return $this->render('expertise_electrique_apres_lavage/constat.html.twig', [
+            'parametre' => $parametre,
+            'constatElectriqueApresLavage' => $constatElectriqueApresLavage,
+            'formConstatElectriqueApresLavage' => $formConstatElectriqueApresLavage->createView()
+        ]);
+    }
 
     //Supprimer carcatéristique
     #[Route('/caracteristique-delete/{id}', name: 'delete_caracteristique', methods: ['GET'])]
