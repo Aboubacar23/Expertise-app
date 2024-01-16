@@ -33,7 +33,11 @@
                                         <th>Hygrométrie (%)</th>
                                         <th>Date d'essai</th>
                                         <th>Critère</th>
-                                        <th>Tension Stator (V)</th>
+                                        <th>{% if parametre.machine.categorie == "À courant continu" %}
+                                                                Tension Excitation
+                                                            {% else %}
+                                                                Tension Stator
+                                                            {% endif %} (V)</th>
                                         <th>Tension Rotor (V)</th>
                                     </tr>
                                     <tr>

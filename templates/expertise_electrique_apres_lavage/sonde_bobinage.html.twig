@@ -30,7 +30,11 @@
                                         <th>T° Ambiante (°C)</th>
                                         <th>T° Tôlerie (°C)</th>
                                         <th>Hygrométrie (%)</th>
-                                        <th>Tension Stator</th>
+                                        <th>{% if parametre.machine.categorie == "À courant continu" %}
+                                                                Tension Excitation
+                                                            {% else %}
+                                                                Tension Stator
+                                                            {% endif %}</th>
                                         <th>Tension Rotor</th>
                                     </tr>
                                     <tr>

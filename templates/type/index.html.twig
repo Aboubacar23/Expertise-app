@@ -37,7 +37,11 @@
                                             <th class="text-center">Machine</th>
                                             <th class="text-center">Type Machine</th>
                                             <th class="text-center">Puissance (kW)</th>
-                                            <th class="text-center">Tension Stator (V)</th>
+                                            <th class="text-center">{% if parametre.machine.categorie == "À courant continu" %}
+                                                                Tension Excitation
+                                                            {% else %}
+                                                                Tension Stator
+                                                            {% endif %} (V)</th>
                                             <th class="text-center">Tension Rotor (V)</th>
                                             <th width="150" class="text-center">Action</th>
                                         </tr>

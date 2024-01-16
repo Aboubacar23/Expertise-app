@@ -33,7 +33,11 @@
                                         <th width="15%">Hygrométrie (%)</th>
                                         <th width="15%">Date d'essai</th>
                                         <th width="10%">Critère</th>
-                                        <th width="10%">Tension Stator</th>
+                                        <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
+                                                                Tension Excitation
+                                                            {% else %}
+                                                                Tension Stator
+                                                            {% endif %}</th>
                                         <th width="10%">Tension Rotor</th>
                                     </tr>
                                     <tr>
@@ -269,7 +273,6 @@
             let tension_stator = {{ parametre.statorTension }};
             let tension_rotor2 = {{ parametre.rotorTension2 }};
             let tension_stator2 = {{ parametre.statorTension2 }};
-            
             //ici on on recupérer les variables que nous avons calculer un peu en haut
             let var_id_UVW = {{ var_idUVW }}
             let var_id_U = {{ var_idU }}
@@ -280,7 +283,6 @@
             let var_j_U = {{ var_U }}
             let var_j_V = {{ var_V }}
             let var_j_W = {{ var_W }} 
-            console.log(var_j_UVW);
 
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
@@ -549,7 +551,6 @@
                 valeurFinale = valeurCorrection.toFixed(2);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
-
         }
         document.getElementById('mesure_isolement_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_valeur').addEventListener('input', updateSumField);

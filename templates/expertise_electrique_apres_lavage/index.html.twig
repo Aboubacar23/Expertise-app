@@ -140,7 +140,11 @@
                                                     <th>T° Tôlerie (°C)</th>
                                                     <th>Hygrométrie (%)</th>
                                                     <th width="10%">Critère</th>
-                                                    <th width="10%">Tension Stator</th>
+                                                    <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
+                                                                Tension Excitation
+                                                            {% else %}
+                                                                Tension Stator
+                                                            {% endif %}</th>
                                                     <th width="10%">Tension Rotor</th>
                                                 </tr>
                                                 <tr>

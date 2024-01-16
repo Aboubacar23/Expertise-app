@@ -52,7 +52,7 @@ class Parametre
     #[ORM\Column]
     private ?float $stator_tension = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $stator_frequence = null;
 
     #[ORM\Column(nullable: true)]
