@@ -59,7 +59,7 @@ class MachineType extends AbstractType
                     'A cage' => 'A cage',
                     'Bobiné' => 'Bobiné',
                     'Excitation par jeu de bagues et châssi de régulation' => 'Excitation par jeu de bagues et châssi de régulation',
-                    'Excitation par AE et pont diodes' => 'Excitation par AE et pont diodes',
+                    'Excitation par AE et Pont de diodess' => 'Excitation par AE et Pont de diodess',
                     'Roue polaire' => 'Roue polaire',
                 ]
             ])

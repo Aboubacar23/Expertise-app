@@ -9,164 +9,170 @@
             <h3>Expertise du projet</h3>
         </div>
     </div>
-    <div class="clearfix"></div><div class="row">
+    <div class="clearfix"></div>
+    <div class="row">
         <div class="col-md-12 col-sm-12 ">
             {{ form_start(form) }}
-                <div class="x_panel"> 
-                    <div class="x_title">
-                        <h2>Paramètres généraux</h2>
-                        <ul class="nav navbar-center panel_toolbox">
-                            <a href="{{path('app_affaire_show', {'id' : affaire.id })}}" class="btn btn-secondary btn-sm p-1">Retour<i class="fa fa-reply p-1"></i></a>
-                            <a href="{{path('app_machine_new')}}" target="_blank" class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
-                        </ul>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Paramètres généraux</h2>
+                    <ul class="nav navbar-center panel_toolbox">
+                        <a href="{{path('app_affaire_show', {'id' : affaire.id })}}"
+                            class="btn btn-secondary btn-sm p-1">Retour<i class="fa fa-reply p-1"></i></a>
+                        <a href="{{path('app_machine_new')}}" target="_blank"
+                            class="btn btn-primary btn-sm p-1">Nouvelle machine<i class="fa fa-plus-circle p-1"></i></a>
+                    </ul>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type">Type <span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type) }}</div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_machine">Nom Machine <span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.machine) }}</div>
                     </div>
-                    <div class="x_content">
-                        <br />
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type">Type <span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type) }}</div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="nom_machine">Nom Machine <span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.machine) }}</div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Type Machine <span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type_machine) }}</div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Critère Isolement
+                            (Ω/V)<span class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">{{ form_widget(form.critere, { value : critere }) }}</div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Puissance(kW)<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.puissance) }}
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Type Machine <span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.type_machine) }}</div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="machine">Critère Isolement (Ω/V)<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">{{ form_widget(form.critere, { value : critere }) }}</div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="vitesse">Vitesse(tr/min)<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.vitesse) }}
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="puissance">Puissance(kW)<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                    {{ form_widget(form.puissance) }}
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="vitesse">Vitesse(tr/min)<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                    {{ form_widget(form.vitesse) }}
-                            </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Axe de la machine<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.montage) }}
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Axe de la machine<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 "> 
-                                    {{ form_widget(form.montage) }}
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                    {{ form_widget(form.masse) }}
-                            </div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.masse) }}
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="fabricant">Fabricant<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                {{ form_widget(form.fabricant) }}
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Type palier<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                {{ form_widget(form.type_palier) }}
-                            </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="fabricant">Fabricant<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.fabricant) }}
                         </div>
-                        <div class="item form-group">
-                            <div class="col-md-3 col-sm-3 ">
-                                {{ form_widget(form.presence_balais) }}
-                            </div>
-                            <div class="col-md-3 col-sm-3">
-                                {{ form_widget(form.presence_balais_masse) }}
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4">                            
-                                {{ form_widget(form.temp_correction, { value : correction }) }}
-                            </div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Type palier<span
+                                class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.type_palier) }}
                         </div>
-                        <div class="item form-group">
-                            <div class="col-md-3 col-sm-3 ">
+                    </div>
+                    <div class="item form-group">
+                        <div class="col-md-4 col-sm-3 ">{{ form_widget(form.presence_balais) }}</div>
+                        <div class="col-md-4 col-sm-3">{{ form_widget(form.presence_balais_masse) }}</div>
+                        <div class="col-md-4 col-sm-3 ">{{ form_row(form.presence_plans) }}</div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Essais Plate-forme
+                            à reception<span class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4 ">
+                            {{ form_widget(form.essais_plateforme) }}
+                        </div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4">{{ form_widget(form.temp_correction, { value : correction }) }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Stator</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_tension) }}</div>
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_courant) }}</div>
                             </div>
-                            <div class="col-md-3 col-sm-3">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_frequence) }}</div>
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_couplage) }}</div>
                             </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Essais Plate-forme à reception<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4 ">
-                                {{ form_widget(form.essais_plateforme) }}
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_arrivee) }}</div>
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_tension2) }}</div>
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_courant_excitation) }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <h2>Stator</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <br />
-                                <div class="row">
-                                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_tension) }}</div>
-                                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_courant) }}</div>
-                                </div>
-                                <div class="row">
-                                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_frequence) }}</div>
-                                        <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_couplage) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.date_arrivee) }}</div>
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_tension2) }}</div> 
-                                </div>
-                            </div>
+                <div class="col-md-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Rotor</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <h2>Rotor</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
+                        <div class="x_content">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension) }}
+                                </div>
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_courant) }}
+                                </div>
                             </div>
-                            <div class="x_content">
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension) }}
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_courant) }}
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_expertise_refrigeant) }}
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_expertise_refrigeant) }}
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension2) }}
-                                    </div> 
+                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension2) }}
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 ">{{ form_row(form.presence_plans) }}
-                                    </div>
-                                </div>
-                            </div> 
+                            </div>
+                            <div class="row">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="x_panel">
-                    <div class="x_content">                                
-                        <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 offset-md-3 text-center">
+            </div>
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3 text-center">
                             <div class="row">
                                 <div class="col-md-12 align-center">
-                                    <button type="submit" class="btn btn-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous vraiment valider ?')">Validation des paramètres généraux<i class="fa fa-check-circle p-2"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-sm text-uppercase"
+                                        onclick="return confirm('Voulez-vous vraiment valider ?')">Validation des
+                                        paramètres généraux<i class="fa fa-check-circle p-2"></i></button>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             {{ form_end(form) }}
         </div>
-    </div>    
-</div> 
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
 <script>
@@ -175,48 +181,67 @@
         //let region = document.querySelector("#parametre_machine");
         //si on choisir une machine / on doit remplir les champs de paramêtre automatiquement
         var type = document.getElementById('parametre_type');
-        type?.addEventListener('click', function()
-        {
-            var typeID = this.value;
-            console.log(typeID);
+        const input_frequence = document.getElementById("parametre_stator_frequence");
+        const input_couplage = document.getElementById("parametre_stator_couplage");
+        const machine = document.getElementById("parametre_machine");
+        const balais_masse = document.getElementById("parametre_presence_balais_masse");
 
+        machine.addEventListener("click", () => {
+            //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
+            fetch('/index.php/parametre/frequence/' + machine.value) // Remplacez l'URL par celle de votre route Symfony
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.name)
+                    if (data.name == "À courant continu") {
+                        input_frequence.disabled = true;
+                        input_couplage.disabled = true;
+                        balais_masse.disabled = true;
+                    } else {
+                        input_frequence.disabled = false;
+                        input_couplage.disabled = false;
+                        balais_masse.disabled = false;
+                    }
+                });
+        });
+
+        type?.addEventListener('click', function () {
+            var typeID = this.value;
             //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
             fetch('/index.php/parametre/info/' + typeID) // Remplacez l'URL par celle de votre route Symfony
-            .then(response => response.json())
-            .then(data => {
-                // Mettre à jour les champs du formulaire Congé avec les données récupérées
-                console.log(data.machine);
-                document.getElementById('parametre_machine').value = data.machine;
-                document.getElementById('parametre_type_machine').value = data.type_machine;
-                document.getElementById('parametre_puissance').value = data.puissance;
-                document.getElementById('parametre_vitesse').value = data.vitesse;
-                document.getElementById('parametre_montage').value = data.montage;
-                document.getElementById('parametre_fabricant').value = data.fabricant;
-                document.getElementById('parametre_masse').value = data.masse;
-                document.getElementById('parametre_type_palier').value = data.type_palier;
-                document.getElementById('parametre_presence_balais').value = data.presence_balais;
-                document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
+                .then(response => response.json())
+                .then(data => {
+                    // Mettre à jour les champs du formulaire Congé avec les données récupérées
+                    console.log(data.machine);
+                    document.getElementById('parametre_machine').value = data.machine;
+                    document.getElementById('parametre_type_machine').value = data.type_machine;
+                    document.getElementById('parametre_puissance').value = data.puissance;
+                    document.getElementById('parametre_vitesse').value = data.vitesse;
+                    document.getElementById('parametre_montage').value = data.montage;
+                    document.getElementById('parametre_fabricant').value = data.fabricant;
+                    document.getElementById('parametre_masse').value = data.masse;
+                    document.getElementById('parametre_type_palier').value = data.type_palier;
+                    document.getElementById('parametre_presence_balais').value = data.presence_balais;
+                    document.getElementById('parametre_presence_balais_masse').value = data.presence_masse_balais;
 
-                function formatDate(date)
-                {
-                    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-                    return new Date(date).toLocaleDateString('fr-FR', options);
-                }
-                  
-                document.getElementById('parametre_stator_tension').value = data.stator_tension;
-                document.getElementById('parametre_stator_tension2').value = data.stator_tension2;
-                document.getElementById('parametre_stator_frequence').value = data.stator_frequence;
-                document.getElementById('parametre_stator_courant').value = data.stator_courant;
-                document.getElementById('parametre_date_arrivee').value = formatDate(data.date_arrivee);
-                document.getElementById('parametre_stator_couplage').value = data.stator_couplage;
+                    function formatDate(date) {
+                        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                        return new Date(date).toLocaleDateString('fr-FR', options);
+                    }
 
-                document.getElementById('parametre_rotor_tension').value = data.rotor_tension;
-                document.getElementById('parametre_rotor_tension2').value = data.rotor_tension2;
-                document.getElementById('parametre_rotor_expertise_refrigeant').value = data.rotor_expertise_refrigeant;
-                document.getElementById('parametre_rotor_courant').value = data.rotor_courant;
-                document.getElementById('parametre_rotor_couplage').value = data.presence_plans;
-            });
+                    document.getElementById('parametre_stator_tension').value = data.stator_tension;
+                    document.getElementById('parametre_stator_tension2').value = data.stator_tension2;
+                    document.getElementById('parametre_stator_frequence').value = data.stator_frequence;
+                    document.getElementById('parametre_stator_courant').value = data.stator_courant;
+                    document.getElementById('parametre_date_arrivee').value = formatDate(data.date_arrivee);
+                    document.getElementById('parametre_stator_couplage').value = data.stator_couplage;
+
+                    document.getElementById('parametre_rotor_tension').value = data.rotor_tension;
+                    document.getElementById('parametre_rotor_tension2').value = data.rotor_tension2;
+                    document.getElementById('parametre_rotor_expertise_refrigeant').value = data.rotor_expertise_refrigeant;
+                    document.getElementById('parametre_rotor_courant').value = data.rotor_courant;
+                    document.getElementById('parametre_rotor_couplage').value = data.presence_plans;
+                });
         });
     }        
-</script> 
- {% endblock %}
+</script>
+{% endblock %}

@@ -5,7 +5,8 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Expertise Électrique Après lavage</h4>
+        <div class="title_left">
+            <h4>Expertise Électrique Après lavage</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -13,410 +14,592 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                        {% if parametre.expertiseElectiqueAvantLavage == 1 %}
-                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Elec Avant Lavage <i class="fa fa-check"></i></a>
-                        {% else %}
-                            <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Elec Avant Lavage</a>
-                        {% endif %}  
-                            <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Exp. Élec Après Lavage <i class="fa fa-check"></i></a>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                        {% if parametre.expertiseMecanique == 1 %}
-                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
-                        {% else %}
-                            <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
-                        {% endif %}
-                    {% endif %}
-
-                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
-                        <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Constats</a>
+                    {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or
+                    is_granted('ROLE_LECTEUR') %}
+                    {% if parametre.expertiseElectiqueAvantLavage == 1 %}
+                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Exp. Elec Avant Lavage <i class="fa fa-check"></i></a>
                     {% else %}
-                            <a href="{{path('app_constat_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Constats</a>
+                    <a href="{{path('app_expertise_electrique_avant_lavage', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Exp. Elec Avant Lavage</a>
                     {% endif %}
-                        
-                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}          
-                        {% if is_granted('ROLE_CHEF_PROJET') %}
-                            {% if parametre.contreExpertise %}
-                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
-                            {% endif %}
-                        {% endif %}
+                    <a href="{{path('app_expertise_electrique_apres_lavage', {'id' : parametre.id })}}"
+                        class="btn btn-outline-secondary btn-sm">Exp. Élec Après Lavage <i class="fa fa-check"></i></a>
+                    {% endif %}
 
-                        {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                            {% if parametre.remontage == 1 %}
-                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Remontage</a>
-                            {% endif %}                                    
-                        {% endif %}
-                        
-                        {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_LECTEUR') %}
-                           {% if parametre.remontage == 1 %}
-                                {% if parametre.essaisFinaux == 1 %}
-                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Essais Finaux <i class="fa fa-check"></i></a>
-                                {% else %}
-                                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Essais Finaux</a>
-                                {% endif %}                            
-                           {% endif %}                                    
-                        {% endif %}
+                    {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or
+                    is_granted('ROLE_LECTEUR') %}
+                    {% if parametre.expertiseMecanique == 1 %}
+                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Exp. Mécanique <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_expertise_mecanique', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Exp. Mécanique</a>
+                    {% endif %}
+                    {% endif %}
 
-                        {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
-                            {% if parametre.phototheques | length > 1 %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
-                            {% endif %} 
-                        {% endif %}
-                    
-                        {% if is_granted('ROLE_CHEF_PROJET') %}
-                            {% if parametre.infoGenerale %}
-                                <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Info Générale <i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Info Générale</a>
-                            {% endif %} 
-                        {% endif %}
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and
+                    (parametre.expertiseElectiqueApresLavage == 1) %}
+                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Constats</a>
+                    {% else %}
+                    <a href="{{path('app_constat_index', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Constats</a>
+                    {% endif %}
+
+                    {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and
+                    (parametre.expertiseElectiqueApresLavage == 1) %}
+                    {% if is_granted('ROLE_CHEF_PROJET') %}
+                    {% if parametre.contreExpertise %}
+                    <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Contre-Expertise <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if is_granted('ROLE_TECHNICIEN_MECANICIEN') or is_granted('ROLE_CHEF_PROJET') or
+                    is_granted('ROLE_LECTEUR') %}
+                    {% if parametre.remontage == 1 %}
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_remontage_index', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Remontage</a>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_CHEF_PROJET') or
+                    is_granted('ROLE_LECTEUR') %}
+                    {% if parametre.remontage == 1 %}
+                    {% if parametre.essaisFinaux == 1 %}
+                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Essais Finaux <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_essais_finaux', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Essais Finaux</a>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+
+                    {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
+                    {% if parametre.phototheques | length > 1 %}
+                    <a href="{{path('app_phototheque', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_phototheque', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if is_granted('ROLE_CHEF_PROJET') %}
+                    {% if parametre.infoGenerale %}
+                    <a href="{{path('app_info_generale', {'id' : parametre.id })}}"
+                        class="btn btn-outline-success btn-sm">Info Générale <i class="fa fa-check"></i></a>
+                    {% else %}
+                    <a href="{{path('app_info_generale', {'id' : parametre.id })}}"
+                        class="btn btn-outline-primary btn-sm">Info Générale</a>
+                    {% endif %}
+                    {% endif %}
 
 
                     {% endif %}
 
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_affaire_show', {'id' : parametre.affaire.id })}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        <a href="{{path('app_affaire_show', {'id' : parametre.affaire.id })}}" onclick="history.back();"
+                            class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
-                    <div class="clearfix"></div> 
-                </div> 
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
-    </div>  
-    <!-- début contenu formulaire --> 
-        <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-                <!-- début Stator après lavage -->
-                        <div class="x_panel"> 
-                            <div class="x_title">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2>Mesure d'isolement</h2>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        {% if parametre.statorApresLavage == null %}
-                                            <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                        {% else %}
-                                            {% if parametre.statorApresLavage.etat == 1 %}
-                                                <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                            {% else %}
-                                                <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                            {% if parametre.affaire.bloque != 1 %}
-                                                <a class="btn btn-primary" href="{{path('app_stator_apres_lavage', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-2">
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
-                                        </ul>                                                
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content collapse" id="collapse1"> 
-                                <!-- début  stator après lavage --> 
-                                {% if parametre.statorApresLavage %}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <table class="table table-bordered table-striped">
-                                                <tr  class="table-secondary">
-                                                    <th colspan="8" class="text-center">Paramètres</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>T° Ambiante (°C)</th>
-                                                    <th>T° Tôlerie (°C)</th>
-                                                    <th>Hygrométrie (%)</th>
-                                                    <th width="10%">Critère</th>
-                                                    <th width="10%">Tension Stator</th>
-                                                    <th width="10%">Tension Rotor</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
-                                                    <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
-                                                    <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                    <td>{{parametre.critere}}</td> 
-                                                    <td>{{parametre.statorTension}} 
-                                                        {% if parametre.statorTension2 != 0 %}
-                                                            et {{parametre.statorTension2 }}
-                                                        {% endif %} 
-                                                    </td>
-                                                    <td>{{parametre.rotorTension}} 
-                                                        {% if parametre.rotorTension2 != 0 %}
-                                                            et {{parametre.rotorTension2 }}
-                                                        {% endif %} 
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>     
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <table class="table table-bordered table-striped">
-                                                <tr  class="table-secondary">
-                                                    <th width="8%">Type</th>
-                                                    <th width="14%">Contrôle</th>
-                                                    <th width="10%">Critère</th>
-                                                    <th class="text-center" width="14%">Tension d'éssai(V)</th>
-                                                    <th class="text-center" width="14%">Valeur relevées avant lavage</th>
-                                                    <th width="14%">Valeur relevées après lavage</th>
-                                                    <th width="14%">Correction à 20°</th>
-                                                    <th width="10%">Conformité</th> 
-                                                </tr>
-                                                {% for item in parametre.statorApresLavage.lstatorApresLavages %}
-                                                    <tr>
-                                                        <td class="text-left">{{item.type}}</td>
-                                                        <td class="text-left">{{item.controle}}</td>
-                                                        <td class="text-center">{{ item.critere }}</td>
-                                                        <td class="text-center">{{item.tensionEssai}}</td>
-                                                        {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                            <td class="text-center">{{item.valeurRelevee}}</td>
-                                                            <td class="text-center">{{ item.valeur}}</td>
-                                                        {% else %}
-                                                            <td class="text-center">{{item.valeurRelevee}} {{ item.unite }}</td>
-                                                            <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
-                                                        {% endif %}
-                                                        <td class="text-center">{{item.tempCorrection}}</td>
-                                                        <td class="text-center">{{ item.conformite }}</td>
-                                                    </tr>                                                    
-                                                {% endfor %}
-                                            </table> 
-                                        </div>
-                                    </div>
-                                {% endif %}
-                                <!-- fin  stator après lavage --> 
-                            </div>
+    </div>
+    <!-- début contenu formulaire -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <!-- début Stator après lavage -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Mesure d'isolement</h2>
                         </div>
-                <!-- fin stator après lavage -->
-      
-                <!-- début sonde bobinage -->
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h2>Mesure Resistance</h2>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.sondeBobinage == null %}
-                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% else %}
-                                        {% if parametre.sondeBobinage.etat == 1 %}
-                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
-                                        {% else %}
-                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                        {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_sonde_bobinage', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
-                                    </ul>                                                
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content collapse" id="collapse2">  
-                            <!-- début sonde bobinage -->
-                            {% if parametre.sondeBobinage %}
-                                <div class="row">
-                                    <table class="table table-bordered">
-                                        <tr  class="table-secondary">
-                                            <th colspan="5" class="text-center">Paramètres</th>
-                                        </tr>
-                                        <tr>
-                                            <th>T° Ambiante (°C)</th>
-                                            <th>T° Tôlerie (°C)</th>
-                                            <th>Hygrométrie (%)</th>
-                                            <th>Tension Machine</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
-                                            <td >{{parametre.sondeBobinage.tempTolerie }}</td>
-                                            <td >{{parametre.sondeBobinage.hygrometrie }}</td>
-                                            <td>{{parametre.statorTension}}</td>
-                                        </tr>   
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-bordered table-striped">
-                                        <tr  class="table-secondary"> 
-                                            <th width="10%">Type</th>
-                                            <th width="16%">Contrôle</th>
-                                            <th width="16%">Critère</th>
-                                            <th width="16%">Valeur relevée avant lavage</th>
-                                            <th width="16%">Valeur relevées</th>
-                                            <th width="16%">Correction à 20°</th>
-                                            <th width="16%">Conformité</th>
-                                        </tr>
-                                        <tr class="bg-primary"></tr>
-                                        {% if parametre.sondeBobinage %}
-                                            {% for item in parametre.sondeBobinage.lsondeBobinages %}
-                                                <tr>
-                                                    <td>{{item.type}}</td>
-                                                    <td>{{item.controle}}</td>
-                                                    <td>{{item.critere}}</td>
-                                                    <td>{{item.valeurRelevee}} {{ item.unite}}</td>
-                                                    <td>{{item.valeur}} {{ item.unite }}</td>
-                                                    <td>{{item.tempCorrection}}</td>
-                                                    <td>{{item.conformite}}</td>
-                                                </tr>                                        
-                                            {% endfor %}                                            
-                                        {% endif %}
-                                    </table>
-                                </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.statorApresLavage == null %}
+                            <a href="#" class="btn btn-secondary btn-sm">En attente <i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% else %}
+                            {% if parametre.statorApresLavage.etat == 1 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>
                             {% endif %}
-                            <!-- début sonde bobinage -->
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            {% if parametre.affaire.bloque != 1 %}
+                            <a class="btn btn-primary"
+                                href="{{path('app_stator_apres_lavage', {'id' : parametre.id })}}"><i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse1"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
                         </div>
                     </div>
-                <!-- fin stator bobinage -->
-    
-                <!-- début Appareils de mesure utilisés -->
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h2>Appareils de mesure utilisés</h2>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.appareilMesureElectriques | length > 0 %}
-                                        <a href="#" class="btn btn-success btn-sm">Terminer <i class="fa fa-check"></i></a> 
-                                    {% else %}
-                                        <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                        {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_appareil_mesure_expertise_apres_lavage', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
-                                    </ul>                                                
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content collapse" id="collapse6">
-                            <div class="row">
-                                {% if parametre.appareilMesureElectriques %}
-                                    <table class="table table-bordered">
-                                        <tr  class="table-secondary">
-                                            <th>Désignation du moyen de contrôle</th>
-                                            <th>N° de l'appareil</th>
-                                            <th>Date de validité</th>
-                                        </tr>
-                                        {% for item in parametre.appareilMesureElectriques %}
-                                            <tr>
-                                                <td>{{item.appareil.designation}}</td>
-                                                <td>{{item.appareil.numAppareil}}</td>
-                                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
-                                            </tr>
-                                        {% endfor %} 
-                                    </table>                                        
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                <!-- /fin Appareils de mesure utilisés -->
-                                          
-                <!-- début constats eléc après lavage -->
-                    <div class="x_panel"> 
-                        <div class="x_title">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h2>Constats Électrique Après Lavage</h2>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    {% if parametre.constatElectriqueApresLavages |length == 0 %}
-                                        <a href="#" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
-                                    {% else %}
-                                        {% if parametre.constatElectriqueApresLavages |length  > 1 %}
-                                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>                                           
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse1">
+                    <!-- début  stator après lavage -->
+                    {% if parametre.statorApresLavage %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-striped">
+                                <tr class="table-secondary">
+                                    <th colspan="8" class="text-center">Paramètres</th>
+                                </tr>
+                                <tr>
+                                    <th>T° Ambiante (°C)</th>
+                                    <th>T° Tôlerie (°C)</th>
+                                    <th>Hygrométrie (%)</th>
+                                    <th width="10%">Critère</th>
+                                    <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
+                                        Tension Excitation
                                         {% else %}
-                                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>   
+                                        Tension Stator
+                                        {% endif %}</th>
+                                    <th width="10%">Tension Rotor</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
+                                    <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
+                                    <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
+                                    <td>{{parametre.critere}}</td>
+                                    <td>{{parametre.statorTension}}
+                                        {% if parametre.statorTension2 != 0 %}
+                                        et {{parametre.statorTension2 }}
                                         {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
-                                        {% if parametre.affaire.bloque != 1 %}
-                                            <a class="btn btn-primary" href="{{path('app_constact_expertise_apres_lavage', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+                                    </td>
+                                    <td>{{parametre.rotorTension}}
+                                        {% if parametre.rotorTension2 != 0 %}
+                                        et {{parametre.rotorTension2 }}
                                         {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-2">
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li ><a class="collapse-link" data-toggle="collapse" aria-expanded="false" href="#collapse9"><i class="fa fa-chevron-up"></i></a></li>
-                                    </ul>                                                
-                                </div>  
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content collapse" id="collapse9">
-                            <div class="row">
-                                <table class="table table-bordered">
-                                    <tr  class="table-secondary">
-                                        <th>Vérification</th>
-                                        <th>Critères</th>
-                                        <th>Observation</th>
-                                        <th>Préconisations et conclusion</th>
-                                        <th>Retenu</th>
-                                        <th>Photo</th>
-                                    </tr>
-                                    {% for item in parametre.constatElectriqueApresLavages %}
-                                        <tr class="table-striped">
-                                            <td>{{item.verification}}</td>
-                                            <td>{{item.critere}}</td>
-                                            <td>{{item.observation}}</td>
-                                            <td>{{item.preconisationConclusion}}</td>
-                                            <td>{{item.retenu}}</td>
-                                            <td class="text-center image"><img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="75"></td>
-                                        </tr>                                                    
-                                    {% endfor %}
-                                </table>
-                            </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                <!-- /fin constats eléc après lavage -->
-
-                 <!-- début bouton -->
-                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN')  %}
-                        <div class="x_panel"> 
-                            <div class="x_content">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <a href="{{path('valider_expertise_electrique_apres_lavage', {'id' : parametre.id })}}" class="btn btn-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
-                                    </div>
-                                </div> 
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-striped">
+                                <tr class="table-secondary">
+                                    <th width="8%">Type</th>
+                                    <th width="14%">Contrôle</th>
+                                    <th width="10%">Critère</th>
+                                    <th class="text-center" width="14%">Tension d'éssai(V)</th>
+                                    <th class="text-center" width="14%">Valeur relevées avant lavage</th>
+                                    <th width="14%">Valeur relevées après lavage</th>
+                                    <th width="14%">Correction à 20°</th>
+                                    <th width="10%">Conformité</th>
+                                </tr>
+                                {% for item in parametre.statorApresLavage.lstatorApresLavages %}
+                                <tr>
+                                    <td class="text-left">{{item.type}}</td>
+                                    <td class="text-left">{{item.controle}}</td>
+                                    <td class="text-center">{{ item.critere }}</td>
+                                    <td class="text-center">{{item.tensionEssai}}</td>
+                                    {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or
+                                    item.controle == 'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
+                                    <td class="text-center">{{item.valeurRelevee}}</td>
+                                    <td class="text-center">{{ item.valeur}}</td>
+                                    {% else %}
+                                    <td class="text-center">{{item.valeurRelevee}} {{ item.unite }}</td>
+                                    <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
+                                    {% endif %}
+                                    <td class="text-center">{{item.tempCorrection}}</td>
+                                    <td class="text-center">{{ item.conformite }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
                         </div>
+                    </div>
                     {% endif %}
-                <!-- /fin bouton -->
+                    <!-- fin  stator après lavage -->
+                </div>
             </div>
-        </div>                    
-    <!-- /fin contenu du formulaire--> 
+            <!-- fin stator après lavage -->
+
+            <!-- début sonde bobinage -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Mesure Resistance</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.sondeBobinage == null %}
+                            <a href="#" class="btn btn-secondary btn-sm">En attente <i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% else %}
+                            {% if parametre.sondeBobinage.etat == 1 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            {% if parametre.affaire.bloque != 1 %}
+                            <a class="btn btn-primary" href="{{path('app_sonde_bobinage', {'id' : parametre.id })}}"><i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse2"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse2">
+                    <!-- début sonde bobinage -->
+                    {% if parametre.sondeBobinage %}
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tr class="table-secondary">
+                                <th colspan="5" class="text-center">Paramètres</th>
+                            </tr>
+                            <tr>
+                                <th>T° Ambiante (°C)</th>
+                                <th>T° Tôlerie (°C)</th>
+                                <th>Hygrométrie (%)</th>
+                                <th>Tension Machine</th>
+                            </tr>
+                            <tr>
+                                <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
+                                <td>{{parametre.sondeBobinage.tempTolerie }}</td>
+                                <td>{{parametre.sondeBobinage.hygrometrie }}</td>
+                                <td>{{parametre.statorTension}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered table-striped">
+                            <tr class="table-secondary">
+                                <th width="10%">Type</th>
+                                <th width="16%">Contrôle</th>
+                                <th width="16%">Critère</th>
+                                <th width="16%">Valeur relevée avant lavage</th>
+                                <th width="16%">Valeur relevées</th>
+                                <th width="16%">Correction à 20°</th>
+                                <th width="16%">Conformité</th>
+                            </tr>
+                            <tr class="bg-primary"></tr>
+                            {% if parametre.sondeBobinage %}
+                            {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                            <tr>
+                                <td>{{item.type}}</td>
+                                <td>{{item.controle}}</td>
+                                <td>{{item.critere}}</td>
+                                <td>{{item.valeurRelevee}} {{ item.unite}}</td>
+                                <td>{{item.valeur}} {{ item.unite }}</td>
+                                <td>{{item.tempCorrection}}</td>
+                                <td>{{item.conformite}}</td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </table>
+                    </div>
+                    {% endif %}
+                    <!-- début sonde bobinage -->
+                </div>
+            </div>
+            <!-- fin stator bobinage -->
+
+            <!-- début mesure équirépartition -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Mesure d'équirépartition</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.equirepartitions |length == 0 %}
+                            <a href="#" class="btn btn-secondary btn-sm">En attente <i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% else %}
+                            {% if parametre.equirepartitions |length > 1 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            {% if parametre.affaire.bloque != 1 %}
+                                <a class="btn btn-primary"
+                                    href="{{path('app_eequirepartition_new', {'id' : parametre.id })}}"><i
+                                        class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse211"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse211">
+                    <!-- début sonde bobinage -->
+                    {% if parametre.equirepartitions %}
+                    <div class="row">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th rowspan="{{parametre.equirepartitions|length +1 }}">Pont de diodes</th>
+                            </tr>
+                            {% for item in parametre.equirepartitions %}
+                            <tr>
+                                <th>{{item.pole}}</th>
+                                <td>{{item.tension}} V</td>
+                                <td>{{item.conforme}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- fin mesure équirépartition -->
+
+            <!-- début Pont de diodes -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Pont de diodes</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.pontDiodes |length == 0 %}
+                            <a href="#" class="btn btn-secondary btn-sm">En attente <i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% else %}
+                            {% if parametre.pontDiodes |length > 1 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                                {% if parametre.affaire.bloque != 1 %}
+                                <a class="btn btn-primary"
+                                    href="{{path('app_pont_diode_new', {'id' : parametre.id })}}"><i
+                                        class="fa fa-plus-circle"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse311"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse311">
+                    {% if parametre.pontDiodes %}
+                    <div class="row">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th colspan="2">Equi-Répartition de tension Roue polaire</th>
+                            </tr>
+                            {% for item in parametre.pontDiodes %}
+                            <tr>
+                                <th>{{item.diode}}</th>
+                                <td>{{item.tension}} V</td>
+                                <td>{{item.conforme}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- fin Pont de diodes -->
+
+            <!-- début Appareils de mesure utilisés -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Appareils de mesure utilisés</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.appareilMesureElectriques | length > 0 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminer <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="" class="btn btn-secondary btn-sm">En attente <i class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            {% if parametre.affaire.bloque != 1 %}
+                            <a class="btn btn-primary"
+                                href="{{path('app_appareil_mesure_expertise_apres_lavage', {'id' : parametre.id })}}"><i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse6"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse6">
+                    <div class="row">
+                        {% if parametre.appareilMesureElectriques %}
+                        <table class="table table-bordered">
+                            <tr class="table-secondary">
+                                <th>Désignation du moyen de contrôle</th>
+                                <th>N° de l'appareil</th>
+                                <th>Date de validité</th>
+                            </tr>
+                            {% for item in parametre.appareilMesureElectriques %}
+                            <tr>
+                                <td>{{item.appareil.designation}}</td>
+                                <td>{{item.appareil.numAppareil}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- /fin Appareils de mesure utilisés -->
+
+            <!-- début constats eléc après lavage -->
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Constats Électrique Après Lavage</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if parametre.constatElectriqueApresLavages |length == 0 %}
+                            <a href="#" class="btn btn-secondary btn-sm">En attente <i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% else %}
+                            {% if parametre.constatElectriqueApresLavages |length > 1 %}
+                            <a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+                            {% else %}
+                            <a href="#" class="btn btn-danger btn-sm">En cours <i class="fa fa-circle-o"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or
+                            is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or
+                            is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            {% if parametre.affaire.bloque != 1 %}
+                            <a class="btn btn-primary"
+                                href="{{path('app_constact_expertise_apres_lavage', {'id' : parametre.id })}}"><i
+                                    class="fa fa-plus-circle"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" data-toggle="collapse" aria-expanded="false"
+                                        href="#collapse9"><i class="fa fa-chevron-up"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content collapse" id="collapse9">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tr class="table-secondary">
+                                <th>Vérification</th>
+                                <th>Critères</th>
+                                <th>Observation</th>
+                                <th>Préconisations et conclusion</th>
+                                <th>Retenu</th>
+                                <th>Photo</th>
+                            </tr>
+                            {% for item in parametre.constatElectriqueApresLavages %}
+                            <tr class="table-striped">
+                                <td>{{item.verification}}</td>
+                                <td>{{item.critere}}</td>
+                                <td>{{item.observation}}</td>
+                                <td>{{item.preconisationConclusion}}</td>
+                                <td>{{item.retenu}}</td>
+                                {% if item.photo %}
+                                    <td class="text-center image"><img
+                                        src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt=""
+                                        height="75"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /fin constats eléc après lavage -->
+
+            <!-- début bouton -->
+            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE')
+            or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') %}
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="{{path('valider_expertise_electrique_apres_lavage', {'id' : parametre.id })}}"
+                                class="btn btn-danger btn-sm text-uppercase"
+                                onclick="return confirm('Voulez-vous vraiment valider ?')">Validation de l'expertise
+                                électrique Après Lavage<i class="fa fa-check-circle p-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- /fin bouton -->
+        </div>
+    </div>
+    <!-- /fin contenu du formulaire-->
 </div>
 </div>
 {% endblock %}

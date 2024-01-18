@@ -11,39 +11,47 @@
             <div class="x_content"> 
                 <br />
                 {{ form_start(form) }}
-                    <div class="item form-group">
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.type_service)}}</div>
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.num_appareil)}}</div>
-                        <div class="col-md-3 col-sm-3 mt-1">{{ form_row(form.designation)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.observation)}}</div>
-                        <div class="col-md-2 col-sm-2 mt-1">{{ form_row(form.periodicite)}}</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th width="20%">{{ form_row(form.type_service)}}</th>
+                                <th width="20%">{{ form_row(form.num_appareil)}}</th>
+                                <th width="20%"  class="mt-4">{{ form_row(form.designation)}}</th>
+                                <th width="20%">{{ form_row(form.observation)}}</th>
+                                <th width="20%">{{ form_row(form.periodicite)}}</th>
+                            </tr>
+                            <tr>
+                                <th width="20%">{{ form_row(form.marque)}}</th>
+                                <th width="20%">{{ form_row(form.type)}}</th>
+                                <th width="20%">{{ form_row(form.numero_serie)}}</th>
+                                <th width="20%">{{ form_row(form.unite_mesure)}}</th>
+                                <th width="20%">{{ form_row(form.classe_ap)}}</th>
+                            </tr>
+                            <tr>
+                                <th width="20%">{{ form_row(form.nom_fournisseur)}}</th>
+                                <th width="20%">{{ form_row(form.numero_da)}}</th>
+                                <th width="20%">{{ form_row(form.date_achat)}}</th>
+                                <th width="20%">{{ form_row(form.prix_achat)}}</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th width="20%">{{ form_row(form.service_responsable)}}</th>
+                                <th width="20%">{{ form_row(form.affectation)}}</th>
+                                <th width="20%" id="classe_df">{{ form_widget(form.classe_definition)}}</th>
+                                <th width="20%" id="en_tendance">{{ form_widget(form.en_tendance)}}</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th width="20%">{{ form_row(form.numero_certificat)}}</th>
+                                <th width="20%">{{ form_row(form.date_etat)}}</th>
+                                <th width="20%">{{ form_row(form.etat)}}</th>
+                                <th width="20%">{{ form_row(form.statut)}}</th>
+                                <th width="20%">{{ form_row(form.date_validite)}}</th>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="item form-group">
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.marque)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.type)}}</div>
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.numero_serie)}}</div>
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.unite_mesure)}}</div>
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.classe_ap)}}</div>
-                    </div>
-                    <div class="item form-group">
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.nom_fournisseur)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.numero_da)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.date_achat)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.prix_achat)}}</div>
-                    </div>
-                    <div class="item form-group">
-                        <div class="col-md-3 col-sm-3 mt-1">{{ form_row(form.service_responsable)}}</div>
-                        <div class="col-md-3 col-sm-3 mt-1">{{ form_row(form.affectation)}}</div>
-                        <div class="col-md-3 col-sm-3" id="classe_df" style="display: block;">{{ form_row(form.classe_definition)}}</div>
-                        <div class="col-md-3 col-sm-3" id="en_tendance" style="display: block;">{{ form_row(form.en_tendance)}}</div>
-                    </div>
-                    <div class="item form-group">
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.numero_certificat)}}</div>
-                        <div class="col-md-3 col-sm-3 ">{{ form_row(form.date_etat)}}</div>
-                        <div class="col-md-2 col-sm-2 mt-1">{{ form_row(form.etat)}}</div>
-                        <div class="col-md-2 col-sm-2 mt-1">{{ form_row(form.statut)}}</div>
-                        <div class="col-md-2 col-sm-2 ">{{ form_row(form.date_validite)}}</div>
-                    </div>
+                </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-12 col-sm-12">

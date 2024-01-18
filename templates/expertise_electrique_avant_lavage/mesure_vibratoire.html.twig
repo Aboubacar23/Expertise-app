@@ -5,23 +5,25 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Mesure Vibratoire</h4>
+        <div class="title_left">
+            <h4>Mesure Vibratoire</h4>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
-                <div class="x_title">     
+                <div class="x_title">
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}"
+                            class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
-                    <div class="clearfix"></div> 
+                    <div class="clearfix"></div>
                 </div>
-                   
+
                 <!-- début Mesures vibratoires -->
                 <div class="x_content">
-                {{ form_start(formMesureVibratoire) }}
+                    {{ form_start(formMesureVibratoire) }}
                     <div class="row">
                         <table class="table table-bordered">
                             <tr class="table-secondary text-center">
@@ -45,7 +47,7 @@
                         <br>
                         <br>
                         <table class="table table-bordered">
-                            <tr  class="table-secondary">
+                            <tr class="table-secondary">
                                 <th>Critère acceptation max 25mm/s</th>
                                 <th>N (tr/min)</th>
                                 <th>A</th>
@@ -79,44 +81,50 @@
                                 <td></td>
                             </tr>
                             {{ form_start(f) }}
-                             <tr>
-                                 <td>{{ form_widget(f.titre) }}</td>
-                                 <td>{{ form_widget(f.n30) }}</td>
-                                 <td>{{ form_widget(f.a30) }}</td>
-                                 <td>{{ form_widget(f.b30) }}</td>
-                                 <td>{{ form_widget(f.c30) }}</td>
-                                 <td>{{ form_widget(f.d30) }}</td>
-                                 <td>{{ form_widget(f.e30) }}</td>
-                                 <td>{{ form_widget(f.f30) }}</td>
-                                 <td><button class="btn btn-primary btn-sm" name="bouton2" value="ajouter">Ajouter</button></td>
+                            <tr>
+                                <td>{{ form_widget(f.titre) }}</td>
+                                <td>{{ form_widget(f.n30) }}</td>
+                                <td>{{ form_widget(f.a30) }}</td>
+                                <td>{{ form_widget(f.b30) }}</td>
+                                <td>{{ form_widget(f.c30) }}</td>
+                                <td>{{ form_widget(f.d30) }}</td>
+                                <td>{{ form_widget(f.e30) }}</td>
+                                <td>{{ form_widget(f.f30) }}</td>
+                                <td><button class="btn btn-primary btn-sm" name="bouton2"
+                                        value="ajouter">Ajouter</button></td>
                             </tr>
-                            {% for item in items %}         
-                                <tr>
-                                    <td>{{ item.titre }}</td>
-                                    <td>{{ item.n30 }}</td>
-                                    <td>{{ item.a30 }}</td>
-                                    <td>{{ item.b30 }}</td>
-                                    <td>{{ item.c30 }}</td>
-                                    <td>{{ item.d30 }}</td>
-                                    <td>{{ item.e30 }}</td>
-                                    <td>{{ item.f30 }}</td>
-                                    <td class="text-center"><a href="{{path('delete_vibratoire', {'id' : item.lig, 'paramID' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                </tr>
+                            {% for item in items %}
+                            <tr>
+                                <td>{{ item.titre }}</td>
+                                <td>{{ item.n30 }}</td>
+                                <td>{{ item.a30 }}</td>
+                                <td>{{ item.b30 }}</td>
+                                <td>{{ item.c30 }}</td>
+                                <td>{{ item.d30 }}</td>
+                                <td>{{ item.e30 }}</td>
+                                <td>{{ item.f30 }}</td>
+                                <td class="text-center"><a
+                                        href="{{path('delete_vibratoire', {'id' : item.lig, 'paramID' : parametre.id })}}"><i
+                                            class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                            </tr>
                             {% endfor %}
+
                             {% if parametre.mesureVibratoire.lmesureVibratoires %}
                                 {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
-                                    <tr>
-                                        <td class="titre_table">{{ item.titre}}</td>
-                                        <td>{{ item.n30 | number_format(2) }}</td>
-                                        <td>{{ item.a30 | number_format(2) }}</td>
-                                        <td>{{ item.b30 | number_format(2) }}</td>
-                                        <td>{{ item.c30 | number_format(2) }}</td>
-                                        <td>{{ item.d30 | number_format(2) }}</td>
-                                        <td>{{ item.e30 | number_format(2) }}</td>
-                                        <td>{{ item.f30 | number_format(2) }}</td>
-                                        <td class="text-center"><a href="{{path('delete_lmesure_vibratoire', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                    </tr>                                    
-                                {% endfor %}                                        
+                                <tr>
+                                    <td class="titre_table">{{ item.titre}}</td>
+                                    <td>{{ item.n30 | number_format(2) }}</td>
+                                    <td>{{ item.a30 | number_format(2) }}</td>
+                                    <td>{{ item.b30 | number_format(2) }}</td>
+                                    <td>{{ item.c30 | number_format(2) }}</td>
+                                    <td>{{ item.d30 | number_format(2) }}</td>
+                                    <td>{{ item.e30 | number_format(2) }}</td>
+                                    <td>{{ item.f30 | number_format(2) }}</td>
+                                    <td class="text-center"><a
+                                            href="{{path('delete_lmesure_vibratoire', {'id' : item.id, 'id2' : parametre.id })}}"><i
+                                                class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                </tr>
+                                {% endfor %}
                             {% endif %}
                             {{ form_end(f) }}
                             <tr>
@@ -127,18 +135,19 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <button class="btn btn-secondary btn-sm" name="bouton2" value="mesure_vibratoire_en_cours"> En cours <i class="fa fa-save"></i></button>
+                            <button class="btn btn-secondary btn-sm" name="bouton2" value="mesure_vibratoire_en_cours">
+                                En cours <i class="fa fa-save"></i></button>
                         </div>
                         <div class="col-md-6 text-right">
-                            <button class="btn btn-success btn-sm" name="bouton2" value="mesure_vibratoire_terminer"> Terminer <i class="fa fa-save"></i></button>
+                            <button class="btn btn-success btn-sm" name="bouton2" value="mesure_vibratoire_terminer">
+                                Terminer <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-                {{ form_end(formMesureVibratoire) }}
+                    {{ form_end(formMesureVibratoire) }}
                 </div>
                 <!-- fin Mesures vibratoires -->
-    
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 {% endblock %}

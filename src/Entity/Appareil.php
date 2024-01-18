@@ -196,7 +196,7 @@ class Appareil
     }
 
     public function __toString(){
-        return $this->getNumAppareil();
+        return $this->getNumAppareil().' - '.$this->getDateValidite()->format('d-m-Y');
     }
 
     /**
@@ -642,5 +642,4 @@ class Appareil
 
         return $this;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Service\PdfServiceP;
@@ -36,7 +37,7 @@ class ParametreController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
+    public function new(Request $request, Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository, CorrectionRepository $correctionRepository): Response
     {
         $parametre = new Parametre();
         $form = $this->createForm(ParametreType::class, $parametre);
@@ -44,45 +45,36 @@ class ParametreController extends AbstractController
 
         $criteres = $critereRepository->findAll();
         $critere = 0;
-        foreach ($criteres as $item)
-        {
-            if ($item->isEtat() == 1)
-            {
+        foreach ($criteres as $item) {
+            if ($item->isEtat() == 1) {
                 $critere = $item->getMontant();
             }
         }
- 
+
         $corrections = $correctionRepository->findAll();
         $correction = 0;
-        foreach ($corrections as $item2)
-        {
-            if ($item2->isEtat() == 1)
-            {
+        foreach ($corrections as $item2) {
+            if ($item2->isEtat() == 1) {
                 $correction = $item2->getTemperature();
             }
         }
-        
-        if ($form->isSubmitted() && $form->isValid())
-        {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             //cette 
-            if ($parametre->getStatorTension2() == null)
-            {
+            if ($parametre->getStatorTension2() == null) {
                 $parametre->setStatorTension2(0);
             }
-            if ($parametre->getStatorTension() == null)
-            {
+            if ($parametre->getStatorTension() == null) {
                 $parametre->setStatorTension(0);
             }
 
-            if ($parametre->getRotorTension2() == null)
-            {
+            if ($parametre->getRotorTension2() == null) {
                 $parametre->setRotorTension2(0);
-            } 
-            
-            if ($parametre->getRotorTension() == null)
-            {
+            }
+
+            if ($parametre->getRotorTension() == null) {
                 $parametre->setRotorTension(0);
-            } 
+            }
 
             $parametre->setAffaire($affaire);
             $parametreRepository->save($parametre, true);
@@ -114,27 +106,22 @@ class ParametreController extends AbstractController
     {
         $form = $this->createForm(ParametreType::class, $parametre);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            if ($parametre->getStatorTension2() == null)
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($parametre->getStatorTension2() == null) {
                 $parametre->setStatorTension2(0);
             }
-            if ($parametre->getStatorTension() == null)
-            {
+            if ($parametre->getStatorTension() == null) {
                 $parametre->setStatorTension(0);
             }
 
-            if ($parametre->getRotorTension2() == null)
-            {
+            if ($parametre->getRotorTension2() == null) {
                 $parametre->setRotorTension2(0);
-            } 
-            
-            if ($parametre->getRotorTension() == null)
-            {
+            }
+
+            if ($parametre->getRotorTension() == null) {
                 $parametre->setRotorTension(0);
-            } 
-            
+            }
+
             $parametreRepository->save($parametre, true);
 
             return $this->redirectToRoute('app_affaire_show', [
@@ -149,100 +136,93 @@ class ParametreController extends AbstractController
     }
 
     #[Route('delete-parametre/{id}', name: 'app_parametre_delete', methods: ['GET'])]
-    public function delete(Request $request, 
+    public function delete(
+        Request $request,
         Parametre $parametre,
         EntityManagerInterface $em,
         ParametreRepository $parametreRepository,
         AppareilMesureRepository $appareilMesureRepository,
         ReleveDimmensionnelRepository $releveDimmensionnelRepository,
         PhotoRepository $photoRepository,
-         ): Response
-    {
-        if ($parametre)
-        {   
+    ): Response {
+        if ($parametre) {
             $id = $parametre->getAffaire()->getId();
             //appareil de mesure mecanique
-            foreach($parametre->getAppareilMesureMecaniques() as $item){
+            foreach ($parametre->getAppareilMesureMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
             //photos expertiss mécanique
-            foreach($parametre->getPhotoExpertiseMecaniques() as $item){
+            foreach ($parametre->getPhotoExpertiseMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
             //constat électrique après lavage
-            foreach($parametre->getConstatElectriqueApresLavages() as $item){
+            foreach ($parametre->getConstatElectriqueApresLavages() as $item) {
                 $em->remove($item, true);
             }
             //constat mécanique
-            foreach($parametre->getConstatMecaniques() as $item){
+            foreach ($parametre->getConstatMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
             //constat électrique avant lavage
-            foreach($parametre->getConstatElectriques() as $item){
+            foreach ($parametre->getConstatElectriques() as $item) {
                 $em->remove($item, true);
             }
             //caractéristique
-            foreach($parametre->getCaracteristiques() as $item){
+            foreach ($parametre->getCaracteristiques() as $item) {
                 $em->remove($item, true);
             }
 
             //point de fonctionnement
-            foreach($parametre->getPointFonctionnements() as $item){
+            foreach ($parametre->getPointFonctionnements() as $item) {
                 $em->remove($item);
-            } 
+            }
 
             //point de fonctionnement à vide
-            foreach($parametre->getPointFonctionnementVides() as $item)
-            {
+            foreach ($parametre->getPointFonctionnementVides() as $item) {
                 $em->remove($item);
             }
 
             ///point de fonctionnement rotor
-            foreach($parametre->getPointFonctionnementRotors() as $item){
+            foreach ($parametre->getPointFonctionnementRotors() as $item) {
                 $em->remove($item);
             }
 
             ///remontage photo
-            foreach($parametre->getRemontagePhotos() as $item){
+            foreach ($parametre->getRemontagePhotos() as $item) {
                 $em->remove($item);
             }
 
             ///plauqe
-            foreach($parametre->getPlaques() as $item){
+            foreach ($parametre->getPlaques() as $item) {
                 $em->remove($item);
             }
             ///controle de recensement
-            foreach($parametre->getControleRecensements() as $item){
+            foreach ($parametre->getControleRecensements() as $item) {
                 $em->remove($item);
             }
 
             ///photo
-            if($parametre->getPhoto())
-            {
-                if($parametre->getPhoto()->getImages())
-                {
-                    foreach($parametre->getPhoto()->getImages() as $item)
-                    {
+            if ($parametre->getPhoto()) {
+                if ($parametre->getPhoto()->getImages()) {
+                    foreach ($parametre->getPhoto()->getImages() as $item) {
                         $em->remove($item);
                     }
                 }
 
-                foreach($photoRepository->findAll() as $ph)
-                {
-                    if($ph->getParametre()->getId() == $parametre->getId()){
+                foreach ($photoRepository->findAll() as $ph) {
+                    if ($ph->getParametre()->getId() == $parametre->getId()) {
                         $em->remove($ph);
                     }
                 }
             }
 
             ///mesure isolement
-            if($parametre->getMesureIsolement())
-            {
-                if($parametre->getMesureIsolement()->getLMesureIsolements()){
-                    foreach($parametre->getMesureIsolement()->getLMesureIsolements() as $item){
+            if ($parametre->getMesureIsolement()) {
+                if ($parametre->getMesureIsolement()->getLMesureIsolements()) {
+                    foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
                         $em->remove($item);
                     }
                 }
@@ -250,10 +230,9 @@ class ParametreController extends AbstractController
             }
 
             ///mesure essais
-            if($parametre->getMesureIsolementEssai())
-            {
-                if($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais()){
-                    foreach($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $item){
+            if ($parametre->getMesureIsolementEssai()) {
+                if ($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais()) {
+                    foreach ($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $item) {
                         $em->remove($item);
                     }
                 }
@@ -261,10 +240,9 @@ class ParametreController extends AbstractController
             }
 
             ///mesure essais
-            if($parametre->getMesureResistanceEssai())
-            {
-                if($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais()){
-                    foreach($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $item){
+            if ($parametre->getMesureResistanceEssai()) {
+                if ($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais()) {
+                    foreach ($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $item) {
                         $em->remove($item);
                     }
                 }
@@ -272,10 +250,9 @@ class ParametreController extends AbstractController
             }
 
             ///mesure resistance
-            if($parametre->getMesureResistance())
-            {
-                if($parametre->getMesureResistance()->getLMesureResistances()){
-                    foreach($parametre->getMesureResistance()->getLMesureResistances() as $item){
+            if ($parametre->getMesureResistance()) {
+                if ($parametre->getMesureResistance()->getLMesureResistances()) {
+                    foreach ($parametre->getMesureResistance()->getLMesureResistances() as $item) {
                         $em->remove($item);
                     }
                 }
@@ -283,10 +260,9 @@ class ParametreController extends AbstractController
             }
 
             ///sonde et bobinage
-            if($parametre->getSondeBobinage())
-            {
-                if($parametre->getSondeBobinage()->getLSondeBobinages()){
-                    foreach($parametre->getSondeBobinage()->getLSondeBobinages() as $item){
+            if ($parametre->getSondeBobinage()) {
+                if ($parametre->getSondeBobinage()->getLSondeBobinages()) {
+                    foreach ($parametre->getSondeBobinage()->getLSondeBobinages() as $item) {
                         $em->remove($item);
                     }
                 }
@@ -294,53 +270,44 @@ class ParametreController extends AbstractController
             }
 
             //stator après lavage
-            if($parametre->getStatorApresLavage())
-            {
-                if($parametre->getStatorApresLavage()->getLStatorApresLavages()){
-                    foreach($parametre->getStatorApresLavage()->getLStatorApresLavages() as $item){
+            if ($parametre->getStatorApresLavage()) {
+                if ($parametre->getStatorApresLavage()->getLStatorApresLavages()) {
+                    foreach ($parametre->getStatorApresLavage()->getLStatorApresLavages() as $item) {
                         $em->remove($item);
                     }
                 }
                 $em->remove($parametre->getStatorApresLavage());
             }
-            
+
             ///controle visuel
-            if($parametre->getControleVisuelMecanique())
-            {
-                if($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires())
-                {
-                    foreach($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires() as $item)
-                    {
+            if ($parametre->getControleVisuelMecanique()) {
+                if ($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires()) {
+                    foreach ($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires() as $item) {
                         $em->remove($item);
                     }
                 }
                 $em->remove($parametre->getControleVisuelMecanique());
             }
 
-            foreach($releveDimmensionnelRepository->findAll() as $item)
-            {
-                if($item->getParametre()->getId() == $parametre->getId())
-                {
+            foreach ($releveDimmensionnelRepository->findAll() as $item) {
+                if ($item->getParametre()->getId() == $parametre->getId()) {
                     $em->remove($item);
                 }
-               $em->remove($item);
-            }
-
-            foreach($parametre->getAppareilMesureElectriques() as $item){
                 $em->remove($item);
             }
-            
-            if($parametre->getAppareilMesures())
-            {
-                foreach($appareilMesureRepository->findAll() as $item)
-                {
-                    if($item->getParametre()->getId() ==  $parametre->getId())
-                    {
+
+            foreach ($parametre->getAppareilMesureElectriques() as $item) {
+                $em->remove($item);
+            }
+
+            if ($parametre->getAppareilMesures()) {
+                foreach ($appareilMesureRepository->findAll() as $item) {
+                    if ($item->getParametre()->getId() ==  $parametre->getId()) {
                         $em->remove($item);
                     }
                 }
             }
-            
+
             $em->remove($parametre);
             $em->flush();
         }
@@ -389,8 +356,7 @@ class ParametreController extends AbstractController
     #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
     public function test(Type $machine): JsonResponse
     {
-        if (!$machine)
-        {
+        if (!$machine) {
             return new JsonResponse(['erreur' => 'type machine non trouvée'], 404);
         }
         return new JsonResponse([
@@ -415,6 +381,19 @@ class ParametreController extends AbstractController
             'rotor_expertise_refrigeant' => $machine->getRotorExpertiseRefrigeant(),
             'rotor_courant' => $machine->getRotorCourant(),
             'presence_plans' => $machine->isPresencePlans(),
+        ]);
+    }
+
+
+    //la fonction qui permet d'activer et réactiver une affaire
+    #[Route('/frequence/{id}', name: 'app_frequence', methods: ['GET'])]
+    public function frequence(Machine $machine): JsonResponse
+    {
+        if (!$machine) {
+            return new JsonResponse(['erreur' => 'Machine non trouvée'], 404);
+        }
+        return new JsonResponse([
+            'name' => $machine->getCategorie(),
         ]);
     }
 }
