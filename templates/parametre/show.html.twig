@@ -115,7 +115,7 @@
                                     <div class="col-md-6">
                                         <h5>Machine</h5>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-secondary">
                                                 <tbody>
                                                     <tr>
                                                         <th>Type Machine</th>
@@ -150,7 +150,8 @@
                                                     <tr>
                                                         <th>Température de Correction</th>
                                                         <td>{{ parametre.tempCorrection  }} °C</td>
-                                                        <td colspan="2"></td>
+                                                        <th>Presence Plans</th>
+                                                        <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -159,31 +160,37 @@
                                     <div class="col-md-3">
                                         <h5>Stator</h5>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-secondary">
                                                 <tbody>
                                                     <tr>
-                                                        <th>Stator Tension</th>
+                                                        <th>Tension</th>
                                                         <td>{{ parametre.statorTension }} V</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Stator Frequence</th>
-                                                        <td>{{ parametre.statorFrequence }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Stator Courant</th>
+                                                        <th>Courant</th>
                                                         <td>{{ parametre.statorCourant }} A</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>Stator Couplage</th>
-                                                        <td>{{ parametre.statorCouplage }}</td>
-                                                    </tr>
+                                                    {% if parametre.machine.categorie != "À courant continu" %}
+                                                        <tr>
+                                                            <th>Stator Frequence</th>
+                                                            <td>{{ parametre.statorFrequence }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Stator Couplage</th>
+                                                            <td>{{ parametre.statorCouplage }}</td>
+                                                        </tr>
+                                                    {% endif %}
                                                     <tr>
                                                         <th>Date Arrivée</th>
                                                         <td>{{ parametre.dateArrivee ? parametre.dateArrivee|date('d-m-Y') : '' }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Stator Tension 2</th>
+                                                        <th>Tension Excitation</th>
                                                         <td>{{ parametre.statorTension2 }} V</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Courant Excitation</th>
+                                                        <td>{{ parametre.statorCourantExcitation }} A</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -192,10 +199,10 @@
                                     <div class="col-md-3">
                                         <h5>Rotor</h5>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-secondary">
                                                 <tbody>
                                                     <tr>
-                                                        <th>Rotor Tension</th>
+                                                        <th>Tension</th>
                                                         <td>{{ parametre.rotorTension }} V</td>
                                                     </tr>
                                                     <tr>
@@ -203,15 +210,11 @@
                                                         <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Rotor Courant</th>
+                                                        <th>Courant</th>
                                                         <td>{{ parametre.rotorCourant }} A</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Presence Plans</th>
-                                                        <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Rotor Tension 2</th>
+                                                        <th>Tension 2</th>
                                                         <td>{{ parametre.rotorTension2}} V</td>
                                                     </tr>
                                                 </tbody>

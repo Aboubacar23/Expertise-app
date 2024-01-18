@@ -26,11 +26,15 @@ use App\Repository\SondeBobinageRepository;
 use App\Entity\ConstatElectriqueApresLavage;
 use App\Repository\LSondeBobinageRepository;
 use App\Entity\AutrePointFonctionnementRotor;
+use App\Entity\Equirepartition;
+use App\Entity\PontDiode;
 use App\Repository\CaracteristiqueRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AutrePointFonctionnementRotorType;
+use App\Form\EquirepartitionType;
+use App\Form\PontDiodeType;
 use App\Repository\AdminRepository;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,6 +46,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
 use App\Repository\ControleIsolementRepository;
+use App\Repository\EquirepartitionRepository;
+use App\Repository\PontDiodeRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -55,6 +61,62 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     {    
         return $this->render('expertise_electrique_apres_lavage/index.html.twig', [
             'parametre' => $parametre,
+        ]);
+    }
+
+    //ajout de mesure équirepartition
+    #[Route('/equirepartition/{id}', name: 'app_eequirepartition_new')]
+    public function equi(Parametre $parametre,Request $request,EntityManagerInterface $entityManager ,EquirepartitionRepository $equirepartitionRepository): Response
+    {    
+        $equirepartition = new Equirepartition();
+        $form = $this->createForm(EquirepartitionType::class, $equirepartition);
+        $form->handleRequest($request);
+
+        //créer un compteur pour le pole
+        $nb = count($parametre->getEquirepartitions());
+        $count = 0;
+        if($nb == 0)
+        {
+            $count = 1;
+        }else{
+            $count = $nb + 1;
+        }
+        $pole = 'Pole '.$count;
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $equirepartition->setParametre($parametre);
+            $entityManager->persist($equirepartition);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_eequirepartition_new', ['id' => $parametre->getId()]);
+        }
+        return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
+            'parametre' => $parametre,
+            'form' => $form->createView(),
+            'pole' => $pole
+        ]);
+    }
+    //ajout de mesure équirepartition
+    #[Route('/edit-equirepartition/{id}/{idEq}', name: 'app_eequirepartition_edit')]
+    public function editEqui(Parametre $parametre,$idEq,Request $request,EntityManagerInterface $entityManager ,EquirepartitionRepository $equirepartitionRepository): Response
+    {    
+        $item = $equirepartitionRepository->findById($idEq);
+        $equirepartition = $item[0];
+        $form = $this->createForm(EquirepartitionType::class, $equirepartition);
+        $form->handleRequest($request);
+        $pole = $equirepartition->getPole();
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $equirepartition->setParametre($parametre);
+            $entityManager->persist($equirepartition);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_eequirepartition_new', ['id' => $parametre->getId()]);
+        }
+        return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
+            'parametre' => $parametre,
+            'form' => $form->createView(),
+            'pole' => $pole
         ]);
     }
 
@@ -381,25 +443,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     //point de fonctionnement
     #[Route('/autre-fonctionnement/{id}', name: 'app_fonctionnement')]
     public function fonctionnement(Parametre $parametre,Request $request,AutrePointFonctionnementRotorRepository $autrePointFonctionnementRotorRepository, PointFonctionnementRotorRepository $pointFonctionnementRotorRepository): Response
-    {     
-        //point de fonctionnement rotor
-       /* $pointFonctionnementRotor = new PointFonctionnementRotor(); 
-        $formPointFonctionnementRotor = $this->createForm(PointFonctionnementRotorType::class, $pointFonctionnementRotor);
-        $formPointFonctionnementRotor->handleRequest($request);
-        
-            if($formPointFonctionnementRotor->isSubmitted() && $formPointFonctionnementRotor->isValid())
-            {
-                $choix = $request->get('bouton4_1');
-                if($choix == 'ajouter')
-                {
-                    $pointFonctionnementRotor->setParametre($parametre);
-                    $pointFonctionnementRotorRepository->save($pointFonctionnementRotor, true);
-                    $this->redirectToRoute('app_expertise_electrique_apres_lavage', ['id' => $parametre->getId()]);
-                }
-            }  
-        */
-
-        //autre point de fonctionnement rotor
+    {   
+                //autre point de fonctionnement rotor
         $autrePointFonctionnementRotor = new AutrePointFonctionnementRotor(); 
         if($parametre->getAutrePointFonctionnementRotor()){
             $autrePointFonctionnementRotor = $parametre->getAutrePointFonctionnementRotor()->getParametre()->getAutrePointFonctionnementRotor();
@@ -562,6 +607,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             return $this->redirectToRoute('app_caracteristique', [ 'id' => $id], Response::HTTP_SEE_OTHER);
         } 
     }
+    
 
     //Supprimer point de fonctionnement
     #[Route('/point/{id}/fonctionnement', name: 'delete_point', methods: ['GET'])]
@@ -690,6 +736,87 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         {
             $lsondeBobinageRepository->remove($lsondeBobinage, true);
             return $this->redirectToRoute('app_sonde_bobinage',['id' => $id2]); 
+        }
+    } 
+
+    //delete mesure equirepartition
+    #[Route('/mesu-equirep/{id}', name: 'app_eequirepartition_delete')]
+    public function supEqui(Equirepartition $equirepartition,EquirepartitionRepository $equirepartitionRepository)
+    {
+        $id = $equirepartition->getParametre()->getId();
+        if ($equirepartition)
+        {
+            $equirepartitionRepository->remove($equirepartition, true);
+            return $this->redirectToRoute('app_eequirepartition_new',['id' => $id]); 
+        }
+    } 
+
+    //ajout de pond diode
+    #[Route('/pont-diode/{id}', name: 'app_pont_diode_new')]
+    public function diode(Parametre $parametre,Request $request,EntityManagerInterface $entityManager ,PontDiodeRepository $pontDiodeRepository): Response
+    {    
+        $pont = new PontDiode();
+        $form = $this->createForm(PontDiodeType::class, $pont);
+        $form->handleRequest($request);
+
+        //créer un compteur pour le pole
+        $nb = count($parametre->getPontDiodes());
+        $count = 0;
+        if($nb == 0)
+        {
+            $count = 1;
+        }else{
+            $count = $nb + 1;
+        }
+        $diode = 'Diode '.$count;
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $pont->setParametre($parametre);
+            $entityManager->persist($pont);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_pont_diode_new', ['id' => $parametre->getId()]);
+        }
+        return $this->render('expertise_electrique_apres_lavage/pont_diode.html.twig', [
+            'parametre' => $parametre,
+            'form' => $form->createView(),
+            'diode' => $diode
+        ]);
+    }
+    //modifier Pont de diodes
+    #[Route('/edit-pont-diode/{id}/{idEq}', name: 'app_pont_diode_edit')]
+    public function editDiode(Parametre $parametre,$idEq,Request $request,EntityManagerInterface $entityManager ,PontDiodeRepository $pontDiodeRepository): Response
+    {    
+        $item = $pontDiodeRepository->findById($idEq);
+        $diode = $item[0];
+        $form = $this->createForm(PontDiodeType::class, $diode);
+        $form->handleRequest($request);
+        $diode_libelle = $diode->getDiode();
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $diode->setParametre($parametre);
+            $entityManager->persist($diode);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_pont_diode_new', ['id' => $parametre->getId()]);
+        }
+        return $this->render('expertise_electrique_apres_lavage/pont_diode.html.twig', [
+            'parametre' => $parametre,
+            'form' => $form->createView(),
+            'diode' => $diode_libelle
+        ]);
+    }
+
+
+    //delete Pont de diodes
+    #[Route('/diode-mesure_sup/{id}', name: 'app_pont_diode_delete')]
+    public function supDidoe(PontDiode $pontDiode,PontDiodeRepository $pontDiodeRepository)
+    {
+        $id = $pontDiode->getParametre()->getId();
+        if ($pontDiode)
+        {
+            $pontDiodeRepository->remove($pontDiode, true);
+            return $this->redirectToRoute('app_pont_diode_new',['id' => $id]); 
         }
     } 
 }

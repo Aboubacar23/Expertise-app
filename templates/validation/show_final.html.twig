@@ -196,6 +196,7 @@
                                     <!-- fin Point de fonctionnement à vide -->
 
                                     <!-- début Mesures vibratoires -->
+                                    {% if parametre.mesureVibratoire %}
                                         <div class="row">
                                             <table class="table table-bordered">
                                                 <tr class="table-secondary text-center">
@@ -266,7 +267,8 @@
                                                     <td colspan="7">{{ parametre.mesureVibratoire.obervation}}</td>
                                                 </tr>
                                             </table>
-                                        </div>
+                                        </div>                                        
+                                    {% endif %}
                                     <!-- fin Mesures vibratoires -->
 
                                     <!-- début Appareils de mesure utilisés -->
@@ -1202,6 +1204,37 @@
                                         {% endif %}
                                     <!-- début sonde bobinage -->
 
+                                        {% if parametre.equirepartitions %}
+                                            <div class="row">
+                                                <table class="table table-bordered table-striped">
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Equi-Répartition de tension Roue polaire</th>
+                                                    </tr>
+                                                    {% for item in parametre.equirepartitions %}
+                                                        <tr>
+                                                            <th>{{item.pole}}</th>
+                                                            <td>{{item.tension}} V</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if parametre.pontDiodes %}
+                                            <div class="row">
+                                                <table class="table table-bordered table-striped">
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Pont de diodes</th>
+                                                    </tr>
+                                                    {% for item in parametre.pontDiodes %}
+                                                        <tr>
+                                                            <th>{{item.diode}}</th>
+                                                            <td>{{item.tension}} V</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        {% endif %}
                                     <!-- début caractéristique -->
                                         <div class="row">
                                             <div class="col-md-12">

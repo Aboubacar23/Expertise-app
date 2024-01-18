@@ -118,8 +118,9 @@
                                 <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_couplage) }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.date_arrivee) }}</div>
-                                <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_tension2) }}</div>
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_arrivee) }}</div>
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_tension2) }}</div>
+                                <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_courant_excitation) }}</div>
                             </div>
                         </div>
                     </div>
@@ -184,16 +185,7 @@
         const input_couplage = document.getElementById("parametre_stator_couplage");
         const machine = document.getElementById("parametre_machine");
         const balais_masse = document.getElementById("parametre_presence_balais_masse");
-        /*
-            radio2.addEventListener("click", () => {
-            radio1.disabled = true;
-            });
-        if (!radio1.checked && !radio2.checked) {
-            radio1.disabled = false;
-            radio2.disabled = false;
-            }
-        
-     */
+
         machine.addEventListener("click", () => {
             //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
             fetch('/index.php/parametre/frequence/' + machine.value) // Remplacez l'URL par celle de votre route Symfony

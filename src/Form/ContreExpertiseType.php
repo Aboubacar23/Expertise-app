@@ -15,8 +15,7 @@ class ContreExpertiseType extends AbstractType
         $builder
             ->add('recapitulatif',  CKEditorType::class, [
                 'required' => true,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

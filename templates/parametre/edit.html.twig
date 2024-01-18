@@ -69,32 +69,24 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <div class="col-md-3 col-sm-3 ">
-                                {{ form_widget(form.presence_balais) }}
-                            </div>
-                            <div class="col-md-3 col-sm-3">
-                                {{ form_widget(form.presence_balais_masse) }}
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
-                            <div class="col-md-4 col-sm-4">                            
-                                {{ form_widget(form.temp_correction) }}
-                            </div>
+                            <div class="col-md-4 col-sm-3 ">{{ form_widget(form.presence_balais) }}</div>
+                            <div class="col-md-4 col-sm-3">{{ form_widget(form.presence_balais_masse) }}</div>
+                            <div class="col-md-4 col-sm-3 ">{{ form_row(form.presence_plans) }}</div>
                         </div>
                         <div class="item form-group">
-                            <div class="col-md-3 col-sm-3 ">
-                            </div>
-                            <div class="col-md-3 col-sm-3">
-                            </div>
-                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Essais Plate-forme à reception<span class="required text-danger">*</span></label>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Essais Plate-forme
+                                à reception<span class="required text-danger">*</span></label>
                             <div class="col-md-4 col-sm-4 ">
                                 {{ form_widget(form.essais_plateforme) }}
                             </div>
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
+                            <div class="col-md-4 col-sm-4">{{ form_widget(form.temp_correction) }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="x_panel"> 
+                        <div class="x_panel">
                             <div class="x_title">
                                 <h2>Stator</h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -104,41 +96,24 @@
                             </div>
                             <div class="x_content">
                                 <br />
-                                <div class="item form-group">
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension (V)</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.stator_tension) }}
-                                        </div>
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant (A)</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.stator_courant) }}
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_tension) }}</div>
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_courant) }}</div>
                                 </div>
-                                <div class="item form-group">
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="frequence">Fréquence (Hz)</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.stator_frequence) }}
-                                        </div>
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="couplage">Couplage</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.stator_couplage) }}
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_frequence) }}</div>
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.stator_couplage) }}</div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="date_arrivee">Date d'arrivée</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.date_arrivee) }}
-                                    </div>
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.stator_tension2) }}
-                                    </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 ">{{ form_row(form.date_arrivee) }}</div>
+                                    <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_tension2) }}</div>
+                                    <div class="col-md-4 col-sm-4 ">{{ form_row(form.stator_courant_excitation) }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="x_panel"> 
+                        <div class="x_panel">
                             <div class="x_title">
                                 <h2>Rotor</h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -148,32 +123,21 @@
                             </div>
                             <div class="x_content">
                                 <br />
-                                <div class="item form-group">
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension(V)</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.rotor_tension) }}
-                                        </div>
-                                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="courant">Courant(A)</label>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            {{ form_widget(form.rotor_courant) }}
-                                        </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="expertise_refrigeant">Expertise réfrigéants</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_expertise_refrigeant) }}
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension) }}
                                     </div>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        {{ form_widget(form.presence_plans) }}
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_courant) }}
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="col-form-label col-md-2 col-sm-2 label-align" for="tension">Tension 2 (V)</label>
-                                    <div class="col-md-4 col-sm-4 ">
-                                        {{ form_widget(form.rotor_tension2) }}
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_expertise_refrigeant) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 ">{{ form_row(form.rotor_tension2) }}
                                     </div>
                                 </div>
-                            </div> 
+                                <div class="row">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,6 +164,28 @@
         window.onload = () => {
             // On va chercher la région
             let region = document.querySelector("#parametre_type");
+            const input_frequence = document.getElementById("parametre_stator_frequence");
+            const input_couplage = document.getElementById("parametre_stator_couplage");
+            const machine = document.getElementById("parametre_machine");
+            const balais_masse = document.getElementById("parametre_presence_balais_masse");
+            machine.addEventListener("click", () => {
+                //Envoyer une requête AJAX pour récupérer les données de la machine choisir sélectionnée
+                fetch('/index.php/parametre/frequence/' + machine.value) // Remplacez l'URL par celle de votre route Symfony
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.name)
+                        if (data.name == "À courant continu") {
+                            input_frequence.disabled = true;
+                            input_couplage.disabled = true;
+                            balais_masse.disabled = true;
+                        } else {
+                            input_frequence.disabled = false;
+                            input_couplage.disabled = false;
+                            balais_masse.disabled = false;
+                        }
+                    });
+            });
+    
             region.addEventListener("change", function(){
                 let form = this.closest("form");
                 let data = this.name + "=" + this.value;

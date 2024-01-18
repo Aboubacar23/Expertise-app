@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ----------------------------------------------------------------
  * Projet : Base Expertise
@@ -33,7 +34,8 @@
  *      9- la fonction "corbeille", qui permet de mettre une affaire dans la corbeille
  */
 
-namespace App\Controller; 
+namespace App\Controller;
+
 use DateTime;
 use App\Entity\Affaire;
 use App\Entity\Archive;
@@ -63,15 +65,15 @@ class AffaireController extends AbstractController
     public function index(AffaireRepository $affaireRepository): Response
     {
         $affaires = [];
-        $tabs = $affaireRepository->findBy([],['id' => 'desc']);
+        $tabs = $affaireRepository->findBy([], ['id' => 'desc']);
 
         //cette boucle permet de retourner un tableau des affaires en cours
-        foreach($tabs as $item){
-            if($item->isEtat() == 0){
+        foreach ($tabs as $item) {
+            if ($item->isEtat() == 0) {
                 array_push($affaires, $item);
             }
         }
-       // dd($affaires);
+        // dd($affaires);
         return $this->render('affaire/en_cours.html.twig', [
             'affaires' => $affaires,
         ]);
@@ -81,8 +83,7 @@ class AffaireController extends AbstractController
     #[Route('/listes', name: 'app_affaire_liste', methods: ['GET'])]
     public function listes(AffaireRepository $affaireRepository): Response
     {
-        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
-       // dd($affaires);
+        $affaires = $affaireRepository->findBy([], ['id' => 'desc']);
         return $this->render('affaire/index.html.twig', [
             'affaires' => $affaires,
         ]);
@@ -90,7 +91,7 @@ class AffaireController extends AbstractController
 
     //ajouter une nouvelle affaire
     #[Route('/new', name: 'app_affaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AffaireRepository $affaireRepository, MailerService $mailerService,AdminRepository $adminRepository): Response
+    public function new(Request $request, AffaireRepository $affaireRepository, MailerService $mailerService, AdminRepository $adminRepository): Response
     {
         //inialiser une variable de classe
         $affaire = new Affaire();
@@ -99,53 +100,47 @@ class AffaireController extends AbstractController
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
         $date = date("Y-m-d");
-       // dd($date);
+        // dd($date);
         //récupérer l'utilisateur connecter 
-        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
-        
+        $user = $this->getUser()->getNom() . ' ' . $this->getUser()->getPrenom();
+
         //on vérifie l'envoi du l'ormulaire avant d'ajouté les informations dans la base
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-            if ($affaire->getDateLivraison()->format('Y-m-d') > $date)
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($affaire->getDateLivraison()->format('Y-m-d') > $date) {
                 //ajouter l'utilisateur sur une affaire
                 $affaire->setUser($user);
                 $affaire->setEtat(0);
 
                 //enregistrer les informations dans la base de données
                 $affaireRepository->save($affaire, true);
-                
+
                 //envoyer un mail aux agent de maitrise aprés la création d'une nouvelle affaire
                 $dossier = 'email/email.html.twig';
                 $subject = "Création d'une affaire";
-              /*  $cdp = $affaire->getSuiviPar()->getNom()." "
+                /*  $cdp = $affaire->getSuiviPar()->getNom()." "
                             .$affaire->getSuiviPar()->getPrenom();
-                */                
+                */
                 $message = "Une nouvelle affaire a été créée";
-                $user = $this->getUser()->getNom()." ".$this->getUser()->getPrenom();
-                $num_affaire = "Num d'affaire : ".$affaire->getNumAffaire();
+                $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
+                $num_affaire = "Num d'affaire : " . $affaire->getNumAffaire();
 
 
                 //envoyer au ageent de maitrise
                 $admins = $adminRepository->findAll();
-                foreach($admins as $admin)
-                {
-                    foreach($admin->getRoles() as $role)
-                    {
-                        if($role == 'ROLE_AGENT_MAITRISE')
-                        {
+                foreach ($admins as $admin) {
+                    foreach ($admin->getRoles() as $role) {
+                        if ($role == 'ROLE_AGENT_MAITRISE') {
                             $email = $admin->getEmail();
-                            $cdp = $admin->getNom().' '.$admin->getPrenom();
+                            $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
                             //envoyer le mail
-                            $mailerService->sendEmail($email,$subject,$message,$dossier,$user,$cdp,$num_affaire);
-                        };       
+                            $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
+                        };
                     }
                 }
                 //redirectionner  après l'ajout
                 return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
-
-            }else{       
-                $this->addFlash('error',"Désolé ! La date de livraison est inférieur à la date du jour");         
+            } else {
+                $this->addFlash('error', "Désolé ! La date de livraison est inférieur à la date du jour");
                 return $this->redirectToRoute('app_affaire_new', [], Response::HTTP_SEE_OTHER);
             }
         }
@@ -157,19 +152,17 @@ class AffaireController extends AbstractController
     }
 
     //la fonction pour retourner une seule affaire
-    #[Route('/{id}', name: 'app_affaire_show', methods: ['GET','POST'])]
-    public function show(Affaire $affaire,ParametreRepository $parametreRepository, ArchiveRepository $archiveRepository, Request $request, SluggerInterface $slugger): Response
-    {   
+    #[Route('show-affaire/{id}', name: 'app_affaire_show', methods: ['GET', 'POST'])]
+    public function show(Affaire $affaire, ParametreRepository $parametreRepository, ArchiveRepository $archiveRepository, Request $request, SluggerInterface $slugger): Response
+    {
         //envoyer une variable active true pour désactiver et activer le parametre
         $listes = $parametreRepository->findAll();
         $active = false;
         $fermer = false;
-        foreach($listes as $item)
-        {
-            if ($item->getAffaire()->getId() == $affaire->getId()){
+        foreach ($listes as $item) {
+            if ($item->getAffaire()->getId() == $affaire->getId()) {
                 $active = true;
-                if ($item->isRemontage() == true && $item->isExpertiseElectiqueApresLavage() ==true && $item->isExpertiseElectiqueAvantLavage() == true && $item->isExpertiseMecanique() == true)
-                {
+                if ($item->isRemontage() == true && $item->isExpertiseElectiqueApresLavage() == true && $item->isExpertiseElectiqueAvantLavage() == true && $item->isExpertiseMecanique() == true) {
                     $fermer = true;
                 }
             }
@@ -182,24 +175,29 @@ class AffaireController extends AbstractController
 
         //verifie s'il y a une version existant de cette affaire pour connaitre le nombre total
         $num = 0;
-        if($affaire->getArchives())
-        {
+        if ($affaire->getArchives()) {
             $num = count($affaire->getArchives()) + 1;
         }
         $lettre = '';
-        if($num == 1){ $lettre = 'A';}
-        elseif($num == 2){ $lettre = 'B';}
-        elseif($num == 3){ $lettre = 'C';}
-        elseif($num == 4){ $lettre = 'D';}
-        elseif($num == 5){ $lettre = 'E';}
-        elseif($num == 6){ $lettre = 'F';}
-        $version = 'Indice-'.$lettre;
+        if ($num == 1) {
+            $lettre = 'A';
+        } elseif ($num == 2) {
+            $lettre = 'B';
+        } elseif ($num == 3) {
+            $lettre = 'C';
+        } elseif ($num == 4) {
+            $lettre = 'D';
+        } elseif ($num == 5) {
+            $lettre = 'E';
+        } elseif ($num == 6) {
+            $lettre = 'F';
+        }
+        $version = 'Indice-' . $lettre;
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $fichier = $form->get('fichier')->getData();
             if ($fichier) {
-                $originaleFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME); 
+                $originaleFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFichier = $slugger->slug($originaleFichier);
                 $newFichierName = $safeFichier . '-' . uniqid() . '.' . $fichier->guessExtension();
                 try {
@@ -207,7 +205,8 @@ class AffaireController extends AbstractController
                         $this->getParameter('fichier_archives'),
                         $newFichierName
                     );
-                } catch (FileException $e){}
+                } catch (FileException $e) {
+                }
             }
             $archive->setAffaire($affaire);
             $archive->setFichier($newFichierName);
@@ -234,9 +233,8 @@ class AffaireController extends AbstractController
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
-        $user = $this->getUser()->getNom().' '.$this->getUser()->getPrenom();
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        $user = $this->getUser()->getNom() . ' ' . $this->getUser()->getPrenom();
+        if ($form->isSubmitted() && $form->isValid()) {
             $affaire->setUser($user);
             $affaireRepository->save($affaire, true);
             return $this->redirectToRoute('app_affaire_show', [
@@ -251,58 +249,46 @@ class AffaireController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST', 'GET'])]
-    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository,ParametreRepository $parametreRepository, EntityManagerInterface $em, EtudesAchatsRepository $etudesAchatsRepository): Response
+    public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository, ParametreRepository $parametreRepository, EntityManagerInterface $em, EtudesAchatsRepository $etudesAchatsRepository): Response
     {
         $parametre = $parametreRepository->findByAffaire($affaire);
-        if ($affaire) 
-        {
-            if (!$parametre)
-            {    ///mesure essais
-                if($affaire->getRevueEnclenchements())
-                {
-                    foreach($affaire->getRevueEnclenchements() as $revue)
-                    {
+        if ($affaire) {
+            if (!$parametre) {    ///mesure essais
+                if ($affaire->getRevueEnclenchements()) {
+                    foreach ($affaire->getRevueEnclenchements() as $revue) {
                         $achats =  $revue->getEtudesAchats();
                         $ateliers =  $revue->getAteliers();
-                        if($achats)
-                        {
-                            foreach($achats as $item)
-                            {
+                        if ($achats) {
+                            foreach ($achats as $item) {
                                 $em->remove($item);
                             }
                         }
-                        if($ateliers)
-                        {
-                            foreach($ateliers as $item)
-                            {
+                        if ($ateliers) {
+                            foreach ($ateliers as $item) {
                                 $em->remove($item);
                             }
                         }
                         $em->remove($revue);
                     }
                 }
-    
+
                 $affaireRepository->remove($affaire, true);
                 return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
-            {
+            } else {
                 $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cette affaire car il possède des paramètres ! ");
                 return $this->redirectToRoute('app_affaire_show', [
                     'id' => $affaire->getId()
                 ], Response::HTTP_SEE_OTHER);
-
             }
         }
         return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
-
     }
 
-     //la fonction qui affiche la liste des affaires terminer
+    //la fonction qui affiche la liste des affaires terminer
     #[Route('/rapports/listes', name: 'app_affaire_rapport', methods: ['GET'])]
     public function rapport(ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
     {
-        $affaires = $affaireRepository->findBy([],['id' => 'desc']);
+        $affaires = $affaireRepository->findBy([], ['id' => 'desc']);
         return $this->render('affaire/rapport.html.twig', [
             'affaires' => $affaires,
         ]);
@@ -313,24 +299,22 @@ class AffaireController extends AbstractController
     public function bloque(Affaire $affaire, EntityManagerInterface $em): Response
     {
         //on vérifi si l'affaire existe
-        if($affaire)
-        {
+        if ($affaire) {
             /**
              * si l'attribut bloque est true
              * il lui passe en false
              * si non il lui passe en true
              */
-            if($affaire->isBloque() == 1)
-            {
+            if ($affaire->isBloque() == 1) {
                 $affaire->setBloque(0);
                 $em->persist($affaire);
-            }else{
+            } else {
                 $affaire->setBloque(1);
                 $em->persist($affaire);
             }
 
-        $em->flush();
-        return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
+            $em->flush();
+            return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
         }
         return $this->redirectToRoute('app_affaire_show', ['id' => $affaire->getId()], Response::HTTP_SEE_OTHER);
     }
@@ -340,13 +324,11 @@ class AffaireController extends AbstractController
     public function corbeille(Parametre $parametre, EntityManagerInterface $em): Response
     {
         //on vérifi si l'affaire existe
-        if($parametre)
-        {
-            if($parametre->isCorbeille() == 1)
-            {
+        if ($parametre) {
+            if ($parametre->isCorbeille() == 1) {
                 $parametre->setCorbeille(0);
                 $em->persist($parametre);
-            }else{
+            } else {
                 $parametre->setCorbeille(1);
                 $em->persist($parametre);
             }

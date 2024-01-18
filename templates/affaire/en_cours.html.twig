@@ -58,9 +58,9 @@
                                     <td>{{ affaire.dateLivraison ? affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                     <td class="text-center">
                                         {% if affaire.revueEnclenchements %}
-                                            <span class="btn btn-outline-danger btn-sm">En-cours</span>
+                                            <span class="btn btn-outline-danger btn-sm">C</span>
                                         {% else %}
-                                            <span class="btn btn-outline-secondary btn-sm">En Attente</span>
+                                            <span class="btn btn-outline-secondary btn-sm">A</span>
                                         {% endif %}
                                     </td>
                                     <td class="text-center"> 

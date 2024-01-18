@@ -1201,6 +1201,40 @@
                                             </div>
                                         {% endif %}
                                     <!-- début sonde bobinage -->
+
+                                    {% if parametre.equirepartitions %}
+                                        <div class="row">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <th colspan="3" class="text-center">Equi-Répartition de tension Roue polaire</th>
+                                                </tr>
+                                                {% for item in parametre.equirepartitions %}
+                                                    <tr>
+                                                        <th>{{item.pole}}</th>
+                                                        <td>{{item.tension}} V</td>
+                                                        <td>{{item.conforme}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if parametre.pontDiodes %}
+                                        <div class="row">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <th colspan="3" class="text-center">Pont de diodes</th>
+                                                </tr>
+                                                {% for item in parametre.pontDiodes %}
+                                                    <tr>
+                                                        <th>{{item.diode}}</th>
+                                                        <td>{{item.tension}} V</td>
+                                                        <td>{{item.conforme}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    {% endif %}
                                 {#
                                     <!-- début caractéristique -->
                                         <div class="row">

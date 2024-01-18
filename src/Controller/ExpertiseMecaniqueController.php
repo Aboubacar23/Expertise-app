@@ -185,7 +185,7 @@ class ExpertiseMecaniqueController extends AbstractController
             if ($choix == 'ajouter') {
                 $accessoireSupplementaire->setLig(0);
                 $accessoireSupplementaireRepository->save($accessoireSupplementaire, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_visuel_en_cours') {
                 foreach ($tables as $item) {
                     $item->setLig(1);
@@ -798,7 +798,7 @@ class ExpertiseMecaniqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $synoptique->setParametre($parametre);
             $synoptiqueRepository->save($synoptique, true);
-            return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
+            $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
         }
         return $this->render('expertise_mecanique/synoptique.html.twig', [
             'parametre' => $parametre,

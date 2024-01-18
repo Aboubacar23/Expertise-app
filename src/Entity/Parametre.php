@@ -262,6 +262,15 @@ class Parametre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $essais_plateforme = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $stator_courant_excitation = null;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: Equirepartition::class)]
+    private Collection $equirepartitions;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PontDiode::class)]
+    private Collection $pontDiodes;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -284,6 +293,8 @@ class Parametre
         $this->appareilMesureEssais = new ArrayCollection();
         $this->pointFonctionnementVides = new ArrayCollection();
         $this->photoRotors = new ArrayCollection();
+        $this->equirepartitions = new ArrayCollection();
+        $this->pontDiodes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1630,6 +1641,78 @@ class Parametre
     public function setEssaisPlateforme(?string $essais_plateforme): static
     {
         $this->essais_plateforme = $essais_plateforme;
+
+        return $this;
+    }
+
+    public function getStatorCourantExcitation(): ?float
+    {
+        return $this->stator_courant_excitation;
+    }
+
+    public function setStatorCourantExcitation(?float $stator_courant_excitation): static
+    {
+        $this->stator_courant_excitation = $stator_courant_excitation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equirepartition>
+     */
+    public function getEquirepartitions(): Collection
+    {
+        return $this->equirepartitions;
+    }
+
+    public function addEquirepartition(Equirepartition $equirepartition): static
+    {
+        if (!$this->equirepartitions->contains($equirepartition)) {
+            $this->equirepartitions->add($equirepartition);
+            $equirepartition->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquirepartition(Equirepartition $equirepartition): static
+    {
+        if ($this->equirepartitions->removeElement($equirepartition)) {
+            // set the owning side to null (unless already changed)
+            if ($equirepartition->getParametre() === $this) {
+                $equirepartition->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PontDiode>
+     */
+    public function getPontDiodes(): Collection
+    {
+        return $this->pontDiodes;
+    }
+
+    public function addPontDiode(PontDiode $pontDiode): static
+    {
+        if (!$this->pontDiodes->contains($pontDiode)) {
+            $this->pontDiodes->add($pontDiode);
+            $pontDiode->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePontDiode(PontDiode $pontDiode): static
+    {
+        if ($this->pontDiodes->removeElement($pontDiode)) {
+            // set the owning side to null (unless already changed)
+            if ($pontDiode->getParametre() === $this) {
+                $pontDiode->setParametre(null);
+            }
+        }
 
         return $this;
     }
