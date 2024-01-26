@@ -178,6 +178,53 @@
                                                 </table>
                                             </div>
                                         {% endif %}
+
+                                        {% if parametre.mesureResistance %}
+                                            <div class="row">
+                                                <table class="table table-bordered table-striped">
+                                                    <tr class="table-secondary">
+                                                        <th class="text-center" colspan="4">Mesure de Resistance</th>
+                                                    </tr>
+                                                    <tr  class="table-secondary">
+                                                        <th colspan="4" class="text-center">Paramètres</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>T° Ambiante (°C)</th>
+                                                        <th>T° Tôlerie (°C)</th>
+                                                        <th>Hygrométrie (%)</th>
+                                                        <th>Date d'essai</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ parametre.mesureResistance.tempAmbiante}}</td>
+                                                        <td >{{ parametre.mesureResistance.tempTolerie}}</td>
+                                                        <td >{{ parametre.mesureResistance.hygrometrie}}</td>
+                                                        <td >{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y') }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-bordered table-striped">
+                                                    <tr  class="table-secondary">
+                                                        <th width="17%">Type</th>
+                                                        <th width="17%">Contrôle</th>
+                                                        <th width="17%">Critère</th>
+                                                        <th width="17%">Valeur relevées</th>
+                                                        <th width="17%">Correction à 20°</th>
+                                                        <th width="17%">Conformité</th>
+                                                    </tr>
+                                                    {% for item in parametre.mesureResistance.lmesureResistances %}
+                                                        <tr>
+                                                            <td>{{item.type}}</td>
+                                                            <td>{{item.controle}}</td>
+                                                            <td>{{item.critere}}</td>
+                                                            <td>{{item.valeur}} {{item.unite}}</td>
+                                                            <td>{{item.tempCorrection}}</td>
+                                                            <td>{{item.conformite}}</td>
+                                                        </tr>                                        
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        {% endif %}
                                     <!-- fin Mesure d'isolement et resistance -->
 
                                     <!-- début Point de fonctionnement à vide -->                                           
@@ -1173,17 +1220,19 @@
                                             <div class="row">
                                                 <table class="table table-bordered table-striped">
                                                     <tr  class="table-secondary">
-                                                        <th width="16%">Contrôle</th>
-                                                        <th width="16%">Critère</th>
-                                                        <th width="16%">Valeur relevée avant lavage</th>
-                                                        <th width="16%">Valeur relevées</th>
-                                                        <th width="16%">Correction à 20°</th>
-                                                        <th width="16%">Conformité</th>
+                                                        <th width="13%">Type</th>
+                                                        <th width="13%">Contrôle</th>
+                                                        <th width="13%">Critère</th>
+                                                        <th width="13%">Valeur relevée avant lavage</th>
+                                                        <th width="13%">Valeur relevées</th>
+                                                        <th width="13%">Correction à 20°</th>
+                                                        <th width="13%">Conformité</th>
                                                     </tr>
                                                     <tr class="bg-primary"></tr>
                                                     {% if parametre.sondeBobinage %}
                                                         {% for item in parametre.sondeBobinage.lsondeBobinages %}
-                                                            <tr>
+                                                            <tr> 
+                                                                <td>{{item.type}}</td>
                                                                 <td>{{item.controle}}</td>
                                                                 <td>{{item.critere}}</td>
                                                                 <td>
