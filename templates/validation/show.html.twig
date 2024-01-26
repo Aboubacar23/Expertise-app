@@ -1171,6 +1171,7 @@
                                                 <div class="col-md-12">
                                                     <table class="table table-bordered table-striped">
                                                         <tr  class="table-secondary">
+                                                            <th width="14%">Type</th>
                                                             <th width="14%">Contrôle</th>
                                                             <th width="14%">Critère</th>
                                                             <th class="text-center" width="14%">Tension d'éssai(V)</th>
@@ -1181,6 +1182,7 @@
                                                         </tr>
                                                         {% for item in parametre.statorApresLavage.lstatorApresLavages %}
                                                             <tr>
+                                                                <td class="text-left">{{item.type}}</td>
                                                                 <td class="text-left">{{item.controle}}</td>
                                                                 <td class="text-center">{{ item.critere }}</td>
                                                                 <td class="text-center">{{item.tensionEssai}}</td>
