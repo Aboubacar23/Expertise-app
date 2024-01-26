@@ -60,6 +60,10 @@ class LMesureResistanceType extends AbstractType
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
                     "Rotor 2" => "Rotor 2",
+                    "Stator AE" => "Stator AE",
+                    'Rotor AE' => 'Rotor AE',
+                    "Régulation" => "Régulation",
+                    "Jeu de Bague" => "Jeu de Bague",
                     "Sondes" => "Sondes",
                     "Rechauffage" => "Rechauffage",
                 ]
