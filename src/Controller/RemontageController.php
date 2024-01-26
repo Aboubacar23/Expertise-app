@@ -216,9 +216,9 @@ class RemontageController extends AbstractController
             $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
                 . $parametre->getAffaire()->getSuiviPar()->getPrenom();
 
-            $message = "Vous avez une validation de remontage";
+            $message = "Le remontage de la machine est terminé !";
             $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : " . $parametre->getAffaire()->getNumAffaire();
+            $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
             foreach ($admins as $admin) {
@@ -240,7 +240,7 @@ class RemontageController extends AbstractController
             //$parametre->setStatutFinal(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
-            $this->addFlash("success", "Bravo " . $this->getUser()->getNom() . " Vous avez validé l'expertise");
+            $this->addFlash("success", "L'expertise validée avec succès");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         } else {
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);

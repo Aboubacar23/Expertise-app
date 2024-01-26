@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+
 
 
 class MailerService
@@ -13,7 +15,9 @@ class MailerService
     public function sendEmail($email, $subject,$message,$router,$user,$cdp,$num_affaire): void
     {
         $email = (new TemplatedEmail())
-            ->from('esayticexpertise@gmail.com')
+           //->from('base.expertise.jeumont@gmail.com')
+            ->from(new Address('base.expertise.jeumont@gmail.com', 'Base Expertise'))
+            //->from(Address::create('Base Expertise <base.expertise.jeumont@gmail.com>'))
             ->to($email)
             ->subject($subject)
             ->htmlTemplate($router)
@@ -22,7 +26,8 @@ class MailerService
                 'users' => $user,
                 'cpd' => $cdp,
                 'num_affaire' => $num_affaire
-            ]);
+            ])
+            ;
         
         $this->mailer->send($email);
     }

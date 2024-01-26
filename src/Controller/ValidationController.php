@@ -78,9 +78,9 @@ class ValidationController extends AbstractController
             $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
                 . $parametre->getAffaire()->getSuiviPar()->getPrenom();
 
-            $message = "Vous avez une validation du rapport d'expertise";
+            $message = "Le rapport d'expertise a été généré";
             $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : " . $parametre->getAffaire()->getNumAffaire();
+            $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
             foreach ($admins as $admin) {
@@ -117,9 +117,9 @@ class ValidationController extends AbstractController
             $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
                 . $parametre->getAffaire()->getSuiviPar()->getPrenom();
 
-            $message = "Vous avez une validation du rapport Final";
+            $message = "Le rapport facile a été généré";
             $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
-            $num_affaire = " Num d'affaire : " . $parametre->getAffaire()->getNumAffaire();
+            $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
             //envoyer le mail
             $admins = $adminRepository->findAll();
