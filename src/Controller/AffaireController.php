@@ -122,7 +122,7 @@ class AffaireController extends AbstractController
                 */
                 $message = "Une nouvelle affaire a été créée";
                 $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
-                $num_affaire = "Num d'affaire : " . $affaire->getNumAffaire();
+                $num_affaire = "N° d'affaire : " . $affaire->getNumAffaire();
 
 
                 //envoyer au ageent de maitrise
