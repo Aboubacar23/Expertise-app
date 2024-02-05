@@ -19,7 +19,13 @@ class ConstatElectriqueType extends AbstractType
             ->add('critere')
             ->add('observation')
             ->add('preconisation_conclusion')
-            ->add('retenu')
+             ->add('retenu', ChoiceType::class, [
+                'label' => 'Retenu',
+                'choices' => [
+                    'OUI' => 'OUI',
+                    'NON' => 'NON'
+                ]
+            ])
             ->add('photo',FileType::class, [
                 'label' => 'Images',
                 'mapped' => false,

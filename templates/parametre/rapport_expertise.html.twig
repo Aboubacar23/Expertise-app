@@ -23,7 +23,8 @@
     }
 
     .titre_table {
-        background-color: #DCDBCA;
+        background-color: #0063AF;
+        color : white;
     }
 
     .image_logo {
@@ -35,7 +36,7 @@
         font-size: 50px;
         color: #675E49;
         font-weight: 200;
-        border-left: 2px solid red;
+        /* border-left: 2px solid red;*/
     }
 
     .p_travaux {
@@ -232,7 +233,7 @@
 <body class="body">
     {# la partie logo et titre #}
     <div class="logo">
-        <img src="{{ absolute_url(asset('images/logo.png')) }}" alt="" height="150px">
+        <img src="{{ absolute_url(asset('images/logo2.png')) }}" alt="" height="150px">
     </div>
     <div class="titre_rapport">
         <h1 class="titre1">Rapport Expertise</h1>
@@ -1973,20 +1974,31 @@
             </table>
             {% endif %}
 
-            {% if parametre.pontDiodes |length > 0 %}
-            <h5 id="lien712">4. <span class="span_titre">Pont de Diodes</span></h5>
-            <table>
-                <tr>
-                    <th colspan="3" class="titre_table">Pont de Diodes</th>
-                </tr>
-                {% for item in parametre.pontDiodes %}
-                <tr>
-                    <th class="titre_table" style="text-align: left;">{{item.diode}}</th>
-                    <td>{{item.tension}} V</td>
-                    <td>{{item.conforme}}</td>
-                </tr>
-                {% endfor %}
-            </table>
+            {% if parametre.equirepartitions |length > 0 %}
+                <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                <table>
+                    <thead class="table-secondary">
+                        <tr class="titre_table">
+                            <th colspan="5" class="text-center">Pont de diodes</th>
+                        </tr>
+                        <tr class="titre_table">
+                            <th>Pole</th>
+                            <th>Tension</th>
+                            <th>Courant Absorbe</th>
+                            <th>Tension Alimentation</th>
+                            <th>Conformité</th>
+                        </tr>
+                    </thead>
+                    {% for item in parametre.equirepartitions %}
+                    <tr>
+                        <th class="titre_table" style="text-align: left;">{{item.pole}}</th>
+                        <td>{{item.tension}} V</td>
+                        <td>{{item.courantAbsorbe}}</td>
+                        <td>{{item.tensionAlimentation}} V</td>
+                        <td>{{item.conforme}}</td>
+                    </tr>
+                    {% endfor %} 
+                </table>
             {% endif %}
         </div>
         <div class="sous_page6_4">

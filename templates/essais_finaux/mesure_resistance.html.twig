@@ -56,7 +56,7 @@
                                         <th width="16%">Type</th>
                                         <th width="16%">Contrôle</th>
                                         <th width="16%">Critère</th>
-                                        <th width="16%">Valeur relevées {{ form_widget(form.unite) }}</></th>
+                                        <th width="16%" colspan="2">Valeur relevées</th>
                                         <th width="16%">Correction à 20°</th>
                                         <th width="16%">Conformité</th>
                                         <th width="100"></th>  
@@ -66,6 +66,7 @@
                                         <td>{{ form_widget(form.controle) }}</td>
                                         <td>{{ form_widget(form.critere ,{ value : 0}) }}</td>
                                         <td>{{ form_widget(form.valeur) }}</td>
+                                        <td width="200">{{ form_widget(form.unite) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
                                         <td><button class="btn btn-primary btn-sm" name="bouton8" value="ajouter">Ajouter</button></td>
@@ -75,7 +76,7 @@
                                             <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
-                                            <td>{{item2.valeur}} {{item2.unite}}</td>
+                                            <td colspan="2">{{item2.valeur}} {{item2.unite}}</td>
                                             <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_essai_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
@@ -88,7 +89,7 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.valeur}} {{item.unite}}</td>
+                                                <td colspan="2">{{item.valeur}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   

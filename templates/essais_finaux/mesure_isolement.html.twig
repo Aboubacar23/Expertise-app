@@ -73,7 +73,7 @@
                                         <th width="14%">Contrôle</th>
                                         <th width="14%">Critère</th>
                                         <th width="14%">Tension d'éssai (V)</th>
-                                        <th width="14%">Valeur relevées {{ form_widget(form.unite) }}</></th>
+                                        <th width="14%" colspan="2">Valeur relevées</th>
                                         <th width="14%">Correction à 20°</th>
                                         <th width="14%">Conformité</th>
                                         <th width="100"></th>
@@ -84,6 +84,7 @@
                                         <td>{{ form_widget(form.critere,{ value : 0}) }}</td>
                                         <td>{{ form_widget(form.tension) }}</td>
                                         <td>{{ form_widget(form.valeur) }}</td>
+                                        <td width="200">{{ form_widget(form.unite) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
                                         <td><button class="btn btn-primary btn-sm" name="bouton7" value="ajouter">Ajouter</button></td>
@@ -94,7 +95,7 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.tension}}</td>
-                                            <td>
+                                            <td colspan="2">
                                                 {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
                                                     {{item2.valeur}}
                                                 {% else %}
@@ -114,7 +115,7 @@
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
-                                                <td>
+                                                <td colspan="2">
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         {{item.valeur}}
                                                     {% else %}

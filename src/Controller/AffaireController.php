@@ -152,7 +152,7 @@ class AffaireController extends AbstractController
     }
 
     //la fonction pour retourner une seule affaire
-    #[Route('show-affaire/{id}', name: 'app_affaire_show', methods: ['GET', 'POST'])]
+    #[Route('/show-affaire/{id}', name: 'app_affaire_show', methods: ['GET', 'POST'])]
     public function show(Affaire $affaire, ParametreRepository $parametreRepository, ArchiveRepository $archiveRepository, Request $request, SluggerInterface $slugger): Response
     {
         //envoyer une variable active true pour désactiver et activer le parametre

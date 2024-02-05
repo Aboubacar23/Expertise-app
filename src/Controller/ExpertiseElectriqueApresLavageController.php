@@ -72,6 +72,16 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         $form = $this->createForm(EquirepartitionType::class, $equirepartition);
         $form->handleRequest($request);
 
+        //
+        $tension = 0;
+        $courant = 0;
+        $items = $parametre->getEquirepartitions();
+        if($items[0])
+        {
+            $tension = $items[0]->getTensionAlimentation();
+            $courant = $items[0]->getCourantAbsorbe();
+        }
+
         //créer un compteur pour le pole
         $nb = count($parametre->getEquirepartitions());
         $count = 0;
@@ -93,7 +103,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
             'parametre' => $parametre,
             'form' => $form->createView(),
-            'pole' => $pole
+            'pole' => $pole,
+            'tension' => $tension,
+            'courant' => $courant
         ]);
     }
     //ajout de mesure équirepartition
@@ -105,7 +117,10 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         $form = $this->createForm(EquirepartitionType::class, $equirepartition);
         $form->handleRequest($request);
         $pole = $equirepartition->getPole();
-
+          //
+        $tension = $equirepartition->getTensionAlimentation();
+        $courant = $equirepartition->getCourantAbsorbe();
+        
         if($form->isSubmitted() && $form->isValid())
         {
             $equirepartition->setParametre($parametre);
@@ -116,7 +131,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
             'parametre' => $parametre,
             'form' => $form->createView(),
-            'pole' => $pole
+            'pole' => $pole,
+            'tension' => $tension,
+            'courant' => $courant
         ]);
     }
 
