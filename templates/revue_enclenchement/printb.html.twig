@@ -7,19 +7,20 @@
 </head>
 <style>
     table, th, td {
-        border: 1px solid;
+        border: 1px solid black;
         border-collapse: collapse;
-        font-size: 10px;
+        font-size: 11px;
         padding: 5px;
         width: 100%;
     }
     
     .titre_table{
-        background-color: #AFA8A8;
+        background-color: #0063AF;
     }
     .table-primary{
-        background-color: #B9B8B8;
-    }
+        background-color: #0063AF;
+        color: white;
+    } 
     .text-center{
         text-align: center;
     }
@@ -36,6 +37,9 @@
     .taille1{
         width: 80px;
     }
+    .titre {
+        text-align: left;
+    }
 </style>
 {% block body %}
 <div class="row">
@@ -47,11 +51,11 @@
             <td class="text-center" colspan="5">{{revue_enclenchement.libelle}}</td>
         </tr> 
         <tr  class="table-primary">
-            <th class="taille1">N° PROJET</th>
-            <th class="taille2">DESCRIPTION PRESTATION</th>
-            <th class="taille1">CHEF DE PROJET</th>
-            <th class="taille1">CLIENT</th>
-            <th class="taille1">INDICE</th>
+            <th class="taille1">N° Projet</th>
+            <th class="taille2">Description Prestation</th>
+            <th class="taille1">Chef de Projet</th>
+            <th class="taille1">Client</th>
+            <th class="taille1">Indice</th>
         </tr> 
         <tr>
             <td class="text-center">{{ revue_enclenchement.affaire.numAffaire}}</td>
@@ -63,52 +67,54 @@
     </table>
     <table>
         <tr  class="table-primary">
-            <th colspan="6">Caractéristiques de la  machine</th>
+            <th colspan="4">Caractéristiques de la  machine</th>
         </tr>
         <tr>
             <th  class="table-primary">Type</th>
+            <th  class="table-primary">Plan</th>
+            <th  class="table-primary">Paliers</th>
+            <th class="table-primary">Amiante</th>
+        </tr>
+        <tr>
             {% if parametre %}
                 <td>{{ parametre[0].type }}</td>
             {% else %}
                 <td></td>
             {% endif %}
-            <th  class="table-primary">Plan</th>
             <td>{{revue_enclenchement.plan}}</td>
-            <th  class="table-primary">Paliers</th>
             {% if parametre %}
                 <td>{{ parametre[0].typePalier }}</td>
             {% else %}
                 <td></td>
             {% endif %}
+            <td>{{revue_enclenchement.amiante}}</td>
         </tr>
     </table>
     <table>      
         <tr>
-            <th class="table-primary">Amiante</th>
-            <td>{{revue_enclenchement.amiante}}</td>
             <th class="table-primary">N° Contrat</th>
-            <td>{{revue_enclenchement.numeroContrat}}</td>
             <th class="table-primary">Cahier des Charges</th>
-            <td>{{revue_enclenchement.cahierCharge}}</td>
-        </tr>    
-    </table>
-    <table>
-        <tr>
             <th class="table-primary">N° PCQ</th>
-            <td>{{revue_enclenchement.numeroPcq}}</td>
             <th class="table-primary">Point d'arrêt</th>
+        </tr>    
+        <tr>
+            <td>{{revue_enclenchement.numeroContrat}}</td>
+            <td>{{revue_enclenchement.cahierCharge}}</td>
+            <td>{{revue_enclenchement.numeroPcq}}</td>
             <td>{{revue_enclenchement.pointArret}}</td>
-            <th class="table-primary">Contre expertise</th>
-            <td>{{revue_enclenchement.contreExpertise}}</td>
-        </tr>
+        </tr>      
     </table>
     <table>
         <tr>
-            <th class="table-primary">Re7 client</th>
-            <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
+            <th class="table-primary">Contre expertise</th>
+            <th class="table-primary">Réference client</th>
             <th class="table-primary">Observation</th>
+        </tr>
+        <tr>
+            <td>{{revue_enclenchement.contreExpertise}}</td>
+            <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
             <td>{{revue_enclenchement.observation}}</td>
-        </tr> 
+        </tr>
     </table>
     <table>
         <tr  class="table-primary">
@@ -187,11 +193,11 @@
 <div class="row">
     <table>
         <tr  class="table-primary">
-            <th class="text-center" colspan="3">ATELIER</th>
+            <th class="text-center" colspan="2">ATELIER</th>
         </tr>
-        <tr>
-            <th class="taille3">Opération </th>
-            <th>Travaux</th>
+        <tr class="table-primary titre">
+            {#<th class="taille3">Opération </th>#}
+            <th class="titre">Travaux</th>
             <th>Heures</th>
             {#<th>Total</th>#}
         </tr>
@@ -206,20 +212,20 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Autres</th>
+                        <th colspan="1" class="titre">Autres</th>
                         <th class="taille_th">{{total_heures_au}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Autres' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
                 {% endfor %}   
             <!-- fin de Autres -->   
                 <tr>
-                    <td class="table-primary" colspan="2">Total</td>
+                    <th class="table-primary titre">Total</th>
                     <th class="table-primary">{{ total_heures_au}}</th>
                 </tr>  
         {% endif %}
@@ -227,7 +233,7 @@
 </div>
 <table>
     <tr>
-        <td class="table-primary taille3">Clarifications suite RE</td>
+        <th class="table-primary taille3 titre">Clarifications suite RE</th>
         <td>{{revue_enclenchement.clarification}}</td>
     </tr> 
 </table>

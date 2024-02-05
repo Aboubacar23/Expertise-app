@@ -7,19 +7,20 @@
 </head>
 <style>
     table, th, td {
-        border: 1px solid;
+        border: 1px solid black;
         border-collapse: collapse;
-        font-size: 10px;
+        font-size: 11px;
         padding: 5px;
         width: 100%;
     }
     
     .titre_table{
-        background-color: #AFA8A8;
+        background-color: #0063AF;
     }
     .table-primary{
-        background-color: #B9B8B8;
-    }
+        background-color: #0063AF;
+        color: white;
+    } 
     .text-center{
         text-align: center;
     }
@@ -35,6 +36,9 @@
     }
     .taille1{
         width: 80px;
+    }
+    .titre {
+        text-align: left;
     }
 </style>
 {% block body %}
@@ -63,52 +67,54 @@
     </table>
     <table>
         <tr  class="table-primary">
-            <th colspan="6">Caractéristiques de la  machine</th>
+            <th colspan="4">Caractéristiques de la  machine</th>
         </tr>
         <tr>
             <th  class="table-primary">Type</th>
+            <th  class="table-primary">Plan</th>
+            <th  class="table-primary">Paliers</th>
+            <th class="table-primary">Amiante</th>
+        </tr>
+        <tr>
             {% if parametre %}
                 <td>{{ parametre[0].type }}</td>
             {% else %}
                 <td></td>
             {% endif %}
-            <th  class="table-primary">Plan</th>
             <td>{{revue_enclenchement.plan}}</td>
-            <th  class="table-primary">Paliers</th>
             {% if parametre %}
                 <td>{{ parametre[0].typePalier }}</td>
             {% else %}
                 <td></td>
             {% endif %}
+            <td>{{revue_enclenchement.amiante}}</td>
         </tr>
     </table>
     <table>      
         <tr>
-            <th class="table-primary">Amiante</th>
-            <td>{{revue_enclenchement.amiante}}</td>
             <th class="table-primary">N° Contrat</th>
-            <td>{{revue_enclenchement.numeroContrat}}</td>
             <th class="table-primary">Cahier des Charges</th>
-            <td>{{revue_enclenchement.cahierCharge}}</td>
-        </tr>    
-    </table>
-    <table>
-        <tr>
             <th class="table-primary">N° PCQ</th>
-            <td>{{revue_enclenchement.numeroPcq}}</td>
             <th class="table-primary">Point d'arrêt</th>
+        </tr>   
+        <tr>
+            <td>{{revue_enclenchement.numeroContrat}}</td>
+            <td>{{revue_enclenchement.cahierCharge}}</td>
+            <td>{{revue_enclenchement.numeroPcq}}</td>
             <td>{{revue_enclenchement.pointArret}}</td>
-            <th class="table-primary">Contre expertise</th>
-            <td>{{revue_enclenchement.contreExpertise}}</td>
-        </tr>
+        </tr>      
     </table>
     <table>
         <tr>
-            <th class="table-primary">Re7 client</th>
-            <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
+            <th class="table-primary">Contre expertise</th>
+            <th class="table-primary">Référence client</th>
             <th class="table-primary">Observation</th>
+        </tr>
+        <tr>
+            <td>{{revue_enclenchement.contreExpertise}}</td>
+            <td>{{revue_enclenchement.re7Client ? revue_enclenchement.re7Client | date('d-m-Y') : '' }}</td>
             <td>{{revue_enclenchement.observation}}</td>
-        </tr> 
+        </tr>
     </table>
     <table>
         <tr  class="table-primary">
@@ -187,12 +193,12 @@
 <div class="row">
     <table>
         <tr  class="table-primary">
-            <th class="text-center" colspan="3">ATELIER</th>
+            <th class="text-center" colspan="2">ATELIER</th>
         </tr>
         <tr>
-            <th class="taille3">Opération </th>
-            <th>Travaux</th>
-            <th>Heures</th>
+            {#<th class="taille3">Opération </th>#}
+            <th class="table-primary titre">Travaux</th>
+            <th class="table-primary titre">Heures</th>
             {#<th>Total</th>#}
         </tr>
         {% if revue_enclenchement.ateliers %}
@@ -206,13 +212,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">A réception</th>
+                        <th colspan="1" class="titre">A réception</th>
                         <th class="taille_th">{{total_heures_op}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'A réception' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -229,13 +235,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Démontage moteur</th>
+                        <th colspan="1" class="titre">Démontage moteur</th>
                         <th class="taille_th">{{total_heures_dm}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Démontage moteur' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -252,13 +258,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Lavage / Etuvage / Nettoyage</th>
+                        <th colspan="1" class="titre">Lavage / Etuvage / Nettoyage</th>
                         <th class="taille_th">{{total_heures_len}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Lavage / Etuvage / Nettoyage' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -275,13 +281,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Expertise électrique</th>
+                        <th colspan="1" class="titre">Expertise électrique</th>
                         <th class="taille_th">{{total_heures_ee}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Expertise électrique' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -298,13 +304,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Expertise mécanique</th>
+                        <th colspan="1" class="titre">Expertise mécanique</th>
                         <th class="taille_th">{{total_heures_em}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Expertise mécanique' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -321,13 +327,13 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Remontage moteur</th>
+                        <th colspan="1" class="titre">Remontage moteur</th>
                         <th class="taille_th">{{total_heures_rm}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Remontage moteur' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
@@ -344,13 +350,13 @@
                     {% endif %}
                 {% endfor %}
                 <tr class="table-primary">
-                    <th colspan="2">Révision Hydro</th>
+                    <th colspan="1" class="titre">Révision Hydro</th>
                     <th class="taille_th">{{total_heures_rh}}</th>
                 </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Révision Hydro' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>
                     {% endif %}
@@ -367,13 +373,13 @@
                     {% endif %}
                 {% endfor %}
                 <tr class="table-primary">
-                    <th colspan="2">Révision Aéro</th>
+                    <th colspan="1" class="titre">Révision Aéro</th>
                     <th class="taille_th">{{total_heures_ra}}</th>
                 </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Révision Aéro' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>
                     {% endif %}
@@ -390,20 +396,20 @@
                     {% endif %}
                 {% endfor %}   
                     <tr class="table-primary">
-                        <th colspan="2">Autres</th>
+                        <th colspan="1" class="titre">Autres</th>
                         <th class="taille_th">{{total_heures_au}}</th>
                     </tr>
                 {% for item2 in revue_enclenchement.ateliers %}
                     {% if item2.operations == 'Autres' %}
                         <tr>
-                            <td colspan="2">{{item2.travaux}}</td>
+                            <td colspan="1">{{item2.travaux}}</td>
                             <td class="taille_th">{{item2.heures}}</td>
                         </tr>                                  
                     {% endif %}
                 {% endfor %}   
             <!-- fin de Autres -->   
                 <tr>
-                    <td class="table-primary" colspan="2">Total</td>
+                    <td class="table-primary titre" colspan="1">Total</td>
                     <th class="table-primary">{{total_heures_dm + total_heures_len + total_heures_au + total_heures_rm + total_heures_em + total_heures_ee + total_heures_op}}</th>
                 </tr>  
         {% endif %}

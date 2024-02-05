@@ -4,7 +4,7 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Constact Expertise Électrique après lavage</h4>
+        <div class="title_left"><h4>Constat Expertise Électrique après lavage</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -54,7 +54,7 @@
                                                         <img src="{{asset('/photo_constat_electrique_apres_lavage/'~ item.photo)}}" alt="" height="100" width="100">
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-center"><a href="{{path('app_constact_expertise_apres_lavage_edit', {'id' : parametre.id, 'idC' : item.id})}}"><i class="fa fa-edit fa-2x text-primary"></i></a></td>
+                                                <td class="text-center"><a href="{{path('app_Constat_expertise_apres_lavage_edit', {'id' : parametre.id, 'idC' : item.id})}}"><i class="fa fa-edit fa-2x text-primary"></i></a></td>
                                                 <td class="text-center"><a onclick="return confirm('Voulez-vous valider ?')" href="{{path('delete_constat_electrique_apres_lavage', {'id' :  item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                             </tr>                                                     
                                         {% endfor %}
