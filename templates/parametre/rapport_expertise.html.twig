@@ -9,9 +9,9 @@
     table,
     th,
     td {
-        border: 1px solid;
+        border: 1px solid black;
         border-collapse: collapse;
-        font-size: 13px;
+        font-size: 12px;
         padding: 5px;
         width: 100%;
     }
@@ -24,7 +24,7 @@
 
     .titre_table {
         background-color: #0063AF;
-        color : white;
+        color: white;
     }
 
     .image_logo {
@@ -34,7 +34,7 @@
     .titre1 {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 50px;
-        color: #675E49;
+        color: #0063AF;
         font-weight: 200;
         /* border-left: 2px solid red;*/
     }
@@ -45,23 +45,26 @@
 
     h3 {
         color: azure;
+        font-size: 14px;
     }
 
     h2,
     h5,
     h4 {
-        color: #675E49;
+        color: #0063AF;
     }
 
     h2 {
-        color: #675E49;
+        color: #0063AF;
         font-family: Arial, Helvetica, sans-serif;
         text-decoration: underline;
         font-style: normal;
+        font-size: 16px;
     }
 
     h4 {
         padding-left: 50px;
+        font-size: 12px;
     }
 
     h5 {
@@ -69,7 +72,7 @@
     }
 
     .span_titre {
-        color: #675E49;
+        color: #0063AF;
         font-family: Arial, Helvetica, sans-serif;
         text-decoration: underline;
         font-style: normal;
@@ -91,8 +94,8 @@
     .card1 {
         width: 470px;
         height: 160px;
-        border: 1px solid #675E49;
-        background-color: #675E49;
+        border: 1px solid #0063AF;
+        background-color: #0063AF;
         border-radius: 10px;
         margin-left: auto;
         margin-right: auto;
@@ -104,7 +107,7 @@
     .card2 {
         width: 360px;
         height: 270px;
-        border: 2px solid #675E49;
+        border: 2px solid #0063AF;
         margin-left: auto;
         margin-right: auto;
         padding-bottom: 15px;
@@ -240,8 +243,8 @@
         <div class="card1">
             <div class="card-content">
                 <h3>{{parametre.affaire.client.nom}}</h3>
-                <h3>&</h3>
-                <h3>{{parametre.affaire.client.site}}</h3>
+                <h3>-</h3>
+                <h3>Site : {{parametre.affaire.client.site}}</h3>
             </div>
         </div>
         <div class="card2">
@@ -252,10 +255,14 @@
                 <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
                 <br>
                 <p>Code Client : <strong>{{parametre.affaire.codeClient}}</strong></p>
-                <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
-                <p>N° d’article client : <strong>{{parametre.affaire.numArticleClient}}</strong></p>
+                {% if parametre.affaire.numFabrication != "" and parametre.affaire.numFabrication != "N/A" %}
+                    <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
+                {% endif %}
+                {% if parametre.affaire.numArticleClient != "" and parametre.affaire.numArticleClient != "N/A" %}
+                    <p>N° d’article client : <strong>{{parametre.affaire.numArticleClient}}</strong></p>
+                {% endif %}
             </div>
-        </div>
+        </div> 
     </div>
     {# fin de la partie logo et titre #}
 

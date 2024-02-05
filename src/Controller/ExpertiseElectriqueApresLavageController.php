@@ -528,8 +528,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     }
 
     //constat electrique
-    #[Route('/constact/{id}', name: 'app_constact_expertise_apres_lavage')]
-    public function constact(Parametre $parametre,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
+    #[Route('/Constat/{id}', name: 'app_Constat_expertise_apres_lavage')]
+    public function Constat(Parametre $parametre,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
     {     
         //la partie constat electrique après lavage
         $constatElectriqueApresLavage = new ConstatElectriqueApresLavage();
@@ -567,8 +567,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
         ]);
     }
     //constat electrique
-    #[Route('/edit-constact/{id}/{idC}', name: 'app_constact_expertise_apres_lavage_edit')]
-    public function editConstact(Parametre $parametre,$idC,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
+    #[Route('/edit-Constat/{id}/{idC}', name: 'app_Constat_expertise_apres_lavage_edit')]
+    public function editConstat(Parametre $parametre,$idC,Request $request,SluggerInterface $slugger,ConstatElectriqueApresLavageRepository $constatElectriqueApresLavageRepository): Response
     {     
         //la partie constat electrique après lavage
         //$constatElectriqueApresLavage = new ConstatElectriqueApresLavage();
@@ -598,7 +598,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 }     
                 $constatElectriqueApresLavage->setParametre($parametre);
                 $constatElectriqueApresLavageRepository->save($constatElectriqueApresLavage, true);
-                return $this->redirectToRoute('app_constact_expertise_apres_lavage', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_Constat_expertise_apres_lavage', ['id' => $parametre->getId()]);
             }
         }
         
@@ -698,9 +698,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 unlink($this->getParameter('images_constat_electrique_apres_lavage').'/'.$nom);
             }
             $constatElectriqueApresLavageRepository->remove($constatElectriqueApresLavage, true);
-            return $this->redirectToRoute('app_constact_expertise_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_Constat_expertise_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
         }else{
-            return $this->redirectToRoute('app_constact_expertise_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_Constat_expertise_apres_lavage', ['id' => $id], Response::HTTP_SEE_OTHER);
         } 
            
     }

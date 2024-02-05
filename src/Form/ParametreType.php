@@ -45,7 +45,8 @@ class ParametreType extends AbstractType
             ->add('type_palier', ChoiceType::class, [
                 'choices' => [
                     'Roulements' => 'Roulements',
-                    'Coussinets' => 'Coussinets'
+                    'Coussinets' => 'Coussinets',
+                    'Coussinets Monopaliers' => 'Coussinets Monopaliers'
                 ],
                 'placeholder' => 'Choisir un type de palier'
             ])
