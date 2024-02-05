@@ -66,6 +66,9 @@ class LMesureIsolementEssaiType extends AbstractType
                     "Jeu de Bague" => "Jeu de Bague",
                     "Sondes" => "Sondes",
                     "Rechauffage" => "Rechauffage",
+                    "Courant porte balais" => "Courant porte balais",
+                    "induit" => "induit",
+                    "Carcasse" => "Sondes",
                 ]
             ])
         ;

@@ -1260,16 +1260,27 @@
                                     {% if parametre.equirepartitions %}
                                         <div class="row">
                                             <table class="table table-bordered table-striped">
-                                                <tr>
-                                                    <th colspan="3" class="text-center">Equi-Répartition de tension Roue polaire</th>
-                                                </tr>
+                                                <thead class="table-secondary">
+                                                    <tr>
+                                                        <th colspan="5" class="text-center">Pont de diodes</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Pole</th>
+                                                        <th>Tension</th>
+                                                        <th>Courant Absorbe</th>
+                                                        <th>Tension Alimentation</th>
+                                                        <th>Conformité</th>
+                                                    </tr>
+                                                </thead>
                                                 {% for item in parametre.equirepartitions %}
                                                     <tr>
                                                         <th>{{item.pole}}</th>
                                                         <td>{{item.tension}} V</td>
+                                                        <td>{{item.courantAbsorbe}}</td>
+                                                        <td>{{item.tensionAlimentation}} V</td>
                                                         <td>{{item.conforme}}</td>
-                                                    </tr>
-                                                {% endfor %}
+                                                    </tr> 
+                                                {% endfor %} 
                                             </table>
                                         </div>
                                     {% endif %}

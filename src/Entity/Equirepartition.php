@@ -25,6 +25,12 @@ class Equirepartition
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $conforme = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $courant_absorbe = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tension_alimentation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +80,30 @@ class Equirepartition
     public function setConforme(?string $conforme): static
     {
         $this->conforme = $conforme;
+
+        return $this;
+    }
+
+    public function getCourantAbsorbe(): ?float
+    {
+        return $this->courant_absorbe;
+    }
+
+    public function setCourantAbsorbe(?float $courant_absorbe): static
+    {
+        $this->courant_absorbe = $courant_absorbe;
+
+        return $this;
+    }
+
+    public function getTensionAlimentation(): ?float
+    {
+        return $this->tension_alimentation;
+    }
+
+    public function setTensionAlimentation(?float $tension_alimentation): static
+    {
+        $this->tension_alimentation = $tension_alimentation;
 
         return $this;
     }

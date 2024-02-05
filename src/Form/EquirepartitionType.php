@@ -22,6 +22,20 @@ class EquirepartitionType extends AbstractType
                     'placeholder' => "0"
                 ]
             ])
+            ->add('courant_absorbe', NumberType::class, [
+                'label' => 'Courant Absorbé',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "0"
+                ]
+            ])
+            ->add('tension_alimentation', NumberType::class, [
+                'label' => 'Tension Alimentation',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "0"
+                ]
+            ])
             ->add('conforme', ChoiceType::class, [
                 'label' => 'Conformité',
                 'required' => false,

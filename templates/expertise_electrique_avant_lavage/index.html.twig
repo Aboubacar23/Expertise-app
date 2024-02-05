@@ -981,7 +981,11 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.observation}}</td>
                                                 <td>{{item.preconisationConclusion}}</td>
-                                                <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75"></td>
+                                                <td class="text-center image">
+                                                    {% if item.photo %}
+                                                        <img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="75">
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{item.retenu}}</td>
                                             </tr>                                                    
                                         {% endfor %}

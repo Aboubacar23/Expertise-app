@@ -38,7 +38,9 @@
                                               <td>{{form_widget(formConstatElectrique.critere)}}</td>
                                               <td>{{form_widget(formConstatElectrique.observation)}}</td>
                                               <td>{{form_widget(formConstatElectrique.preconisation_conclusion)}}</td>
-                                              <td>{{form_widget(formConstatElectrique.retenu)}}</td>
+                                              <td>{{form_widget(formConstatElectrique.retenu, {'attr' : {
+                                                    'disabled' : not is_granted('ROLE_CHEF_PROJET') ? 'disabled' : false
+                                                }})}}</td>
                                               <td>{{form_widget(formConstatElectrique.photo)}}</td>
                                               <td colspan="2" width="150px" class="text-center"><button class="btn btn-primary btn-sm" name="bouton10" value="ajouter"> Ajouter <i class="fa fa-save"></i></button></td>
                                           </tr>
@@ -49,12 +51,17 @@
                                                   <td>{{item.observation}}</td>
                                                   <td>{{item.preconisationConclusion}}</td>
                                                   <td>{{item.retenu}}</td>
-                                                  <td class="text-center image"><img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="100" width="100"></td>
+                                                  <td class="text-center image">
+                                                    {% if item.photo %}
+                                                        <img src="{{asset('/photo_constat_electrique/'~ item.photo)}}" alt="" height="100" width="100">
+                                                    {% endif %}
+                                                 </td>
                                                   <td class="text-center"><a href="{{path('app_constat_electrique_edit', {'id' : parametre.id, 'idC' : item.id})}}"><i class="fa fa-edit fa-2x text-primary"></i></a></td>
                                                   <td class="text-center"><a href="{{path('delete_constat_electrique', {'id' :  item.id })}}" onclick="return confirm('Voulez-vous valider ?')"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                                               </tr>                                                    
                                           {% endfor %}
                                       </table>
+
                                   </div>
                               </div>
                           </div>
@@ -65,4 +72,16 @@
         </div>
     </div> 
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+            const retenu = document.getElementById('retenu');
+            var user = "conde";
+            if (user == "conde") 
+            {
+                retenu.disabled = false;
+            }
+        }
+    </script>
 {% endblock %}

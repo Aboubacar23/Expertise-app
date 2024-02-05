@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ConstatMecaniqueType extends AbstractType
 {
@@ -18,7 +19,13 @@ class ConstatMecaniqueType extends AbstractType
             ->add('critere')
             ->add('observation')
             ->add('preconisation_conclusion')
-            ->add('retenu')
+             ->add('retenu', ChoiceType::class, [
+                'label' => 'Retenu',
+                'choices' => [
+                    'OUI' => 'OUI',
+                    'NON' => 'NON'
+                ]
+            ])
             ->add('photo',FileType::class, [
                 'label' => 'Images',
                 'mapped' => false,
