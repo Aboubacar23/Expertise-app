@@ -13,11 +13,11 @@
         border-collapse: collapse; 
         }    
     .tr:nth-of-type(odd) { 
-        background: #eee; 
+        background: #0063AF; 
         }
     
     .th { 
-        background: #3B6857; 
+        background: #0063AF; 
         color: white; 
         font-weight: bold; 
         text-align: center; 
@@ -25,24 +25,25 @@
     
     .td, .th { 
         padding: 10px; 
-        border: 1px solid #ccc; 
-        font-size: 12px;
+        border: 1px solid #0063AF; 
+        font-size: 10px;
         }
     td{
         padding: 10px;
     }
     .p{
-        border-bottom: 2px solid green;
+        border-bottom: 3px solid #0063AF;
     }
     h2{
         text-align: center;
         text-transform: uppercase;
         font-size: x-large;
         font-family: serif;
+        color: #0063AF;
     }
 </style>
 <body>
-    <h2>Liste des appareils en état : {{ etat }}</h2>
+    <h2>Liste des appareils</h2>
     <p class="p"></p>
     <div class="body">
         <table class="table">
@@ -50,6 +51,7 @@
             <tr  class="tr">
                 <th width="2" class="th">N°</th>
                 <th class="th">N° Appareil</th>
+                <th class="th">Désignation</th>
                 <th class="th">Périodicité</th>
                 <th class="th">Marque</th>
                 <th class="th">Type</th>
@@ -57,6 +59,7 @@
                 <th class="th">Affectation</th>
                 <th class="th">Date État</th>
                 <th class="th">Date validité</th>
+                <th class="th">Etat</th>
                 <th class="th">Statut</th>
             </tr>
             </thead>
@@ -67,13 +70,15 @@
                 <tr>
                     <td class="td">{{ i }}</td>
                     <td class="td">{{ appareil.numAppareil }}</td>
+                    <td class="td" style="width: 80px;">{{ appareil.designation }}</td>
                     <td class="td">{{ appareil.periodicite }}</td>
                     <td class="td">{{ appareil.marque }}</td>
-                    <td class="td">{{ appareil.type }}</td>
+                    <td class="td" style="width: 70px;">{{ appareil.type }}</td>
                     <td class="td">{{ appareil.serviceResponsable }}</td>
                     <td class="td">{{ appareil.affectation }}</td>
-                    <td class="td">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>
-                    <td class="td">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
+                    <td class="td" style="width: 50px;">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>
+                    <td class="td" style="width: 50px;">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
+                    <td class="td">{{ appareil.etat }}</td>
                     <td class="td">{{ appareil.statut }}</td>
                 </tr>
             {% endfor %}

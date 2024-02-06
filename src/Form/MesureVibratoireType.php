@@ -22,7 +22,8 @@ class MesureVibratoireType extends AbstractType
             ->add('montage', ChoiceType::class, [
                 'choices' => [
                     'Souple' => 'Souple',
-                    'Bridé' => 'Bridé'
+                    'Bridé' => 'Bridé',
+                    'Poser au Sol' => 'Poser au Sol',
                 ]
             ])
             ->add('accouplement', ChoiceType::class, [

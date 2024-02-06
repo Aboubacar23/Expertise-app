@@ -16,12 +16,44 @@ class ChercherType extends AbstractType
         $builder
             ->add('etat', ChoiceType::class, [
                 'label' => 'Etat',
+                'required' => false,
                 'placeholder' => 'Choisissez un état',
                 'choices' => [
                     'Fonctionnel' => 'Fonctionnel',
                     'Hors Validite' => 'Hors Validite',
                     'Perdu' => 'Perdu',
                     'HS' => 'HS',
+                ]
+            ])
+            ->add('periodicite',ChoiceType::class, [
+                'label' => 'Périodicité',
+                'choices' => [
+                    '0' => '0',
+                    '3' => '3',
+                    '6' => '6',
+                    '9' => '9',
+                    '12' => '12',
+                    '18' => '18',
+                    '24' => '24',
+                    '36' => '36',
+                    '48' => '48',
+                    '60' => '60',
+                ]
+            ])
+            ->add('date_min', DateType::class, [ 
+                'required' => false,
+                'widget' => 'single_text',
+                'label'=> 'Date Min',
+                'attr' => [
+                    'placeholder' => 'Date Min'
+                ] 
+            ])
+            ->add('date_max', DateType::class, [
+                'required' => false,
+                'widget' => 'single_text',
+                'label'=> 'Date Max',
+                'attr' => [
+                    'placeholder' => 'Date Max'
                 ]
             ]);
     }

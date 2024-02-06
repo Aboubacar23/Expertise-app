@@ -317,27 +317,6 @@ class ParametreController extends AbstractController
         ], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/print/rapport-expertise/{id}', name: 'app_parametre_expertise', methods: ['POST', 'GET'])]
-    public function rapportExpertise(Parametre $parametre, PdfServiceP $pdfServiceP): Response
-    {
-        // On génère un nom de fichier
-        $fichier = $parametre->getAffaire()->getNomRapport();
-        $html = $this->renderView('parametre/rapport_expertise.html.twig', [
-            'parametre' => $parametre
-        ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
-    }
-
-    #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
-    public function rapporFinal(Parametre $parametre, PdfServiceP $pdfServiceP): Response
-    {
-        $fichier = $parametre->getAffaire()->getNomRapport();
-        $html = $this->renderView('parametre/rapport_final.html.twig', [
-            'parametre' => $parametre
-        ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
-    }
-
     #[Route('/reunion-validation/{id}', name: 'app_parametre_valided', methods: ['GET'])]
     public function reunion(Request $request, Parametre $parametre, ParametreRepository $parametreRepository, EntityManagerInterface $em): Response
     {

@@ -17,7 +17,7 @@ table{
     }
 
 .th { 
-    background: #3B6857; 
+    background: #0063AF; 
     color: white; 
     font-weight: bold; 
     text-align: center; 
@@ -25,20 +25,21 @@ table{
 
 .td, .th { 
     padding: 10px; 
-    border: 1px solid #ccc; 
+    border: 1px solid #0063AF; 
     font-size: 12px;
     }
 td{
     padding: 10px;
 }
 hr, .p{
-    border-bottom: 3px solid #3B6857;
+    border-bottom: 3px solid #0063AF;
 }
 h2{
     text-align: center;
     text-transform: uppercase;
     font-size: x-large;
     font-family: serif;
+    color: #0063AF;
 }   
 footer {
         position: fixed; 
@@ -79,18 +80,18 @@ footer:after {
             </tr>
         </table>
     </div>
-    <br>
+    <p class="p"></p>
     <div class="body">
         <table class="table">
             <thead>
                 <tr  class="tr">
-                    <th class="th" width="15%">Repère</th>
+                    <th class="th" width="20%">Repère</th>
                     <th class="th" width="15%">Appareil</th>
                     <th class="th" width="15%">Type Intervention</th>
                     <th class="th" width="15%">Date Retour</th>
                     <th class="th" width="15%">Date Etalonnage</th>
                     <th class="th" width="15%">Numéro Certificat</th>
-                    <th class="th" width="15%">Observation</th>
+                    <th class="th" width="35%">Observation</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,9 +109,5 @@ footer:after {
             </tbody>
         </table>
     </div>
-    <footer>
-        <hr>
-        <p>{{ "now" | date('d-m-Y') }}</p>
-    </footer>
 </body>
 </html>

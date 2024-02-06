@@ -29,6 +29,11 @@ class AffectationType extends AbstractType
                 'label' => 'Repère',
                 'placeholder' => 'Choisissez',
                 'class' => AffaireMetrologie::class, 
+                'query_builder' => function(AffaireMetrologieRepository $affaireMetrologieRepository)
+                {
+                    $query = $affaireMetrologieRepository->createQueryBuilder('a')->andWhere("a.statut = 0 ");
+                    return $query;
+                }
             ])
             ->add('service_affectation', EntityType::class, [
                 'label' => 'Service Responsable',
