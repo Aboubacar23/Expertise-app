@@ -17,7 +17,7 @@
         }
     
     .th { 
-        background: #3B6857; 
+        background: #0063AF; 
         color: white; 
         font-weight: bold; 
         text-align: center; 
@@ -32,13 +32,14 @@
         padding: 10px;
     }
     .p{
-        border-bottom: 2px solid green;
+        border-bottom: 2px solid #0063AF;
     }
     h2{
         text-align: center;
         text-transform: uppercase;
         font-size: x-large;
         font-family: serif;
+        color: #0063AF;
     }
 </style>
 <body>
@@ -76,11 +77,11 @@
             <tbody>
                 {% for item in affectation.laffectations %}
                     <tr> 
-                        <td class="td">{{item.appareil}}</td>
-                        <td class="td">{{item.designation}}</td>
-                        <td class="td">{{item.type}}</td>
+                        <td class="td" style="width: 120px;">{{item.appareil}}</td>
+                        <td class="td" style="width: 140px;">{{item.designation}}</td>
+                        <td class="td" style="width: 80px;">{{item.type}}</td>
                         <td class="td">{{item.numeroSerie}}</td>
-                        <td class="td">{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
+                        <td class="td" style="width: 80px;">{{item.dateRetour ? item.dateRetour|date('d-m-Y') : '' }}</td>
                         <td class="td">{{item.observation}}</td>
                     </tr>                                        
                 {% endfor %} 

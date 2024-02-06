@@ -69,7 +69,7 @@ class AppareilRepository extends ServiceEntityRepository
      * Recherche les annonces en fonction du formulaire
      * @return void 
     */
-    public function findChercherEtat(Chercher $recherche)
+    public function findChercher(Chercher $recherche)
     {
         $query = $this->createQueryBuilder('a');
 
@@ -77,30 +77,10 @@ class AppareilRepository extends ServiceEntityRepository
             $query = $query->andWhere('a.etat = :valEtat')
                             ->setParameter('valEtat', $recherche->getEtat());
         }
-        return $query->getQuery()->getResult();
-    }
-
-    /**
-     * Recherche les annonces en fonction du formulaire
-     * @return void
-     */
-    public function findChercherPeriodicite(Chercher $recherche)
-    {
-        $query = $this->createQueryBuilder('a');
         if($recherche->getPeriodicite()){
             $query = $query->andWhere('a.periodicite = :valPeriodicite')
                 ->setParameter('valPeriodicite', $recherche->getPeriodicite());
         }
-        return $query->getQuery()->getResult();
-    }
-
-    /**
-     * Recherche les annonces en fonction du formulaire
-     * @return void
-     */
-    public function findChercherDateValidite(Chercher $recherche)
-    {
-        $query = $this->createQueryBuilder('a');
         if($recherche->getDateMin()){
             $query = $query->andWhere('a.date_validite >= :minperiode')
                 ->setParameter('minperiode', $recherche->getDateMin());

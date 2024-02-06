@@ -283,17 +283,7 @@ class AffaireController extends AbstractController
         }
         return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    //la fonction qui affiche la liste des affaires terminer
-    #[Route('/rapports/listes', name: 'app_affaire_rapport', methods: ['GET'])]
-    public function rapport(ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
-    {
-        $affaires = $affaireRepository->findBy([], ['id' => 'desc']);
-        return $this->render('affaire/rapport.html.twig', [
-            'affaires' => $affaires,
-        ]);
-    }
-
+    
     //la fonction qui permet d'activer et réactiver une affaire
     #[Route('/bloque-activer/{id}', name: 'app_bloque', methods: ['GET'])]
     public function bloque(Affaire $affaire, EntityManagerInterface $em): Response

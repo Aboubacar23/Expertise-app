@@ -22,20 +22,14 @@ class ChercherController extends AbstractController
     public function index(AppareilRepository $appareilRepository, Request $request, PdfService $pdfService): Response
     {
         $chercher = new Chercher();
-        $form1 = $this->createForm(ChercherType::class, $chercher);
-        $form1->handleRequest($request);
-
-        $form2 = $this->createForm(ChercherPeriodiqueType::class, $chercher);
-        $form2->handleRequest($request);
-
-        $form3 = $this->createForm(ChercherValiditeType::class, $chercher);
-        $form3->handleRequest($request);
+        $form = $this->createForm(ChercherType::class, $chercher);
+        $form->handleRequest($request);
 
         $appareils = $appareilRepository->findAll();
 
-        if ($form1->isSubmitted() && $form1->isValid())
+        if ($form->isSubmitted() && $form->isValid())
         {
-            $appareils = $appareilRepository->findChercherEtat($chercher);
+            $appareils = $appareilRepository->findChercher($chercher);
             $html = $this->render('metrologies/chercher/printEtat.html.twig', [
                 'appareils' => $appareils,
                 'etat' => $chercher->getEtat()
@@ -44,31 +38,8 @@ class ChercherController extends AbstractController
             $pdfService->showPdfFile($html,$fichier);
         }
 
-        if ($form2->isSubmitted() && $form2->isValid())
-        {
-            $appareils = $appareilRepository->findChercherPeriodicite($chercher);
-            $html = $this->render('metrologies/chercher/printPeriodicite.html.twig', [
-                'appareils' => $appareils,
-                'etat' => $chercher->getPeriodicite()
-            ]);
-            $fichier = "les appareils en état ".$chercher->getPeriodicite();
-            $pdfService->showPdfFile($html,$fichier);
-        }
-
-        if ($form3->isSubmitted() && $form3->isValid())
-        {
-            $appareils = $appareilRepository->findChercherPeriodicite($chercher);
-            $html = $this->render('metrologies/chercher/printDateValidite.html.twig', [
-                'appareils' => $appareils,
-            ]);
-            $fichier = "les appareils en état ";
-            $pdfService->showPdfFile($html,$fichier);
-        }
-
         return $this->render('metrologies/chercher/index.html.twig', [
-            'form1' => $form1->createView(),
-            'form2' => $form2->createView(),
-            'form3' => $form3->createView(),
+            'form' => $form->createView(),
             'chercher' => $chercher,
         ]);
     }

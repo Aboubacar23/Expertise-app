@@ -714,18 +714,25 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $choix = $request->get('bouton10');
             if($choix == 'ajouter')
             {
-                $image = $formConstatElectrique->get('photo')->getData();
-                if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_constat_electrique'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e){}
-                    $constatElectrique->setPhoto($newPhotoname);
+                $image = $formConstatElectrique->get('photo')->getData(); 
+                if ($image)
+                {
+                    $size = $image->getSize();
+                    if($size > 2*1024*1024)
+                    {
+                        return $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo !");
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_constat_electrique'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e){}
+                        $constatElectrique->setPhoto($newPhotoname);
+                    } 
                 }           
                 $constatElectrique->setParametre($parametre);
                 $constatElectrique->setEtat(1);

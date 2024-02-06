@@ -1,0 +1,82 @@
+<h1>Rapport Expertise</h1>
+<h3>{{parametre.affaire.client.nom}}</h3>
+<h3>-</h3>
+<h3>Site : {{parametre.affaire.client.site}}</h3>
+<p>Affaire suivie par : <strong>{{parametre.affaire.suiviPar}}</strong></p>
+<p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('d-m-Y') :
+        '' }}</strong></p>
+<p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
+<p>Code Client : <strong>{{parametre.affaire.codeClient}}</strong></p>
+{% if parametre.affaire.numFabrication != "" and parametre.affaire.numFabrication != "N/A" %}
+    <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
+{% endif %}
+{% if parametre.affaire.numArticleClient != "" and parametre.affaire.numArticleClient != "N/A" %}
+    <p>N° d’article client : <strong>{{parametre.affaire.numArticleClient}}</strong></p>
+{% endif %}
+
+
+{% if parametre.controleVisuelMecanique %}
+<table>
+    <tr class="titre_table">
+        <th colspan="4">Controle Visuel et Recensement</th>
+    </tr>
+    <tr>
+        <td>Accouplement</td>
+        <td>{{ parametre.controleVisuelMecanique.accouplement}}</td>
+        <td>Peinture (N° RAL)</td>
+        <td>{{ parametre.controleVisuelMecanique.peinture }}</td>
+    </tr>
+    <tr>
+        <td>Châssis</td>
+        <td>{{ parametre.controleVisuelMecanique.chassis ? 'Oui' : 'Non' }}</td>
+        <td>Tresse de masse (nb)</td>
+        <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
+    </tr>
+    <tr>
+        <td>Boite à borne</td>
+        <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
+        <td>Vis vérins (nb)</td>
+        <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
+    </tr>
+    <tr>
+        <td>Barrette neutre</td>
+        <td>{{ parametre.controleVisuelMecanique.barretteNeutre ? 'Oui' : 'Non' }}</td>
+        <td>Sonde palier CA</td>
+        <td>{{ parametre.controleVisuelMecanique.sondePalierCa }}</td>
+    </tr>
+    <tr>
+        <td>Bridage</td>
+        <td>{{ parametre.controleVisuelMecanique.bridage ? 'Oui' : 'Non' }}</td>
+        <td>Autres Sondes</td>
+        <td>{{ parametre.controleVisuelMecanique.autresSondes }}</td>
+    </tr>
+    <tr>
+        <td>Clavette</td>
+        <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+        <td>Sonde palier COA</td>
+        <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
+    </tr>
+    <tr>
+        <td>Phase Neutre</td>
+        <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
+        <td>Référence stator</td>
+        <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
+    </tr>
+    <tr>
+        <td>Numéro de série</td>
+        <td>{{ parametre.controleVisuelMecanique.numeroSerie }}</td>
+        <td>Référence rotor</td>
+        <td>{{ parametre.controleVisuelMecanique.referenceRotor}}</td>
+    </tr>
+    <tr>
+        <td>Position de l'accouplement</td>
+        <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
+        {% if parametre.controleVisuelMecanique.nombreAccessoire != null %}
+        <td>Nombre d'accessoires complémentaires</td>
+        <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+        {% else %}
+        <td colspan="2"></td>
+        {% endif %}
+    </tr>
+</table>
+{% endif %}

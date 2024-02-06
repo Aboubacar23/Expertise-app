@@ -14,10 +14,17 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_content">
-                    {{ form_start(form1) }}
-                        <div class="item form-group">
-                            <div class="col-md-12 col-sm-12">{{ form_row(form1.etat)}}</div>
-                        </div>
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">{{ form_row(form.etat)}}</div>                        
+                        <div class="col-md-6 col-sm-6">{{ form_row(form.periodicite)}}</div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">{{ form_row(form.date_min)}}</div>
+                        <div class="col-md-6 col-sm-6">{{ form_row(form.date_max)}}</div>
+
+                    </div>
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-12 col-sm-12">
@@ -28,56 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                    {{ form_end(form1) }}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-                <div class="x_content">
-                    {{ form_start(form2) }}
-                    <div class="item form-group">
-                        <div class="col-md-12 col-sm-12">{{ form_row(form2.periodicite)}}</div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="item form-group">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-sm">{{button_label | default('Chercher')}} <i class="fa fa-save p-1"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{ form_end(form2) }}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-                <div class="x_content">
-                    {{ form_start(form3) }}
-                    <div class="item form-group">
-                        <div class="col-md-6 col-sm-6">{{ form_row(form3.date_min)}}</div>
-                        <div class="col-md-6 col-sm-6">{{ form_row(form3.date_max)}}</div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="item form-group">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-sm">{{button_label | default('Chercher')}} <i class="fa fa-save p-1"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{ form_end(form3) }}
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

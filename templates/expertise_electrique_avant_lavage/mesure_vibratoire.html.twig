@@ -73,7 +73,8 @@
                                 <td>R.M.S à F0 (mm/s)</td>
                                 <td>{{ form_widget(formMesureVibratoire.n25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.a25) }}</td>
-                                <td>{{ form_widget(formMesureVibratoire.b25) }}</td>
+                                <td>{Impossible to access an attribute ("lmesureVibratoires") on a null variable.
+                                    { form_widget(formMesureVibratoire.b25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.c25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.d25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.e25) }}</td>
@@ -109,7 +110,7 @@
                             </tr>
                             {% endfor %}
 
-                            {% if parametre.mesureVibratoire.lmesureVibratoires %}
+                            {% if parametre.mesureVibratoire.lMesureVibratoires|length > 0 %}
                                 {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
                                 <tr>
                                     <td class="titre_table">{{ item.titre}}</td>
