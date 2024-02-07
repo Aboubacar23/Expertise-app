@@ -17,15 +17,15 @@
                         <a href="{{path('app_expertise_mecanique',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div> 
+                </div>
+                <div class="x_content">
                     <div class="row">
-                        {% for flash_message in app.session.flashbag.get('message') %}
+                        {% for flash_message in app.session.flashbag.get('error') %}
                             <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
                                 {{ flash_message }}
                             </div>
                         {% endfor %}
                     </div>
-                </div>
-                <div class="x_content">
                     {{ form_start(formCoussinet) }}
                         <div class="row">
                             <div class="col-md-12">

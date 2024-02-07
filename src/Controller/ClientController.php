@@ -1,5 +1,30 @@
 <?php
-
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont Electric
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 24-04-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ *******Template **************************
+ les views client se trouvent dans le dossier "client" du template
+ * ********************** Déscription *****************************
+ * Pour accèder au client on doit d'être forcement connecté.
+ * Ce controleur contient 6 fonctions
+ *  1- la fonction "index" : pour afficher la liste de tous les clients
+ *  2- la fonction "new" : pour ajouter un client
+ *  3- la fonction "edit" : pour modifier un client
+ *  4- la fonction "delete" :pour supprimer un client
+ *  5- la fonction "compte" : pour voir le compte d'un client
+ *  6- la fonction "etat" : pour bloquer et débloquer un client
+ */
 namespace App\Controller;
 
 use App\Entity\Client;
@@ -19,7 +44,12 @@ class ClientController extends AbstractController
     #[Route('/index', name: 'app_client_index', methods: ['GET','POST'])]
     public function index(ClientRepository $clientRepository, Request $request): Response
     {   
+        
+        //Dans cette, l'affichage des clients et insertion des client se fait sur la même page de la fonction index
+        
+        //Initialiser la classe client 
         $client = new Client();
+        //créer l'objet form à partir de la classe client et du client form
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -82,10 +112,11 @@ class ClientController extends AbstractController
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST','GET'])]
     public function delete(Request $request, Client $client, ClientRepository $clientRepository, AffaireRepository $affaireRepository): Response
     {
+        //vérifier si le client n'est pas lié à une affaire
         $affaire = $affaireRepository->findByClient($client);
-       // dd($affaire);
         if($client)
         {
+            //si le client n'a pas d'affaire, supprimer
             if (!$affaire)
             {
                 $clientRepository->remove($client, true);
@@ -93,6 +124,7 @@ class ClientController extends AbstractController
                 return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
 
             }else{
+                //si non envoyer un message d'erreur
                 $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer ce client car il possède des affaires ! ");
                 return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -106,23 +138,27 @@ class ClientController extends AbstractController
     #[Route('/compte/{id}', name : 'app_client_compte', methods:['GET'])]
     public function compte(Client $client)
     {
+        //afficher les informations d'un client
         return $this->render('client/compte.html.twig', [
             'client' => $client
         ]);
     } 
 
-
     //la fonction permet d'activer et désactiver un client
     #[Route('/etat/{id}/compte', name : 'app_client_etat', methods:['GET'])]
     public function etat(Client $client, EntityManagerInterface $entityManager)
     {
+        //vérifier si le client exist
         if ($client){
+            //vérifier si l'état du client est true
             if ($client->isEtat() == 1){
+                //si oui mettre à false et enregistre
                 $client->setEtat(0);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_client_compte', ['id' => $client->getId()]);
             }
             else{
+                //si non mettre à true et enregistre
                 $client->setEtat(1);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_client_compte', ['id' => $client->getId()]);

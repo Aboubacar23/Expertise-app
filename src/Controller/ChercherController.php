@@ -1,15 +1,30 @@
 <?php
-
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont Electric
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 02-10-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ *******Template **************************
+ les views cherche se trouvent dans le dossier "cherche" du template
+ * ********************** Déscription *****************************
+ * Ce controleur contient qu'une seule fonction
+ *  1 - la fonction "index" : permet denvoyer dans le fichier twig le formulaire 
+ */
 namespace App\Controller;
 
 use App\Entity\Chercher;
-use App\Form\ChercherPeriodiqueType;
 use App\Form\ChercherType;
-use App\Form\ChercherValiditeType;
 use App\Repository\AppareilRepository;
 use App\Service\PdfService;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -19,12 +19,21 @@
                     <div class="clearfix"></div> 
                 </div>                
                 <div class="x_content">
-                    {% for flash_message in app.session.flashbag.get('danger') %}
-                        <div class="container danger alert-danger p-2 m-2 mr-auto ml-auto" role="alert">
-                            {{ flash_message }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for flash_message in app.session.flashbag.get('danger') %}
+                                <div class="container danger alert-danger p-2 m-2 mr-auto ml-auto" role="alert">
+                                    {{ flash_message }}
+                                </div>
+                            {% endfor %}
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                    <!-- début photo -->
+                    </div>
+                    <!-- début photo --> 
                     {{ form_start(formPhotoRotor) }}
                         <div class="row">
                             <table class="table table-bordered">

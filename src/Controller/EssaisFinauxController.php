@@ -162,18 +162,27 @@ class EssaisFinauxController extends AbstractController
             if ($choix == 'ajouter') {
                 $image = $formPointFonctionnement->get('image')->getData();
                 if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('point_fonctionnement_vide'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
-                    }
+                    //récuperer la taille de l'image à inserrer
+                    $size = $image->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_point_fonctionnement_vide', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('point_fonctionnement_vide'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
 
-                    $pointFonctionnement->setImage($newPhotoname);
+                        $pointFonctionnement->setImage($newPhotoname);
+                    }
                 }
 
                 $pointFonctionnement->setParametre($parametre);
