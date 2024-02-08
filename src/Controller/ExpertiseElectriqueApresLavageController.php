@@ -3,19 +3,27 @@
 namespace App\Controller;
 
 use App\Entity\Parametre;
+use App\Entity\PontDiode;
+use App\Form\PontDiodeType;
 use App\Entity\SondeBobinage;
 use App\Entity\LSondeBobinage;
+use App\Service\MailerService;
 use App\Entity\Caracteristique;
+use App\Entity\Equirepartition;
 use App\Form\SondeBobinageType;
 use App\Form\LSondeBobinageType;
 use App\Entity\StatorApresLavage;
 use App\Form\CaracteristiqueType;
+use App\Form\EquirepartitionType;
 use App\Entity\LStatorApresLavage;
 use App\Entity\PointFonctionnement;
 use App\Form\StatorApresLavageType;
+use App\Repository\AdminRepository;
 use App\Entity\AutreCaracteristique;
 use App\Form\LStatorApresLavageType;
 use App\Form\AutreCarateristiqueType;
+use App\Service\RedimensionneService;
+use App\Repository\PontDiodeRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Entity\AppareilMesureElectrique;
 use App\Entity\PointFonctionnementRotor;
@@ -26,16 +34,14 @@ use App\Repository\SondeBobinageRepository;
 use App\Entity\ConstatElectriqueApresLavage;
 use App\Repository\LSondeBobinageRepository;
 use App\Entity\AutrePointFonctionnementRotor;
-use App\Entity\Equirepartition;
-use App\Entity\PontDiode;
 use App\Repository\CaracteristiqueRepository;
+use App\Repository\EquirepartitionRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use App\Form\ConstatElectriqueApresLavageType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AutrePointFonctionnementRotorType;
-use App\Form\EquirepartitionType;
-use App\Form\PontDiodeType;
-use App\Repository\AdminRepository;
+use App\Repository\ControleIsolementRepository;
 use App\Repository\StatorApresLavageRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LStatorApresLavageRepository;
@@ -45,17 +51,16 @@ use App\Repository\PointFonctionnementRotorRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\ConstatElectriqueApresLavageRepository;
 use App\Repository\AutrePointFonctionnementRotorRepository;
-use App\Repository\ControleIsolementRepository;
-use App\Repository\EquirepartitionRepository;
-use App\Repository\PontDiodeRepository;
-use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Mailer\MailerInterface;
 
 #[Route('/expertiseEpAL')]
 class ExpertiseElectriqueApresLavageController extends AbstractController
 {
+    public function __construct(Private RedimensionneService $redimensionneService)
+    {
+        
+    }
     #[Route('/index/{id}', name: 'app_expertise_electrique_apres_lavage')]
     public function index(Parametre $parametre): Response
     {
@@ -513,6 +518,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }
@@ -545,7 +553,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     //récuperer la taille de l'image à inserrer
                     $size = $image->getSize();
                     //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
-                    if($size > 2*1024*1024)
+                    if($size < 2*1024*1024)
                     {
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return  $this->redirectToRoute('app_Constat_expertise_apres_lavage', ['id' => $parametre->getId()]);
@@ -562,6 +570,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         } catch (FileException $e) {
                         }
 
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }

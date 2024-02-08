@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Parametre;
 use App\Entity\Phototheque;
 use App\Form\PhotothequeType;
+use App\Service\RedimensionneService;
 use App\Repository\PhotothequeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,11 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/phototheque')]
 class PhotothequeController extends AbstractController
 {
+    public function __construct(Private RedimensionneService $redimensionneService)
+    {
+        
+    }
+    
     #[Route('/new-phototheque/{id}', name: 'app_phototheque', methods: ['POST','GET'])]
     public function index(Parametre $parametre,PhotothequeRepository $photothequeRepository, Request $request , SluggerInterface $slugger): Response
     {
@@ -45,10 +51,13 @@ class PhotothequeController extends AbstractController
                                 $newPhotoname
                             );
                         } catch (FileException $e){}
+
+                        $directory= $this->getParameter('kernel.project_dir').'/public/phototheques'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $phototheque->setLibelle($newPhotoname);
                     }
                 }
 
-            $phototheque->setLibelle($newPhotoname);
             $phototheque->setParametre($parametre);
             $photothequeRepository->save($phototheque, true);
             

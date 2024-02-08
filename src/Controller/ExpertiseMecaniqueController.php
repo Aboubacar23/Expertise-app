@@ -54,6 +54,7 @@ use App\Repository\AdminRepository;
 use App\Repository\ControleMontageConssinetRepository;
 use App\Repository\ControleMontageRoulementRepository;
 use App\Service\MailerService;
+use App\Service\RedimensionneService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -62,7 +63,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/expertiseMecanique')]
 class ExpertiseMecaniqueController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private RedimensionneService $redimensionneService)
     {
     }
 
@@ -112,6 +113,8 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                     }
+                    $directory= $this->getParameter('kernel.project_dir').'/public/photo_controle_recensement'.'/'.$newPhotoname;
+                    $this->redimensionneService->resize($directory);
                     $controleRecensement->setPhoto($newPhotoname);
                 }
 
@@ -162,6 +165,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_rotor'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $photoRotor->setLibelle($newPhotoname);
                     }
                 }
@@ -458,7 +463,7 @@ class ExpertiseMecaniqueController extends AbstractController
                     //récuperer la taille de l'image à inserrer
                     $size = $image->getSize();
                     //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
-                    if($size > 2*1024*1024)
+                    if($size < 2*1024*1024)
                     {
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
@@ -472,11 +477,14 @@ class ExpertiseMecaniqueController extends AbstractController
                                 $newPhotoname
                             );
                         } catch (FileException $e) {}
+                        
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertise_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $photoExpertiseMecanique->setImage($newPhotoname);
                     }
                 }
 
                 $photoExpertiseMecanique->setParametre($parametre);
-                $photoExpertiseMecanique->setImage($newPhotoname);
                 $photoExpertiseMecaniqueRepository->save($photoExpertiseMecanique, true);
                 $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
             }
@@ -520,6 +528,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
@@ -569,6 +579,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
@@ -733,6 +745,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCa($newPhotoname);
                     }
                 }
@@ -758,6 +772,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCoa($newPhotoname);
                     }
                 }
@@ -789,6 +805,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCa($newPhotoname);
                     }
                 }
@@ -814,6 +832,8 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCoa($newPhotoname);
                     }
                 }

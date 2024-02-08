@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Parametre;
 use App\Entity\RemontagePhoto;
+use App\Service\MailerService;
 use App\Entity\RemontagePalier;
 use App\Form\RemontagePhotoType;
 use App\Entity\RemontageFinition;
 use App\Form\RemontagePalierType;
 use App\Form\RemontageFinitionType;
-use App\Entity\RemontageEquilibrage;
-use App\Form\RemontageEquilibrageType;
 use App\Repository\AdminRepository;
+use App\Entity\RemontageEquilibrage;
+use App\Service\RedimensionneService;
+use App\Form\RemontageEquilibrageType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RemontagePhotoRepository;
 use App\Repository\RemontagePalierRepository;
@@ -20,7 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\RemontageFinitionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RemontageEquilibrageRepository;
-use App\Service\MailerService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -29,6 +30,11 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/remontage')]
 class RemontageController extends AbstractController
 {
+    public function __construct(Private RedimensionneService $redimensionneService)
+    {
+        
+    }
+    
     #[Route('/index/{id}', name: 'app_remontage_index')]
     public function index(Parametre $parametre,): Response
     {
@@ -184,6 +190,9 @@ class RemontageController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_remontages'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
                         $remontagePhoto->setImage($newPhotoname);
                     }
                 }

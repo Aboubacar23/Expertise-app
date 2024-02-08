@@ -607,11 +607,13 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertises'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $img->setLibelle($newPhotoname);
+                        $img->setLig($num);
+                        $photo->addImage($img);
                     }
                 }
-                $img->setLibelle($newPhotoname);
-                $img->setLig($num);
-                $photo->addImage($img);
             }
             $parametre->setPhoto($photo);
             $photo->setEtat(1);
@@ -656,10 +658,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique'.'/'.$newPhotoname;
-                        //dd($directory);
-                        $new = $this->redimensionneService->resize($directory);
-                        //dd($new);
+                        $this->redimensionneService->resize($directory);
                         $constatElectrique->setPhoto($newPhotoname);
                     }
                 }
@@ -705,10 +706,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         );
                     } catch (FileException $e) {}
                     $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique'.'/'.$newPhotoname;
-                    //dd($directory);
-                    $new = $this->redimensionneService->resize($directory);
+                    $this->redimensionneService->resize($directory);
                     $constatElectrique->setPhoto($newPhotoname);
-                }
+                } 
             }
             $constatElectrique->setParametre($parametre);
             $constatElectrique->setEtat(1);
@@ -723,8 +723,6 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             'formConstatElectrique' => $formConstatElectrique->createView(),
         ]);
     }
-
-
 
     //la fonction qui supprime une photo une fois ajouter
     #[Route('/photo/{id}', name: 'delete_photo', methods: ['GET'])]
@@ -929,12 +927,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $count = count($parametre->getPlaques());
         if ($formPlaque->isSubmitted() && $formPlaque->isValid()) {
             $trouve = false;
-            //  foreach($parametre->getPlaques() as $item)
-            //  {
             if ($count == 3) {
                 $trouve = true;
             }
-            //}
 
             if ($trouve == false) {
                 $photo = $formPlaque->get('photo')->getData();
@@ -949,10 +944,12 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         );
                     } catch (FileException $e) {
                     }
+                    $directory= $this->getParameter('kernel.project_dir').'/public/photo_plaque'.'/'.$newPhotoname;
+                    $this->redimensionneService->resize($directory);
+                    $plaque->setPhoto($newPhotoname);
                 }
-
+ 
                 $plaque->setParametre($parametre);
-                $plaque->setPhoto($newPhotoname);
                 $plaqueRepository->save($plaque, true);
                 return $this->redirectToRoute('app_photo_plaque', ['id' => $parametre->getId()]);
             } else {
