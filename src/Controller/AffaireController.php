@@ -3,7 +3,7 @@
 /**
  * ----------------------------------------------------------------
  * Projet : Base Expertise
- * Entreprise : Jeumont electric & Maintenance
+ * Entreprise : Jeumont Electric
  * ----------------------------------------------------------------
  * Service : Production
  * Demandeurs : Katia BION & Stéphane DESHAIES

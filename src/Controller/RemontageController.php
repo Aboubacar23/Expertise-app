@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Parametre;
 use App\Entity\RemontagePhoto;
+use App\Service\MailerService;
 use App\Entity\RemontagePalier;
 use App\Form\RemontagePhotoType;
 use App\Entity\RemontageFinition;
 use App\Form\RemontagePalierType;
 use App\Form\RemontageFinitionType;
-use App\Entity\RemontageEquilibrage;
-use App\Form\RemontageEquilibrageType;
 use App\Repository\AdminRepository;
+use App\Entity\RemontageEquilibrage;
+use App\Service\RedimensionneService;
+use App\Form\RemontageEquilibrageType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RemontagePhotoRepository;
 use App\Repository\RemontagePalierRepository;
@@ -20,7 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\RemontageFinitionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RemontageEquilibrageRepository;
-use App\Service\MailerService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -29,6 +30,11 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/remontage')]
 class RemontageController extends AbstractController
 {
+    public function __construct(Private RedimensionneService $redimensionneService)
+    {
+        
+    }
+    
     #[Route('/index/{id}', name: 'app_remontage_index')]
     public function index(Parametre $parametre,): Response
     {
@@ -166,17 +172,29 @@ class RemontageController extends AbstractController
             $image = $formRemontagePhoto->get('image')->getData();
             if ($choix == 'ajouter') {
                 if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('image_remontages'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $image->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_photo_remontage', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('image_remontages'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_remontages'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $remontagePhoto->setImage($newPhotoname);
                     }
-                    $remontagePhoto->setImage($newPhotoname);
                 }
                 $remontagePhoto->setParametre($parametre);
                 $remontagePhotoRepository->save($remontagePhoto, true);

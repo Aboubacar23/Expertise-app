@@ -20,6 +20,15 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-md-12">
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             {{ form_start(formAutrePointFonctionnementRotor) }}
                                 <div class="item form-group">
                                     <table class="table table-bordered">

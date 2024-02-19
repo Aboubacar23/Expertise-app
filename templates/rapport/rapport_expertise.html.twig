@@ -369,8 +369,8 @@
                     {% for item in parametre.plaques %}
                     <td height="15%" class="td_image">
                         {% if item.photo %}
-                        <img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" wi
-                            height="150px">
+                        <img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" width="250px"
+                            height="250px">
                         {% endif %}
                     </td>
                     {% endfor %}
@@ -613,8 +613,8 @@
             <table class="table_sous_page">
                 <tr class="titre_table">
                     <th class="numero"></th>
-                    <th style="width:200px;">Coussinet CA</th>
-                    <th style="width:200px;">Coussinet COA</th>
+                    <th>Coussinet CA</th>
+                    <th>Coussinet COA</th>
                 </tr>
                 <tr>
                     <td>Réf. Palier</td>
@@ -1155,7 +1155,7 @@
                     <td class="td_image">
                         {% if item.libelle %}
                         <img src="{{ absolute_url(asset('photo_rotor/' ~ item.libelle)) }}" alt="{{ item.libelle }}"
-                            height="400px" width="400px">
+                            height="300px" width="300px">
                         {% endif %}
                     </td>
                 </tr>
@@ -1323,8 +1323,8 @@
                     <th>Critères</th>
                     <th>Observation</th>
                     <th>Préconisations et conclusion</th>
-                    <th>Photo</th>
                     <th>Retenu</th>
+                    <th>Photo</th>
                 </tr>
                 {% for item in parametre.constatMecaniques %}
                 <tr>
@@ -1332,14 +1332,14 @@
                     <td>{{item.critere}}</td>
                     <td>{{item.observation}}</td>
                     <td>{{item.preconisationConclusion}}</td>
+                    <td>{{item.retenu}}</td>
                     {% if item.photo %}
                     <td height="15%" class="td_image"><img
                             src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}"
-                            alt="{{ item.photo }}" height="150px" width="150px"></td>
+                            alt="{{ item.photo }}" height="200px" width="200px"></td>
                     {% else %}
                     <td></td>
                     {% endif %}
-                    <td>{{item.retenu}}</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -1812,7 +1812,7 @@
                     <td height="15%" class="td_image">
                         {% if item.libelle %}
                         <img src="{{ absolute_url(asset('photo_expertises/' ~ item.libelle)) }}" alt="{{ item.photo }}"
-                            height="300px" width="300px">
+                            height="250px" width="250px">
                         {% endif %}
                     </td>
                 </tr>
@@ -1845,7 +1845,7 @@
                     {% if item.photo %}
                     <td height="20%" class="td_image"><img
                             src="{{ absolute_url(asset('photo_constat_electrique/' ~ item.photo)) }}"
-                            alt="{{ item.photo }}" height="150px" width="150px"></td>
+                            alt="{{ item.photo }}" height="200px" width="200px"></td>
                     {% else %}
                     <td></td>
                     {% endif %}
@@ -2056,7 +2056,7 @@
                     {% if item.photo %}
                     <td height="20%" class="td_image"><img
                             src="{{ absolute_url(asset('photo_constat_electrique_apres_lavage/' ~ item.photo)) }}"
-                            alt="{{ item.photo }}" height="150px" width="150px"></td>
+                            alt="{{ item.photo }}" height="200px" width="200px"></td>
                     {% else %}
                     <td></td>
                     {% endif %}

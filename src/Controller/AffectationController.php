@@ -2,7 +2,7 @@
 /**
  * ----------------------------------------------------------------
  * Projet : Base Métrologie
- * Entreprise : Jeumont electric & Maintenance
+ * Entreprise : Jeumont Electric
  * ----------------------------------------------------------------
  * Service : Production
  * Demandeurs : Katia BION & Stéphane DESHAIES
@@ -11,10 +11,10 @@
  * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
  * -----------------------------------------------------------------
  * Date de Création : 02-10-2023
- * Dérniere date de modification : -
+ * Dérniere date de modification : 01-02-2024
  * ----------------------------------------------------------------
  * ********************** Déscription *****************************
- * ## À savoir que l'accès à la page affaire est obligatoire
+ * ## À savoir que l'accès à la page affectation est obligatoire
  * Base de données : 
  *      + nom table : affectation
  * 

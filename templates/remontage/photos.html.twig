@@ -16,8 +16,17 @@
                         <a href="{{path('app_remontage_index',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                     </ul>
                     <div class="clearfix"></div> 
-                </div>
+                </div> 
                 <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                     {{ form_start(formRemontagePhoto) }}
                     <div class="row">
                         <table class="table table-bordered">

@@ -54,6 +54,7 @@ use App\Repository\AdminRepository;
 use App\Repository\ControleMontageConssinetRepository;
 use App\Repository\ControleMontageRoulementRepository;
 use App\Service\MailerService;
+use App\Service\RedimensionneService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -62,7 +63,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/expertiseMecanique')]
 class ExpertiseMecaniqueController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private RedimensionneService $redimensionneService)
     {
     }
 
@@ -90,21 +91,34 @@ class ExpertiseMecaniqueController extends AbstractController
 
             if ($trouve == false) {
                 $photo = $formControleRecensement->get('photo')->getData();
-                if ($photo) {
-                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
-                    try {
-                        $photo->move(
-                            $this->getParameter('image_controle_recensement'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                if ($photo) 
+                {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
+
+                    }else{
+                        $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                        try {
+                            $photo->move(
+                                $this->getParameter('image_controle_recensement'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
                     }
+                    $directory= $this->getParameter('kernel.project_dir').'/public/photo_controle_recensement'.'/'.$newPhotoname;
+                    $this->redimensionneService->resize($directory);
+                    $controleRecensement->setPhoto($newPhotoname);
                 }
 
                 $controleRecensement->setParametre($parametre);
-                $controleRecensement->setPhoto($newPhotoname);
                 $controleRecensementRepository->save($controleRecensement, true);
                 return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
             } else {
@@ -129,21 +143,32 @@ class ExpertiseMecaniqueController extends AbstractController
         $formPhotoRotor->handleRequest($request);
         if ($formPhotoRotor->isSubmitted() && $formPhotoRotor->isValid()) {
             if ($taille == 0) {
-                $photo = $formPhotoRotor->get('libelle')->getData();
-                if ($photo) {
-                    //  dd($photo);
-                    $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
-                    try {
-                        $photo->move(
-                            $this->getParameter('image_rotor'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
-                    }
 
-                    $photoRotor->setLibelle($newPhotoname);
+                $photo = $formPhotoRotor->get('libelle')->getData();
+                if ($photo) 
+                {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_photo_rotor', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                        try {
+                            $photo->move(
+                                $this->getParameter('image_rotor'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_rotor'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $photoRotor->setLibelle($newPhotoname);
+                    }
                 }
 
                 $photoRotor->setParametre($parametre);
@@ -425,7 +450,6 @@ class ExpertiseMecaniqueController extends AbstractController
     #[Route('/photos/{id}', name: 'app_photos_mecanique')]
     public function photo(PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository, SluggerInterface $slugger, Parametre $parametre, Request $request): Response
     {
-
         //la partie photo
         $photoExpertiseMecanique = new PhotoExpertiseMecanique();
 
@@ -435,21 +459,32 @@ class ExpertiseMecaniqueController extends AbstractController
             $choix = $request->get('bouton8');
             if ($choix == 'ajouter') {
                 $image = $formPhotoExpertiseMecanique->get('image')->getData();
-                if ($formPhotoExpertiseMecanique) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('image_expertise_mecaniques'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                if ($image) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $image->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size < 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('image_expertise_mecaniques'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {}
+                        
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertise_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $photoExpertiseMecanique->setImage($newPhotoname);
                     }
                 }
 
                 $photoExpertiseMecanique->setParametre($parametre);
-                $photoExpertiseMecanique->setImage($newPhotoname);
                 $photoExpertiseMecaniqueRepository->save($photoExpertiseMecanique, true);
                 $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
             }
@@ -475,17 +510,28 @@ class ExpertiseMecaniqueController extends AbstractController
             if ($choix == 'ajouter') {
                 $image = $formConstatMecanique->get('photo')->getData();
                 if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_constat_mecanique'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $image->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_constat_mecanique'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $constatMecanique->setPhoto($newPhotoname);
                     }
-                    $constatMecanique->setPhoto($newPhotoname);
                 }
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
@@ -493,8 +539,6 @@ class ExpertiseMecaniqueController extends AbstractController
                 $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
             }
         }
-
-
         return $this->render('expertise_mecanique/constat.html.twig', [
             'parametre' => $parametre,
             'formConstatMecanique' => $formConstatMecanique->createView(),
@@ -517,17 +561,28 @@ class ExpertiseMecaniqueController extends AbstractController
             if ($choix == 'ajouter') {
                 $image = $formConstatMecanique->get('photo')->getData();
                 if ($image) {
-                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
-                    try {
-                        $image->move(
-                            $this->getParameter('images_constat_mecanique'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $image->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_constat_mecanique'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $constatMecanique->setPhoto($newPhotoname);
                     }
-                    $constatMecanique->setPhoto($newPhotoname);
                 }
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
@@ -561,7 +616,6 @@ class ExpertiseMecaniqueController extends AbstractController
         if ($photoExpertiseMecanique) {
             $nom = $photoExpertiseMecanique->getImage();
             unlink($this->getParameter('image_expertise_mecaniques') . '/' . $nom);
-
             $photoExpertiseMecaniqueRepository->remove($photoExpertiseMecanique, true);
             return $this->redirectToRoute('app_photos_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
@@ -671,34 +725,57 @@ class ExpertiseMecaniqueController extends AbstractController
             if ($choix == 'coussinet_en_cours') {
                 //photo coussinet ca
                 $photo_ca = $formCoussinet->get('photo_ca')->getData();
-                if ($photo_ca) {
-                    $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
-                    try {
-                        $photo_ca->move(
-                            $this->getParameter('image_coussinet'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                if ($photo_ca) 
+                {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo_ca->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
+                        try {
+                            $photo_ca->move(
+                                $this->getParameter('image_coussinet'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $coussinet->setPhotoCa($newPhotoname);
                     }
-                    $coussinet->setPhotoCa($newPhotoname);
                 }
 
                 //photo coussinet coa
                 $photo_coa = $formCoussinet->get('photo_coa')->getData();
                 if ($photo_coa) {
-                    $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
-                    try {
-                        $photo_coa->move(
-                            $this->getParameter('image_coussinet'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo_coa->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
+                        try {
+                            $photo_coa->move(
+                                $this->getParameter('image_coussinet'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $coussinet->setPhotoCoa($newPhotoname);
                     }
-                    $coussinet->setPhotoCoa($newPhotoname);
                 }
 
                 $parametre->setCoussinet($coussinet);
@@ -710,33 +787,55 @@ class ExpertiseMecaniqueController extends AbstractController
                 //photo coussinet ca
                 $photo_ca = $formCoussinet->get('photo_ca')->getData();
                 if ($photo_ca) {
-                    $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
-                    try {
-                        $photo_ca->move(
-                            $this->getParameter('image_coussinet'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo_ca->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($photo_ca->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_ca->guessExtension();
+                        try {
+                            $photo_ca->move(
+                                $this->getParameter('image_coussinet'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $coussinet->setPhotoCa($newPhotoname);
                     }
-                    $coussinet->setPhotoCa($newPhotoname);
                 }
 
                 //photo coussinet coa
                 $photo_coa = $formCoussinet->get('photo_coa')->getData();
                 if ($photo_coa) {
-                    $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safePhotoname = $slugger->slug($originalePhoto);
-                    $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
-                    try {
-                        $photo_coa->move(
-                            $this->getParameter('image_coussinet'),
-                            $newPhotoname
-                        );
-                    } catch (FileException $e) {
+                    //récuperer la taille de l'image à inserrer
+                    $size = $photo_coa->getSize();
+                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    if($size > 2*1024*1024)
+                    {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        $this->redirectToRoute('app_coussinet', ['id' => $parametre->getId()]);
+                    }else{
+                        $originalePhoto = pathinfo($photo_coa->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo_coa->guessExtension();
+                        try {
+                            $photo_coa->move(
+                                $this->getParameter('image_coussinet'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
+                        $this->redimensionneService->resize($directory);
+                        $coussinet->setPhotoCoa($newPhotoname);
                     }
-                    $coussinet->setPhotoCoa($newPhotoname);
                 }
 
                 $parametre->setCoussinet($coussinet);
@@ -819,7 +918,6 @@ class ExpertiseMecaniqueController extends AbstractController
             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
-
 
     //la fonction qui supprime controle géometrique
     #[Route('/controle-delete-geo/{id}', name: 'app_delete_geom_controle', methods: ['GET'])]

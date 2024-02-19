@@ -1,5 +1,24 @@
 <?php
-
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont Electric
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 25-05-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ *******Template **************************
+ les views client se trouvent dans le dossier "client" du template
+ * ********************** Déscription *****************************
+ * Ce controleur est composé d'une seule fonction
+ * 1- la fonction "index" : pour afficher et envoyer le formulaire de contre expertise
+ */
 namespace App\Controller;
 
 use App\Entity\Parametre;

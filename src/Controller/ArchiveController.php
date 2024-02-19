@@ -1,5 +1,29 @@
 <?php
-
+/**
+ * ----------------------------------------------------------------
+ * Projet : Base Métrologie
+ * Entreprise : Jeumont Electric
+ * ----------------------------------------------------------------
+ * Service : Production
+ * Demandeurs : Katia BION & Stéphane DESHAIES
+ * ----------------------------------------------------------------
+ * Développé par : Aboubacar Sidiki CONDE
+ * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
+ * -----------------------------------------------------------------
+ * Date de Création : 02-10-2023
+ * Dérniere date de modification : -
+ * ----------------------------------------------------------------
+ *******Template **************************
+ les views de d'archives (historiques)
+    /archive
+ * ********************** Déscription *****************************
+ * l'accès à cette page est obligatoire 
+ * Dans ce contrôleur il y a 
+ *******Template **************************deux fonction
+ *  1- la fonction "index" : pour afficher la liste des dossiers archivers (historiques)
+ *  2- la fonction "delete" : pour supprimer un archive 
+ * 
+ */
 namespace App\Controller;
 
 use App\Entity\Affaire;
@@ -23,7 +47,7 @@ class ArchiveController extends AbstractController
 
     //la fonction qui supprime une archive
     #[Route('/supprimer-archive/{id}', name: 'app_archive_delete', methods: ['GET'])]
-    public function deletePhoto(Archive $archive,ArchiveRepository $archiveRepository): Response
+    public function delete(Archive $archive,ArchiveRepository $archiveRepository): Response
     {
         if($archive)
         {

@@ -2,7 +2,7 @@
 /**
  * ----------------------------------------------------------------
  * Projet : Base Métrologie
- * Entreprise : Jeumont electric & Maintenance
+ * Entreprise : Jeumont Electric
  * ----------------------------------------------------------------
  * Service : Production
  * Demandeurs : Katia BION & Stéphane DESHAIES
