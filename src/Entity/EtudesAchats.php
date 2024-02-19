@@ -17,8 +17,8 @@ class EtudesAchats
     #[ORM\Column(length: 255)]
     private ?string $quoi = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $delai = null;
+    #[ORM\Column(nullable: true)]
+    private ?float $delai = null;
 
     #[ORM\Column(length: 255)]
     private ?string $observation = null;
@@ -46,12 +46,12 @@ class EtudesAchats
         return $this;
     }
 
-    public function getDelai(): ?\DateTimeInterface
+    public function getDelai(): ?float
     {
         return $this->delai;
     }
 
-    public function setDelai(\DateTimeInterface $delai): self
+    public function setDelai(float $delai): self
     {
         $this->delai = $delai;
 

@@ -48,7 +48,8 @@ class TypeType extends AbstractType
                 'label' => 'Tension (V)'
             ])
             ->add('stator_tension2',NumberType::class, [
-                'label' => 'Tension (V)'
+                'label' => 'Tension 2 (V)',
+                'required' => false
             ])
             ->add('stator_frequence',NumberType::class, [
                 'label' => 'Fréquence (Hz)'
@@ -61,16 +62,19 @@ class TypeType extends AbstractType
                     'Etoile' => 'Etoile',
                     'Triangle' => 'Triangle'
                 ],
-                'placeholder' => 'Choisir couplage'
+                'placeholder' => 'Choisir couplage',
+                'required' => false
             ])
             ->add('date_arrivee', DateType::class, [
                 'widget' => 'single_text'
             ])
             ->add('rotor_tension',NumberType::class, [
-                'label' => 'Tension (V)'
+                'label' => 'Tension (V)',
+                'required' => false
             ])
             ->add('rotor_tension2',NumberType::class, [
-                'label' => 'Tension 2 (V)'
+                'label' => 'Tension 2 (V)',
+                'required' => false
             ])
             ->add('rotor_expertise_refrigeant',ChoiceType::class, [
                 'label'=> 'Expertise Réfrigeant',
@@ -79,10 +83,12 @@ class TypeType extends AbstractType
                     'Aéro' => 'Aéro',
                     'Aucun' => 'Aucun'
                 ],
-                'placeholder' => 'Choisir expertise'
+                'placeholder' => 'Choisir expertise',
+                'required' => false
             ])
             ->add('rotor_courant',NumberType::class, [
-                'label' => 'Courant (A)'
+                'label' => 'Courant (A)',
+                'required' => false
             ])
             ->add('presence_plans')
         ;
