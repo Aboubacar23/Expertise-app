@@ -87,8 +87,7 @@
 										<table class="table">
 											<tbody>
 												<tr>
-													<th style="width:50%">Nom du client
-													</th>
+													<th>Nom du client</th>
 													<td>{{affaire.client }}</td>
 												</tr>
 												<tr>
@@ -147,64 +146,82 @@
 									<h2>Avancement du projet</h2>
 									<hr>
 									<form class="form-horizontal form-label-left">
-										<label class="control-label col-md-6 col-sm-6">1.	Revue Enclenchement</label>
-										<div class="col-md-6 col-sm-6">
-											{% if affaire.revueEnclenchements %}
-												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked disabled/>
-											{% else %}
-												<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" disabled/>
-											{% endif %}
-										</div>
-										<label class="control-label col-md-6 col-sm-6">2.	Parametre Machine</label>
-										<div class="col-md-6 col-sm-6">
-											{% if affaire.parametres|length == 0 %}
-												<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-											{% else %}
-												<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-											{% endif %}
+										<dov class="row">
+											<div class="col-md-6 col-sm-6">
+												<label class="control-label">1.	Revue Enclenchement</label>
+											</div>
+											<div class="col-md-6 col-sm-6">
+												{% if affaire.revueEnclenchements %}
+													<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" checked disabled/>
+												{% else %}
+													<input type="checkbox" class="demo1 form-control" value="#5367ce" style="width: 15px;" disabled/>
+												{% endif %}
+											</div>
+										</dov>
+										<div class="row">
+											<label class="control-label col-md-6 col-sm-6">2.	Parametre Machine</label>
+											<div class="col-md-6 col-sm-6">
+												{% if affaire.parametres|length == 0 %}
+													<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+												{% else %}
+													<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+												{% endif %}
+											</div>
 										</div>
 										{% if affaire.parametres %}
-											{% for item in affaire.parametres %}										
-												<label class="control-label col-md-6 col-sm-6">3.	Expertise Electrique avant lavage</label>
-												<div class="col-md-6 col-sm-6">
-													{% if item.expertiseElectiqueAvantLavage == 0 %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-													{% else %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-													{% endif %}	
-												</div>											
-												<label class="control-label col-md-6 col-sm-6">4.	Expertise Electrique après lavage</label>
-												<div class="col-md-6 col-sm-6">
-													{% if item.expertiseElectiqueApresLavage == 0 %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-													{% else %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-													{% endif %}	
-												</div>										
-												<label class="control-label col-md-6 col-sm-6">5.	Expertise mécanique</label>
-												<div class="col-md-6 col-sm-6">
-													{% if item.expertiseMecanique == 0 %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-													{% else %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-													{% endif %}	
-												</div>											
-												<label class="control-label col-md-6 col-sm-6">6.	Essais Finaux</label>
-												<div class="col-md-6 col-sm-6">
-													{% if item.essaisFinaux == 0 %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-													{% else %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-													{% endif %}	
-												</div>									
-												<label class="control-label col-md-6 col-sm-6">7.	Remontage</label>
-												<div class="col-md-6 col-sm-6">
-													{% if item.remontage == 0 %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-													{% else %}
-														<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-													{% endif %}	
-												</div>													
+											{% for item in affaire.parametres %}
+												<div class="row">										
+													<label class="control-label col-md-6 col-sm-6">3.	Expertise Electrique avant lavage</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.expertiseElectiqueAvantLavage == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}	
+													</div>
+												</div>	
+												
+												<div class="row">									
+													<label class="control-label col-md-6 col-sm-6">4.	Expertise Electrique après lavage</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.expertiseElectiqueApresLavage == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}	
+													</div>	
+												</div>
+												<div class="row">									
+													<label class="control-label col-md-6 col-sm-6">5.	Expertise mécanique</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.expertiseMecanique == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}	
+													</div>
+												</div>
+												
+												<div class="row">										
+													<label class="control-label col-md-6 col-sm-6">6.	Essais Finaux</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.essaisFinaux == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}	
+													</div>
+												</div>	
+												<div class="row">							
+													<label class="control-label col-md-6 col-sm-6">7.	Remontage</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.remontage == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}	
+													</div>
+												</div>												
 											{% endfor %}											
 										{% endif %}
 									</form>

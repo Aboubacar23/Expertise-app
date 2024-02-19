@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class EtudesAchatsType extends AbstractType
 {
@@ -15,8 +16,8 @@ class EtudesAchatsType extends AbstractType
     {
         $builder
             ->add('quoi')
-            ->add('delai', DateType::class, [
-                'widget' => 'single_text'
+            ->add('delai', NumberType::class, [
+                'required' => false
             ])
             ->add('observation')
             ->add('type',ChoiceType::class,[

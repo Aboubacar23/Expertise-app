@@ -64,7 +64,8 @@ class RevueEnclenchementType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('arrivee_machine', DateType::class,[
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('date_rapport_expertise_finalise', DateType::class,[
                 'widget' => 'single_text'

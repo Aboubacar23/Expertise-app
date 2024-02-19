@@ -63,7 +63,8 @@ class ParametreType extends AbstractType
             ])
             ->add('stator_couplage', ChoiceType::class, [
                 'choices' => [
-                    'Etoile' => 'Etoile'
+                    'Etoile' => 'Etoile',
+                    'Triangle' => 'Triangle'
                 ],
                 'placeholder' => 'Choisir couplage',
                 'required' => false
@@ -72,10 +73,12 @@ class ParametreType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('rotor_tension', NumberType::class, [
-                'label' => 'Tension (V)'
+                'label' => 'Tension (V)',
+                'required' => false
             ])
             ->add('rotor_tension2', NumberType::class, [
-                'label' => 'Tension 2 (V)'
+                'label' => 'Tension 2 (V)',
+                'required' => false
             ])
             ->add('rotor_expertise_refrigeant',ChoiceType::class, [
                 'choices' => [
@@ -86,7 +89,8 @@ class ParametreType extends AbstractType
                 'placeholder' => 'Choisir expertise'
             ])
             ->add('rotor_courant', NumberType::class, [
-                'label' => "Courant (A)"
+                'label' => "Courant (A)",
+                'required' => false
             ])
             ->add('presence_plans')
             ->add('stator_courant_excitation',NumberType::class, [

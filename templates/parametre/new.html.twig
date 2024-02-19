@@ -58,13 +58,11 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Axe de la machine<span
-                                class="required text-danger">*</span></label>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="montage">Axe de la machine</label>
                         <div class="col-md-4 col-sm-4 ">
                             {{ form_widget(form.montage) }}
                         </div>
-                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)<span
-                                class="required text-danger">*</span></label>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="masse">Masse(kg)</label>
                         <div class="col-md-4 col-sm-4 ">
                             {{ form_widget(form.masse) }}
                         </div>
@@ -92,8 +90,10 @@
                         <div class="col-md-4 col-sm-4 ">
                             {{ form_widget(form.essais_plateforme) }}
                         </div>
-                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de Correction<span class="required text-danger">*</span></label>
-                        <div class="col-md-4 col-sm-4">{{ form_widget(form.temp_correction, { value : correction }) }}</div>
+                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="type_palier">Température de
+                            Correction<span class="required text-danger">*</span></label>
+                        <div class="col-md-4 col-sm-4">{{ form_widget(form.temp_correction, { value : correction }) }}
+                        </div>
                     </div>
                 </div>
             </div>

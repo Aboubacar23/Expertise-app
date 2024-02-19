@@ -107,7 +107,7 @@
     <table>
         <tr>
             <th class="table-primary">Contre expertise</th>
-            <th class="table-primary">Référence client</th>
+            <th class="table-primary">Recette client</th>
             <th class="table-primary">Observation</th>
         </tr>
         <tr>
@@ -153,7 +153,7 @@
         </tr>
         <tr  class="table-primary">
             <th>Quoi </th>
-            <th>Délai/Date</th>
+            <th>Délai/ En Jour</th>
             <th>Observation</th>
         </tr>      
         {% if revue_enclenchement.etudesAchats %}
@@ -174,7 +174,7 @@
         </tr>
         <tr  class="table-primary">
             <th>Quoi </th>
-            <th>Délai/Date</th>
+            <th>Délai/ En Jour</th>
             <th>Observation</th>
         </tr>      
         {% if revue_enclenchement.etudesAchats %}
@@ -211,18 +211,21 @@
                         {% set total_heures_op = total_heures_op + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                {% if total_heures_op != 0 %}
                     <tr class="table-primary">
                         <th colspan="1" class="titre">A réception</th>
                         <th class="taille_th">{{total_heures_op}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'A réception' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'A réception' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %} 
+                    
+                {% endif %}  
             <!-- fin de la réception -->           
             
             <!-- début de la Démontage moteur -->
@@ -234,18 +237,21 @@
                         {% set total_heures_dm = total_heures_dm + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                {% if total_heures_dm != 0 %}
                     <tr class="table-primary">
                         <th colspan="1" class="titre">Démontage moteur</th>
                         <th class="taille_th">{{total_heures_dm}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Démontage moteur' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Démontage moteur' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %}   
+                    
+                {% endif %}
             <!-- fin de la Démontage moteur -->         
             
             <!-- début de la Lavage / Etuvage / Nettoyage -->
@@ -257,18 +263,21 @@
                         {% set total_heures_len = total_heures_len + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                {% if total_heures_len != 0 %}
                     <tr class="table-primary">
                         <th colspan="1" class="titre">Lavage / Etuvage / Nettoyage</th>
                         <th class="taille_th">{{total_heures_len}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Lavage / Etuvage / Nettoyage' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Lavage / Etuvage / Nettoyage' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %}  
+                    
+                {% endif %} 
             <!-- fin de la Lavage / Etuvage / Nettoyage -->   
             
             <!-- début de l'Expertise électrique -->
@@ -280,18 +289,21 @@
                         {% set total_heures_ee = total_heures_ee + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                {% if total_heures_ee != 0 %}
+                    
                     <tr class="table-primary">
                         <th colspan="1" class="titre">Expertise électrique</th>
                         <th class="taille_th">{{total_heures_ee}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Expertise électrique' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Expertise électrique' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %}   
+                {% endif %}
             <!-- fin de l'Expertise électrique -->           
             
             <!-- début de l'Expertise mécanique -->
@@ -302,19 +314,21 @@
                         {% set num1 = num1 + 1 %}
                         {% set total_heures_em = total_heures_em + item2.heures %}                          
                     {% endif %}
-                {% endfor %}   
-                    <tr class="table-primary">
-                        <th colspan="1" class="titre">Expertise mécanique</th>
-                        <th class="taille_th">{{total_heures_em}}</th>
-                    </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Expertise mécanique' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                {% endfor %}  
+                {% if total_heures_em != 0 %}
+                        <tr class="table-primary">
+                            <th colspan="1" class="titre">Expertise mécanique</th>
+                            <th class="taille_th">{{total_heures_em}}</th>
+                        </tr>
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Expertise mécanique' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %} 
+                {% endif %}  
             <!-- fin de l'Expertise mécanique --> 
             
             <!-- début de Remontage moteur -->
@@ -326,18 +340,20 @@
                         {% set total_heures_rm = total_heures_rm + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                {% if total_heures_rm != 0 %}
                     <tr class="table-primary">
                         <th colspan="1" class="titre">Remontage moteur</th>
                         <th class="taille_th">{{total_heures_rm}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Remontage moteur' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Remontage moteur' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %}   
+                {% endif %}
             <!-- fin de Remontage moteur -->
 
             <!-- début de Révision Hydro -->
@@ -349,19 +365,21 @@
                         {% set total_heures_rh = total_heures_rh + item2.heures %}
                     {% endif %}
                 {% endfor %}
-                <tr class="table-primary">
-                    <th colspan="1" class="titre">Révision Hydro</th>
-                    <th class="taille_th">{{total_heures_rh}}</th>
-                </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Révision Hydro' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                <!-- fin de Révision Hydro -->
+                {% if total_heures_rh != 0 %}
+                    <tr class="table-primary">
+                        <th colspan="1" class="titre">Révision Hydro</th>
+                        <th class="taille_th">{{total_heures_rh}}</th>
+                    </tr>
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Révision Hydro' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            <!-- fin de Révision Hydro -->
 
             <!-- début de Révision Aéro -->
                 {% set total_heures_ra = 0 %}
@@ -372,19 +390,23 @@
                         {% set total_heures_ra = total_heures_ra + item2.heures %}
                     {% endif %}
                 {% endfor %}
-                <tr class="table-primary">
-                    <th colspan="1" class="titre">Révision Aéro</th>
-                    <th class="taille_th">{{total_heures_ra}}</th>
-                </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Révision Aéro' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                <!-- fin de Révision Aéro -->
+
+                {% if total_heures_ra != 0 %}
+                    <tr class="table-primary">
+                        <th colspan="1" class="titre">Révision Aéro</th>
+                        <th class="taille_th">{{total_heures_ra}}</th>
+                    </tr>
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Révision Aéro' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+            <!-- fin de Révision Aéro -->
 
             <!-- début de Autres -->
                 {% set total_heures_au = 0 %}
@@ -395,18 +417,21 @@
                         {% set total_heures_au = total_heures_au + item2.heures %}                          
                     {% endif %}
                 {% endfor %}   
+                
+                {% if total_heures_au != 0 %}
                     <tr class="table-primary">
                         <th colspan="1" class="titre">Autres</th>
                         <th class="taille_th">{{total_heures_au}}</th>
                     </tr>
-                {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Autres' %}
-                        <tr>
-                            <td colspan="1">{{item2.travaux}}</td>
-                            <td class="taille_th">{{item2.heures}}</td>
-                        </tr>                                  
-                    {% endif %}
-                {% endfor %}   
+                    {% for item2 in revue_enclenchement.ateliers %}
+                        {% if item2.operations == 'Autres' %}
+                            <tr>
+                                <td colspan="1">{{item2.travaux}}</td>
+                                <td class="taille_th">{{item2.heures}}</td>
+                            </tr>                                  
+                        {% endif %}
+                    {% endfor %}  
+                {% endif %}
             <!-- fin de Autres -->   
                 <tr>
                     <td class="table-primary titre" colspan="1">Total</td>

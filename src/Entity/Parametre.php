@@ -25,7 +25,7 @@ class Parametre
     #[ORM\Column]
     private ?float $puissance = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $montage = null;
 
     #[ORM\Column(length: 255)]
@@ -40,7 +40,7 @@ class Parametre
     #[ORM\Column]
     private ?float $vitesse = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $masse = null;
 
     #[ORM\Column(length: 255)]

@@ -48,11 +48,11 @@ class RevueEnclenchement
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $arc = null;
-
+ 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $revue_enclenchement = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $arrivee_machine = null;
 
     #[ORM\Column(nullable: true)]
