@@ -9,14 +9,10 @@ class RedimensionneService{
     private const MAX_WIDTH = 300;
     private const MAX_HEIGHT = 300;
 
-    private $imagine;
-    public function __construct()
-    {
-        $this->imagine = new Imagine();
-    }
-
     public function resize(String $filename)
     {
+        $imagine = new Imagine();
+
         list($iwidth, $iheight) = getimagesize($filename);
         $ratio = $iwidth / $iheight;
         $width = self::MAX_WIDTH;
@@ -29,7 +25,7 @@ class RedimensionneService{
             $height = $width / $ratio;
         }
 
-        $photo = $this->imagine->open($filename);
+        $photo = $imagine->open($filename);
         $photo->resize(new Box($width, $height))->save($filename);
     }
 }
