@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class AppareilType extends AbstractType
 {
@@ -24,7 +25,7 @@ class AppareilType extends AbstractType
         $builder
             ->add('designation', ChoiceType::class, [
                 'label' => 'Désignation du moyen de contrôle',
-                'required' => false,
+                'required' => true,
                 'placeholder' => 'Choisissez',
                 'choices' => [
                     'ÉLECTRIQUE' => [
@@ -222,8 +223,8 @@ class AppareilType extends AbstractType
                 'widget' => 'single_text',
 
             ])
-            ->add('prix_achat',MoneyType::class, [
-                'currency' => 'EUR'
+            ->add('prix_achat',TextType::class, [
+                'label' => 'Prix Achat (Euro)'
             ])
             ->add('numero_da', TextType::class, [
                 'label'=> "N° d'achat( IFS ou autre )",
