@@ -132,9 +132,18 @@ class InterventionController extends AbstractController
     {
         $form = $this->createForm(InterventionType::class, $intervention);
         $form->handleRequest($request);
+        $repere = new Lintervention();
+        $app = $intervention->getLinterventions();
+        $item = $app[0];
+        $type_service = $item->getAppareil()->getTypeService();
+        if($type_service == 'electrique')
+        {
+            $f = $this->createForm(LinterventionElectriqueType::class, $repere);
 
-        $repere = new Lintervention(); 
-        $f = $this->createForm(LinterventionType::class, $repere);
+        }elseif($type_service == 'mecanique')
+        {
+            $f = $this->createForm(LinterventionMecaniqueType::class, $repere);
+        }
         $f->handleRequest($request);
 
         $session = $request->getSession();
