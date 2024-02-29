@@ -158,7 +158,7 @@
 										{% if item.type == 'ETUDES' %}
 											<tr>
 												<td>{{item.quoi}}</td>
-												<td>{{item.delai ? item.delai | date('d-m-Y') : ''}}</td>
+												<td>{{item.delai}}</td>
 												<td>{{item.observation}}</td>
 												<td></td>
 												<td width="150" class="text-center">
@@ -176,7 +176,7 @@
 										{% if item.type == 'ACHATS / SOUS-TRAITANCE' %}
 											<tr>
 												<td>{{item.quoi}}</td>
-												<td>{{item.delai ? item.delai | date('d-m-Y') : ''}}</td>
+												<td>{{item.delai}}</td>
 												<td>{{item.observation}}</td>
 												<td></td>
 												<td width="150" class="text-center">

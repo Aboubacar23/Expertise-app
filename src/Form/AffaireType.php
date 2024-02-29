@@ -41,19 +41,9 @@ class AffaireType extends AbstractType
             ])
             ->add('num_fabrication', TextType::class, [
                 'required' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Ce champs est obligatoire'
-                    ])
-                ]
             ])
             ->add('num_article_client', TextType::class, [
                 'required' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Ce champs est obligatoire'
-                    ])
-                ]
             ])
             ->add('context',TextType::class, [
                 'required' => false,
