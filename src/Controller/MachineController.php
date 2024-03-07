@@ -73,6 +73,15 @@ class MachineController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
+            if ($machine->getSousCategorie3() == null)
+            {
+                $machine->setSousCategorie3(' ');
+            }
+
+            if ($machine->getSousCategorie2() == null)
+            {
+                $machine->setSousCategorie2(' ');
+            }
             $machineRepository->save($machine, true);
             return $this->redirectToRoute('app_machine_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -81,12 +81,13 @@ class ParametreType extends AbstractType
                 'required' => false
             ])
             ->add('rotor_expertise_refrigeant',ChoiceType::class, [
+                'label' => 'Expertise Réfrigérant',
                 'choices' => [
-                    'Hydro' => 'Hydro',
-                    'Aéro' => 'Aéro',
+                    'Hydro Réfrigérant' => 'Hydro Réfrigérant',
+                    'Aéro Réfrigérant' => 'Aéro Réfrigérant',
                     'Aucun' => 'Aucun'
                 ],
-                'placeholder' => 'Choisir expertise'
+                'placeholder' => 'Choisir type'
             ])
             ->add('rotor_courant', NumberType::class, [
                 'label' => "Courant (A)",
