@@ -32,25 +32,27 @@
                                         <th width="20%">Hygrométrie (%)</th>
                                         <th width="10%">Critère</th>
                                         <th width="10%">Tension Rotor</th>
-                                        <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
-                                                                Tension Excitation
-                                                            {% else %}
-                                                                Tension Stator
-                                                            {% endif %}</th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation
+                                            {% else %}
+                                                Tension Stator
+                                            {% endif %}
+                                        </th>
                                     </tr>   
                                     <tr> 
                                         <td>{{ form_widget(formStatorApresLavage.temp_ambiante) }}</td>
                                         <td >{{ form_widget(formStatorApresLavage.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formStatorApresLavage.hygrometrie) }}</td>
                                         <td>{{parametre.critere}} Ω/V </td>
+                                        <td>{{parametre.rotorTension}}
+                                            {% if parametre.rotorTension2 != 0 %}
+                                                et {{parametre.rotorTension2 }}
+                                            {% endif %}
+                                        </td>
                                         <td>{{parametre.statorTension}} 
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}
-                                            {% endif %} 
-                                        </td>
-                                        <td>{{parametre.rotorTension}} 
-                                            {% if parametre.rotorTension2 != 0 %}
-                                                et {{parametre.rotorTension2 }}
                                             {% endif %} 
                                         </td>
                                     </tr>  

@@ -210,6 +210,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
             } elseif ($choix == 'ajouter') {
                 $val = 0;
+
                 foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
                     if ($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle()) {
                         $val = $item->getValeur();
@@ -782,7 +783,6 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             'diode' => $diode_libelle
         ]);
     }
-
 
     //delete Pont de diodes
     #[Route('/diode-mesure_sup/{id}', name: 'app_pont_diode_delete')]

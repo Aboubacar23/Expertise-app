@@ -26,7 +26,7 @@ class LMesureResistanceType extends AbstractType
                 }
             ])
             ->add('critere', NumberType::class,[
-                'required' => false
+                'required' => true
             ])
             ->add('unite', ChoiceType::class, [
                 'required' => true,
