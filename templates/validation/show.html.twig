@@ -183,7 +183,14 @@
                                                                 {% endif %}
 
                                                             </td>
-                                                            <td>{{item.tempCorrection| number_format(1)}}</td>
+                                                            <td>
+                                                                {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
+                                                                    'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
+                                                                    -
+                                                                {% else %}
+                                                                    {{item.tempCorrection | number_format(1)}}
+                                                                {% endif %}
+                                                            </td>
                                                             <td>{{item.conformite}}</td>
                                                         </tr>
                                                     {% endfor %}
@@ -232,7 +239,7 @@
                                                             <td>
                                                                 {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-
+                                                                    -
                                                                 {% else %}
                                                                     {{item.tempCorrection | number_format(1)}}
                                                                 {% endif %}
