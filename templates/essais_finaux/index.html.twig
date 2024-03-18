@@ -169,7 +169,7 @@
                                                 {% else %}
                                                     <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
                                                 {% endif %}
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.tempCorrection | number_format(1)}}</td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}
@@ -248,7 +248,7 @@
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}} {{item.unite}}</td>
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.tempCorrection | number_format(1)}}</td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}

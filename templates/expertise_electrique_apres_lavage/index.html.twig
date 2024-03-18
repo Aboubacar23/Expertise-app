@@ -224,7 +224,7 @@
                                     <td class="text-center">{{item.valeurRelevee}} {{ item.unite }}</td>
                                     <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
                                     {% endif %}
-                                    <td class="text-center">{{item.tempCorrection}}</td>
+                                    <td class="text-center">{{item.tempCorrection | number_format(1)}}</td>
                                     <td class="text-center">{{ item.conformite }}</td>
                                 </tr>
                                 {% endfor %}
@@ -317,7 +317,7 @@
                                 <td>{{item.critere}}</td>
                                 <td>{{item.valeurRelevee}} {{ item.unite}}</td>
                                 <td>{{item.valeur}} {{ item.unite }}</td>
-                                <td>{{item.tempCorrection}}</td>
+                                <td>{{item.tempCorrection | number_format(1)}}</td>
                                 <td>{{item.conformite}}</td>
                             </tr>
                             {% endfor %}
