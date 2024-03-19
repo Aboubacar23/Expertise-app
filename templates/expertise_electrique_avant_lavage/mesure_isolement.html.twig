@@ -268,7 +268,7 @@
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_type');
             var var_controle = document.getElementById('l_mesure_isolement_controle');
-
+            console.log(temp_ambiante);
             //récupérer les tensions(tension rotor et stator)
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
@@ -288,9 +288,10 @@
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
-            
-            if(var_type.value == 'Stator')
-            {  
+            console.log(var_type);
+            if(var_type.value == 1)
+            {
+                console.log("bien joué !");
                 //comparer la chaine du controle choisir à la chaine déjà choisir, puis calucer son critère
                 if(var_controle.value == var_id_UVW )
                 {
@@ -554,9 +555,9 @@
             }
         }
         document.getElementById('mesure_isolement_temp_ambiante').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_isolement_valeur').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_type').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_controle').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_isolement_valeur').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}
