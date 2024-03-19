@@ -1482,9 +1482,9 @@
                     <td>
                         {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                         'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                            {{item.valeur}}
+                            {{item.valeur | number_format(1)}}
                         {% else %}
-                            {{item.valeur}} <span class="my_police">{{item.unite}}</span>
+                            {{item.valeur | number_format(1)}} <span class="my_police">{{item.unite}}</span>
                         {% endif %}
                     </td>
                     <td>
@@ -1541,7 +1541,7 @@
                         {{item.critere}}
                         {% endif %}
                     </td>
-                    <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
+                    <td style="text-align: center;">{{item.valeur | number_format(1)}} <span class="my_police">{{item.unite}}</span></td>
                     <td>{{item.tempCorrection | number_format(1)}}</td>
                     <td>{{item.conformite}}</td>
                 </tr>
@@ -1918,9 +1918,9 @@
                     <td>
                         {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                         'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                        {{item.valeur}}
+                        {{item.valeur | number_format(1)}}
                         {% else %}
-                        {{item.valeur}} <span class="my_police">{{item.unite}}</span>
+                        {{item.valeur | number_format(1)}} <span class="my_police">{{item.unite}}</span>
                         {% endif %}
                     </td>
                     <td>
@@ -1972,7 +1972,7 @@
                     <td>{{item.controle}}</td>
                     <td style="text-align: center;">{{item.critere}}</td>
                     <td style="text-align: center;">{{item.valeurRelevee}}</td>
-                    <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
+                    <td style="text-align: center;">{{item.valeur | number_format(1)}} <span class="my_police">{{ item.unite }}</span></td>
                     <td style="text-align: center;">{{item.tempCorrection | number_format(1)}}</td>
                     <td style="text-align: center;">{{item.conformite}}</td>
                 </tr>

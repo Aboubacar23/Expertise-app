@@ -25,8 +25,9 @@ class LMesureReistanceEssaiType extends AbstractType
                         return  $query;
                     }
                 ])
-                ->add('critere', NumberType::class,[
-                    'required' => true
+                ->add('critere', TextType::class,[
+                    'required' => true,
+                    'label' => 'Critère'
                 ])
                 ->add('unite', ChoiceType::class, [
                     'required' => true,

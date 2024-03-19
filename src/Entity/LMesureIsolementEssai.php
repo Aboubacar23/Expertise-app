@@ -17,7 +17,7 @@ class LMesureIsolementEssai
     private ?string $controle = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $critere = null;
+    private ?string $critere = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $tension = null;
@@ -61,12 +61,12 @@ class LMesureIsolementEssai
         return $this;
     }
 
-    public function getCritere(): ?float
+    public function getCritere(): ?string
     {
         return $this->critere;
     }
 
-    public function setCritere(?float $critere): self
+    public function setCritere(?string $critere): self
     {
         $this->critere = $critere;
 

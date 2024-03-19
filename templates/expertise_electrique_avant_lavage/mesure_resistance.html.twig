@@ -104,7 +104,7 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td colspan="2">{{item.valeur}} {{item.unite}}</td>
+                                                <td colspan="2">{{item.valeur | number_format(1)}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection | number_format(1)}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   

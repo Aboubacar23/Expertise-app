@@ -117,9 +117,9 @@
                                                 <td>{{item.tension}}</td>
                                                 <td colspan="2">
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                        {{item.valeur}}
+                                                        {{item.valeur | number_format(1)}}
                                                     {% else %}
-                                                        {{item.valeur}} {{ item.unite}}
+                                                        {{item.valeur | number_format(1)}} {{ item.unite}}
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.tempCorrection | number_format(1)}}</td>
@@ -351,7 +351,7 @@
                     correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
 
-                const ol_critre = (critere*tension_stator)/1000000;
+                const ol_critre = (critere * tension_stator)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }
