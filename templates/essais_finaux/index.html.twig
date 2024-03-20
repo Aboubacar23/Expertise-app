@@ -165,11 +165,15 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
                                                 {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                    <td class="text-center">{{ item.valeur}}</td>
+                                                    <td>{{ item.valeur | number_format(2, '.',' ')}}</td>
                                                 {% else %}
-                                                    <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
+                                                    <td>{{ item.valeur | number_format(0, '.',' ')}} {{ item.unite }}</td>
                                                 {% endif %}
-                                                <td>{{item.tempCorrection | number_format(1)}}</td>
+                                                {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                    <td>-</td>
+                                                {% else %}
+                                                    <td>{{item.tempCorrection | number_format(0, '', '')}}</td>
+                                                {% endif %}
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}
@@ -247,8 +251,8 @@
                                                 <td>{{item.Type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.valeur | number_format(1)}} {{item.unite}}</td>
-                                                <td>{{item.tempCorrection | number_format(1)}}</td>
+                                                <td>{{item.valeur | number_format(1, '','')}} {{item.unite}}</td>
+                                                <td>{{item.tempCorrection | number_format(1, '', '')}}</td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}

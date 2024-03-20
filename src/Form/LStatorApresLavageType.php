@@ -26,7 +26,7 @@ class LStatorApresLavageType extends AbstractType
                     return  $query;
                 }
             ])
-            ->add('critere', TextType::class,[
+            ->add('critere', NumberType::class,[
                 'required' => true,
                 'label' => 'Critère'
             ])

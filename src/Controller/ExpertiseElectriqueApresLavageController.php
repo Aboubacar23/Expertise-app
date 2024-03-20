@@ -213,7 +213,15 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
                     if ($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle()) {
-                        $val = $item->getValeur();
+                        if ($item->getControle() == 'IP-UVW/masse' or
+                            $item->getControle() == 'IP-U/VW+masse' or
+                            $item->getControle() == 'IP-V/UW+masse' or
+                            $item->getControle() == 'IP-W/UV+masse')
+                        {
+                            $val = $item->getValeur();
+                        }else{
+                            $val = $item->getTempCorrection();
+                        }
                     }
                 }
                 $lig = sizeof($listes) + 1;
@@ -238,6 +246,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $listes[$lig] = $lstatorApresLavage;
                 $session->set('stators', $listes);
+                //dd($listes);
             }
         }
 

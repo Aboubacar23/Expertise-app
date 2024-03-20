@@ -17,7 +17,7 @@ class LStatorApresLavage
     private ?string $controle = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $critere = null;
+    private ?float $critere = null;
 
     #[ORM\Column]
     private ?float $tension_essai = null;
@@ -63,12 +63,12 @@ class LStatorApresLavage
         return $this;
     }
 
-    public function getCritere(): ?string
+    public function getCritere(): ?float
     {
         return $this->critere;
     }
 
-    public function setCritere(string $critere): self
+    public function setCritere(float $critere): self
     {
         $this->critere = $critere;
 

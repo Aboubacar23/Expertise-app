@@ -205,7 +205,7 @@
                                     <th width="14%">Contrôle</th>
                                     <th width="10%">Critère</th>
                                     <th class="text-center" width="14%">Tension d'éssai(V)</th>
-                                    <th class="text-center" width="14%">Valeur relevées avant lavage</th>
+                                    <th class="text-center" width="14%">Valeur relevée avant Lavage (Corrigé à 20°)</th>
                                     <th width="14%">Valeur relevées après lavage</th>
                                     <th width="14%">Correction à 20°</th>
                                     <th width="10%">Conformité</th>
@@ -214,18 +214,30 @@
                                 <tr>
                                     <td class="text-left">{{item.type}}</td>
                                     <td class="text-left">{{item.controle}}</td>
-                                    <td class="text-center">{{ item.critere }}</td>
-                                    <td class="text-center">{{item.tensionEssai}}</td>
-                                    {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or
-                                    item.controle == 'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                    <td class="text-center">{{item.valeurRelevee}}</td>
-                                    <td class="text-center">{{ item.valeur}}</td>
-                                    {% else %}
-                                    <td class="text-center">{{item.valeurRelevee}} {{ item.unite }}</td>
-                                    <td class="text-center">{{ item.valeur}} {{ item.unite }}</td>
-                                    {% endif %}
-                                    <td class="text-center">{{item.tempCorrection | number_format(1)}}</td>
-                                    <td class="text-center">{{ item.conformite }}</td>
+                                    <td class="text-left">{{ item.critere }}</td>
+                                    <td class="text-left">{{item.tensionEssai}}</td>
+                                    <td>
+                                        {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                            {{item.valeurRelevee | number_format(2)}}
+                                        {% else %}
+                                            {{item.valeurRelevee | number_format(0, '.','')}} {{ item.unite}}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                            {{item.valeur | number_format(2, '.','')}}
+                                        {% else %}
+                                            {{item.valeur | number_format(0, '.','')}} {{ item.unite}}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                            -
+                                        {% else %}
+                                            {{item.tempCorrection | number_format(0, '', '')}}
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-left">{{ item.conformite }}</td>
                                 </tr>
                                 {% endfor %}
                             </table>
@@ -315,9 +327,9 @@
                                 <td>{{item.type}}</td>
                                 <td>{{item.controle}}</td>
                                 <td>{{item.critere}}</td>
-                                <td>{{item.valeurRelevee}} {{ item.unite}}</td>
-                                <td>{{item.valeur | number_format(1)}} {{ item.unite }}</td>
-                                <td>{{item.tempCorrection | number_format(1)}}</td>
+                                <td>{{item.valeurRelevee | number_format(1, '.','')}} {{ item.unite}}</td>
+                                <td>{{item.valeur | number_format(1, '.','')}} {{ item.unite }}</td>
+                                <td>{{item.tempCorrection | number_format(1, '.', '')}}</td>
                                 <td>{{item.conformite}}</td>
                             </tr>
                             {% endfor %}
