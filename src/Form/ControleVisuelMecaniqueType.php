@@ -34,7 +34,8 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('numero_serie')
             ->add('nombre_accessoire')
             ->add('phase_neutre', CheckboxType::class,[
-                'label' => 'Boite à Borne Phase'
+                'label' => 'Boite à Borne Phase',
+                'required' => false,
             ])
             ->add('accouplement',ChoiceType::class, [
                 'choices' => [
