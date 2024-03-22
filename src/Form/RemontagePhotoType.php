@@ -20,7 +20,7 @@ class RemontagePhotoType extends AbstractType
                 "Photo de l'ensemble avant départ" => "Photo de l'ensemble avant départ",
                 "Photo de l'accouplement avant départ" => "Photo de l'accouplement avant départ",
                 "Photo du bridage avant départ" => "Photo du bridage avant départ",
-                "Photo boite à borne avant départ" => "Photo boite à borne avant départ"
+                "Photo Boîte à borne avant départ" => "Photo Boîte à borne avant départ"
             ]
         ])
         ->add('image', FileType::class, [

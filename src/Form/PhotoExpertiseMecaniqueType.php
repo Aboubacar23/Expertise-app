@@ -20,7 +20,7 @@ class PhotoExpertiseMecaniqueType extends AbstractType
                     "Photo de l'ensemble à l'arrivée" => "Photo de l'ensemble à l'arrivée",
                     "Photo de l'accouplement à l'arrivée" => "Photo de l'accouplement à l'arrivée",
                     "Photo du bridage à l'arrivée" => "Photo du bridage à l'arrivée",
-                    "Photo du Rotor au démontage" => "Photo du Rotor au démontage",
+                    "Photo du rotor au démontage" => "Photo du rotor au démontage",
                     "Photo des Réfrigérant à l'expertise" => "Photo des Réfrigérant à l'expertise",
                 ]
             ])

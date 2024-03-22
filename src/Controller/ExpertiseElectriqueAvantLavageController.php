@@ -96,7 +96,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         ]);
     }
 
-    //creation de controle visuel et recensement
+    //creation de Contrôle visuel et recensement
     #[Route('/controle/visuel/recensement/{id}', name: 'app_controle_visuel_recensement')]
     public function controleVisuel(Parametre $parametre, Request $request, ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository): Response
     {        //1 

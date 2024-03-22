@@ -6,8 +6,8 @@ use Imagine\Image\Box;
 
 class RedimensionneService{
 
-    private const MAX_WIDTH = 300;
-    private const MAX_HEIGHT = 300;
+    private const MAX_WIDTH = 3040;
+    private const MAX_HEIGHT = 2020;
 
     public function resize(String $filename)
     {
@@ -18,7 +18,7 @@ class RedimensionneService{
         $width = self::MAX_WIDTH;
         $height = self::MAX_HEIGHT;
 
-        if($width / $height)
+        if($width / $height > $ratio)
         {
             $width = $height * $ratio;
         }else{

@@ -167,8 +167,8 @@
                                     <th colspan="8" class="text-center">Paramètres</th>
                                 </tr>
                                 <tr>
-                                    <th>T° Ambiante (°C)</th>
-                                    <th>T° Tôlerie (°C)</th>
+                                    <th>T° ambiante (°C)</th>
+                                    <th>T° fer (°C)</th>
                                     <th>Hygrométrie (%)</th>
                                     <th width="10%">Critère</th>
                                     <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
@@ -204,10 +204,10 @@
                                     <th width="8%">Type</th>
                                     <th width="14%">Contrôle</th>
                                     <th width="10%">Critère</th>
-                                    <th class="text-center" width="14%">Tension d'éssai(V)</th>
-                                    <th class="text-center" width="14%">Valeur relevée avant Lavage (Corrigé à 20°)</th>
+                                    <th class="text-center" width="14%">Tension d'éssai (V)</th>
+                                    <th class="text-center" width="14%">Valeur relevée avant lavage (Corrigé à 20°)</th>
                                     <th width="14%">Valeur relevées après lavage</th>
-                                    <th width="14%">Correction à 20°</th>
+                                    <th width="14%">Correction à 20° C</th>
                                     <th width="10%">Conformité</th>
                                 </tr>
                                 {% for item in parametre.statorApresLavage.lstatorApresLavages %}
@@ -296,8 +296,8 @@
                                 <th colspan="5" class="text-center">Paramètres</th>
                             </tr>
                             <tr>
-                                <th>T° Ambiante (°C)</th>
-                                <th>T° Tôlerie (°C)</th>
+                                <th>T° ambiante (°C)</th>
+                                <th>T° fer (°C)</th>
                                 <th>Hygrométrie (%)</th>
                                 <th>Tension Machine</th>
                             </tr>
@@ -317,7 +317,7 @@
                                 <th width="16%">Critère</th>
                                 <th width="16%">Valeur relevée avant lavage</th>
                                 <th width="16%">Valeur relevées</th>
-                                <th width="16%">Correction à 20°</th>
+                                <th width="16%">Correction à 20° C</th>
                                 <th width="16%">Conformité</th>
                             </tr>
                             <tr class="bg-primary"></tr>
@@ -575,7 +575,7 @@
                         <table class="table table-bordered">
                             <tr class="table-secondary">
                                 <th>Vérification</th>
-                                <th>Critères</th>
+                                <th>Critère</th>
                                 <th>Observation</th>
                                 <th>Préconisations et conclusion</th>
                                 <th>Retenu</th>

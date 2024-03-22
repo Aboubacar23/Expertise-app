@@ -187,7 +187,7 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //controle visuel et recensement
+    //Contrôle visuel et recensement
     #[Route('/controle-visuel/{id}', name: 'app_controle_visuel_mecanique')]
     public function consoleVisuel(AccessoireSupplementaireRepository $accessoireSupplementaireRepository, Parametre $parametre, Request $request, ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
