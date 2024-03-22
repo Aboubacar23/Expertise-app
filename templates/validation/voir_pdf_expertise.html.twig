@@ -45,7 +45,7 @@
 
     h3 {
         color: azure;
-        font-size: 14px;
+        font-size: 12px;
     }
 
     h2,
@@ -991,8 +991,8 @@
                 </table>
             {% endif %}
         </div>
-        <div class="sous_page5_8">
-            {% if parametre.controleMontageCoussinet %}
+        {% if parametre.controleMontageCoussinet %}
+            <div class="sous_page5_8">
                 <h5 id="lien533">3. <span class="span_titre">Expertise des coussinets</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -1023,11 +1023,11 @@
                         <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
                     </tr>
                 </table>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         <div class="sous_page5_9">
-            <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
             {% if parametre.releveDimmensionnels %}
+            <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
                 <table>
                     <tr>
                         <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}"
