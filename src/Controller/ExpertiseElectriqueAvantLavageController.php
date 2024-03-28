@@ -171,7 +171,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     {
                         $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeur(), 2, '.', '');
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))

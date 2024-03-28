@@ -80,9 +80,24 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $lmesureIsolement->setValeur($item->getValeur());
+                    $valeur = 0;
+                    $temp = 0;
+                    if (is_int($item->getValeur()))
+                    {
+                        $valeur = $item->getValeur();
+                    }else{
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
+                    }
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+                    $lmesureIsolement->setValeur($valeur);
+                    $lmesureIsolement->setTempCorrection($temp);
                     $lmesureIsolement->setUnite($item->getUnite());
-                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolementEssai($mesureIsolement);
                     $em->persist($lmesureIsolement);
@@ -102,9 +117,24 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $lmesureIsolement->setValeur($item->getValeur());
+                    $valeur = 0;
+                    $temp = 0;
+                    if (is_int($item->getValeur()))
+                    {
+                        $valeur = $item->getValeur();
+                    }else{
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
+                    }
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+                    $lmesureIsolement->setValeur($valeur);
+                    $lmesureIsolement->setTempCorrection($temp);
                     $lmesureIsolement->setUnite($item->getUnite());
-                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolementEssai($mesureIsolement);
                     $em->persist($lmesureIsolement);
@@ -376,10 +406,18 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setLig($i);
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
+                    $temp = 0;
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+                    $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
                     $em->persist($lmesureResistance);
@@ -401,7 +439,15 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
+                    $temp = 0;
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+                    $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
                     $em->persist($lmesureResistance);

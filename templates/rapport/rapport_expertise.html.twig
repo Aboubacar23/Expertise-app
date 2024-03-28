@@ -1493,7 +1493,7 @@
                                 'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                     -
                             {% else %}
-                                {{item.tempCorrection}} {{ item.unite}}
+                                {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
                             {% endif %}
 
                         </td>
@@ -1543,7 +1543,7 @@
                             {% endif %}
                         </td>
                         <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
-                        <td>{{item.tempCorrection }} {{ item.unite }}</td>
+                        <td>{{item.tempCorrection }} <span class="my_police">{{item.unite}}</span></td>
                         <td>{{item.conformite}}</td>
                     </tr>
                     {% endfor %}
@@ -1732,18 +1732,6 @@
                             <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
                             <td>{{ parametre.autreControle.balaisConformite2 }}</td>
                         </tr>
-                        {# <tr>
-                            <td>Isolement jeu de bagues à réception</td>
-                            <td>À définir suivant le type de balais</td>
-                            <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
-                            <td>{{ parametre.autreControle.balaisConformite3 }}</td>
-                        </tr>
-                        <tr>
-                            <td>Isolement jeu de bagues après lavage</td>
-                            <td>À définir suivant le type de balais</td>
-                            <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
-                            <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-                        </tr>#}
                         <tr>
                             <td>Rugosité du collecteur</td>
                             <td>Nuancier Mersen</td>
@@ -1781,18 +1769,6 @@
                             <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
                             <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
                         </tr>
-                        {#<tr>
-                            <td>Isolement jeu de bagues à réception</td>
-                            <td>À définir suivant le type de balais</td>
-                            <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
-                            <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
-                        </tr>
-                        <tr>
-                            <td>Isolement jeu de bagues après lavage</td>
-                            <td>À définir suivant le type de balais</td>
-                            <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
-                            <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                        </tr>#}
                         <tr>
                             <td>Rugosité du collecteur</td>
                             <td>Nuancier Mersen</td>
@@ -1931,7 +1907,7 @@
                                 'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                 -
                             {% else %}
-                                {{item.tempCorrection}} {{ item.unite}}
+                                {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
                             {% endif %}
                         </td>
                         <td>{{ item.conformite }}</td>
@@ -1976,7 +1952,7 @@
                     <td style="text-align: center;">{{item.critere}}</td>
                     <td style="text-align: center;">{{item.valeurRelevee}}</td>
                     <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
-                    <td style="text-align: center;">{{item.tempCorrection }} {{ item.unite }}</td>
+                    <td style="text-align: center;">{{item.tempCorrection }} <span class="my_police">{{item.unite}}</span></td>
                     <td style="text-align: center;">{{item.conformite}}</td>
                 </tr>
                 {% endfor %}

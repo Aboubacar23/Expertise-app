@@ -97,9 +97,9 @@
                                             <td>{{item2.tension}}</td>
                                             <td colspan="2">
                                                 {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
-                                                    {{item2.valeur | number_format(2,'.','')}}
+                                                    {{item2.valeur}}
                                                 {% else %}
-                                                    {{item2.valeur | number_format(2,'.','')}} {{ item2.unite}}
+                                                    {{item2.valeur}} {{ item2.unite}}
                                                 {% endif %}
                                             </td>
                                             <td>
@@ -133,7 +133,7 @@
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         -
                                                     {% else %}
-                                                        {{item.tempCorrection | number_format(0, '.','')}} {{ item.unite}}
+                                                        {{item.tempCorrection}} {{ item.unite}}
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.conformite}}</td>

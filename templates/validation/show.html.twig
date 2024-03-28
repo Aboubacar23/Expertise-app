@@ -189,7 +189,7 @@
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                                                     -
                                                                 {% else %}
-                                                                    {{item.tempCorrection}} {{ item.unite}}
+                                                                    {{item.tempCorrection}} <span class="my_police">{{ item.unite}}</span>
                                                                 {% endif %}
                                                             </td>
                                                             <td>{{item.conformite}}</td>
@@ -242,7 +242,7 @@
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                                                     -
                                                                 {% else %}
-                                                                    {{item.tempCorrection}} {{ item.unite}}
+                                                                    {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
                                                                 {% endif %}
                                                             </td>
                                                             <td>{{item.conformite}}</td>
@@ -422,18 +422,6 @@
                                                             <td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
                                                             <td>{{ parametre.autreControle.balaisConformite2 }}</td>
                                                         </tr>
-                                                        {#<tr>
-                                                            <td>Isolement jeu de bagues à réception</td>
-                                                            <td>À définir suivant le type de balais</td>
-                                                            <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
-                                                            <td>{{ parametre.autreControle.balaisConformite3 }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Isolement jeu de bagues après lavage</td>
-                                                            <td>À définir suivant le type de balais</td>
-                                                            <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
-                                                            <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-                                                        </tr>#}
                                                         <tr>
                                                             <td>Rugosité du collecteur</td>
                                                             <td>Nuancier Mersen</td>
@@ -472,18 +460,6 @@
                                                             <td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
                                                             <td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
                                                         </tr>
-                                                       {# <tr>
-                                                            <td>Isolement jeu de bagues à réception</td>
-                                                            <td>À définir suivant le type de balais</td>
-                                                            <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
-                                                            <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Isolement jeu de bagues après lavage</td>
-                                                            <td>À définir suivant le type de balais</td>
-                                                            <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
-                                                            <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                                                        </tr>#}
                                                         <tr>
                                                             <td>Rugosité du collecteur</td>
                                                             <td>Nuancier Mersen</td>
@@ -1223,7 +1199,7 @@
                                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                                         -
                                                                     {% else %}
-                                                                        {{item.tempCorrection}} {{ item.unite}}
+                                                                        {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
                                                                     {% endif %}
                                                                 </td>
                                                                 <td class="text-center">{{ item.conformite }}</td>
@@ -1283,8 +1259,8 @@
                                                                         {{item.valeurRelevee}} <span class="my_police">{{item.unite}}</span>
                                                                     {% endif %}
                                                                 </td>
-                                                                <td>{{item.valeur}} {{item.unite}}</td>
-                                                                <td>{{item.tempCorrection}} {{ item.unite}}</td>
+                                                                <td>{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
+                                                                <td>{{item.tempCorrection}} <span class="my_police">{{item.unite}}</span></td>
                                                                 <td>{{item.conformite}}</td>
                                                             </tr>                                        
                                                         {% endfor %}                                            
@@ -1338,103 +1314,6 @@
                                             </table>
                                         </div>
                                     {% endif %}
-                                {#
-                                    <!-- début caractéristique -->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <table class="table table-bordered table-striped">
-                                                    <tr  class="table-secondary">
-                                                        <th>Caractéristique à vide</th>
-                                                    </tr>
-                                                    {% if parametre.caracteristiques %}
-                                                        {% for item in parametre.caracteristiques %}
-                                                            <tr>
-                                                                <td class="text-center"><img src="{{absolute_url(asset('/photo_point_fonctionnement_vide/'~ item.image))}}" alt="" width="700px"></td>
-                                                            </tr> 
-                                                        {% endfor %}    
-                                                    {% endif %}
-                                                </table>
-                                                {% if parametre.autreCaracteristique %}
-                                                    <table class="table table-bordered table-striped">
-                                                        <tr>
-                                                            <th class="table-secondary">Résistance</th>
-                                                            <td colspan="4">{{ parametre.autreCaracteristique.resistance}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th class="table-secondary">Pertes</th>
-                                                            <td>{{ parametre.autreCaracteristique.perte1}}</td>
-                                                            <td>tr/min</td>
-                                                            <td>{{ parametre.autreCaracteristique.perte2}}</td>
-                                                            <td>W</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th class="table-secondary">Pertes Fer à </th>
-                                                            <td>{{ parametre.autreCaracteristique.perteFer1}}</td>
-                                                            <td>V</td>
-                                                            <td>{{ parametre.autreCaracteristique.perteFer2}}</td>
-                                                            <td>W</td>
-                                                        </tr>
-                                                    </table>
-                                                {% endif %}
-                                            </div>
-                                        </div>  
-                                    <!-- fin caractéristique -->
-                                            
-                                    <!-- début point fonctionnement rotor -->
-                                        {% if parametre.autrePointFonctionnementRotor %}
-                                            <div class="row">
-                                                <table class="table table-bordered table-striped">
-                                                    <tr  class="table-secondary">
-                                                        <th colspan="8" class="text-center">Point de fonctionnement rotor bloqué</th>
-                                                    </tr>
-                                                    <tr class="table-secondary text-center">
-                                                        <th>U (v)</th>
-                                                        <th>I1 (A)</th>
-                                                        <th>I2 (A)</th>
-                                                        <th>I3 (A)</th>
-                                                        <th>Imoy (A)</th>
-                                                        <th>Pabs (kW)</th>
-                                                        <th>Pjoule (kW)</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.u }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.i1 }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.i2 }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.i3 }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.imoy }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.pabs }}</td>
-                                                        <td>{{parametre.autrePointFonctionnementRotor.pjoule }}</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="row">
-                                                <table class="table table-bordered table-striped">
-                                                    <tr class="text-center">
-                                                        <th class="table-secondary">M</th>
-                                                        <th class="table-secondary">Indication du peson</th>
-                                                        <td>{{ parametre.autrePointFonctionnementRotor.m}}</td>
-                                                        <td>kg</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <th class="table-secondary">ID</th>
-                                                        <th class="table-secondary">Courant de démarrage à Un</th>
-                                                        <td>{{ parametre.autrePointFonctionnementRotor.iden}}</td>
-                                                        <td>A</td>
-                                                        <th>ID = Imoy * Un/U</th>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <th class="table-secondary">CD</th>
-                                                        <th class="table-secondary">Couple de démarrage à Un</th>
-                                                        <td>{{ parametre.autrePointFonctionnementRotor.cd}}</td>
-                                                        <td>Nm</td>
-                                                        <th>CD = (9.81 * M * Un/U)</th>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        {% endif %}
-                                    <!-- fin point fonctionnement rotor --> 
-                                #}       
                                     <!-- début Appareils de mesure utilisés -->
                                         <div class="row">
                                             {% if parametre.appareilMesures %}

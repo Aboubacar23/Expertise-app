@@ -65,9 +65,9 @@
                                     </td>
                                     <td class="text-center"> 
                                     {% if jourRestant %}
-                                        {% if dateJour < dateLivre %}
+                                        {% if date(dateJour) < date(dateLivre) %}
                                             <span class="text-success">{{jourRestant}}</span>
-                                        {% elseif dateJour > dateLivre %}
+                                        {% else %}
                                             <span class="text-danger"> - {{jourRestant}}</span>
                                         {% endif %}
                                     {% else %}
