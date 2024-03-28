@@ -218,23 +218,23 @@
                                     <td class="text-left">{{item.tensionEssai}}</td>
                                     <td>
                                         {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                            {{item.valeurRelevee | number_format(2)}}
+                                            {{item.valeurRelevee}}
                                         {% else %}
-                                            {{item.valeurRelevee | number_format(0, '.','')}} {{ item.unite}}
+                                            {{item.valeurRelevee}} {{ item.unite}}
                                         {% endif %}
                                     </td>
                                     <td>
                                         {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                            {{item.valeur | number_format(2, '.','')}}
+                                            {{item.valeur }}
                                         {% else %}
-                                            {{item.valeur | number_format(0, '.','')}} {{ item.unite}}
+                                            {{item.valeur}} {{ item.unite}}
                                         {% endif %}
                                     </td>
                                     <td>
                                         {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                             -
                                         {% else %}
-                                            {{item.tempCorrection | number_format(0, '', '')}}
+                                            {{item.tempCorrection}} {{ item.unite}}
                                         {% endif %}
                                     </td>
                                     <td class="text-left">{{ item.conformite }}</td>
@@ -325,11 +325,29 @@
                             {% for item in parametre.sondeBobinage.lsondeBobinages %}
                             <tr>
                                 <td>{{item.type}}</td>
-                                <td>{{item.controle}}</td>
+                                <td>{{item.controle}}</td> 
                                 <td>{{item.critere}}</td>
-                                <td>{{item.valeurRelevee | number_format(1, '.','')}} {{ item.unite}}</td>
-                                <td>{{item.valeur | number_format(1, '.','')}} {{ item.unite }}</td>
-                                <td>{{item.tempCorrection | number_format(1, '.', '')}}</td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                        {{item.valeurRelevee }}
+                                    {% else %}
+                                        {{item.valeurRelevee}} {{ item.unite}}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                        {{item.valeur }}
+                                    {% else %}
+                                        {{item.valeur}} {{ item.unite}}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                        -
+                                    {% else %}
+                                        {{item.tempCorrection }} {{ item.unite}}
+                                    {% endif %}
+                                </td>
                                 <td>{{item.conformite}}</td>
                             </tr>
                             {% endfor %}

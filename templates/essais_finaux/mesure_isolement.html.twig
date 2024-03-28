@@ -106,7 +106,7 @@
                                                 {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
                                                     -
                                                 {% else %}
-                                                    {{item2.tempCorrection | number_format(0, '.','')}}
+                                                    {{item2.tempCorrection }} {{ item2.unite}}
                                                 {% endif %}
 
                                             </td>
@@ -124,16 +124,16 @@
                                                 <td>{{item.tension}}</td>
                                                 <td colspan="2">
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                        {{item.valeur | number_format(2, '.','')}}
+                                                        {{item.valeur }}
                                                     {% else %}
-                                                        {{item.valeur | number_format(0, '.','')}} {{ item.unite}}
+                                                        {{item.valeur}} {{ item.unite}}
                                                     {% endif %}
                                                 </td>
                                                 <td>
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         -
                                                     {% else %}
-                                                        {{item.tempCorrection | number_format(0, '.','')}}
+                                                        {{item.tempCorrection | number_format(0, '.','')}} {{ item.unite}}
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.conformite}}</td>

@@ -178,9 +178,9 @@
 
                                                                 {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                                                    {{item.valeur | number_format(1, '.','')}}
+                                                                    {{item.valeur}}
                                                                 {% else %}
-                                                                    {{item.valeur | number_format(1, '.','')}} <span class="my_police">{{item.unite}}</span>
+                                                                    {{item.valeur}} <span class="my_police">{{item.unite}}</span>
                                                                 {% endif %}
 
                                                             </td>
@@ -189,7 +189,7 @@
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                                                     -
                                                                 {% else %}
-                                                                    {{item.tempCorrection | number_format(0, '', '')}}
+                                                                    {{item.tempCorrection}} {{ item.unite}}
                                                                 {% endif %}
                                                             </td>
                                                             <td>{{item.conformite}}</td>
@@ -236,13 +236,13 @@
                                                             <td>{{item.type}}</td>
                                                             <td>{{item.controle}}</td>
                                                             <td>{{item.critere}}</td>
-                                                            <td>{{item.valeur | number_format(1, '.','')}} {{item.unite}}</td>
+                                                            <td>{{item.valeur}} {{item.unite}}</td>
                                                             <td>
                                                                 {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                                                                     'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                                                     -
                                                                 {% else %}
-                                                                    {{item.tempCorrection | number_format(0, '', '')}}
+                                                                    {{item.tempCorrection}} {{ item.unite}}
                                                                 {% endif %}
                                                             </td>
                                                             <td>{{item.conformite}}</td>
@@ -1210,20 +1210,20 @@
                                                                 <td class="text-left">{{item.controle}}</td>
                                                                 <td class="text-center">{{ item.critere }}</td>
                                                                 <td class="text-center">{{item.tensionEssai}}</td>
-                                                                <td class="text-center">{{item.valeurRelevee | number_format(0, '.','')}}</td>
+                                                                <td class="text-center">{{item.valeurRelevee}}</td>
                                                                 <td class="text-center">
                                                                     {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                                                                         'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                                                        {{item.valeur | number_format(1, '.','')}}
+                                                                        {{item.valeur}}
                                                                     {% else %}
-                                                                        {{item.valeur | number_format(1, '.','')}} <span class="my_police">{{item.unite}}</span>
+                                                                        {{item.valeur}} <span class="my_police">{{item.unite}}</span>
                                                                     {% endif %}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                                         -
                                                                     {% else %}
-                                                                        {{item.tempCorrection | number_format(0, '', '')}}
+                                                                        {{item.tempCorrection}} {{ item.unite}}
                                                                     {% endif %}
                                                                 </td>
                                                                 <td class="text-center">{{ item.conformite }}</td>
@@ -1278,13 +1278,13 @@
                                                                 <td>{{item.critere}}</td>
                                                                 <td>
                                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                                        {{item.valeurRelevee | number_format(0, '.','')}}
+                                                                        {{item.valeurRelevee}}
                                                                     {% else %}
-                                                                        {{item.valeurRelevee | number_format(0, '.','')}} <span class="my_police">{{item.unite}}</span>
+                                                                        {{item.valeurRelevee}} <span class="my_police">{{item.unite}}</span>
                                                                     {% endif %}
                                                                 </td>
-                                                                <td>{{item.valeur | number_format(1, '.','')}} {{item.unite}}</td>
-                                                                <td>{{item.tempCorrection | number_format(0, '', '')}}</td>
+                                                                <td>{{item.valeur}} {{item.unite}}</td>
+                                                                <td>{{item.tempCorrection}} {{ item.unite}}</td>
                                                                 <td>{{item.conformite}}</td>
                                                             </tr>                                        
                                                         {% endfor %}                                            
