@@ -70,7 +70,8 @@ class MachineType extends AbstractType
                 'choices' => [
                     'Neutre Sorti' => 'Neutre Sorti',
                     'Neutre Interne' => 'Neutre Interne',
-                ]
+                    ' - ' => ' - ',
+                ],
             ])
         /*    
             ->add('type_machine', ChoiceType::class, [

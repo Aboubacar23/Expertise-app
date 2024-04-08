@@ -27,8 +27,8 @@
                                         <th colspan="5" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
-                                        <th>T° Ambiante (°C)</th>
-                                        <th>T° Tôlerie (°C)</th>
+                                        <th>T° ambiante (°C)</th>
+                                        <th>T° fer (°C)</th>
                                         <th>Hygrométrie (%)</th>
                                         <th>{% if parametre.machine.categorie == "À courant continu" %}
                                                                 Tension Excitation
@@ -69,7 +69,7 @@
                                         <th width="13%">Critère</th>
                                         <th width="8%">Valeur relevée avant lavage</th>
                                         <th width="13%" colspan="2">Valeur relevées</th>
-                                        <th width="13%">Correction à 20°</th>
+                                        <th width="13%">Correction à 20° C</th>
                                         <th width="13%">Conformité</th>
                                         <th></th>
                                     </tr>
@@ -91,10 +91,10 @@
                                             <td>{{item2.critere}}</td>
                                             <td>{{item2.valeurRelevee}} {{ item2.unite}}</td>
                                             <td colspan="2">{{item2.valeur}} {{ item2.unite }}</td>
-                                            <td>{{item2.tempCorrection}}</td>
+                                            <td>{{item2.tempCorrection }} {{ item2.unite}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_sonde_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                        </tr>                                        
+                                        </tr>                                         
                                     {% endfor %}
                                     <tr class="bg-primary"></tr>
                                     {% if parametre.sondeBobinage %}
@@ -105,7 +105,7 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeurRelevee}} {{ item.unite}}</td>
                                                 <td colspan="2">{{item.valeur}} {{ item.unite }}</td>
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td>{{item.tempCorrection }} {{ item.unite }}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                             </tr>                                        

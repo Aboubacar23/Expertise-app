@@ -169,10 +169,29 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
                     $lstatorApresLavage->setValeur($item->getValeur());
+
+                    $valeur = 0;
+                    $temp = 0;
+                    if (is_int($item->getValeurRelevee()))
+                    {
+                        $valeur = $item->getValeurRelevee();
+                    }else{
+                        $valeur =  number_format($item->getValeurRelevee(), 1, '.', '');
+                    }
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
-                    $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
+                    $lstatorApresLavage->setValeur($valeur);
+                    $lstatorApresLavage->setTempCorrection($temp);
                     $lstatorApresLavage->setConformite($item->getConformite());
+
                     $lstatorApresLavage->setType($item->getType());
                     $lstatorApresLavage->setUnite($item->getUnite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
@@ -192,10 +211,27 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setLig($i);
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
-                    $lstatorApresLavage->setValeur($item->getValeur());
+
+                    $valeur = 0;
+                    $temp = 0;
+                    if (is_int($item->getValeurRelevee()))
+                    {
+                        $valeur = $item->getValeurRelevee();
+                    }else{
+                        $valeur =  number_format($item->getValeurRelevee(), 1, '.', '');
+                    }
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
-                    $lstatorApresLavage->setTempCorrection($item->getTempCorrection());
+                    $lstatorApresLavage->setValeur($valeur);
+                    $lstatorApresLavage->setTempCorrection($temp);
                     $lstatorApresLavage->setConformite($item->getConformite());
                     $lstatorApresLavage->setType($item->getType());
                     $lstatorApresLavage->setUnite($item->getUnite());
@@ -210,9 +246,18 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
             } elseif ($choix == 'ajouter') {
                 $val = 0;
+
                 foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
                     if ($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle()) {
-                        $val = $item->getValeur();
+                        if ($item->getControle() == 'IP-UVW/masse' or
+                            $item->getControle() == 'IP-U/VW+masse' or
+                            $item->getControle() == 'IP-V/UW+masse' or
+                            $item->getControle() == 'IP-W/UV+masse')
+                        {
+                            $val = $item->getValeur();
+                        }else{
+                            $val = $item->getTempCorrection();
+                        }
                     }
                 }
                 $lig = sizeof($listes) + 1;
@@ -237,6 +282,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                 $listes[$lig] = $lstatorApresLavage;
                 $session->set('stators', $listes);
+                //dd($listes);
             }
         }
 
@@ -281,9 +327,18 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setLig($i);
                     $lsondeBobinage->setControle($item->getControle());
                     $lsondeBobinage->setCritere($item->getCritere());
+
+                    $temp = 0;
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
-                    $lsondeBobinage->setTempCorrection($item->getTempCorrection());
+                    $lsondeBobinage->setTempCorrection($temp);
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setUnite($item->getUnite());
                     $lsondeBobinage->setType($item->getType());
@@ -304,11 +359,20 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setLig($i);
                     $lsondeBobinage->setControle($item->getControle());
                     $lsondeBobinage->setCritere($item->getCritere());
+                    $temp = 0;
+
+                    if (is_int($item->getTempCorrection()))
+                    {
+                        $temp = $item->getTempCorrection();
+                    }else{
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                    }
+
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
+                    $lsondeBobinage->setTempCorrection($temp);
                     $lsondeBobinage->setUnite($item->getUnite());
                     $lsondeBobinage->setType($item->getType());
-                    $lsondeBobinage->setTempCorrection($item->getTempCorrection());
                     $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
@@ -782,7 +846,6 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             'diode' => $diode_libelle
         ]);
     }
-
 
     //delete Pont de diodes
     #[Route('/diode-mesure_sup/{id}', name: 'app_pont_diode_delete')]

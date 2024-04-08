@@ -17,7 +17,7 @@ class LMesureResistanceEssai
     private ?string $controle = null;
 
     #[ORM\Column]
-    private ?float $critere = null;
+    private ?string $critere = null;
 
     #[ORM\Column]
     private ?string $valeur = null;
@@ -57,12 +57,12 @@ class LMesureResistanceEssai
         return $this;
     }
 
-    public function getCritere(): ?float
+    public function getCritere(): ?string
     {
         return $this->critere;
     }
 
-    public function setCritere(float $critere): self
+    public function setCritere(string $critere): self
     {
         $this->critere = $critere;
 

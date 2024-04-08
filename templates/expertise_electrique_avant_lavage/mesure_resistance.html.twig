@@ -29,8 +29,8 @@
                                         <th colspan="6" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
-                                        <th width="15%">T° Ambiante (°C)</th>
-                                        <th width="15%">T° Tôlerie (°C)</th>
+                                        <th width="15%">T° ambiante (°C)</th>
+                                        <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
                                         <th width="15%">Date d'essai</th>
                                         <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
@@ -72,7 +72,7 @@
                                         <th width="16%">Contrôle</th>
                                         <th width="16%">Critère</th>
                                         <th width="16%" colspan="2">Valeur relevées</th>
-                                        <th width="16%">Correction à 20°</th>
+                                        <th width="16%">Correction à 20° C</th>
                                         <th width="16%">Conformité</th>
                                         <th width="100"></th>  
                                     </tr>
@@ -91,8 +91,20 @@
                                             <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
-                                            <td colspan="2">{{item2.valeur}} {{item2.unite}}</td>
-                                            <td>{{item2.tempCorrection}}</td>
+                                            <td colspan="2">
+                                                {% if item2.valeur|round %}
+                                                    {{item2.valeur}} {{ item2.unite}}
+                                                {% else %}
+                                                    {{item2.valeur}} {{ item2.unite}}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if item2.tempCorrection|round %}
+                                                    {{item2.tempCorrection}} {{ item2.unite}}
+                                                {% else %}
+                                                    {{item2.tempCorrection | number_format(2, '.','')}} {{ item2.unite}}
+                                                {% endif %}
+                                            </td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -104,8 +116,20 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td colspan="2">{{item.valeur}} {{item.unite}}</td>
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td colspan="2">
+                                                     {% if item.valeur|round %}
+                                                        {{item.valeur}} {{ item.unite}}
+                                                    {% else %}
+                                                        {{item.valeur }} {{ item.unite}}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if item.tempCorrection|round %}
+                                                        {{item.tempCorrection}} {{ item.unite}}
+                                                    {% else %}
+                                                        {{item.tempCorrection}} {{ item.unite}}
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                             </tr>                                        

@@ -28,9 +28,9 @@
                                         <th colspan="6" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
-                                        <th>T° Ambiante (°C)</th>
+                                        <th>T° ambiante (°C)</th>
                                         <td>{{ form_widget(formMesureResistance.temp_ambiante) }}</td>
-                                        <th>T° Tôlerie (°C)</th>
+                                        <th>T° fer (°C)</th>
                                         <td >{{ form_widget(formMesureResistance.temp_tolerie) }}</td>
                                         <th>Date d'essai</th>
                                         <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
@@ -57,7 +57,7 @@
                                         <th width="16%">Contrôle</th>
                                         <th width="16%">Critère</th>
                                         <th width="16%" colspan="2">Valeur relevées</th>
-                                        <th width="16%">Correction à 20°</th>
+                                        <th width="16%">Correction à 20° C</th>
                                         <th width="16%">Conformité</th>
                                         <th width="100"></th>  
                                     </tr>
@@ -77,7 +77,7 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td colspan="2">{{item2.valeur}} {{item2.unite}}</td>
-                                            <td>{{item2.tempCorrection}}</td>
+                                            <td>{{item2.tempCorrection | number_format(2, '.','')}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_essai_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -89,7 +89,7 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td colspan="2">{{item.valeur}} {{item.unite}}</td>
+                                                <td colspan="2">{{item.valeur }} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center"><a href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   

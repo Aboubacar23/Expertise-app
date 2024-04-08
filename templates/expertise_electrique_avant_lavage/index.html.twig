@@ -335,8 +335,8 @@
                                             <th colspan="5" class="text-center">Paramètres</th>
                                         </tr>
                                         <tr>
-                                            <th>T° Ambiante (°C)</th>
-                                            <th>T° Tôlerie (°C)</th>
+                                            <th>T° ambiante (°C)</th>
+                                            <th>T° fer (°C)</th>
                                             <th>Hygrométrie (%)</th>
                                             <th>Date d'essai</th>
                                             <th>Critère</th>
@@ -358,7 +358,7 @@
                                             <th width="13%">Critère</th>
                                             <th width="13%">Tension d'éssai (V)</th>
                                             <th width="13%">Valeur relevées</th>
-                                            <th width="13%">T.Correction à 20°</th>
+                                            <th width="13%">T.Correction à 20° C</th>
                                             <th width="13%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -367,8 +367,20 @@
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.tension}}</td>
-                                                <td>{{item.valeur}} {{item.unite}}</td>
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        {{item.valeur }}
+                                                    {% else %}
+                                                        {{item.valeur}} {{ item.unite}}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        -
+                                                    {% else %}
+                                                        {{item.tempCorrection }} {{ item.unite}}
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}
@@ -420,9 +432,9 @@
                                             <th colspan="8" class="text-center">Paramètres</th>
                                         </tr>
                                         <tr>
-                                            <th>T° Ambiante (°C)</th>
+                                            <th>T° ambiante (°C)</th>
                                             <td>{{ parametre.mesureResistance.tempAmbiante}}</td>
-                                            <th>T° Tôlerie (°C)</th>
+                                            <th>T° fer (°C)</th>
                                             <td >{{ parametre.mesureResistance.tempTolerie}}</td>
                                             <th>Hygrométrie (%)</th>
                                             <td >{{ parametre.mesureResistance.hygrometrie}}</td>
@@ -438,7 +450,7 @@
                                             <th width="17%">Contrôle</th>
                                             <th width="17%">Critère</th>
                                             <th width="17%">Valeur relevées</th>
-                                            <th width="17%">Correction à 20°</th>
+                                            <th width="17%">Correction à 20° C</th>
                                             <th width="17%">Conformité</th>
                                         </tr>
                                         {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -446,8 +458,12 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.valeur}} {{item.unite}}</td>
-                                                <td>{{item.tempCorrection}}</td>
+                                                <td>
+                                                    {{item.valeur }} {{ item.unite}}
+                                                </td>
+                                                <td>
+                                                    {{item.tempCorrection}} {{ item.unite}}
+                                                </td>
                                                 <td>{{item.conformite}}</td>
                                             </tr>                                        
                                         {% endfor %}
@@ -781,7 +797,7 @@
                                         </tr>
                                         <tr  class="table-secondary">
                                             <th>Constats</th>
-                                            <th>Critères</th>
+                                            <th>Critère</th>
                                             <th>Préconisation</th>
                                             <th>Conformité</th>
                                         </tr>
@@ -831,7 +847,7 @@
                                         </tr>
                                         <tr  class="table-secondary">
                                             <th>Constats</th>
-                                            <th>Critères</th>
+                                            <th>Critère</th>
                                             <th>Préconisation</th>
                                             <th>Conformité</th>
                                         </tr>
@@ -969,7 +985,7 @@
                                         </tr>
                                         <tr  class="table-secondary">
                                             <th>Vérification</th>
-                                            <th>Critères</th>
+                                            <th>Critère</th>
                                             <th>Observation</th>
                                             <th>Préconisations et conclusion</th>
                                             <th>Photo</th>

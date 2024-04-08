@@ -234,7 +234,7 @@
 </style>
 
 <body class="body">
-     {# la partie logo et titre #}
+    {# la partie logo et titre #}
         <div class="logo">
             <img src="{{ absolute_url(asset('images/logo2.png')) }}" alt="" height="150px">
         </div>
@@ -265,76 +265,6 @@
             </div> 
         </div>
     {# fin de la partie logo et titre #}
-    {# Sommaire #}
-    <div class="page_break"></div>
-    <div class="page2">
-        <div>
-            <h2>Sommaire</h2>
-            <p><a href="#lien1">I. Préambule et Contexte</a></p>
-            <p><a href="#lien21">II. Présentation des travaux</a></p>
-            <p><a href="#lien3">III. Caractéristiques générales</a></p>
-            <p><a href="#lien4">IV. Expertise à réception</a></p>
-            <p class="sous_menu1"><a href="#lien41"> A. Contrôles et recensement</a></p>
-            <p><a href="#lien5">V. Expertise mécanique</a></p>
-            <p class="sous_menu1"><a href="#lien51"> A. Démontage</a></p>
-            <p class="sous_menu2"><a href="#lien511"> 1. Relevé position de l’accouplement</a></p>
-            <p class="sous_menu2"><a href="#lien512"> 2. Relevé Boîte à Bornes</a></p>
-            <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
-            <p class="sous_menu1"><a href="#lien52"> B. Contrôle montage paliers</a></p>
-            <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
-            <p class="sous_menu2"><a href="#lien531"> 1. Expertise des soies</a></p>
-            <p class="sous_menu2"><a href="#lien532"> 2. Relevés alésage coussinets</a></p>
-            <p class="sous_menu2"><a href="#lien533"> 3. Expertise des coussinets</a></p>
-            <p class="sous_menu1"><a href="#lien54"> D. Relevés dimensionnels rotor et paliers</a></p>
-            <p class="sous_menu1"><a href="#lien55"> E. Contrôles géométriques du rotor</a></p>
-            <p class="sous_menu1"><a href="#lien56"> F. Appareils de mesure utilisés</a></p>
-            <p class="sous_menu1"><a href="#lien57"> G. Expertise Hydro-réfrigérant</a></p>
-            <p class="sous_menu1"><a href="#lien58"> H. Expertise Aéroréfrigérant</a></p>
-            <p class="sous_menu1"><a href="#lien59"> I. Illustration des observations</a></p>
-            <p class="sous_menu1"><a href="#lien510"> J. Observations, constats et préconisations Mécaniques</a></p>
-            <p><a href="#lien6">VI. Expertise électrique avant lavage</a></p>
-            <p class="sous_menu1"><a href="#lien61"> A. Contrôle visuel et recensementontage</a></p>
-            {% if parametre.essaisPlateforme == 'Oui' %}
-            <p class="sous_menu1"><a href="#lien62"> B. </a></p>
-            <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
-            <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
-            <p class="sous_menu2"><a href="#lien623"> 3. Points de fonctionnement à vide</a></p>
-            <p class="sous_menu2"><a href="#lien624"> 4. Mesures de vibrations</a></p>
-            <p class="sous_menu2"><a href="#lien635"> 5. Appareils de mesure utilisés</a></p>
-            {% elseif parametre.essaisPlateforme == 'Non' %}
-            <p class="sous_menu1"><a href="#lien63"> B. Essais plate-forme</a></p>
-            <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
-            <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
-            <p class="sous_menu2"><a href="#lien635"> 3. Appareils de mesure utilisés</a></p>
-            {% endif %}
-            <p class="sous_menu1"><a href="#lien64"> D. Contrôles bobinage</a></p>
-            <p class="sous_menu1"><a href="#lien65"> E. Balais & balais de masse</a></p>
-            <p class="sous_menu1"><a href="#lien66"> F. Illustrations</a></p>
-            <p class="sous_menu1"><a href="#lien67"> G. Observations, préconisations et conclusions ECE</a></p>
-            <p><a href="#lien7">VII. Expertise électrique après lavage</a></p>
-            <p class="sous_menu1"><a href="#lien71"> A. Essais plate-forme</a></p>
-            <p class="sous_menu2"><a href="#lien711"> 1. Mesure d’isolement</a></p>
-            <p class="sous_menu2"><a href="#lien712"> 2. Mesure de Résistance</a></p>
-            {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition</a></p>
-            <p class="sous_menu2"><a href="#lien712"> 4. Pont de Diodes</a></p>
-            {% elseif parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition</a></p>
-            {% elseif parametre.pontDiodes |length > 0 %}
-            <p class="sous_menu2"><a href="#lien712"> 3. Pont de Diodes</a></p>
-            {% endif %}
-            {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien713"> 5. Appareils de mesure utilisés</a></p>
-            {% elseif parametre.pontDiodes |length > 0 or parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien713"> 4. Appareils de mesure utilisés</a></p>
-            {% else %}
-            <p class="sous_menu2"><a href="#lien713"> 3. Appareils de mesure utilisés</a></p>
-            {% endif %}
-            <p class="sous_menu1"><a href="#lien72"> B. Observations, préconisations et conclusions ECE</a></p>
-            <p><a href="#lien8">VIII. Contre-Expertise</a></p>
-        </div>
-    </div>
-{# fin sommaire #}
 
     {# la page 2 , Préambule et Contexte #}
         <div class="page_break"></div>
@@ -1061,8 +991,8 @@
                 </table>
             {% endif %}
         </div>
-        <div class="sous_page5_8">
-            {% if parametre.controleMontageCoussinet %}
+        {% if parametre.controleMontageCoussinet %}
+            <div class="sous_page5_8">
                 <h5 id="lien533">3. <span class="span_titre">Expertise des coussinets</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -1093,11 +1023,11 @@
                         <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
                     </tr>
                 </table>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         <div class="sous_page5_9">
-            <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
             {% if parametre.releveDimmensionnels %}
+            <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
                 <table>
                     <tr>
                         <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}"
@@ -1493,7 +1423,7 @@
                                 'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
                                     -
                             {% else %}
-                                {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
+                                {{item.tempCorrection}} <span class="my_police">{{ item.unite}}</span>
                             {% endif %}
 
                         </td>

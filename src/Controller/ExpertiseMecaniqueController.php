@@ -187,7 +187,7 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //controle visuel et recensement
+    //Contrôle visuel et recensement
     #[Route('/controle-visuel/{id}', name: 'app_controle_visuel_mecanique')]
     public function consoleVisuel(AccessoireSupplementaireRepository $accessoireSupplementaireRepository, Parametre $parametre, Request $request, ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
@@ -463,7 +463,7 @@ class ExpertiseMecaniqueController extends AbstractController
                     //récuperer la taille de l'image à inserrer
                     $size = $image->getSize();
                     //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
-                    if($size < 2*1024*1024)
+                    if($size > 2*1024*1024)
                     {
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);

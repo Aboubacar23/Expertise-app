@@ -26,7 +26,7 @@ class LMesureIsolementType extends AbstractType
                 }
             ])
             ->add('critere', NumberType::class,[
-                'required' => false
+                'required' => true
             ])
             ->add('tension')
             ->add('unite', ChoiceType::class, [

@@ -6,6 +6,7 @@ use App\Entity\LSondeBobinage;
 use App\Entity\ControleResistance;
 use Symfony\Component\Form\AbstractType;
 use App\Repository\ControleResistanceRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,8 +25,9 @@ class LSondeBobinageType extends AbstractType
                     return  $query;
                 }
             ])
-            ->add('critere', NumberType::class,[
-                'required' => false
+            ->add('critere', TextType::class,[
+                'required' => true,
+                'label' => 'Critère'
             ])
             ->add('valeur_relevee')
             ->add('valeur')   

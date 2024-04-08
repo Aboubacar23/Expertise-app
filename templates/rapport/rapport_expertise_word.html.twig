@@ -6,7 +6,7 @@
 <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('d-m-Y') :
         '' }}</strong></p>
 <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
-<p>Code Client : <strong>{{parametre.affaire.codeClient}}</strong></p>
+<p>Cde : <strong>{{parametre.affaire.codeClient}}</strong></p>
 {% if parametre.affaire.numFabrication != "" and parametre.affaire.numFabrication != "N/A" %}
     <p>N° de fabrication : <strong>{{parametre.affaire.numFabrication}}</strong></p>
 {% endif %}
@@ -18,7 +18,7 @@
 {% if parametre.controleVisuelMecanique %}
 <table>
     <tr class="titre_table">
-        <th colspan="4">Controle Visuel et Recensement</th>
+        <th colspan="4">Contrôle visuel et recensement</th>
     </tr>
     <tr>
         <td>Accouplement</td>
@@ -33,7 +33,7 @@
         <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
     </tr>
     <tr>
-        <td>Boite à borne</td>
+        <td>Boîte à borne</td>
         <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
         <td>Vis vérins (nb)</td>
         <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
