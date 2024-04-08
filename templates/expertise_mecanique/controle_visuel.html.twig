@@ -71,12 +71,12 @@
                                         </th>
                                     </tr>
                                     {{ form_start(formAccessoire) }}
-                                    <tr>
-                                        <td class="table-secondary" width="20%">Accessoires complémentaires</td>
-                                        <td colspan="2">{{form_widget(formAccessoire.libelle)}}</td>
-                                        <td width="300" class="text-center"><button type="submit" name="bouton1"
-                                                value="ajouter" class="btn btn-primary btn-sm">Ajouter</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td class="table-secondary" width="20%">Accessoires complémentaires</td>
+                                            <td colspan="2">{{form_widget(formAccessoire.libelle)}}</td>
+                                            <td width="300" class="text-center"><button type="submit" name="bouton1"
+                                                    value="ajouter" class="btn btn-primary btn-sm">Ajouter</button></td>
+                                        </tr>
                                     {{ form_end(formAccessoire) }}
                                     {% set i = 0 %}
                                     {% for item in accessoires %}
@@ -85,9 +85,8 @@
                                         <td class="table-secondary" width="20%">Accessoires complémentaires N° {{i}}
                                         </td>
                                         <td colspan="2">{{item.libelle}}</td>
-                                        <td width="70" class="text-center"><a
-                                                href="{{path('app_delete_accessoire', {'id' : item.id, 'parmID' : parametre.id })}}"><i
-                                                    class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                        <td width="70" class="text-center">
+                                            <a  href="{{path('app_delete_accessoire', {'id' : item.id, 'parmID' : parametre.id })}}"><i  class="fa fa-trash fa-2x text-danger"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     {% for c in controleVisuelMecanique.accessoireSupplementaires %}
@@ -95,11 +94,10 @@
                                     <tr>
                                         <td class="table-secondary" width="20%">Accessoires complémentaires N° {{i}}
                                         </td>
-                                        <td>{{c.libelle}}</td>
-                                        <td width="70" class="text-center"><a
-                                                href="{{path('app_delete_accessoire', {'id' : c.id, 'parmID' : parametre.id})}}"
-                                                onclick="return confirm('Voulez-vous valider ?')"><i
-                                                    class="fa fa-trash fa-2x text-danger"></i></a></td>
+                                        <td colspan="2">{{c.libelle}}</td>
+                                        <td width="70" class="text-center">
+                                            <a  href="{{path('app_edit_controle', {'id' : c.id})}}"><i  class="fa fa-edit fa-2x text-edit"></i></a>
+                                            <a  href="{{path('app_delete_accessoire', {'id' : c.id, 'parmID' : parametre.id})}}"  onclick="return confirm('Voulez-vous valider ?')"><i  class="fa fa-trash fa-2x text-danger"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                     <tr>

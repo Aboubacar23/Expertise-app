@@ -220,7 +220,7 @@ class ExpertiseMecaniqueController extends AbstractController
                 $parametre->setControleVisuelMecanique($controleVisuelMecanique);
                 $controleVisuelMecanique->setEtat(0);
                 $controleVisuelMecaniqueRepository->save($controleVisuelMecanique, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_visuel_terminer') {
                 foreach ($tables as $item) {
                     $item->setLig(1);
@@ -229,7 +229,7 @@ class ExpertiseMecaniqueController extends AbstractController
                 $parametre->setControleVisuelMecanique($controleVisuelMecanique);
                 $controleVisuelMecanique->setEtat(1);
                 $controleVisuelMecaniqueRepository->save($controleVisuelMecanique, true);
-                $this->redirectToRoute('app_expertise_mecanique', ['id' => $parametre->getId()]);
+                return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             }
         }
 
@@ -604,7 +604,7 @@ class ExpertiseMecaniqueController extends AbstractController
         //  $id = $accessoireSupplementaire->getControleVisuelMecanique()->getParametre()->getId();
         if ($accessoireSupplementaire) {
             $accessoireSupplementaireRepository->remove($accessoireSupplementaire, true);
-            return $this->redirectToRoute('app_expertise_mecanique', ['id' => $parmID]);
+            return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parmID]);
         }
     }
 

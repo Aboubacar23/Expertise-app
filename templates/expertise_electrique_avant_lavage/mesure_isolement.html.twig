@@ -136,7 +136,10 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                                <td class="text-center">
+                                                    {#<a href="{{path('app_edit_mesure_isolement', {'id' : item.id})}}"><i class="fa fa-edit fa-2x text-info"></i></a>#}
+                                                    <a href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a>
+                                                </td>
                                             </tr>                                        
                                         {% endfor %}                                            
                                     {% endif %}
@@ -570,7 +573,7 @@
                 valeurFinale = valeurCorrection.toFixed(2);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
-        }
+        #}
         document.getElementById('mesure_isolement_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_type').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_critere').addEventListener('input', updateSumField);
