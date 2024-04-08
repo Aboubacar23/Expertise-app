@@ -67,7 +67,7 @@
                                                 {% if item.type == "Plan CA" %}
                                                     <td>{{item.repere}}</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-success bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-edit fa-1x text-white"></i></a>
+                                                        <a class="btn btn-success bnt-sm" href="{{path('app_edit_synoptique', {'id' : item.id })}}"><i class="fa fa-edit fa-1x text-white"></i></a>
                                                         <a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a>
                                                     </td>
                                                 {% endif %}
@@ -82,7 +82,7 @@
                                                 {% if item.type == "Plan COA" %}
                                                     <td>{{item.repere}}</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-success bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-edit fa-1x text-white"></i></a>
+                                                        <a class="btn btn-success bnt-sm" href="{{path('app_edit_synoptique', {'id' : item.id })}}"><i class="fa fa-edit fa-1x text-white"></i></a>
                                                         <a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a>
                                                     </td>
                                                 {% endif %}

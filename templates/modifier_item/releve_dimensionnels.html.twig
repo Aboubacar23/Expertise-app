@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left"><h4>Relevès dimensionnels rotor et palier</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">     
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{path('app_releve_dimensionnel',{'id' : releveDimmensionnel.parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                    </ul>
+                    <div class="clearfix"></div> 
+                </div>
+                <!-- début Relevès dimensionnels rotor et palier --> 
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_start(formReleveDimmensionnel) }}
+                                    <div class="item form-group">
+                                        <table class="table table-bordered">
+                                            <tr  class="table-secondary">
+                                                <th  class="text-center">Désignation diamètre</th>
+                                                <th class="text-center">Cote attendue (mm)</th>
+                                                <th class="text-center">Tolérance (μ)</th>
+                                                <th class="text-center">Cote relevée (mm)</th>
+                                                <th class="text-center">Conformité</th>
+                                                <th class="text-center">Observation</th>
+                                                <th class="text-center">Type</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ form_widget(formReleveDimmensionnel.designation) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.cote_attendue) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.tolerance) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.cote_relevee) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.conformite) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.observation) }}</td>
+                                                <td>{{ form_widget(formReleveDimmensionnel.type) }}</td>
+                                                <td width="100"><button class="btn btn-primary btn-sm" name="bouton4" value="ajouter"> Modifier</button></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                {{ form_end(formReleveDimmensionnel) }}
+                            </div>
+                        </div>
+                    </div>
+                <!-- fin Relevès dimensionnels rotor et palier -->
+
+
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}
