@@ -54,7 +54,7 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>Repères, désignation des pièces</th>
-                                            <th width="20px"></th>
+                                            <th width="150px"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,7 +66,10 @@
                                             <tr> 
                                                 {% if item.type == "Plan CA" %}
                                                     <td>{{item.repere}}</td>
-                                                    <td><a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a></td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-success bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-edit fa-1x text-white"></i></a>
+                                                        <a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a>
+                                                    </td>
                                                 {% endif %}
                                             </tr> 
                                         {% endfor %}
@@ -78,7 +81,10 @@
                                             <tr>  
                                                 {% if item.type == "Plan COA" %}
                                                     <td>{{item.repere}}</td>
-                                                    <td><a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a></td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-success bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-edit fa-1x text-white"></i></a>
+                                                        <a class="btn btn-danger bnt-sm" href="{{path('app_delete_synoptique', {'id' : item.id })}}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="fa fa-trash-o fa-1x text-white"></i></a>
+                                                    </td>
                                                 {% endif %}
                                             </tr>          
                                         {% endfor %}                                       

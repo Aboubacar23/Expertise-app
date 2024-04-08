@@ -699,7 +699,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
                 if ($image) {
                     $size = $image->getSize();
-                    if ($size < 2 * 1024 * 1024) {
+                    if ($size > 2 * 1024 * 1024) {
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
                         return $this->redirectToRoute('app_constat_electrique', ['id' => $parametre->getId()]);
                     } else {
@@ -749,7 +749,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $image = $formConstatElectrique->get('photo')->getData();
             if ($image) {
                 $size = $image->getSize();
-                if ($size < 2 * 1024 * 1024) {
+                if ($size > 2 * 1024 * 1024) {
                     $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
                     return $this->redirectToRoute('app_constat_electrique', ['id' => $parametre->getId()]);
                 } else {
