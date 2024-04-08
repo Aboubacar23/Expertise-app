@@ -168,15 +168,16 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setLig($i);
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
-                    $lstatorApresLavage->setValeur($item->getValeur());
+                    $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
+                    //$lstatorApresLavage->setValeur($item->getValeur());
 
                     $valeur = 0;
                     $temp = 0;
-                    if (is_int($item->getValeurRelevee()))
+                    if (is_int($item->getValeur()))
                     {
-                        $valeur = $item->getValeurRelevee();
+                        $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeurRelevee(), 1, '.', '');
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
@@ -187,7 +188,6 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     }
 
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
-                    $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
                     $lstatorApresLavage->setValeur($valeur);
                     $lstatorApresLavage->setTempCorrection($temp);
                     $lstatorApresLavage->setConformite($item->getConformite());
@@ -214,11 +214,11 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
 
                     $valeur = 0;
                     $temp = 0;
-                    if (is_int($item->getValeurRelevee()))
+                    if (is_int($item->getValeur()))
                     {
-                        $valeur = $item->getValeurRelevee();
+                        $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeurRelevee(), 1, '.', '');
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
