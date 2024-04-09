@@ -171,14 +171,16 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     {
                         $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
+                        $valeur = $item->getValeur();
+                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
                     }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                        $temp = $item->getTempCorrection();
+                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
                     }
                     $lmesureIsolement->setValeur($valeur);
                     $lmesureIsolement->setTempCorrection($temp);

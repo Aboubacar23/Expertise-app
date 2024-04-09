@@ -5,17 +5,26 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Point de fonctionnement à vide</h4></div>
+        <div class="title_left">
+            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+        </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">     
-                    <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_essais_finaux',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
-                    </ul>
-                    <div class="clearfix"></div> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Point de fonctionnement à vide</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="{{path('app_essais_finaux',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div> 
                 <div class="x_content">
                     <div class="row">
