@@ -667,7 +667,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertises'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $img->setLibelle($newPhotoname);
                         $img->setLig($num);
                         $photo->addImage($img);
@@ -719,7 +719,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         }
                         
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatElectrique->setPhoto($newPhotoname);
                     }
                 }
@@ -765,7 +765,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         );
                     } catch (FileException $e) {}
                     $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique'.'/'.$newPhotoname;
-                    $this->redimensionneService->resize($directory);
+                    //$this->redimensionneService->resize($directory);
                     $constatElectrique->setPhoto($newPhotoname);
                 } 
             }
@@ -1004,7 +1004,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     } catch (FileException $e) {
                     }
                     $directory= $this->getParameter('kernel.project_dir').'/public/photo_plaque'.'/'.$newPhotoname;
-                    $this->redimensionneService->resize($directory);
+                    //$this->redimensionneService->resize($directory);
                     $plaque->setPhoto($newPhotoname);
                 }
  

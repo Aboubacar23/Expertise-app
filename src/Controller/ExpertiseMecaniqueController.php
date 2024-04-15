@@ -112,10 +112,10 @@ class ExpertiseMecaniqueController extends AbstractController
                             );
                         } catch (FileException $e) {
                         }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_controle_recensement'.'/'.$newPhotoname;
+                        //$this->redimensionneService->resize($directory);
+                        $controleRecensement->setPhoto($newPhotoname);
                     }
-                    $directory= $this->getParameter('kernel.project_dir').'/public/photo_controle_recensement'.'/'.$newPhotoname;
-                    $this->redimensionneService->resize($directory);
-                    $controleRecensement->setPhoto($newPhotoname);
                 }
 
                 $controleRecensement->setParametre($parametre);
@@ -166,7 +166,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_rotor'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $photoRotor->setLibelle($newPhotoname);
                     }
                 }
@@ -479,7 +479,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {}
                         
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertise_mecanique'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $photoExpertiseMecanique->setImage($newPhotoname);
                     }
                 }
@@ -529,7 +529,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
@@ -580,7 +580,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_mecanique'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
@@ -746,7 +746,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCa($newPhotoname);
                     }
                 }
@@ -773,7 +773,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCoa($newPhotoname);
                     }
                 }
@@ -806,7 +806,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCa($newPhotoname);
                     }
                 }
@@ -833,7 +833,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         } catch (FileException $e) {
                         }
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_coussinet'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $coussinet->setPhotoCoa($newPhotoname);
                     }
                 }

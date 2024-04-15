@@ -587,7 +587,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         }
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }
@@ -638,7 +638,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         }
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }

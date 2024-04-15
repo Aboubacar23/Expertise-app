@@ -53,7 +53,7 @@ class PhotothequeController extends AbstractController
                         } catch (FileException $e){}
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/phototheques'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $phototheque->setLibelle($newPhotoname);
                     }
                 }
