@@ -38,6 +38,7 @@ class LMesureReistanceEssaiType extends AbstractType
                         'kΩ' => 'kΩ',
                         'MΩ' => 'MΩ',
                         'GΩ' => 'GΩ',
+                        ' ' => ' ',
                     ]
                 ])
                 ->add('temp_correction')

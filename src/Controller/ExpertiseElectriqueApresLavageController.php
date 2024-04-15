@@ -218,14 +218,17 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     {
                         $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
+
+                        $valeur = $item->getValeur();
+                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
                     }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                        $temp = $item->getTempCorrection();
+                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
                     }
 
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
@@ -584,7 +587,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         }
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }
@@ -635,7 +638,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         }
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_constat_electrique_apres_lavage'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $constatElectriqueApresLavage->setPhoto($newPhotoname);
                     }
                 }

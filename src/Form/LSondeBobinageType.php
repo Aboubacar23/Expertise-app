@@ -40,6 +40,7 @@ class LSondeBobinageType extends AbstractType
                     'kΩ' => 'kΩ',
                     'MΩ' => 'MΩ',
                     'GΩ' => 'GΩ',
+                    ' ' => ' ',
                 ]
             ])
             ->add('type', ChoiceType::class, [

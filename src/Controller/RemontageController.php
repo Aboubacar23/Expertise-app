@@ -192,7 +192,7 @@ class RemontageController extends AbstractController
                         }
 
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_remontages'.'/'.$newPhotoname;
-                        $this->redimensionneService->resize($directory);
+                        //$this->redimensionneService->resize($directory);
                         $remontagePhoto->setImage($newPhotoname);
                     }
                 }
