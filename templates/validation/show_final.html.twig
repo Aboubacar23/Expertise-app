@@ -171,7 +171,14 @@
                                                                 <td>{{item.type}}</td>
                                                                 <td>{{item.controle}}</td>
                                                                 <td>{{item.critere}}</td>
-                                                                <td>{{item.tension}}</td>
+                                                                
+<td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                                                 <td>
                                                                     {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
                                                                         'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
@@ -1927,7 +1934,14 @@
                                                     <td>{{item.type}}</td>
                                                     <td>{{item.controle}}</td>
                                                     <td>{{item.critere}}</td>
-                                                    <td>{{item.tension}}</td>
+                                                    
+<td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         <td class="text-center">{{ item.valeur}}</td>
                                                     {% else %}

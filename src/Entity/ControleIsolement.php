@@ -33,7 +33,7 @@ class ControleIsolement
         return $this;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getLibelle();
     }

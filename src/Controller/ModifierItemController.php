@@ -4,15 +4,20 @@ namespace App\Controller;
 
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\LMesureIsolement;
+use App\Entity\LMesureResistance;
 use App\Entity\ReleveDimmensionnel;
 use App\Entity\Synoptique;
 use App\Form\AccessoireSupplementaireType;
+use App\Form\LMesureIsolementEditType;
 use App\Form\LMesureIsolementType;
+use App\Form\LMesureResistanceEditType;
+use App\Form\LMesureResistanceType;
 use App\Form\ReleveDimmensionnelType;
 use App\Form\SynoptiqueType;
 use App\Repository\AccessoireSupplementaireRepository;
 use App\Repository\ControleIsolementRepository;
 use App\Repository\LMesureIsolementRepository;
+use App\Repository\LMesureResistanceRepository;
 use App\Repository\ReleveDimmensionnelRepository;
 use App\Repository\SynoptiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -83,24 +88,66 @@ class ModifierItemController extends AbstractController
         ]);
     }
 
-      //création de mesure d'isolement
-      #[Route('/modifier/{id}/isolement', name: 'app_edit_mesure_isolement', methods: ['POST', 'GET'])]
-      public function mesureIso(LMesureIsolement $lmesureIsolement, Request $request, LMesureIsolementRepository $LMesureIsolementRepository, EntityManagerInterface $em, ControleIsolementRepository $controleIsolementRepository): Response
+      //modification de mesure d'isolement
+      #[Route('/modifier-isolement/{id}', name: 'app_edit_mesure_isolement', methods: ['POST', 'GET'])]
+      public function mesureIsolement(LMesureIsolement $lmesureIsolement, Request $request, LMesureIsolementRepository $lMesureIsolementRepository): Response
       {
-          $form = $this->createForm(LMesureIsolementType::class, $lmesureIsolement);
+          $form = $this->createForm(LMesureIsolementEditType::class, $lmesureIsolement);
           $form->handleRequest($request);
-
+        
           if ($form->isSubmitted() && $form->isValid())
           {
-              $LMesureIsolementRepository->save($lmesureIsolement, true);
-              return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureIsolement->getMesureIsolement()->getParametre()->getId()]);
-          }
+            if (is_int($lmesureIsolement->getValeur()))
+            {
+                $valeur = $lmesureIsolement->getValeur();
+            }else{
+                $valeur = $lmesureIsolement->getValeur();
+                //$valeur =  number_format($lmesureIsolement->getValeur(), 1, '.', '');
+            }
 
+            if (is_int($lmesureIsolement->getTempCorrection()))
+            {
+                $temp = $lmesureIsolement->getTempCorrection();
+            }else{
+                //$temp = $lmesureIsolement->getTempCorrection();
+                $temp =  number_format($lmesureIsolement->getTempCorrection(), 0, '.', '');
+            }
+
+            $lmesureIsolement->setValeur($valeur);
+            $lmesureIsolement->setTempCorrection($temp);
+            $lMesureIsolementRepository->save($lmesureIsolement, true);
+            return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureIsolement->getMesureIsolement()->getParametre()->getId()]);
+          }
+          
+          //dd($lmesureIsolement->getMesureIsolement());
           return $this->render('modifier_item/mesure_isolement.html.twig', [
-              'parametre' =>$lmesureIsolement->getMesureIsolement()->getParametre(),
               'form' => $form->createView(),
               'LmesureIsolement' =>$lmesureIsolement,
-              'listes_controles' => $controleIsolementRepository->findAll(),
+              'mesureIsolement' =>$lmesureIsolement->getMesureIsolement(),
+              'parametre' =>$lmesureIsolement->getMesureIsolement()->getParametre(),
+          ]);
+      }
+
+
+      //modification de mesure d'isolement
+      #[Route('/modifier-resistance/{id}', name: 'app_edit_mesure_resistance', methods: ['POST', 'GET'])]
+      public function mesureResistance(LMesureResistance $lmesureResistance, Request $request, LMesureResistanceRepository $lMesureResistanceRepository): Response
+      {
+          $form = $this->createForm(LMesureResistanceEditType::class, $lmesureResistance);
+          $form->handleRequest($request);
+        
+          if ($form->isSubmitted() && $form->isValid())
+          {
+
+            return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureResistance->getMesureResistance()->getParametre()->getId()]);
+          }
+          
+          //dd($lmesureIsolement->getMesureIsolement());
+          return $this->render('modifier_item/mesure_resistance.html.twig', [
+              'form' => $form->createView(),
+              'lmesureResistance' =>$lmesureResistance,
+              'mesureResistance' =>$lmesureResistance->getMesureResistance(),
+              'parametre' =>$lmesureResistance->getMesureResistance()->getParametre(),
           ]);
       }
 }

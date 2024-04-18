@@ -95,13 +95,19 @@
                                         <td width="200">{{ form_widget(form.unite) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
-                                        <td><button class="btn btn-primary btn-sm" name="bouton7" value="ajouter">Ajouter</button></td>
+                                        <td class="text-center"><button class="btn btn-primary btn-sm" name="bouton7" value="ajouter">Ajouter</button></td>
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
                                             <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
-                                            <td>{{item2.critere}}</td>
+                                                <td>
+                                                    {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item2.critere}}
+                                                    {% else %}
+                                                            {{item2.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                             <td>{{item2.tension}}</td>
                                             <td colspan="2">
                                                 {% if item2.controle == 'IP-UVW/masse' or  item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
@@ -127,8 +133,21 @@
                                             <tr>
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
-                                                <td>{{item.tension}}</td>
+                                                <td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
+                                                
+<td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                                 <td colspan="2">
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                             {{item.valeur}}
@@ -145,8 +164,8 @@
                                                 </td>
                                                 <td>{{item.conformite}}</td>
                                                 <td class="text-center">
-                                                    {#<a href="{{path('app_edit_mesure_isolement', {'id' : item.id})}}"><i class="fa fa-edit fa-2x text-info"></i></a>#}
-                                                    <a href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a>
+                                                    <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_isolement', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
+                                                    <a class="btn btn-danger btn-sm" href="{{path('delete_lmesure_isolement', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
                                                 </td>
                                             </tr>                                        
                                         {% endfor %}                                            
@@ -310,10 +329,8 @@
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
-
             if(var_type.value == 1)
             {
-
                 const ol_critre = (critere * tension_stator)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
@@ -581,7 +598,7 @@
                 valeurFinale = valeurCorrection.toFixed(2);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
-        #}
+        }
         document.getElementById('mesure_isolement_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_type').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_critere').addEventListener('input', updateSumField);
