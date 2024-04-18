@@ -5,20 +5,26 @@ namespace App\Controller;
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\LMesureIsolement;
 use App\Entity\LMesureResistance;
+use App\Entity\LStatorApresLavage;
 use App\Entity\ReleveDimmensionnel;
+use App\Entity\SondeBobinage;
+use App\Entity\StatorApresLavage;
 use App\Entity\Synoptique;
 use App\Form\AccessoireSupplementaireType;
 use App\Form\LMesureIsolementEditType;
 use App\Form\LMesureIsolementType;
 use App\Form\LMesureResistanceEditType;
 use App\Form\LMesureResistanceType;
+use App\Form\LStatorApresLavageEditType;
 use App\Form\ReleveDimmensionnelType;
 use App\Form\SynoptiqueType;
 use App\Repository\AccessoireSupplementaireRepository;
 use App\Repository\ControleIsolementRepository;
 use App\Repository\LMesureIsolementRepository;
 use App\Repository\LMesureResistanceRepository;
+use App\Repository\LStatorApresLavageRepository;
 use App\Repository\ReleveDimmensionnelRepository;
+use App\Repository\StatorApresLavageRepository;
 use App\Repository\SynoptiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,7 +94,7 @@ class ModifierItemController extends AbstractController
         ]);
     }
 
-      //modification de mesure d'isolement
+      //modification de mesure d'isolement avant lavage
       #[Route('/modifier-isolement/{id}', name: 'app_edit_mesure_isolement', methods: ['POST', 'GET'])]
       public function mesureIsolement(LMesureIsolement $lmesureIsolement, Request $request, LMesureIsolementRepository $lMesureIsolementRepository): Response
       {
@@ -128,8 +134,48 @@ class ModifierItemController extends AbstractController
           ]);
       }
 
+      //modification de mesure d'isolement après lavage
+      #[Route('/modifier-isolement-apres-lavage/{id}', name: 'app_edit_mesure_isolement_apres_lavage', methods: ['POST', 'GET'])]
+      public function mesureIsolementApresLavage(LStatorApresLavage $lstatorApresLavage, Request $request, LStatorApresLavageRepository $lstatorApresLavageRepository): Response
+      {
+          $form = $this->createForm(LStatorApresLavageEditType::class, $lstatorApresLavage);
+          $form->handleRequest($request);
+        
+          if ($form->isSubmitted() && $form->isValid())
+          {
+            if (is_int($lstatorApresLavage->getValeur()))
+            {
+                $valeur = $lstatorApresLavage->getValeur();
+            }else{
+                $valeur = $lstatorApresLavage->getValeur();
+                //$valeur =  number_format($lstatorApresLavage->getValeur(), 1, '.', '');
+            }
 
-      //modification de mesure d'isolement
+            if (is_int($lstatorApresLavage->getTempCorrection()))
+            {
+                $temp = $lstatorApresLavage->getTempCorrection();
+            }else{
+                //$temp = $lstatorApresLavage->getTempCorrection();
+                $temp =  number_format($lstatorApresLavage->getTempCorrection(), 0, '.', '');
+            }
+
+            $lstatorApresLavage->setValeur($valeur);
+            $lstatorApresLavage->setTempCorrection($temp);
+            $lstatorApresLavageRepository->save($lstatorApresLavage, true);
+            return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $lstatorApresLavage->getStatorApresLavage()->getParametre()->getId()]);
+          }
+          
+          //dd($lmesureIsolement->getMesureIsolement());
+          return $this->render('modifier_item/mesure_isolement_apres_lavage.html.twig', [
+              'form' => $form->createView(),
+              'lstatorApresLavage' =>$lstatorApresLavage,
+              'statorApresLavage' =>$lstatorApresLavage->getStatorApresLavage(),
+              'parametre' =>$lstatorApresLavage->getStatorApresLavage()->getParametre(),
+          ]);
+      }
+
+
+      //modification de mesure d'isolement avant lavage
       #[Route('/modifier-resistance/{id}', name: 'app_edit_mesure_resistance', methods: ['POST', 'GET'])]
       public function mesureResistance(LMesureResistance $lmesureResistance, Request $request, LMesureResistanceRepository $lMesureResistanceRepository): Response
       {
@@ -138,8 +184,8 @@ class ModifierItemController extends AbstractController
         
           if ($form->isSubmitted() && $form->isValid())
           {
-
-            return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureResistance->getMesureResistance()->getParametre()->getId()]);
+            $lMesureResistanceRepository->save($lmesureResistance, true);
+            return $this->redirectToRoute('app_mesure_resistance', ['id' => $lmesureResistance->getMesureResistance()->getParametre()->getId()]);
           }
           
           //dd($lmesureIsolement->getMesureIsolement());

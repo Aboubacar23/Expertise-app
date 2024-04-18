@@ -140,8 +140,7 @@
                                                             {{item.critere}} MΩ
                                                     {% endif %}
                                                 </td>
-                                                
-<td>
+                                                <td>
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         >= {{item.critere}} 
                                                     {% else %}
@@ -595,7 +594,7 @@
             {
                 val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(2);
+                valeurFinale = valeurCorrection.toFixed(0);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
         }
