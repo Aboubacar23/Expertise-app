@@ -31,7 +31,7 @@ class LMesureResistance
     #[ORM\ManyToOne(inversedBy: 'lMesureResistances')]
     private ?MesureResistance $mesure_resistance = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $temp_correction = null;
 
     #[ORM\Column(length: 255)]

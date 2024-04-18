@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Mesure Vibratoire</h4>
+            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -14,11 +14,17 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}"
-                            class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
-                    </ul>
-                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Mesure Vibratoire</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- début Mesures vibratoires -->
@@ -73,8 +79,7 @@
                                 <td>R.M.S à F0 (mm/s)</td>
                                 <td>{{ form_widget(formMesureVibratoire.n25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.a25) }}</td>
-                                <td>{Impossible to access an attribute ("lmesureVibratoires") on a null variable.
-                                    { form_widget(formMesureVibratoire.b25) }}</td>
+                                <td>{{ form_widget(formMesureVibratoire.b25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.c25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.d25) }}</td>
                                 <td>{{ form_widget(formMesureVibratoire.e25) }}</td>
@@ -109,23 +114,24 @@
                                             class="fa fa-trash-o fa-2x text-danger"></i></a></td>
                             </tr>
                             {% endfor %}
-
-                            {% if parametre.mesureVibratoire.lMesureVibratoires|length > 0 %}
-                                {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
-                                <tr>
-                                    <td class="titre_table">{{ item.titre}}</td>
-                                    <td>{{ item.n30 | number_format(2) }}</td>
-                                    <td>{{ item.a30 | number_format(2) }}</td>
-                                    <td>{{ item.b30 | number_format(2) }}</td>
-                                    <td>{{ item.c30 | number_format(2) }}</td>
-                                    <td>{{ item.d30 | number_format(2) }}</td>
-                                    <td>{{ item.e30 | number_format(2) }}</td>
-                                    <td>{{ item.f30 | number_format(2) }}</td>
-                                    <td class="text-center"><a
-                                            href="{{path('delete_lmesure_vibratoire', {'id' : item.id, 'id2' : parametre.id })}}"><i
-                                                class="fa fa-trash-o fa-2x text-danger"></i></a></td>
-                                </tr>
-                                {% endfor %}
+                            {% if parametre.mesureVibratoire %}
+                                {% if parametre.mesureVibratoire.lMesureVibratoires|length > 0 %}
+                                    {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
+                                        <tr>
+                                            <td class="titre_table">{{ item.titre}}</td>
+                                            <td>{{ item.n30 | number_format(2) }}</td>
+                                            <td>{{ item.a30 | number_format(2) }}</td>
+                                            <td>{{ item.b30 | number_format(2) }}</td>
+                                            <td>{{ item.c30 | number_format(2) }}</td>
+                                            <td>{{ item.d30 | number_format(2) }}</td>
+                                            <td>{{ item.e30 | number_format(2) }}</td>
+                                            <td>{{ item.f30 | number_format(2) }}</td>
+                                            <td class="text-center"><a
+                                                        href="{{path('delete_lmesure_vibratoire', {'id' : item.id, 'id2' : parametre.id })}}"><i
+                                                            class="fa fa-trash-o fa-2x text-danger"></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
                             {% endif %}
                             {{ form_end(f) }}
                             <tr>

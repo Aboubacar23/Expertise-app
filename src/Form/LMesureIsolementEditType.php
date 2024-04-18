@@ -3,28 +3,18 @@
 namespace App\Form;
 
 use App\Entity\LMesureIsolement;
-use App\Entity\ControleIsolement;
 use Symfony\Component\Form\AbstractType;
-use App\Repository\ControleIsolementRepository;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LMesureIsolementType extends AbstractType
+class LMesureIsolementEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('controle', EntityType::class, [
-                'class' => ControleIsolement::class,
-                'query_builder' => function(ControleIsolementRepository $em)
-                {
-                    $query = $em->createQueryBuilder('a');
-                    return  $query;
-                }
-            ])
+            //->add('controle')
             ->add('critere', NumberType::class,[
                 'required' => true
             ])

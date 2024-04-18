@@ -2,48 +2,44 @@
 
 namespace App\Form;
 
-use App\Entity\LMesureIsolement;
-use App\Entity\ControleIsolement;
+use App\Entity\LMesureResistance;
 use Symfony\Component\Form\AbstractType;
-use App\Repository\ControleIsolementRepository;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LMesureIsolementType extends AbstractType
+class LMesureResistanceEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('controle', EntityType::class, [
-                'class' => ControleIsolement::class,
-                'query_builder' => function(ControleIsolementRepository $em)
-                {
+            /*->add('controle', EntityType::class, [
+                'class' => ControleResistance::class,
+                'query_builder' => function(ControleResistanceRepository $em){
                     $query = $em->createQueryBuilder('a');
                     return  $query;
                 }
+            ])*/
+            ->add('critere', TextType::class,[
+                'required' => true,
+                'label' => 'Critère'
             ])
-            ->add('critere', NumberType::class,[
-                'required' => true
-            ])
-            ->add('tension')
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-
-                    'MΩ' => 'MΩ',
-                    'Ω' => 'Ω',
                     'mΩ' => 'mΩ',
+                    'Ω' => 'Ω',
                     'µΩ' => 'µΩ',
                     'kΩ' => 'kΩ',
+                    'MΩ' => 'MΩ',
                     'GΩ' => 'GΩ',
                     ' ' => ' ',
                 ]
             ])
             ->add('temp_correction')
-            ->add('valeur', NumberType::class, [
+            ->add('valeur', TextType::class, [
                 'required' => true,
             ])
             ->add('conformite', ChoiceType::class, [
@@ -58,8 +54,8 @@ class LMesureIsolementType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-                    "" => "",
-                    "Stator" => "Stator",
+                    '' => '',
+                    'Stator' => 'Stator',
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
                     "Rotor 2" => "Rotor 2",
@@ -72,16 +68,15 @@ class LMesureIsolementType extends AbstractType
                     "Courant porte balais" => "Courant porte balais",
                     "induit" => "induit",
                     "Carcasse" => "Sondes",
-
                 ]
             ])
-        ;
+        ; 
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => LMesureIsolement::class,
+            'data_class' => LMesureResistance::class,
         ]);
     }
 }

@@ -5,7 +5,8 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Contre-Expertise</h4>
+        <div class="title_left">
+            <h4>Information Générale du projet : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -35,12 +36,14 @@
                     {% endif %}
                     
                     {% if (parametre.expertiseElectiqueAvantLavage == 1) and (parametre.expertiseMecanique == 1) and (parametre.expertiseElectiqueApresLavage == 1) %}
-                       
-                        {% if parametre.contreExpertise.etat == 1 %}
-                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise</a> 
-                        {% else %}
-                            <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a> 
-                        {% endif %} 
+                        {% if parametre.contreExpertise  %}
+                            {% if parametre.contreExpertise.etat == 1 %}
+                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Contre-Expertise</a>
+                            {% else %}
+                                <a href="{{path('app_contre_expertise', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Contre-Expertise</a>
+                            {% endif %}
+
+                        {% endif %}
 
                         {% if parametre.remontage == 1 %}
                             <a href="{{path('app_remontage_index', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Remontage <i class="fa fa-check"></i></a>

@@ -5,18 +5,26 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Mesure d'isolement</h4>
+        <div class="title_left">
+            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
-                <div class="x_title">     
-                    <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{path('app_expertise_electrique_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
-                    </ul>
-                    <div class="clearfix"></div> 
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Mesure d'isolement après lavage</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="{{path('app_expertise_electrique_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div> 
                 <div class="x_content">
                     <form method="post">
@@ -94,7 +102,13 @@
                                         <tr>
                                             <td>{{item2.type}}</td>
                                             <td>{{item2.controle}}</td>
-                                            <td>{{item2.critere}}</td>
+                                            <td>
+                                                {% if item2.controle == 'IP-UVW/masse' or   item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
+                                                    >= {{item2.critere }}
+                                                {% else %}
+                                                    {{item2.critere}} MΩ
+                                                {% endif %}
+                                            </td>
                                             <td>{{item2.tensionEssai}}</td>
                                             <td>
                                                 {% if item2.controle == 'IP-UVW/masse' or   item2.controle == 'IP-U/VW+masse' or  item2.controle == 'IP-V/UW+masse' or  item2.controle == 'IP-W/UV+masse'  %}
@@ -128,7 +142,13 @@
                                             <tr>
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
+                                                <td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{item.tensionEssai}} </td>
                                                 <td>
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
@@ -152,8 +172,11 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_stator_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                            </tr>                                        
+                                                <td class="text-center">
+                                                    <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_isolement_apres_lavage', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
+                                                    <a class="btn btn-danger btn-sm" href="{{path('delete_stator_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
+                                                </td>
+                                            </tr>                                         
                                         {% endfor %}                                            
                                     {% endif %}
                                 </table>
@@ -318,10 +341,9 @@
                 const ol_critre = (critere*tension_stator)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
-
                 if(var_controle.value == var_id_UVW )
                 {
-                    const tension_essaie = var_j_UVW.toFixed(2);
+                    const tension_essaie = var_j_UVW.toFixed(1);
                     const new_tension = document.getElementById('l_stator_apres_lavage_valeur');
                     new_tension.value = isNaN(tension_essaie) ? '' : (tension_essaie);
 
@@ -577,7 +599,7 @@
             {
                 val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(2);
+                valeurFinale = valeurCorrection.toFixed(0);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
         }

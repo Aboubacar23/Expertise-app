@@ -5,7 +5,7 @@
 {% block body %}
 <div class="">
     <div class="page-title">
-        <div class="title_left"><h4>Essais Finaux</h4>
+        <div class="title_left"><h4>Essais Finaux : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -163,7 +163,14 @@
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
                                                 <td>{{item.critere}}</td>
-                                                <td>{{item.tension}}</td>
+                                                
+<td>
+                                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                                        >= {{item.critere}} 
+                                                    {% else %}
+                                                            {{item.critere}} MΩ
+                                                    {% endif %}
+                                                </td>
                                                 {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                     <td>{{ item.valeur}}</td>
                                                 {% else %}

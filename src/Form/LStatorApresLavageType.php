@@ -34,12 +34,14 @@ class LStatorApresLavageType extends AbstractType
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
+
                     'MΩ' => 'MΩ',
                     'Ω' => 'Ω',
                     'mΩ' => 'mΩ',
                     'µΩ' => 'µΩ',
                     'kΩ' => 'kΩ',
                     'GΩ' => 'GΩ',
+                    ' ' => ' ',
                 ]
             ])
             ->add('valeur', NumberType::class, [
