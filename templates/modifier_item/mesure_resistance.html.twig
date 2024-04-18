@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Mesure de resistance</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <a href="{{path('app_mesure_resistance',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>    
+                      
+                <div class="x_content">
+                    <!-- début Mesure de resistance -->
+                    {{ form_start(form) }}
+                        <div class="x_content">
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <tr  class="table-secondary">
+                                        <th colspan="6" class="text-center">Paramètres</th>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">T° ambiante (°C)</th>
+                                        <th width="15%">T° fer (°C)</th>
+                                        <th width="15%">Hygrométrie (%)</th>
+                                        <th width="15%">Date d'essai</th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation
+                                            {% else %}
+                                                Tension Stator
+                                            {% endif %}</th>
+                                        <th width="10%">Tension Rotor</th>
+                                    </tr>
+                                    <tr>
+                                        <td id="temperature">{{ mesureResistance.tempAmbiante }}</td>
+                                        <td >{{ mesureResistance.tempTolerie }}</td>
+                                        <td >{{ mesureResistance.hygrometrie }}</td>
+                                        <td >{{ mesureResistance.dateEssais ? mesureResistance.dateEssais | date('d-m-Y') }}</td>
+                                        <td>{{parametre.statorTension}} 
+                                            {% if parametre.statorTension2 != 0 %}
+                                                et {{parametre.statorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                        <td>{{parametre.rotorTension}} 
+                                            {% if parametre.rotorTension2 != 0 %}
+                                                et {{parametre.rotorTension2 }}
+                                            {% endif %} 
+                                        </td>
+                                    </tr>    
+                                </table>
+                            </div> 
+                            <div class="row">
+                                {% for flash_message in app.session.flashbag.get('message') %}
+                                    <div class="container alert alert-danger p-2 ml-5 mr-5 mt-2" role="alert">
+                                        {{ flash_message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row">
+                                <table class="table table-bordered table-striped">
+                                    <tr  class="table-secondary">
+                                        <th width="15%">Type</th>
+                                        <th width="15%">Contrôle</th>
+                                        <th width="15%">Critère</th>
+                                        <th width="15%" colspan="2">Valeur relevées</th>
+                                        <th width="15%">Correction à 20° C</th>
+                                        <th width="15%">Conformité</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form.type) }}</td>
+                                        <td>{{ lmesureResistance.controle }}</td>
+                                        <td>{{ form_widget(form.critere) }}</td>
+                                        <td>{{ form_widget(form.valeur) }}</td>
+                                        <td width="200">{{ form_widget(form.unite) }}</td>
+                                        <td>{{ form_widget(form.temp_correction) }}</td>
+                                        <td>{{ form_widget(form.conformite) }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-success btn-sm" name="bouton8" value="mesure_resistance_terminer"> Modifier <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    <!-- fin Mesure de resistance -->
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateSumField() 
+        { 
+            let temp_ambiante = {{ mesureResistance.tempAmbiante}};
+            let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_edit_valeur').value);
+            var var_type = document.getElementById('l_mesure_resistance_edit_type');
+
+            const correction = document.getElementById('l_mesure_resistance_edit_temp_correction');
+            const valeur_temp = {{ parametre.tempCorrection }};
+            console.log(temp_ambiante);
+            let valeurCorrection = 0;
+            //if(var_type.value == 1 && var_type.value == 2 && var_type.value == 3 && var_type.value == 4)
+            if(var_type.value == 1 || var_type.value == 2 || var_type.value == 3 || var_type.value == 4)
+            {
+                valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));        
+            }
+            valeurFinale = valeurCorrection.toFixed(0);
+            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
+        }
+        document.getElementById('temperature').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_resistance_edit_valeur').addEventListener('input', updateSumField);
+        //document.getElementById('l_mesure_resistance_type').addEventListener('input', updateSumField);
+    });
+</script>
+{% endblock %}
+ 

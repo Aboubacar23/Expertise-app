@@ -16,11 +16,11 @@
                 <div class="x_title">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Mesure d'isolement</h5>
+                            <h5>Mesure d'isolement après lavage</h5>
                         </div>
                         <div class="col-md-6">
                             <ul class="nav navbar-right panel_toolbox">
-                                <a href="{{path('app_mesure_isolement',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                                <a href="{{path('app_stator_apres_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -33,13 +33,12 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="8" class="text-center">Paramètres</th>
+                                        <th colspan="7" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th width="15%">T° ambiante (°C)</th>
                                         <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
-                                        <th width="15%">Date d'essai</th>
                                         <th width="10%">Critère</th>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
@@ -51,16 +50,15 @@
                                         <th width="10%">Tension Rotor</th>
                                     </tr>
                                     <tr>
-                                        <td id="temperature">{{ mesureIsolement.tempAmbiante}}</td>
-                                        <td >{{ mesureIsolement.tempTolerie}}</td>
-                                        <td >{{ mesureIsolement.hygrometrie}}</td>
-                                        <td>{{ mesureIsolement.dateEssais ? mesureIsolement.dateEssais | date('d-m-Y')}}</td>
+                                        <td id="temperature">{{ statorApresLavage.tempAmbiante}}</td>
+                                        <td >{{ statorApresLavage.tempTolerie}}</td>
+                                        <td >{{ statorApresLavage.hygrometrie}}</td>
                                         <td>{{parametre.critere}}</td>
                                         <td>{{parametre.statorTension}}  
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}
                                             {% endif %} 
-                                        </td>
+                                        </td> 
                                         <td>{{parametre.rotorTension}} 
                                             {% if parametre.rotorTension2 != 0 %}
                                                 et {{parametre.rotorTension2 }}
@@ -83,15 +81,23 @@
                                         <th width="13%">Contrôle</th>
                                         <th width="13%">Critère</th>
                                         <th width="13%">Tension d'éssai (V)</th>
+                                        <th class="text-center" width="14%">Valeur relevée avant lavage (Corrigé à 20°)</th>
                                         <th width="13%" colspan="2">Valeur relevées</th>
-                                        <th width="13%">Correction à 20° C</th>
+                                        <th width="13%">Correction à 20° C</th> 
                                         <th width="13%">Conformité</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.type) }}</td>
-                                        <td>{{ LmesureIsolement.controle}}</td>
+                                        <td>{{ lstatorApresLavage.controle}}</td>
                                         <td>{{ form_widget(form.critere) }}</td>
-                                        <td>{{ form_widget(form.tension) }}</td>
+                                        <td>{{ form_widget(form.tension_essai) }}</td>
+                                        <td>
+                                            {% if lstatorApresLavage.controle == 'IP-UVW/masse' or  lstatorApresLavage.controle == 'IP-U/VW+masse' or  lstatorApresLavage.controle == 'IP-V/UW+masse' or  lstatorApresLavage.controle == 'IP-W/UV+masse'  %}
+                                                {{lstatorApresLavage.valeurRelevee}}
+                                            {% else %}
+                                                {{lstatorApresLavage.valeurRelevee}} {{ lstatorApresLavage.unite}}
+                                            {% endif %}
+                                        </td>
                                         <td>{{ form_widget(form.valeur) }}</td>
                                         <td width="200">{{ form_widget(form.unite) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
@@ -231,10 +237,10 @@
              *récupérer le contenu des champs qui seront à l'origine des calculs.
              * 1- on a besoin du champ température ambiante, du champ valeur, du champ type et controle.
             */
-            let temp_ambiante = {{ mesureIsolement.tempAmbiante}};
-            let valeur = parseFloat(document.getElementById('l_mesure_isolement_edit_valeur').value);
-            var var_type = document.getElementById('l_mesure_isolement_edit_type');
-            var var_controle = document.getElementById('l_mesure_isolement_edit_controle');
+            let temp_ambiante = {{ statorApresLavage.tempAmbiante}};
+            let valeur = parseFloat(document.getElementById('l_stator_apres_lavage_edit_valeur').value);
+            var var_type = document.getElementById('l_stator_apres_lavage_edit_type');
+            var var_controle = document.getElementById('l_stator_apres_lavage_edit_controle');
             //récupérer les tensions(tension rotor et stator)
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
@@ -263,13 +269,13 @@
             if(var_type.value == 1)
             {
                 const ol_critre = (critere * tension_stator)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_edit_critere');
+                const new_critere = document.getElementById('l_stator_apres_lavage_edit_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }
             else if (var_type.value == 2)
             {
                 const ol_critre = (critere*tension_rotor)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_edit_critere');
+                const new_critere = document.getElementById('l_stator_apres_lavage_edit_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
 
             }
@@ -277,7 +283,7 @@
             {
 
                 const ol_critre = (critere*tension_stator2)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_edit_critere');
+                const new_critere = document.getElementById('l_stator_apres_lavage_edit_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
 
             }
@@ -285,11 +291,11 @@
             {
 
                 const ol_critre = (critere*tension_rotor2)/1000000;
-                const new_critere = document.getElementById('l_mesure_isolement_edit_critere');
+                const new_critere = document.getElementById('l_stator_apres_lavage_edit_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
             }
 
-            const correction = document.getElementById('l_mesure_isolement_edit_temp_correction');
+            const correction = document.getElementById('l_stator_apres_lavage_edit_temp_correction');
 
             let valeurCorrection = 0;
             if(temp_ambiante >= 10 && temp_ambiante <=30)
@@ -301,11 +307,11 @@
             }
         }
         document.getElementById('temperature').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_isolement_edit_type').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_isolement_edit_critere').addEventListener('input', updateSumField);
-        //document.getElementById('l_mesure_isolement_edit_controle').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_isolement_edit_valeur').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_isolement_edit_temp_correction').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_edit_type').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_edit_critere').addEventListener('input', updateSumField);
+        //document.getElementById('l_stator_apres_lavage_edit_controle').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_edit_valeur').addEventListener('input', updateSumField);
+        document.getElementById('l_stator_apres_lavage_edit_temp_correction').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

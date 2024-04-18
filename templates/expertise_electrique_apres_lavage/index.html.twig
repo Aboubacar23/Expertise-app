@@ -214,7 +214,13 @@
                                 <tr>
                                     <td class="text-left">{{item.type}}</td>
                                     <td class="text-left">{{item.controle}}</td>
-                                    <td class="text-left">{{ item.critere }}</td>
+                                    <td class="text-left">
+                                        {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                            >= {{item.critere}} 
+                                        {% else %}
+                                                {{item.critere}} MΩ
+                                        {% endif %}
+                                    </td>
                                     <td class="text-left">{{item.tensionEssai}}</td>
                                     <td>
                                         {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
