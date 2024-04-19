@@ -63,7 +63,7 @@ class RapportService
             }
         );
         */
-        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics,$numero) {
             $textLeft = "Page $pageNumber sur $pageCount";
             $textCenter = $numero;
             $textRight = "IAQ19001";
