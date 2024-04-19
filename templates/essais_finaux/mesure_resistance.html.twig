@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Essais Finaux du projet {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -61,12 +61,12 @@
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="16%">Type</th>
-                                        <th width="16%">Contrôle</th>
-                                        <th width="16%">Critère</th>
-                                        <th width="16%" colspan="2">Valeur relevées</th>
-                                        <th width="16%">Correction à 20° C</th>
-                                        <th width="16%">Conformité</th>
+                                        <th width="14%">Type</th>
+                                        <th width="14%">Contrôle</th>
+                                        <th width="14%">Critère</th>
+                                        <th width="18%" colspan="2">Valeur relevées</th>
+                                        <th width="14%">Correction à 20° C</th>
+                                        <th width="14%">Conformité</th>
                                         <th width="100"></th>  
                                     </tr>
                                     <tr>
@@ -77,7 +77,7 @@
                                         <td width="200">{{ form_widget(form.unite) }}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
-                                        <td><button class="btn btn-primary btn-sm" name="bouton8" value="ajouter">Ajouter</button></td>
+                                        <td class="text-center"><button class="btn btn-primary btn-sm" name="bouton8" value="ajouter">Ajouter</button></td>
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
@@ -85,7 +85,7 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td colspan="2">{{item2.valeur}} {{item2.unite}}</td>
-                                            <td>{{item2.tempCorrection | number_format(2, '.','')}}</td>
+                                            <td>{{item2.tempCorrection | number_format(0, '.','')}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_essai_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -100,9 +100,12 @@
                                                 <td colspan="2">{{item.valeur }} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+                                                <td class="text-center">
+                                                    <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_resistance_essais_finaux', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
+                                                    <a class="btn btn-danger btn-sm" href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
+                                                </td>
                                             </tr>                                        
-                                        {% endfor %}                                            
+                                        {% endfor %}                                             
                                     {% endif %}
                                 </table>
                             </div>
@@ -135,7 +138,7 @@
             let valeurCorrection = 0;
 
             valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
-            valeurFinale = valeurCorrection.toFixed(3);
+            valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
         }
         document.getElementById('mesure_resistance_essai_temp_ambiante').addEventListener('input', updateSumField);

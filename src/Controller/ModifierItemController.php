@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\LMesureIsolement;
+use App\Entity\LMesureIsolementEssai;
 use App\Entity\LMesureResistance;
+use App\Entity\LMesureResistanceEssai;
+use App\Entity\LSondeBobinage;
 use App\Entity\LStatorApresLavage;
 use App\Entity\ReleveDimmensionnel;
 use App\Entity\SondeBobinage;
@@ -12,16 +15,22 @@ use App\Entity\StatorApresLavage;
 use App\Entity\Synoptique;
 use App\Form\AccessoireSupplementaireType;
 use App\Form\LMesureIsolementEditType;
+use App\Form\LMesureIsolementEssaiEditType;
 use App\Form\LMesureIsolementType;
 use App\Form\LMesureResistanceEditType;
+use App\Form\LMesureResistanceEssaiEditType;
 use App\Form\LMesureResistanceType;
+use App\Form\LSondeBobinageEditType;
 use App\Form\LStatorApresLavageEditType;
 use App\Form\ReleveDimmensionnelType;
 use App\Form\SynoptiqueType;
 use App\Repository\AccessoireSupplementaireRepository;
 use App\Repository\ControleIsolementRepository;
+use App\Repository\LMesureIsolementEssaiRepository;
 use App\Repository\LMesureIsolementRepository;
+use App\Repository\LMesureResistanceEssaiRepository;
 use App\Repository\LMesureResistanceRepository;
+use App\Repository\LSondeBobinageRepository;
 use App\Repository\LStatorApresLavageRepository;
 use App\Repository\ReleveDimmensionnelRepository;
 use App\Repository\StatorApresLavageRepository;
@@ -94,106 +103,192 @@ class ModifierItemController extends AbstractController
         ]);
     }
 
-      //modification de mesure d'isolement avant lavage
-      #[Route('/modifier-isolement/{id}', name: 'app_edit_mesure_isolement', methods: ['POST', 'GET'])]
-      public function mesureIsolement(LMesureIsolement $lmesureIsolement, Request $request, LMesureIsolementRepository $lMesureIsolementRepository): Response
-      {
-          $form = $this->createForm(LMesureIsolementEditType::class, $lmesureIsolement);
-          $form->handleRequest($request);
+    //modification de mesure d'isolement avant lavage
+    #[Route('/modifier-isolement/{id}', name: 'app_edit_mesure_isolement', methods: ['POST', 'GET'])]
+    public function mesureIsolement(LMesureIsolement $lmesureIsolement, Request $request, LMesureIsolementRepository $lMesureIsolementRepository): Response
+    {
+        $form = $this->createForm(LMesureIsolementEditType::class, $lmesureIsolement);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+        if (is_int($lmesureIsolement->getValeur()))
+        {
+            $valeur = $lmesureIsolement->getValeur();
+        }else{
+            $valeur = $lmesureIsolement->getValeur();
+            //$valeur =  number_format($lmesureIsolement->getValeur(), 1, '.', '');
+        }
+
+        if (is_int($lmesureIsolement->getTempCorrection()))
+        {
+            $temp = $lmesureIsolement->getTempCorrection();
+        }else{
+            //$temp = $lmesureIsolement->getTempCorrection();
+            $temp =  number_format($lmesureIsolement->getTempCorrection(), 0, '.', '');
+        }
+
+        $lmesureIsolement->setValeur($valeur);
+        $lmesureIsolement->setTempCorrection($temp);
+        $lMesureIsolementRepository->save($lmesureIsolement, true);
+        return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureIsolement->getMesureIsolement()->getParametre()->getId()]);
+        }
         
-          if ($form->isSubmitted() && $form->isValid())
-          {
-            if (is_int($lmesureIsolement->getValeur()))
+        //dd($lmesureIsolement->getMesureIsolement());
+        return $this->render('modifier_item/mesure_isolement.html.twig', [
+            'form' => $form->createView(),
+            'LmesureIsolement' =>$lmesureIsolement,
+            'mesureIsolement' =>$lmesureIsolement->getMesureIsolement(),
+            'parametre' =>$lmesureIsolement->getMesureIsolement()->getParametre(),
+        ]);
+    }
+
+    //modification de mesure d'isolement après lavage
+    #[Route('/modifier-isolement-apres-lavage/{id}', name: 'app_edit_mesure_isolement_apres_lavage', methods: ['POST', 'GET'])]
+    public function mesureIsolementApresLavage(LStatorApresLavage $lstatorApresLavage, Request $request, LStatorApresLavageRepository $lstatorApresLavageRepository): Response
+    {
+        $form = $this->createForm(LStatorApresLavageEditType::class, $lstatorApresLavage);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+        if (is_int($lstatorApresLavage->getValeur()))
+        {
+            $valeur = $lstatorApresLavage->getValeur();
+        }else{
+            $valeur = $lstatorApresLavage->getValeur();
+            //$valeur =  number_format($lstatorApresLavage->getValeur(), 1, '.', '');
+        }
+
+        if (is_int($lstatorApresLavage->getTempCorrection()))
+        {
+            $temp = $lstatorApresLavage->getTempCorrection();
+        }else{
+            //$temp = $lstatorApresLavage->getTempCorrection();
+            $temp =  number_format($lstatorApresLavage->getTempCorrection(), 0, '.', '');
+        }
+
+        $lstatorApresLavage->setValeur($valeur);
+        $lstatorApresLavage->setTempCorrection($temp);
+        $lstatorApresLavageRepository->save($lstatorApresLavage, true);
+        return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $lstatorApresLavage->getStatorApresLavage()->getParametre()->getId()]);
+        }
+        
+        //dd($lmesureIsolement->getMesureIsolement());
+        return $this->render('modifier_item/mesure_isolement_apres_lavage.html.twig', [
+            'form' => $form->createView(),
+            'lstatorApresLavage' =>$lstatorApresLavage,
+            'statorApresLavage' =>$lstatorApresLavage->getStatorApresLavage(),
+            'parametre' =>$lstatorApresLavage->getStatorApresLavage()->getParametre(),
+        ]);
+    }
+
+
+    //modification de mesure d'isolement avant lavage
+    #[Route('/modifier-resistance/{id}', name: 'app_edit_mesure_resistance', methods: ['POST', 'GET'])]
+    public function mesureResistance(LMesureResistance $lmesureResistance, Request $request, LMesureResistanceRepository $lMesureResistanceRepository): Response
+    {
+        $form = $this->createForm(LMesureResistanceEditType::class, $lmesureResistance);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+        $lMesureResistanceRepository->save($lmesureResistance, true);
+        return $this->redirectToRoute('app_mesure_resistance', ['id' => $lmesureResistance->getMesureResistance()->getParametre()->getId()]);
+        }
+        
+        //dd($lmesureIsolement->getMesureIsolement());
+        return $this->render('modifier_item/mesure_resistance.html.twig', [
+            'form' => $form->createView(),
+            'lmesureResistance' =>$lmesureResistance,
+            'mesureResistance' =>$lmesureResistance->getMesureResistance(),
+            'parametre' =>$lmesureResistance->getMesureResistance()->getParametre(),
+        ]);
+    }
+
+      //modification de resistance après lavage
+    #[Route('/modifier-resistance-apres-lavage/{id}', name: 'app_edit_mesure_resistance_apres_lavage', methods: ['POST', 'GET'])]
+    public function mesureResistanceApresLavage(LSondeBobinage $lSondeBobinage, Request $request, LSondeBobinageRepository $lSondeBobinageRepository): Response
+    {
+        $form = $this->createForm(LSondeBobinageEditType::class, $lSondeBobinage);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+        $lSondeBobinageRepository->save($lSondeBobinage, true);
+        return $this->redirectToRoute('app_sonde_bobinage', ['id' => $lSondeBobinage->getSondeBobinage()->getParametre()->getId()]);
+        }
+
+        return $this->render('modifier_item/sonde.html.twig', [
+            'form' => $form->createView(),
+            'lSondeBobinage' =>$lSondeBobinage,
+            'sondeBobinage' =>$lSondeBobinage->getSondeBobinage(),
+            'parametre' =>$lSondeBobinage->getSondeBobinage()->getParametre(),
+        ]);
+    }
+
+    //modification de mesure d'isolement essai finaux
+    #[Route('/modifier-isolement-essais-finaux/{id}', name: 'app_edit_mesure_isolement_essais_finaux', methods: ['POST', 'GET'])]
+    public function mesureIsolementEssais(LMesureIsolementEssai $lMesureIsolementEssai, Request $request, LMesureIsolementEssaiRepository $lMesureIsolementEssaiRepository): Response
+    {
+        $form = $this->createForm(LMesureIsolementEssaiEditType::class, $lMesureIsolementEssai);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if (is_int($lMesureIsolementEssai->getValeur()))
             {
-                $valeur = $lmesureIsolement->getValeur();
+                $valeur = $lMesureIsolementEssai->getValeur();
             }else{
-                $valeur = $lmesureIsolement->getValeur();
+                $valeur = $lMesureIsolementEssai->getValeur();
                 //$valeur =  number_format($lmesureIsolement->getValeur(), 1, '.', '');
             }
 
-            if (is_int($lmesureIsolement->getTempCorrection()))
+            if (is_int($lMesureIsolementEssai->getTempCorrection()))
             {
-                $temp = $lmesureIsolement->getTempCorrection();
+                $temp = $lMesureIsolementEssai->getTempCorrection();
             }else{
-                //$temp = $lmesureIsolement->getTempCorrection();
-                $temp =  number_format($lmesureIsolement->getTempCorrection(), 0, '.', '');
+                //$temp = $lMesureIsolementEssai->getTempCorrection();
+                $temp =  number_format($lMesureIsolementEssai->getTempCorrection(), 0, '.', '');
             }
 
-            $lmesureIsolement->setValeur($valeur);
-            $lmesureIsolement->setTempCorrection($temp);
-            $lMesureIsolementRepository->save($lmesureIsolement, true);
-            return $this->redirectToRoute('app_mesure_isolement', ['id' => $lmesureIsolement->getMesureIsolement()->getParametre()->getId()]);
-          }
-          
-          //dd($lmesureIsolement->getMesureIsolement());
-          return $this->render('modifier_item/mesure_isolement.html.twig', [
-              'form' => $form->createView(),
-              'LmesureIsolement' =>$lmesureIsolement,
-              'mesureIsolement' =>$lmesureIsolement->getMesureIsolement(),
-              'parametre' =>$lmesureIsolement->getMesureIsolement()->getParametre(),
-          ]);
-      }
+            $lMesureIsolementEssai->setValeur($valeur);
+            $lMesureIsolementEssai->setTempCorrection($temp);
+            $lMesureIsolementEssaiRepository->save($lMesureIsolementEssai, true);
+            
+            return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $lMesureIsolementEssai->getMesureIsolementEssai()->getParametre()->getId()]);
 
-      //modification de mesure d'isolement après lavage
-      #[Route('/modifier-isolement-apres-lavage/{id}', name: 'app_edit_mesure_isolement_apres_lavage', methods: ['POST', 'GET'])]
-      public function mesureIsolementApresLavage(LStatorApresLavage $lstatorApresLavage, Request $request, LStatorApresLavageRepository $lstatorApresLavageRepository): Response
-      {
-          $form = $this->createForm(LStatorApresLavageEditType::class, $lstatorApresLavage);
-          $form->handleRequest($request);
+        }
         
-          if ($form->isSubmitted() && $form->isValid())
-          {
-            if (is_int($lstatorApresLavage->getValeur()))
-            {
-                $valeur = $lstatorApresLavage->getValeur();
-            }else{
-                $valeur = $lstatorApresLavage->getValeur();
-                //$valeur =  number_format($lstatorApresLavage->getValeur(), 1, '.', '');
-            }
+        //dd($lMesureIsolementEssai->getMesureIsolement());
+        return $this->render('modifier_item/mesure_isolement_essai_finaux.html.twig', [
+            'form' => $form->createView(),
+            'lMesureIsolementEssai' =>$lMesureIsolementEssai,
+            'mesureIsolementEssai' =>$lMesureIsolementEssai->getMesureIsolementEssai(),
+            'parametre' =>$lMesureIsolementEssai->getMesureIsolementEssai()->getParametre(),
+        ]);
+    }
 
-            if (is_int($lstatorApresLavage->getTempCorrection()))
-            {
-                $temp = $lstatorApresLavage->getTempCorrection();
-            }else{
-                //$temp = $lstatorApresLavage->getTempCorrection();
-                $temp =  number_format($lstatorApresLavage->getTempCorrection(), 0, '.', '');
-            }
-
-            $lstatorApresLavage->setValeur($valeur);
-            $lstatorApresLavage->setTempCorrection($temp);
-            $lstatorApresLavageRepository->save($lstatorApresLavage, true);
-            return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $lstatorApresLavage->getStatorApresLavage()->getParametre()->getId()]);
-          }
-          
-          //dd($lmesureIsolement->getMesureIsolement());
-          return $this->render('modifier_item/mesure_isolement_apres_lavage.html.twig', [
-              'form' => $form->createView(),
-              'lstatorApresLavage' =>$lstatorApresLavage,
-              'statorApresLavage' =>$lstatorApresLavage->getStatorApresLavage(),
-              'parametre' =>$lstatorApresLavage->getStatorApresLavage()->getParametre(),
-          ]);
-      }
-
-
-      //modification de mesure d'isolement avant lavage
-      #[Route('/modifier-resistance/{id}', name: 'app_edit_mesure_resistance', methods: ['POST', 'GET'])]
-      public function mesureResistance(LMesureResistance $lmesureResistance, Request $request, LMesureResistanceRepository $lMesureResistanceRepository): Response
-      {
-          $form = $this->createForm(LMesureResistanceEditType::class, $lmesureResistance);
-          $form->handleRequest($request);
+        //modification de mesure d'isolement avant lavage
+    #[Route('/modifier-resistance-essas-finaux/{id}', name: 'app_edit_mesure_resistance_essais_finaux', methods: ['POST', 'GET'])]
+    public function mesureResistanceEssai(LMesureResistanceEssai $lMesureResistanceEssai, Request $request, LMesureResistanceEssaiRepository $lMesureIsolementEssaiRepository): Response
+    {
+        $form = $this->createForm(LMesureResistanceEssaiEditType::class, $lMesureResistanceEssai);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $lMesureIsolementEssaiRepository->save($lMesureResistanceEssai, true);
+            return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $lMesureResistanceEssai->getMesureReistanceEssai()->getParametre()->getId()]);
+        }
         
-          if ($form->isSubmitted() && $form->isValid())
-          {
-            $lMesureResistanceRepository->save($lmesureResistance, true);
-            return $this->redirectToRoute('app_mesure_resistance', ['id' => $lmesureResistance->getMesureResistance()->getParametre()->getId()]);
-          }
-          
-          //dd($lmesureIsolement->getMesureIsolement());
-          return $this->render('modifier_item/mesure_resistance.html.twig', [
-              'form' => $form->createView(),
-              'lmesureResistance' =>$lmesureResistance,
-              'mesureResistance' =>$lmesureResistance->getMesureResistance(),
-              'parametre' =>$lmesureResistance->getMesureResistance()->getParametre(),
-          ]);
-      }
+        //dd($lmesureIsolement->getMesureIsolement());
+        return $this->render('modifier_item/mesure_resistance_essai_finaux.html.twig', [
+            'form' => $form->createView(),
+            'lMesureResistanceEssai' =>$lMesureResistanceEssai,
+            'mesureResistanceEssai' =>$lMesureResistanceEssai->getMesureReistanceEssai(),
+            'parametre' =>$lMesureResistanceEssai->getMesureReistanceEssai()->getParametre(),
+        ]);
+    }
+
 }

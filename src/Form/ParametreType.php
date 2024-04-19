@@ -64,7 +64,8 @@ class ParametreType extends AbstractType
             ->add('stator_couplage', ChoiceType::class, [
                 'choices' => [
                     'Etoile' => 'Etoile',
-                    'Triangle' => 'Triangle'
+                    'Triangle' => 'Triangle',
+                    'Zig-Zag' => 'Zig-Zag'
                 ],
                 'placeholder' => 'Choisir couplage',
                 'required' => false

@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Expertise Électrique avant lavage du projet {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -16,7 +16,7 @@
                 <div class="x_title">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Plaque Signalérique et Révision</h5>
+                            <h5>Autres Contrôles</h5>
                         </div>
                         <div class="col-md-6">
                             <ul class="nav navbar-right panel_toolbox">
@@ -41,7 +41,7 @@
                                         <th>Conformité</th>
                                     </tr>
                                     <tr>
-                                        <td>Distance porte-balais/bague</td>
+                                        <td>Distance porte-balais/bagues ou collecteur</td>
                                         <td>2,5 m à 3 mn</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation1) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite1) }}</td>
@@ -53,19 +53,19 @@
                                         <td>{{ form_widget(formAutreControle.balaisConformite2) }}</td>
                                     </tr>
                                    {# <tr>
-                                        <td>Isolement jeu de bagues à réception</td>
+                                        <td>Isolement Jeu de Bagues à réception</td>
                                         <td>À définir suivant le type de balais</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation3) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite3) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Isolement jeu de bagues après lavage</td>
+                                        <td>Isolement Jeu de Bagues après lavage</td>
                                         <td>À définir suivant le type de balais</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation4) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite4) }}</td>
                                     </tr>#}
                                     <tr>
-                                        <td>Rugosité du collecteur</td>
+                                        <td>Rugosité bagues ou collecteurs</td>
                                         <td>Nuancier Mersen</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation5) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite5) }}</td>
@@ -100,19 +100,19 @@
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite2) }}</td>
                                     </tr>
                                  {#   <tr>
-                                        <td>Isolement jeu de bagues à réception</td>
+                                        <td>Isolement Jeu de Bagues à réception</td>
                                         <td>À définir suivant le type de balais</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation3) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite3) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Isolement jeu de bagues après lavage</td>
+                                        <td>Isolement Jeu de Bagues après lavage</td>
                                         <td>À définir suivant le type de balais</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation4) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite4) }}</td>
                                     </tr>#}
                                     <tr>
-                                        <td>Rugosité du collecteur</td>
+                                        <td>Rugosité de la bague</td>
                                         <td>Nuancier Mersen</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation5) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite5) }}</td>

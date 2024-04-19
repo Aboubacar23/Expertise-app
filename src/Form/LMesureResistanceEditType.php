@@ -62,10 +62,10 @@ class LMesureResistanceEditType extends AbstractType
                     "Stator AE" => "Stator AE",
                     'Rotor AE' => 'Rotor AE',
                     "Régulation" => "Régulation",
-                    "Jeu de Bague" => "Jeu de Bague",
+                    "Jeu de Bagues" => "Jeu de Bagues",
                     "Sondes" => "Sondes",
                     "Rechauffage" => "Rechauffage",
-                    "Courant porte balais" => "Courant porte balais",
+                    "Couronne porte balais" => "Couronne porte balais",
                     "induit" => "induit",
                     "Carcasse" => "Sondes",
                 ]
