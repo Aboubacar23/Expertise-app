@@ -19,7 +19,7 @@ class RapportService
         $this->domPdf->setOptions($pdfOptions);
     }
 
-    public function showPdfFile($html, $fichier,$numero) {
+    public function showPdfFile($html, $fichier) {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);
@@ -63,22 +63,19 @@ class RapportService
             }
         );
         */
-        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics,$numero) {
+        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
             $textLeft = "Page $pageNumber sur $pageCount";
-            $textCenter = $numero;
             $textRight = "IAQ19001";
-
             $font = $fontMetrics->getFont('Times New Roman');
             $pageWidth = $canvas->get_width();
             $pageHeight = $canvas->get_height();
-            $size = 10;
+            $size = 12;
             $widthLeft = $fontMetrics->getTextWidth($textLeft, $font, $size);
-            $widthCenter = $fontMetrics->getTextWidth($textCenter, $font, $size);
             $widthRight = $fontMetrics->getTextWidth($textRight, $font, $size);
             $canvas->text(20, $pageHeight - 20, $textLeft, $font, $size);
-            $canvas->text(($pageWidth - $widthCenter) / 2, $pageHeight - 20, $textCenter, $font, $size);
             $canvas->text($pageWidth - $widthRight - 20, $pageHeight - 20, $textRight, $font, $size);
         };
+        
         // Ajouter le script de pied de page à chaque page
         $dompdf->getCanvas()->page_script($footer);
     

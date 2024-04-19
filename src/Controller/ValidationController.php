@@ -158,7 +158,7 @@ class ValidationController extends AbstractController
         $html = $this->renderView('validation/voir_pdf_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
+        return  $pdfServiceP->showPdfFile($html, $fichier);
     }
 
     //voir en pdf le rapport d'expertise avant la validation
@@ -171,6 +171,6 @@ class ValidationController extends AbstractController
         $html = $this->renderView('validation/voir_pdf_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
+        return  $pdfServiceP->showPdfFile($html, $fichier);
     }
 }
