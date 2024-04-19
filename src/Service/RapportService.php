@@ -47,7 +47,7 @@ class RapportService
         $dompdf->setHttpContext($context);
 
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
         //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         //$canvas = $dompdf->getCanvas();
@@ -64,16 +64,19 @@ class RapportService
         );
         */
         $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
-            $textLeft = "Page $pageNumber sur $pageCount";
-            $textRight = "IAQ19001";
-            $font = $fontMetrics->getFont('Times New Roman');
-            $pageWidth = $canvas->get_width();
-            $pageHeight = $canvas->get_height();
-            $size = 12;
-            $widthLeft = $fontMetrics->getTextWidth($textLeft, $font, $size);
-            $widthRight = $fontMetrics->getTextWidth($textRight, $font, $size);
-            $canvas->text(20, $pageHeight - 20, $textLeft, $font, $size);
-            $canvas->text($pageWidth - $widthRight - 20, $pageHeight - 20, $textRight, $font, $size);
+           // Vérifier si ce n'est pas la première page
+            if ($pageNumber > 1) {
+                $textLeft = "Page $pageNumber sur $pageCount";
+                $textRight = "IAQ19001";
+                $font = $fontMetrics->getFont('Times New Roman');
+                $pageWidth = $canvas->get_width();
+                $pageHeight = $canvas->get_height();
+                $size = 12;
+                $widthLeft = $fontMetrics->getTextWidth($textLeft, $font, $size);
+                $widthRight = $fontMetrics->getTextWidth($textRight, $font, $size);
+                $canvas->text(20, $pageHeight - 20, $textLeft, $font, $size);
+                $canvas->text($pageWidth - $widthRight - 20, $pageHeight - 20, $textRight, $font, $size);
+            }
         };
         
         // Ajouter le script de pied de page à chaque page
