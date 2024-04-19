@@ -7,6 +7,7 @@ use App\Repository\AdminRepository;
 use App\Service\MailerService;
 use App\Repository\ParametreRepository;
 use App\Service\PdfServiceP;
+use App\Service\RapportService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -149,25 +150,27 @@ class ValidationController extends AbstractController
 
     //voir en pdf le rapport d'expertise avant la validation
     #[Route('/pdf/expertise/{id}', name: 'app_validation_pdf_expertise', methods: ['GET'])]
-    public function pdfExpertise(Parametre $parametre, PdfServiceP $pdfServiceP): Response
+    public function pdfExpertise(Parametre $parametre, RapportService $pdfServiceP): Response
     {
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
+        $numero = $parametre->getAffaire()->getNumAffaire();
         $html = $this->renderView('validation/voir_pdf_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
     }
 
     //voir en pdf le rapport d'expertise avant la validation
     #[Route('/pdf/final/{id}', name: 'app_validation_pdf_final', methods: ['GET'])]
-    public function pdfFinal(Parametre $parametre, PdfServiceP $pdfServiceP): Response
+    public function pdfFinal(Parametre $parametre, RapportService $pdfServiceP): Response
     {
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
+        $numero = $parametre->getAffaire()->getNumAffaire();
         $html = $this->renderView('validation/voir_pdf_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
     }
 }
