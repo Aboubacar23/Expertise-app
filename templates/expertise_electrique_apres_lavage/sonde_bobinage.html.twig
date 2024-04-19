@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Expertise électrique après lavage du projet : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -16,7 +16,7 @@
                 <div class="x_title">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Mesure Resistance</h5>
+                            <h5>Mesure de resistance après lavage</h5>
                         </div>
                         <div class="col-md-6">
                             <ul class="nav navbar-right panel_toolbox">
@@ -73,13 +73,13 @@
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="13%">Type</th>
-                                        <th width="13%">Contrôle</th>
-                                        <th width="13%">Critère</th>
+                                        <th width="14%">Type</th>
+                                        <th width="14%">Contrôle</th>
+                                        <th width="14%">Critère</th>
                                         <th width="8%">Valeur relevée avant lavage</th>
-                                        <th width="13%" colspan="2">Valeur relevées</th>
-                                        <th width="13%">Correction à 20° C</th>
-                                        <th width="13%">Conformité</th>
+                                        <th width="14%" colspan="2">Valeur relevées</th>
+                                        <th width="14%">Correction à 20° C</th>
+                                        <th width="14%">Conformité</th>
                                         <th></th>
                                     </tr>
                                     <tr> 
@@ -91,7 +91,7 @@
                                         <td width="200">{{form_widget(form.unite)}}</td>
                                         <td>{{ form_widget(form.temp_correction) }}</td>
                                         <td>{{ form_widget(form.conformite) }}</td>
-                                        <td><button class="btn btn-primary btn-sm" name="bouton2" value="ajouter">Ajouter</button></td>
+                                        <td class="text-center"><button class="btn btn-primary btn-sm" name="bouton2" value="ajouter">Ajouter</button></td>
                                     </tr>
                                     {% for item2 in items %}
                                         <tr>
@@ -116,8 +116,11 @@
                                                 <td colspan="2">{{item.valeur}} {{ item.unite }}</td>
                                                 <td>{{item.tempCorrection }} {{ item.unite }}</td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
-                                            </tr>                                        
+                                                <td class="text-center">
+                                                    <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_resistance_apres_lavage', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
+                                                    <a class="btn btn-danger btn-sm" href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
+                                                </td>
+                                            </tr>                                         
                                         {% endfor %}                                            
                                     {% endif %}
                                 </table>

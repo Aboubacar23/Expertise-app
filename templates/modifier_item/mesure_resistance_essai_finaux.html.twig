@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Expertise Électrique après lavage du projet {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Essais Finaux du projet {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="nav navbar-right panel_toolbox">
-                                <a href="{{path('app_mesure_resistance',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                                <a href="{{path('app_mesure_resistance_essai',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -50,10 +50,10 @@
                                         <th width="10%">Tension Rotor</th>
                                     </tr>
                                     <tr>
-                                        <td id="temperature">{{ mesureResistance.tempAmbiante }}</td>
-                                        <td >{{ mesureResistance.tempTolerie }}</td>
-                                        <td >{{ mesureResistance.hygrometrie }}</td>
-                                        <td >{{ mesureResistance.dateEssais ? mesureResistance.dateEssais | date('d-m-Y') }}</td>
+                                        <td id="temperature">{{ mesureResistanceEssai.tempAmbiante }}</td>
+                                        <td >{{ mesureResistanceEssai.tempTolerie }}</td>
+                                        <td >{{ mesureResistanceEssai.hygrometrie }}</td>
+                                        <td >{{ mesureResistanceEssai.dateEssais ? mesureResistanceEssai.dateEssais | date('d-m-Y') }}</td>
                                         <td>{{parametre.statorTension}} 
                                             {% if parametre.statorTension2 != 0 %}
                                                 et {{parametre.statorTension2 }}
@@ -86,7 +86,7 @@
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.type) }}</td>
-                                        <td>{{ lmesureResistance.controle }}</td>
+                                        <td>{{ lMesureResistanceEssai.controle }}</td>
                                         <td>{{ form_widget(form.critere) }}</td>
                                         <td>{{ form_widget(form.valeur) }}</td>
                                         <td width="200">{{ form_widget(form.unite) }}</td>
@@ -112,11 +112,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         { 
-            let temp_ambiante = {{ mesureResistance.tempAmbiante}};
-            let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_edit_valeur').value);
-            var var_type = document.getElementById('l_mesure_resistance_edit_type');
+            let temp_ambiante = {{ mesureResistanceEssai.tempAmbiante}};
+            let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_essai_edit_valeur').value);
+            var var_type = document.getElementById('l_mesure_resistance_essai_edit_type');
 
-            const correction = document.getElementById('l_mesure_resistance_edit_temp_correction');
+            const correction = document.getElementById('l_mesure_resistance_essai_edit_temp_correction');
             const valeur_temp = {{ parametre.tempCorrection }};
             console.log(temp_ambiante);
             let valeurCorrection = 0;
@@ -128,9 +128,10 @@
             valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
         }
+        
         document.getElementById('temperature').addEventListener('input', updateSumField);
-        document.getElementById('l_mesure_resistance_edit_valeur').addEventListener('input', updateSumField);
-        //document.getElementById('l_mesure_resistance_type').addEventListener('input', updateSumField);
+        document.getElementById('l_mesure_resistance_essai_edit_valeur').addEventListener('input', updateSumField);
+        //document.getElementById('l_mesure_resistance_essai_edit_valeur').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

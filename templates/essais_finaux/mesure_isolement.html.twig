@@ -6,9 +6,9 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Expertise du projet : {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Essais Finaux du projet {{ parametre.affaire.numAffaire }}</h4>
         </div>
-    </div>
+    </div> 
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12">
@@ -77,14 +77,14 @@
                             <div class="row">
                                 <table class="table table-bordered table-striped">
                                     <tr  class="table-secondary">
-                                        <th width="14%">Type</th>
-                                        <th width="14%">Contrôle</th>
-                                        <th width="14%">Critère</th>
-                                        <th width="14%">Tension d'éssai (V)</th>
+                                        <th width="13%">Type</th>
+                                        <th width="13%">Contrôle</th>
+                                        <th width="13%">Critère</th>
+                                        <th width="13%">Tension d'éssai (V)</th>
                                         <th width="14%" colspan="2">Valeur relevées</th>
-                                        <th width="14%">Correction à 20° C</th>
-                                        <th width="14%">Conformité</th>
-                                        <th width="100"></th>
+                                        <th width="13%">Correction à 20° C</th>
+                                        <th width="13%">Conformité</th>
+                                        <th width=""></th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(form.type) }}</td>
@@ -128,15 +128,14 @@
                                             <tr>
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
-                                                
-<td>
+                                                <td>
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         >= {{item.critere}} 
                                                     {% else %}
                                                             {{item.critere}} MΩ
                                                     {% endif %}
                                                 </td>
+                                                <td>{{item.tension}}</td>
                                                 <td colspan="2">
                                                     {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                         {{item.valeur }}
@@ -152,7 +151,11 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>{{item.conformite}}</td>
-                                                <td class="text-center"><a href="{{path('delete_lmesure_isolement_essai', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
+
+                                                <td class="text-center">
+                                                    <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_isolement_essais_finaux', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
+                                                    <a class="btn btn-danger btn-sm" href="{{path('delete_lmesure_isolement_essai', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
+                                                </td>
                                             </tr>                                        
                                         {% endfor %}                                            
                                     {% endif %}
@@ -571,7 +574,7 @@
             {
                 val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(2);
+                valeurFinale = valeurCorrection.toFixed(0);
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
         }
