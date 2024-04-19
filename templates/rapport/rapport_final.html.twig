@@ -1229,7 +1229,7 @@
             <table>
                 <tr>
                     <td height="15%" class="td_image"><img
-                            src="{{ absolute_url(asset('images/critere_acceptation.png')) }}" alt="item.photo"
+                            src="{{ absolute_url(asset('images/aaa.png')) }}" alt="item.photo"
                             height="250px"></td>
                 </tr>
             </table>
@@ -1500,7 +1500,13 @@
                     {% for item in parametre.mesureIsolement.lmesureIsolements %}
                     <tr>
                         <td>{{item.controle}}</td>
-                        <td>{{item.critere}}</td>
+                        <td>
+                            {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                >= {{item.critere}} 
+                            {% else %}
+                                    {{item.critere}} MΩ
+                            {% endif %}
+                        </td>
                         <td style="text-align: center">{{item.tension}}</td>
                         <td>
                             {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
@@ -1896,7 +1902,13 @@
                     {% for item in parametre.statorApresLavage.lstatorApresLavages %}
                     <tr>
                         <td>{{item.controle}}</td>
-                        <td>{{ item.critere }}</td>
+                        <td>
+                            {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                >= {{item.critere}} 
+                            {% else %}
+                                    {{item.critere}} MΩ
+                            {% endif %}
+                        </td>
                         <td>{{item.tensionEssai}}</td>
                         <td>
                             {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
@@ -2555,7 +2567,13 @@
                     <tr>
                         <td>{{item.type}}</td>
                         <td>{{item.controle}}</td>
-                        <td style="text-align: center;">{{ item.critere }}</td>
+                        <td>
+                            {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                >= {{item.critere}} 
+                            {% else %}
+                                    {{item.critere}} MΩ
+                            {% endif %}
+                        </td>
                         <td style="text-align: center;">{{item.tension}}</td>
                         <td style="text-align: center;">
                             {% if item.controle == 'IP-UVW/masse' or  item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
