@@ -45,6 +45,8 @@ class MachineType extends AbstractType
                     'Self' => 'Self',
                     'Carcasse Seule' => 'Carcasse Seule',
                     'Rotor Seul' => 'Rotor Seul',
+                    'Roue polaire' => 'Roue polaire',
+                    'Roue polaire Seul' => 'Roue polaire Seul',
                 ]
             ])
             ->add('sous_categorie2', ChoiceType::class, [
@@ -58,7 +60,7 @@ class MachineType extends AbstractType
                     'Continu' => 'Continu',
                     'A cage' => 'A cage',
                     'Bobiné' => 'Bobiné',
-                    'Excitation par jeu de bagues et châssi de régulation' => 'Excitation par jeu de bagues et châssi de régulation',
+                    'Excitation par Jeu de Bague et châssi de régulation' => 'Excitation par Jeu de Bague et châssi de régulation',
                     'Excitation par AE et Pont de diodess' => 'Excitation par AE et Pont de diodess',
                     'Roue polaire' => 'Roue polaire',
                 ]

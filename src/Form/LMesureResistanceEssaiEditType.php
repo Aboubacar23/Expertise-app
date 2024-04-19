@@ -2,35 +2,22 @@
 
 namespace App\Form;
 
-use App\Entity\LSondeBobinage;
-use App\Entity\ControleResistance;
+use App\Entity\LMesureResistanceEssai;
 use Symfony\Component\Form\AbstractType;
-use App\Repository\ControleResistanceRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class LSondeBobinageType extends AbstractType
+class LMesureResistanceEssaiEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('controle',EntityType::class, [
-                'class' => ControleResistance::class,
-                'query_builder' => function(ControleResistanceRepository $em){
-                    $query = $em->createQueryBuilder('a');
-                    return  $query;
-                }
-            ])
+        $builder 
             ->add('critere', TextType::class,[
                 'required' => true,
                 'label' => 'Critère'
             ])
-            ->add('valeur_relevee')
-            ->add('valeur')   
             ->add('unite', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
@@ -41,6 +28,19 @@ class LSondeBobinageType extends AbstractType
                     'MΩ' => 'MΩ',
                     'GΩ' => 'GΩ',
                     ' ' => ' ',
+                ]
+            ])
+            ->add('temp_correction')
+            ->add('valeur', TextType::class, [
+                'required' => true,
+            ])
+            ->add('conformite', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    '' => '',
+                    'Sans Objet' => 'Sans Objet',
+                    'Conforme' => 'Conforme',
+                    'Non Conforme' => 'Non Conforme'
                 ]
             ])
             ->add('type', ChoiceType::class, [
@@ -61,16 +61,6 @@ class LSondeBobinageType extends AbstractType
                     "induit" => "induit",
                     "Carcasse" => "Sondes",
                 ]
-            ]) 
-            ->add('temp_correction')
-            ->add('conformite', ChoiceType::class, [
-                'required' => true,
-                'choices' => [
-                    '' => '',
-                    'Sans Objet' => 'Sans Objet',
-                    'Conforme' => 'Conforme',
-                    'Non Conforme' => 'Non Conforme'
-                ]
             ])
         ;
     }
@@ -78,7 +68,7 @@ class LSondeBobinageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => LSondeBobinage::class,
+            'data_class' => LMesureResistanceEssai::class,
         ]);
     }
 }

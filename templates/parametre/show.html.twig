@@ -202,20 +202,29 @@
                                             <table class="table table-secondary">
                                                 <tbody>
                                                     <tr>
-                                                        <th>Tension</th>
+                                                        <th>Rotor Tension</th>
                                                         <td>{{ parametre.rotorTension }} V</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Rotor Expertise Refrigeant</th>
-                                                        <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Courant</th>
+                                                        <th>Rotor Courant</th>
                                                         <td>{{ parametre.rotorCourant }} A</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Tension 2</th>
+                                                        <th>Presence Plans</th>
+                                                        <td>{{ parametre.presencePlans ? 'Oui' : 'Non' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rotor Tension 2</th>
                                                         <td>{{ parametre.rotorTension2}} V</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                            <table class="table table-secondary">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Rotor Expertise Refrigeant</th>
+                                                        <td>{{ parametre.rotorExpertiseRefrigeant }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
