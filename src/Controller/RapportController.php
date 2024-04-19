@@ -60,7 +60,7 @@ class RapportController extends AbstractController
         $html = $this->renderView('rapport/rapport_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
+        return  $pdfServiceP->showPdfFile($html, $fichier);
     }
 
     #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
@@ -71,7 +71,7 @@ class RapportController extends AbstractController
         $html = $this->renderView('rapport/rapport_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
+        return  $pdfServiceP->showPdfFile($html, $fichier);
     }
 
 }
