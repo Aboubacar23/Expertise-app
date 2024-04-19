@@ -8,6 +8,7 @@ use App\Service\PdfServiceP;
 use PhpOffice\PhpWord\PhpWord;
 use App\Repository\AffaireRepository;
 use App\Repository\ParametreRepository;
+use App\Service\RapportService;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,24 +52,26 @@ class RapportController extends AbstractController
     }
     
     #[Route('/print/rapport-expertise/{id}', name: 'app_parametre_expertise', methods: ['POST', 'GET'])]
-    public function rapportExpertise(Parametre $parametre, PdfServiceP $pdfServiceP): Response
+    public function rapportExpertise(Parametre $parametre, RapportService $pdfServiceP): Response
     {
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
+        $numero = $parametre->getAffaire()->getNumAffaire();
         $html = $this->renderView('rapport/rapport_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
     }
 
     #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
-    public function rapporFinal(Parametre $parametre, PdfServiceP $pdfServiceP): Response
+    public function rapporFinal(Parametre $parametre, RapportService $pdfServiceP): Response
     {
         $fichier = $parametre->getAffaire()->getNomRapport();
+        $numero = $parametre->getAffaire()->getNumAffaire();
         $html = $this->renderView('rapport/rapport_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $numero);
     }
 
 }
