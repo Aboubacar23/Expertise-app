@@ -54,7 +54,11 @@
                                         <td>{{item.tension}} V</td>
                                         <td>{{item.courantAbsorbe}}</td>
                                         <td>{{item.tensionAlimentation}} V</td>
-                                        <td>{{item.conforme}}</td>
+                                        {% if item.conforme ==  'Conforme' %}
+                        <td style="color: green;">{{item.conforme}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conforme}}</td>
+                    {% endif %}
                                         <td class="text-center"><a href="{{path('app_eequirepartition_edit', {'id' : parametre.id, 'idEq' : item.id })}}"><i class="fa fa-edit fa-2x text-primary"></i></a>  
                                         <a href="{{path('app_eequirepartition_delete', {'id' : item.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                     </tr>

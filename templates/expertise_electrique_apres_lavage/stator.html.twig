@@ -171,7 +171,11 @@
                                                         {{item.tempCorrection}} {{ item.unite}}
                                                     {% endif %}
                                                 </td>
-                                                <td>{{item.conformite}}</td>
+                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                 <td class="text-center">
                                                     <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_isolement_apres_lavage', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
                                                     <a class="btn btn-danger btn-sm" href="{{path('delete_stator_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>

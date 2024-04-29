@@ -99,7 +99,11 @@
                                                 <td>{{item.critere}}</td>
                                                 <td colspan="2">{{item.valeur }} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
-                                                <td>{{item.conformite}}</td>
+                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                 <td class="text-center">
                                                     <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_resistance_essais_finaux', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
                                                     <a class="btn btn-danger btn-sm" href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>

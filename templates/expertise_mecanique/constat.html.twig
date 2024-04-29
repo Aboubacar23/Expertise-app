@@ -54,9 +54,7 @@
                                             <td>{{form_widget(formConstatMecanique.critere)}}</td>
                                             <td>{{form_widget(formConstatMecanique.observation)}}</td>
                                             <td>{{form_widget(formConstatMecanique.preconisation_conclusion)}}</td>
-                                            <td>{{form_widget(formConstatMecanique.retenu, {'attr' : {
-                                                  'disabled' : not is_granted('ROLE_CHEF_PROJET') ? 'disabled' : false
-                                              }})}}</td>
+                                            <td>{{form_widget(formConstatMecanique.retenu, {'attr' : {'disabled' : not is_granted('ROLE_CHEF_PROJET') ? 'disabled' : false}})}}</td>
                                             <td>{{form_widget(formConstatMecanique.photo)}}</td>
                                             <td colspan="2" class="text-center" width="130"><button class="btn btn-primary btn-sm" name="bouton9" value="ajouter"> Ajouter <i class="fa fa-save"></i></button></td>
                                         </tr>

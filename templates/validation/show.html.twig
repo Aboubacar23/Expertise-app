@@ -199,7 +199,11 @@
                                                                     {{item.tempCorrection}} <span class="my_police">{{ item.unite}}</span>
                                                                 {% endif %}
                                                             </td>
-                                                            <td>{{item.conformite}}</td>
+                                                            {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                         </tr>
                                                     {% endfor %}
                                                 </table>
@@ -252,7 +256,11 @@
                                                                     {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
                                                                 {% endif %}
                                                             </td>
-                                                            <td>{{item.conformite}}</td>
+                                                            {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                         </tr>                                        
                                                     {% endfor %}
                                                 </table>
@@ -930,7 +938,11 @@
                                                                 <td>{{item.coteAttendue}}</td>
                                                                 <td>{{item.tolerance}}</td>
                                                                 <td>{{item.coteRelevee}}</td>
-                                                                <td>{{item.conformite}}</td>   
+                                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}   
                                                                 <td>{{item.observation}}</td>                                                
 
                                                             </tr>                                                         
@@ -946,7 +958,11 @@
                                                                 <td>{{item.coteAttendue}}</td>
                                                                 <td>{{item.tolerance}}</td>
                                                                 <td>{{item.coteRelevee}}</td>
-                                                                <td>{{item.conformite}}</td>
+                                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                                 <td>{{item.observation}}</td>  
                                                             </tr>                                                         
                                                         {% endif %}                                                   
@@ -1027,7 +1043,7 @@
                                                         <div class="col-md-6">
                                                             <table class="table table-bordered table-striped">
                                                                 <tr  class="table-secondary">
-                                                                    <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
+                                                                    <th class="text-center" colspan="4">Machine équipée d'hydro-réfrigérant</th>
                                                                 </tr>
                                                                 <tr  class="table-secondary">
                                                                     <th colspan="2" class="text-center">Nature du contrôle</th>
@@ -1055,7 +1071,7 @@
                                                         <div class="col-md-6">
                                                             <table class="table table-bordered table-striped">
                                                                 <tr  class="table-secondary">
-                                                                    <th class="text-center" colspan="3">Pression dépend des préconisation constructeurs</th>
+                                                                    <th class="text-center" colspan="3">Machine ventilée</th>
                                                                 </tr>
                                                                 <tr  class="table-secondary">
                                                                     <th class="text-center">Nature du contrôle</th>
@@ -1274,7 +1290,11 @@
                                                                 </td>
                                                                 <td>{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
                                                                 <td>{{item.tempCorrection}} <span class="my_police">{{item.unite}}</span></td>
-                                                                <td>{{item.conformite}}</td>
+                                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                             </tr>                                        
                                                         {% endfor %}                                            
                                                     {% endif %}
@@ -1304,7 +1324,11 @@
                                                         <td>{{item.tension}} V</td>
                                                         <td>{{item.courantAbsorbe}}</td>
                                                         <td>{{item.tensionAlimentation}} V</td>
-                                                        <td>{{item.conforme}}</td>
+                                                        {% if item.conforme ==  'Conforme' %}
+                        <td style="color: green;">{{item.conforme}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conforme}}</td>
+                    {% endif %}
                                                     </tr> 
                                                 {% endfor %} 
                                             </table>
@@ -1321,7 +1345,11 @@
                                                     <tr>
                                                         <th>{{item.diode}}</th>
                                                         <td>{{item.tension}} V</td>
-                                                        <td>{{item.conforme}}</td>
+                                                        {% if item.conforme ==  'Conforme' %}
+                        <td style="color: green;">{{item.conforme}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conforme}}</td>
+                    {% endif %}
                                                     </tr>
                                                 {% endfor %}
                                             </table>
