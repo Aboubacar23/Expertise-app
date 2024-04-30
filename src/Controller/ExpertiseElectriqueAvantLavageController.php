@@ -164,27 +164,26 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setType($item->getType());
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
-                    $lmesureIsolement->setTension($item->getTension());
                     $valeur = 0;
                     $temp = 0;
                     if (is_int($item->getValeur()))
                     {
                         $valeur = $item->getValeur();
                     }else{
-                        $valeur = $item->getValeur();
-                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
+                        $valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
                     }else{
-                        $temp = $item->getTempCorrection();
-                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
                     }
-                    $lmesureIsolement->setValeur($valeur);
-                    $lmesureIsolement->setTempCorrection($temp);
+
+                    $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setUnite($item->getUnite());
+                    $lmesureIsolement->setTempCorrection($temp);
+                    $lmesureIsolement->setValeur($valeur);
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolement($mesureIsolement);
                     $em->persist($lmesureIsolement);
@@ -294,19 +293,12 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 foreach ($tables as $item) {
                     $i = $i + 1;
                     $lmesureResistance = new LMesureResistance();
+
                     $lmesureResistance->setLig($i);
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
 
-                    $valeur = 0;
                     $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
-
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
@@ -314,10 +306,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         $temp =  number_format($item->getTempCorrection(), 1, '.', '');
                     }
                     $lmesureResistance->setTempCorrection($temp);
-                    $lmesureResistance->setValeur($valeur);
-
-                    $lmesureResistance->setType($item->getType());
+                    $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
+                    $lmesureResistance->setType($item->getType());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureResistance($mesureResistance);
                     $em->persist($lmesureResistance);

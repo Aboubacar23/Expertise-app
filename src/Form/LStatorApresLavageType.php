@@ -63,7 +63,7 @@ class LStatorApresLavageType extends AbstractType
                     "Rechauffage" => "Rechauffage",
                     "Couronne porte balais" => "Couronne porte balais",
                     "induit" => "induit",
-                    "Carcasse" => "Sondes",
+                    "Carcasse" => "Carcasse",
                 ]
             ]) 
             ->add('conformite', ChoiceType::class, [
