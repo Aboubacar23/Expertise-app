@@ -39,26 +39,46 @@
                                         <th>T° ambiante (°C)</th>
                                         <th>T° fer (°C)</th>
                                         <th>Hygrométrie (%)</th>
-                                        <th>{% if parametre.machine.categorie == "À courant continu" %}
-                                                                Tension Excitation
-                                                            {% else %}
-                                                                Tension Stator
-                                                            {% endif %}</th>
-                                        <th>Tension Rotor</th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation
+                                            {% else %}
+                                                Tension Stator
+                                            {% endif %}
+                                        </th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation 2
+                                            {% else %}
+                                                Tension Stator 2
+                                            {% endif %}
+                                        </th>
+                                        <th width="10%">Tension Rotor</th>
+                                        <th width="10%">Tension Rotor 2</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
-                                        <td>{{parametre.statorTension}} 
-                                            {% if parametre.statorTension2 != 0 %}
-                                                et {{parametre.statorTension2 }}
-                                            {% endif %} 
+                                        <td>
+                                            {{parametre.statorTension}}
                                         </td>
-                                        <td>{{parametre.rotorTension}} 
+                                        <td>
+                                            {% if parametre.statorTension2 != 0 %}
+                                                {{parametre.statorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{parametre.rotorTension}}
+                                        </td>
+                                        <td>
                                             {% if parametre.rotorTension2 != 0 %}
-                                                et {{parametre.rotorTension2 }}
-                                            {% endif %} 
+                                                {{parametre.rotorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
                                         </td>
                                     </tr>   
                                 </table>
@@ -116,10 +136,10 @@
                                                 <td colspan="2">{{item.valeur}} {{ item.unite }}</td>
                                                 <td>{{item.tempCorrection }} {{ item.unite }}</td>
                                                 {% if item.conformite ==  'Conforme' %}
-                        <td style="color: green;">{{item.conformite}}</td>
-                    {% else %}
-                        <td style="color: red;">{{item.conformite}}</td>
-                    {% endif %}
+                                                    <td style="color: green;">{{item.conformite}}</td>
+                                                {% else %}
+                                                    <td style="color: red;">{{item.conformite}}</td>
+                                                {% endif %}
                                                 <td class="text-center">
                                                     <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_resistance_apres_lavage', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
                                                     <a class="btn btn-danger btn-sm" href="{{path('delete_sonde_apres_session_lavage', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>

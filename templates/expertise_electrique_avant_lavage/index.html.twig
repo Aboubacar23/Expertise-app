@@ -121,18 +121,12 @@
 							</div>
 							<div class="col-md-4 text-center">
 								{% if parametre.plaques |length == 0 %}
-									<a href="#" class="btn btn-secondary btn-sm">En attente
-										<i class="fa fa-plus-circle"></i>
-									</a>
+									<a href="#" class="btn btn-secondary btn-sm">En attente<i class="fa fa-plus-circle"></i></a>
 								{% else %}
 									{% if parametre.plaques |length  >= 1 %}
-										<a href="#" class="btn btn-success btn-sm">Terminé
-											<i class="fa fa-check"></i>
-										</a>
+										<a href="#" class="btn btn-success btn-sm">Terminé<i class="fa fa-check"></i></a>
 									{% else %}
-										<a href="#" class="btn btn-danger btn-sm">En cours
-											<i class="fa fa-circle-o"></i>
-										</a>
+										<a href="#" class="btn btn-danger btn-sm">En cours<i class="fa fa-circle-o"></i></a>
 									{% endif %}
 								{% endif %}
 							</div>
@@ -421,7 +415,6 @@
 										<tr>
 											<td>{{item.type}}</td>
 											<td>{{item.controle}}</td>
-											<td>{{item.critere}}</td>
 											<td>
 												{% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
 													>=
@@ -431,6 +424,7 @@
 													MΩ
 												{% endif %}
 											</td>
+											<td>{{item.tension}}</td>
 											<td>
 												{% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
 													{{item.valeur }}
@@ -448,10 +442,10 @@
 												{% endif %}
 											</td>
 											{% if item.conformite ==  'Conforme' %}
-                        <td style="color: green;">{{item.conformite}}</td>
-                    {% else %}
-                        <td style="color: red;">{{item.conformite}}</td>
-                    {% endif %}
+												<td style="color: green;">{{item.conformite}}</td>
+											{% else %}
+												<td style="color: red;">{{item.conformite}}</td>
+											{% endif %}
 										</tr>
 									{% endfor %}
 								</table>
