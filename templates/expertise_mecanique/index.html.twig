@@ -600,44 +600,44 @@
                                                 <tr>
                                                     <td>A</td>
                                                     <td>Moyeu palier</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaA | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaA | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>B</td>
                                                     <td>Emboitage C-Rlt extérieur</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaB | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaB | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>C</td>
                                                     <td>Roulement</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaC | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaC | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>D</td>
                                                     <td>Emboitage C-Rlt intérieur</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaD | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaD | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>2 rondelles isolantes</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide1 | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide1 | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Jeu</td>
                                                     <td>J = A - (B+C+D+Soupape)</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaJeu | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaJeu | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>Graisse</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide2 | number_format(2)}}</td>
-                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide2 | number_format(2)}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
+                                                    <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -886,7 +886,11 @@
                                                     <td>{{item.coteAttendue}}</td>
                                                     <td>{{item.tolerance}}</td>
                                                     <td>{{item.coteRelevee}}</td>
-                                                    <td>{{item.conformite}}</td> 
+                                                    {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %} 
                                                     <td>{{item.observation}}</td>                                               
 
                                                 </tr>                                                         
@@ -902,7 +906,11 @@
                                                     <td>{{item.coteAttendue}}</td>
                                                     <td>{{item.tolerance}}</td>
                                                     <td>{{item.coteRelevee}}</td>
-                                                    <td>{{item.conformite}}</td>
+                                                    {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                                     <td>{{item.observation}}</td>
                                                 </tr>                                                         
                                             {% endif %}                                                   
@@ -1088,7 +1096,7 @@
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
                                                     <tr  class="table-secondary">
-                                                        <th class="text-center" colspan="4">Machine équipée d'hydro ou Aéro</th>
+                                                        <th class="text-center" colspan="4">Machine équipée d'hydro-réfrigérant</th>
                                                     </tr>
                                                     <tr  class="table-secondary">
                                                         <th colspan="2" class="text-center">Nature du contrôle</th>
@@ -1116,7 +1124,7 @@
                                             <div class="col-md-6">
                                                 <table class="table table-bordered table-striped">
                                                     <tr  class="table-secondary">
-                                                        <th class="text-center" colspan="3">Pression dépend des préconisation constructeurs</th>
+                                                        <th class="text-center" colspan="3">Machine ventilée</th>
                                                     </tr>
                                                     <tr  class="table-secondary">
                                                         <th class="text-center">Nature du contrôle</th>

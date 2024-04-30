@@ -168,8 +168,6 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setLig($i);
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
-                    $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
-                    //$lstatorApresLavage->setValeur($item->getValeur());
 
                     $valeur = 0;
                     $temp = 0;
@@ -177,21 +175,24 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     {
                         $valeur = $item->getValeur();
                     }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
+
+                        $valeur = $item->getValeur();
+                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
                     }
 
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
                     }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
+                        $temp = $item->getTempCorrection();
+                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
                     }
 
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
+                    $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
                     $lstatorApresLavage->setValeur($valeur);
                     $lstatorApresLavage->setTempCorrection($temp);
                     $lstatorApresLavage->setConformite($item->getConformite());
-
                     $lstatorApresLavage->setType($item->getType());
                     $lstatorApresLavage->setUnite($item->getUnite());
                     $lstatorApresLavage->setStatorApresLavage($statorApresLavage);
@@ -330,8 +331,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setLig($i);
                     $lsondeBobinage->setControle($item->getControle());
                     $lsondeBobinage->setCritere($item->getCritere());
-
                     $temp = 0;
+
                     if (is_int($item->getTempCorrection()))
                     {
                         $temp = $item->getTempCorrection();
@@ -342,9 +343,9 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
                     $lsondeBobinage->setTempCorrection($temp);
-                    $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setUnite($item->getUnite());
                     $lsondeBobinage->setType($item->getType());
+                    $lsondeBobinage->setConformite($item->getConformite());
                     $lsondeBobinage->setSondeBobinage($sondeBobinage);
                     $em->persist($lsondeBobinage);
                 }

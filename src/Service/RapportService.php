@@ -19,7 +19,8 @@ class RapportService
         $this->domPdf->setOptions($pdfOptions);
     }
 
-    public function showPdfFile($html, $fichier) {
+    public function showPdfFile($html, $fichier, $num_projet)
+    {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);
@@ -50,31 +51,24 @@ class RapportService
         $dompdf->setPaper('A4', 'portrait');
         //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        //$canvas = $dompdf->getCanvas();
-       /* $canvas->page_script(
-            function ($pageNumber, $pageCount, $canvas, $fontMetrics){
-                $text = "Page $pageNumber sur $pageCount";
-                $font = $fontMetrics->getFont('Times New Roman');
-                $pageWidth = $canvas->get_width();
-                $pageHeight = $canvas->get_height();
-                $size = 12;
-                $width = $fontMetrics->getTextWidth($text, $font, $size);
-                $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text,$font,$size);
-            }
-        );
-        */
-        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+        $num = $num_projet;
+        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) use ($num) {
            // Vérifier si ce n'est pas la première page
             if ($pageNumber > 1) {
+                $numero = "2025";
                 $textLeft = "Page $pageNumber sur $pageCount";
+                $textCenter = $num;
                 $textRight = "IAQ19001";
+
                 $font = $fontMetrics->getFont('Times New Roman');
                 $pageWidth = $canvas->get_width();
                 $pageHeight = $canvas->get_height();
-                $size = 9;
+                $size = 10;
                 $widthLeft = $fontMetrics->getTextWidth($textLeft, $font, $size);
+                $widthCenter = $fontMetrics->getTextWidth($textCenter, $font, $size);
                 $widthRight = $fontMetrics->getTextWidth($textRight, $font, $size);
                 $canvas->text(20, $pageHeight - 20, $textLeft, $font, $size);
+                $canvas->text(($pageWidth - $widthCenter) / 2, $pageHeight - 20, $textCenter, $font, $size);
                 $canvas->text($pageWidth - $widthRight - 20, $pageHeight - 20, $textRight, $font, $size);
             }
         };

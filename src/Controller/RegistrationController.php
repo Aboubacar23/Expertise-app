@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Form\EditAdminType;
+use App\Form\PasswordEditType;
 use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,7 +77,7 @@ class RegistrationController extends AbstractController
     #[Route('/edit/{id}', name : 'app_register_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Admin $admin, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
     {
-        $registrationForm = $this->createForm(RegistrationFormType::class, $admin);
+        $registrationForm = $this->createForm(EditAdminType::class, $admin);
         $registrationForm->handleRequest($request);
         if(!$admin){
             return $this->redirect('app_register_index');
@@ -89,16 +91,8 @@ class RegistrationController extends AbstractController
                         $admin->setEtat(1);
                     }
                 }
-            
-                $admin->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $admin,
-                        $registrationForm->get('plainPassword')->getData()
-                    )
-                );
-
                 $entityManager->flush();
-                $this->addFlash('success', 'Administrateur modifié avec succès');
+                $this->addFlash('success', 'les données de '.$admin->getNom().' '.$admin->getPrenom().' modifiés avec succès');
                 return $this->redirectToRoute('app_register_index', [], Response::HTTP_SEE_OTHER);
             }
     
@@ -124,4 +118,35 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register_index', [], Response::HTTP_SEE_OTHER);
         }
     }
+
+    //modifier le mot de passe de l'utilisateur
+    #[Route('/edit-password/{id}', name : 'app_register_password_user', methods: ['GET', 'POST'])]
+    public function editPassword(Request $request, Admin $admin, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
+    {
+        $registrationForm = $this->createForm(PasswordEditType::class, $admin);
+        $registrationForm->handleRequest($request);
+        if(!$admin){
+            return $this->redirect('app_register_index');
+        }else{
+            if ($registrationForm->isSubmitted() && $registrationForm->isValid())
+            {
+                $admin->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $admin,
+                        $registrationForm->get('plainPassword')->getData()
+                    )
+                );
+                $entityManager->flush();
+                $this->addFlash('success', 'Mot de passe de '.$admin->getNom().' '.$admin->getPrenom().' modifié avec succès');
+                return $this->redirectToRoute('app_register_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+        }
+        return $this->renderForm('registration/password.html.twig', [
+            'admin' => $admin,
+            'registrationForm' => $registrationForm
+        ]);
+
+    }
+
 }

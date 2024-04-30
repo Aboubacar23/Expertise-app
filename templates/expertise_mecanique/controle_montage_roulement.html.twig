@@ -141,10 +141,10 @@
             const somCOA = document.getElementById('controle_montage_roulement_cote_coa_jeu');
 
             somCA.value = isNaN(cote_ca_a) || isNaN(cote_ca_b) || isNaN(cote_ca_c) 
-            || isNaN(cote_ca_d) || isNaN(cote_ca_vide1) ? '' : (cote_ca_a - (cote_ca_b + cote_ca_c + cote_ca_d + cote_ca_vide1));
+            || isNaN(cote_ca_d) || isNaN(cote_ca_vide1) ? '' : (cote_ca_a - (cote_ca_b + cote_ca_c + cote_ca_d + cote_ca_vide1).toFixed(3));
 
             somCOA.value = (isNaN(cote_coa_a) || isNaN(cote_coa_b) || isNaN(cote_coa_c) 
-            || isNaN(cote_coa_d) || isNaN(cote_coa_vide1) ? '' : (cote_coa_a - (cote_coa_b + cote_coa_c + cote_coa_d + cote_coa_vide1)));
+            || isNaN(cote_coa_d) || isNaN(cote_coa_vide1) ? '' : (cote_coa_a - (cote_coa_b + cote_coa_c + cote_coa_d + cote_coa_vide1).toFixed(3)));
         }
         document.getElementById('controle_montage_roulement_cote_ca_a').addEventListener('input', updateSumField);
         document.getElementById('controle_montage_roulement_cote_ca_b').addEventListener('input', updateSumField);

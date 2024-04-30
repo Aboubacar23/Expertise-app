@@ -21,8 +21,9 @@ class AppareilMesureMecaniqueType extends AbstractType
                 'placeholder' => 'Choisir votre appareil de messure',
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {
-                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.date_validite > :date_jour and a.etat = 'Fonctionnel' and a.statut = 'Conforme' and a.type_service ='electrique' ")
-                    ->setParameter(':date_jour', new DateTime());
+                    $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.date_validite > :date_jour and a.etat = 'Fonctionnel' and a.statut = 'Conforme' and a.type_service ='mecanique' ")
+                    ->setParameter(':date_jour', new DateTime())
+                        ->orderBy('a.num_appareil', 'ASC');
                     return $query;
                 }
             ]);
