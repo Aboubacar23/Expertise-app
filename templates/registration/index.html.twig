@@ -61,27 +61,28 @@
                                             <td>
                                                 {% for role in item.roles  %}
                                                     {% if role == "ROLE_SUPER_ADMIN" %}
-                                                        SUPER ADMIN ||
+                                                        <li>SUPER ADMIN</li>
                                                     {% elseif role == "ROLE_CHEF_PROJET" %}
-                                                        CHEF PROJET ||
+                                                        <li>CHEF PROJET</li>
                                                     {% elseif role == "ROLE_AGENT_MAITRISE" %}
-                                                        AGENT DE MAÎTRISE ||
+                                                        <li>AGENT DE MAÎTRISE</li>
                                                     {% elseif role == "ROLE_VERIFICATEUR" %}
-                                                        VÉRIFICATEUR ||
+                                                       <li>VÉRIFICATEUR</li>
                                                     {% elseif role == "ROLE_TECHNICIEN_ELECTRICIEN" %}
-                                                        TECHNICIEN ÉLECTRICIEN ||
+                                                       <li>TECHNICIEN ÉLECTRICIEN</li>
                                                     {% elseif role == "ROLE_TECHNICIEN_MECANICIEN" %}
-                                                        TECHNICIEN MECANICIEN ||
+                                                       <li>TECHNICIEN MECANICIEN</li>
                                                     {% elseif role == "ROLE_LECTEUR" %}
-                                                        LECTEUR ||
+                                                       <li>LECTEUR</li>
                                                     {% elseif role == "ROLE_MAGASINIER" %}
-                                                        MAGASINIER ||
+                                                       <li>MAGASINIER</li>
                                                     {% elseif role == "ROLE_METROLOGUE" %}
-                                                        METROLOGUE ||
+                                                       <li>METROLOGUE</li>
                                                     {% endif %}
                                                 {% endfor %}
                                             </td>
                                             <td class="text-center">
+                                                <a href="{{path('app_register_password_user', { 'id' : item.id })}}" class="btn btn-warning btn-sm"><i class="fa fa-key"></i></a>
                                                 <a href="{{path('app_register_edit', { 'id' : item.id })}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a href="{{path('app_register_delete', { 'id' : item.id })}}" onclick="return confirm('Voulez vous vraiment supprimer ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             </td>

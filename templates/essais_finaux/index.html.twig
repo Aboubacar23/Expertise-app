@@ -182,7 +182,11 @@
                                                 {% else %}
                                                     <td>{{item.tempCorrection}} {{ item.unite}}</td>
                                                 {% endif %}
-                                                <td>{{item.conformite}}</td>
+                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                             </tr>                                        
                                         {% endfor %}
                                     </table>
@@ -261,7 +265,11 @@
                                                 <td>{{item.critere}}</td>
                                                 <td>{{item.valeur}} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection }} {{ item.unite }}</td>
-                                                <td>{{item.conformite}}</td>
+                                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                                             </tr>                                        
                                         {% endfor %}
                                     </table>

@@ -354,7 +354,11 @@
                                         {{item.tempCorrection }} {{ item.unite}}
                                     {% endif %}
                                 </td>
-                                <td>{{item.conformite}}</td>
+                                {% if item.conformite ==  'Conforme' %}
+                        <td style="color: green;">{{item.conformite}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conformite}}</td>
+                    {% endif %}
                             </tr>
                             {% endfor %}
                             {% endif %}
@@ -428,7 +432,11 @@
                                 <td>{{item.tension}} V</td>
                                 <td>{{item.courantAbsorbe}}</td>
                                 <td>{{item.tensionAlimentation}} V</td>
-                                <td>{{item.conforme}}</td>
+                                {% if item.conforme ==  'Conforme' %}
+                        <td style="color: green;">{{item.conforme}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conforme}}</td>
+                    {% endif %}
                             </tr>
                             {% endfor %}
                         </table>
@@ -488,7 +496,11 @@
                             <tr>
                                 <th>{{item.diode}}</th>
                                 <td>{{item.tension}} V</td>
-                                <td>{{item.conforme}}</td>
+                                {% if item.conforme ==  'Conforme' %}
+                        <td style="color: green;">{{item.conforme}}</td>
+                    {% else %}
+                        <td style="color: red;">{{item.conforme}}</td>
+                    {% endif %}
                             </tr>
                             {% endfor %}
                         </table>
