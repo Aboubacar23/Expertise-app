@@ -34,34 +34,54 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="6" class="text-center">Paramètres</th>
+                                        <th colspan="8" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th width="15%">T° ambiante (°C)</th>
                                         <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
                                         <th width="15%">Date d'essai</th>
-                                        <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
-                                                                Tension Excitation
-                                                            {% else %}
-                                                                Tension Stator
-                                                            {% endif %}</th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation
+                                            {% else %}
+                                                Tension Stator
+                                            {% endif %}
+                                        </th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation 2
+                                            {% else %}
+                                                Tension Stator 2
+                                            {% endif %}
+                                        </th>
                                         <th width="10%">Tension Rotor</th>
+                                        <th width="10%">Tension Rotor 2</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formMesureResistance.temp_ambiante) }}</td>
                                         <td >{{ form_widget(formMesureResistance.temp_tolerie) }}</td>
                                         <td >{{ form_widget(formMesureResistance.hygrometrie) }}</td>
                                         <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
-                                        <td>{{parametre.statorTension}} 
-                                            {% if parametre.statorTension2 != 0 %}
-                                                et {{parametre.statorTension2 }}
-                                            {% endif %} 
+                                        <td>
+                                            {{parametre.statorTension}}
                                         </td>
-                                        <td>{{parametre.rotorTension}} 
+                                        <td>
+                                            {% if parametre.statorTension2 != 0 %}
+                                                {{parametre.statorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{parametre.rotorTension}}
+                                        </td>
+                                        <td>
                                             {% if parametre.rotorTension2 != 0 %}
-                                                et {{parametre.rotorTension2 }}
-                                            {% endif %} 
+                                                {{parametre.rotorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
                                         </td>
                                     </tr>    
                                 </table>

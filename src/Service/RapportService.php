@@ -63,7 +63,7 @@ class RapportService
                 $font = $fontMetrics->getFont('Times New Roman');
                 $pageWidth = $canvas->get_width();
                 $pageHeight = $canvas->get_height();
-                $size = 10;
+                $size = 8;
                 $widthLeft = $fontMetrics->getTextWidth($textLeft, $font, $size);
                 $widthCenter = $fontMetrics->getTextWidth($textCenter, $font, $size);
                 $widthRight = $fontMetrics->getTextWidth($textRight, $font, $size);
