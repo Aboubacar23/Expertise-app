@@ -2187,7 +2187,7 @@
         <div class="page9">
             <h2 id="lien10">X. Remontage</h2>
             <div class="sous_page9_1">
-                {% if parametre.remontagePalier %}
+                {% if parametre.remontageFinition %}
                     <h4 id="lien101">A. <span class="span_titre">Remontage et finitions</span></h4>
                     <table>
                         <tr class="titre_table">
@@ -2561,7 +2561,7 @@
                         mobile</p>
                 {% endif %}
             </div>
-            {% if parametre.remontagePhotos %}
+            {% if parametre.remontagePhotos | length > 0 %}
                 <div class="page_break"></div>
                 <div class="sous_page6_7" style="padding-top: 10px;">
                     <h4 id="lien104">D. <span class="span_titre">Illustrations</span></h4>
