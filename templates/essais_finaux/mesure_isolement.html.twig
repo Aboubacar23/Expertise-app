@@ -33,7 +33,7 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="8" class="text-center">Paramètres</th>
+                                        <th colspan="9" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th>T° ambiante (°C)</th>
@@ -41,12 +41,22 @@
                                         <th>Hygrométrie (%)</th>
                                         <th>Date d'essai</th>
                                         <th>Critère</th>
-                                        <th>{% if parametre.machine.categorie == "À courant continu" %}
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
                                                 Tension Excitation
                                             {% else %}
                                                 Tension Stator
-                                            {% endif %} (V)</th>
-                                        <th>Tension Rotor (V)</th>
+                                            {% endif %}
+                                        </th>
+                                        <th width="10%">
+                                            {% if parametre.machine.categorie == "À courant continu" %}
+                                                Tension Excitation 2
+                                            {% else %}
+                                                Tension Stator 2
+                                            {% endif %}
+                                        </th>
+                                        <th width="10%">Tension Rotor</th>
+                                        <th width="10%">Tension Rotor 2</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formMesureIsolement.temp_ambiante) }}</td>
@@ -54,15 +64,21 @@
                                         <td >{{ form_widget(formMesureIsolement.hygrometrie) }}</td>
                                         <td>{{ form_widget(formMesureIsolement.date_essais) }}</td>
                                         <td>{{parametre.critere | number_format(2)}}</td>
-                                        <td>{{parametre.statorTension}} 
+                                        <td>{{parametre.statorTension}} (V)</td>
+                                        <td>
                                             {% if parametre.statorTension2 != 0 %}
-                                                et {{parametre.statorTension2 }}
-                                            {% endif %} 
+                                                {{parametre.statorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
                                         </td>
-                                        <td>{{parametre.rotorTension}} 
+                                        <td>{{parametre.rotorTension}}</td>
+                                        <td>
                                             {% if parametre.rotorTension2 != 0 %}
-                                                et {{parametre.rotorTension2 }}
-                                            {% endif %} 
+                                                {{parametre.rotorTension2 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
                                         </td>
                                     </tr>   
                                 </table>
