@@ -18,6 +18,7 @@ parameters:
     image_phototheque: '%kernel.project_dir%/public/phototheques'
     fichier_archives: '%kernel.project_dir%/public/archives'
     image_rotor: '%kernel.project_dir%/public/photo_rotor'
+    image_boite_borne: '%kernel.project_dir%/public/photo_boite_bornes'
     certificats: '%kernel.project_dir%/public/certificats'
      
      

@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\BoiteBorne;
 use App\Entity\Photo;
 use App\Entity\Images;
 use App\Entity\Plaque;
 use App\Entity\LPlaque;
+use App\Form\BoiteBorneType;
 use App\Form\PhotoType;
 use App\Form\PlaqueType;
 use App\Entity\Parametre;
 use App\Form\LPlaqueType;
 use App\Entity\AutreControle;
 use App\Entity\AppareilMesure;
+use App\Repository\BoiteBorneRepository;
 use App\Service\MailerService;
 use App\Entity\MesureIsolement;
 use App\Form\AutreControleType;
@@ -82,7 +85,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
      * NB : c'est les mêmes étapes pour les autres aussi
      */
 
-    public function __construct(Private RedimensionneService $redimensionneService)
+    public function __construct(Private RedimensionneService $redimensionneService, Private EntityManagerInterface $entityManager)
     {
         
     }
@@ -90,7 +93,6 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('/electrique/avant/lavage/{id}', name: 'app_expertise_electrique_avant_lavage', methods: ['POST', 'GET'])]
     public function index(Parametre $parametre, Request $request, ConstatElectriqueRepository $constatElectriqueRepository, SluggerInterface $slugger,): Response
     {
-
         return $this->render('expertise_electrique_avant_lavage/index.html.twig', [
             'parametre' => $parametre,
         ]);
@@ -1030,4 +1032,69 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             return $this->redirectToRoute('app_photo_plaque', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
+
+    //ajout de la boite à borne
+    #[Route('/boite-borne/{id}', name: 'app_boite_borne', methods: ['GET', 'POST'])]
+    public function boiteBorne(Parametre $parametre,Request $request, BoiteBorneRepository $boiteBorneRepository,EntityManagerInterface $entityManager ,SluggerInterface $slugger)
+    {
+        $boiteborne = new BoiteBorne();
+        $form = $this->createForm(BoiteBorneType::class, $boiteborne);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $image = $form->get('libelle')->getData();
+
+            if ($image) {
+                $size = $image->getSize();
+                if ($size > 2 * 1024 * 1024) {
+                    $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
+                    return $this->redirectToRoute('app_constat_electrique', ['id' => $parametre->getId()]);
+                } else {
+
+                    $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safePhotoname = $slugger->slug($originalePhoto);
+                    $newPhotoname = $safePhotoname . '' . uniqid() . '.' . $image->guessExtension();
+                    //dd($newPhotoname);
+                    try {
+                        $image->move(
+                            $this->getParameter('image_boite_borne'),
+                            $newPhotoname
+                        );
+                    } catch (FileException $e) {
+                    }
+                    $boiteborne->setLibelle($newPhotoname);
+                }
+            }
+            $boiteborne->setParametre($parametre);
+            $entityManager->persist($boiteborne);
+            $entityManager->flush();
+            $this->addFlash('success', 'La boité ajouter avec succès');
+            return $this->redirectToRoute('app_boite_borne', ['id' => $parametre->getId()]);
+        }
+
+        return $this->renderForm('expertise_electrique_avant_lavage/boite_borne.html.twig', [
+            'form' => $form,
+            'boite_borne' => $boiteborne,
+            'parametre' => $parametre
+        ]);
+    }
+
+    //la fonction qui supprime la boite à borne
+    #[Route('/boite-borne/{id}/supprimer', name: 'app_delete_boite_borne', methods: ['GET', 'POST'])]
+    public function deleteBoite(BoiteBorne $boiteBorne, BoiteBorneRepository $boiteBorneRepository, EntityManagerInterface $entityManager): Response
+    {
+        $id = $boiteBorne->getParametre()->getId();
+        if ($boiteBorne) {
+            $nom = $boiteBorne->getLibelle();
+            unlink($this->getParameter('image_boite_borne') . '/' . $nom);
+            $entityManager->remove($boiteBorne);
+            $entityManager->flush();
+            $this->addFlash('error', 'La boité supprimé avec succès');
+            return $this->redirectToRoute('app_boite_borne', ['id' => $id], Response::HTTP_SEE_OTHER);
+        } else {
+            return $this->redirectToRoute('app_boite_borne', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+    }
+
 }

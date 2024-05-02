@@ -1,1 +1,4 @@
-bin/console make:migration; bin/console doctrine:migrations:migrate
+#faire la migration dans la base de donnée
+
+bin/console make:migration;
+bin/console doctrine:migrations:migrate
