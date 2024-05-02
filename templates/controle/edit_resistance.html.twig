@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste client{% endblock %}
+
+{% block body %}   
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+        <h3>Gestion Controles</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                <h2>Modifier</h2>
+                <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    {% for flash_message in app.session.flashbag.get('success') %}
+                        <div class="container alert alert-success p-2" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 ">
+                                        {{ form_row(form.libelle)}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary">Modifier</button>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a href="" class="btn btn-secondary">Retour</a>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

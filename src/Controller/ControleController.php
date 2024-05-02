@@ -58,12 +58,16 @@ class ControleController extends AbstractController
         if($form1->isSubmitted() && $form1->isValid())
         {
             $controleIsolementRepository->save($controleIsolement, true);
+            $message = "Contrôle d'isolement ".$controleIsolement->getLibelle(). " ajouté avec succès";
+            $this->addFlash("success",$message);
             return $this->redirectToRoute('app_controle_index');
         }
 
         if($form2->isSubmitted() && $form2->isValid())
         {
             $controleResistanceRepository->save($controleResistance, true);
+            $message = "Contrôle de résistance ".$controleResistance->getLibelle(). " ajouté avec succès";
+            $this->addFlash("success",$message);
             return $this->redirectToRoute('app_controle_index');
         }
 
@@ -125,6 +129,46 @@ class ControleController extends AbstractController
             $typeControleGeoRepository->remove($typeControleGeo, true);
             return $this->redirectToRoute('app_type_geo_index');
         }
+    }
+
+
+    #[Route('/edit/controle-isolement/{id}', name: 'app_edit_isolement_controle')]
+    public function editIsolement(ControleIsolement $controleIsolement,Request $request,ControleIsolementRepository $controleIsolementRepository): Response
+    {
+        $form1 = $this->createForm(ControleIsolementType::class, $controleIsolement);
+        $form1->handleRequest($request);
+
+        if($form1->isSubmitted() && $form1->isValid())
+        {
+            $controleIsolementRepository->save($controleIsolement, true);
+            $message = "Contrôle d'isolement ".$controleIsolement->getLibelle(). " modifié avec succès";
+            $this->addFlash("success",$message);
+            return $this->redirectToRoute('app_controle_index');
+        }
+        return $this->render('controle/edit_isolement.html.twig', [
+            'controleIsolement' => $controleIsolement,
+            'form' => $form1->createView(),
+        ]);
+    }
+
+
+    #[Route('/edit/controle-resistance/{id}', name: 'app_edit_resistance_controle')]
+    public function editResistance(ControleResistance $controleResistance,Request $request,ControleResistanceRepository $controleResistanceRepository): Response
+    {
+        $form = $this->createForm(ControleResistanceType::class, $controleResistance);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $controleResistanceRepository->save($controleResistance, true);
+            $message = "Contrôle d'isolement ".$controleResistance->getLibelle(). " modifié avec succès";
+            $this->addFlash("success",$message);
+            return $this->redirectToRoute('app_controle_index');
+        }
+
+        return $this->render('controle/edit_resistance.html.twig', [
+            'controleResistance' => $controleResistance,
+            'form' => $form->createView(),
+        ]);
     }
 
 }
