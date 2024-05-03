@@ -68,7 +68,7 @@ class Appareil
     private ?\DateTimeInterface $date_achat = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?float $prix_achat = null;
+    private ?string $prix_achat = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $numero_da = null;
