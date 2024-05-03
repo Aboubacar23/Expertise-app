@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\ControleVisuelElectrique;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -40,7 +42,22 @@ class ControleVisuelElectriqueType extends AbstractType
                 'placeholder' => 'Choisir le sens'
             ])
             ->add('remarque')
-        ;
+            ->add('photo',FileType::class,[
+                'label' => 'Photo',
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '40M',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'Veuillez choisir une image png, jpg ou jpeg',
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

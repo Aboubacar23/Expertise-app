@@ -100,7 +100,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //creation de Contrôle visuel et recensement
     #[Route('/controle/visuel/recensement/{id}', name: 'app_controle_visuel_recensement')]
-    public function controleVisuel(Parametre $parametre, Request $request, ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository): Response
+    public function controleVisuel(Parametre $parametre, Request $request, ControleVisuelElectriqueRepository $controleVisuelElectriqueRepository, SluggerInterface $slugger): Response
     {        //1 
         $controleVisuelElectrique = new ControleVisuelElectrique();
         //2
@@ -113,14 +113,61 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $formControleVisuelElectique->handleRequest($request);
 
         //4
-        if ($formControleVisuelElectique->isSubmitted() && $formControleVisuelElectique->isValid()) {   //5
+        if ($formControleVisuelElectique->isSubmitted() && $formControleVisuelElectique->isValid()) {
+            //5
             $choix = $request->get('bouton');
             if ($choix == 'controle_visuel_en_cours') {
+                $image = $formControleVisuelElectique->get('photo')->getData();
+                if ($image) {
+                    $size = $image->getSize();
+                    if ($size > 2 * 1024 * 1024) {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
+                        return $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $parametre->getId()]);
+                    } else {
+
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '' . uniqid() . '.' . $image->guessExtension();
+                        //dd($newPhotoname);
+                        try {
+                            $image->move(
+                                $this->getParameter('image_boite_borne'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $controleVisuelElectrique->setPhoto($newPhotoname);
+                    }
+                }
                 $parametre->setControleVisuelElectrique($controleVisuelElectrique);
                 $controleVisuelElectrique->setEtat(0);
                 $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
                 $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $parametre->getId()]);
-            } elseif ($choix == 'controle_visuel_terminer') {
+
+            } elseif ($choix == 'controle_visuel_terminer')
+            {
+                $image = $formControleVisuelElectique->get('photo')->getData();
+                if ($image) {
+                    $size = $image->getSize();
+                    if ($size > 2 * 1024 * 1024) {
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
+                        return $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $parametre->getId()]);
+                    } else {
+
+                        $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '' . uniqid() . '.' . $image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('image_boite_borne'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $controleVisuelElectrique->setPhoto($newPhotoname);
+                    }
+                }
+
                 $parametre->setControleVisuelElectrique($controleVisuelElectrique);
                 $controleVisuelElectrique->setEtat(1);
                 $controleVisuelElectriqueRepository->save($controleVisuelElectrique, true);
