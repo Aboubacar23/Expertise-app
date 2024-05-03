@@ -201,9 +201,19 @@
 														{% endif %}	
 													</div>
 												</div>
-												
+
+												<div class="row">
+													<label class="control-label col-md-6 col-sm-6">6.	Remontage</label>
+													<div class="col-md-6 col-sm-6">
+														{% if item.remontage == 0 %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
+														{% else %}
+															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
+														{% endif %}
+													</div>
+												</div>
 												<div class="row">										
-													<label class="control-label col-md-6 col-sm-6">6.	Essais Finaux</label>
+													<label class="control-label col-md-6 col-sm-6">7.	Essais Finaux</label>
 													<div class="col-md-6 col-sm-6">
 														{% if item.essaisFinaux == 0 %}
 															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
@@ -211,17 +221,7 @@
 															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
 														{% endif %}	
 													</div>
-												</div>	
-												<div class="row">							
-													<label class="control-label col-md-6 col-sm-6">7.	Remontage</label>
-													<div class="col-md-6 col-sm-6">
-														{% if item.remontage == 0 %}
-															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;"/>
-														{% else %}
-															<input type="checkbox" class="demo1 form-control" value="#5367ce" disabled style="width: 15px;" checked/>
-														{% endif %}	
-													</div>
-												</div>												
+												</div>
 											{% endfor %}											
 										{% endif %}
 									</form>

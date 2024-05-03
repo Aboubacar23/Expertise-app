@@ -79,6 +79,9 @@ class ControleVisuelElectrique
     #[ORM\OneToOne(mappedBy: 'controleVisuelElectrique', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -360,6 +363,18 @@ class ControleVisuelElectrique
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

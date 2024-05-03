@@ -271,6 +271,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PontDiode::class)]
     private Collection $pontDiodes;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: BoiteBorne::class)]
+    private Collection $boiteBornes;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -295,6 +298,7 @@ class Parametre
         $this->photoRotors = new ArrayCollection();
         $this->equirepartitions = new ArrayCollection();
         $this->pontDiodes = new ArrayCollection();
+        $this->boiteBornes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1721,4 +1725,35 @@ class Parametre
     {
         return $this->getId();
     }
+
+    /**
+     * @return Collection<int, BoiteBorne>
+     */
+    public function getBoiteBornes(): Collection
+    {
+        return $this->boiteBornes;
+    }
+
+    public function addBoiteBorne(BoiteBorne $boiteBorne): static
+    {
+        if (!$this->boiteBornes->contains($boiteBorne)) {
+            $this->boiteBornes->add($boiteBorne);
+            $boiteBorne->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoiteBorne(BoiteBorne $boiteBorne): static
+    {
+        if ($this->boiteBornes->removeElement($boiteBorne)) {
+            // set the owning side to null (unless already changed)
+            if ($boiteBorne->getParametre() === $this) {
+                $boiteBorne->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

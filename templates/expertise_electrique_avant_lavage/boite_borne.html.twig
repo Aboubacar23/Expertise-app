@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire{% endblock %}
+
+{% block body %}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h4>Expertise Électrique avant lavage du projet {{ parametre.affaire.numAffaire }}</h4>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Intérieur boite à bornes</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <a href="{{path('app_expertise_electrique_avant_lavage',{'id' : parametre.id})}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-circle-left p-1"></i></a>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% for message in app.flashes('error') %}
+                                    <div class="alert alert-danger">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                {% for message in app.flashes('success') %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- début constats eléc -->
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-8">{{ form_widget(form.libelle) }}</div>
+                            <div class="col-md-4">
+                                {% if parametre.boiteBornes | length == 0 %}
+                                    <button class="btn btn-success btn-sm"> Ajouter <i class="fa fa-save"></i></button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                        <!-- /fin constats eléc -->
+                        <div class="row mt-5">
+                            <div class="col-md-12 text-center">
+                                <table class="text-center">
+                                    <tr class="text-center">
+                                        {% if parametre.boiteBornes | length > 0  %}
+                                            {% for item in parametre.boiteBornes  %}
+                                                <td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ item.libelle)}}" height="400" width="400"></td>
+                                                <td><a href="{{ path('app_delete_boite_borne', {'id' : item.id }) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr ?');"><i class="fa fa-trash"></i></a></td>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

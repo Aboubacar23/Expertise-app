@@ -109,8 +109,61 @@
 		</div>
 		<!-- début contenu formulaire -->
 		<div class="row">
-			<div
-				class="col-md-12 col-sm-12 ">
+			<div class="col-md-12 col-sm-12 ">
+
+				<!-- début boite à borne -->
+				<div class="x_panel">
+					<div class="x_title">
+						<div class="row">
+							<div class="col-md-4">
+								<h2>Intérieur boite à bornes</h2>
+							</div>
+							<div class="col-md-4 text-center">
+								{% if parametre.boiteBornes | length > 0  %}
+									<a href="#" class="btn btn-success btn-sm">Terminé <i class="fa fa-check"></i></a>
+								{% else %}
+									<a href="#" class="btn btn-secondary btn-sm">En attente<i class="fa fa-plus-circle p-1"></i></a>
+								{% endif %}
+							</div> 
+							<div class="col-md-2 text-right">
+								{% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_AGENT_MAITRISE') or is_granted('ROLE_VERIFICATEUR') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+									{% if parametre.affaire.bloque != 1 %}
+										<a class="btn btn-primary" href="{{path('app_boite_borne', {'id' : parametre.id })}}"><i class="fa fa-plus-circle"></i></a>
+									{% endif %}
+								{% endif %}
+							</div>
+							<div class="col-md-2">
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link" data-toggle="collapse" data-target="#collapse1_12" aria-expanded="false" href="#collapse1_12">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content collapse" id="collapse1_12">
+						{% if parametre.controleVisuelElectrique %}
+							<div class="row text-center">
+								<div class="col-md-12 text-center">
+									<table class="text-center">
+										<tr class="text-center">
+											{% if parametre.boiteBornes | length > 0  %}
+												{% for item in parametre.boiteBornes  %}
+													<td class="text-center"><img class="p-2" src="{{absolute_url(asset('/photo_boite_bornes/'~ item.libelle))}}" height="200" width="200"></td>
+												{% endfor %}
+											{% endif %}
+										</tr>
+									</table>
+								</div>
+							</div>
+
+						{% endif %}
+					</div>
+				</div>
+				<!-- fin boite à bornes -->
 
 				<!-- début plaque -->
 				<div class="x_panel">
@@ -318,6 +371,11 @@
 												<td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
 												<td></td>
 												<td></td>
+											</tr>
+											<tr class="text-center">
+												{% if parametre.controleVisuelElectrique  %}
+													<td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)}}" height="200" width="200"></td>
+												{% endif %}
 											</tr>
 										</tbody>
 									</table>

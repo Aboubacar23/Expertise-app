@@ -817,13 +817,32 @@
                         <th>PHOTO INTERIEUR boîte à borne</th>
                     </tr>
                     <tr>
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}"
-                                alt="item.photo" height="150px"></td>
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}"
-                                alt="item.photo" height="150px"></td>
+                        <td height="15%" class="td_image">
+                            {% if parametre.controleVisuelElectrique.photo %}
+                                <img src="{{ absolute_url(asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)) }}" alt="item.photo" height="150px">
+                            {% endif %}
+                        </td>
+                        <td height="15%" class="td_image">
+                            {% if parametre.boiteBornes | length > 0  %}
+                                {% for item in parametre.boiteBornes  %}
+                                    <img class="p-2" src="{{absolute_url(asset('/photo_boite_bornes/'~ item.libelle))}}" height="200" width="200">
+                                {% endfor %}
+                            {% endif %}
+                        </td>
                     </tr>
+                    {% if parametre.controleVisuelElectrique %}
+                        <tr>
+                            <td class="titre_table">Sens rotation</td>
+                            <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
+                        </tr>
+                        <tr>
+                            <td class="titre_table">Remarque</td>
+                            <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
+                        </tr>
+                    {% endif %}
                 </table>
             </div>
+
             {% if parametre.synoptiques | length > 0 %}
                 <div class="page_break"></div>
                 <div class="sous_page5_4">
@@ -1306,6 +1325,7 @@
                         </table>
                 </div>
             {% endif %}
+
             {% if parametre.photoExpertiseMecaniques|length > 0 %}
                 <div class="page_break"></div>
                 <div class="sous_page5_13">
@@ -1375,13 +1395,12 @@
                     <table>
                         <thead class="table-secondary">
                             <tr>
-                                <th class="titre_table" colspan="5">Contrôle visuel et recensement</th>
+                                <th class="titre_table" colspan="3">Contrôle visuel et recensement</th>
                             </tr>
                             <tr class="titre_table">
                                 <th></th>
                                 <th>Balais</th>
                                 <th>Balais de masse</th>
-                                <th class="titre_table" colspan="2">Fac-similé boîte à borne</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1389,64 +1408,46 @@
                                 <td class="titre_table">Dimension</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
-                                <td class="titre_table">Sens rotation</td>
-                                <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Marque</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
-                                <td class="titre_table">Remarque</td>
-                                <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Quantité</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Nuance</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Longueur Shunt</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Type de Cosses</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Aspect de la patine</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Type pression</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="titre_table">Présence de Gaine</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
                                 <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine ? 'Oui' : 'Non' }}</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>

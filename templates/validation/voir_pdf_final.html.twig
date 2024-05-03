@@ -738,6 +738,7 @@
                     </table>
                 </div>
             {% endif %}
+
             <div class="sous_page5_3">
                 <h5 id="lien512">2. <span class="span_titre">Relevé boîte à borne</span></h5>
                 <table>
@@ -746,11 +747,29 @@
                         <th>PHOTO INTERIEUR boîte à borne</th>
                     </tr>
                     <tr>
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}"
-                                                               alt="item.photo" height="150px"></td>
-                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/fac_simile.png')) }}"
-                                                               alt="item.photo" height="150px"></td>
+                        <td height="15%" class="td_image">
+                            {% if parametre.controleVisuelElectrique.photo %}
+                                <img src="{{ absolute_url(asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)) }}" alt="item.photo" height="150px">
+                            {% endif %}
+                        </td>
+                        <td height="15%" class="td_image">
+                            {% if parametre.boiteBornes | length > 0  %}
+                                {% for item in parametre.boiteBornes  %}
+                                    <img class="p-2" src="{{absolute_url(asset('/photo_boite_bornes/'~ item.libelle))}}" height="200" width="200">
+                                {% endfor %}
+                            {% endif %}
+                        </td>
                     </tr>
+                    {% if parametre.controleVisuelElectrique %}
+                        <tr>
+                            <td class="titre_table">Sens rotation</td>
+                            <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
+                        </tr>
+                        <tr>
+                            <td class="titre_table">Remarque</td>
+                            <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
+                        </tr>
+                    {% endif %}
                 </table>
             </div>
             {% if parametre.synoptiques | length > 0 %}
