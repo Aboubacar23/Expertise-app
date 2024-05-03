@@ -372,6 +372,11 @@
 												<td></td>
 												<td></td>
 											</tr>
+											<tr class="text-center">
+												{% if parametre.controleVisuelElectrique  %}
+													<td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)}}" height="200" width="200"></td>
+												{% endif %}
+											</tr>
 										</tbody>
 									</table>
 								</div>
