@@ -155,29 +155,39 @@ class AffaireController extends AbstractController
     #[Route('/show-affaire/{id}', name: 'app_affaire_show', methods: ['GET', 'POST'])]
     public function show(Affaire $affaire, ParametreRepository $parametreRepository, ArchiveRepository $archiveRepository, Request $request, SluggerInterface $slugger): Response
     {
-        //envoyer une variable active true pour désactiver et activer le parametre
+        // Envoyer une variable active pour désactiver et activer le paramètre
         $listes = $parametreRepository->findAll();
         $active = false;
         $fermer = false;
+        // Boucle sur tous les paramètres
         foreach ($listes as $item) {
+            // Vérifie si l'affaire du paramètre correspond à l'affaire en cours
             if ($item->getAffaire()->getId() == $affaire->getId()) {
                 $active = true;
-                if ($item->isRemontage() == true && $item->isExpertiseElectiqueApresLavage() == true && $item->isExpertiseElectiqueAvantLavage() == true && $item->isExpertiseMecanique() == true) {
+                // Vérifie les conditions de remontage et d'expertises
+                if ($item->isRemontage() == true &&
+                    $item->isExpertiseElectiqueApresLavage() == true &&
+                    $item->isExpertiseElectiqueAvantLavage() == true &&
+                    $item->isExpertiseMecanique() == true) {
                     $fermer = true;
                 }
             }
         }
-        //dd($active);
-        //traitement des archives
+
+        // Traitement des archives
         $archive = new Archive();
+        // Création du formulaire pour l'entité Archive
         $form = $this->createForm(ArchiveType::class, $archive);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
-        //verifie s'il y a une version existant de cette affaire pour connaitre le nombre total
+        // Vérifie s'il existe des versions existantes de cette affaire pour connaître le nombre total
         $num = 0;
         if ($affaire->getArchives()) {
             $num = count($affaire->getArchives()) + 1;
         }
+
+        // Détermination de la lettre correspondant au nombre total
         $lettre = '';
         if ($num == 1) {
             $lettre = 'A';
@@ -194,28 +204,39 @@ class AffaireController extends AbstractController
         }
         $version = 'Indice-' . $lettre;
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du fichier uploadé
             $fichier = $form->get('fichier')->getData();
             if ($fichier) {
+                // Traitement du nom du fichier
                 $originaleFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFichier = $slugger->slug($originaleFichier);
                 $newFichierName = $safeFichier . '-' . uniqid() . '.' . $fichier->guessExtension();
                 try {
+                    // Déplacement du fichier uploadé vers le répertoire défini
                     $fichier->move(
                         $this->getParameter('fichier_archives'),
                         $newFichierName
                     );
                 } catch (FileException $e) {
+                    // Gestion des exceptions lors du déplacement du fichier
                 }
             }
+            // Association de l'affaire à l'archive
             $archive->setAffaire($affaire);
+            // Association du nom du fichier à l'archive
             $archive->setFichier($newFichierName);
+            // Sauvegarde de l'archive dans le dépôt
             $archiveRepository->save($archive, true);
+            // Ajout d'un message flash de succès
             $this->addFlash('success', 'Vous avez créé une archive sur cette affaire');
+            // Redirection vers la route de l'affaire
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $affaire->getId(),
             ], Response::HTTP_SEE_OTHER);
         }
+
         //fin d'archiver
         return $this->render('affaire/show.html.twig', [
             'affaire' => $affaire,
@@ -230,13 +251,21 @@ class AffaireController extends AbstractController
     #[Route('/{id}/edit', name: 'app_affaire_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Affaire $affaire, AffaireRepository $affaireRepository): Response
     {
+        // Création du formulaire pour l'entité Affaire
         $form = $this->createForm(AffaireType::class, $affaire);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
+        // Récupération du nom complet de l'utilisateur connecté
         $user = $this->getUser()->getNom() . ' ' . $this->getUser()->getPrenom();
+
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Association de l'utilisateur à l'affaire
             $affaire->setUser($user);
+            // Sauvegarde de l'affaire dans le dépôt
             $affaireRepository->save($affaire, true);
+            // Redirection vers la route de l'affaire
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $affaire->getId()
             ], Response::HTTP_SEE_OTHER);
@@ -251,36 +280,54 @@ class AffaireController extends AbstractController
     #[Route('/delete/{id}', name: 'app_affaire_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Affaire $affaire, AffaireRepository $affaireRepository, ParametreRepository $parametreRepository, EntityManagerInterface $em, EtudesAchatsRepository $etudesAchatsRepository): Response
     {
+        // Recherche des paramètres liés à l'affaire
         $parametre = $parametreRepository->findByAffaire($affaire);
+
+        // Vérification si l'affaire existe
         if ($affaire) {
-            if (!$parametre) {    ///mesure essais
+            // Si aucun paramètre n'est associé à l'affaire
+            if (!$parametre) {
+                // Vérification si l'affaire a des revues d'enclenchements
                 if ($affaire->getRevueEnclenchements()) {
+                    // Boucle sur chaque revue d'enclenchement de l'affaire
                     foreach ($affaire->getRevueEnclenchements() as $revue) {
-                        $achats =  $revue->getEtudesAchats();
-                        $ateliers =  $revue->getAteliers();
+                        // Récupération des achats et ateliers associés à la revue
+                        $achats = $revue->getEtudesAchats();
+                        $ateliers = $revue->getAteliers();
+
+                        // Suppression des achats associés à la revue
                         if ($achats) {
                             foreach ($achats as $item) {
                                 $em->remove($item);
                             }
                         }
+
+                        // Suppression des ateliers associés à la revue
                         if ($ateliers) {
                             foreach ($ateliers as $item) {
                                 $em->remove($item);
                             }
                         }
+                        // Suppression de la revue
                         $em->remove($revue);
                     }
                 }
 
+                // Suppression de l'affaire
                 $affaireRepository->remove($affaire, true);
+                // Redirection vers la liste des affaires
                 return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
             } else {
-                $this->addFlash('danger', "Désolé vous ne pouvez pas supprimer cette affaire car il possède des paramètres ! ");
+                // Ajout d'un message flash d'erreur
+                $this->addFlash('danger', "Désolé, vous ne pouvez pas supprimer cette affaire car elle possède des paramètres !");
+                // Redirection vers la page de l'affaire
                 return $this->redirectToRoute('app_affaire_show', [
                     'id' => $affaire->getId()
                 ], Response::HTTP_SEE_OTHER);
             }
         }
+
+        // Redirection vers la liste des affaires si l'affaire n'existe pas
         return $this->redirectToRoute('app_affaire_index', [], Response::HTTP_SEE_OTHER);
     }
     
@@ -313,18 +360,24 @@ class AffaireController extends AbstractController
     #[Route('/corbeille/{id}', name: 'app_corbeille', methods: ['GET'])]
     public function corbeille(Parametre $parametre, EntityManagerInterface $em): Response
     {
-        //on vérifi si l'affaire existe
+        // Vérification si le paramètre existe
         if ($parametre) {
+            // Vérification de l'état de la corbeille du paramètre
             if ($parametre->isCorbeille() == 1) {
+                // Si le paramètre est dans la corbeille, on le retire de la corbeille
                 $parametre->setCorbeille(0);
-                $em->persist($parametre);
             } else {
+                // Sinon, on le place dans la corbeille
                 $parametre->setCorbeille(1);
-                $em->persist($parametre);
             }
+            // Persistance du changement d'état du paramètre
+            $em->persist($parametre);
+            // Sauvegarde des changements dans la base de données
             $em->flush();
+            // Redirection vers la page de l'affaire associée au paramètre
             return $this->redirectToRoute('app_affaire_show', ['id' => $parametre->getAffaire()->getId()], Response::HTTP_SEE_OTHER);
         }
-        return $this->redirectToRoute('app_affaire_show', ['id' => $parametre->getAffaire->getAffaire()->getId()], Response::HTTP_SEE_OTHER);
+        // Si le paramètre n'existe pas, redirection vers la page de l'affaire
+        return $this->redirectToRoute('app_affaire_show', ['id' => $parametre->getAffaire()->getId()], Response::HTTP_SEE_OTHER);
     }
 }

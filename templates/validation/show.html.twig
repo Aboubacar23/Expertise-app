@@ -1179,13 +1179,17 @@
                                                         </tr>
                                                         <tr>
                                                             <th class="table-secondary">T° ambiante (°C)</th>
-                                                            <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
                                                             <th class="table-secondary">T° fer (°C)</th>
-                                                            <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
                                                             <th class="table-secondary">Hygrométrie (%)</th>
+                                                            <th class="table-secondary">Critère</th>
+                                                            <th class="table-secondary">Date Essais</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{ parametre.statorApresLavage.tempAmbiante }}</td>
+                                                            <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
                                                             <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
-                                                            <th class="table-secondary">Isolation</th>
                                                             <td>{{parametre.critere}}</td>
+                                                            <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -1251,6 +1255,7 @@
                                                         <th>T° ambiante (°C)</th>
                                                         <th>T° fer (°C)</th>
                                                         <th>Hygrométrie (%)</th>
+                                                        <th>Date Essaie</th>
                                                         <th>Critère</th>
                                                         <th>Tension Machine</th>
                                                     </tr>
@@ -1258,6 +1263,7 @@
                                                         <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                                                         <td >{{parametre.sondeBobinage.tempTolerie }}</td>
                                                         <td >{{parametre.sondeBobinage.hygrometrie }}</td>
+                                                        <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
                                                         <td>{{parametre.critere}} Ω/V </td>
                                                         <td>{{parametre.statorTension}}</td>
                                                     </tr>   
@@ -1291,10 +1297,10 @@
                                                                 <td>{{item.valeur}} <span class="my_police">{{item.unite}}</span></td>
                                                                 <td>{{item.tempCorrection}} <span class="my_police">{{item.unite}}</span></td>
                                                                 {% if item.conformite ==  'Conforme' %}
-                        <td style="color: green;">{{item.conformite}}</td>
-                    {% else %}
-                        <td style="color: red;">{{item.conformite}}</td>
-                    {% endif %}
+                                                                    <td style="color: green;">{{item.conformite}}</td>
+                                                                {% else %}
+                                                                    <td style="color: red;">{{item.conformite}}</td>
+                                                                {% endif %}
                                                             </tr>                                        
                                                         {% endfor %}                                            
                                                     {% endif %}

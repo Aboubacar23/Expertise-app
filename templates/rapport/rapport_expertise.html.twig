@@ -1894,18 +1894,20 @@
                     <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
                     <table>
                         <tr class="titre_table">
-                            <th colspan="4" class="text-center">Paramètres</th>
+                            <th colspan="5" class="text-center">Paramètres</th>
                         </tr>
                         <tr>
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
+                            <th>Date Essaie</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
                             <td>{{ parametre.statorApresLavage.tempAmbiante}}</td>
                             <td>{{ parametre.statorApresLavage.tempTolerie}}</td>
                             <td>{{ parametre.statorApresLavage.hygrometrie}}</td>
+                            <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
                             <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>
                     </table>
@@ -1970,18 +1972,20 @@
                     <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
                     <table>
                         <tr class="titre_table">
-                            <th colspan="4" class="text-center">Paramètres</th>
+                            <th colspan="5" class="text-center">Paramètres</th>
                         </tr>
                         <tr>
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
+                            <th>Date Essaie</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
                             <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                             <td>{{parametre.sondeBobinage.tempTolerie }}</td>
                             <td>{{parametre.sondeBobinage.hygrometrie }}</td>
+                            <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
                             <td>+ ou - 5% de la valeur Rmoy</td>
                         </tr>
                     </table>

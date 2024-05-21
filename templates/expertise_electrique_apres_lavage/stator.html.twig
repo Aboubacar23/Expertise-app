@@ -38,8 +38,17 @@
                                         <th width="20%">T° ambiante (°C)</th>
                                         <th width="20%">T° fer (°C)</th>
                                         <th width="20%">Hygrométrie (%)</th>
+                                        <th width="10%">Date Essaie</th>
                                         <th width="10%">Critère</th>
-                                        <th width="10%">Tension Rotor</th>
+                                    </tr>
+                                    <tr> 
+                                        <td>{{ form_widget(formStatorApresLavage.temp_ambiante) }}</td>
+                                        <td >{{ form_widget(formStatorApresLavage.temp_tolerie) }}</td>
+                                        <td >{{ form_widget(formStatorApresLavage.hygrometrie) }}</td>
+                                        <td >{{ form_widget(formStatorApresLavage.date_essais) }}</td>
+                                        <td>{{parametre.critere}} Ω/V </td>
+                                    </tr>
+                                    <tr>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
                                                 Tension Excitation
@@ -56,12 +65,8 @@
                                         </th>
                                         <th width="10%">Tension Rotor</th>
                                         <th width="10%">Tension Rotor 2</th>
-                                    </tr>   
-                                    <tr> 
-                                        <td>{{ form_widget(formStatorApresLavage.temp_ambiante) }}</td>
-                                        <td >{{ form_widget(formStatorApresLavage.temp_tolerie) }}</td>
-                                        <td >{{ form_widget(formStatorApresLavage.hygrometrie) }}</td>
-                                        <td>{{parametre.critere}} Ω/V </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             {{parametre.statorTension}}
                                         </td>
@@ -80,7 +85,7 @@
                                                 0
                                             {% endif %}
                                         </td>
-                                    </tr>  
+                                    </tr>
                                 </table> 
                             </div>
                             <div class="row">

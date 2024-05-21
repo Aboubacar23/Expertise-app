@@ -53,21 +53,31 @@ class AffaireMetrologieController extends AbstractController
     #[Route('/new', name: 'app_affaire_metrologie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
+        // Création d'une nouvelle instance de AffaireMetrologie
         $affaireMetrologie = new AffaireMetrologie();
+        // Création du formulaire pour l'entité AffaireMetrologie
         $form = $this->createForm(AffaireMetrologieType::class, $affaireMetrologie);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Définition du statut de l'affaire de métrologie à 0
             $affaireMetrologie->setStatut(0);
+            // Sauvegarde de l'affaire de métrologie dans le dépôt
             $affaireMetrologieRepository->save($affaireMetrologie, true);
-            return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
+            // Ajout d'un message flash de succès (cette ligne devrait être avant la redirection)
             $this->addFlash('success', "Ajouter avec succès");
+            // Redirection vers la liste des affaires de métrologie
+            return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu du formulaire de création d'une nouvelle affaire de métrologie
         return $this->renderForm('metrologies/affaire_metrologie/new.html.twig', [
             'affaire_metrologie' => $affaireMetrologie,
             'form' => $form,
         ]);
+
     }
 
     #[Route('/{id}', name: 'app_affaire_metrologie_show', methods: ['GET'])]
@@ -81,34 +91,47 @@ class AffaireMetrologieController extends AbstractController
     #[Route('/{id}/edit', name: 'app_affaire_metrologie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, AffaireMetrologie $affaireMetrologie, AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
+        // Création du formulaire pour l'entité AffaireMetrologie
         $form = $this->createForm(AffaireMetrologieType::class, $affaireMetrologie);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarde de l'affaire de métrologie dans le dépôt
             $affaireMetrologieRepository->save($affaireMetrologie, true);
-
+            // Redirection vers la liste des affaires de métrologie
             return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu du formulaire d'édition d'une affaire de métrologie
         return $this->renderForm('metrologies/affaire_metrologie/edit.html.twig', [
             'affaire_metrologie' => $affaireMetrologie,
             'form' => $form,
         ]);
+
     }
 
     #[Route('/delete/{id}', name: 'app_affaire_metrologie_delete', methods: ['GET'])]
     public function delete(Request $request, AffaireMetrologie $affaireMetrologie, AffaireMetrologieRepository $affaireMetrologieRepository): Response
     {
+        // Vérification si l'affaire de métrologie existe
         if ($affaireMetrologie) {
-            if(count($affaireMetrologie->getAffectations()) != 0)
-            {
+            // Vérification si l'affaire de métrologie a des affectations
+            if (count($affaireMetrologie->getAffectations()) != 0) {
+                // Ajout d'un message flash de danger
                 $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette affaire !');
+                // Redirection vers la liste des affaires de métrologie
                 return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
             }
+            // Suppression de l'affaire de métrologie
             $affaireMetrologieRepository->remove($affaireMetrologie, true);
-            $this->addFlash('success', "Supprimer avec succès");
+            // Ajout d'un message flash de succès
+            $this->addFlash('success', "Supprimée avec succès");
         }
 
+        // Redirection vers la liste des affaires de métrologie
         return $this->redirectToRoute('app_affaire_metrologie_index', [], Response::HTTP_SEE_OTHER);
+
     }
 }
