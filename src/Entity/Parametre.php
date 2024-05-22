@@ -274,6 +274,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: BoiteBorne::class)]
     private Collection $boiteBornes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero_qualite = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1752,6 +1755,18 @@ class Parametre
                 $boiteBorne->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumeroQualite(): ?string
+    {
+        return $this->numero_qualite;
+    }
+
+    public function setNumeroQualite(?string $numero_qualite): static
+    {
+        $this->numero_qualite = $numero_qualite;
 
         return $this;
     }

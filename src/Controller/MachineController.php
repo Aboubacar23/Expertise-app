@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Machine;
 use App\Form\MachineType;
-use App\Repository\CritereRepository;
 use App\Repository\MachineRepository;
-use App\Repository\CorrectionRepository;
 use App\Repository\ParametreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +36,7 @@ class MachineController extends AbstractController
     }
 
     #[Route('/new', name: 'app_machine_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MachineRepository $machineRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
+    public function new(Request $request, MachineRepository $machineRepository): Response
     {
         $machine = new Machine();
         $form = $this->createForm(MachineType::class, $machine);
@@ -66,7 +64,7 @@ class MachineController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_machine_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Machine $machine, MachineRepository $machineRepository, CritereRepository $critereRepository,CorrectionRepository $correctionRepository): Response
+    public function edit(Request $request, Machine $machine, MachineRepository $machineRepository): Response
     {
         $form = $this->createForm(MachineType::class, $machine);
         $form->handleRequest($request);   

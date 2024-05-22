@@ -2,19 +2,14 @@
 
 namespace App\Controller;
 
-use App\Service\PdfServiceP;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Knp\Snappy\Pdf;
+use App\Repository\SettingsRepository;
 use App\Entity\Affaire;
 use App\Entity\Machine;
 use App\Entity\Parametre;
 use App\Entity\Type;
 use App\Form\ParametreType;
 use App\Repository\PhotoRepository;
-use App\Repository\CritereRepository;
 use App\Repository\ParametreRepository;
-use App\Repository\CorrectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AppareilMesureRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/parametre')]
 class ParametreController extends AbstractController
 {
+    public function __construct(private  SettingsRepository $settingsRepository)
+    {
+
+    }
     #[Route('/', name: 'app_parametre_index', methods: ['GET'])]
     public function index(ParametreRepository $parametreRepository): Response
     {
@@ -37,27 +36,17 @@ class ParametreController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, Affaire $affaire, ParametreRepository $parametreRepository, CritereRepository $critereRepository, CorrectionRepository $correctionRepository): Response
+    public function new(Request $request, Affaire $affaire, ParametreRepository $parametreRepository): Response
     {
         $parametre = new Parametre();
         $form = $this->createForm(ParametreType::class, $parametre);
         $form->handleRequest($request);
 
-        $criteres = $critereRepository->findAll();
-        $critere = 0;
-        foreach ($criteres as $item) {
-            if ($item->isEtat() == 1) {
-                $critere = $item->getMontant();
-            }
-        }
-
-        $corrections = $correctionRepository->findAll();
-        $correction = 0;
-        foreach ($corrections as $item2) {
-            if ($item2->isEtat() == 1) {
-                $correction = $item2->getTemperature();
-            }
-        }
+        //initialiser les valeurs des critère et temperature de correction via settings
+        $setting = $this->settingsRepository->findOneBy([]);
+        $critere = $setting->getCritere();
+        $correction = $setting->getTemperature();
+        $numero_qualite =$setting->getNumeroQualite();
 
         if ($form->isSubmitted() && $form->isValid()) {
             //cette 
@@ -75,7 +64,7 @@ class ParametreController extends AbstractController
             if ($parametre->getRotorTension() == null) {
                 $parametre->setRotorTension(0);
             }
-
+            $parametre->setNumeroQualite($numero_qualite);
             $parametre->setAffaire($affaire);
             $parametreRepository->save($parametre, true);
 

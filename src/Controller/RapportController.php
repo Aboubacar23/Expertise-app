@@ -57,10 +57,11 @@ class RapportController extends AbstractController
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
         $num_projet = $parametre->getAffaire()->getNumAffaire();
+        $num_qualite = $parametre->getNumeroQualite();
         $html = $this->renderView('rapport/rapport_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet,$num_qualite);
     }
 
     #[Route('/print/rapport-final/{id}', name: 'app_parametre_final', methods: ['POST', 'GET'])]
@@ -68,10 +69,11 @@ class RapportController extends AbstractController
     {
         $fichier = $parametre->getAffaire()->getNomRapport();
         $num_projet = $parametre->getAffaire()->getNumAffaire();
+        $num_qualite = $parametre->getNumeroQualite();
         $html = $this->renderView('rapport/rapport_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet, $num_qualite);
     }
 
 }

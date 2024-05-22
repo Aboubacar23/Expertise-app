@@ -155,10 +155,11 @@ class ValidationController extends AbstractController
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
         $num_projet = $parametre->getAffaire()->getNumAffaire();
+        $num_qualite = $parametre->getNumeroQualite();
         $html = $this->renderView('validation/voir_pdf_expertise.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet,$num_qualite);
     }
 
     //voir en pdf le rapport d'expertise avant la validation
@@ -168,9 +169,10 @@ class ValidationController extends AbstractController
         // On génère un nom de fichier
         $fichier = $parametre->getAffaire()->getNomRapport();
         $num_projet = $parametre->getAffaire()->getNumAffaire();
+        $num_qualite = $parametre->getNumeroQualite();
         $html = $this->renderView('validation/voir_pdf_final.html.twig', [
             'parametre' => $parametre
         ]);
-        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet);
+        return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet,$num_qualite);
     }
 }
