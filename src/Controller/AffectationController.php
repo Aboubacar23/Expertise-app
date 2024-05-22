@@ -67,33 +67,46 @@ class AffectationController extends AbstractController
     #[Route('/new', name: 'app_affectation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AffectationRepository $affectationRepository,EntityManagerInterface $em,AppareilRepository $appareilRepository): Response
     {
+        // Création de nouvelles instances de Affectation et Laffectation
         $affectation = new Affectation();
         $laffectation = new Laffectation();
+
+        // Création des formulaires pour Affectation et Laffectation
         $form = $this->createForm(AffectationType::class, $affectation);
         $f = $this->createForm(LaffectationType::class, $laffectation);
+
+        // Traitement des requêtes par les formulaires
         $form->handleRequest($request);
         $f->handleRequest($request);
 
+        // Récupération de la session et des éléments affectés
         $session = $request->getSession();
         $items = $session->get('affects', []);
 
-        if ($form->isSubmitted() && $f->isSubmitted()) {
-            
+        // Si les deux formulaires sont soumis
+        if ($form->isSubmitted() && $f->isSubmitted())
+        {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton3');
-            if ($choix == 'ajouter')
-            {
+
+            // Si l'utilisateur choisit d'ajouter
+            if ($choix == 'ajouter') {
                 $i = 0;
-                foreach($items as $item)
-                {
-                    $i = $i + 1;
-                    $laffectation = new Laffectation(); 
+                // Boucle sur chaque élément affecté
+                foreach($items as $item) {
+                    $i++;
+                    $laffectation = new Laffectation();
                     $laffectation->setLig($i);
-                    $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
+                    $appareil = $appareilRepository->findOneBy(['id' => $item->getAppareil()]);
                     $laffectation->setAppareil($appareil);
+
+                    // Mise à jour du statut de l'appareil si le type de service n'est pas 'autres'
                     if ($laffectation->getTypeService() != 'autres') {
                         $appareil->setStatus(1);
                     }
                     $appareil->setStatus(1);
+
+                    // Paramétrage des propriétés de la ligne d'affectation
                     $laffectation->setDesignation($item->getDesignation());
                     $laffectation->setType($item->getType());
                     $laffectation->setNumeroSerie($item->getNumeroSerie());
@@ -101,19 +114,25 @@ class AffectationController extends AbstractController
                     $laffectation->setObservation($item->getObservation());
                     $laffectation->setTypeService($item->getTypeService());
                     $laffectation->setAffectation($affectation);
+
+                    // Persistance de la ligne d'affectation
                     $em->persist($laffectation);
- 
                 }
+
+                // Mise à jour du statut de retour et de l'affaire liée
                 $affectation->setRetour(1);
                 $affectation->getAffaire()->setStatut(1);
                 $affectationRepository->save($affectation, true);
-                $session->clear();
-                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
 
-            } 
-            elseif($choix == 'add')
-            {
-                $lig = sizeof($items)+1;
+                // Vidage de la session
+                $session->clear();
+
+                // Redirection vers la liste des affectations
+                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
+            }
+            // Si l'utilisateur choisit d'ajouter une ligne
+            elseif ($choix == 'add') {
+                $lig = sizeof($items) + 1;
                 $laffectation->setLig($lig);
                 $items[$lig] = $laffectation;
                 $session->set('affects', $items);
@@ -132,34 +151,49 @@ class AffectationController extends AbstractController
     #[Route('/new-affectation/{id}', name: 'app_affect_aff_new', methods: ['GET', 'POST'])]
     public function new2(Request $request,AffaireMetrologie $affaireMetrologie, AffectationRepository $affectationRepository,EntityManagerInterface $em,AppareilRepository $appareilRepository): Response
     {
+        // Création d'une nouvelle instance d'Affectation et association à l'affaire de métrologie
         $affectation = new Affectation();
         $affectation->setAffaire($affaireMetrologie);
+
+        // Création d'une nouvelle instance de Laffectation
         $laffectation = new Laffectation();
+
+        // Création des formulaires pour Affectation et Laffectation
         $form = $this->createForm(Affectation2Type::class, $affectation);
         $f = $this->createForm(LaffectationType::class, $laffectation);
+
+        // Traitement des requêtes par les formulaires
         $form->handleRequest($request);
         $f->handleRequest($request);
 
+        // Récupération de la session et des éléments affectés
         $session = $request->getSession();
         $items = $session->get('affects', []);
- 
-        if ($form->isSubmitted() && $f->isSubmitted()) {
-            
+
+        // Si les deux formulaires sont soumis
+        if ($form->isSubmitted() && $f->isSubmitted())
+        {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton3');
-            if ($choix == 'ajouter')
-            {
+
+            // Si l'utilisateur choisit d'ajouter
+            if ($choix == 'ajouter') {
                 $i = 0;
-                foreach($items as $item)
-                {
-                    $i = $i + 1;
-                    $laffectation = new Laffectation(); 
+                // Boucle sur chaque élément affecté
+                foreach($items as $item) {
+                    $i++;
+                    $laffectation = new Laffectation();
                     $laffectation->setLig($i);
-                    $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
+                    $appareil = $appareilRepository->findOneBy(['id' => $item->getAppareil()]);
                     $laffectation->setAppareil($appareil);
+
+                    // Mise à jour du statut de l'appareil si le type de service n'est pas 'autres'
                     if ($laffectation->getTypeService() != 'autres') {
                         $appareil->setStatus(1);
                     }
                     $appareil->setStatus(1);
+
+                    // Paramétrage des propriétés de la ligne d'affectation
                     $laffectation->setDesignation($item->getDesignation());
                     $laffectation->setType($item->getType());
                     $laffectation->setNumeroSerie($item->getNumeroSerie());
@@ -167,20 +201,26 @@ class AffectationController extends AbstractController
                     $laffectation->setObservation($item->getObservation());
                     $laffectation->setTypeService($item->getTypeService());
                     $laffectation->setAffectation($affectation);
+
+                    // Persistance de la ligne d'affectation
                     $em->persist($laffectation);
- 
                 }
+
+                // Mise à jour du statut de retour et de l'affaire liée
                 $affectation->setRetour(1);
                 $affectation->setAffaire($affaireMetrologie);
                 $affectation->getAffaire()->setStatut(1);
                 $affectationRepository->save($affectation, true);
-                $session->clear();
-                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
 
-            } 
-            elseif($choix == 'add')
-            {
-                $lig = sizeof($items)+1;
+                // Vidage de la session
+                $session->clear();
+
+                // Redirection vers la liste des affectations
+                return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
+            }
+            // Si l'utilisateur choisit d'ajouter une ligne
+            elseif ($choix == 'add') {
+                $lig = sizeof($items) + 1;
                 $laffectation->setLig($lig);
                 $items[$lig] = $laffectation;
                 $session->set('affects', $items);
@@ -208,32 +248,46 @@ class AffectationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_affectation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Affectation $affectation,EntityManagerInterface $em, AffectationRepository $affectationRepository, AppareilRepository $appareilRepository): Response
     {
+        // Création du formulaire pour l'édition de l'entité Affectation
         $form = $this->createForm(AffectationEditType::class, $affectation);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
+        // Création d'une nouvelle instance de Laffectation
         $laffectation = new Laffectation();
+        // Création du formulaire pour l'entité Laffectation
         $f = $this->createForm(LaffectationType::class, $laffectation);
+        // Traitement de la requête par le formulaire
         $f->handleRequest($request);
 
+        // Récupération de la session et des éléments affectés
         $session = $request->getSession();
         $items = $session->get('affects', []);
 
-        if ($form->isSubmitted() && $f->isSubmitted()) {            
+        // Si les deux formulaires sont soumis
+        if ($form->isSubmitted() && $f->isSubmitted())
+        {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton3');
-            if ($choix == 'ajouter')
-            {
+
+            // Si l'utilisateur choisit d'ajouter
+            if ($choix == 'ajouter') {
                 $i = 0;
-                foreach($items as $item)
-                {
-                    $i = $i + 1;
-                    $laffectation = new Laffectation(); 
+                // Boucle sur chaque élément affecté
+                foreach ($items as $item) {
+                    $i++;
+                    $laffectation = new Laffectation();
                     $laffectation->setLig($i);
-                    $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
+                    $appareil = $appareilRepository->findOneBy(['id' => $item->getAppareil()]);
                     $laffectation->setAppareil($appareil);
+
+                    // Mise à jour du statut de l'appareil si le type de service n'est pas 'autres'
                     if ($laffectation->getTypeService() != 'autres') {
                         $appareil->setStatus(1);
                     }
                     $appareil->setStatus(1);
+
+                    // Paramétrage des propriétés de la ligne d'affectation
                     $laffectation->setDesignation($item->getDesignation());
                     $laffectation->setType($item->getType());
                     $laffectation->setNumeroSerie($item->getNumeroSerie());
@@ -241,21 +295,27 @@ class AffectationController extends AbstractController
                     $laffectation->setObservation($item->getObservation());
                     $laffectation->setTypeService($item->getTypeService());
                     $laffectation->setAffectation($affectation);
+
+                    // Persistance de la ligne d'affectation
                     $em->persist($laffectation);
- 
                 }
+
+                // Mise à jour du statut de retour et de l'affaire liée
                 $affectation->setRetour(0);
                 $affectation->getAffaire()->setStatut(1);
                 $affectationRepository->save($affectation, true);
+
+                // Vidage de la session
                 $session->clear();
+
+                // Redirection vers la page de l'affectation
                 return $this->redirectToRoute('app_affectation_show', [
                     'id' => $affectation->getId()
                 ], Response::HTTP_SEE_OTHER);
-
-            } 
-            elseif($choix == 'add')
-            {
-                $lig = sizeof($items)+1;
+            }
+            // Si l'utilisateur choisit d'ajouter une ligne
+            elseif ($choix == 'add') {
+                $lig = sizeof($items) + 1;
                 $laffectation->setLig($lig);
                 $items[$lig] = $laffectation;
                 $session->set('affects', $items);
@@ -274,40 +334,58 @@ class AffectationController extends AbstractController
     #[Route('sup/{id}', name: 'app_affectation_delete', methods: ['GET'])]
     public function delete(Request $request, Affectation $affectation, AffectationRepository $affectationRepository): Response
     {
+        // Vérification si l'affectation existe
         if ($affectation) {
-            if(count($affectation->getLaffectations()) !=0)
-            {
+            // Vérification si l'affectation a des lignes d'affectation associées
+            if (count($affectation->getLaffectations()) != 0) {
+                // Ajout d'un message flash de danger
                 $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette affaire !');
+                // Redirection vers la liste des affectations
                 return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
             }
+            // Suppression de l'affectation si elle n'a pas de lignes d'affectation
             $affectationRepository->remove($affectation, true);
         }
+        // Redirection vers la liste des affectations
         return $this->redirectToRoute('app_affectation_index', [], Response::HTTP_SEE_OTHER);
+
     }
 
     //delete session tables mesures isolement
     #[Route('/delete/{id}', name: 'app_delete_laffec')]
     public function supprimeSession($id,Request $request)
     {
+        // Récupération de la session
         $session = $request->getSession();
+        // Récupération des éléments affectés depuis la session
         $items = $session->get('affects', []);
-        if (array_key_exists($id, $items))
-        {
+
+        // Vérification si l'élément avec l'identifiant donné existe dans les éléments affectés
+        if (array_key_exists($id, $items)) {
+            // Suppression de l'élément de la liste
             unset($items[$id]);
-            $session->set('affects',$items);
+            // Mise à jour des éléments affectés dans la session
+            $session->set('affects', $items);
         }
-        return $this->redirectToRoute('app_affectation_new'); 
+
+        // Redirection vers la route de création d'une nouvelle affectation
+        return $this->redirectToRoute('app_affectation_new');
+
     } 
 
     //imprimer le bon de sortie
     #[Route('/print-affecatation/{id}', name: 'app_affectation_print', methods: ['POST','GET'])]
     public function print(Affectation $affectation,PdfServiceP $pdfServicePd): Response
-    { 
+    {
+        // Génération du contenu HTML à partir d'un template Twig pour l'affectation
         $html = $this->renderView('metrologies/affectation/print.html.twig', [
             'affectation' => $affectation,
         ]);
-        $fichier = "Affectation : ".$affectation->getAffaire();
 
+        // Définition du nom du fichier PDF en utilisant le nom de l'affaire associée à l'affectation
+        $fichier = "Affectation : " . $affectation->getAffaire();
+
+        // Génération et affichage du fichier PDF en utilisant le service PDF
         return $pdfServicePd->showPdfFile($html, $fichier);
 
     }
@@ -316,29 +394,45 @@ class AffectationController extends AbstractController
     #[Route('/supprimer/{id}', name: 'app_delete_laff')]
     public function supprimeSessionData(Laffectation $laffectation,EntityManagerInterface $entityManagerInterface, Request $request, AppareilRepository $appareilRepository)
     {
+        // Récupération de l'identifiant de l'affectation associée à la ligne d'affectation
         $id = $laffectation->getAffectation()->getId();
-        if ($laffectation)
-        {
-            $appareil = $appareilRepository->findOneBy(array('id'=>$laffectation->getAppareil()));
+
+        // Vérification si la ligne d'affectation existe
+        if ($laffectation) {
+            // Récupération de l'appareil associé à la ligne d'affectation
+            $appareil = $appareilRepository->findOneBy(['id' => $laffectation->getAppareil()]);
+            // Mise à jour du statut de l'appareil
             $appareil->setStatus(0);
+            // Suppression de la ligne d'affectation
             $entityManagerInterface->remove($laffectation);
+            // Sauvegarde des changements dans la base de données
             $entityManagerInterface->flush();
-            return $this->redirectToRoute('app_affectation_edit', ['id' => $id]);            
+            // Redirection vers la page d'édition de l'affectation
+            return $this->redirectToRoute('app_affectation_edit', ['id' => $id]);
         }
-        return $this->redirectToRoute('app_affectation_edit', ['id' => $id]); 
+
+        // Redirection vers la page d'édition de l'affectation si la ligne d'affectation n'existe pas
+        return $this->redirectToRoute('app_affectation_edit', ['id' => $id]);
+
     } 
 
     //delete session tables mesures isolement
     #[Route('/sup-session/{id}/{parID}', name: 'app_delete_laffectation')]
     public function supprimeSessionEdit($id,$parID,Request $request)
     {
+        // Récupération de la session
         $session = $request->getSession();
+        // Récupération des éléments affectés depuis la session
         $items = $session->get('affects', []);
-        if (array_key_exists($id, $items))
-        {
+
+        // Vérification si l'élément avec l'identifiant donné existe dans les éléments affectés
+        if (array_key_exists($id, $items)) {
+            // Suppression de l'élément de la liste
             unset($items[$id]);
-            $session->set('affects',$items);
+            // Mise à jour des éléments affectés dans la session
+            $session->set('affects', $items);
         }
-        return $this->redirectToRoute('app_affectation_edit', ['id' => $parID]); 
+        // Redirection vers la page d'édition de l'affectation avec l'identifiant $parID
+        return $this->redirectToRoute('app_affectation_edit', ['id' => $parID]);
     } 
 }

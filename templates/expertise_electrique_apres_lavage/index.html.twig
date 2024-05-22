@@ -171,6 +171,7 @@
                                     <th>T° fer (°C)</th>
                                     <th>Hygrométrie (%)</th>
                                     <th width="10%">Critère</th>
+                                    <th width="10%">Date Essaie</th>
                                     <th width="10%">{% if parametre.machine.categorie == "À courant continu" %}
                                         Tension Excitation
                                         {% else %}
@@ -183,6 +184,7 @@
                                     <td>{{ parametre.statorApresLavage.tempTolerie }}</td>
                                     <td>{{ parametre.statorApresLavage.hygrometrie }}</td>
                                     <td>{{parametre.critere}}</td>
+                                    <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
                                     <td>{{parametre.statorTension}}
                                         {% if parametre.statorTension2 != 0 %}
                                         et {{parametre.statorTension2 }}
@@ -305,12 +307,14 @@
                                 <th>T° ambiante (°C)</th>
                                 <th>T° fer (°C)</th>
                                 <th>Hygrométrie (%)</th>
+                                <th>Date Essaie</th>
                                 <th>Tension Machine</th>
                             </tr>
                             <tr>
                                 <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                                 <td>{{parametre.sondeBobinage.tempTolerie }}</td>
                                 <td>{{parametre.sondeBobinage.hygrometrie }}</td>
+                                <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
                                 <td>{{parametre.statorTension}}</td>
                             </tr>
                         </table>

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\StatorApresLavage;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,6 +17,10 @@ class StatorApresLavageType extends AbstractType
             ->add('temp_ambiante')
             ->add('temp_tolerie')
             ->add('hygrometrie')
+            ->add('date_essais', DateType::class, [
+                'widget' => 'single_text',
+                'required' => true
+            ])
         ;
     }
 

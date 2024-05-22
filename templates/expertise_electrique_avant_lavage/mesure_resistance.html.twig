@@ -198,19 +198,18 @@
 
             const correction = document.getElementById('l_mesure_resistance_temp_correction');
             const valeur_temp = {{ parametre.tempCorrection }};
-            console.log(var_type.value);
+            console.log("type : ",var_type.value);
             let valeurCorrection = 0;
+
             //if(var_type.value == 1 && var_type.value == 2 && var_type.value == 3 && var_type.value == 4)
-            if(var_type.value == 1 || var_type.value == 2 || var_type.value == 3 || var_type.value == 4)
-            {
-                valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));        
-            }
+            console.log('Type', var_type.value);
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
+
             valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
         }
         document.getElementById('mesure_resistance_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_resistance_valeur').addEventListener('input', updateSumField);
-        //document.getElementById('l_mesure_resistance_type').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}

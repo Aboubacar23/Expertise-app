@@ -33,12 +33,21 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="5" class="text-center">Paramètres</th>
+                                        <th colspan="4" class="text-center">Paramètres</th>
                                     </tr>
                                     <tr>
                                         <th>T° ambiante (°C)</th>
                                         <th>T° fer (°C)</th>
                                         <th>Hygrométrie (%)</th>
+                                        <th>Date Essaie</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
+                                        <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
+                                        <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
+                                        <td>{{ form_widget(formSondeBobinage.date_essais) }}</td>
+                                    </tr>
+                                    <tr>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
                                                 Tension Excitation
@@ -57,12 +66,7 @@
                                         <th width="10%">Tension Rotor 2</th>
                                     </tr>
                                     <tr>
-                                        <td>{{ form_widget(formSondeBobinage.temp_ambiante) }}</td>
-                                        <td >{{ form_widget(formSondeBobinage.temp_tolerie) }}</td>
-                                        <td >{{ form_widget(formSondeBobinage.hygrometrie) }}</td>
-                                        <td>
-                                            {{parametre.statorTension}}
-                                        </td>
+                                        <td>{{parametre.statorTension}}</td>
                                         <td>
                                             {% if parametre.statorTension2 != 0 %}
                                                 {{parametre.statorTension2 }}
@@ -70,9 +74,7 @@
                                                 0
                                             {% endif %}
                                         </td>
-                                        <td>
-                                            {{parametre.rotorTension}}
-                                        </td>
+                                        <td>{{parametre.rotorTension}}</td>
                                         <td>
                                             {% if parametre.rotorTension2 != 0 %}
                                                 {{parametre.rotorTension2 }}
@@ -80,7 +82,7 @@
                                                 0
                                             {% endif %}
                                         </td>
-                                    </tr>   
+                                    </tr>
                                 </table>
                             </div>  
                             <div class="row">
@@ -174,7 +176,8 @@
             const correction = document.getElementById('l_sonde_bobinage_temp_correction');
             let valeurCorrection = 0;
             valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - 20));
-            valeurFinale = valeurCorrection.toFixed(3);
+
+            valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
         }
         document.getElementById('sonde_bobinage_temp_ambiante').addEventListener('input', updateSumField);

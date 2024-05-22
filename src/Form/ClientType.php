@@ -18,7 +18,7 @@ class ClientType extends AbstractType
                 'label' => 'Nom',
                 'required' => false,
                 'attr' => [
-                    'class' => 'text-transform'
+                    'class' => 'text-transform',
                 ],
                 'constraints' => [
                     new NotBlank([
