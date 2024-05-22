@@ -49,25 +49,18 @@ class ParametreController extends AbstractController
         $numero_qualite =$setting->getNumeroQualite();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //cette 
-            if ($parametre->getStatorTension2() == null) {
-                $parametre->setStatorTension2(0);
-            }
-            if ($parametre->getStatorTension() == null) {
-                $parametre->setStatorTension(0);
-            }
+            // Vérifier et initialiser les valeurs des tensions si elles sont nulles
+            $parametre->setStatorTension2($parametre->getStatorTension2() ?? 0);
+            $parametre->setStatorTension($parametre->getStatorTension() ?? 0);
+            $parametre->setRotorTension2($parametre->getRotorTension2() ?? 0);
+            $parametre->setRotorTension($parametre->getRotorTension() ?? 0);
 
-            if ($parametre->getRotorTension2() == null) {
-                $parametre->setRotorTension2(0);
-            }
-
-            if ($parametre->getRotorTension() == null) {
-                $parametre->setRotorTension(0);
-            }
+            // Définir le numéro de qualité et l'affaire
             $parametre->setNumeroQualite($numero_qualite);
             $parametre->setAffaire($affaire);
-            $parametreRepository->save($parametre, true);
 
+            // Sauvegarder les modifications dans le repository
+            $parametreRepository->save($parametre, true);
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $affaire->getId()
             ], Response::HTTP_SEE_OTHER);

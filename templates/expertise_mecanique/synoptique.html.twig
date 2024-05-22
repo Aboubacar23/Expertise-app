@@ -34,6 +34,34 @@
                     </div>
                 </div>
                 <div class="x_content">
+                    {{ form_start(form_image) }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="item form-group">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th class="text-center table-secondary">Photo CA</th>
+                                        <th class="text-center table-secondary">Photo COA</th>
+                                        <th width="20px"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form_image.image_ca) }}</td>
+                                        <td>{{ form_widget(form_image.image_coa) }}</td>
+                                        <td><button class="btn btn-primary btn-sm" type="submit">Ajouter</button></td>
+                                    </tr>
+                                    <tr>
+                                        {% if parametre.imagePlan %}
+                                            <td>{{ parametre.imagePlan.imageCa }}</td>
+                                            <td>{{ parametre.imagePlan.imageCoa }}</td>
+                                            <td></td>
+                                        {% endif %}
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form_image) }}
+
                     {{ form_start(form) }}
                         <div class="row">
                             <div class="col-md-12">
