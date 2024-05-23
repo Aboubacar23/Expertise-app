@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SondeBobinageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SondeBobinageRepository::class)]
@@ -32,6 +33,9 @@ class SondeBobinage
 
     #[ORM\OneToMany(mappedBy: 'sonde_bobinage', targetEntity: LSondeBobinage::class)]
     private Collection $lSondeBobinages;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_essais = null;
 
     public function __construct()
     {
@@ -140,6 +144,18 @@ class SondeBobinage
                 $lSondeBobinage->setSondeBobinage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateEssais(): ?\DateTimeInterface
+    {
+        return $this->date_essais;
+    }
+
+    public function setDateEssais(?\DateTimeInterface $date_essais): static
+    {
+        $this->date_essais = $date_essais;
 
         return $this;
     }

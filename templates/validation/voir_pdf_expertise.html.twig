@@ -627,7 +627,7 @@
                             <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
-                            <td>Boîte à borne</td>
+                            <td>Boîte à bornes</td>
                             <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
                             <td>Vis vérins (nb)</td>
                             <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
@@ -776,41 +776,80 @@
             <div class="page_break"></div>
             <div class="sous_page5_4">
                 <h5 id="lien513">3. <span class="span_titre">Synoptique de démontage</span></h5>
-                <table>
-                    <tr style="text-align: center;">
-                        <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
-                        </td>
-                    </tr>
-                </table>
-                <table style="padding-top:25px;">
-                    <thead class="titre_table">
-                    <tr>
-                        <th>Repères, désignation des pièces</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="titre_table">
-                        <th>PLAN CA</th>
-                    </tr>
-                    {% for item in parametre.synoptiques %}
+                {% if parametre.imagePlan %}
+                    <table class="table_sous_page5_6_1">
                         <tr>
-                            {% if item.type == "Plan CA" %}
-                                <td>{{item.repere}}</td>
-                            {% endif %}
+                            <th class="titre_table">Plan CA</th>
                         </tr>
-                    {% endfor %}
-                    <tr class="titre_table">
-                        <th>PLAN COA</th>
-                    </tr>
-                    {% for item in parametre.synoptiques %}
+                        <tr style="text-align: center; padding: 2px">
+                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                        </tr>
                         <tr>
-                            {% if item.type == "Plan COA" %}
-                                <td>{{item.repere}}</td>
-                            {% endif %}
+                            <th class="titre_table">Repères, désignation des pièces</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan CA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <table class="table_sous_page5_6_2">
+                        <tr>
+                            <th class="titre_table">PLan COA</th>
+                        </tr>
+                        <tr style="text-align: center; padding: 2px">
+                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Repères, désignation des pièces</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan COA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <table>
+                        <tr style="text-align: center;">
+                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="padding-top:25px;">
+                        <thead class="titre_table">
+                        <tr>
+                            <th>Repères, désignation des pièces</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="titre_table">
+                            <th>PLAN CA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan CA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        <tr class="titre_table">
+                            <th>PLAN COA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan COA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
         {% endif %}
         {% if parametre.controleMontageRoulement %}
@@ -1324,13 +1363,12 @@
                 <table>
                     <thead class="table-secondary">
                     <tr>
-                        <th class="titre_table" colspan="5">Contrôle visuel et recensement</th>
+                        <th class="titre_table" colspan="3">Contrôle visuel et recensement</th>
                     </tr>
                     <tr class="titre_table">
                         <th></th>
                         <th>Balais</th>
                         <th>Balais de masse</th>
-                        <th class="titre_table" colspan="2">Fac-similé boîte à borne</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1338,64 +1376,46 @@
                         <td class="titre_table">Dimension</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
-                        <td class="titre_table">Sens rotation</td>
-                        <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
                     </tr>
                     <tr>
                         <td class="titre_table">Marque</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
-                        <td class="titre_table">Remarque</td>
-                        <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
                     </tr>
                     <tr>
                         <td class="titre_table">Quantité</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Nuance</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Longueur Shunt</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Type de Cosses</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Aspect de la patine</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Type pression</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Présence de Gaine</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine ? 'Oui' : 'Non' }}</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     </tbody>
                 </table>
@@ -1842,18 +1862,20 @@
                 <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
                 <table>
                     <tr class="titre_table">
-                        <th colspan="4" class="text-center">Paramètres</th>
+                        <th colspan="5" class="text-center">Paramètres</th>
                     </tr>
                     <tr>
                         <th>T° ambiante (°C)</th>
                         <th>T° fer (°C)</th>
                         <th>Hygrométrie (%)</th>
+                        <th>Date Essaie</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
                         <td>{{ parametre.statorApresLavage.tempAmbiante}}</td>
                         <td>{{ parametre.statorApresLavage.tempTolerie}}</td>
                         <td>{{ parametre.statorApresLavage.hygrometrie}}</td>
+                        <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
                         <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                     </tr>
                 </table>
@@ -1918,18 +1940,20 @@
                 <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
                 <table>
                     <tr class="titre_table">
-                        <th colspan="4" class="text-center">Paramètres</th>
+                        <th colspan="5" class="text-center">Paramètres</th>
                     </tr>
                     <tr>
                         <th>T° ambiante (°C)</th>
                         <th>T° fer (°C)</th>
                         <th>Hygrométrie (%)</th>
+                        <th>Date Essaie (%)</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
                         <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                         <td>{{parametre.sondeBobinage.tempTolerie }}</td>
                         <td>{{parametre.sondeBobinage.hygrometrie }}</td>
+                        <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
                         <td>+ ou - 5% de la valeur Rmoy</td>
                     </tr>
                 </table>

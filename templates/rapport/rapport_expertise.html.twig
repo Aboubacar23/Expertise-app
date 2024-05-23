@@ -699,7 +699,7 @@
                             <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
-                            <td>Boîte à borne</td>
+                            <td>Boîte à bornes</td>
                             <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
                             <td>Vis vérins (nb)</td>
                             <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
@@ -847,6 +847,44 @@
                 <div class="page_break"></div>
                 <div class="sous_page5_4">
                     <h5 id="lien513">3. <span class="span_titre">Synoptique de démontage</span></h5>
+                    {% if parametre.imagePlan %}
+                        <table class="table_sous_page5_6_1">
+                            <tr>
+                                <th class="titre_table">Plan CA</th>
+                            </tr>
+                            <tr style="text-align: center; padding: 2px">
+                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Repères, désignation des pièces</th>
+                            </tr>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan CA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <table class="table_sous_page5_6_2">
+                            <tr>
+                                <th class="titre_table">PLan COA</th>
+                            </tr>
+                            <tr style="text-align: center; padding: 2px">
+                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Repères, désignation des pièces</th>
+                            </tr>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan COA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
                     <table>
                         <tr style="text-align: center;">
                             <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
@@ -854,34 +892,35 @@
                         </tr>
                     </table>
                     <table style="padding-top:25px;">
-                            <thead class="titre_table">
-                                <tr>
-                                    <th>Repères, désignation des pièces</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="titre_table">
-                                    <th>PLAN CA</th>
-                                </tr>
-                                {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan CA" %}
+                        <thead class="titre_table">
+                        <tr>
+                            <th>Repères, désignation des pièces</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="titre_table">
+                            <th>PLAN CA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan CA" %}
                                     <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                                <tr class="titre_table">
-                                    <th>PLAN COA</th>
-                                </tr>
-                                {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan COA" %}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        <tr class="titre_table">
+                            <th>PLAN COA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan COA" %}
                                     <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
                 </div>
             {% endif %}
             {% if parametre.controleMontageRoulement %}
@@ -1389,7 +1428,7 @@
         <div class="page_break"></div>
         <div class="page6">
             <h2 id="lien6">VI. Expertise électrique avant lavage</h2>
-            {% if parametre.controleVisuelElectrique %}
+            {% if parametre.controleVisuelElectrique |length != 0 %}
                 <div class="sous_page6_1_1">
                     <h4 id="lien61">A. <span class="span_titre">Contrôle visuel et recensement</span></h4>
                     <table>
@@ -1894,18 +1933,20 @@
                     <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
                     <table>
                         <tr class="titre_table">
-                            <th colspan="4" class="text-center">Paramètres</th>
+                            <th colspan="5" class="text-center">Paramètres</th>
                         </tr>
                         <tr>
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
+                            <th>Date Essaie</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
                             <td>{{ parametre.statorApresLavage.tempAmbiante}}</td>
                             <td>{{ parametre.statorApresLavage.tempTolerie}}</td>
                             <td>{{ parametre.statorApresLavage.hygrometrie}}</td>
+                            <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
                             <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>
                     </table>
@@ -1970,18 +2011,20 @@
                     <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
                     <table>
                         <tr class="titre_table">
-                            <th colspan="4" class="text-center">Paramètres</th>
+                            <th colspan="5" class="text-center">Paramètres</th>
                         </tr>
                         <tr>
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
+                            <th>Date Essaie</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
                             <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
                             <td>{{parametre.sondeBobinage.tempTolerie }}</td>
                             <td>{{parametre.sondeBobinage.hygrometrie }}</td>
+                            <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
                             <td>+ ou - 5% de la valeur Rmoy</td>
                         </tr>
                     </table>

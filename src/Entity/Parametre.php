@@ -274,6 +274,12 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: BoiteBorne::class)]
     private Collection $boiteBornes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero_qualite = null;
+
+    #[ORM\OneToOne(mappedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?ImagePlan $imagePlan = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1752,6 +1758,40 @@ class Parametre
                 $boiteBorne->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumeroQualite(): ?string
+    {
+        return $this->numero_qualite;
+    }
+
+    public function setNumeroQualite(?string $numero_qualite): static
+    {
+        $this->numero_qualite = $numero_qualite;
+
+        return $this;
+    }
+
+    public function getImagePlan(): ?ImagePlan
+    {
+        return $this->imagePlan;
+    }
+
+    public function setImagePlan(?ImagePlan $imagePlan): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($imagePlan === null && $this->imagePlan !== null) {
+            $this->imagePlan->setParametre(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($imagePlan !== null && $imagePlan->getParametre() !== $this) {
+            $imagePlan->setParametre($this);
+        }
+
+        $this->imagePlan = $imagePlan;
 
         return $this;
     }

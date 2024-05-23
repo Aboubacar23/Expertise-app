@@ -319,34 +319,58 @@
                         <div class="x_content collapse" id="collapse05">
                             {% if parametre.synoptiques %}
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <table class="table table-striped table-bordered">
                                             <thead class="table-secondary">
-                                                <tr>
-                                                    <th>Repères, désignation des pièces</th>
+                                            {% if parametre.imagePlan %}
+                                                <tr class="text-center">
+                                                    <td class="image">
+                                                        <img class="p-2" src="{{asset('/photos_plan/'~ parametre.imagePlan.imageCa)}}" height="200" width="200">
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr class="text-center">
+                                                    <th colspan="2">Repères, désignation des pièces</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr class="table-secondary text-center">
                                                     <th>PLAN CA</th>
-                                                </tr>                                                
-                                                {% for item in parametre.synoptiques %}     
-                                                    <tr> 
+                                                </tr>
+                                                {% for item in parametre.synoptiques %}
+                                                    <tr>
                                                         {% if item.type == "Plan CA" %}
                                                             <td>{{item.repere}}</td>
                                                         {% endif %}
-                                                    </tr> 
+                                                    </tr>
                                                 {% endfor %}
-                                                <tr class="table-secondary text-center">
-                                                    <th>PLAN COA</th>
-                                                </tr>                                                
-                                                {% for item in parametre.synoptiques %}    
-                                                    <tr>  
-                                                        {% if item.type == "Plan COA" %}
-                                                            <td>{{item.repere}}</td>
-                                                        {% endif %}
-                                                    </tr>          
-                                                {% endfor %}                                       
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="table-secondary">
+
+                                            {% if parametre.imagePlan %}
+                                                <tr class="text-center">
+                                                    <td class="image"><img class="p-2" src="{{asset('/photos_plan/'~ parametre.imagePlan.imageCoa)}}" height="200" width="200"></td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr class="text-center">
+                                                <th colspan="2">Repères, désignation des pièces</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="table-secondary text-center">
+                                                <th>PLAN CA</th>
+                                            </tr>
+                                            {% for item in parametre.synoptiques %}
+                                                <tr class="text-center">
+                                                    {% if item.type == "Plan COA" %}
+                                                        <td>{{item.repere}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

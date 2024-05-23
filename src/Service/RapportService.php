@@ -19,7 +19,7 @@ class RapportService
         $this->domPdf->setOptions($pdfOptions);
     }
 
-    public function showPdfFile($html, $fichier, $num_projet)
+    public function showPdfFile($html, $fichier, $num_projet, $num_qualite)
     {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
@@ -52,13 +52,14 @@ class RapportService
         //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $num = $num_projet;
-        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) use ($num) {
+        $qualite = $num_qualite;
+        $footer = function ($pageNumber, $pageCount, $canvas, $fontMetrics) use ($num, $qualite) {
            // Vérifier si ce n'est pas la première page
             if ($pageNumber > 1) {
                 $numero = "2025";
                 $textLeft = "Page $pageNumber sur $pageCount";
                 $textCenter = $num;
-                $textRight = "IAQ19001";
+                $textRight = $qualite;
 
                 $font = $fontMetrics->getFont('Times New Roman');
                 $pageWidth = $canvas->get_width();

@@ -73,35 +73,51 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     #[Route('/equirepartition/{id}', name: 'app_eequirepartition_new')]
     public function equi(Parametre $parametre, Request $request, EntityManagerInterface $entityManager, EquirepartitionRepository $equirepartitionRepository): Response
     {
+        // Création d'une nouvelle instance de Equirepartition
         $equirepartition = new Equirepartition();
+        // Création du formulaire pour l'entité Equirepartition
         $form = $this->createForm(EquirepartitionType::class, $equirepartition);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
 
-        //
+        // Initialisation des variables de tension et courant
         $tension = 0;
         $courant = 0;
-        $items = $parametre->getEquirepartitions();
-        if ($items[0]) {
-            $tension = $items[0]->getTensionAlimentation();
-            $courant = $items[0]->getCourantAbsorbe();
-        }
+        /*  Récupération des equirepartitions depuis le paramètre
+            $items = $parametre->getEquirepartitions();
+            if ($items[0]) {
+                // Si le premier élément existe, on récupère ses valeurs de tension et courant
+                $tension = $items[0]->getTensionAlimentation();
+                $courant = $items[0]->getCourantAbsorbe();
+            }
+        */
 
-        //créer un compteur pour le pole
+        // Création d'un compteur pour le pôle
         $nb = count($parametre->getEquirepartitions());
+        // Initialisation du compteur
         $count = 0;
+        // Si aucun equirepartition n'existe, le compteur est à 1, sinon on incrémente le compteur
         if ($nb == 0) {
             $count = 1;
         } else {
             $count = $nb + 1;
         }
-        $pole = 'Pole ' . $count;
+        // Définition du nom du pôle
+        $pole = 'Pôle ' . $count;
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        // Si le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            // On associe l'equirepartition au paramètre
             $equirepartition->setParametre($parametre);
+            // On persiste l'entité dans l'EntityManager
             $entityManager->persist($equirepartition);
+            // On effectue les changements dans la base de données
             $entityManager->flush();
+            // Redirection vers la route de création de nouvelle equirepartition
             return $this->redirectToRoute('app_eequirepartition_new', ['id' => $parametre->getId()]);
         }
+
         return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
             'parametre' => $parametre,
             'form' => $form->createView(),
@@ -114,21 +130,33 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     #[Route('/edit-equirepartition/{id}/{idEq}', name: 'app_eequirepartition_edit')]
     public function editEqui(Parametre $parametre, $idEq, Request $request, EntityManagerInterface $entityManager, EquirepartitionRepository $equirepartitionRepository): Response
     {
+        // Recherche de l'equirepartition par son identifiant
         $item = $equirepartitionRepository->findById($idEq);
+        // Récupération du premier élément de la recherche
         $equirepartition = $item[0];
+        // Création du formulaire pour l'entité Equirepartition
         $form = $this->createForm(EquirepartitionType::class, $equirepartition);
+        // Traitement de la requête par le formulaire
         $form->handleRequest($request);
+        // Récupération du pôle de l'equirepartition
         $pole = $equirepartition->getPole();
-        //
+
+        // Récupération des valeurs de tension et courant de l'equirepartition
         $tension = $equirepartition->getTensionAlimentation();
         $courant = $equirepartition->getCourantAbsorbe();
 
+        // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // On associe l'equirepartition au paramètre
             $equirepartition->setParametre($parametre);
+            // On persiste l'entité dans l'EntityManager
             $entityManager->persist($equirepartition);
+            // On effectue les changements dans la base de données
             $entityManager->flush();
+            // Redirection vers la route de création de nouvelle equirepartition
             return $this->redirectToRoute('app_eequirepartition_new', ['id' => $parametre->getId()]);
         }
+
         return $this->render('expertise_electrique_apres_lavage/equirepartition.html.twig', [
             'parametre' => $parametre,
             'form' => $form->createView(),
