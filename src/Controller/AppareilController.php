@@ -67,18 +67,28 @@ class AppareilController extends AbstractController
     #[Route('/index', name: 'app_appareil_index', methods: ['GET'])]
     public function index(AppareilRepository $appareilRepository): Response
     {
-        $items = $appareilRepository->findBy([],['id' => 'desc']);
+        // Récupère tous les éléments de l'entrepôt "appareil", triés par identifiant de manière décroissante
+        $items = $appareilRepository->findBy([], ['id' => 'desc']);
+
+        // Initialise un tableau vide pour stocker les appareils filtrés
         $appareils = [];
+
+        // Parcourt chaque élément récupéré
         foreach($items as $item)
         {
-            if ($item->getEtat() == 'Fonctionnel' && $item->getStatut() ==  'Conforme')
+            // Vérifie si l'état de l'élément est "Fonctionnel" et si le statut est "Conforme"
+            if ($item->getEtat() == 'Fonctionnel' && $item->getStatut() == 'Conforme')
             {
+                // Ajoute l'élément au tableau des appareils filtrés
                 array_push($appareils, $item);
             }
         }
+
+        // Retourne la vue 'appareil/index.html.twig' avec les appareils filtrés
         return $this->render('appareil/index.html.twig', [
             'appareils' => $appareils,
         ]);
+
     }
 
     #[Route('/hors-validite/index', name: 'app_appareil_hv_index', methods: ['GET'])]

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SettingsController!{% endblock %}
+
+{% block body %}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Settings</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Settings</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-sm-4">{{ form_row(form.numero_qualite) }}</div>
+                                <div class="col-sm-4">{{ form_row(form.critere) }}</div>
+                                <div class="col-sm-4">{{ form_row(form.temperature) }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success btn-sm" type="submit" value="remontage_equilibrage_terminer"> Enregistrer <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

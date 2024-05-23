@@ -44,7 +44,7 @@
                         <!-- début constats eléc -->
                         {{ form_start(form) }}
                         <div class="row">
-                            <div class="col-md-8">{{ form_widget(form.libelle) }}</div>
+                            <div class="col-md-8">{{ form_widget(form.libelle) }} {{ form_errors(form.libelle) }}</div>
                             <div class="col-md-4">
                                 {% if parametre.boiteBornes | length == 0 %}
                                     <button class="btn btn-success btn-sm"> Ajouter <i class="fa fa-save"></i></button>

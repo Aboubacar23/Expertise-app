@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Coussinet;
 use App\Entity\HydroAero;
+use App\Entity\ImagePlan;
 use App\Entity\Parametre;
 use App\Entity\Roulement;
 use App\Entity\PhotoRotor;
 use App\Entity\Synoptique;
 use App\Form\CoussinetType;
 use App\Form\HydroAeroType;
+use App\Form\ImagePlanType;
 use App\Form\RoulementType;
 use App\Form\SynoptiqueType;
 use App\Entity\ConstatMecanique;
@@ -25,12 +27,14 @@ use App\Entity\ControleVisuelMecanique;
 use App\Entity\PhotoExpertiseMecanique;
 use App\Repository\CoussinetRepository;
 use App\Repository\HydroAeroRepository;
+use App\Repository\ImagePlanRepository;
 use App\Repository\RoulementRepository;
 use App\Entity\AccessoireSupplementaire;
 use App\Entity\ControleMontageConssinet;
 use App\Entity\ControleMontageRoulement;
 use App\Repository\PhotoRotorRepository;
 use App\Repository\SynoptiqueRepository;
+use App\Service\ImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\AppareilMesureMecaniqueType;
 use App\Form\ControleVisuelMecaniqueType;
@@ -63,7 +67,11 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/expertiseMecanique')]
 class ExpertiseMecaniqueController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager, private RedimensionneService $redimensionneService)
+    public function __construct(private EntityManagerInterface $entityManager,
+                                private RedimensionneService $redimensionneService,
+                                private ImageService $imageService,
+                                private ImagePlanRepository $imagePlanRepository
+    )
     {
     }
 
@@ -892,8 +900,43 @@ class ExpertiseMecaniqueController extends AbstractController
     public function synoptique(Parametre $parametre, SynoptiqueRepository $synoptiqueRepository, Request $request)
     {
         $synoptique = new Synoptique();
+        $image_plan = new ImagePlan();
+
         $form = $this->createForm(SynoptiqueType::class, $synoptique);
+        $form_image = $this->createForm(ImagePlanType::class, $image_plan);
         $form->handleRequest($request);
+        $form_image->handleRequest($request);
+
+        //plan image ca et coa
+
+        if ($form_image->isSubmitted() && $form_image->isValid())
+        {
+
+            $imageFileCA = $form_image->get('image_ca')->getData();
+            $imageFileCOA = $form_image->get('image_coa')->getData();
+
+            $size1 = $imageFileCA->getSize();
+            $size2 = $imageFileCOA->getSize();
+
+            //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+            if ($size1 > 2 * 1024 * 1024 or $size2 > 2 * 1024 * 1024)
+            {
+                $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
+
+            } else {
+                $directory = $this->getParameter('images_plan');
+                $image_plan->setImageCa($this->imageService->upload($imageFileCA, $directory));
+                $image_plan->setImageCoa($this->imageService->upload($imageFileCOA, $directory));
+            }
+
+            $image_plan->setParametre($parametre);
+            $this->entityManager->persist($image_plan);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
+        }
+
+        //partie libelle plan
         if ($form->isSubmitted() && $form->isValid()) {
             $synoptique->setParametre($parametre);
             $synoptiqueRepository->save($synoptique, true);
@@ -901,7 +944,8 @@ class ExpertiseMecaniqueController extends AbstractController
         }
         return $this->render('expertise_mecanique/synoptique.html.twig', [
             'parametre' => $parametre,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form_image' => $form_image->createView()
 
         ]);
     }

@@ -29,7 +29,8 @@
                 <a width="150px" href="{{path('app_appareil_hv_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Hors Validité</a>
                 <a width="150px" href="{{path('app_appareil_perdu_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Perdu</a>
                 <a width="150px" href="{{path('app_appareil_reserve_index')}}" class="btn btn-outline-primary btn-sm p-2 btn_menu">Reserve</a>
-            <ul class="nav navbar-right panel_toolbox"> 
+            <ul class="nav navbar-right panel_toolbox">
+                <a href="{{path('app_appareil_new')}}" class="btn btn-info btn-sm p-2">Nombre : <i class="fa fa-list p-1"></i>{{ appareils | length }}</a>
                 <a href="{{path('app_appareil_new')}}" class="btn btn-primary btn-sm p-2">Ajouter<i class="fa fa-plus-circle p-1"></i></a>
                 <a href="{{path('app_metrologie')}}" class="btn btn-secondary btn-sm p-2">Retour<i class="fa fa-arrow-left p-1"></i></a>
             </ul>

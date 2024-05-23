@@ -33,12 +33,32 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="x_content">
-                    {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="item form-group">
-                                    <table class="table table-bordered">
+                <div class="x_content mt-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="item form-group">
+                                <table class="table table-bordered">
+                                {{ form_start(form_image) }}
+                                    <tr>
+                                        <th class="text-center table-secondary">Photo CA</th>
+                                        <th class="text-center table-secondary">Photo COA</th>
+                                        <th width="20px"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form_widget(form_image.image_ca) }}</td>
+                                        <td>{{ form_widget(form_image.image_coa) }}</td>
+                                        <td><button class="btn btn-primary btn-sm" type="submit">Ajouter</button></td>
+                                    </tr>
+                                    <tr>
+                                        {% if parametre.imagePlan %}
+                                            <td class="image"><img class="p-2" src="{{asset('/photos_plan/'~ parametre.imagePlan.imageCa)}}" height="100" width="100"></td>
+                                            <td class="image"><img class="p-2" src="{{asset('/photos_plan/'~ parametre.imagePlan.imageCoa)}}" height="100" width="100"></td>
+                                            <td></td>
+                                        {% endif %}
+                                    </tr>
+                                    {{ form_end(form_image) }}
+
+                                    {{ form_start(form) }}
                                         <tr>
                                             <th class="text-center table-secondary">Repère</th>
                                             <th class="text-center table-secondary">Type</th>
@@ -49,12 +69,11 @@
                                             <td>{{ form_widget(form.type) }}</td>
                                             <td><button class="btn btn-primary btn-sm" type="submit">Ajouter</button></td>
                                         </tr>
-                                    </table>
-                                </div>
+                                    {{ form_end(form) }}
+                                </table>
                             </div>
                         </div>
-                    {{ form_end(form) }}
-
+                    </div>
                     {% if parametre.synoptiques %}
                         <div class="row">
                             <div class="col-md-12">
