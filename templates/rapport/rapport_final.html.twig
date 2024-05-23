@@ -717,7 +717,7 @@
                             <td>{{ parametre.controleVisuelMecanique.tresseMasse ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
-                            <td>Boîte à borne</td>
+                            <td>Boîte à bornes</td>
                             <td>{{ parametre.controleVisuelMecanique.boiteBorne ? 'Oui' : 'Non' }}</td>
                             <td>Vis vérins (nb)</td>
                             <td>{{ parametre.controleVisuelMecanique.VisVerins ? 'Oui' : 'Non' }}</td>
@@ -827,7 +827,6 @@
                     </table>
                 </div>
             {% endif %}
-
             <div class="sous_page5_3">
                 <h5 id="lien512">2. <span class="span_titre">Relevé boîte à borne</span></h5>
                 <table>
@@ -861,46 +860,84 @@
                     {% endif %}
                 </table>
             </div>
-
             {% if parametre.synoptiques | length > 0 %}
                 <div class="page_break"></div>
                 <div class="sous_page5_4">
                     <h5 id="lien513">3. <span class="span_titre">Synoptique de démontage</span></h5>
-                    <table>
-                        <tr style="text-align: center;">
-                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
-                            </td>
-                        </tr>
-                    </table>
-                    <table style="padding-top:25px;">
-                        <thead class="titre_table">
-                        <tr>
-                            <th>Repères, désignation des pièces</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="titre_table">
-                            <th>PLAN CA</th>
-                        </tr>
-                        {% for item in parametre.synoptiques %}
+                    {% if parametre.imagePlan %}
+                        <table class="table_sous_page5_6_1">
                             <tr>
-                                {% if item.type == "Plan CA" %}
-                                    <td>{{item.repere}}</td>
-                                {% endif %}
+                                <th class="titre_table">Plan CA</th>
                             </tr>
-                        {% endfor %}
-                        <tr class="titre_table">
-                            <th>PLAN COA</th>
-                        </tr>
-                        {% for item in parametre.synoptiques %}
+                            <tr style="text-align: center; padding: 2px">
+                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                            </tr>
                             <tr>
-                                {% if item.type == "Plan COA" %}
-                                    <td>{{item.repere}}</td>
-                                {% endif %}
+                                <th class="titre_table">Repères, désignation des pièces</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan CA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <table class="table_sous_page5_6_2">
+                            <tr>
+                                <th class="titre_table">PLan COA</th>
+                            </tr>
+                            <tr style="text-align: center; padding: 2px">
+                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                            </tr>
+                            <tr>
+                                <th class="titre_table">Repères, désignation des pièces</th>
+                            </tr>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan COA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                        <table>
+                            <tr style="text-align: center;">
+                                <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="padding-top:25px;">
+                            <thead class="titre_table">
+                            <tr>
+                                <th>Repères, désignation des pièces</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="titre_table">
+                                <th>PLAN CA</th>
+                            </tr>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan CA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            <tr class="titre_table">
+                                <th>PLAN COA</th>
+                            </tr>
+                            {% for item in parametre.synoptiques %}
+                                <tr>
+                                    {% if item.type == "Plan COA" %}
+                                        <td>{{item.repere}}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
                 </div>
             {% endif %}
             {% if parametre.controleMontageRoulement %}

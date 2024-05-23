@@ -911,28 +911,29 @@ class ExpertiseMecaniqueController extends AbstractController
 
         if ($form_image->isSubmitted() && $form_image->isValid())
         {
+
             $imageFileCA = $form_image->get('image_ca')->getData();
             $imageFileCOA = $form_image->get('image_coa')->getData();
+
             $size1 = $imageFileCA->getSize();
             $size2 = $imageFileCOA->getSize();
 
             //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
-            if ($size2 > 2 * 1024 * 1024 or $size2 > 2 * 1024 * 1024)
+            if ($size1 > 2 * 1024 * 1024 or $size2 > 2 * 1024 * 1024)
             {
                 $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                 return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
 
             } else {
-                $this->imageService->upload($imageFileCA);
-                $this->imageService->upload($imageFileCOA);
-
-                $image_plan->setImageCa($imageFileCA);
-                $image_plan->setImageCoa($imageFileCOA);
+                $directory = $this->getParameter('images_plan');
+                $image_plan->setImageCa($this->imageService->upload($imageFileCA, $directory));
+                $image_plan->setImageCoa($this->imageService->upload($imageFileCOA, $directory));
             }
 
             $image_plan->setParametre($parametre);
-            $this->imagePlanRepository->save($image_plan);
-            $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
+            $this->entityManager->persist($image_plan);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
         }
 
         //partie libelle plan
