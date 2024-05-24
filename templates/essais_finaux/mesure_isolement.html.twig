@@ -311,7 +311,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_essai_temp_ambiante').value);
+            //let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_essai_temp_ambiante').value);
+            let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_essai_temp_tolerie').value);
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_essai_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_essai_type');
             var var_controle = document.getElementById('l_mesure_isolement_essai_controle');
@@ -334,7 +335,7 @@
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
 
-            if(var_type.value == 1)
+            if(var_type.value == "Stator")
             {
                 const ol_critre = (critere*tension_stator)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
@@ -397,7 +398,7 @@
                     correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
             }
-            if(var_type.value == 3)
+            if(var_type.value == "Stator 2")
             {
                 const ol_critre = (critere*tension_stator2)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
@@ -460,7 +461,7 @@
                     correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
             }
-            else if (var_type.value == 2)
+            else if (var_type.value == "Rotor")
             {
                 const ol_critre = (critere*tension_rotor)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
@@ -523,7 +524,7 @@
                     correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
                 }
             }
-            else if (var_type.value == 4)
+            else if (var_type.value == "Rotor 2")
             {
                 const ol_critre = (critere*tension_rotor2)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_essai_critere');
@@ -598,7 +599,7 @@
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
         }
-        document.getElementById('mesure_isolement_essai_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('mesure_isolement_essai_temp_tolerie').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_essai_valeur').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_essai_type').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_essai_controle').addEventListener('input', updateSumField);

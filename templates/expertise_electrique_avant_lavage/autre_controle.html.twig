@@ -32,97 +32,115 @@
                             <div class="row">
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="4" class="text-center">Balais</th>
+                                        <th colspan="5" class="text-center">Balais</th>
                                     </tr>
                                     <tr  class="table-secondary">
                                         <th>Constats</th>
                                         <th>Critère</th>
                                         <th>Préconisation</th>
                                         <th>Conformité</th>
+                                        <th width="150"></th>
                                     </tr>
                                     <tr>
                                         <td>Distance porte-balais/bagues ou collecteur</td>
-                                        <td>2,5 m à 3 mn</td>
+                                        <td>{{ form_widget(formAutreControle.balais_critere1, { value : '2,5 m à 3 mn'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation1) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite1) }}</td>
+                                        <td></td>
                                     </tr>
-                                    <tr>
-                                        <td>Pression des balais</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_preconisation2) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisConformite2) }}</td>
-                                    </tr>
-                                   {# <tr>
-                                        <td>Isolement Jeu de Bagues à réception</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_preconisation3) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisConformite3) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Isolement Jeu de Bagues après lavage</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_preconisation4) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisConformite4) }}</td>
-                                    </tr>#}
                                     <tr>
                                         <td>Rugosité bagues ou collecteurs</td>
-                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_critere2, { value : 'Nuancier Mersen'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation5) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite5) }}</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Aspect des patines</td>
-                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_critere3, { value : 'Nuancier Mersen'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_preconisation6) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisConformite6) }}</td>
+                                        <td></td>
                                     </tr>
+                                    <tr>
+                                        {{ form_start(formPb) }}
+                                            <td>Pression des balais</td>
+                                            <td>{{ form_widget(formPb.critere) }}</td>
+                                            <td>{{ form_widget(formPb.preconisation) }}</td>
+                                            <td>{{ form_widget(formPb.conformite) }}</td>
+                                            <td class="text-center"><button class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                                        {{ form_end(formPb) }}
+                                    </tr>
+                                    {% if parametre.pressionBalais %}
+                                        {% for item in parametre.pressionBalais %}
+                                            <tr>
+                                                <td>Pression des balais</td>
+                                                <td>{{ item.critere }}</td>
+                                                <td>{{ item.preconisation }}</td>
+                                                <td>{{ item.conformite }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('app_edit_pression_balais', {'id' : item.id }) }}?name=balais" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ path('app_pression_delete', {'id' : item.id }) }}?name=balais" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
                                 </table>
                                 <table class="table table-bordered">
                                     <tr  class="table-secondary">
-                                        <th colspan="4" class="text-center">Balais de masse</th>
+                                        <th colspan="5" class="text-center">Balais de masse</th>
                                     </tr>
                                     <tr  class="table-secondary">
                                         <th>Constats</th>
                                         <th>Critère</th>
                                         <th>Préconisation</th>
                                         <th>Conformité</th>
+                                        <th width="150"></th>
                                     </tr>
                                     <tr>
                                         <td>Distance porte-balais/bague</td>
-                                        <td>2,5 m à 3 mn</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_critere1, { value : '2,5 m à 3 mn'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation1) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite1) }}</td>
+                                        <td></td>
                                     </tr>
-                                    <tr>
-                                        <td>Pression des balais</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation2) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite2) }}</td>
-                                    </tr>
-                                 {#   <tr>
-                                        <td>Isolement Jeu de Bagues à réception</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation3) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite3) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Isolement Jeu de Bagues après lavage</td>
-                                        <td>À définir suivant le type de balais</td>
-                                        <td>{{ form_widget(formAutreControle.balais_masse_preconisation4) }}</td>
-                                        <td>{{ form_widget(formAutreControle.balaisMasseConformite4) }}</td>
-                                    </tr>#}
                                     <tr>
                                         <td>Rugosité de la bague</td>
-                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_critere2, { value : 'Nuancier Mersen'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation5) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite5) }}</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Aspect des patines</td>
-                                        <td>Nuancier Mersen</td>
+                                        <td>{{ form_widget(formAutreControle.balais_masse_critere3, { value : 'Nuancier Mersen'}) }}</td>
                                         <td>{{ form_widget(formAutreControle.balais_masse_preconisation6) }}</td>
                                         <td>{{ form_widget(formAutreControle.balaisMasseConformite6) }}</td>
+                                        <td></td>
                                     </tr>
+                                    <tr>
+                                        {{ form_start(formPmb) }}
+                                            <td>Pression des balais</td>
+                                            <td>{{ form_widget(formPmb.critere) }}</td>
+                                            <td>{{ form_widget(formPmb.preconisation) }}</td>
+                                            <td>{{ form_widget(formPmb.conformite) }}</td>
+                                            <td class="text-center"><button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                                        {{ form_end(formPmb) }}
+                                    </tr>
+                                    {% if parametre.pressionMasseBalais %}
+                                        {% for item in parametre.pressionMasseBalais %}
+                                            <tr>
+                                                <td>Pression des balais</td>
+                                                <td>{{ item.critere }}</td>
+                                                <td>{{ item.preconisation }}</td>
+                                                <td>{{ item.conformite }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('app_edit_pression_balais_masse', {'id' : item.id }) }}?name=balais_masse" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ path('app_pression_delete', {'id' : item.id }) }}?name=balais_masse" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
                                 </table>                                      
                             </div>
                             <div class="row">
