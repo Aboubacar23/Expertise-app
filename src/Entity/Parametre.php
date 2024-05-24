@@ -280,6 +280,12 @@ class Parametre
     #[ORM\OneToOne(mappedBy: 'parametre', cascade: ['persist', 'remove'])]
     private ?ImagePlan $imagePlan = null;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PressionBalais::class)]
+    private Collection $pressionBalais;
+
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PressionMasseBalais::class)]
+    private Collection $pressionMasseBalais;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -305,6 +311,8 @@ class Parametre
         $this->equirepartitions = new ArrayCollection();
         $this->pontDiodes = new ArrayCollection();
         $this->boiteBornes = new ArrayCollection();
+        $this->pressionBalais = new ArrayCollection();
+        $this->pressionMasseBalais = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1792,6 +1800,66 @@ class Parametre
         }
 
         $this->imagePlan = $imagePlan;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PressionBalais>
+     */
+    public function getPressionBalais(): Collection
+    {
+        return $this->pressionBalais;
+    }
+
+    public function addPressionBalai(PressionBalais $pressionBalai): static
+    {
+        if (!$this->pressionBalais->contains($pressionBalai)) {
+            $this->pressionBalais->add($pressionBalai);
+            $pressionBalai->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePressionBalai(PressionBalais $pressionBalai): static
+    {
+        if ($this->pressionBalais->removeElement($pressionBalai)) {
+            // set the owning side to null (unless already changed)
+            if ($pressionBalai->getParametre() === $this) {
+                $pressionBalai->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PressionMasseBalais>
+     */
+    public function getPressionMasseBalais(): Collection
+    {
+        return $this->pressionMasseBalais;
+    }
+
+    public function addPressionMasseBalai(PressionMasseBalais $pressionMasseBalai): static
+    {
+        if (!$this->pressionMasseBalais->contains($pressionMasseBalai)) {
+            $this->pressionMasseBalais->add($pressionMasseBalai);
+            $pressionMasseBalai->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePressionMasseBalai(PressionMasseBalais $pressionMasseBalai): static
+    {
+        if ($this->pressionMasseBalais->removeElement($pressionMasseBalai)) {
+            // set the owning side to null (unless already changed)
+            if ($pressionMasseBalai->getParametre() === $this) {
+                $pressionMasseBalai->setParametre(null);
+            }
+        }
 
         return $this;
     }

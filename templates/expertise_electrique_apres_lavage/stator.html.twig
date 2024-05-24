@@ -339,11 +339,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_ambiante').value);
+           // let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_ambiante').value);
+            let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_tolerie').value);
             let valeur = parseFloat(document.getElementById('l_stator_apres_lavage_valeur').value);
             var var_type = document.getElementById('l_stator_apres_lavage_type');
             var var_controle = document.getElementById('l_stator_apres_lavage_controle');
-
+            console.log(var_type.value);
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
             let tension_rotor2 = {{ parametre.rotorTension2 }};
@@ -362,7 +363,7 @@
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
 
-            if(var_type.value == 1)
+            if(var_type.value == "Stator")
             {
                 const ol_critre = (critere*tension_stator)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');
@@ -425,7 +426,7 @@
                 }
         
             }
-            else if(var_type.value == 3)
+            else if(var_type.value == "Stator 2")
             {
 
                 const ol_critre = (critere*tension_stator2)/1000000;
@@ -490,9 +491,9 @@
                 }
 
             }
-            else if (var_type.value == 2)
+            else if (var_type.value == "Rotor")
             {
-                const ol_critre = (critere*tension_stator2)/1000000;
+                const ol_critre = (critere*tension_rotor)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');
                 new_critere.value = isNaN(ol_critre) ? '' : (ol_critre);
 
@@ -555,7 +556,7 @@
 
 
             }
-            else if (var_type.value == 4)
+            else if (var_type.value == "Rotor 2")
             {
                 const ol_critre = (critere*tension_rotor2)/1000000;
                 const new_critere = document.getElementById('l_stator_apres_lavage_critere');
