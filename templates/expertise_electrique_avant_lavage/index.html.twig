@@ -1003,37 +1003,29 @@
 										</tr>
 										<tr>
 											<td>Distance porte-balais/bague</td>
-											<td>2,5 m à 3 mn</td>
+											<td>{{ parametre.autreControle.balaisCritere1 }}</td>
 											<td>{{ parametre.autreControle.balaisPreconisation1 }}</td>
 											<td>{{ parametre.autreControle.balaisConformite1 }}</td>
 										</tr>
-										<tr>
-											<td>Pression des balais</td>
-											<td>À définir suivant le type de balais</td>
-											<td>{{ parametre.autreControle.balaisPreconisation2 }}</td>
-											<td>{{ parametre.autreControle.balaisConformite2 }}</td>
-										</tr>
-										{#<tr>
-										                                            <td>Isolement Jeu de Bagues à réception</td>
-										                                            <td>À définir suivant le type de balais</td>
-										                                            <td>{{ parametre.autreControle.balaisPreconisation3 }}</td>
-										                                            <td>{{ parametre.autreControle.balaisConformite3 }}</td>
-										                                        </tr>
-										                                        <tr>
-										                                            <td>Isolement Jeu de Bagues après lavage</td>
-										                                            <td>À définir suivant le type de balais</td>
-										                                            <td>{{ parametre.autreControle.balaisPreconisation4 }}</td>
-										                                            <td>{{ parametre.autreControle.balaisConformite4 }}</td>
-										                                        </tr>#}
+										{% if parametre.pressionBalais %}
+											{% for item in parametre.pressionBalais %}
+												<tr>
+													<td>Pression des balais</td>
+													<td>{{ item.critere }}</td>
+													<td>{{ item.preconisation }}</td>
+													<td>{{ item.conformite }}</td>
+												</tr>
+											{% endfor %}
+										{% endif %}
 										<tr>
 											<td>Rugosité du collecteur</td>
-											<td>Nuancier Mersen</td>
+											<td>{{ parametre.autreControle.balaisCritere2 }}</td>
 											<td>{{ parametre.autreControle.balaisPreconisation5 }}</td>
 											<td>{{ parametre.autreControle.balaisConformite5 }}</td>
 										</tr>
 										<tr>
 											<td>Aspect des patines</td>
-											<td>Nuancier Mersen</td>
+											<td>{{ parametre.autreControle.balaisCritere3 }}</td>
 											<td>{{ parametre.autreControle.balaisPreconisation6 }}</td>
 											<td>{{ parametre.autreControle.balaisConformite6 }}</td>
 										</tr>
@@ -1053,37 +1045,29 @@
 										</tr>
 										<tr>
 											<td>Distance porte-balais/bague</td>
-											<td>2,5 m à 3 mn</td>
+											<td>{{ parametre.autreControle.balaisMasseCritere1 }}</td>
 											<td>{{ parametre.autreControle.balaisMassePreconisation1 }}</td>
 											<td>{{ parametre.autreControle.balaisMasseConformite1 }}</td>
 										</tr>
-										<tr>
-											<td>Pression des balais</td>
-											<td>À définir suivant le type de balais</td>
-											<td>{{ parametre.autreControle.balaisMassePreconisation2 }}</td>
-											<td>{{ parametre.autreControle.balaisMasseConformite2 }}</td>
-										</tr>
-										{#<tr>
-                                                <td>Isolement Jeu de Bagues à réception</td>
-                                                <td>À définir suivant le type de balais</td>
-                                                <td>{{ parametre.autreControle.balaisMassePreconisation3 }}</td>
-                                                <td>{{ parametre.autreControle.balaisMasseConformite3 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Isolement Jeu de Bagues après lavage</td>
-                                                <td>À définir suivant le type de balais</td>
-                                                <td>{{ parametre.autreControle.balaisMassePreconisation4 }}</td>
-                                                <td>{{ parametre.autreControle.balaisMasseConformite4 }}</td>
-                                            </tr>#}
+										{% if parametre.pressionMasseBalais %}
+											{% for item in parametre.pressionMasseBalais %}
+												<tr>
+													<td>Pression des balais</td>
+													<td>{{ item.critere }}</td>
+													<td>{{ item.preconisation }}</td>
+													<td>{{ item.conformite }}</td>
+												</tr>
+											{% endfor %}
+										{% endif %}
 										<tr>
 											<td>Rugosité du collecteur</td>
-											<td>Nuancier Mersen</td>
+											<td>{{ parametre.autreControle.balaisMasseCritere2 }}</td>
 											<td>{{ parametre.autreControle.balaisMassePreconisation5 }}</td>
 											<td>{{ parametre.autreControle.balaisMasseConformite5 }}</td>
 										</tr>
 										<tr>
 											<td>Aspect des patines</td>
-											<td>Nuancier Mersen</td>
+											<td>{{ parametre.autreControle.balaisMasseCritere3 }}</td>
 											<td>{{ parametre.autreControle.balaisMassePreconisation6 }}</td>
 											<td>{{ parametre.autreControle.balaisMasseConformite6 }}</td>
 										</tr>

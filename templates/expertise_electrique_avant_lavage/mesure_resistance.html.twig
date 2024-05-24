@@ -191,8 +191,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
-        { 
-            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_ambiante').value);
+        {
+            //let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_ambiante').value);
+            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_tolerie').value);
             let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_valeur').value);
             var var_type = document.getElementById('l_mesure_resistance_type');
 
@@ -208,7 +209,7 @@
             valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
         }
-        document.getElementById('mesure_resistance_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('mesure_resistance_temp_tolerie').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_resistance_valeur').addEventListener('input', updateSumField);
     });
 </script>

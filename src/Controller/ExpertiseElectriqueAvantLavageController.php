@@ -7,6 +7,8 @@ use App\Entity\Photo;
 use App\Entity\Images;
 use App\Entity\Plaque;
 use App\Entity\LPlaque;
+use App\Entity\PressionBalais;
+use App\Entity\PressionMasseBalais;
 use App\Form\BoiteBorneType;
 use App\Form\PhotoType;
 use App\Form\PlaqueType;
@@ -14,7 +16,11 @@ use App\Entity\Parametre;
 use App\Form\LPlaqueType;
 use App\Entity\AutreControle;
 use App\Entity\AppareilMesure;
+use App\Form\PressionBalaisType;
+use App\Form\PressionMasseBalaisType;
 use App\Repository\BoiteBorneRepository;
+use App\Repository\PressionBalaisRepository;
+use App\Repository\PressionMasseBalaisRepository;
 use App\Service\MailerService;
 use App\Entity\MesureIsolement;
 use App\Form\AutreControleType;
@@ -637,34 +643,84 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création d'autre controle
     #[Route('/autre-controle/{id}', name: 'app_autre_controle', methods: ['POST', 'GET'])]
-    public function autreControle(Parametre $parametre, Request $request, AutreControleRepository $autreControleRepository): Response
+    public function autreControle(Parametre $parametre, Request $request,
+                                  EntityManagerInterface $entityManager,
+                                  PressionBalaisRepository $pressionBalaisRepository,
+                                  PressionMasseBalaisRepository $pressionMasseBalaisRepository,
+                                  AutreControleRepository $autreControleRepository): Response
     {
-        //la partie autre controle balais et balais de masse
+        // Création de nouvelles instances pour les contrôles
         $autreControle = new AutreControle();
+        $pression_balais = new PressionBalais();
+        $pression_masse_balais = new PressionMasseBalais();
+
+        // Création des formulaires pour les contrôles de pression des balais et masse des balais
+        $formPb = $this->createForm(PressionBalaisType::class, $pression_balais);
+        $formPmb = $this->createForm(PressionMasseBalaisType::class, $pression_masse_balais);
+
+        // Si le paramètre a un autre contrôle associé, récupération de ce contrôle
         if ($parametre->getAutreControle()) {
             $autreControle = $parametre->getAutreControle()->getParametre()->getAutreControle();
         }
 
+        // Création du formulaire pour l'autre contrôle
         $formAutreControle = $this->createForm(AutreControleType::class, $autreControle);
+        // Traitement de la requête par le formulaire
         $formAutreControle->handleRequest($request);
+        $formPb->handleRequest($request);
+        $formPmb->handleRequest($request);
+
+        // Si le formulaire pour l'autre contrôle est soumis et valide
         if ($formAutreControle->isSubmitted() && $formAutreControle->isValid()) {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton4');
+
+            // Si l'utilisateur choisit "autre_controle_en_cours"
             if ($choix == 'autre_controle_en_cours') {
+                // Association de l'autre contrôle au paramètre
                 $parametre->setAutreControle($autreControle);
+                // Mise à jour de l'état de l'autre contrôle
                 $autreControle->setEtat(0);
+                // Sauvegarde de l'autre contrôle dans le dépôt
                 $autreControleRepository->save($autreControle, true);
-                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
-            } elseif ($choix == 'autre_controle_terminer') {
-                $parametre->setAutreControle($autreControle);
-                $autreControle->setEtat(1);
-                $autreControleRepository->save($autreControle, true);
+                // Redirection vers la page "expertise électrique avant lavage"
                 $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
             }
+            // Si l'utilisateur choisit "autre_controle_terminer"
+            elseif ($choix == 'autre_controle_terminer') {
+                // Association de l'autre contrôle au paramètre
+                $parametre->setAutreControle($autreControle);
+                // Mise à jour de l'état de l'autre contrôle
+                $autreControle->setEtat(1);
+                // Sauvegarde de l'autre contrôle dans le dépôt
+                $autreControleRepository->save($autreControle, true);
+                // Redirection vers la page "expertise électrique avant lavage"
+                $this->redirectToRoute('app_expertise_electrique_avant_lavage', ['id' => $parametre->getId()]);
+            }
+        }
+
+        // si le formulaire envoyer par pression balais
+        if ($formPb->isSubmitted() && $formPb->isValid())
+        {
+            $pression_balais->setParametre($parametre);
+            $entityManager->persist($pression_balais);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $parametre->getId()]);
+        }
+        // si le formulaire envoyer par pression masse balais
+        if ($formPmb->isSubmitted() && $formPmb->isValid())
+        {
+            $pression_masse_balais->setParametre($parametre);
+            $entityManager->persist($pression_masse_balais);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $parametre->getId()]);
         }
 
         return $this->render('expertise_electrique_avant_lavage/autre_controle.html.twig', [
             'parametre' => $parametre,
             'formAutreControle' => $formAutreControle->createView(),
+            'formPb' => $formPb->createView(),
+            'formPmb' => $formPmb->createView(),
         ]);
     }
 
@@ -1143,5 +1199,84 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             return $this->redirectToRoute('app_boite_borne', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
+
+    //la fonction qui supprime les les pression masses et balais de masses
+    #[Route('/presssion-delete/{id}', name: 'app_pression_delete', methods: ['GET'])]
+    public function deletePression($id,Request $request, PressionBalaisRepository $pressionBalaisRepository, PressionMasseBalaisRepository $pressionMasseBalaisRepository): Response
+    {
+        // Récupérer le paramètre 'name' de la requête
+        $name = $request->query->get('name');
+        if ($name == 'balais')
+        {
+            $resultat = $pressionBalaisRepository->findById($id);
+            $item = $resultat[0];
+            $idP = $item->getParametre()->getId();
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $idP]);
+        }elseif ($name == 'balais_masse')
+        {
+            $resultat = $pressionMasseBalaisRepository->findById($id);
+            $item = $resultat[0];
+            $idP = $item->getParametre()->getId();
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $idP]);
+        }
+    }
+
+    //modifiaction de la pression balais
+    #[Route('/edit-pression-balais/{id}', name: 'app_edit_pression_balais', methods: ['POST', 'GET'])]
+    public function editPressionBalais(PressionBalais $pressionBalais, Request $request, PressionBalaisRepository $pressionBalaisRepository, PressionMasseBalaisRepository $pressionMasseBalaisRepository,): Response
+    {
+
+        // Création des formulaires pour les contrôles de pression des balais et masse des balais
+        $form = $this->createForm(PressionBalaisType::class, $pressionBalais);
+        $form->handleRequest($request);
+
+        // Récupérer le paramètre 'name' de la requête
+        $name = $request->query->get('name');
+
+        // si le formulaire envoyer par pression balais
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->entityManager->persist($pressionBalais);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $pressionBalais->getParametre()->getId()]);
+        }
+
+        return $this->render('expertise_electrique_avant_lavage/edit_pression.html.twig', [
+            'form' => $form->createView(),
+            'parametre' => $pressionBalais->getParametre()
+        ]);
+    }
+
+
+    //modifiaction de la pression balais
+    #[Route('/edit-pression-masse/{id}', name: 'app_edit_pression_balais_masse', methods: ['POST', 'GET'])]
+    public function editPressionMasseBalais(PressionMasseBalais $pressionMasseBalais, Request $request, PressionMasseBalaisRepository $pressionMasseBalaisRepository,): Response
+    {
+
+        // Création des formulaires pour les contrôles de pression des balais et masse des balais
+        $form = $this->createForm(PressionMasseBalaisType::class, $pressionMasseBalais);
+        $form->handleRequest($request);
+
+        // Récupérer le paramètre 'name' de la requête
+        $name = $request->query->get('name');
+
+        // si le formulaire envoyer par pression balais
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->entityManager->persist($pressionMasseBalais);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_autre_controle', ['id' => $pressionMasseBalais->getParametre()->getId()]);
+        }
+
+        return $this->render('expertise_electrique_avant_lavage/edit_pression.html.twig', [
+            'form' => $form->createView(),
+            'parametre' => $pressionMasseBalais->getParametre()
+        ]);
+    }
+
 
 }

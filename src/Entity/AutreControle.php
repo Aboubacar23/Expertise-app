@@ -91,6 +91,24 @@ class AutreControle
     #[ORM\OneToOne(mappedBy: 'autre_controle', cascade: ['persist', 'remove'])]
     private ?Parametre $parametre = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_critere1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_critere2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_critere3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_masse_critere1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_masse_critere2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $balais_masse_critere3 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -414,6 +432,78 @@ class AutreControle
         }
 
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getBalaisCritere1(): ?string
+    {
+        return $this->balais_critere1;
+    }
+
+    public function setBalaisCritere1(?string $balais_critere1): static
+    {
+        $this->balais_critere1 = $balais_critere1;
+
+        return $this;
+    }
+
+    public function getBalaisCritere2(): ?string
+    {
+        return $this->balais_critere2;
+    }
+
+    public function setBalaisCritere2(?string $balais_critere2): static
+    {
+        $this->balais_critere2 = $balais_critere2;
+
+        return $this;
+    }
+
+    public function getBalaisCritere3(): ?string
+    {
+        return $this->balais_critere3;
+    }
+
+    public function setBalaisCritere3(?string $balais_critere3): static
+    {
+        $this->balais_critere3 = $balais_critere3;
+
+        return $this;
+    }
+
+    public function getBalaisMasseCritere1(): ?string
+    {
+        return $this->balais_masse_critere1;
+    }
+
+    public function setBalaisMasseCritere1(?string $balais_masse_critere1): static
+    {
+        $this->balais_masse_critere1 = $balais_masse_critere1;
+
+        return $this;
+    }
+
+    public function getBalaisMasseCritere2(): ?string
+    {
+        return $this->balais_masse_critere2;
+    }
+
+    public function setBalaisMasseCritere2(?string $balais_masse_critere2): static
+    {
+        $this->balais_masse_critere2 = $balais_masse_critere2;
+
+        return $this;
+    }
+
+    public function getBalaisMasseCritere3(): ?string
+    {
+        return $this->balais_masse_critere3;
+    }
+
+    public function setBalaisMasseCritere3(?string $balais_masse_critere3): static
+    {
+        $this->balais_masse_critere3 = $balais_masse_critere3;
 
         return $this;
     }

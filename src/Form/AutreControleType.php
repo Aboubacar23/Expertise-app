@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\AutreControle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,9 +15,13 @@ class AutreControleType extends AbstractType
     {
         $builder
             ->add('balais_masse_preconisation1')
-            ->add('balais_masse_preconisation2')
-           // ->add('balais_masse_preconisation3')
-          //  ->add('balais_masse_preconisation4')
+            ->add('balais_masse_critere1', TextType::class, [
+                'label' => false,
+                'required' => false
+            ])
+            ->add('balais_masse_critere1')
+            ->add('balais_masse_critere2')
+            ->add('balais_masse_critere3')
              ->add('balais_masse_preconisation5')
             ->add('balais_masse_preconisation6')
             ->add('balaisMasseConformite1', ChoiceType::class, [
@@ -24,26 +29,7 @@ class AutreControleType extends AbstractType
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
-            ])            
-            ->add('balaisMasseConformite2', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ])            
-         /*    ->add('balaisMasseConformite3', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ])            
-           ->add('balaisMasseConformite4', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ]) 
-            */            
+            ])
             ->add('balaisMasseConformite5', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
@@ -57,9 +43,9 @@ class AutreControleType extends AbstractType
                 ]
             ])
             ->add('balais_preconisation1')
-            ->add('balais_preconisation2')
-           // ->add('balais_preconisation3')
-            //->add('balais_preconisation4')
+            ->add('balais_critere1')
+            ->add('balais_critere2')
+            ->add('balais_critere3')
             ->add('balais_preconisation5')
             ->add('balais_preconisation6')
             ->add('balaisConformite1', ChoiceType::class, [
@@ -68,24 +54,6 @@ class AutreControleType extends AbstractType
                     'Non conforme' => 'Non conforme'
                 ]
             ])
-            ->add('balaisConformite2', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ])
-           /* ->add('balaisConformite3', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ])
-            ->add('balaisConformite4', ChoiceType::class, [
-                'choices' => [
-                    'Conforme' => 'Conforme',
-                    'Non conforme' => 'Non conforme'
-                ]
-            ])*/
             ->add('balaisConformite5', ChoiceType::class, [
                 'choices' => [
                     'Conforme' => 'Conforme',
