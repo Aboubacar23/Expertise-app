@@ -80,21 +80,9 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
 
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
                     $lmesureIsolement->setValeur($valeur);
                     $lmesureIsolement->setTempCorrection($temp);
                     $lmesureIsolement->setUnite($item->getUnite());
@@ -117,21 +105,9 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
 
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
                     $lmesureIsolement->setValeur($valeur);
                     $lmesureIsolement->setTempCorrection($temp);
                     $lmesureIsolement->setUnite($item->getUnite());
@@ -409,14 +385,8 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $temp = 0;
+                    $temp = $item->getTempCorrection();
 
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
                     $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
@@ -439,14 +409,8 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $temp = 0;
+                    $temp = $item->getTempCorrection();
 
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
                     $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);

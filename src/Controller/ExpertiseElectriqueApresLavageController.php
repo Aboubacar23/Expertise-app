@@ -197,24 +197,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
 
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-
-                        $valeur = $item->getValeur();
-                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
-
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp = $item->getTempCorrection();
-                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
 
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
@@ -241,24 +225,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lstatorApresLavage->setControle($item->getControle());
                     $lstatorApresLavage->setCritere($item->getCritere());
 
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-
-                        $valeur = $item->getValeur();
-                        //$valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
-
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp = $item->getTempCorrection();
-                        //$temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
 
                     $lstatorApresLavage->setTensionEssai($item->getTensionEssai());
                     $lstatorApresLavage->setValeurRelevee($item->getValeurRelevee());
@@ -359,15 +327,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setLig($i);
                     $lsondeBobinage->setControle($item->getControle());
                     $lsondeBobinage->setCritere($item->getCritere());
-                    $temp = 0;
-
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
-
+                    $temp = $item->getTempCorrection();
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
                     $lsondeBobinage->setTempCorrection($temp);
@@ -391,15 +351,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                     $lsondeBobinage->setLig($i);
                     $lsondeBobinage->setControle($item->getControle());
                     $lsondeBobinage->setCritere($item->getCritere());
-                    $temp = 0;
-
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
-
+                    $temp = $item->getTempCorrection();
                     $lsondeBobinage->setValeurRelevee($item->getValeurRelevee());
                     $lsondeBobinage->setValeur($item->getValeur());
                     $lsondeBobinage->setTempCorrection($temp);
