@@ -219,22 +219,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setType($item->getType());
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
-
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
-
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setUnite($item->getUnite());
                     $lmesureIsolement->setTempCorrection($temp);
@@ -257,21 +243,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureIsolement->setType($item->getType());
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
-                    $valeur = 0;
-                    $temp = 0;
-                    if (is_int($item->getValeur()))
-                    {
-                        $valeur = $item->getValeur();
-                    }else{
-                        $valeur =  number_format($item->getValeur(), 1, '.', '');
-                    }
 
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
+                    $valeur = $item->getValeur();
+                    $temp = $item->getTempCorrection();
 
                     $lmesureIsolement->setTension($item->getTension());
                     $lmesureIsolement->setUnite($item->getUnite());
@@ -352,14 +326,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setLig($i);
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
-
-                    $temp = 0;
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
+                    $temp = $item->getTempCorrection();
                     $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
@@ -383,14 +350,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                     $lmesureResistance->setLig($i);
                     $lmesureResistance->setControle($item->getControle());
                     $lmesureResistance->setCritere($item->getCritere());
-
-                    $temp = 0;
-                    if (is_int($item->getTempCorrection()))
-                    {
-                        $temp = $item->getTempCorrection();
-                    }else{
-                        $temp =  number_format($item->getTempCorrection(), 1, '.', '');
-                    }
+                    $temp = $item->getTempCorrection();
                     $lmesureResistance->setTempCorrection($temp);
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());

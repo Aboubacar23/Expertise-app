@@ -626,7 +626,17 @@
             {
                 val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(0);
+                if (estEntier(valeur))
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }else
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }
                 correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
         }

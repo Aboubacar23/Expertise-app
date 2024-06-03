@@ -85,7 +85,7 @@
                                             <td>{{item2.controle}}</td>
                                             <td>{{item2.critere}}</td>
                                             <td colspan="2">{{item2.valeur}} {{item2.unite}}</td>
-                                            <td>{{item2.tempCorrection | number_format(0, '.','')}}</td>
+                                            <td>{{item2.tempCorrection}}</td>
                                             <td>{{item2.conformite}}</td>
                                             <td class="text-center"><a href="{{path('delete_lmesure_resistance_essai_session', {'id' : item2.lig, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>   
                                         </tr>                                        
@@ -100,10 +100,10 @@
                                                 <td colspan="2">{{item.valeur }} {{item.unite}}</td>
                                                 <td>{{item.tempCorrection}}</td>
                                                 {% if item.conformite ==  'Conforme' %}
-                        <td style="color: green;">{{item.conformite}}</td>
-                    {% else %}
-                        <td style="color: red;">{{item.conformite}}</td>
-                    {% endif %}
+                                                    <td style="color: green;">{{item.conformite}}</td>
+                                                {% else %}
+                                                    <td style="color: red;">{{item.conformite}}</td>
+                                                {% endif %}
                                                 <td class="text-center">
                                                     <a class="btn btn-info btn-sm" href="{{path('app_edit_mesure_resistance_essais_finaux', {'id' : item.id})}}"><i class="fa fa-edit fa-1x"></i></a>
                                                     <a class="btn btn-danger btn-sm" href="{{path('delete_lmesure_essai_resistance', {'id' : item.id, 'id2' : parametre.id })}}"><i class="fa fa-trash-o fa-1x"></i></a>
@@ -133,7 +133,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_essai_temp_ambiante').value);
+            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_essai_temp_tolerie').value);
             let valeurReleve = parseFloat(document.getElementById('l_mesure_reistance_essai_valeur').value);
 
             const correction = document.getElementById('l_mesure_reistance_essai_temp_correction');
@@ -142,10 +142,19 @@
             let valeurCorrection = 0;
 
             valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
-            valeurFinale = valeurCorrection.toFixed(0);
-            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            if (estEntier(valeurReleve))
+            {
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }else
+            {
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }
         }
-        document.getElementById('mesure_resistance_essai_temp_ambiante').addEventListener('input', updateSumField);
+        document.getElementById('mesure_resistance_essai_temp_tolerie').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_reistance_essai_valeur').addEventListener('input', updateSumField);
     });
 </script>

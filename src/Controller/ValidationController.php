@@ -175,4 +175,19 @@ class ValidationController extends AbstractController
         ]);
         return  $pdfServiceP->showPdfFile($html, $fichier, $num_projet,$num_qualite);
     }
+
+    //voir pdf de l'expertise électrique avant lavage
+    #[Route('/pdf-expertise-ece/{id}', name : 'app_expertise_ece_print', methods : ['GET'])]
+    public function pdfECE(Parametre $parametre, RapportService $rapportService) : Response
+    {
+        // On génère un nom de fichier
+        $fichier = $parametre->getAffaire()->getNomRapport();
+        $num_projet = $parametre->getAffaire()->getNumAffaire();
+        $num_qualite = $parametre->getNumeroQualite();
+        $html = $this->renderView('validation/pdf_expertise_ece.html.twig', [
+            'parametre' => $parametre
+        ]);
+        return  $rapportService->showPdfFile($html, $fichier, $num_projet,$num_qualite);
+
+    }
 }

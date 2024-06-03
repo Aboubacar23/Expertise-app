@@ -177,8 +177,17 @@
             let valeurCorrection = 0;
             valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - 20));
 
-            valeurFinale = valeurCorrection.toFixed(0);
-            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            if (estEntier(valeurReleve))
+            {
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }else
+            {
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }
         }
         document.getElementById('sonde_bobinage_temp_ambiante').addEventListener('input', updateSumField);
         document.getElementById('l_sonde_bobinage_valeur').addEventListener('input', updateSumField);

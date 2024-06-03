@@ -595,8 +595,17 @@
             {
                 val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(0);
-                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                if (estEntier(valeur))
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }else
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }
             }
         }
         document.getElementById('mesure_isolement_essai_temp_tolerie').addEventListener('input', updateSumField);
