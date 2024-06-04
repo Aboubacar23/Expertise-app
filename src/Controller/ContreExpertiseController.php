@@ -11,14 +11,15 @@
  * Fonction : Stagiaire et Alternant (Ingénieur en développement web)
  * -----------------------------------------------------------------
  * Date de Création : 25-05-2023
- * Dérniere date de modification : -
+ * Dernière date de modification : -
  * ----------------------------------------------------------------
- *******Template **************************
- les views client se trouvent dans le dossier "client" du template
- * ********************** Déscription *****************************
- * Ce controleur est composé d'une seule fonction
- * 1- la fonction "index" : pour afficher et envoyer le formulaire de contre expertise
+ * *******Template **************************
+ * Les vues client se trouvent dans le dossier "client" du template
+ * ********************** Description *****************************
+ * Ce contrôleur est composé d'une seule fonction :
+ * 1- La fonction "index" : pour afficher et envoyer le formulaire de contre expertise
  */
+
 namespace App\Controller;
 
 use App\Entity\Parametre;
@@ -33,32 +34,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/contre')]
 class ContreExpertiseController extends AbstractController
 {
+    // Fonction pour afficher et envoyer le formulaire de contre expertise
     #[Route('/contre-expertise/{id}', name: 'app_contre_expertise')]
-    public function index(Parametre $parametre, ContreExpertiseRepository $contreExpertiseRepository,Request $request): Response
+    public function index(Parametre $parametre, ContreExpertiseRepository $contreExpertiseRepository, Request $request): Response
     {
+        // Crée une nouvelle instance de ContreExpertise
         $contreExpertise = new ContreExpertise();
 
-        if($parametre->getContreExpertise())
-        {
+        // Si le paramètre a déjà une contre-expertise, récupère cette contre-expertise
+        if ($parametre->getContreExpertise()) {
             $contreExpertise = $parametre->getContreExpertise()->getParametre()->getContreExpertise();
         }
 
+        // Crée le formulaire pour l'entité ContreExpertise
         $form = $this->createForm(ContreExpertiseType::class, $contreExpertise);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        // Si le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Lie la contre-expertise au paramètre
             $parametre->setContreExpertise($contreExpertise);
+            // Définit l'état de la contre-expertise
             $contreExpertise->setEtat(1);
+            // Sauvegarde la contre-expertise dans la base de données
             $contreExpertiseRepository->save($contreExpertise, true);
-            return $this->redirectToRoute('app_contre_expertise',[
+            // Redirige vers la même route pour recharger la page
+            return $this->redirectToRoute('app_contre_expertise', [
                 'id' => $parametre->getId()
             ]);
         }
+
+        // Rend la vue avec le formulaire de contre expertise
         return $this->render('contre_expertise/index.html.twig', [
-            'form'=> $form->createView(),
-            'parametre'=> $parametre
+            'form' => $form->createView(),
+            'parametre' => $parametre
         ]);
     }
 }
- 

@@ -7,26 +7,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+// Définition du contrôleur de sécurité
 class SecurityController extends AbstractController
 {
+    // Route pour la page de connexion
     #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        // Si l'utilisateur est déjà connecté, on pourrait le rediriger vers une autre page
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
 
-        // get the login error if there is one
+        // Récupération de l'erreur de connexion s'il y en a une
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+        // Récupération du dernier nom d'utilisateur saisi par l'utilisateur
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        // Rendu de la vue de connexion avec les informations nécessaires
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
 
+    // Route pour la déconnexion
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        // Cette méthode peut être vide, elle sera interceptée par la clé de déconnexion dans votre pare-feu de sécurité
+        throw new \LogicException('Cette méthode peut rester vide - elle sera interceptée par la clé de déconnexion dans votre pare-feu.');
     }
 }

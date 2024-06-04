@@ -11,25 +11,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+// Déclare la classe HomeController qui hérite d'AbstractController
 #[Route('/expertise-jeumont')]
 class HomeController extends AbstractController
 {
     /**
-     * dans cette fonction nous allons récuperer le nombre total de tous les 
-     * élements de l'application pour envoyer au dashboard
+     * Récupère le nombre total de tous les éléments de l'application pour les envoyer au dashboard
      *
      * @param AdminRepository $adminRepository
      * @return Response
      */
     #[Route('/home', name: 'app_home')]
-    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,ParametreRepository $parametreRepository,AffaireRepository $affaireRepository): Response
+    public function index(AdminRepository $adminRepository, ClientRepository $clientRepository, ParametreRepository $parametreRepository, AffaireRepository $affaireRepository): Response
     {
-
+        // Compte le nombre d'administrateurs
         $admin = count($adminRepository->findAll());
+        // Compte le nombre de clients
         $client = count($clientRepository->findAll());
+        // Récupère tous les paramètres
         $parametres = $parametreRepository->findAll();
+        // Compte le nombre d'affaires
         $affaire = count($affaireRepository->findAll());
+
+        // Initialise les variables de comptage
         $nombre = 0;
         $encours = 0;
         $terminer = 0;
@@ -40,53 +44,55 @@ class HomeController extends AbstractController
         $bloqueVal = 0;
         $bloque = 0;
         $var_par = 1;
-        if ($parametres)
-        {
+
+        // Si des paramètres existent, met à jour la variable de comptage
+        if ($parametres) {
             $var_par = count($parametres);
         }
 
-        $tables = $affaireRepository->findBy([],['id' => 'desc']);
+        // Récupère les affaires triées par ordre décroissant d'ID
+        $tables = $affaireRepository->findBy([], ['id' => 'desc']);
         $affaires = [];
 
-        foreach($tables as $item2)
-        {
-            foreach($item2->getParametres() as $item)
-            {
-                if($item->isStatut() == 1 && $item->isRemontage() == 1)
-                {
+        // Parcourt chaque affaire et ses paramètres associés
+        foreach ($tables as $item2) {
+            foreach ($item2->getParametres() as $item) {
+                // Incrémente le compteur si le statut et le remontage sont complets
+                if ($item->isStatut() == 1 && $item->isRemontage() == 1) {
                     $nombre = $nombre + 1;
                 }
-    
-                if($item->isStatut() == 0)
-                {
+
+                // Incrémente les compteurs en fonction du statut de l'affaire
+                if ($item->isStatut() == 0) {
                     $var_encours = $var_encours + 1;
-                }else{
+                } else {
                     $var_terminer = $var_terminer + 1;
                 }
 
-                if($item->getAffaire()->isBloque())
-                {
+                // Incrémente le compteur si l'affaire est bloquée
+                if ($item->getAffaire()->isBloque()) {
                     $bloqueVal = $bloqueVal + 1;
                 }
             }
 
-            if($item2->isEtat() != 1)
-            {
+            // Ajoute l'affaire à la liste si elle n'est pas terminée
+            if ($item2->isEtat() != 1) {
                 array_push($affaires, $item2);
             }
         }
-        if($affaires)
-        {
-            $encoursPourc = 100 *($var_encours/$var_par);
-            $terminerPourc = 100 *($var_terminer/$var_par);
-            $bloque = 100 *($bloqueVal/$var_par);
+
+        // Calcule les pourcentages si des affaires existent
+        if ($affaires) {
+            $encoursPourc = 100 * ($var_encours / $var_par);
+            $terminerPourc = 100 * ($var_terminer / $var_par);
+            $bloque = 100 * ($bloqueVal / $var_par);
         }
 
+        // Met à jour les compteurs finaux
         $encours = $var_encours;
         $terminer = $var_terminer;
-      //  dd($var_par);
 
-
+        // Rend la vue pour le dashboard avec les données calculées
         return $this->render('home/index.html.twig', [
             'admin' => $admin,
             'client' => $client,
@@ -100,27 +106,25 @@ class HomeController extends AbstractController
             'bloqueVal' => $bloqueVal,
             'terminer' => $terminer,
             'affaires' => $affaires,
-
-            
         ]);
     }
 
-
-    //la fonction qui affiche la liste des affaires terminer
+    // La fonction qui affiche la liste des affaires terminées
     #[Route('/corbeille-listes', name: 'app_corbeille_listes', methods: ['GET'])]
     public function rapport(ParametreRepository $parametreRepository): Response
     {
-        $listes = $parametreRepository->findBy([],['id' => 'desc']);
+        // Récupère tous les paramètres triés par ordre décroissant d'ID
+        $listes = $parametreRepository->findBy([], ['id' => 'desc']);
         $parametres = [];
 
-        foreach($listes as $item)
-        {
-            if($item->isCorbeille() == true)
-            {
+        // Parcourt chaque paramètre pour vérifier s'il est dans la corbeille
+        foreach ($listes as $item) {
+            if ($item->isCorbeille() == true) {
                 array_push($parametres, $item);
             }
         }
 
+        // Rend la vue pour la corbeille avec les paramètres dans la corbeille
         return $this->render('home/corbeille.html.twig', [
             'parametres' => $parametres,
         ]);

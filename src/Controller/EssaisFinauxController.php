@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+// Importation des différentes entités, services, formulaires et autres nécessaires pour le contrôleur
 use App\Entity\Parametre;
 use App\Service\MailerService;
 use App\Entity\AppareilMesureEssais;
@@ -36,41 +37,54 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+// Définition de la route principale pour ce contrôleur
 #[Route('/essais-finaux')]
 class EssaisFinauxController extends AbstractController
 {
+    // Définition de la route pour l'index des essais finaux
     #[Route('/index-essais/{id}', name: 'app_essais_finaux', methods: ['GET', 'POST'])]
     public function index(Parametre $parametre): Response
     {
+        // Rendu de la vue Twig 'essais_finaux/index.html.twig' avec le paramètre 'parametre'
         return $this->render('essais_finaux/index.html.twig', [
             'parametre' => $parametre,
         ]);
     }
 
-    //création de mesure d'isolement
+    // Route pour la création d'une mesure d'isolement
     #[Route('/mesure-isolement/{id}', name: 'app_mesure_isolement_essai', methods: ['POST', 'GET'])]
     public function mesureIso(Parametre $parametre, Request $request, MesureIsolementEssaiRepository $mesureIsolementRepository, EntityManagerInterface $em, ControleIsolementRepository $controleIsolementRepository): Response
     {
-        //Mesure d'isolement
+        // Initialisation des entités nécessaires
         $mesureIsolement = new MesureIsolementEssai();
         $lmesureIsolement = new LMesureIsolementEssai();
         $val = 0;
+
+        // Si une mesure d'isolement existe déjà, on la récupère
         if ($parametre->getMesureIsolementEssai()) {
             $mesureIsolement = $parametre->getMesureIsolementEssai()->getParametre()->getMesureIsolementEssai();
             $val = 1;
         }
+
+        // Création des formulaires
         $formMesureIsolement = $this->createForm(MesureIsolementEssaiType::class, $mesureIsolement);
         $form = $this->createForm(LMesureIsolementEssaiType::class, $lmesureIsolement);
 
+        // Gestion des requêtes de formulaire
         $formMesureIsolement->handleRequest($request);
         $form->handleRequest($request);
 
+        // Gestion des sessions
         $session = $request->getSession();
         $tablesEssais = $session->get('essais', []);
 
+        // Si les formulaires sont soumis
         if ($formMesureIsolement->isSubmitted() && $form->isSubmitted()) {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton7');
+
             if ($choix == 'mesure_isolement_en_cours') {
+                // Parcours des éléments de la session pour enregistrer les mesures en cours
                 $i = 0;
                 foreach ($tablesEssais as $item) {
                     $i = $i + 1;
@@ -80,22 +94,23 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $valeur = $item->getValeur();
-                    $temp = $item->getTempCorrection();
-
-                    $lmesureIsolement->setValeur($valeur);
-                    $lmesureIsolement->setTempCorrection($temp);
+                    $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setUnite($item->getUnite());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolementEssai($mesureIsolement);
                     $em->persist($lmesureIsolement);
                 }
+
+                // Mise à jour de l'état et sauvegarde des données
                 $parametre->setMesureIsolementEssai($mesureIsolement);
                 $mesureIsolement->setEtat(0);
                 $mesureIsolementRepository->save($mesureIsolement, true);
                 $session->clear();
                 return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
+
             } elseif ($choix == 'mesure_isolement_terminer') {
+                // Parcours des éléments de la session pour enregistrer les mesures terminées
                 $i = 0;
                 foreach ($tablesEssais as $item) {
                     $i = $i + 1;
@@ -105,44 +120,51 @@ class EssaisFinauxController extends AbstractController
                     $lmesureIsolement->setControle($item->getControle());
                     $lmesureIsolement->setCritere($item->getCritere());
                     $lmesureIsolement->setTension($item->getTension());
-                    $valeur = $item->getValeur();
-                    $temp = $item->getTempCorrection();
-
-                    $lmesureIsolement->setValeur($valeur);
-                    $lmesureIsolement->setTempCorrection($temp);
+                    $lmesureIsolement->setValeur($item->getValeur());
+                    $lmesureIsolement->setTempCorrection($item->getTempCorrection());
                     $lmesureIsolement->setUnite($item->getUnite());
                     $lmesureIsolement->setConformite($item->getConformite());
                     $lmesureIsolement->setMesureIsolementEssai($mesureIsolement);
                     $em->persist($lmesureIsolement);
                 }
+
+                // Mise à jour de l'état et sauvegarde des données
                 $parametre->setMesureIsolementEssai($mesureIsolement);
                 $mesureIsolement->setEtat(1);
                 $mesureIsolementRepository->save($mesureIsolement, true);
                 $session->clear();
                 return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
+
             } elseif ($choix == 'ajouter') {
+                // Ajout d'une nouvelle mesure d'isolement
                 $lig = sizeof($tablesEssais) + 1;
                 $lmesureIsolement->setLig($lig);
+
+                // Vérification des doublons
                 foreach ($tablesEssais as $i) {
-                    if ($i->getType() == $lmesureIsolement->getType() and $i->getControle() == $lmesureIsolement->getControle() and $i->getTension() == $lmesureIsolement->getTension()) {
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                    if ($i->getType() == $lmesureIsolement->getType() && $i->getControle() == $lmesureIsolement->getControle() && $i->getTension() == $lmesureIsolement->getTension()) {
+                        $this->addFlash("message", "Vous avez déjà ajouté ce contrôle");
                         return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
                     }
                 }
 
+                // Vérification des doublons dans les mesures existantes
                 if ($parametre->getMesureIsolementEssai()) {
                     foreach ($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $j) {
-                        if ($j->getType() == $lmesureIsolement->getType() and $j->getControle() == $lmesureIsolement->getControle() and $j->getTension() == $lmesureIsolement->getTension()) {
-                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        if ($j->getType() == $lmesureIsolement->getType() && $j->getControle() == $lmesureIsolement->getControle() && $j->getTension() == $lmesureIsolement->getTension()) {
+                            $this->addFlash("message", "Vous avez déjà ajouté ce contrôle");
                             return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $parametre->getId()]);
                         }
                     }
                 }
+
+                // Ajout de la nouvelle mesure à la session
                 $tablesEssais[$lig] = $lmesureIsolement;
                 $session->set('essais', $tablesEssais);
             }
         }
 
+        // Rendu de la vue Twig pour la mesure d'isolement
         return $this->render('essais_finaux/mesure_isolement.html.twig', [
             'parametre' => $parametre,
             'formMesureIsolement' => $formMesureIsolement->createView(),
@@ -153,29 +175,32 @@ class EssaisFinauxController extends AbstractController
         ]);
     }
 
-    //création de point de fonctionnement
+    // Route pour la création d'un point de fonctionnement
     #[Route('/point-fonctionnement/{id}', name: 'app_point_fonctionnement_vide', methods: ['POST', 'GET'])]
     public function pointFonctionnement(Parametre $parametre, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-        //la partie point de fonctionnement
+        // Initialisation de l'entité PointFonctionnementVide
         $pointFonctionnement = new PointFonctionnementVide();
 
+        // Création du formulaire pour le point de fonctionnement
         $formPointFonctionnement = $this->createForm(PointFonctionnementVideType::class, $pointFonctionnement);
         $formPointFonctionnement->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($formPointFonctionnement->isSubmitted() && $formPointFonctionnement->isValid()) {
             $choix = $request->get('bouton9');
+
             if ($choix == 'ajouter') {
+                // Gestion de l'image
                 $image = $formPointFonctionnement->get('image')->getData();
                 if ($image) {
-                    //récuperer la taille de l'image à inserrer
                     $size = $image->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
-                    if($size > 2*1024*1024)
-                    {
-                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                    if ($size > 2 * 1024 * 1024) {
+                        // Message d'erreur si la taille de l'image dépasse 2 Mo
+                        $this->addFlash("error", "Désolé, la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_point_fonctionnement_vide', ['id' => $parametre->getId()]);
-                    }else{
+                    } else {
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
@@ -185,12 +210,14 @@ class EssaisFinauxController extends AbstractController
                                 $newPhotoname
                             );
                         } catch (FileException $e) {
+                            // Gestion des exceptions en cas d'erreur de déplacement du fichier
                         }
 
                         $pointFonctionnement->setImage($newPhotoname);
                     }
                 }
 
+                // Mise à jour de l'entité et sauvegarde dans la base de données
                 $pointFonctionnement->setParametre($parametre);
                 $em->persist($pointFonctionnement);
                 $em->flush();
@@ -198,35 +225,39 @@ class EssaisFinauxController extends AbstractController
             }
         }
 
-        //6
+        // Rendu de la vue Twig pour le point de fonctionnement
         return $this->render('essais_finaux/point_fonctionnement.html.twig', [
             'parametre' => $parametre,
             'formPointFonctionnement' => $formPointFonctionnement->createView(),
         ]);
     }
 
-    //création de mesure vibratoire
+    // Route pour la création d'une mesure vibratoire
     #[Route('/mesure-vibratoire/{id}', name: 'app_mesure_vibratoire_essais', methods: ['POST', 'GET'])]
     public function mesureVibratoire(Parametre $parametre, Request $request, MesureVibratoireEssaisRepository $mesureVibratoireEssaisRepository): Response
     {
-
-        //la partie du mesures vibratoires
+        // Initialisation de l'entité MesureVibratoireEssais
         $mesureVibratoire = new MesureVibratoireEssais();
         if ($parametre->getMesureVibratoireEssais()) {
             $mesureVibratoire = $parametre->getMesureVibratoireEssais()->getParametre()->getMesureVibratoireEssais();
         }
 
+        // Création du formulaire pour la mesure vibratoire
         $formMesureVibratoire = $this->createForm(MesureVibratoireEssaisType::class, $mesureVibratoire);
         $formMesureVibratoire->handleRequest($request);
 
+        // Si le formulaire est soumis et valide
         if ($formMesureVibratoire->isSubmitted() && $formMesureVibratoire->isValid()) {
             $choix = $request->get('bouton2');
+
             if ($choix == 'essai_en_cours') {
+                // Mise à jour de l'entité et sauvegarde dans la base de données
                 $parametre->setMesureVibratoireEssais($mesureVibratoire);
                 $mesureVibratoire->setEtat(0);
                 $mesureVibratoireEssaisRepository->save($mesureVibratoire, true);
                 $this->redirectToRoute('app_mesure_vibratoire_essais', ['id' => $parametre->getId()]);
             } elseif ($choix == 'essai_terminer') {
+                // Mise à jour de l'entité et sauvegarde dans la base de données
                 $parametre->setMesureVibratoireEssais($mesureVibratoire);
                 $mesureVibratoire->setEtat(1);
                 $mesureVibratoireEssaisRepository->save($mesureVibratoire, true);
@@ -234,29 +265,36 @@ class EssaisFinauxController extends AbstractController
             }
         }
 
+        // Rendu de la vue Twig pour la mesure vibratoire
         return $this->render('essais_finaux/mesure_vibratoire.html.twig', [
             'parametre' => $parametre,
             'formMesureVibratoire' => $formMesureVibratoire->createView(),
         ]);
     }
 
-    //appareil de mesure
+    // Route pour la gestion des appareils de mesure
     #[Route('/appareil-mesure/{id}', name: 'app_appareil_essais')]
     public function apparielMesure(Parametre $parametre, Request $request, AppareilMesureEssaisRepository $appareilMesureEssaisRepository): Response
     {
-        //la partie appareil de mesure
+        // Initialisation de l'entité AppareilMesureEssais
         $appareil = new AppareilMesureEssais();
 
+        // Création du formulaire pour l'appareil de mesure
         $formAppareil = $this->createForm(AppareilMesureEssaisType::class, $appareil);
         $formAppareil->handleRequest($request);
         $date = date('Y-m-d');
+
+        // Si le formulaire est soumis et valide
         if ($formAppareil->isSubmitted() && $formAppareil->isValid()) {
             $choix = $request->get('bouton5');
+
             if ($choix == 'ajouter') {
+                // Vérification de la validité de l'appareil
                 $dateAppareil = $appareil->getAppareil()->getDateValidite()->format('Y-m-d');
                 if ($dateAppareil < $date) {
-                    $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : " . $dateAppareil);
+                    $this->addFlash("message", "L'appareil que vous venez de choisir a expiré et la date de validité est : " . $dateAppareil);
                 } else {
+                    // Mise à jour de l'entité et sauvegarde dans la base de données
                     $appareil->setParametre($parametre);
                     $appareilMesureEssaisRepository->save($appareil, true);
                     $this->redirectToRoute('app_essais_finaux', ['id' => $parametre->getId()]);
@@ -264,28 +302,27 @@ class EssaisFinauxController extends AbstractController
             }
         }
 
+        // Rendu de la vue Twig pour l'appareil de mesure
         return $this->render('essais_finaux/appareil_mesure.html.twig', [
             'parametre' => $parametre,
             'formAppareil' => $formAppareil->createView(),
         ]);
     }
 
-    //valider essais finaux
+    // Route pour valider les essais finaux
     #[Route('/validation/{id}', name: 'valider_essais_finaux', methods: ['GET'])]
     public function validation(AdminRepository $adminRepository, Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         if ($parametre) {
-
+            // Préparation des informations pour l'envoi de l'email
             $dossier = 'email/email.html.twig';
             $subject = "Essais Finaux";
-
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
-                . $parametre->getAffaire()->getSuiviPar()->getPrenom();
-
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " " . $parametre->getAffaire()->getSuiviPar()->getPrenom();
             $message = "L'expertise essais Finaux a été validée";
             $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
             $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
+            // Envoi d'emails aux administrateurs avec le rôle 'ROLE_AGENT_MAITRISE'
             $admins = $adminRepository->findAll();
             foreach ($admins as $admin) {
                 foreach ($admin->getRoles() as $role) {
@@ -293,14 +330,15 @@ class EssaisFinauxController extends AbstractController
                         $email = $admin->getEmail();
                         $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
-                    };
+                    }
                 }
             }
 
-            //envoyer le mail
+            // Envoi d'un email au responsable de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
             $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
 
+            // Mise à jour de l'entité et sauvegarde dans la base de données
             $parametre->setEssaisFinaux(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
@@ -311,14 +349,17 @@ class EssaisFinauxController extends AbstractController
         }
     }
 
-    //la fonction qui supprime un point de fonctionnement
+    // Route pour supprimer un point de fonctionnement
     #[Route('/fonctionnement/{id}/point', name: 'delete_point_fonctionnement_vide', methods: ['GET'])]
     public function deletePointFonctionnement(Request $request, PointFonctionnementVide $pointFonctionnementVide, PointFonctionnementVideRepository $pointFonctionnementVideRepository): Response
     {
         $id = $pointFonctionnementVide->getParametre()->getId();
         if ($pointFonctionnementVide) {
+            // Suppression de l'image associée
             $nom = $pointFonctionnementVide->getImage();
             unlink($this->getParameter('point_fonctionnement_vide') . '/' . $nom);
+
+            // Suppression de l'entité dans la base de données
             $pointFonctionnementVideRepository->remove($pointFonctionnementVide, true);
             return $this->redirectToRoute('app_point_fonctionnement_vide', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
@@ -326,55 +367,63 @@ class EssaisFinauxController extends AbstractController
         }
     }
 
-    //delete session tables mesures isolement
+    // Route pour supprimer une session de mesure d'isolement
     #[Route('/delete/{id}/{paramID}', name: 'delete_mesure_essai')]
     public function supprimeSession($id, $paramID, Request $request)
     {
         $session = $request->getSession();
         $tablesEssais = $session->get('essais', []);
+
+        // Suppression de la session de mesure spécifique
         if (array_key_exists($id, $tablesEssais)) {
             unset($tablesEssais[$id]);
             $session->set('essais', $tablesEssais);
         }
+
         return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $paramID]);
     }
 
-    //delete tables mesures isolement
+    // Route pour supprimer une mesure d'isolement de la base de données
     #[Route('/delete-lmesure-isolement/{id}/{id2}', name: 'delete_lmesure_isolement_essai')]
     public function supprimeLIsolement(LMesureIsolementEssai $lmesureIsolement, $id2, Request $request, LMesureIsolementEssaiRepository $lmesureIsolementRepository)
     {
         if ($lmesureIsolement) {
+            // Suppression de l'entité dans la base de données
             $lmesureIsolementRepository->remove($lmesureIsolement, true);
             return $this->redirectToRoute('app_mesure_isolement_essai', ['id' => $id2]);
         }
     }
 
-
-    //création de mesure d'resistance
+    // Route pour la création d'une mesure de résistance
     #[Route('/mesure-resistance-essai/{id}', name: 'app_mesure_resistance_essai', methods: ['POST', 'GET'])]
     public function mesureResistance(Parametre $parametre, Request $request, MesureResistanceEssaiRepository $mesureResistanceRepository, EntityManagerInterface $em): Response
     {
-        //Mesure de resistance
+        // Initialisation des entités nécessaires
         $mesureResistance = new MesureResistanceEssai();
         $lmesureResistance = new LMesureResistanceEssai();
 
+        // Si une mesure de résistance existe déjà, on la récupère
         if ($parametre->getMesureResistanceEssai()) {
             $mesureResistance = $parametre->getMesureResistanceEssai()->getParametre()->getMesureResistanceEssai();
         }
 
+        // Création des formulaires
         $formMesureResistance = $this->createForm(MesureResistanceEssaiType::class, $mesureResistance);
         $formMesureResistance->handleRequest($request);
-
         $form = $this->createForm(LMesureReistanceEssaiType::class, $lmesureResistance);
         $form->handleRequest($request);
 
+        // Gestion des sessions
         $session = $request->getSession();
         $tables = $session->get('resistances', []);
 
-
+        // Si les formulaires sont soumis
         if ($formMesureResistance->isSubmitted() && $form->isSubmitted()) {
+            // Récupération du choix de l'utilisateur
             $choix = $request->get('bouton8');
+
             if ($choix == 'mesure_resistance_en_cours') {
+                // Parcours des éléments de la session pour enregistrer les mesures en cours
                 $i = 0;
                 foreach ($tables as $item) {
                     $i = $i + 1;
@@ -385,20 +434,21 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $temp = $item->getTempCorrection();
-
-                    $lmesureResistance->setTempCorrection($temp);
+                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
                     $em->persist($lmesureResistance);
                 }
 
+                // Mise à jour de l'état et sauvegarde des données
                 $parametre->setMesureResistanceEssai($mesureResistance);
                 $mesureResistance->setEtat(0);
                 $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
                 return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
+
             } elseif ($choix == 'mesure_resistance_terminer') {
+                // Parcours des éléments de la session pour enregistrer les mesures terminées
                 $i = 0;
                 foreach ($tables as $item) {
                     $i = $i + 1;
@@ -409,45 +459,49 @@ class EssaisFinauxController extends AbstractController
                     $lmesureResistance->setValeur($item->getValeur());
                     $lmesureResistance->setUnite($item->getUnite());
                     $lmesureResistance->setType($item->getType());
-                    $temp = $item->getTempCorrection();
-
-                    $lmesureResistance->setTempCorrection($temp);
+                    $lmesureResistance->setTempCorrection($item->getTempCorrection());
                     $lmesureResistance->setConformite($item->getConformite());
                     $lmesureResistance->setMesureReistanceEssai($mesureResistance);
                     $em->persist($lmesureResistance);
                 }
 
+                // Mise à jour de l'état et sauvegarde des données
                 $parametre->setMesureResistanceEssai($mesureResistance);
                 $mesureResistance->setEtat(1);
                 $session->clear();
                 $mesureResistanceRepository->save($mesureResistance, true);
                 return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
+
             } elseif ($choix == 'ajouter') {
+                // Ajout d'une nouvelle mesure de résistance
                 $lig = sizeof($tables) + 1;
                 $lmesureResistance->setLig($lig);
 
+                // Vérification des doublons
                 foreach ($tables as $i) {
-                    if ($i->getType() == $lmesureResistance->getType() and $i->getControle() == $lmesureResistance->getControle()) {
-                        $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                    if ($i->getType() == $lmesureResistance->getType() && $i->getControle() == $lmesureResistance->getControle()) {
+                        $this->addFlash("message", "Vous avez déjà ajouté ce contrôle");
                         return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
                     }
                 }
 
+                // Vérification des doublons dans les mesures existantes
                 if ($parametre->getMesureResistanceEssai()) {
                     foreach ($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $j) {
-                        if ($j->getType() == $lmesureResistance->getType() and $j->getControle() == $lmesureResistance->getControle()) {
-                            $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
+                        if ($j->getType() == $lmesureResistance->getType() && $j->getControle() == $lmesureResistance->getControle()) {
+                            $this->addFlash("message", "Vous avez déjà ajouté ce contrôle");
                             return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $parametre->getId()]);
                         }
                     }
                 }
 
+                // Ajout de la nouvelle mesure à la session
                 $tables[$lig] = $lmesureResistance;
                 $session->set('resistances', $tables);
             }
         }
 
-        //6
+        // Rendu de la vue Twig pour la mesure de résistance
         return $this->render('essais_finaux/mesure_resistance.html.twig', [
             'parametre' => $parametre,
             'formMesureResistance' => $formMesureResistance->createView(),
@@ -456,25 +510,28 @@ class EssaisFinauxController extends AbstractController
         ]);
     }
 
-    //delete session tables mesures resistance
+    // Route pour supprimer une session de mesure de résistance
     #[Route('/delete-lmesure-essais-resistance/{id}/{id2}', name: 'delete_lmesure_resistance_essai_session')]
     public function supprimeSessionResistance($id, $id2, Request $request)
     {
         $session = $request->getSession();
         $tables = $session->get('resistances', []);
+
+        // Suppression de la session de mesure spécifique
         if (array_key_exists($id, $tables)) {
             unset($tables[$id]);
             $session->set('resistances', $tables);
         }
+
         return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $id2]);
     }
 
-    //delete tables mesures resistance
+    // Route pour supprimer une mesure de résistance de la base de données
     #[Route('/delete-lmesure-resistance/{id}/{id2}', name: 'delete_lmesure_essai_resistance')]
     public function supprimeLResistance(LMesureResistanceEssai $lMesureResistance, $id2, Request $request, LMesureResistanceEssaiRepository $lMesureResistanceRepository)
     {
-
         if ($lMesureResistance) {
+            // Suppression de l'entité dans la base de données
             $lMesureResistanceRepository->remove($lMesureResistance, true);
             return $this->redirectToRoute('app_mesure_resistance_essai', ['id' => $id2]);
         }

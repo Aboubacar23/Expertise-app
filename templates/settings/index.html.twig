@@ -19,6 +19,12 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+                    {% for flash_message in app.session.flashbag.get('success') %}
+                        <div class="container alert alert-success p-2" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                     <div class="x_content">
                         {{ form_start(form) }}
                             <div class="row">
