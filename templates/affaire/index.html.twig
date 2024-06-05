@@ -176,7 +176,7 @@
 										{% endif %}
                                         <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                         <td class="text-center">
-                                        <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-outline-	info btn-sm"><i class="fa fa-eye fa-1x"></i></a>
+                                        <a href="{{path('app_affaire_show', {'id' : item.affaire.id })}}" class="btn btn-outline-info btn-sm"><i class="fa fa-eye fa-1x"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
