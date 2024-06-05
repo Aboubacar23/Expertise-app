@@ -1,53 +1,55 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller; // Déclare le namespace du contrôleur
 
-use App\Repository\SettingsRepository;
-use App\Entity\Affaire;
-use App\Entity\Machine;
-use App\Entity\Parametre;
-use App\Entity\Type;
-use App\Form\ParametreType;
-use App\Repository\PhotoRepository;
-use App\Repository\ParametreRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\AppareilMesureRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ReleveDimmensionnelRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\SettingsRepository; // Importe le repository SettingsRepository
+use App\Entity\Affaire; // Importe l'entité Affaire
+use App\Entity\Machine; // Importe l'entité Machine
+use App\Entity\Parametre; // Importe l'entité Parametre
+use App\Entity\Type; // Importe l'entité Type
+use App\Form\ParametreType; // Importe le formulaire ParametreType
+use App\Repository\PhotoRepository; // Importe le repository PhotoRepository
+use App\Repository\ParametreRepository; // Importe le repository ParametreRepository
+use Doctrine\ORM\EntityManagerInterface; // Importe EntityManagerInterface pour la gestion des entités
+use App\Repository\AppareilMesureRepository; // Importe le repository AppareilMesureRepository
+use Symfony\Component\HttpFoundation\Request; // Importe la classe Request pour gérer les requêtes HTTP
+use Symfony\Component\HttpFoundation\Response; // Importe la classe Response pour gérer les réponses HTTP
+use Symfony\Component\Routing\Annotation\Route; // Importe la classe Route pour définir les routes
+use App\Repository\ReleveDimmensionnelRepository; // Importe le repository ReleveDimmensionnelRepository
+use Symfony\Component\HttpFoundation\JsonResponse; // Importe la classe JsonResponse pour les réponses JSON
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; // Importe AbstractController pour les fonctionnalités de contrôleur
 
-
-#[Route('/parametre')]
+#[Route('/parametre')] // Définit la route de base pour ce contrôleur
 class ParametreController extends AbstractController
 {
+    // Constructeur pour initialiser le repository SettingsRepository
     public function __construct(private  SettingsRepository $settingsRepository)
     {
-
     }
-    #[Route('/', name: 'app_parametre_index', methods: ['GET'])]
+
+    #[Route('/', name: 'app_parametre_index', methods: ['GET'])] // Définit la route pour afficher tous les paramètres
     public function index(ParametreRepository $parametreRepository): Response
     {
+        // Rendu de la vue index avec les paramètres
         return $this->render('parametre/index.html.twig', [
-            'parametres' => $parametreRepository->findAll(),
+            'parametres' => $parametreRepository->findAll(), // Récupère tous les paramètres
         ]);
     }
 
-    #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_parametre_new', methods: ['GET', 'POST'])] // Définit la route pour créer un nouveau paramètre
     public function new(Request $request, Affaire $affaire, ParametreRepository $parametreRepository): Response
     {
-        $parametre = new Parametre();
-        $form = $this->createForm(ParametreType::class, $parametre);
-        $form->handleRequest($request);
+        $parametre = new Parametre(); // Crée une nouvelle instance de Parametre
+        $form = $this->createForm(ParametreType::class, $parametre); // Crée le formulaire pour Parametre
+        $form->handleRequest($request); // Traite la requête
 
-        //initialiser les valeurs des critère et temperature de correction via settings
-        $setting = $this->settingsRepository->findOneBy([]);
-        $critere = $setting->getCritere();
-        $correction = $setting->getTemperature();
-        $numero_qualite =$setting->getNumeroQualite();
+        // Initialiser les valeurs des critères et température de correction via settings
+        $setting = $this->settingsRepository->findOneBy([]); // Récupère les paramètres de réglage
+        $critere = $setting->getCritere(); // Récupère le critère
+        $correction = $setting->getTemperature(); // Récupère la température de correction
+        $numero_qualite = $setting->getNumeroQualite(); // Récupère le numéro de qualité
 
+        // Vérifie si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             // Vérifier et initialiser les valeurs des tensions si elles sont nulles
             $parametre->setStatorTension2($parametre->getStatorTension2() ?? 0);
@@ -63,9 +65,10 @@ class ParametreController extends AbstractController
             $parametreRepository->save($parametre, true);
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $affaire->getId()
-            ], Response::HTTP_SEE_OTHER);
+            ], Response::HTTP_SEE_OTHER); // Redirige vers la vue de l'affaire
         }
 
+        // Rendu du formulaire de création de Parametre
         return $this->renderForm('parametre/new.html.twig', [
             'parametre' => $parametre,
             'form' => $form,
@@ -75,20 +78,24 @@ class ParametreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_parametre_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_parametre_show', methods: ['GET'])] // Définit la route pour afficher un paramètre
     public function show(Parametre $parametre): Response
     {
+        // Rendu de la vue show avec le paramètre
         return $this->render('parametre/show.html.twig', [
             'parametre' => $parametre,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_parametre_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_parametre_edit', methods: ['GET', 'POST'])] // Définit la route pour éditer un paramètre
     public function edit(Request $request, Parametre $parametre, ParametreRepository $parametreRepository): Response
     {
-        $form = $this->createForm(ParametreType::class, $parametre);
-        $form->handleRequest($request);
+        $form = $this->createForm(ParametreType::class, $parametre); // Crée le formulaire pour Parametre
+        $form->handleRequest($request); // Traite la requête
+
+        // Vérifie si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier et initialiser les valeurs des tensions si elles sont nulles
             if ($parametre->getStatorTension2() == null) {
                 $parametre->setStatorTension2(0);
             }
@@ -104,20 +111,22 @@ class ParametreController extends AbstractController
                 $parametre->setRotorTension(0);
             }
 
+            // Sauvegarde les modifications
             $parametreRepository->save($parametre, true);
 
             return $this->redirectToRoute('app_affaire_show', [
                 'id' => $parametre->getAffaire()->getId()
-            ], Response::HTTP_SEE_OTHER);
+            ], Response::HTTP_SEE_OTHER); // Redirige vers la vue de l'affaire
         }
 
+        // Rendu du formulaire d'édition de Parametre
         return $this->renderForm('parametre/edit.html.twig', [
             'parametre' => $parametre,
             'form' => $form,
         ]);
     }
 
-    #[Route('delete-parametre/{id}', name: 'app_parametre_delete', methods: ['GET'])]
+    #[Route('delete-parametre/{id}', name: 'app_parametre_delete', methods: ['GET'])] // Définit la route pour supprimer un paramètre
     public function delete(
         Request $request,
         Parametre $parametre,
@@ -128,65 +137,66 @@ class ParametreController extends AbstractController
         PhotoRepository $photoRepository,
     ): Response {
         if ($parametre) {
-            $id = $parametre->getAffaire()->getId();
-            //appareil de mesure mecanique
+            $id = $parametre->getAffaire()->getId(); // Récupère l'id de l'affaire
+
+            // Appareil de mesure mécanique
             foreach ($parametre->getAppareilMesureMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
-            //photos expertiss mécanique
+            // Photos d'expertise mécanique
             foreach ($parametre->getPhotoExpertiseMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
-            //constat électrique après lavage
+            // Constat électrique après lavage
             foreach ($parametre->getConstatElectriqueApresLavages() as $item) {
                 $em->remove($item, true);
             }
-            //constat mécanique
+            // Constat mécanique
             foreach ($parametre->getConstatMecaniques() as $item) {
                 $em->remove($item, true);
             }
 
-            //constat électrique avant lavage
+            // Constat électrique avant lavage
             foreach ($parametre->getConstatElectriques() as $item) {
                 $em->remove($item, true);
             }
-            //caractéristique
+            // Caractéristique
             foreach ($parametre->getCaracteristiques() as $item) {
                 $em->remove($item, true);
             }
 
-            //point de fonctionnement
+            // Point de fonctionnement
             foreach ($parametre->getPointFonctionnements() as $item) {
                 $em->remove($item);
             }
 
-            //point de fonctionnement à vide
+            // Point de fonctionnement à vide
             foreach ($parametre->getPointFonctionnementVides() as $item) {
                 $em->remove($item);
             }
 
-            ///point de fonctionnement rotor
+            // Point de fonctionnement rotor
             foreach ($parametre->getPointFonctionnementRotors() as $item) {
                 $em->remove($item);
             }
 
-            ///remontage photo
+            // Remontage photo
             foreach ($parametre->getRemontagePhotos() as $item) {
                 $em->remove($item);
             }
 
-            ///plauqe
+            // Plaque
             foreach ($parametre->getPlaques() as $item) {
                 $em->remove($item);
             }
-            ///controle de recensement
+            // Contrôle de recensement
             foreach ($parametre->getControleRecensements() as $item) {
                 $em->remove($item);
             }
 
-            ///photo
+            // Photo
             if ($parametre->getPhoto()) {
                 if ($parametre->getPhoto()->getImages()) {
                     foreach ($parametre->getPhoto()->getImages() as $item) {
@@ -201,7 +211,7 @@ class ParametreController extends AbstractController
                 }
             }
 
-            ///mesure isolement
+            // Mesure isolement
             if ($parametre->getMesureIsolement()) {
                 if ($parametre->getMesureIsolement()->getLMesureIsolements()) {
                     foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
@@ -211,7 +221,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getMesureIsolement());
             }
 
-            ///mesure essais
+            // Mesure essais
             if ($parametre->getMesureIsolementEssai()) {
                 if ($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais()) {
                     foreach ($parametre->getMesureIsolementEssai()->getLMesureIsolementEssais() as $item) {
@@ -221,7 +231,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getMesureIsolementEssai());
             }
 
-            ///mesure essais
+            // Mesure essais
             if ($parametre->getMesureResistanceEssai()) {
                 if ($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais()) {
                     foreach ($parametre->getMesureResistanceEssai()->getLMesureResistanceEssais() as $item) {
@@ -231,7 +241,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getMesureResistanceEssai());
             }
 
-            ///mesure resistance
+            // Mesure résistance
             if ($parametre->getMesureResistance()) {
                 if ($parametre->getMesureResistance()->getLMesureResistances()) {
                     foreach ($parametre->getMesureResistance()->getLMesureResistances() as $item) {
@@ -241,7 +251,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getMesureResistance());
             }
 
-            ///sonde et bobinage
+            // Sonde et bobinage
             if ($parametre->getSondeBobinage()) {
                 if ($parametre->getSondeBobinage()->getLSondeBobinages()) {
                     foreach ($parametre->getSondeBobinage()->getLSondeBobinages() as $item) {
@@ -251,7 +261,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getSondeBobinage());
             }
 
-            //stator après lavage
+            // Stator après lavage
             if ($parametre->getStatorApresLavage()) {
                 if ($parametre->getStatorApresLavage()->getLStatorApresLavages()) {
                     foreach ($parametre->getStatorApresLavage()->getLStatorApresLavages() as $item) {
@@ -261,7 +271,7 @@ class ParametreController extends AbstractController
                 $em->remove($parametre->getStatorApresLavage());
             }
 
-            ///controle visuel
+            // Contrôle visuel
             if ($parametre->getControleVisuelMecanique()) {
                 if ($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires()) {
                     foreach ($parametre->getControleVisuelMecanique()->getAccessoireSupplementaires() as $item) {
@@ -290,35 +300,34 @@ class ParametreController extends AbstractController
                 }
             }
 
-            $em->remove($parametre);
-            $em->flush();
+            $em->remove($parametre); // Supprime le paramètre
+            $em->flush(); // Applique les changements à la base de données
         }
 
         return $this->redirectToRoute('app_affaire_show', [
             'id' => $id
-        ], Response::HTTP_SEE_OTHER);
+        ], Response::HTTP_SEE_OTHER); // Redirige vers la vue de l'affaire
     }
 
-    #[Route('/reunion-validation/{id}', name: 'app_parametre_valided', methods: ['GET'])]
+    #[Route('/reunion-validation/{id}', name: 'app_parametre_valided', methods: ['GET'])] // Définit la route pour valider un paramètre en réunion
     public function reunion(Request $request, Parametre $parametre, ParametreRepository $parametreRepository, EntityManagerInterface $em): Response
     {
-        $id = $parametre->getAffaire()->getId();
+        $id = $parametre->getAffaire()->getId(); // Récupère l'id de l'affaire
         if ($parametre) {
-            $parametre->setEtat(1);
-            $em->persist($parametre);
-            $em->flush();
+            $parametre->setEtat(1); // Met à jour l'état du paramètre
+            $em->persist($parametre); // Persiste le paramètre
+            $em->flush(); // Applique les changements à la base de données
         }
         return $this->redirectToRoute('app_affaire_show', [
             'id' => $id
-        ], Response::HTTP_SEE_OTHER);
+        ], Response::HTTP_SEE_OTHER); // Redirige vers la vue de l'affaire
     }
 
-    //la fonction qui permet d'activer et réactiver une affaire
-    #[Route('/info/{id}', name: 'get_info', methods: ['GET'])]
+    #[Route('/info/{id}', name: 'get_info', methods: ['GET'])] // Définit la route pour obtenir les informations d'un type de machine
     public function test(Type $machine): JsonResponse
     {
         if (!$machine) {
-            return new JsonResponse(['erreur' => 'type machine non trouvée'], 404);
+            return new JsonResponse(['erreur' => 'type machine non trouvée'], 404); // Retourne une erreur si la machine n'est pas trouvée
         }
         return new JsonResponse([
             'machine' => $machine->getMachine()->getId(),
@@ -342,19 +351,17 @@ class ParametreController extends AbstractController
             'rotor_expertise_refrigeant' => $machine->getRotorExpertiseRefrigeant(),
             'rotor_courant' => $machine->getRotorCourant(),
             'presence_plans' => $machine->isPresencePlans(),
-        ]);
+        ]); // Retourne les informations de la machine sous forme de JSON
     }
 
-
-    //la fonction qui permet d'activer et réactiver une affaire
-    #[Route('/frequence/{id}', name: 'app_frequence', methods: ['GET'])]
+    #[Route('/frequence/{id}', name: 'app_frequence', methods: ['GET'])] // Définit la route pour obtenir la fréquence d'une machine
     public function frequence(Machine $machine): JsonResponse
     {
         if (!$machine) {
-            return new JsonResponse(['erreur' => 'Machine non trouvée'], 404);
+            return new JsonResponse(['erreur' => 'Machine non trouvée'], 404); // Retourne une erreur si la machine n'est pas trouvée
         }
         return new JsonResponse([
-            'name' => $machine->getCategorie(),
+            'name' => $machine->getCategorie(), // Retourne la catégorie de la machine
         ]);
     }
 }

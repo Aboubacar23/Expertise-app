@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                            <table id="datatable" class="table table-hover table-striped table-bordered table-sm" style="width:100%">
                                 <thead class="table-secondary">
                                     <tr>
                                     <th width="2">N°</th>
@@ -33,7 +33,7 @@
                                     <th>Machine</th>
                                     <th>Affaire suivie par</th>
                                     <th>Date prévisionnelle de livraison</th>
-                                    <th width="200" class="text-center">Action</th>
+                                    <th width="200" class="text-center"></th>
                                     </tr>
                                 </thead> 
                                 <tbody> 
@@ -54,9 +54,9 @@
                                                 <td>{{ item.affaire.suiviPar }}</td>
                                                 <td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{path('app_parametre_expertise', {'id' : item.id })}}" target="_blank" class="btn btn-info btn-sm">Expertise <i class="fa fa-print"></i></a>
+                                                    <a href="{{path('app_parametre_expertise', {'id' : item.id })}}" target="_blank" class="btn btn-outline-info btn-sm">Expertise <i class="fa fa-print"></i></a>
                                                     {% if item.statutFinal == 1 %}
-                                                        <a href="{{path('app_parametre_final', {'id' : item.id })}}" target="_blank" class="btn btn-success btn-sm">Final <i class="fa fa-print"></i></a>
+                                                        <a href="{{path('app_parametre_final', {'id' : item.id })}}" target="_blank" class="btn btn-outline-primary btn-sm">Final <i class="fa fa-print"></i></a>
                                                     {% endif %}
                                                 </td>
                                             </tr>                                            

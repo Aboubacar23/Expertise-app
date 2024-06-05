@@ -21,16 +21,21 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
+    // Constructeur pour injecter le générateur d'URL
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
 
+    // Méthode pour authentifier l'utilisateur
     public function authenticate(Request $request): Passport
     {
+        // Récupère le nom d'utilisateur depuis la requête
         $username = $request->request->get('username', '');
 
+        // Stocke le dernier nom d'utilisateur utilisé dans la session
         $request->getSession()->set(Security::LAST_USERNAME, $username);
 
+        // Retourne un passeport avec les badges de sécurité nécessaires
         return new Passport(
             new UserBadge($username),
             new PasswordCredentials($request->request->get('password', '')),
@@ -40,18 +45,19 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    // Méthode appelée après une authentification réussie
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        // Vérifie s'il y a une URL de destination prévue après l'authentification
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        //   dd($request->getSession());
+        // Redirige l'utilisateur vers la page d'accueil après l'authentification réussie
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    // Méthode pour obtenir l'URL de connexion
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

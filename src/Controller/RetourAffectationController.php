@@ -23,30 +23,31 @@ class RetourAffectationController extends AbstractController
     public function index(RetourAffectationRepository $retourAffectationRepository): Response
     {
         return $this->render('metrologies/retour_affectation/index.html.twig', [
-            'retour_affectations' => $retourAffectationRepository->findBy([],['id' => 'desc']),
-        ]); 
+            'retour_affectations' => $retourAffectationRepository->findBy([], ['id' => 'desc']),
+        ]);
     }
 
     #[Route('/new', name: 'app_retour_affectation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, RetourAffectationRepository $retourAffectationRepository,EntityManagerInterface $em): Response
+    public function new(Request $request, RetourAffectationRepository $retourAffectationRepository, EntityManagerInterface $em): Response
     {
         $retourAffectation = new RetourAffectation();
         $form = $this->createForm(RetourAffectationType::class, $retourAffectation);
         $form->handleRequest($request);
 
+        // Soumission et validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $affecs = $retourAffectation->getAffectation();
             $affecs->setRetour(1);
-            foreach($affecs->getLaffectations() as $item)
-            {
+            foreach ($affecs->getLaffectations() as $item) {
                 $item->getAppareil()->setStatus(0);
-                $em->persist($item->getAppareil()); 
+                $em->persist($item->getAppareil());
             }
             $em->flush();
             $retourAffectationRepository->save($retourAffectation, true);
             return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'new.html.twig' avec le formulaire de création
         return $this->renderForm('metrologies/retour_affectation/new.html.twig', [
             'retour_affectation' => $retourAffectation,
             'form' => $form,
@@ -67,12 +68,13 @@ class RetourAffectationController extends AbstractController
         $form = $this->createForm(RetourAffectationType::class, $retourAffectation);
         $form->handleRequest($request);
 
+        // Soumission et validation du formulaire d'édition
         if ($form->isSubmitted() && $form->isValid()) {
             $retourAffectationRepository->save($retourAffectation, true);
-
             return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'edit.html.twig' avec le formulaire d'édition
         return $this->renderForm('metrologies/retour_affectation/edit.html.twig', [
             'retour_affectation' => $retourAffectation,
             'form' => $form,
@@ -94,15 +96,15 @@ class RetourAffectationController extends AbstractController
         return $this->redirectToRoute('app_retour_affectation_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/print-affectation/{id}', name: 'app_affectation_retour_print', methods: ['POST','GET'])]
+    #[Route('/print-affectation/{id}', name: 'app_affectation_retour_print', methods: ['POST', 'GET'])]
     public function print(RetourAffectation $retourAffectation): Response
-    {  
+    {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);
 
-        // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
+        // Instanciation de Dompdf
+        $dompdf = new Dompdf($pdfOptions);
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
         $dompdf->setCallbacks([
@@ -131,25 +133,26 @@ class RetourAffectationController extends AbstractController
         //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        // On génère un nom de fichier
-        $fichier = "Retour Affectation : ".$retourAffectation->getAffectation()->getAffaire();
+        // Génération d'un nom de fichier
+        $fichier = "Retour Affectation : " . $retourAffectation->getAffectation()->getAffaire();
 
-        // On envoie le PDF au navigateur
+        // Envoi du PDF au navigateur
         $dompdf->stream($fichier, [
             'Attachment' => false
-        ]); 
- 
-        exit();    
+        ]);
+
+        exit();
     }
 
     #[Route('/modifier-appareil-retour/{id}/edit', name: 'app_retour_affectation_app_edit', methods: ['GET', 'POST'])]
-    public function modifier(Request $request, Laffectation $laffectation, LaffectationRepository $laffectationRepository, EntityManagerInterface  $em): Response
+    public function modifier(Request $request, Laffectation $laffectation, LaffectationRepository $laffectationRepository, EntityManagerInterface $em): Response
     {
         $id = $laffectation->getAffectation()->getRetourAffectation()->getId();
         $form = $this->createForm(LaffectationRetourType::class, $laffectation);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+
+        // Soumission et validation du formulaire de modification
+        if ($form->isSubmitted() && $form->isValid()) {
             $app = $laffectation->getAppareil();
             $app->setDesignation($laffectation->getDesignation());
             $app->setType($laffectation->getType());
@@ -160,10 +163,10 @@ class RetourAffectationController extends AbstractController
             return $this->redirectToRoute('app_retour_affectation_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'edit_app_retour.html.twig' avec le formulaire de modification
         return $this->renderForm('metrologies/retour_affectation/edit_app_retour.html.twig', [
             'laffectation' => $laffectation,
             'form' => $form,
         ]);
     }
-
 }
