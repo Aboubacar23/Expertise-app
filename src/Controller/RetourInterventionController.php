@@ -16,29 +16,33 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RetourInterventionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+// Définition de la route principale pour ce contrôleur
 #[Route('/retour/intervention')]
 class RetourInterventionController extends AbstractController
 {
+    // Route pour afficher la liste de toutes les interventions de retour
     #[Route('/', name: 'app_retour_intervention_index', methods: ['GET'])]
     public function index(RetourInterventionRepository $retourInterventionRepository): Response
     {
+        // Rendu de la vue Twig 'index.html.twig' avec la liste des interventions de retour
         return $this->render('metrologies/retour_intervention/index.html.twig', [
-            'retour_interventions' => $retourInterventionRepository->findBy([],['id' => 'desc']),
+            'retour_interventions' => $retourInterventionRepository->findBy([], ['id' => 'desc']),
         ]);
     }
 
+    // Route pour créer une nouvelle intervention de retour
     #[Route('/new', name: 'app_retour_intervention_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RetourInterventionRepository $retourInterventionRepository, EntityManagerInterface $em): Response
     {
         $retourIntervention = new RetourIntervention();
         $form = $this->createForm(RetourInterventionType::class, $retourIntervention);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+
+        // Soumission et validation du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
             $inters = $retourIntervention->getIntervention();
             $inters->setRetour(1);
-            foreach($inters->getLinterventions() as $item)
-            {
+            foreach ($inters->getLinterventions() as $item) {
                 $item->getAppareil()->setStatus(0);
                 $em->persist($item->getAppareil());
             }
@@ -47,61 +51,67 @@ class RetourInterventionController extends AbstractController
             return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'new.html.twig' avec le formulaire de création
         return $this->renderForm('metrologies/retour_intervention/new.html.twig', [
             'retour_intervention' => $retourIntervention,
             'form' => $form,
         ]);
     }
 
+    // Route pour afficher les détails d'une intervention de retour spécifique
     #[Route('/{id}', name: 'app_retour_intervention_show', methods: ['GET'])]
-    public function show(RetourIntervention $retourIntervention,Request $request): Response
+    public function show(RetourIntervention $retourIntervention, Request $request): Response
     {
         return $this->render('metrologies/retour_intervention/show.html.twig', [
             'retour_intervention' => $retourIntervention,
         ]);
     }
 
+    // Route pour éditer une intervention de retour existante
     #[Route('/{id}/edit', name: 'app_retour_intervention_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, RetourIntervention $retourIntervention, RetourInterventionRepository $retourInterventionRepository): Response
     {
         $form = $this->createForm(RetourInterventionType::class, $retourIntervention);
         $form->handleRequest($request);
 
+        // Soumission et validation du formulaire d'édition
         if ($form->isSubmitted() && $form->isValid()) {
             $retourInterventionRepository->save($retourIntervention, true);
             return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'edit.html.twig' avec le formulaire d'édition
         return $this->renderForm('metrologies/retour_intervention/edit.html.twig', [
             'retour_intervention' => $retourIntervention,
             'form' => $form,
         ]);
     }
 
+    // Route pour supprimer une intervention de retour existante
     #[Route('/sup/{id}', name: 'app_retour_intervention_delete', methods: ['GET'])]
     public function delete(Request $request, RetourIntervention $retourIntervention, RetourInterventionRepository $retourInterventionRepository): Response
     {
-        if ($retourIntervention)
-        {
-            if ($retourIntervention->getIntervention())
-            {
+        if ($retourIntervention) {
+            if ($retourIntervention->getIntervention()) {
                 $this->addFlash('danger', 'Désolé vous ne pouvez pas supprimer cette intervention !');
                 return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
             }
-            $retourInterventionRepository->remove($retourIntervention,true);
+            $retourInterventionRepository->remove($retourIntervention, true);
             return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->redirectToRoute('app_retour_intervention_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    // Route pour modifier un appareil de retour dans une intervention
     #[Route('/modifier-appareil-retour/{id}/edit', name: 'app_retour_intervention_app_edit', methods: ['GET', 'POST'])]
-    public function modifier(Request $request, Lintervention $lintervention, LinterventionRepository $linterventionRepository, EntityManagerInterface  $em): Response
+    public function modifier(Request $request, Lintervention $lintervention, LinterventionRepository $linterventionRepository, EntityManagerInterface $em): Response
     {
         $id = $lintervention->getIntervention()->getRetourIntervention()->getId();
         $form = $this->createForm(LinterventionRetourType::class, $lintervention);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+
+        // Soumission et validation du formulaire de modification
+        if ($form->isSubmitted() && $form->isValid()) {
             $app = $lintervention->getAppareil();
             $app->setDesignation($lintervention->getDesignation());
             $app->setMarque($lintervention->getMarque());
@@ -115,22 +125,23 @@ class RetourInterventionController extends AbstractController
             return $this->redirectToRoute('app_retour_intervention_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendu de la vue Twig 'edit_app_retour.html.twig' avec le formulaire de modification
         return $this->renderForm('metrologies/retour_intervention/edit_app_retour.html.twig', [
             'lintervention' => $lintervention,
             'form' => $form,
         ]);
     }
 
-        //imprimer le bon de sortie
-    #[Route('/print-intervention/{id}', name: 'app_intervention_retour_print', methods: ['POST','GET'])]
+    // Route pour imprimer le bon de sortie
+    #[Route('/print-intervention/{id}', name: 'app_intervention_retour_print', methods: ['POST', 'GET'])]
     public function print(RetourIntervention $intervention): Response
-    {   
+    {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Times New Roman');
         $pdfOptions->setIsRemoteEnabled(true);
 
-        // On instancie Dompdf
-        $dompdf = new Dompdf($pdfOptions);        
+        // Instanciation de Dompdf
+        $dompdf = new Dompdf($pdfOptions);
         $dompdf->getOptions()->set('isPhpEnabled', true);
         $dompdf->getOptions()->set('isHtml5ParserEnabled', true);
         $dompdf->setCallbacks([
@@ -156,18 +167,16 @@ class RetourInterventionController extends AbstractController
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
-        //$dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        // On génère un nom de fichier
-        $fichier = "Intetrvention : ".$intervention->getIntervention()->getNumeroDa();
+        // Génération d'un nom de fichier
+        $fichier = "Intervention : " . $intervention->getIntervention()->getNumeroDa();
 
-        // On envoie le PDF au navigateur
+        // Envoi du PDF au navigateur
         $dompdf->stream($fichier, [
             'Attachment' => false
-        ]); 
- 
-        exit();    
+        ]);
+
+        exit();
     }
-    
 }

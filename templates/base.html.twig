@@ -66,6 +66,24 @@
 			padding-top: -20px;
 			height: 15px !important;
 		}
+
+		.mon-icone {
+			display: inline-block; /* Empêche l'infobulle de prendre toute la largeur */
+		}
+
+		.infobulle {
+			display: none; /* Masque l'infobulle par défaut */
+			position: absolute; /* Permet un positionnement précis */
+			background-color: #fff; /* Couleur de fond de l'infobulle */
+			padding: 10px; /* Marge interne de l'infobulle */
+			border: 1px solid #ccc; /* Bordure de l'infobulle */
+			z-index: 1; /* Garantit que l'infobulle est au-dessus de l'icône */
+		}
+
+		.container-icone:hover .infobulle {
+			display: block; /* Affiche l'infobulle au survol */
+		}
+
 	</style>
 	<div class="container body">
 		<div class="main_container">

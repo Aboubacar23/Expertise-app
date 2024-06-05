@@ -63,10 +63,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-
+// Déclaration de la classe de contrôleur avec annotation de route
 #[Route('/expertiseMecanique')]
 class ExpertiseMecaniqueController extends AbstractController
 {
+    // Constructeur de la classe injectant divers services nécessaires
     public function __construct(private EntityManagerInterface $entityManager,
                                 private RedimensionneService $redimensionneService,
                                 private ImageService $imageService,
@@ -75,21 +76,27 @@ class ExpertiseMecaniqueController extends AbstractController
     {
     }
 
-
+    // Route pour afficher la page d'index de l'expertise mécanique
     #[Route('/index/{id}/mecanique', name: 'app_expertise_mecanique')]
     public function index(Parametre $parametre, Request $request,): Response
     {
+        // Rendu du template avec le paramètre passé à la vue
         return $this->render('expertise_mecanique/index.html.twig', ['parametre' => $parametre,]);
     }
 
-    //photo à la réception 
+    // Route pour ajouter une photo à la réception
     #[Route('/photo-reception/{id}', name: 'app_photo_reception')]
     public function photoReception(Parametre $parametre, ControleRecensementRepository $controleRecensementRepository, Request $request, SluggerInterface $slugger)
     {
+        // Création d'une nouvelle instance de ControleRecensement
         $controleRecensement = new ControleRecensement();
+        // Création du formulaire associé à l'entité ControleRecensement
         $formControleRecensement = $this->createForm(ControleRecensementType::class, $controleRecensement);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formControleRecensement->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formControleRecensement->isSubmitted() && $formControleRecensement->isValid()) {
+            // Vérification de l'unicité de la photo par son libellé
             $trouve = false;
             foreach ($parametre->getControleRecensements() as $item) {
                 if ($item->getLibelle() == $controleRecensement->getLibelle()) {
@@ -97,19 +104,23 @@ class ExpertiseMecaniqueController extends AbstractController
                 }
             }
 
+            // Si la photo n'a pas déjà été ajoutée
             if ($trouve == false) {
+                // Gestion de l'image uploadée
                 $photo = $formControleRecensement->get('photo')->getData();
-                if ($photo) 
+                if ($photo)
                 {
-                    //récuperer la taille de l'image à inserrer
+                    // Récupération de la taille de l'image
                     $size = $photo->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    // Vérification si l'image est supérieure à 2 Mo
                     if($size > 2*1024*1024)
                     {
+                        // Affichage d'un message d'erreur
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
 
                     }else{
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
@@ -126,14 +137,17 @@ class ExpertiseMecaniqueController extends AbstractController
                     }
                 }
 
+                // Association du controle recensement au paramètre et sauvegarde dans la base de données
                 $controleRecensement->setParametre($parametre);
                 $controleRecensementRepository->save($controleRecensement, true);
                 return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
             } else {
+                // Affichage d'un message si la photo a déjà été ajoutée
                 $this->addFlash("message", "oups ! vous avez déjà ajouté cette photo : " . $controleRecensement->getLibelle());
                 return $this->redirectToRoute('app_photo_reception', ['id' => $parametre->getId()]);
             }
         }
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/controle_recensement.html.twig', [
             'parametre' => $parametre,
             'formControleRecensement' => $formControleRecensement->createView()
@@ -141,28 +155,37 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //photo rotor 
+    // Route pour ajouter une photo du rotor
     #[Route('/photo-rotor-mecanique/{id}', name: 'app_photo_rotor')]
     public function photoRotor(Parametre $parametre, PhotoRotorRepository $photoRotorRepository, Request $request, SluggerInterface $slugger)
     {
+        // Création d'une nouvelle instance de PhotoRotor
         $photoRotor = new PhotoRotor();
+        // Récupération du nombre de photos du rotor associées au paramètre
         $taille = count($photoRotorRepository->findByParametre($parametre));
+        // Création du formulaire associé à l'entité PhotoRotor
         $formPhotoRotor = $this->createForm(PhotoRotorType::class, $photoRotor);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formPhotoRotor->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formPhotoRotor->isSubmitted() && $formPhotoRotor->isValid()) {
+            // Vérification si aucune photo du rotor n'a déjà été ajoutée
             if ($taille == 0) {
 
+                // Gestion de l'image uploadée
                 $photo = $formPhotoRotor->get('libelle')->getData();
-                if ($photo) 
+                if ($photo)
                 {
-                    //récuperer la taille de l'image à inserrer
+                    // Récupération de la taille de l'image
                     $size = $photo->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    // Vérification si l'image est supérieure à 2 Mo
                     if($size > 2*1024*1024)
                     {
+                        // Affichage d'un message d'erreur
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_photo_rotor', ['id' => $parametre->getId()]);
                     }else{
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
@@ -179,15 +202,18 @@ class ExpertiseMecaniqueController extends AbstractController
                     }
                 }
 
+                // Association de la photo du rotor au paramètre et sauvegarde dans la base de données
                 $photoRotor->setParametre($parametre);
                 $photoRotor->setEtat(1);
                 $photoRotorRepository->save($photoRotor, true);
                 return $this->redirectToRoute('app_photo_rotor', ['id' => $parametre->getId()]);
             } else {
+                // Affichage d'un message si une photo du rotor a déjà été ajoutée
                 $this->addFlash("danger", "Désolé vous avez déjà ajouté cette photo");
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/photo_rotor.html.twig', [
             'parametre' => $parametre,
             'formPhotoRotor' => $formPhotoRotor->createView()
@@ -195,31 +221,39 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //Contrôle visuel et recensement
+    // Route pour le contrôle visuel et recensement
     #[Route('/controle-visuel/{id}', name: 'app_controle_visuel_mecanique')]
     public function consoleVisuel(AccessoireSupplementaireRepository $accessoireSupplementaireRepository, Parametre $parametre, Request $request, ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
-        //la partie controle visuel Mecanique
+        // Création d'une nouvelle instance de ControleVisuelMecanique et AccessoireSupplementaire
         $controleVisuelMecanique = new ControleVisuelMecanique();
         $accessoireSupplementaire = new AccessoireSupplementaire();
 
+        // Si le paramètre a déjà un controle visuel mécanique, on le récupère
         if ($parametre->getControleVisuelMecanique()) {
             $controleVisuelMecanique = $parametre->getControleVisuelMecanique()->getParametre()->getControleVisuelMecanique();
         }
 
+        // Création des formulaires associés aux entités ControleVisuelMecanique et AccessoireSupplementaire
         $formControlevisuelMecanque = $this->createForm(ControleVisuelMecaniqueType::class, $controleVisuelMecanique);
         $formAccessoire = $this->createForm(AccessoireSupplementaireType::class, $accessoireSupplementaire);
+        // Traitement de la requête HTTP avec les données des formulaires
         $formControlevisuelMecanque->handleRequest($request);
         $formAccessoire->handleRequest($request);
 
+        // Récupération des accessoires supplémentaires avec le numéro de ligne 0
         $tables = $accessoireSupplementaireRepository->findByLig(0);
+        // Si les formulaires sont soumis et valides
         if ($formControlevisuelMecanque->isSubmitted() && $formAccessoire->isSubmitted()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton1');
             if ($choix == 'ajouter') {
+                // Ajout d'un accessoire supplémentaire
                 $accessoireSupplementaire->setLig(0);
                 $accessoireSupplementaireRepository->save($accessoireSupplementaire, true);
                 return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_visuel_en_cours') {
+                // Mise à jour des accessoires supplémentaires et du contrôle visuel en cours
                 foreach ($tables as $item) {
                     $item->setLig(1);
                     $item->setControleVisuelMecanique($controleVisuelMecanique);
@@ -230,6 +264,7 @@ class ExpertiseMecaniqueController extends AbstractController
                 $controleVisuelMecaniqueRepository->save($controleVisuelMecanique, true);
                 return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_visuel_terminer') {
+                // Mise à jour des accessoires supplémentaires et du contrôle visuel terminé
                 foreach ($tables as $item) {
                     $item->setLig(1);
                     $item->setControleVisuelMecanique($controleVisuelMecanique);
@@ -241,6 +276,7 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        // Rendu du template avec les données des formulaires et du paramètre
         return $this->render('expertise_mecanique/controle_visuel.html.twig', [
             'parametre' => $parametre,
             'formAccessoire' => $formAccessoire->createView(),
@@ -251,27 +287,33 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //controle montage de roulement
+    // Route pour le contrôle de montage de roulement
     #[Route('/controle-montage-roulement/{id}', name: 'app_controle_montage_roulement')]
     public function consoleMontage(ControleMontageRoulementRepository $controleMontageRoulementRepository, Parametre $parametre, Request $request, ControleVisuelMecaniqueRepository $controleVisuelMecaniqueRepository,): Response
     {
-        //la partie controle montage roulement
+        // Création d'une nouvelle instance de ControleMontageRoulement
         $controleMontageRoulement = new ControleMontageRoulement();
+        // Si le paramètre a déjà un contrôle de montage de roulement, on le récupère
         if ($parametre->getControleMontageRoulement()) {
             $controleMontageRoulement = $parametre->getControleMontageRoulement()->getParametre()->getControleMontageRoulement();
         }
 
+        // Création du formulaire associé à l'entité ControleMontageRoulement
         $formControlMontageRoulement = $this->createForm(ControleMontageRoulementType::class, $controleMontageRoulement);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formControlMontageRoulement->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formControlMontageRoulement->isSubmitted() && $formControlMontageRoulement->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton2');
             if ($choix == 'controle_montage_roulement_en_cours') {
+                // Mise à jour du contrôle de montage de roulement en cours
                 $parametre->setControleMontageRoulement($controleMontageRoulement);
                 $controleMontageRoulement->setEtat(0);
                 $controleMontageRoulementRepository->save($controleMontageRoulement, true);
                 $this->redirectToRoute('app_controle_montage_roulement', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_montage_roulement_terminer') {
-
+                // Mise à jour du contrôle de montage de roulement terminé
                 $parametre->setControleMontageRoulement($controleMontageRoulement);
                 $controleMontageRoulement->setEtat(1);
                 $controleMontageRoulementRepository->save($controleMontageRoulement, true);
@@ -279,35 +321,40 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/controle_montage_roulement.html.twig', [
             'parametre' => $parametre,
-            //  'valCA' => $valCA,
-            //'valCOA' => $valCOA,
             'formControlMontageRoulement' => $formControlMontageRoulement->createView()
-
         ]);
     }
 
-    //controle montage de coussinet
+    // Route pour le contrôle de montage de coussinet
     #[Route('/controle-montage-coussinet/{id}', name: 'app_controle_montage_coussinet')]
     public function consoleMontageCoussinet(ControleMontageConssinetRepository $controleMontageConssinetRepository, Parametre $parametre, Request $request): Response
     {
-        //la partie controle montage coussinet
+        // Création d'une nouvelle instance de ControleMontageCoussinet
         $controleMontageCoussinet = new ControleMontageConssinet();
+        // Si le paramètre a déjà un contrôle de montage de coussinet, on le récupère
         if ($parametre->getControleMontageCoussinet()) {
             $controleMontageCoussinet = $parametre->getControleMontageCoussinet()->getParametre()->getControleMontageCoussinet();
         }
 
+        // Création du formulaire associé à l'entité ControleMontageCoussinet
         $formControlMontageCoussinet = $this->createForm(ControleMontageCoussinetType::class, $controleMontageCoussinet);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formControlMontageCoussinet->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formControlMontageCoussinet->isSubmitted() && $formControlMontageCoussinet->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton3');
             if ($choix == 'controle_montage_coussinet_en_cours') {
+                // Mise à jour du contrôle de montage de coussinet en cours
                 $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                 $controleMontageCoussinet->setEtat(0);
                 $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
                 $this->redirectToRoute('app_controle_montage_coussinet', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_montage_coussinet_terminer') {
+                // Mise à jour du contrôle de montage de coussinet terminé
                 $parametre->setControleMontageCoussinet($controleMontageCoussinet);
                 $controleMontageCoussinet->setEtat(1);
                 $controleMontageConssinetRepository->save($controleMontageCoussinet, true);
@@ -315,6 +362,7 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/controle_montage_coussinet.html.twig', [
             'parametre' => $parametre,
             'formControlMontageCoussinet' => $formControlMontageCoussinet->createView(),
@@ -322,45 +370,51 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //relevé dimensionnel
+    // Route pour le relevé dimensionnel
     #[Route('/releve-dimensionnel/{id}', name: 'app_releve_dimensionnel')]
     public function releveDimensionnel(ReleveDimmensionnelRepository $releveDimmensionnelRepository, Parametre $parametre, Request $request): Response
     {
-        //la partie relevés dimmensionnel rotor et paliers
+        // Création d'une nouvelle instance de ReleveDimmensionnel
         $releveDimmensionnel = new ReleveDimmensionnel();
+        // Création du formulaire associé à l'entité ReleveDimmensionnel
         $formReleveDimmensionnel = $this->createForm(ReleveDimmensionnelType::class, $releveDimmensionnel);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formReleveDimmensionnel->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formReleveDimmensionnel->isSubmitted() && $formReleveDimmensionnel->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton4');
-            //  dd($choix);
             if ($choix == 'ajouter') {
+                // Ajout du relevé dimensionnel au paramètre et sauvegarde dans la base de données
                 $releveDimmensionnel->setParametre($parametre);
                 $releveDimmensionnelRepository->save($releveDimmensionnel, true);
                 $this->redirectToRoute('app_releve_dimensionnel', ['id' => $parametre->getId()]);
             }
         }
 
-
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/releve_dimensionnels.html.twig', [
             'parametre' => $parametre,
             'formReleveDimmensionnel' => $formReleveDimmensionnel->createView()
-
         ]);
     }
 
-    //relevé controle geometrique
+    // Route pour le contrôle géométrique
     #[Route('/controle-geometrique/{id}', name: 'app_controle_geometrique')]
     public function controleGeometrique(ControleGeometriqueRepository $controleGeometriqueRepository, Parametre $parametre, Request $request): Response
     {
-
-        //la partie controle geometrique
+        // Création d'une nouvelle instance de ControleGeometrique
         $controleGeometrique = new ControleGeometrique();
-
+        // Création du formulaire associé à l'entité ControleGeometrique
         $formControlGeometrique = $this->createForm(ControleGeometriqueType::class, $controleGeometrique);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formControlGeometrique->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formControlGeometrique->isSubmitted() && $formControlGeometrique->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton5');
             if ($choix == 'controle_geometrique_en_cours') {
+                // Vérification de l'unicité du contrôle géométrique par type et diamètre
                 $trouve = false;
                 if ($parametre->getControleGeometriques()) {
                     foreach ($parametre->getControleGeometriques() as $item) {
@@ -370,41 +424,50 @@ class ExpertiseMecaniqueController extends AbstractController
                     }
                 }
 
+                // Si le contrôle géométrique n'a pas déjà été ajouté
                 if ($trouve == false) {
+                    // Ajout du contrôle géométrique au paramètre et sauvegarde dans la base de données
                     $controleGeometrique->setEtat(0);
                     $controleGeometrique->setParametre($parametre);
                     $controleGeometriqueRepository->save($controleGeometrique, true);
                     return $this->redirectToRoute('app_controle_geometrique', ['id' => $parametre->getId()]);
                 } else {
+                    // Affichage d'un message d'erreur
                     $this->addFlash("error", "Ce contrôle existe déjà ! ");
                 }
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/controle_geometrique.html.twig', [
             'parametre' => $parametre,
             'formControlGeometrique' => $formControlGeometrique->createView(),
-
         ]);
     }
 
-    //relevé appareil-mesure
+    // Route pour ajouter un appareil de mesure
     #[Route('/appareil-mesure/{id}', name: 'app_appareil_mesure_mecanique')]
     public function appareilMesure(AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository, Parametre $parametre, Request $request): Response
     {
-        //la partie appareil de mesure
+        // Création d'une nouvelle instance d'AppareilMesureMecanique
         $appareilMesureMecanique = new AppareilMesureMecanique();
-
+        // Création du formulaire associé à l'entité AppareilMesureMecanique
         $formAppareilMesureMecanique = $this->createForm(AppareilMesureMecaniqueType::class, $appareilMesureMecanique);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formAppareilMesureMecanique->handleRequest($request);
         $date = date('Y-m-d');
+        // Si le formulaire est soumis et valide
         if ($formAppareilMesureMecanique->isSubmitted() && $formAppareilMesureMecanique->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton6');
             if ($choix == 'ajouter') {
+                // Vérification de la date de validité de l'appareil
                 $dateAppareil = $appareilMesureMecanique->getAppareil()->getDateValidite()->format('Y-m-d');
                 if ($dateAppareil < $date) {
+                    // Affichage d'un message d'erreur
                     $this->addFlash("message", "L'appareil que vous venez de choisir à expirer et la date de validité est : " . $dateAppareil);
                 } else {
+                    // Ajout de l'appareil de mesure au paramètre et sauvegarde dans la base de données
                     $appareilMesureMecanique->setParametre($parametre);
                     $appareilMesureMecanique->setEtat(0);
                     $appareilMesureMecaniqueRepository->save($appareilMesureMecanique, true);
@@ -413,33 +476,40 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/appareil_mesure.html.twig', [
             'parametre' => $parametre,
             'formAppareilMesureMecanique' => $formAppareilMesureMecanique->createView(),
-
         ]);
     }
 
-    //relevé Expertise Hydro ou Aéro
+    // Route pour l'expertise Hydro ou Aéro
     #[Route('/hydro-aero/{id}', name: 'app_hydro_aero')]
     public function hydroAero(HydroAeroRepository $hydroAeroRepository, Parametre $parametre, Request $request): Response
     {
-        //la partie hydro Aéro
+        // Création d'une nouvelle instance d'HydroAero
         $hydroAero = new HydroAero();
+        // Si le paramètre a déjà une expertise HydroAero, on la récupère
         if ($parametre->getHydroAero()) {
             $hydroAero =  $parametre->getHydroAero()->getParametre()->getHydroAero();
         }
 
+        // Création du formulaire associé à l'entité HydroAero
         $formHydroAero = $this->createForm(HydroAeroType::class, $hydroAero);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formHydroAero->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formHydroAero->isSubmitted() && $formHydroAero->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton7');
             if ($choix == 'hydro_aero_en_cours') {
+                // Mise à jour de l'expertise HydroAero en cours
                 $parametre->setHydroAero($hydroAero);
                 $hydroAero->setEtat(0);
                 $hydroAeroRepository->save($hydroAero, true);
                 $this->redirectToRoute('app_hydro_aero', ['id' => $parametre->getId()]);
             } elseif ($choix == 'hydro_aero_terminer') {
+                // Mise à jour de l'expertise HydroAero terminée
                 $parametre->setHydroAero($hydroAero);
                 $hydroAero->setEtat(1);
                 $hydroAeroRepository->save($hydroAero, true);
@@ -447,35 +517,41 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
-
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/expertise_hydro_aero.html.twig', [
             'parametre' => $parametre,
             'formHydroAero' => $formHydroAero->createView(),
         ]);
     }
 
-    //relevé photos
+    // Route pour ajouter des photos pour l'expertise mécanique
     #[Route('/photos/{id}', name: 'app_photos_mecanique')]
     public function photo(PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository, SluggerInterface $slugger, Parametre $parametre, Request $request): Response
     {
-        //la partie photo
+        // Création d'une nouvelle instance de PhotoExpertiseMecanique
         $photoExpertiseMecanique = new PhotoExpertiseMecanique();
-
+        // Création du formulaire associé à l'entité PhotoExpertiseMecanique
         $formPhotoExpertiseMecanique = $this->createForm(PhotoExpertiseMecaniqueType::class, $photoExpertiseMecanique);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formPhotoExpertiseMecanique->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formPhotoExpertiseMecanique->isSubmitted() && $formPhotoExpertiseMecanique->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton8');
             if ($choix == 'ajouter') {
+                // Gestion de l'image uploadée
                 $image = $formPhotoExpertiseMecanique->get('image')->getData();
                 if ($image) {
-                    //récuperer la taille de l'image à inserrer
+                    // Récupération de la taille de l'image
                     $size = $image->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    // Vérification si l'image est supérieure à 2 Mo
                     if($size > 2*1024*1024)
                     {
+                        // Affichage d'un message d'erreur
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
                     }else{
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
@@ -485,47 +561,55 @@ class ExpertiseMecaniqueController extends AbstractController
                                 $newPhotoname
                             );
                         } catch (FileException $e) {}
-                        
+
                         $directory= $this->getParameter('kernel.project_dir').'/public/photo_expertise_mecanique'.'/'.$newPhotoname;
                         //$this->redimensionneService->resize($directory);
                         $photoExpertiseMecanique->setImage($newPhotoname);
                     }
                 }
 
+                // Association de la photo à l'expertise mécanique et sauvegarde dans la base de données
                 $photoExpertiseMecanique->setParametre($parametre);
                 $photoExpertiseMecaniqueRepository->save($photoExpertiseMecanique, true);
                 $this->redirectToRoute('app_photos_mecanique', ['id' => $parametre->getId()]);
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/photo.html.twig', [
             'parametre' => $parametre,
             'formPhotoExpertiseMecanique' => $formPhotoExpertiseMecanique->createView(),
         ]);
     }
 
-    //Constats Mécanique
+    // Route pour ajouter un constat mécanique
     #[Route('/constat-mecanique/{id}', name: 'app_constat_mecanique')]
     public function constat(ConstatMecaniqueRepository $constatMecaniqueRepository, SluggerInterface $slugger, Parametre $parametre, Request $request): Response
     {
-        //la partie constat electrique
+        // Création d'une nouvelle instance de ConstatMecanique
         $constatMecanique = new ConstatMecanique();
-
+        // Création du formulaire associé à l'entité ConstatMecanique
         $formConstatMecanique = $this->createForm(ConstatMecaniqueType::class, $constatMecanique);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formConstatMecanique->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formConstatMecanique->isSubmitted() && $formConstatMecanique->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton9');
             if ($choix == 'ajouter') {
+                // Gestion de l'image uploadée
                 $image = $formConstatMecanique->get('photo')->getData();
                 if ($image) {
-                    //récuperer la taille de l'image à inserrer
+                    // Récupération de la taille de l'image
                     $size = $image->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    // Vérification si l'image est supérieure à 2 Mo
                     if($size > 2*1024*1024)
                     {
+                        // Affichage d'un message d'erreur
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
                     }else{
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
@@ -541,42 +625,50 @@ class ExpertiseMecaniqueController extends AbstractController
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
+                // Association du constat mécanique au paramètre et sauvegarde dans la base de données
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
 
                 $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
             }
         }
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/constat.html.twig', [
             'parametre' => $parametre,
             'formConstatMecanique' => $formConstatMecanique->createView(),
         ]);
     }
 
-    //Modification constat mécaniqeu
+    // Route pour modifier un constat mécanique
     #[Route('/edit-constat-mecanique/{id}/{idC}', name: 'app_constat_mecanique_edit')]
     public function editConstat(ConstatMecaniqueRepository $constatMecaniqueRepository, SluggerInterface $slugger, Parametre $parametre, $idC, Request $request): Response
     {
-
-        //la partie constat electrique
+        // Récupération du constat mécanique à modifier
         $constat = $constatMecaniqueRepository->findById($idC);
         $constatMecanique = $constat[0];
 
+        // Création du formulaire associé à l'entité ConstatMecanique
         $formConstatMecanique = $this->createForm(ConstatMecaniqueType::class, $constatMecanique);
+        // Traitement de la requête HTTP avec les données du formulaire
         $formConstatMecanique->handleRequest($request);
+        // Si le formulaire est soumis et valide
         if ($formConstatMecanique->isSubmitted() && $formConstatMecanique->isValid()) {
+            // Récupération du choix fait par l'utilisateur
             $choix = $request->get('bouton9');
             if ($choix == 'ajouter') {
+                // Gestion de l'image uploadée
                 $image = $formConstatMecanique->get('photo')->getData();
                 if ($image) {
-                    //récuperer la taille de l'image à inserrer
+                    // Récupération de la taille de l'image
                     $size = $image->getSize();
-                    //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+                    // Vérification si l'image est supérieure à 2 Mo
                     if($size > 2*1024*1024)
                     {
+                        // Affichage d'un message d'erreur
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                         return $this->redirectToRoute('app_constat_mecanique', ['id' => $parametre->getId()]);
                     }else{
+                        // Traitement et sauvegarde de l'image
                         $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                         $safePhotoname = $slugger->slug($originalePhoto);
                         $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $image->guessExtension();
@@ -592,6 +684,7 @@ class ExpertiseMecaniqueController extends AbstractController
                         $constatMecanique->setPhoto($newPhotoname);
                     }
                 }
+                // Mise à jour du constat mécanique et sauvegarde dans la base de données
                 $constatMecanique->setParametre($parametre);
                 $constatMecaniqueRepository->save($constatMecanique, true);
 
@@ -599,120 +692,169 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
+        // Rendu du template avec les données du formulaire et du paramètre
         return $this->render('expertise_mecanique/constat.html.twig', [
             'parametre' => $parametre,
             'constatMecanique' => $constatMecanique,
             'formConstatMecanique' => $formConstatMecanique->createView(),
         ]);
     }
-    //la focntion pour supprimer un accessoire
+
+    // Route pour supprimer un accessoire supplémentaire
     #[Route('/delete/{id}/{parmID}', name: "app_delete_accessoire", methods: ['GET'])]
     public function delete($parmID, AccessoireSupplementaire $accessoireSupplementaire, AccessoireSupplementaireRepository $accessoireSupplementaireRepository)
     {
-        //  $id = $accessoireSupplementaire->getControleVisuelMecanique()->getParametre()->getId();
+        // Suppression de l'accessoire supplémentaire et redirection vers la page de contrôle visuel mécanique
         if ($accessoireSupplementaire) {
             $accessoireSupplementaireRepository->remove($accessoireSupplementaire, true);
             return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parmID]);
         }
     }
 
-    //la fonction qui supprime une photo une fois ajouter
+    // Route pour supprimer une photo de l'expertise mécanique
     #[Route('/photo/{id}/expertise', name: 'delete_photo_expertise_mecanique', methods: ['GET'])]
     public function deletePhoto(PhotoExpertiseMecanique $photoExpertiseMecanique, PhotoExpertiseMecaniqueRepository $photoExpertiseMecaniqueRepository): Response
     {
+        // Récupère l'ID du paramètre associé à la photo d'expertise mécanique
         $id = $photoExpertiseMecanique->getParametre()->getId();
+
+        // Vérifie si l'objet PhotoExpertiseMecanique est non nul
         if ($photoExpertiseMecanique) {
+            // Récupère le nom de l'image associée à la photo d'expertise mécanique
             $nom = $photoExpertiseMecanique->getImage();
+
+            // Supprime le fichier image du système de fichiers
             unlink($this->getParameter('image_expertise_mecaniques') . '/' . $nom);
+
+            // Supprime l'objet PhotoExpertiseMecanique de la base de données
             $photoExpertiseMecaniqueRepository->remove($photoExpertiseMecanique, true);
+
+            // Redirige l'utilisateur vers la route 'app_photos_mecanique' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_photos_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet PhotoExpertiseMecanique est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_photos_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
 
-    //la fonction qui supprime le constat mécanique
+    // Route pour supprimer un constat mécanique
     #[Route('/constat/{id}/mecanique', name: 'delete_constat_mecanique', methods: ['GET'])]
     public function deleteConstat(ConstatMecanique $constatMecanique, ConstatMecaniqueRepository $constatMecaniqueRepository): Response
     {
+        // Récupère l'ID du paramètre associé au constat mécanique
         $id = $constatMecanique->getParametre()->getId();
+
+        // Vérifie si l'objet ConstatMecanique n'est pas nul
         if ($constatMecanique) {
+            // Récupère le nom de la photo associée au constat mécanique
             $nom = $constatMecanique->getPhoto();
+
+            // Vérifie si le nom de la photo n'est pas nul
             if ($nom != null) {
+                // Supprime le fichier image du système de fichiers
                 unlink($this->getParameter('images_constat_mecanique') . '/' . $nom);
             }
+
+            // Supprime l'objet ConstatMecanique de la base de données
             $constatMecaniqueRepository->remove($constatMecanique, true);
+
+            // Redirige l'utilisateur vers la route 'app_constat_mecanique' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_constat_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet ConstatMecanique est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_constat_mecanique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
 
-    //la fonction qui supprime le constat mécanique
+    // Route pour supprimer un relevé dimensionnel
     #[Route('releve/dimmensionnel/{id}', name: 'delete_releve_dimmensionnel', methods: ['GET'])]
     public function deleteReleve(ReleveDimmensionnel $releveDimmensionnel, ReleveDimmensionnelRepository $releveDimmensionnelRepository): Response
     {
+        // Récupère l'ID du paramètre associé au relevé dimensionnel
         $id = $releveDimmensionnel->getParametre()->getId();
+
+        // Vérifie si l'objet ReleveDimmensionnel n'est pas nul
         if ($releveDimmensionnel) {
+            // Supprime l'objet ReleveDimmensionnel de la base de données
             $releveDimmensionnelRepository->remove($releveDimmensionnel, true);
+
+            // Redirige l'utilisateur vers la route 'app_releve_dimensionnel' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_releve_dimensionnel', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet ReleveDimmensionnel est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_releve_dimensionnel', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
 
-    //la fonction qui valide l'expertise
+    // Route pour valider une expertise mécanique
     #[Route('validation/{id}', name: 'valider_expertise_mecanique', methods: ['GET'])]
     public function validation(AdminRepository $adminRepository, Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
+        // Vérifie si l'objet Parametre n'est pas nul
         if ($parametre) {
+            // Déclaration des variables pour l'email
             $dossier = 'email/email.html.twig';
             $subject = "Expertise mécanique";
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
-                . $parametre->getAffaire()->getSuiviPar()->getPrenom();
+            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " " . $parametre->getAffaire()->getSuiviPar()->getPrenom();
             $message = "L'expertise mécanique a été validée";
             $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
             $num_affaire = "N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
-
-            //envoyer au ageent de maitrise
+            // Envoie d'email aux agents de maîtrise
             $admins = $adminRepository->findAll();
             foreach ($admins as $admin) {
                 foreach ($admin->getRoles() as $role) {
                     if ($role == 'ROLE_AGENT_MAITRISE') {
-                        //envoyer le mail
+                        // Envoie de l'email
                         $email = $admin->getEmail();
                         $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
-                    };
+                    }
                 }
             }
 
-            //envoyer le mail
+            // Envoie de l'email au suivi de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
             $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
 
+            // Mise à jour du paramètre et sauvegarde
             $parametre->setExpertiseMecanique(1);
             $entityManager->persist($parametre);
             $entityManager->flush();
+
+            // Ajoute un message flash de succès
             $this->addFlash("success", "L'expertise validée avec succès");
+
+            // Redirection après succès
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         } else {
+            // Redirection si Parametre est nul
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         }
     }
 
-    //la fonction qui supprime une photo à la réception
+    // La fonction qui supprime une photo à la réception
     #[Route('/recetpion/{id}', name: 'app_delete_controle_recensement', methods: ['GET'])]
     public function deletePhotoReception(ControleRecensement $controleRecensement, ControleRecensementRepository $controleRecensementRepository): Response
     {
+        // Récupère l'ID du paramètre associé au contrôle de recensement
         $id = $controleRecensement->getParametre()->getId();
+
+        // Vérifie si l'objet ControleRecensement n'est pas nul
         if ($controleRecensement) {
+            // Récupère le nom de la photo associée au contrôle de recensement
             $nom = $controleRecensement->getPhoto();
+
+            // Supprime le fichier image du système de fichiers
             unlink($this->getParameter('image_controle_recensement') . '/' . $nom);
+
+            // Supprime l'objet ControleRecensement de la base de données
             $controleRecensementRepository->remove($controleRecensement, true);
+
+            // Redirige l'utilisateur vers la route 'app_photo_reception' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_photo_reception', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet ControleRecensement est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_photo_reception', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
@@ -861,19 +1003,28 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
-    //roulement CA & COA
+    // Route pour gérer le roulement CA & COA
     #[Route('/roulement/{id}', name: 'app_roulement')]
     public function roulement(RoulementRepository $roulementRepository, Parametre $parametre, Request $request): Response
     {
+        // Création d'un nouvel objet Roulement
         $roulement = new Roulement();
+
+        // Vérifie si le paramètre a un roulement existant
         if ($parametre->getRoulement()) {
             $roulement =  $parametre->getRoulement()->getParametre()->getRoulement();
         }
 
+        // Création du formulaire de roulement
         $formRoulement = $this->createForm(RoulementType::class, $roulement);
         $formRoulement->handleRequest($request);
+
+        // Vérifie si le formulaire est soumis et valide
         if ($formRoulement->isSubmitted() && $formRoulement->isValid()) {
+            // Récupère le choix de l'utilisateur
             $choix = $request->get('bouton004');
+
+            // Action selon le choix de l'utilisateur
             if ($choix == 'roulement_en_cours') {
                 $parametre->setRoulement($roulement);
                 $roulement->setEtat(0);
@@ -887,7 +1038,7 @@ class ExpertiseMecaniqueController extends AbstractController
             }
         }
 
-
+        // Affiche le formulaire et les données du roulement
         return $this->render('expertise_mecanique/roulement.html.twig', [
             'parametre' => $parametre,
             'roulement' => $roulement,
@@ -895,98 +1046,142 @@ class ExpertiseMecaniqueController extends AbstractController
         ]);
     }
 
+
     //synoptiques 
+    // Route pour la gestion du synoptique
     #[Route('/synoptique/{id}', name: 'app_synoptique')]
     public function synoptique(Parametre $parametre, SynoptiqueRepository $synoptiqueRepository, Request $request)
     {
+        // Création de nouveaux objets Synoptique et ImagePlan
         $synoptique = new Synoptique();
         $image_plan = new ImagePlan();
 
+        // Création des formulaires pour Synoptique et ImagePlan
         $form = $this->createForm(SynoptiqueType::class, $synoptique);
         $form_image = $this->createForm(ImagePlanType::class, $image_plan);
         $form->handleRequest($request);
         $form_image->handleRequest($request);
 
-        //plan image ca et coa
-
+        // Gestion du formulaire d'image (CA et COA)
         if ($form_image->isSubmitted() && $form_image->isValid())
         {
-
+            // Récupère les fichiers d'image CA et COA
             $imageFileCA = $form_image->get('image_ca')->getData();
             $imageFileCOA = $form_image->get('image_coa')->getData();
 
+            // Récupère la taille des fichiers d'image
             $size1 = $imageFileCA->getSize();
             $size2 = $imageFileCOA->getSize();
 
-            //vérifier si l'image est supérieur à 2 Mo alors un message d'erreur
+            // Vérifie si la taille de l'image est supérieure à 2 Mo
             if ($size1 > 2 * 1024 * 1024 or $size2 > 2 * 1024 * 1024)
             {
+                // Ajoute un message d'erreur et redirige
                 $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
                 return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
-
-            } else {
+            }
+            else
+            {
+                // Définit le répertoire de stockage des images
                 $directory = $this->getParameter('images_plan');
+                // Upload des fichiers d'image CA et COA
                 $image_plan->setImageCa($this->imageService->upload($imageFileCA, $directory));
                 $image_plan->setImageCoa($this->imageService->upload($imageFileCOA, $directory));
             }
 
+            // Associe l'objet ImagePlan au Parametre
             $image_plan->setParametre($parametre);
             $this->entityManager->persist($image_plan);
             $this->entityManager->flush();
+            // Redirige après traitement
             return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
         }
 
-        //partie libelle plan
+        // Gestion du formulaire de synoptique
         if ($form->isSubmitted() && $form->isValid()) {
+            // Associe l'objet Synoptique au Parametre
             $synoptique->setParametre($parametre);
             $synoptiqueRepository->save($synoptique, true);
-            $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
+            // Redirige après traitement
+            return $this->redirectToRoute('app_synoptique', ['id' => $parametre->getId()]);
         }
+
+        // Rendu du formulaire et des données dans la vue
         return $this->render('expertise_mecanique/synoptique.html.twig', [
             'parametre' => $parametre,
             'form' => $form->createView(),
             'form_image' => $form_image->createView()
-
         ]);
     }
 
     //la fonction qui supprime synoptique
+    // Route pour supprimer un synoptique
     #[Route('/syno-delete/{id}', name: 'app_delete_synoptique', methods: ['GET'])]
     public function deleteSynoptique(Synoptique $synoptique, SynoptiqueRepository $synoptiqueRepository): Response
     {
+        // Récupère l'ID du paramètre associé au synoptique
         $id = $synoptique->getParametre()->getId();
+
+        // Vérifie si l'objet Synoptique n'est pas nul
         if ($synoptique) {
+            // Supprime l'objet Synoptique de la base de données
             $synoptiqueRepository->remove($synoptique, true);
+
+            // Redirige l'utilisateur vers la route 'app_synoptique' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet Synoptique est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_synoptique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
 
     //la fonction qui supprime controle géometrique
+    // La fonction qui supprime un contrôle géométrique
     #[Route('/controle-delete-geo/{id}', name: 'app_delete_geom_controle', methods: ['GET'])]
     public function deleteGeo(ControleGeometrique $controleGeometrique, ControleGeometriqueRepository $controleGeometriqueRepository): Response
     {
+        // Récupère l'ID du paramètre associé au contrôle géométrique
         $id = $controleGeometrique->getParametre()->getId();
+
+        // Vérifie si l'objet ControleGeometrique n'est pas nul
         if ($controleGeometrique) {
+            // Supprime l'objet ControleGeometrique de la base de données
             $controleGeometriqueRepository->remove($controleGeometrique, true);
+
+            // Redirige l'utilisateur vers la route 'app_controle_geometrique' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_controle_geometrique', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
+            // Si l'objet ControleGeometrique est nul, redirige l'utilisateur vers la même route avec un code de statut HTTP 303
             return $this->redirectToRoute('app_controle_geometrique', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
     }
 
+    // Route pour supprimer une photo de rotor
     #[Route('/drop-ro-photo/{id}', name: 'drop_ro_ph', methods: ['GET', 'POST'])]
     public function dropPhoto(PhotoRotor $photoRotor, PhotoRotorRepository $photoRotorRepository)
     {
+        // Récupère l'ID du paramètre associé à la photo de rotor
         $id = $photoRotor->getParametre()->getId();
-        //dd($photoRotor);
+        // Débuggage pour afficher l'objet photoRotor
+        // dd($photoRotor);
+
+        // Vérifie si l'objet PhotoRotor n'est pas nul
         if ($photoRotor) {
+            // Récupère le nom de la photo associée au rotor
             $nom = $photoRotor->getLibelle();
+
+            // Supprime le fichier image du système de fichiers
             unlink($this->getParameter('image_rotor') . '/' . $nom);
+
+            // Supprime l'objet PhotoRotor de la base de données
             $photoRotorRepository->remove($photoRotor, true);
+
+            // Redirige l'utilisateur vers la route 'app_photo_rotor' après suppression avec un code de statut HTTP 303
             return $this->redirectToRoute('app_photo_rotor', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
+
+        // Redirige l'utilisateur vers la même route si l'objet PhotoRotor est nul avec un code de statut HTTP 303
         return $this->redirectToRoute('app_photo_rotor', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
+
 }

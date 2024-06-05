@@ -35,20 +35,20 @@
 									{% endif %}
 								{% endif %}
 							{% endif %}
-							<a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
+							<a href="{{path('app_affaire_delete', {'id' : affaire.id })}}" class="btn btn-outline-danger btn-sm text-uppercase text-uppercase" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer</a>
 						{% endif %}
 						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_LECTEUR') %}
 							{% if affaire.revueEnclenchements|length != 0 %}
-								<a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchements[0].id })}}" class="btn btn-outline-info btn-sm">VOIR REVUE ENC</a>
+								<a href="{{path('app_revue_enclenchement_show', {'id' : affaire.revueEnclenchements[0].id })}}" class="btn btn-outline-info btn-sm text-uppercase">VOIR REVUE ENC</a>
 							{% endif %}
 						{% endif %}
 						{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
 							{% if affaire.revueEnclenchements|length == 0 %}
-								<a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm">REVUE ENC</a>
+								<a href="{{path('app_revue_enclenchement_new', {'id' : affaire.id })}}" class="btn btn-outline-info btn-sm text-uppercase">REVUE ENC</a>
 							{% endif %}
 						{% endif %}
 						<ul class="nav navbar-right panel_toolbox">
-							<a href="{{path('app_affaire_index')}}" onclick="history.back();" class="btn btn-secondary btn-sm p-2 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i>
+							<a href="{{path('app_affaire_index')}}" onclick="history.back();" class="btn btn-outline-secondary btn-sm p-1 text-uppercase">Retour<i class="fa fa-arrow-circle-left p-1"></i>
 							</a>
 						</ul>
 						<div class="clearfix"></div>
@@ -233,7 +233,7 @@
 						<section class="content invoice">
 							<div class="row">
 								<div class="table-responsive">
-									<table class="table table-striped table-hover table-bordered" style="width:100%">
+									<table id="datatable" class="table table-hover table-striped table-bordered table-sm" style="width:100%">
 										<thead class="table-secondary">
 											<tr>
 												<th>N°</th>
@@ -295,17 +295,11 @@
                                                         <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
 														<td class="text-center">
 															{% if affaire.revueEnclenchements|length != 0 %}
-																<a class="btn btn-primary btn-sm p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}">
-																	<i class="fa fa-eye fa-2x"></i>
-																</a>
+																<a class="btn btn-primary p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-1x"></i></a>
 															{% endif %}
 															{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
-																<a class="btn btn-success btn-sm p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}">
-																	<i class="fa fa-edit fa-2x"></i>
-																</a>
-																<a class="btn btn-danger btn-sm p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')">
-																	<i class="fa fa-trash fa-2x"></i>
-																</a>
+																<a class="btn btn-success p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-1x"></i></a>
+																<a class="btn btn-danger p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-1x"></i></a>
 															{% endif %}
 															{#
                                                             {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}
