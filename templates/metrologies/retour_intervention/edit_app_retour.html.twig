@@ -4,7 +4,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Gestion Intervention</h3>
+            <h3>Gestion DA</h3>
         </div>
     </div>
     <div class="clearfix"></div><div class="row">
@@ -41,6 +41,7 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                       <button type="submit" name="bouton1" value="ajouter" class="btn btn-primary btn-sm">{{button_label | default('Modifier')}} <i class="fa fa-save p-1"></i></button>
+                                      <a href="{{ path('app_print_fiche_de_vie', {'id': lintervention.appareil.id}) }}" class="btn btn-info btn-sm" target="_blank">Imprimer <i class="fa fa-print" aria-hidden="true"></i></a>
                                   </div>
                                     <div class="col-md-6 text-right">
                                         <a class="btn btn-secondary btn-sm" href="{{path('app_retour_intervention_show', {'id' : lintervention.intervention.retourIntervention.id })}}">Retour  <i class="fa fa-reply p-1"></i></a>
