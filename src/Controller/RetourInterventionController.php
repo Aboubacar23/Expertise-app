@@ -112,6 +112,7 @@ class RetourInterventionController extends AbstractController
 
         // Soumission et validation du formulaire de modification
         if ($form->isSubmitted() && $form->isValid()) {
+
             $app = $lintervention->getAppareil();
             $app->setDesignation($lintervention->getDesignation());
             $app->setMarque($lintervention->getMarque());
@@ -119,8 +120,20 @@ class RetourInterventionController extends AbstractController
             $app->setEtat($lintervention->getEtat());
             $app->setStatut($lintervention->getStatut());
             $app->setNumeroCertificat($lintervention->getNumeroCertificat());
+
+            $periodicite = intval($app->getPeriodicite());
+            $date_depuis  = $lintervention->getDateEtalonnage();
+            if ($date_depuis && $periodicite)
+            {
+                $dateValidite = clone $date_depuis;
+                $dateValidite->modify('+'.$periodicite. 'months');
+                $app->setDateValidite($dateValidite);
+            }
+            $app->setDateEtat($lintervention->getDateEtalonnage());
+
             $em->persist($app);
             $em->flush($app);
+
             $linterventionRepository->save($lintervention, true);
             return $this->redirectToRoute('app_retour_intervention_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }

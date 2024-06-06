@@ -21,7 +21,7 @@
     
     .td, .th { 
         padding: 10px; 
-        border: 1px solid #0063AF; 
+        border: 2px solid #0063AF;
         font-size: 12px;
         }
     td{
@@ -29,7 +29,7 @@
         font-family: serif;
     }
     .p{
-        border-bottom: 3px solid #0063AF;
+        border-bottom: 3px dotted #0063AF;
     }
     h2{
         text-align: center;
@@ -56,7 +56,7 @@
     }
 
     #top-bar{
-        width: 130px;
+        width: 200px;
         color: #0063AF;
         border-style: double;
         border-top: none;
@@ -68,7 +68,7 @@
     .validite
     {
         text-transform: uppercase;
-        font-size: 8px;
+        font-size: 12px;
         font-family: serif;
     }
     .header{
@@ -81,10 +81,14 @@
         text-decoration: underline;
         text-transform: uppercase;
     }
+    .table-header{
+        background-color: #0063AF;
+        color: white;
+    }
 </style>
 <body>
     <div id="top-bar">
-        <p style="text-align: left; color : black !important; font-size: 8px;">{{appareil.numAppareil}}</p>
+        <p style="text-align: left; color : black !important; font-size: 12px;">{{appareil.numAppareil}}</p>
         <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
         <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
     </div>
@@ -162,14 +166,16 @@
             <tr class="tr_header">
                 <th style="text-align: left;">Etat : </th>
                 <td class="td_header">{{ appareil.etat }} </td>
-                <th style="text-align: left;">Date d'état: </th>
+                <th style="text-align: left;">N° Certificat en cours: </th>
+                <td class="td_header">{{ appareil.numeroCertificat}}</td>
+                <th style="text-align: left;">Date Certificat: </th>
                 <td class="td_header">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : ''}}</td>
             </tr>
             <tr class="tr_header">
                 <th style="text-align: left;">Statut : </th>
                 <td class="td_header">{{ appareil.statut }} </td>
-                <th style="text-align: left;">Numéro de Certicat en cours: </th>
-                <td class="td_header">{{ appareil.numeroCertificat}}</td>
+                <th style="text-align: left;">Date de validité: </th>
+                <td class="td_header">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</td>
             </tr>
         </table>
     </div>
@@ -184,7 +190,7 @@
     <div class="header" style="margin-bottom: 5px; padding: 5px;">
         <h4>Historiques</h4>
         <table class="table">
-            <thead>
+            <thead class="table-header">
                 <tr  class="tr">
                     <th class="th" width="15%">Date DA</th>
                     <th class="th" width="22%">Numéro DA</th>

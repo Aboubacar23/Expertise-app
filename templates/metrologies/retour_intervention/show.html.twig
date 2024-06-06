@@ -49,7 +49,7 @@
                             <th width="10%">Date Etalonnage</th>
                             <th width="10%">N° Certificat</th>
                             <th width="10%">Etat</th>
-                            <th width="5%" class="text-center"></th>
+                            <th width="10%" class="text-center"></th>
                         </tr>
                         {% set i = 0 %}
                         {% for item in retour_intervention.intervention.linterventions %}
@@ -65,7 +65,10 @@
                                 <td>{{item.dateEtalonnage ? item.dateEtalonnage|date('d-m-Y') : '' }}</td>
                                 <td>{{item.numeroCertificat}}</td> 
                                 <td>{{item.appareil.etat}}</td> 
-                                <td class="text-center"><a href="{{ path('app_retour_intervention_app_edit', {'id': item.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a></td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_retour_intervention_app_edit', {'id': item.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-1x"></i></a>
+                                    <a href="{{ path('app_print_fiche_de_vie', {'id': item.appareil.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-1x" aria-hidden="true"></i></a>
+                                </td>
                             </tr>                                        
                         {% endfor %} 
                     </table>

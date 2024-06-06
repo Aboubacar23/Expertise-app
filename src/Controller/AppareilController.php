@@ -201,12 +201,29 @@ class AppareilController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Définit le statut de l'appareil à 0 (nouveau)
             $appareil->setStatus(0);
-
+            $periodicite = intval($appareil->getPeriodicite());
+            $date_depuis  = $appareil->getDateEtat();
+            if ($date_depuis && $periodicite)
+            {
+                $dateValidite = clone $date_depuis;
+                $dateValidite->modify('+'.$periodicite. 'months');
+                $appareil->setDateValidite($dateValidite);
+            }
             // Sauvegarde l'appareil dans la base de données
             $appareilRepository->save($appareil, true);
 
             // Redirige vers la liste des appareils
             return $this->redirectToRoute('app_appareil_index', [], Response::HTTP_SEE_OTHER);
+
+            /*
+                // Calcule la date_validite
+                if ($dateDepuis && $periodicite) {
+                    $dateValidite = clone $dateDepuis; // Clone pour éviter de modifier l'objet original
+                    $dateValidite->modify('+' . $periodicite . ' months');
+                    $appareil->setDateValidite($dateValidite);
+                }
+
+             */
         }
 
         // Affiche le formulaire d'ajout d'un nouvel appareil
