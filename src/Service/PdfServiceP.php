@@ -59,7 +59,7 @@ class PdfServiceP
         $dompdf->loadHtml($html);
 
         // Définir la taille et l'orientation du papier
-        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A4', "portrait");
 
         // Rendu du PDF
         $dompdf->render();
