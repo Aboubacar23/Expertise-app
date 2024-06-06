@@ -15,7 +15,7 @@
         border-collapse: collapse; 
         }    
     .th { 
-        font-weight: bold;
+        font-weight: bold; 
         text-align: left;
     }
     
@@ -87,17 +87,21 @@
         background-color: #0063AF;
         color: white;
     }
+    .page_break {
+        page-break-before: always;
+    }
 </style>
 <body>
+{% for item  in retourIntervention.intervention.linterventions %}
     <div id="top-bar">
-        <h3 class="validite" style=" color : black !important; font-size: 14px;">{{appareil.numAppareil}}</h3>
-        <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
-        <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+        <h3 class="validite" style=" color : black !important; font-size: 14px;">{{item.appareil.numAppareil}}</h3>
+        <h3 class="validite">Périodicité : <span style="color: black;">{{item.appareil.periodicite}} Mois</span></h3>
+        <h3 class="validite">Validite : <span style="color: black;">{{item.appareil.dateValidite ? item.appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
     </div>
     <div id="nav-bar">
         <div>
             <span class="h2_1">Fiche de vie</span>
-            <span class="h2_2">{{appareil.numAppareil}}</span>
+            <span class="h2_2">{{item.appareil.numAppareil}}</span>
         </div>
     </div>
     <p class="p"></p>
@@ -105,19 +109,19 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Appareil : </th>
-                <td class="td_header">{{ appareil.designation }}</td>
+                <td class="td_header">{{ item.appareil.designation }}</td>
                 <th style="text-align: left;">Type : </th>
-                <td class="td_header">{{ appareil.type }}</td>
+                <td class="td_header">{{ item.appareil.type }}</td>
                 <th style="text-align: left;">Numéro de Série : </th>
-                <td class="td_header">{{ appareil.numeroSerie }}</td>
+                <td class="td_header">{{ item.appareil.numeroSerie }}</td>
             </tr>
             <tr class="tr_header">
                 <th style="text-align: left;">Marque : </th>
-                <td class="td_header">{{ appareil.marque }}</td>
+                <td class="td_header">{{ item.appareil.marque }}</td>
                 <th style="text-align: left;">Unité de mesure : </th>
-                <td class="td_header">{{ appareil.uniteMesure}}</td>
+                <td class="td_header">{{ item.appareil.uniteMesure}}</td>
                 <th style="text-align: left;">Classe : </th>
-                <td class="td_header">{{ appareil.classeAp}}</td>
+                <td class="td_header">{{ item.appareil.classeAp}}</td>
             </tr>
         </table>
     </div>
@@ -125,15 +129,15 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Date d'achat : </th>
-                <td class="td_header">{{ appareil.dateAchat ? appareil.dateAchat|date('d-m-Y') : ''}}</td>
+                <td class="td_header">{{ item.appareil.dateAchat ? item.appareil.dateAchat|date('d-m-Y') : ''}}</td>
                 <th style="text-align: left;">Prix d'achat : </th>
-                <td class="td_header">{{ appareil.prixAchat }}</td>
+                <td class="td_header">{{ item.appareil.prixAchat }}</td>
                 <th style="text-align: left;">Nom Fournisseur : </th>
-                <td class="td_header">{{ appareil.nomFournisseur }}</td>
+                <td class="td_header">{{ item.appareil.nomFournisseur }}</td>
             </tr>
             <tr class="tr_header">
                 <th style="text-align: left;">Numéro DA : </th>
-                <td class="td_header">{{ appareil.numeroDa }}</td>
+                <td class="td_header">{{ item.appareil.numeroDa }}</td>
             </tr>
         </table>
     </div>
@@ -141,9 +145,9 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Service Responsable : </th>
-                <td class="td_header">{{ appareil.serviceResponsable }}</td>
+                <td class="td_header">{{ item.appareil.serviceResponsable }}</td>
                 <th style="text-align: left;">Affectation : </th>
-                <td class="td_header">{{ appareil.affectation }}</td>
+                <td class="td_header">{{ item.appareil.affectation }}</td>
             </tr>
         </table>
     </div>
@@ -151,14 +155,14 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Périodicité : </th>
-                <td class="td_header">{{ appareil.periodicite }} Mois</td>
-                {% if appareil.classeDefinition == 1 %}
+                <td class="td_header">{{ item.appareil.periodicite }} Mois</td>
+                {% if item.appareil.classeDefinition == 1 %}
                     <th style="text-align: left;">Classe de définition : </th>
-                    <td class="td_header">{{ appareil.classeDefinition ? 'Oui' : 'Non' }}</td>                    
+                    <td class="td_header">{{ item.appareil.classeDefinition ? 'Oui' : 'Non' }}</td>
                 {% endif %}
-                {% if appareil.enTendance == 1 %}
+                {% if item.appareil.enTendance == 1 %}
                     <th style="text-align: left;">En tendance : </th>
-                    <td class="td_header">{{ appareil.enTendance ? 'Oui' : 'Non' }}</td>                  
+                    <td class="td_header">{{ item.appareil.enTendance ? 'Oui' : 'Non' }}</td>
                 {% endif %}
             </tr>
         </table>
@@ -167,17 +171,17 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Etat : </th>
-                <td class="td_header">{{ appareil.etat }} </td>
+                <td class="td_header">{{ item.appareil.etat }} </td>
                 <th style="text-align: left;">N° Certificat en cours: </th>
-                <td class="td_header">{{ appareil.numeroCertificat}}</td>
+                <td class="td_header">{{ item.appareil.numeroCertificat}}</td>
                 <th style="text-align: left;">Date Certificat: </th>
-                <td class="td_header">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : ''}}</td>
+                <td class="td_header">{{ item.appareil.dateEtat ? item.appareil.dateEtat|date('d-m-Y') : ''}}</td>
             </tr>
             <tr class="tr_header">
                 <th style="text-align: left;">Statut : </th>
-                <td class="td_header">{{ appareil.statut }} </td>
+                <td class="td_header">{{ item.appareil.statut }} </td>
                 <th style="text-align: left;">Date de validité: </th>
-                <td class="td_header">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</td>
+                <td class="td_header">{{ item.appareil.dateValidite ? item.appareil.dateValidite|date('d-m-Y') : ''}}</td>
             </tr>
         </table>
     </div>
@@ -185,7 +189,7 @@
         <table>
             <tr class="tr_header">
                 <th style="text-align: left;">Observation : </th>
-                <td class="td_header2">{{ appareil.observation }}</td>
+                <td class="td_header2">{{ item.appareil.observation }}</td>
             </tr>
         </table>
     </div>
@@ -193,28 +197,32 @@
         <h4>Historiques</h4>
         <table class="table">
             <thead class="table-header">
-                <tr  class="tr">
-                    <th class="th" width="15%">Date DA</th>
-                    <th class="th" width="15%">Numéro DA</th>
-                    <th class="th" width="16%">Prestataire</th>
-                    <th class="th" width="16%">Type Intervention</th>
-                    <th class="th" width="16%">Numéro Certicat</th>
-                    <th class="th" width="16%">Observation</th>
-                </tr> 
+            <tr  class="tr">
+                <th class="th" width="15%">Date DA</th>
+                <th class="th" width="15%">Numéro DA</th>
+                <th class="th" width="16%">Prestataire</th>
+                <th class="th" width="16%">Type Intervention</th>
+                <th class="th" width="16%">N° Certicat</th>
+                <th class="th" width="16%">Observation</th>
+            </tr>
             </thead>
             <tbody>
-                {% for item in appareil.linterventions %}
-                    <tr> 
-                        <td class="td">{{item.intervention.dateEnvoi ? item.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
-                        <td class="td">{{item.intervention.numeroDa}}</td>
-                        <td class="td">{{item.intervention.prestataire}}</td>
-                        <td class="td">{{item.typeIntervention}}</td>
-                        <td class="td">{{item.numeroCertificat}}</td>
-                        <td class="td">{{item.observation}}</td>
-                    </tr>                                        
-                {% endfor %} 
+            {% for item1 in item.appareil.linterventions %}
+                <tr>
+                    <td class="td">{{item1.intervention.dateEnvoi ? item1.intervention.dateEnvoi|date('d-m-Y') : '' }}</td>
+                    <td class="td">{{item1.intervention.numeroDa}}</td>
+                    <td class="td">{{item1.intervention.prestataire}}</td>
+                    <td class="td">{{item1.typeIntervention}}</td>
+                    <td class="td">{{item1.numeroCertificat}}</td>
+                    <td class="td">{{item1.observation}}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
+    {% if not loop.last %}
+        <div class="page_break"></div>
+    {% endif %}
+{% endfor %}
 </body>
 </html>
