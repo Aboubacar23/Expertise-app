@@ -56,7 +56,7 @@
     }
 
     #top-bar{
-        width: 200px;
+        width: 120px;
         color: #0063AF;
         border-style: double;
         border-top: none;
@@ -68,7 +68,7 @@
     .validite
     {
         text-transform: uppercase;
-        font-size: 12px;
+        font-size: 9px;
         font-family: serif;
     }
     .header{
@@ -88,7 +88,7 @@
 </style>
 <body>
     <div id="top-bar">
-        <p style="text-align: left; color : black !important; font-size: 12px;">{{appareil.numAppareil}}</p>
+        <p style="text-align: left; color : black !important; font-size: 14px;">{{appareil.numAppareil}}</p>
         <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
         <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
     </div>
