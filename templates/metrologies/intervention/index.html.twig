@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Gestion Intervention</h3>
+        <h3>Gestion DA</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -14,7 +14,7 @@
         <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-            <h2>Listes des interventions</h2>
+            <h2>Listes des sorties</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <a href="{{path('app_intervention_new', {'action' : 'mecanique'})}}" class="btn btn-primary btn-sm p-2 text-uppercase">Sortir Mécanique<i class="fa fa-plus-circle p-1"></i></a>
                 <a href="{{path('app_intervention_new', {'action' : 'electrique'})}}" class="btn btn-primary btn-sm p-2 text-uppercase">Sortir Électrique<i class="fa fa-plus-circle p-1"></i></a>
@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="datatable" class="table table-striped table-hover" style="width:100%">
+                            <table id="datatable" class="table table-striped table-hover table-sm table-bordered" style="width:100%">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
@@ -60,8 +60,8 @@
                                             <td>{{ intervention.demandeur }}</td>
                                             <td>{{ intervention.prestataire }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>
-                                                <a href="{{ path('app_intervention_print', {'id': intervention.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ path('app_intervention_print', {'id': intervention.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

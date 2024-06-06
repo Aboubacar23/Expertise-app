@@ -44,6 +44,7 @@ class LinterventionElectriqueType extends AbstractType
                 'query_builder' => function(AppareilRepository $appareilRepository)
                 {
                     $query = $appareilRepository->createQueryBuilder('a')->andWhere("a.type_service ='electrique' and a.status = 0 ");
+                    $query->orderBy('a.num_appareil', 'asc');
                     return $query; 
                 }
             ])

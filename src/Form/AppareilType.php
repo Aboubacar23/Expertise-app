@@ -169,12 +169,12 @@ class AppareilType extends AbstractType
                     ])
                 ]
             ])
-            ->add('date_validite', DateType::class, [
+           /* ->add('date_validite', DateType::class, [
                 'label' => 'Date validitée',
                 'required' => true,
                 'widget' => 'single_text',
 
-            ])
+            ])*/
             ->add('numero_serie',TextType::class, [
                 'label' =>'Numéro de serie'
             ])
@@ -269,7 +269,7 @@ class AppareilType extends AbstractType
             ])
             ->add('date_etat',DateType::class, [
                 'label' => 'Depuis le',
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
 
             ])

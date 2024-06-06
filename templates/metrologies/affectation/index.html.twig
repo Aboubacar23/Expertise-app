@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="datatable" class="table table-striped table-hover" style="width:100%">
+                            <table id="datatable" class="table table-striped table-hover table-sm table-bordered" style="width:100%">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th width="2">N°</th>
@@ -59,8 +59,8 @@
                                             <td>{{ affectation.dateSortie ? affectation.dateSortie|date('d-m-Y') : '' }}</td>
                                             <td>{{ affectation.sortiePar }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-2x"></i></a>
-                                                <a href="{{ path('app_affectation_print', {'id': affectation.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                                                <a href="{{ path('app_affectation_show', {'id': affectation.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ path('app_affectation_print', {'id': affectation.id}) }}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}
