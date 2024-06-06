@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\PdfServiceP;
+use App\Service\RapportService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\Lintervention;
@@ -59,7 +61,7 @@ class RetourInterventionController extends AbstractController
     }
 
     // Route pour afficher les détails d'une intervention de retour spécifique
-    #[Route('/{id}', name: 'app_retour_intervention_show', methods: ['GET'])]
+    #[Route('/details/{id}', name: 'app_retour_intervention_show', methods: ['GET'])]
     public function show(RetourIntervention $retourIntervention, Request $request): Response
     {
         return $this->render('metrologies/retour_intervention/show.html.twig', [
@@ -191,5 +193,18 @@ class RetourInterventionController extends AbstractController
         ]);
 
         exit();
+    }
+
+    // Route pour imprimer le bon de sortie
+    #[Route('/print-all/{id}', name: 'app_intervention_retour_all_print', methods: ['POST', 'GET'])]
+    public function printAllCerticat(RetourIntervention $intervention, PdfServiceP $pdfServiceP): Response
+    {
+
+        $fichier = "La liste des certificats du Retour DA".$intervention->getIntervention();
+        $html = $this->renderView('appareil/printAll.html.twig', [
+            'retourIntervention' => $intervention,
+        ]);
+
+        return $pdfServiceP->showPdfFile($html, $fichier);
     }
 }

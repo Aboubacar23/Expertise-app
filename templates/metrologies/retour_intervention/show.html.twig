@@ -13,9 +13,9 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <a class="btn btn-info btn-sm p-2" href="{{ path('app_intervention_retour_print', {'id': retour_intervention.id}) }}" target="_blank" >Imprimer <i class="fa fa-print fa-1x"></i></a>
+                    <a class="btn btn-info btn-sm p-2" href="{{ path('app_intervention_retour_print', {'id': retour_intervention.id}) }}" target="_blank" >Imprimer DA <i class="fa fa-print fa-1x"></i></a>
+                    <a class="btn btn-info btn-sm p-2" href="{{ path('app_intervention_retour_all_print', {'id': retour_intervention.id}) }}" target="_blank">Imprimer Certificats <i class="fa fa-print fa-1x"></i></a>
                     <a class="btn btn-danger btn-sm p-2" href="{{ path('app_retour_intervention_delete', {'id': retour_intervention.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="fa fa-trash fa-1x"></i></a>
-                   {#  <a class="btn btn-warning btn-sm p-2" href="{{ path('app_retour_intervention_edit', {'id': retour_intervention.id}) }}" >Modifier <i class="fa fa-edit fa-1x"></i></a>#}
                     <a class="btn btn-secondary btn-sm p-2" href="{{ path('app_retour_intervention_index') }}">Retour <i class="fa fa-arrow-left fa-1x"></i></a>
                     <div class="clearfix"></div>
                 </div>
