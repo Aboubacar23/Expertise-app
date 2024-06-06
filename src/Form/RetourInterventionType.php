@@ -22,6 +22,7 @@ class RetourInterventionType extends AbstractType
                 'query_builder' => function(InterventionRepository $interventionRepository)
                 {
                     $query = $interventionRepository->createQueryBuilder('a')->andWhere("a.retour = 0 ");
+                   // $query->orderBy('a.num_appareil', 'asc');
                     return $query;
                 }
             ] )

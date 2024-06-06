@@ -22,7 +22,7 @@ class Appareil
     #[ORM\Column(length: 255)]
     private ?string $num_appareil = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_validite = null;
 
     #[ORM\OneToMany(mappedBy: 'appareil', targetEntity: AppareilMesure::class)]
@@ -196,7 +196,11 @@ class Appareil
     }
 
     public function __toString(){
-        return $this->getNumAppareil().' - '.$this->getDateValidite()->format('d-m-Y');
+
+        $dateValidite = $this->getDateValidite();
+        $dateValiditeFormatted = $dateValidite ? $dateValidite->format('d-m-Y') : 'N/A';
+
+        return $this->getNumAppareil() . ' - ' . $dateValiditeFormatted;
     }
 
     /**

@@ -32,7 +32,7 @@ class InterventionController extends AbstractController
     }
 
     // Route pour créer une nouvelle intervention
-    #[Route('/newadd', name: 'app_intervention_new', methods: ['POST','GET'])]
+    #[Route('/new-add', name: 'app_intervention_new', methods: ['POST','GET'])]
     public function create(Request $request, InterventionRepository $interventionRepository, EntityManagerInterface $entityManagerInterface, AppareilRepository $appareilRepository): Response
     {
         // Initialisation de variables

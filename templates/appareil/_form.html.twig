@@ -13,41 +13,42 @@
                 {{ form_start(form) }}
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table">
+                        <table class="table table-striped table-hover">
                             <tr>
                                 <th width="20%">{{ form_row(form.type_service)}}</th>
                                 <th width="20%">{{ form_row(form.num_appareil)}}</th>
-                                <th width="20%"  class="mt-4">{{ form_row(form.designation)}}</th>
+                                <th  class="mt-2" width="20%">{{ form_row(form.designation)}}</th>
                                 <th width="20%">{{ form_row(form.observation)}}</th>
                                 <th width="20%">{{ form_row(form.periodicite)}}</th>
                             </tr>
                             <tr>
-                                <th width="20%">{{ form_row(form.marque)}}</th>
-                                <th width="20%">{{ form_row(form.type)}}</th>
-                                <th width="20%">{{ form_row(form.numero_serie)}}</th>
-                                <th width="20%">{{ form_row(form.unite_mesure)}}</th>
-                                <th width="20%">{{ form_row(form.classe_ap)}}</th>
+                                <th>{{ form_row(form.marque)}}</th>
+                                <th>{{ form_row(form.type)}}</th>
+                                <th>{{ form_row(form.numero_serie)}}</th>
+                                <th>{{ form_row(form.unite_mesure)}}</th>
+                                <th>{{ form_row(form.classe_ap)}}</th>
                             </tr>
                             <tr>
-                                <th width="20%">{{ form_row(form.nom_fournisseur)}}</th>
-                                <th width="20%">{{ form_row(form.numero_da)}}</th>
-                                <th width="20%">{{ form_row(form.date_achat)}}</th>
-                                <th width="20%">{{ form_row(form.prix_achat)}}</th>
+                                <th>{{ form_row(form.nom_fournisseur)}}</th>
+                                <th>{{ form_row(form.numero_da)}}</th>
+                                <th>{{ form_row(form.date_achat)}}</th>
+                                <th>{{ form_row(form.prix_achat)}}</th>
                                 <th></th>
                             </tr>
                             <tr>
-                                <th width="20%">{{ form_row(form.service_responsable)}}</th>
-                                <th width="20%">{{ form_row(form.affectation)}}</th>
-                                <th width="20%" id="classe_df">{{ form_widget(form.classe_definition)}}</th>
-                                <th width="20%" id="en_tendance">{{ form_widget(form.en_tendance)}}</th>
+                                <th>{{ form_row(form.service_responsable)}}</th>
+                                <th>{{ form_row(form.affectation)}}</th>
+                                <th id="classe_df" class="p-2">{{ form_widget(form.classe_definition)}}</th>
+                                <th id="en_tendance" class="p-2">{{ form_widget(form.en_tendance)}}</th>
                                 <th></th>
                             </tr>
                             <tr>
-                                <th width="20%">{{ form_row(form.numero_certificat)}}</th>
-                                <th width="20%">{{ form_row(form.date_etat)}}</th>
-                                <th width="20%">{{ form_row(form.etat)}}</th>
-                                <th width="20%">{{ form_row(form.statut)}}</th>
-                                <th width="20%">{{ form_row(form.date_validite)}}</th>
+                                <th>{{ form_row(form.numero_certificat)}}</th>
+                                <th>{{ form_row(form.date_etat)}}</th>
+                                <th>{{ form_row(form.etat)}}</th>
+                                <th>{{ form_row(form.statut)}}</th>
+                                <th></th>
+                                {# <th>{{ form_row(form.date_validite)}}</th> #}
                             </tr>
                         </table>
                     </div>
