@@ -55,7 +55,7 @@
         color: #0063AF;
     }
 
-    #top-bar{
+    #top-bar-left{
         width: 120px;
         color: #0063AF;
         border-style: double;
@@ -64,6 +64,20 @@
         border-radius: 10px;
         box-shadow: #0063AF;
         text-align: left;
+        float: left;
+        margin-right: 30px;
+    }
+    #top-bar-right{
+        width: 120px;
+        color: #0063AF;
+        border-style: double;
+        border-top: none;
+        border-left: none;
+        border-radius: 10px;
+        box-shadow: #0063AF;
+        text-align: left;
+        float: left;
+
     }
     .validite
     {
@@ -87,12 +101,23 @@
         background-color: #0063AF;
         color: white;
     }
+
+    #nav-bar{
+        padding-top: 100px;
+    }
 </style>
 <body>
-    <div id="top-bar">
-        <h3 class="validite" style=" color : black !important; font-size: 14px;">{{appareil.numAppareil}}</h3>
-        <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
-        <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+    <div id="">
+        <div id="top-bar-left">
+            <h3 class="validite" style=" color : black !important; font-size: 14px;">{{appareil.numAppareil}}</h3>
+            <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
+            <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+        </div>
+        <div id="top-bar-right">
+            <h3 class="validite" style=" color : black !important; font-size: 14px;">{{appareil.numAppareil}}</h3>
+            <h3 class="validite">Périodicité : <span style="color: black;">{{appareil.periodicite}} Mois</span></h3>
+            <h3 class="validite">Validite : <span style="color: black;">{{appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+        </div>
     </div>
     <div id="nav-bar">
         <div>

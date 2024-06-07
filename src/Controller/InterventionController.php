@@ -83,30 +83,37 @@ class InterventionController extends AbstractController
             if ($choix == 'ajouter')
             {
                 $i = 0;
-                foreach($items as $item)
+                if ($items)
                 {
-                    $i = $i + 1;
-                    $repere = new Lintervention();
-                    $repere->setLig($i);
-                    $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
-                    $repere->setAppareil($appareil);
-                    $appareil->setStatus(1);
-                    $repere->setDesignation($item->getDesignation());
-                    $repere->setMarque($item->getMarque());
-                    $repere->setType($appareil->getType());
-                    $repere->setEtat($appareil->getEtat());
-                    $repere->setStatut($appareil->getStatut());
-                    $repere->setTypeIntervention($item->getTypeIntervention());
-                    $repere->setDateRetour($item->getDateRetour());
-                    $repere->setObservation($item->getObservation());
-                    $repere->setIntervention($intervention);
-                    $entityManagerInterface->persist($repere);
-                }
-                $intervention->setRetour(0);
-                $interventionRepository->save($intervention, true);
-                $session->clear();
-                return $this->redirectToRoute('app_intervention_index', [], Response::HTTP_SEE_OTHER);
+                    foreach($items as $item)
+                    {
+                        $i = $i + 1;
+                        $repere = new Lintervention();
+                        $repere->setLig($i);
+                        $appareil = $appareilRepository->findOneBy(array('id'=>$item->getAppareil()));
+                        $repere->setAppareil($appareil);
+                        $appareil->setStatus(1);
+                        $repere->setDesignation($item->getDesignation());
+                        $repere->setMarque($item->getMarque());
+                        $repere->setType($appareil->getType());
+                        $repere->setEtat($appareil->getEtat());
+                        $repere->setStatut($appareil->getStatut());
+                        $repere->setTypeIntervention($item->getTypeIntervention());
+                        $repere->setDateRetour($item->getDateRetour());
+                        $repere->setObservation($item->getObservation());
+                        $repere->setIntervention($intervention);
+                        $entityManagerInterface->persist($repere);
+                    }
 
+                    $intervention->setRetour(0);
+                    $interventionRepository->save($intervention, true);
+                    $session->clear();
+                    return $this->redirectToRoute('app_intervention_index', [], Response::HTTP_SEE_OTHER);
+                }else
+                {
+                    $this->addFlash("success", "Vous ne pouvez pas ajouté de DA sans un appareil de mesure");
+                    return $this->redirectToRoute('app_intervention_new', [], Response::HTTP_SEE_OTHER);
+                }
             }
             elseif($choix == 'add')
             {
@@ -149,6 +156,7 @@ class InterventionController extends AbstractController
         $repere = new Lintervention();
         $app = $intervention->getLinterventions();
         $item = $app[0];
+
         $type_service = $item->getAppareil()->getTypeService();
 
         // Création des formulaires spécifiques pour mécanique ou électrique
