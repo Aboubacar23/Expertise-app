@@ -90,13 +90,47 @@
     .page_break {
         page-break-before: always;
     }
+    #top-bar-left{
+        width: 120px;
+        color: #0063AF;
+        border-style: double;
+        border-top: none;
+        border-left: none;
+        border-radius: 10px;
+        box-shadow: #0063AF;
+        text-align: left;
+        float: left;
+        margin-right: 30px;
+    }
+    #top-bar-right{
+        width: 120px;
+        color: #0063AF;
+        border-style: double;
+        border-top: none;
+        border-left: none;
+        border-radius: 10px;
+        box-shadow: #0063AF;
+        text-align: left;
+        float: left;
+
+    }
+    #nav-bar{
+        padding-top: 100px;
+    }
 </style>
 <body>
 {% for item  in retourIntervention.intervention.linterventions %}
-    <div id="top-bar">
-        <h3 class="validite" style=" color : black !important; font-size: 14px;">{{item.appareil.numAppareil}}</h3>
-        <h3 class="validite">Périodicité : <span style="color: black;">{{item.appareil.periodicite}} Mois</span></h3>
-        <h3 class="validite">Validite : <span style="color: black;">{{item.appareil.dateValidite ? item.appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+    <div id="">
+        <div id="top-bar-left">
+            <h3 class="validite" style=" color : black !important; font-size: 14px;">{{item.appareil.numAppareil}}</h3>
+            <h3 class="validite">Périodicité : <span style="color: black;">{{item.appareil.periodicite}} Mois</span></h3>
+            <h3 class="validite">Validite : <span style="color: black;">{{item.appareil.dateValidite ? item.appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+        </div>
+        <div id="top-bar-right">
+            <h3 class="validite" style=" color : black !important; font-size: 14px;">{{item.appareil.numAppareil}}</h3>
+            <h3 class="validite">Périodicité : <span style="color: black;">{{item.appareil.periodicite}} Mois</span></h3>
+            <h3 class="validite">Validite : <span style="color: black;">{{item.appareil.dateValidite ? item.appareil.dateValidite|date('d-m-Y') : ''}}</span></h3>
+        </div>
     </div>
     <div id="nav-bar">
         <div>
