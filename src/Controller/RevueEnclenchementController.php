@@ -13,6 +13,7 @@ use App\Form\RevueEnclenchementType;
 use App\Repository\AtelierRepository;
 use App\Repository\EtudesAchatsRepository;
 use App\Repository\ParametreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,9 @@ use App\Form\RevueEnclenchement2Type;
 #[Route('/revue/enclenchement')]
 class RevueEnclenchementController extends AbstractController
 {
+    public function __construct(private EntityManagerInterface $entityManager)
+    {}
+
     // Route pour afficher la liste de toutes les revues d'enclenchement
     #[Route('/', name: 'app_revue_enclenchement_index', methods: ['GET'])]
     public function index(RevueEnclenchementRepository $revueEnclenchementRepository): Response
@@ -190,9 +194,13 @@ class RevueEnclenchementController extends AbstractController
         }
 
         // Soumission et validation du formulaire d'atelier
-        if ($formAtelier->isSubmitted() && $formAtelier->isValid()) {
+        if ($formAtelier->isSubmitted() && $formAtelier->isValid())
+        {
+            //dd($atelier);
             $atelier->setRevueEnclenchement($revueEnclenchement);
-            $atelierRepository->save($atelier, true);
+            $this->entityManager->persist($atelier);
+            $this->entityManager->flush();
+           // dd('bien joue');
             return $this->redirectToRoute('app_revue_enclenchement_indice', [
                 'id' => $affaire->getId()
             ], Response::HTTP_SEE_OTHER);

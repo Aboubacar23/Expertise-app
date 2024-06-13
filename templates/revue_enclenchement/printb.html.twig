@@ -193,10 +193,10 @@
 <div class="row">
     <table>
         <tr  class="table-primary">
-            <th class="text-center" colspan="2">ATELIER</th>
+            <th class="text-center" colspan="3">ATELIER</th>
         </tr>
         <tr class="table-primary titre">
-            {#<th class="taille3">Opération </th>#}
+            <th class="taille3">Opération </th>
             <th class="titre">Travaux</th>
             <th>Heures</th>
             {#<th>Total</th>#}
@@ -206,28 +206,21 @@
                 {% set total_heures_au = 0 %}
                 {% set num1 = 0 %}
                 {% for item2 in revue_enclenchement.ateliers %}
-                    {% if item2.operations == 'Autres' %}   
-                        {% set num1 = num1 + 1 %}
-                        {% set total_heures_au = total_heures_au + item2.heures %}                          
+                    {% set num1 = num1 + 1 %}
+                    {% set total_heures_au = total_heures_au + item2.heures %}
+                {% endfor %}
+                {% for item2 in revue_enclenchement.ateliers %}
+                    {% if item2.operations != 'Autres' %}
+                        <tr>
+                            <td>{{item2.operations}}</td>
+                            <td>{{item2.travaux}}</td>
+                            <th class="taille_th">{{item2.heures}}</th>
+                        </tr>
                     {% endif %}
-                {% endfor %}   
-                {% if total_heures_au != 0 %}
-                    <tr class="table-primary">
-                        <th colspan="1" class="titre">Autres</th>
-                        <th class="taille_th">{{total_heures_au}}</th>
-                    </tr>
-                    {% for item2 in revue_enclenchement.ateliers %}
-                        {% if item2.operations == 'Autres' %}
-                            <tr>
-                                <td colspan="1">{{item2.travaux}}</td>
-                                <td class="taille_th">{{item2.heures}}</td>
-                            </tr>                                  
-                        {% endif %}
-                    {% endfor %}   
-                {% endif %}
+                {% endfor %}
             <!-- fin de Autres -->   
                 <tr>
-                    <th class="table-primary titre">Total</th>
+                    <th class="table-primary titre" colspan="2">Total</th>
                     <th class="table-primary">{{ total_heures_au}}</th>
                 </tr>  
         {% endif %}
