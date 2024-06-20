@@ -163,15 +163,14 @@
                                             <tr>
                                                 <td>{{item.type}}</td>
                                                 <td>{{item.controle}}</td>
-                                                <td>{{item.critere}}</td>
-                                                
-<td>
+                                                <td>
                                                     {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                                        >= {{item.critere}} 
+                                                        >= {{item.critere}}
                                                     {% else %}
                                                             {{item.critere}}  M<span class="my_police">Ω</span>
                                                     {% endif %}
                                                 </td>
+                                                <td>{{item.tension}}</td>
                                                 {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
                                                     <td>{{ item.valeur}}</td>
                                                 {% else %}
