@@ -71,7 +71,8 @@ class ExpertiseMecaniqueController extends AbstractController
     public function __construct(private EntityManagerInterface $entityManager,
                                 private RedimensionneService $redimensionneService,
                                 private ImageService $imageService,
-                                private ImagePlanRepository $imagePlanRepository
+                                private ImagePlanRepository $imagePlanRepository,
+                                private SluggerInterface $slugger
     )
     {
     }
@@ -258,12 +259,71 @@ class ExpertiseMecaniqueController extends AbstractController
                     $item->setLig(1);
                     $item->setControleVisuelMecanique($controleVisuelMecanique);
                 }
+                // Gestion de l'image uploadée
+                $photo = $formControlevisuelMecanque->get('photo_accouplement')->getData();
+                if ($photo)
+                {
+                    // Récupération de la taille de l'image
+                    $size = $photo->getSize();
+                    // Vérification si l'image est supérieure à 2 Mo
+                    if($size > 2*1024*1024)
+                    {
+                        // Affichage d'un message d'erreur
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
+                    }else{
+                        // Traitement et sauvegarde de l'image
+                        $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $this->slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                        try {
+                            $photo->move(
+                                $this->getParameter('image_rotor'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_rotor'.'/'.$newPhotoname;
+                        //$this->redimensionneService->resize($directory);
+                        $controleVisuelMecanique->setPhotoAccouplement($newPhotoname);
+                    }
+                }
 
                 $parametre->setControleVisuelMecanique($controleVisuelMecanique);
                 $controleVisuelMecanique->setEtat(0);
                 $controleVisuelMecaniqueRepository->save($controleVisuelMecanique, true);
                 return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
             } elseif ($choix == 'controle_visuel_terminer') {
+
+                // Gestion de l'image uploadée
+                $photo = $formControlevisuelMecanque->get('photo_accouplement')->getData();
+                if ($photo)
+                {
+                    // Récupération de la taille de l'image
+                    $size = $photo->getSize();
+                    // Vérification si l'image est supérieure à 2 Mo
+                    if($size > 2*1024*1024)
+                    {
+                        // Affichage d'un message d'erreur
+                        $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo !");
+                        return $this->redirectToRoute('app_controle_visuel_mecanique', ['id' => $parametre->getId()]);
+                    }else{
+                        // Traitement et sauvegarde de l'image
+                        $originalePhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safePhotoname = $this->slugger->slug($originalePhoto);
+                        $newPhotoname = $safePhotoname . '-' . uniqid() . '.' . $photo->guessExtension();
+                        try {
+                            $photo->move(
+                                $this->getParameter('image_rotor'),
+                                $newPhotoname
+                            );
+                        } catch (FileException $e) {
+                        }
+                        $directory= $this->getParameter('kernel.project_dir').'/public/photo_rotor'.'/'.$newPhotoname;
+                        //$this->redimensionneService->resize($directory);
+                        $controleVisuelMecanique->setPhotoAccouplement($newPhotoname);
+                    }
+                }
                 // Mise à jour des accessoires supplémentaires et du contrôle visuel terminé
                 foreach ($tables as $item) {
                     $item->setLig(1);
