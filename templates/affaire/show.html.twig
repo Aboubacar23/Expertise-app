@@ -295,11 +295,11 @@
                                                         <td>{{ parametre.presencePlans ? 'Yes' : 'No' }}</td>#}
 														<td class="text-center">
 															{% if affaire.revueEnclenchements|length != 0 %}
-																<a class="btn btn-primary p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-1x"></i></a>
+																<a class="btn btn-primary p-1" href="{{ path('app_parametre_show', {'id': parametre.id}) }}"><i class="fa fa-eye fa-2x"></i></a>
 															{% endif %}
 															{% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_AGENT_MAITRISE') %}
-																<a class="btn btn-success p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-1x"></i></a>
-																<a class="btn btn-danger p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-1x"></i></a>
+																<a class="btn btn-success p-1" href="{{ path('app_parametre_edit', {'id': parametre.id}) }}"><i class="fa fa-edit fa-2x"></i></a>
+																<a class="btn btn-danger p-1" href="{{ path('app_corbeille', {'id': parametre.id}) }}" onclick="return confirm('Voulez vous mettre en corbeille?')"><i class="fa fa-trash fa-2x"></i></a>
 															{% endif %}
 															{#
                                                             {% if is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_SUPER_ADMIN') %}

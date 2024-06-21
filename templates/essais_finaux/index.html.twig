@@ -64,11 +64,11 @@
                             {% endif %}                            
                         {% endif %}
 
-                        {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
+                       {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                             {% if parametre.phototheques | length > 1 %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Finitions<i class="fa fa-check"></i></a>
                             {% else %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Finitions</a>
                             {% endif %} 
                         {% endif %}
 
@@ -336,7 +336,7 @@
                                     </table>
                                     <table class="table table-bordered">
                                         <tr  class="table-secondary">
-                                            <th>Critère acceptation max 25mm/s</th>
+                                            <th>Critère acceptation max 2.5mm/s	</th>
                                             <th>N (tr/min)</th>
                                             <th>A</th>
                                             <th>B</th>

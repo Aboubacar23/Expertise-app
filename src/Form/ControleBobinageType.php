@@ -16,6 +16,7 @@ class ControleBobinageType extends AbstractType
             ->add('conformite1', ChoiceType::class, [
                 'choices' => [
                     'Choisissez' => 'Choisissez',
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
@@ -23,6 +24,7 @@ class ControleBobinageType extends AbstractType
             ->add('conformite2',ChoiceType::class, [
                 'choices' => [
                     'Choisissez' => 'Choisissez',
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]

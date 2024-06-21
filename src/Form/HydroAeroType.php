@@ -15,30 +15,35 @@ class HydroAeroType extends AbstractType
         $builder
             ->add('conformite1', ChoiceType::class, [
                 'choices' => [
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('conformite2', ChoiceType::class, [
                 'choices' => [
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('conformite3', ChoiceType::class, [
                 'choices' => [
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('conformite4', ChoiceType::class, [
                 'choices' => [
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
             ])
             ->add('conformite5', ChoiceType::class, [
                 'choices' => [
+                    'Sans Objet' => 'Sans Objet',
                     'Conforme' => 'Conforme',
                     'Non conforme' => 'Non conforme'
                 ]
