@@ -76,21 +76,17 @@
 								{% endif %}
 							{% endif %}
 
-							{% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
+							{% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
 								{% if parametre.phototheques | length > 1 %}
-									<a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux
-										<i class="fa fa-check"></i>
-									</a>
+									<a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Finitions<i class="fa fa-check"></i></a>
 								{% else %}
-									<a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+									<a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Finitions</a>
 								{% endif %}
 							{% endif %}
 
 							{% if is_granted('ROLE_CHEF_PROJET') %}
 								{% if parametre.infoGenerale %}
-									<a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Info Générale
-										<i class="fa fa-check"></i>
-									</a>
+									<a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Info Générale<i class="fa fa-check"></i></a>
 								{% else %}
 									<a href="{{path('app_info_generale', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Info Générale</a>
 								{% endif %}
@@ -742,7 +738,7 @@
 								</table>
 								<table class="table table-bordered">
 									<tr class="table-secondary">
-										<th>Critère acceptation max 25mm/s</th>
+										<th>Critère acceptation max 2.5mm/s	</th>
 										<th>N (tr/min)</th>
 										<th>A</th>
 										<th>B</th>
@@ -753,35 +749,35 @@
 									</tr>
 									<tr>
 										<td>R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-										<td>{{ parametre.mesureVibratoire.n10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.a10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.b10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.c10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.d10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.e10 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.f10 | number_format(2) }}</td>
+										<td>{{ parametre.mesureVibratoire.n10}}</td>
+										<td>{{ parametre.mesureVibratoire.a10}}</td>
+										<td>{{ parametre.mesureVibratoire.b10}}</td>
+										<td>{{ parametre.mesureVibratoire.c10}}</td>
+										<td>{{ parametre.mesureVibratoire.d10}}</td>
+										<td>{{ parametre.mesureVibratoire.e10}}</td>
+										<td>{{ parametre.mesureVibratoire.f10}}</td>
 									</tr>
 									<tr>
 										<td>R.M.S à F0 (mm/s)</td>
-										<td>{{ parametre.mesureVibratoire.n25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.a25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.b25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.c25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.d25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.e25 | number_format(2) }}</td>
-										<td>{{ parametre.mesureVibratoire.f25 | number_format(2) }}</td>
+										<td>{{ parametre.mesureVibratoire.n25}}</td>
+										<td>{{ parametre.mesureVibratoire.a25}}</td>
+										<td>{{ parametre.mesureVibratoire.b25}}</td>
+										<td>{{ parametre.mesureVibratoire.c25}}</td>
+										<td>{{ parametre.mesureVibratoire.d25}}</td>
+										<td>{{ parametre.mesureVibratoire.e25}}</td>
+										<td>{{ parametre.mesureVibratoire.f25}}</td>
 									</tr>
 									{% if parametre.mesureVibratoire.lmesureVibratoires %}
 										{% for item in parametre.mesureVibratoire.lmesureVibratoires %}
 											<tr>
 												<td class="titre_table">{{ item.titre}}</td>
-												<td>{{ item.n30 | number_format(2) }}</td>
-												<td>{{ item.a30 | number_format(2) }}</td>
-												<td>{{ item.b30 | number_format(2) }}</td>
-												<td>{{ item.c30 | number_format(2) }}</td>
-												<td>{{ item.d30 | number_format(2) }}</td>
-												<td>{{ item.e30 | number_format(2) }}</td>
-												<td>{{ item.f30 | number_format(2) }}</td>
+												<td>{{ item.n30}}</td>
+												<td>{{ item.a30}}</td>
+												<td>{{ item.b30}}</td>
+												<td>{{ item.c30}}</td>
+												<td>{{ item.d30}}</td>
+												<td>{{ item.e30}}</td>
+												<td>{{ item.f30}}</td>
 											</tr>
 										{% endfor %}
 									{% endif %}
@@ -927,7 +923,7 @@
 										<td>{{ parametre.controleBobinage.constat1}}</td>
 									</tr>
 									<tr>
-										<th class="table-secondary">Contrôle laçage des développantes</th>
+										<th class="table-secondary">Contrôle laçage et calage des développantes	</th>
 										<td>{{ parametre.controleBobinage.conformite2}}</td>
 										<td>{{ parametre.controleBobinage.constat2}}</td>
 									</tr>

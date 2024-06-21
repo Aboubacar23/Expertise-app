@@ -63,11 +63,11 @@
                             {% endif %}                                    
                         {% endif %}
 
-                        {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
+                       {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
                             {% if parametre.phototheques | length > 1 %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-success btn-sm">Finitions<i class="fa fa-check"></i></a>
                             {% else %}
-                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Photothèque après travaux</a>
+                                <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-primary btn-sm">Finitions</a>
                             {% endif %} 
                         {% endif %}
 
@@ -331,12 +331,12 @@
                     </div>  
                 <!-- /fin Equilibrage -->   
                       
-                <!-- début Remontage et finitions -->
+                <!-- début Remontage -->
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h2>Remontage et finitions</h2>
+                                    <h2>Remontage</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     {% if parametre.remontageFinition == null %}
@@ -574,14 +574,14 @@
                             </div>
                         </div>
                     </div>  
-                <!-- /fin Remontage et finitions -->  
+                <!-- /fin Remontage -->  
 
                 <!-- début photo -->
                     <div class="x_panel"> 
                         <div class="x_title">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h2>Photos</h2>
+                                    <h2>Photos remontage</h2>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     {% if parametre.remontagePhotos| length != null %}

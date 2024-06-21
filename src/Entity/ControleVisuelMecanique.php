@@ -78,6 +78,9 @@ class ControleVisuelMecanique
     #[ORM\Column(nullable: true)]
     private ?bool $phase_neutre = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo_accouplement = null;
+
     public function __construct()
     {
         $this->accessoireSupplementaires = new ArrayCollection();
@@ -364,6 +367,18 @@ class ControleVisuelMecanique
     public function setPhaseNeutre(?bool $phase_neutre): static
     {
         $this->phase_neutre = $phase_neutre;
+
+        return $this;
+    }
+
+    public function getPhotoAccouplement(): ?string
+    {
+        return $this->photo_accouplement;
+    }
+
+    public function setPhotoAccouplement(?string $photo_accouplement): static
+    {
+        $this->photo_accouplement = $photo_accouplement;
 
         return $this;
     }

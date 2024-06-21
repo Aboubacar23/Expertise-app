@@ -6,7 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h4>Photothèque du projet : {{ parametre.affaire.numAffaire }}</h4>
+            <h4>Finition du projet : {{ parametre.affaire.numAffaire }}</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -69,8 +69,8 @@
                             {% endif %}                                  
                         {% endif %}
 
-                        {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') %}
-                            <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Photothèque après travaux <i class="fa fa-check"></i></a>
+                       {% if is_granted('ROLE_MAGASINIER') or is_granted('ROLE_CHEF_PROJET') or is_granted('ROLE_TECHNICIEN_ELECTRICIEN') or is_granted('ROLE_TECHNICIEN_MECANICIEN') %}
+                            <a href="{{path('app_phototheque', {'id' : parametre.id })}}" class="btn btn-outline-secondary btn-sm">Finitions<i class="fa fa-check"></i></a>
                         {% endif %}
 
                         {% if is_granted('ROLE_CHEF_PROJET') %}
