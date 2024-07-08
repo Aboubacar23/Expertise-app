@@ -280,7 +280,7 @@
             <p><a href="#lien5">V. Expertise mécanique</a></p>
             <p class="sous_menu1"><a href="#lien51"> A. Démontage</a></p>
             <p class="sous_menu2"><a href="#lien511"> </a></p>
-            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à borness</a></p>
+            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à bornesss</a></p>
             <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
             <p class="sous_menu1"><a href="#lien52"> B. Contrôle montage paliers</a></p>
             <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
@@ -297,14 +297,14 @@
             <p><a href="#lien6">VI. Expertise électrique avant lavage</a></p>
             <p class="sous_menu1"><a href="#lien61"> A. Contrôle visuel et recensementontage</a></p>
             {% if parametre.essaisPlateforme == 'Oui' %}
-            <p class="sous_menu1"><a href="#lien62"> B. Contrôle électrique à Réception</a></p>
+            <p class="sous_menu1"><a href="#lien62"> B. Contrôles électriques à Réception</a></p>
             <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
             <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
             <p class="sous_menu2"><a href="#lien623"> 3. Points de fonctionnement à vide</a></p>
             <p class="sous_menu2"><a href="#lien624"> 4. Mesures de vibrations</a></p>
             <p class="sous_menu2"><a href="#lien631"> 5. Appareils de mesure utilisés</a></p>
             {% elseif parametre.essaisPlateforme == 'Non' %}
-            <p class="sous_menu1"><a href="#lien63"> B. Contrôle électrique</a></p>
+            <p class="sous_menu1"><a href="#lien63"> B. Contrôles électriques</a></p>
             <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
             <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
             <p class="sous_menu2"><a href="#lien631"> 3. Appareils de mesure utilisés</a></p>
@@ -349,8 +349,8 @@
             <p class="sous_menu2"><a href="#lien1116"> 6. Point de fonctionnement rotor bloqué</a></p>
             <p class="sous_menu2"><a href="#lien1117"> 7. Appareils de mesure utilisés</a></p>
             <p class="sous_menu1"><a href="#lien112"> B. Remarque(s) générale(s)</a></p>
-            <p><a href="#lien9">XI. Travaux de remise en état et Révision</a></p>
-            <p class="sous_menu1"><a href="#lien91"> A. Finitions</a></p>
+            <p><a href="#lien9">XI. Finitions</a></p>
+            <p class="sous_menu1"><a href="#lien91"> A. Photos</a></p>
         </div>
     </div>
     {# fin sommaire #}
@@ -831,11 +831,11 @@
                 </div>
             {% endif %}
             <div class="sous_page5_3">
-                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à bornes</span></h5>
+                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à borness</span></h5>
                 <table>
                     <tr class="titre_table">
-                        <th>FAC-SIMILE boîte à borne</th>
-                        <th>PHOTO INTERIEUR boîte à borne</th>
+                        <th>FAC-SIMILE boîte à bornes</th>
+                        <th>PHOTO INTERIEUR boîte à bornes</th>
                     </tr>
                     <tr>
                         <td height="15%" class="td_image">
@@ -1459,7 +1459,7 @@
                             <th></th>
                             <th>Balais</th>
                             <th>Balais de masse</th>
-                            <th class="titre_table" colspan="2">Fac-similé boîte à borne</th>
+                            <th class="titre_table" colspan="2">Fac-similé boîte à bornes</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1532,9 +1532,9 @@
             {% endif %}
             <div class="sous_page6_1">
                 {% if parametre.essaisPlateforme == 'Oui' %}
-                    <h4 id="lien62">B. <span class="span_titre">Contrôle électrique à Réception</span></h4>
+                    <h4 id="lien62">B. <span class="span_titre">Contrôles électriques à Réception</span></h4>
                 {% elseif parametre.essaisPlateforme == 'Non' %}
-                    <h4 id="lien63">B. <span class="span_titre">Contrôle électrique</span></h4>
+                    <h4 id="lien63">B. <span class="span_titre">Contrôles électriques</span></h4>
                 {% endif %}
                 {% if parametre.mesureIsolement %}
                     <h5 id="lien621">1. <span class="span_titre">Mesure d’isolement</span></h5>
@@ -1975,7 +1975,7 @@
         <div class="page6">
             <h2 id="lien7">VII. Expertise électrique après lavage</h2>
             <div class="sous_page6_1">
-                <h4 id="lien71">A. <span class="span_titre">Contrôle électrique</span></h4>
+                <h4 id="lien71">A. <span class="span_titre">Contrôles électriques</span></h4>
                 {% if parametre.statorApresLavage %}
                     <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
                     <table>
@@ -2362,7 +2362,7 @@
                                 <td>{{ parametre.remontageFinition.controleCarcasse}}</td>
                             </tr>
                             <tr class="titre_table">
-                                <th colspan="2">Câblage et boîte à borne</th>
+                                <th colspan="2">Câblage et boîte à bornes</th>
                             </tr>
                             <tr>
                                 <td>Etamage des plages de raccordement au réseau</td>
@@ -2458,7 +2458,7 @@
                                 <td>{{ parametre.remontageFinition.controleCarcasse2}}</td>
                             </tr>
                             <tr class="titre_table">
-                                <th colspan="2">Câblage et boîte à borne</th>
+                                <th colspan="2">Câblage et boîte à bornes</th>
                             </tr>
                             <tr>
                                 <td>Propreté de l’intérieur de la boîte et présence des joints en état</td>
@@ -2561,6 +2561,11 @@
                                 <th>CA</th>
                                 <th>COA</th>
                             </tr>
+                        {% if parametre.remontagePalier.caa or parametre.remontagePalier.coaa or
+                            parametre.remontagePalier.cab or parametre.remontagePalier.coab or
+                            parametre.remontagePalier.cac or parametre.remontagePalier.coac or
+                            parametre.remontagePalier.cad or parametre.remontagePalier.coad
+                        %}
                             <tr>
                                 <td>A</td>
                                 <td>Moyeu Palier</td>
@@ -2589,10 +2594,43 @@
                                 <td>Jeu</td>
                                 <td>Jeu axial</td>
                                 {% if parametre.remontagePalier %}
-                                <td>{{ parametre.remontagePalier.caJeu }}</td>
-                                <td>{{ parametre.remontagePalier.coaJeu }}</td>
+                                    <td>{{ parametre.remontagePalier.caJeu }}</td>
+                                    <td>{{ parametre.remontagePalier.coaJeu }}</td>
                                 {% endif %}
                             </tr>
+                        {% else %}
+                            <tr>
+                                <td>A</td>
+                                <td>Moyeu Palier</td>
+                                <td>sans objet</td>
+                                <td>sans objet</td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td>Emboîtage C-Rlt extérieur</td>
+                                <td>sans objet</td>
+                                <td>sans objet</td>
+                            </tr>
+                            <tr>
+                                <td>C</td>
+                                <td>Roulement</td>
+                                <td>sans objet</td>
+                                <td>sans objet</td>
+                            </tr>
+                            <tr>
+                                <td>D</td>
+                                <td>Emboîtage C-Rlt intérieur</td>
+                                <td>sans objet</td>
+                                <td>sans objet</td>
+                            </tr>
+                            <tr>
+                                <td>Jeu</td>
+                                <td>Jeu axial</td>
+                                <td>sans objet</td>
+                                <td>sans objet</td>
+                            </tr>
+                            
+                        {% endif %}
                             <tr>
                                 <td></td>
                                 <td>Roulement</td>
@@ -3005,9 +3043,9 @@
     {% if parametre.phototheques | length > 0 %}
         <div class="page_break"></div>
         <div class="page8">
-            <h2 id="lien9">XI. Travaux de remise en état et Révision</h2>
+            <h2 id="lien9">XI. Finitions</h2>
             <div class="sous_page8_1">
-                    <h4 id="lien91">A. <span class="span_titre">Finitions</span></h4>
+                    <h4 id="lien91">A. <span class="span_titre">Photos</span></h4>
                     <div style="padding-top: 10px; align-items: center;">
                         <table>
                             {% for item in parametre.phototheques %}

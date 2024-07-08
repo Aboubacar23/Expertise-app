@@ -20,10 +20,10 @@ class ControleBobinage
     #[ORM\Column(length: 255)]
     private ?string $conformite2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $constat1 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $constat2 = null;
 
     #[ORM\Column(nullable: true)]

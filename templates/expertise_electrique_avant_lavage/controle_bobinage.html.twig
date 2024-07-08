@@ -43,7 +43,7 @@
                                 <tr>
                                     <th class="table-secondary">Contrôle laçage et calage des développantes	</th>
                                     <td>{{ form_widget(formControleBobinage.conformite2) }}</td>
-                                    <td>{{ form_widget(formControleBobinage.constat2) }}</td
+                                    <td>{{ form_widget(formControleBobinage.constat2) }}</td>
                                 </tr>
                                 <tr>
                                     <th class="table-secondary">Observation</th>
@@ -69,8 +69,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let conforme1 = document.getElementById('controle_bobinage_conformite1');
-            let conforme2 = document.getElementById('controle_bobinage_conformite2');
+            var conforme1 = document.getElementById('controle_bobinage_conformite1');
+            var conforme2 = document.getElementById('controle_bobinage_conformite2');
             var constat1 = document.getElementById('controle_bobinage_constat1');
             var constat2 = document.getElementById('controle_bobinage_constat2');
 
@@ -81,6 +81,7 @@
             {
                 constat1.value = "";
             }
+
 
             if(conforme2.value == "Conforme")
             {
@@ -93,8 +94,8 @@
         }
         document.getElementById('controle_bobinage_conformite1').addEventListener('input', updateSumField);
         document.getElementById('controle_bobinage_conformite2').addEventListener('input', updateSumField);
-        document.getElementById('controle_bobinage_constat1').addEventListener('input', updateSumField);
-        document.getElementById('controle_bobinage_constat2').addEventListener('input', updateSumField);
+        //document.getElementById('controle_bobinage_constat1').addEventListener('input', updateSumField);
+        //document.getElementById('controle_bobinage_constat2').addEventListener('input', updateSumField);
     });
 </script>
 {% endblock %}
