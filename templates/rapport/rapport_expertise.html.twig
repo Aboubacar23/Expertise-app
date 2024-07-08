@@ -278,7 +278,7 @@
             <p><a href="#lien5">V. Expertise mécanique</a></p>
             <p class="sous_menu1"><a href="#lien51"> A. Démontage</a></p>
             <p class="sous_menu2"><a href="#lien511"> 1. Relevé position de l’accouplement</a></p>
-            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à borness</a></p>
+            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à bornesss</a></p>
             <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
             <p class="sous_menu1"><a href="#lien52"> B. Contrôle montage paliers</a></p>
             <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
@@ -295,14 +295,14 @@
             <p><a href="#lien6">VI. Expertise électrique avant lavage</a></p>
             <p class="sous_menu1"><a href="#lien61"> A. Contrôle visuel et recensementontage</a></p>
             {% if parametre.essaisPlateforme == 'Oui' %}
-            <p class="sous_menu1"><a href="#lien62"> B. Contrôle électrique à Réception</a></p>
+            <p class="sous_menu1"><a href="#lien62"> B. Contrôles électriques à Réception</a></p>
             <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
             <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
             <p class="sous_menu2"><a href="#lien623"> 3. Points de fonctionnement à vide</a></p>
             <p class="sous_menu2"><a href="#lien624"> 4. Mesures de vibrations</a></p>
             <p class="sous_menu2"><a href="#lien635"> 5. Appareils de mesure utilisés</a></p>
             {% elseif parametre.essaisPlateforme == 'Non' %}
-            <p class="sous_menu1"><a href="#lien63"> B. Contrôle électrique</a></p>
+            <p class="sous_menu1"><a href="#lien63"> B. Contrôles électriques</a></p>
             <p class="sous_menu2"><a href="#lien621"> 1. Mesure d’isolement</a></p>
             <p class="sous_menu2"><a href="#lien622"> 2. Mesure de Résistance </a></p>
             <p class="sous_menu2"><a href="#lien635"> 3. Appareils de mesure utilisés</a></p>
@@ -312,7 +312,7 @@
             <p class="sous_menu1"><a href="#lien66"> F. Illustrations</a></p>
             <p class="sous_menu1"><a href="#lien67"> G. Observations, préconisations et conclusions ECE</a></p>
             <p><a href="#lien7">VII. Expertise électrique après lavage</a></p>
-            <p class="sous_menu1"><a href="#lien71"> A. Contrôle électrique</a></p>
+            <p class="sous_menu1"><a href="#lien71"> A. Contrôles électriques</a></p>
             <p class="sous_menu2"><a href="#lien711"> 1. Mesure d’isolement</a></p>
             <p class="sous_menu2"><a href="#lien712"> 2. Mesure de Résistance</a></p>
             {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
@@ -814,11 +814,11 @@
                 </div>
             {% endif %}
             <div class="sous_page5_3">
-                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à bornes</span></h5>
+                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à borness</span></h5>
                 <table>
                     <tr class="titre_table">
-                        <th>FAC-SIMILE boîte à borne</th>
-                        <th>PHOTO INTERIEUR boîte à borne</th>
+                        <th>FAC-SIMILE boîte à bornes</th>
+                        <th>PHOTO INTERIEUR boîte à bornes</th>
                     </tr>
                     <tr>
                         <td height="15%" class="td_image">
@@ -1499,9 +1499,9 @@
             {% endif %}
             <div class="sous_page6_1">
                 {% if parametre.essaisPlateforme == 'Oui' %}
-                <h4 id="lien62">B. <span class="span_titre">Contrôle électrique à Réception</span></h4>
+                <h4 id="lien62">B. <span class="span_titre">Contrôles électriques à Réception</span></h4>
                 {% elseif parametre.essaisPlateforme == 'Non' %}
-                <h4 id="lien63">B. <span class="span_titre">Contrôle électrique</span></h4>
+                <h4 id="lien63">B. <span class="span_titre">Contrôles électriques</span></h4>
                 {% endif %}
                 {% if parametre.mesureIsolement %}
                     <h5 id="lien621">1. <span class="span_titre">Mesure d’isolement</span></h5>
@@ -1941,7 +1941,7 @@
         <div class="page6">
             <h2 id="lien7">VII. Expertise électrique après lavage</h2>
             <div class="sous_page6_1">
-                <h4 id="lien71">A. <span class="span_titre">Contrôle électrique</span></h4>
+                <h4 id="lien71">A. <span class="span_titre">Contrôles électriques</span></h4>
                 {% if parametre.statorApresLavage %}
                     <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
                     <table>

@@ -30,7 +30,7 @@ class ParametreType extends AbstractType
                 'placeholder' => 'Choisir le type de machine'
             ])
             ->add('essais_plateforme', ChoiceType::class, [
-                'label' => 'Contrôle électrique à reception',
+                'label' => 'Contrôles électriques à reception',
                 'choices' => [
                     'Oui' => 'Oui',
                     'Non' => 'Non',
