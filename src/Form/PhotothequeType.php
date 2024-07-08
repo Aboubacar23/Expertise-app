@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Phototheque;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +16,14 @@ class PhotothequeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class)
+            ->add('titre', ChoiceType::class,[
+                'choices' => [
+               "Photo de l'ensemble avant départ" => "Photo de l'ensemble avant départ",
+               "Photo de l'accouplement avant départ" => "Photo de l'accouplement avant départ",
+               "Photo du bridage avant départ" => "Photo du bridage avant départ",
+               "Photo boîte à bornes avant départ" => "Photo boîte à bornes avant départ"
+                ]
+            ])
             ->add('libelle', FileType::class, [
                 'label' => 'Images',
                // 'multiple' => true,

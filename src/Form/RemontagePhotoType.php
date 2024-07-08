@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\RemontagePhoto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,13 +16,14 @@ class RemontagePhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('libelle',ChoiceType::class, [
-            'choices' => [
+        ->add('libelle',TextType::class, [
+            'required' => true,
+           /* 'choices' => [
                 "Photo de l'ensemble avant départ" => "Photo de l'ensemble avant départ",
                 "Photo de l'accouplement avant départ" => "Photo de l'accouplement avant départ",
                 "Photo du bridage avant départ" => "Photo du bridage avant départ",
-                "Photo Boîte à borne avant départ" => "Photo Boîte à borne avant départ"
-            ]
+                "Photo boîte à bornes avant départ" => "Photo boîte à bornes avant départ"
+            ]*/
         ])
         ->add('image', FileType::class, [
             'label' => 'Images',
