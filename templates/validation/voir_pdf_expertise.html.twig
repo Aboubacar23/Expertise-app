@@ -1356,12 +1356,11 @@
     </div>
     {# fin la page 5 #}
 
-
     {# la partie 6 expertise electrique avant lavage #}
     <div class="page_break"></div>
     <div class="page6">
         <h2 id="lien6">VI. Expertise électrique avant lavage</h2>
-        {% if parametre.controleVisuelElectrique %}
+        {% if parametre.controleVisuelElectrique |length != 0 %}
             <div class="sous_page6_1_1">
                 <h4 id="lien61">A. <span class="span_titre">Contrôle visuel et recensement</span></h4>
                 <table>
@@ -1425,6 +1424,8 @@
                 </table>
             </div>
         {% endif %}
+
+        <div class="page_break"></div>
         <div class="sous_page6_1">
             {% if parametre.essaisPlateforme == 'Oui' %}
                 <h4 id="lien62">B. <span class="span_titre">Contrôles électriques à Réception</span></h4>
@@ -1502,6 +1503,7 @@
                 </table>
             {% endif %}
             {% if parametre.mesureResistance %}
+                <div class="page_break"></div>
                 <h5 id="lien622">2. <span class="span_titre">Mesure des résistances</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -1555,6 +1557,7 @@
         </div>
         {% if parametre.essaisPlateforme == 'Oui' %}
             {% if parametre.pointFonctionnements |length != 0 %}
+                <div class="page_break"></div>
                 <div class="sous_page6_2">
                     {% if parametre.pointFonctionnements %}
                         <h5 id="lien623">3. <span class="span_titre">Points de fonctionnement à vide</span></h5>
@@ -1575,6 +1578,7 @@
             {% endif %}
             <div class="sous_page6_3">
                 {% if parametre.mesureVibratoire %}
+                    <div class="page_break"></div>
                     <h5 id="lien624">4. <span class="span_titre">Mesures de vibrations</span></h5>
                     <div class="table_sous_page5_6_1">
                         <table>
@@ -1670,6 +1674,7 @@
         {% endif %}
 
         {% if parametre.appareilMesures|length > 0 %}
+            <div class="page_break"></div>
             <div class="sous_page6_4">
                 {% if parametre.appareilMesures %}
                     <h5 id="lien625">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
@@ -1713,7 +1718,6 @@
                 </table>
             </div>
         {% endif %}
-
 
         {% if parametre.autreControle %}
             <div class="sous_page6_6">
@@ -1950,6 +1954,7 @@
             {% endif %}
 
             {% if parametre.sondeBobinage %}
+                <div class="page_break"></div>
                 <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -1959,7 +1964,7 @@
                         <th>T° ambiante (°C)</th>
                         <th>T° fer (°C)</th>
                         <th>Hygrométrie (%)</th>
-                        <th>Date Essaie (%)</th>
+                        <th>Date Essaie</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
@@ -1999,6 +2004,7 @@
             {% endif %}
 
             {% if parametre.equirepartitions |length > 0 %}
+                <div class="page_break"></div>
                 <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
                 <table>
                     <tr>
@@ -2050,6 +2056,7 @@
             {% endif %}
         </div>
         <div class="sous_page6_4">
+            <div class="page_break"></div>
             {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
                 <h5 id="lien713">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
             {% elseif parametre.pontDiodes |length > 0 or parametre.equirepartitions |length > 0 %}
@@ -2119,4 +2126,5 @@
         </div>
     {% endif %}
     {# fin de la partie 8 #}
+
 </body>

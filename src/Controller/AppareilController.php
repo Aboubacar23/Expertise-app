@@ -297,6 +297,14 @@ class AppareilController extends AbstractController
         // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             // Sauvegarde les modifications de l'appareil dans la base de données
+            $periodicite = intval($appareil->getPeriodicite());
+            $date_depuis  = $appareil->getDateEtat();
+            if ($date_depuis && $periodicite)
+            {
+                $dateValidite = clone $date_depuis;
+                $dateValidite->modify('+'.$periodicite. 'months');
+                $appareil->setDateValidite($dateValidite);
+            }
             $appareilRepository->save($appareil, true);
 
             // Redirige vers la liste des appareils
