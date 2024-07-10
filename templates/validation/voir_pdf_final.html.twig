@@ -287,29 +287,30 @@
     </div>
     {# fin de la page 2 #}
 
+
     {# la page 3, Caractéristiques générales  #}
     <div class="page_break"></div>
     <div class="page3">
         <h2 id="lien3">III. Caractéristiques générales</h2>
         <div class="sous_page">
             {% if parametre.plaques %}
-            <table>
-                <tr>
-                    {% for item in parametre.plaques %}
-                        <td height="15%" class="td_image">
-                            {% if item.photo %}
-                            <img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo" 
-                            width="200px" height="200px">
-                            {% endif %}
-                        </td>
-                    {% endfor %} 
-                </tr>
-                <tr>
-                    {% for item in parametre.plaques %}
-                    <td>{{item.libelle}}</td>
-                    {% endfor %}
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        {% for item in parametre.plaques %}
+                            <td height="15%" class="td_image">
+                                {% if item.photo %}
+                                    <img src="{{ absolute_url(asset('photo_plaque/' ~ item.photo)) }}" alt="item.photo"
+                                         width="200px" height="200px">
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for item in parametre.plaques %}
+                            <td>{{item.libelle}}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
             {% endif %}
         </div>
         <div class="sous_page1">
@@ -340,18 +341,18 @@
                 </tr>
             </table>
             {% if parametre.lplaque %}
-            <table>
-                <tr class="titre_table">
-                    <th>Service</th>
-                    <th>Classe Isolation</th>
-                    <th>Indice de protection</th>
-                </tr>
-                <tr>
-                    <td>{{ parametre.lplaque.service }}</td>
-                    <td>{{ parametre.lplaque.classeIsolation }}</td>
-                    <td>{{ parametre.lplaque.indiceProtection }}</td>
-                </tr>
-            </table>
+                <table>
+                    <tr class="titre_table">
+                        <th>Service</th>
+                        <th>Classe Isolation</th>
+                        <th>Indice de protection</th>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.lplaque.service }}</td>
+                        <td>{{ parametre.lplaque.classeIsolation }}</td>
+                        <td>{{ parametre.lplaque.indiceProtection }}</td>
+                    </tr>
+                </table>
             {% endif %}
             <table>
                 <tr class="titre_table">
@@ -380,12 +381,12 @@
                     <td> {{ parametre.statorFrequence }} Hz</td>
                 </tr>
                 {% if parametre.statorTension2 != null or parametre.statorTension2 > 0 %}
-                <tr>
-                    <th style="text-align:left;">Tension Excitation </th>
-                    <td>{{parametre.statorTension}} V</td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    <tr>
+                        <th style="text-align:left;">Tension Excitation </th>
+                        <td>{{parametre.statorTension}} V</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 {% endif %}
                 <tr>
                     <th style="text-align:left;">Courant</th>
@@ -394,12 +395,12 @@
                     <td>{{ parametre.statorCouplage }}</td>
                 </tr>
                 {% if parametre.statorCourantExcitation != null or parametre.statorCourantExcitation > 0 %}
-                <tr>
-                    <th style="text-align:left;">Courant Excitation </th>
-                    <td>{{parametre.statorTension2}} A</td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    <tr>
+                        <th style="text-align:left;">Courant Excitation </th>
+                        <td>{{parametre.statorTension2}} A</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 {% endif %}
             </table>
             <table class="table_sous_page2">
@@ -415,164 +416,164 @@
                     <td>{{ parametre.rotorCourant }} A</td>
                 </tr>
                 {% if parametre.rotorTension2 != null or parametre.rotorTension2 > 0 %}
-                <tr>
-                    <th style="text-align:left;">Tension Excitation </th>
-                    <td>{{parametre.rotorTension2}} V</td>
-                </tr>
+                    <tr>
+                        <th style="text-align:left;">Tension Excitation </th>
+                        <td>{{parametre.rotorTension2}} V</td>
+                    </tr>
                 {% endif %}
             </table>
         </div>
         <div class="sous_page3">
             {% if parametre.roulement %}
-            <table class="table_sous_page">
-                <tr class="titre_table">
-                    <th></th>
-                    <th>Roulements CA</th>
-                    <th>Roulements COA</th>
-                </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>{{ parametre.roulement.typeCa }}</td>
-                    <td>{{ parametre.roulement.typeCoa }}</td>
-                </tr>
-                </tr>
-                <td>Graisse</td>
-                <td>{{ parametre.roulement.graisseCa }}</td>
-                <td>{{ parametre.roulement.graisseCoa }}</td>
-                </tr>
-            </table>
+                <table class="table_sous_page">
+                    <tr class="titre_table">
+                        <th></th>
+                        <th>Roulements CA</th>
+                        <th>Roulements COA</th>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td>{{ parametre.roulement.typeCa }}</td>
+                        <td>{{ parametre.roulement.typeCoa }}</td>
+                    </tr>
+                    </tr>
+                    <td>Graisse</td>
+                    <td>{{ parametre.roulement.graisseCa }}</td>
+                    <td>{{ parametre.roulement.graisseCoa }}</td>
+                    </tr>
+                </table>
             {% endif %}
             {% if parametre.controleVisuelElectrique != null %}
                 {% if parametre.presenceBalais == 1 or parametre.presenceBalaisMasse == 1 %}
-                <table class="table_sous_page">
-                <tr class="titre_table">
-                    <th>Caractéristiques</th>
-                    {% if parametre.presenceBalais == 1 %}
-                    <th>Balais</th>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <th>Balais de Masse</th>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Dimensions</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Marque</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Quantité</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Nuance</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Longueur Shunt</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Type pression</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Type de Cosses</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Présence de Gaine</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td>Aspect de la patine</td>
-                    {% if parametre.presenceBalais == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
-                    {% endif %}
-                    {% if parametre.presenceBalaisMasse == 1 %}
-                    <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
-                    {% endif %}
-                </tr>
-            </table>
+                    <table class="table_sous_page">
+                        <tr class="titre_table">
+                            <th>Caractéristiques</th>
+                            {% if parametre.presenceBalais == 1 %}
+                                <th>Balais</th>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <th>Balais de Masse</th>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Dimensions</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Marque</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Quantité</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Nuance</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Longueur Shunt</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Type pression</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Type de Cosses</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Présence de Gaine</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Aspect de la patine</td>
+                            {% if parametre.presenceBalais == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
+                            {% endif %}
+                            {% if parametre.presenceBalaisMasse == 1 %}
+                                <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                            {% endif %}
+                        </tr>
+                    </table>
                 {% endif %}
             {% endif %}
         </div>
         <div class="sous_page4">
             {% if parametre.coussinet %}
-            <table class="table_sous_page">
-                <tr class="titre_table">
-                    <th class="numero"></th>
-                    <th>Coussinet CA</th>
-                    <th>Coussinet COA</th>
-                </tr>
-                <tr>
-                    <td>Réf. Palier</td>
-                    <td>{{ parametre.coussinet.refPalierCa }}</td>
-                    <td>{{ parametre.coussinet.refPalierCoa }}</td>
-                </tr>
-                <tr>
-                    <td>N Cde</td>
-                    <td>{{ parametre.coussinet.numCodeCa }}</td>
-                    <td>{{ parametre.coussinet.numCodeCoa }}</td>
-                </tr>
-                <tr>
-                    <td>Photo Plaque</td>
-                    <td style="text-align: center;">
-                        {% if parametre.coussinet.photoCa %}
-                        <img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCa))}}"
-                            alt="{{parametre.coussinet.photoCa}}" width="250px" height="250px" />
-                        {% endif %}
-                    </td>
-                    <td style="text-align: center;">
-                        {% if parametre.coussinet.photoCoa %}
-                        <img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCoa))}}"
-                            alt="{{parametre.coussinet.photoCoa}}" width="250px" height="250px" />
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
+                <table class="table_sous_page">
+                    <tr class="titre_table">
+                        <th class="numero"></th>
+                        <th>Coussinet CA</th>
+                        <th>Coussinet COA</th>
+                    </tr>
+                    <tr>
+                        <td>Réf. Palier</td>
+                        <td>{{ parametre.coussinet.refPalierCa }}</td>
+                        <td>{{ parametre.coussinet.refPalierCoa }}</td>
+                    </tr>
+                    <tr>
+                        <td>N Cde</td>
+                        <td>{{ parametre.coussinet.numCodeCa }}</td>
+                        <td>{{ parametre.coussinet.numCodeCoa }}</td>
+                    </tr>
+                    <tr>
+                        <td>Photo Plaque</td>
+                        <td style="text-align: center;">
+                            {% if parametre.coussinet.photoCa %}
+                                <img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCa))}}"
+                                     alt="{{parametre.coussinet.photoCa}}" width="250px" height="250px" />
+                            {% endif %}
+                        </td>
+                        <td style="text-align: center;">
+                            {% if parametre.coussinet.photoCoa %}
+                                <img src="{{absolute_url(asset('/photo_coussinet/' ~ parametre.coussinet.photoCoa))}}"
+                                     alt="{{parametre.coussinet.photoCoa}}" width="250px" height="250px" />
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
             {% endif %}
         </div>
     </div>
@@ -591,26 +592,25 @@
                     </tr>
                     <tr>
                         {% for item in parametre.controleRecensements %}
-                        {% if item.photo %}
-                        <td class="td_image"><img
-                                src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
-                                width="250px" height="250px"></td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
+                            {% if item.photo %}
+                                <td class="td_image"><img
+                                            src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
+                                            width="250px" height="250px"></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
                         {% endfor %}
                     </tr>
                     <tr>
                         {% for item in parametre.controleRecensements %}
-                        <td>{{item.libelle}}</td>
+                            <td>{{item.libelle}}</td>
                         {% endfor %}
                     </tr>
                 </table>
             </div>
         {% endif %}
-
-        {% if parametre.controleVisuelMecanique %}
-            <div class="sous_page4_2">
+        <div class="sous_page4_2">
+            {% if parametre.controleVisuelMecanique %}
                 <table>
                     <tr class="titre_table">
                         <th colspan="4">Contrôle visuel et recensement</th>
@@ -667,696 +667,693 @@
                         <td>Position de l'accouplement</td>
                         <td>{{ parametre.controleVisuelMecanique.positionAccouplement }}</td>
                         {% if parametre.controleVisuelMecanique.nombreAccessoire != null  %}
-                        <td>Nombre d'accessoires complémentaires</td>
-                        <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
+                            <td>Nombre d'accessoires complémentaires</td>
+                            <td>{{ parametre.controleVisuelMecanique.nombreAccessoire }}</td>
                         {% else %}
-                        <td colspan="2"></td>
+                            <td colspan="2"></td>
                         {% endif %}
                     </tr>
                 </table>
-            </div>
-        {% endif %}
-        {% if parametre.controleVisuelMecanique.accessoireSupplementaires | length > 0 %}
-            <div class="sous_page4_3">
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="2">Liste des accessoires complémentaires</th>
-                        </tr>
-                        {% set i = 0 %}
-                        {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
+            {% endif %}
+        </div>
+        <div class="sous_page4_3">
+            {% if parametre.controleVisuelMecanique.accessoireSupplementaires | length > 0 %}
+                <table>
+                    <tr class="titre_table">
+                        <th colspan="2">Liste des accessoires complémentaires</th>
+                    </tr>
+                    {% set i = 0 %}
+                    {% for c in parametre.controleVisuelMecanique.accessoireSupplementaires %}
                         {% set i = i + 1 %}
                         <tr>
                             <td class="titre_table">Accessoires complémentaires N° {{i}}</td>
                             <td>{{c.libelle}}</td>
                         </tr>
-                        {% endfor %}
-                    </table>
-            </div>
-        {% endif %}
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
     </div>
     {# fin la page 4 #}
 
     {# la page 5, Expertise mécanique #}
-        <div class="page_break"></div>
-        <div class="page5">
-            <h2 id="lien5">V. Expertise mécanique</h2>
-            <h4 id="lien51">A. <span class="span_titre">Démontage</span></h4>
-            {% if parametre.controleVisuelMecanique %}
-                <div class="sous_page5_2">
-                    <h5 id="lien511">1. <span class="span_titre">Relevé position de l’accouplement</span></h5>
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="2"></th>
-                            <th>PHOTO ACCOUPLEMENT</th>
-                            {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
-                                <th>Débordant</th>
-                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
-                                <th>Affleurant</th>
-                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
-                                <th>Rentré</th>
-                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
-                                <th>Aucun</th>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            <td>Présence clavette</td>
-                            <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
-                            <td>
-                                {% if parametre.controleVisuelMecanique.photoAccouplement %}
-                                    <img class="p-2" src="{{absolute_url(asset('/photo_rotor/'~ parametre.controleVisuelMecanique.photoAccouplement))}}" height="120px" width="120px">
-                                {% endif %}
-                            </td>
-                            <td height="15%" class="td_image">
-                                {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
-                                    <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
-                                {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
-                                    <img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px">
-                                {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
-                                    <img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px">
-                                {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
-                                    <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo"
-                                         height="150px">
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-
-            <div class="sous_page5_3">
-                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à borness</span></h5>
+    <div class="page_break"></div>
+    <div class="page5">
+        <h2 id="lien5">V. Expertise mécanique</h2>
+        <h4 id="lien51">A. <span class="span_titre">Démontage</span></h4>
+        {% if parametre.controleVisuelMecanique %}
+            <div class="sous_page5_2">
+                <h5 id="lien511">1. <span class="span_titre">Relevé position de l’accouplement</span></h5>
                 <table>
                     <tr class="titre_table">
-                        <th>FAC-SIMILE boîte à bornes</th>
-                        <th>PHOTO INTERIEUR boîte à bornes</th>
+                        <th colspan="2"></th>
+                        <th>PHOTO ACCOUPLEMENT</th>
+                        {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                            <th>Débordant</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                            <th>Affleurant</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                            <th>Rentré</th>
+                        {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                            <th>Aucun</th>
+                        {% endif %}
                     </tr>
                     <tr>
-                        <td height="15%" class="td_image">
-                            {% if parametre.controleVisuelElectrique.photo %}
-                                <img src="{{ absolute_url(asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)) }}" alt="item.photo" height="150px">
+                        <td>Présence clavette</td>
+                        <td>{{ parametre.controleVisuelMecanique.clavette ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            {% if parametre.controleVisuelMecanique.photoAccouplement %}
+                                <img class="p-2" src="{{absolute_url(asset('/photo_rotor/'~ parametre.controleVisuelMecanique.photoAccouplement))}}" height="120px" width="120px">
                             {% endif %}
                         </td>
                         <td height="15%" class="td_image">
-                            {% if parametre.boiteBornes | length > 0  %}
-                                {% for item in parametre.boiteBornes  %}
-                                    <img class="p-2" src="{{absolute_url(asset('/photo_boite_bornes/'~ item.libelle))}}" height="200" width="200">
-                                {% endfor %}
+                            {% if parametre.controleVisuelMecanique.accouplement == 'Débordant' %}
+                                <img src="{{ absolute_url(asset('images/debordant.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Affleurant' %}
+                                <img src="{{ absolute_url(asset('images/affleurant.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Rentré' %}
+                                <img src="{{ absolute_url(asset('images/rentre.png')) }}" alt="item.photo" height="150px">
+                            {% elseif parametre.controleVisuelMecanique.accouplement == 'Aucun' %}
+                                <img src="{{ absolute_url(asset('images/sans_accouplement.png')) }}" alt="item.photo"
+                                     height="150px">
                             {% endif %}
                         </td>
                     </tr>
-                    {% if parametre.controleVisuelElectrique %}
-                        <tr>
-                            <td class="titre_table">Sens rotation</td>
-                            <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Remarque</td>
-                            <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
-                        </tr>
-                    {% endif %}
                 </table>
             </div>
-            {% if parametre.synoptiques | length > 0 %}
-                <div class="page_break"></div>
-                <div class="sous_page5_4">
-                    <h5 id="lien513">3. <span class="span_titre">Synoptique de démontage</span></h5>
-                    {% if parametre.imagePlan %}
-                        <table class="table_sous_page5_6_1">
-                            <tr>
-                                <th class="titre_table">Plan CA</th>
-                            </tr>
-                            <tr style="text-align: center; padding: 2px">
-                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
-                            </tr>
-                            <tr>
-                                <th class="titre_table">Repères, désignation des pièces</th>
-                            </tr>
-                            {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan CA" %}
-                                        <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
+        {% endif %}
+        <div class="sous_page5_3">
+            <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à borness</span></h5>
+            <table>
+                <tr class="titre_table">
+                    <th>FAC-SIMILE boîte à bornes</th>
+                    <th>PHOTO INTERIEUR boîte à bornes</th>
+                </tr>
+                <tr>
+                    <td height="15%" class="td_image">
+                        {% if parametre.controleVisuelElectrique.photo %}
+                            <img src="{{ absolute_url(asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)) }}" alt="item.photo" height="150px">
+                        {% endif %}
+                    </td>
+                    <td height="15%" class="td_image">
+                        {% if parametre.boiteBornes | length > 0  %}
+                            {% for item in parametre.boiteBornes  %}
+                                <img class="p-2" src="{{absolute_url(asset('/photo_boite_bornes/'~ item.libelle))}}" height="200" width="200">
                             {% endfor %}
-                        </table>
-                        <table class="table_sous_page5_6_2">
-                            <tr>
-                                <th class="titre_table">PLan COA</th>
-                            </tr>
-                            <tr style="text-align: center; padding: 2px">
-                                <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
-                            </tr>
-                            <tr>
-                                <th class="titre_table">Repères, désignation des pièces</th>
-                            </tr>
-                            {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan COA" %}
-                                        <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                        <table>
-                            <tr style="text-align: center;">
-                                <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
-                                </td>
-                            </tr>
-                        </table>
-                        <table style="padding-top:25px;">
-                            <thead class="titre_table">
-                            <tr>
-                                <th>Repères, désignation des pièces</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="titre_table">
-                                <th>PLAN CA</th>
-                            </tr>
-                            {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan CA" %}
-                                        <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                            <tr class="titre_table">
-                                <th>PLAN COA</th>
-                            </tr>
-                            {% for item in parametre.synoptiques %}
-                                <tr>
-                                    {% if item.type == "Plan COA" %}
-                                        <td>{{item.repere}}</td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% endif %}
-                </div>
-            {% endif %}
-            {% if parametre.controleMontageRoulement %}
-                <div class="page_break"></div>
-                <div class="sous_page5_5">
-                    <h4 id="lien52">B. <span class="span_titre">Contrôle montage paliers</span></h4>
-                    <table>
-                        <tr class="titre_table">
-                            <th class="numero2"></th>
-                            <th>Roulements à la réception</th>
-                            <th>Montage prévu selon CST</th>
-                            <th class="numero">Kit à prévoir</th>
-                        </tr>
-                        <tr>
-                            <td>CA</td>
-                            <td>{{ parametre.controleMontageRoulement.caRoulement }}</td>
-                            <td>{{ parametre.controleMontageRoulement.caMontage }}</td>
-                            <td>{{ parametre.controleMontageRoulement.caKit ? 'Oui' : 'Non' }}</td>
-                        </tr>
-                        <tr>
-                            <td>COA</td>
-                            <td>{{ parametre.controleMontageRoulement.coaRoulement }}</td>
-                            <td>{{ parametre.controleMontageRoulement.coaMontage }}</td>
-                            <td>{{ parametre.controleMontageRoulement.coaKit ? 'Oui' : 'Non' }}</td>
-                        </tr>
-                    </table>
-
-                    {% if parametre.controleMontageRoulement.coteCaA or  parametre.controleMontageRoulement.coteCoaA %}
-                        <table>
-                            <tr>
-                                <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/controle_montage2.png')) }}" alt="item.photo"  height="150px"></td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr class="titre_table">
-                                <th class="numero2">Rep</th>
-                                <th>Désignation piéces</th>
-                                <th class="numero">Cotes CA</th>
-                                <th class="numero">Cotes COA</th>
-                            </tr>
-                            <tr>
-                                <td>A</td>
-                                <td>Moyeu palier</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
-                            </tr>
-                            <tr>
-                                <td>B</td>
-                                <td>Emboitage C-Rlt extérieur</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
-                            </tr>
-                            <tr>
-                                <td>C</td>
-                                <td>Roulement</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
-                            </tr>
-                            <tr>
-                                <td>D</td>
-                                <td>Emboitage C-Rlt intérieur</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>2 rondelles isolantes</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
-                            </tr>
-                            <tr>
-                                <td>Jeu</td>
-                                <td>J = A - (B+C+D+Soupape)</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Graisse</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
-                                <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
-                            </tr>
-                        </table>
-                    {% endif %}
-                </div>
-            {% endif %}
-            {% if parametre.controleMontageCoussinet %}
-                <div class="sous_page5_6">
-                    <h4 id="lien53">C. <span class="span_titre">Contrôle des coussinets</span></h4>
-                    <h5 id="lien531">1. <span class="span_titre">Expertise des soies</span></h5>
-                    <table>
-                        <tr>
-                            <td height="15%" class="td_image"><img
-                                        src="{{ absolute_url(asset('images/cote_accouplement1.png')) }}" alt="item.photo"
-                                        height="120px"></td>
-                            <td height="15%" class="td_image"><img
-                                        src="{{ absolute_url(asset('images/cote_accouplement2.png')) }}" alt="item.photo"
-                                        height="120px"></td>
-                            <td height="15%" class="td_image"><img
-                                        src="{{ absolute_url(asset('images/cote_op_accouplement1.png')) }}" alt="item.photo"
-                                        height="120px"></td>
-                            <td height="15%" class="td_image"><img
-                                        src="{{ absolute_url(asset('images/cote_op_accouplement2.png')) }}" alt="item.photo"
-                                        height="120px"></td>
-                        </tr>
-                    </table>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if parametre.controleVisuelElectrique %}
+                    <tr>
+                        <td class="titre_table">Sens rotation</td>
+                        <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
+                    </tr>
+                    <tr>
+                        <td class="titre_table">Remarque</td>
+                        <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+        {% if parametre.synoptiques | length > 0 %}
+            <div class="page_break"></div>
+            <div class="sous_page5_4">
+                <h5 id="lien513">3. <span class="span_titre">Synoptique de démontage</span></h5>
+                {% if parametre.imagePlan %}
                     <table class="table_sous_page5_6_1">
                         <tr>
-                            <th class="titre_table" colspan="6">Côté Accouplement</th>
+                            <th class="titre_table">Plan CA</th>
+                        </tr>
+                        <tr style="text-align: center; padding: 2px">
+                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
                         </tr>
                         <tr>
-                            <th class="titre_table" colspan="3">Longueur</th>
-                            <td colspan="3">{{ parametre.controleMontageCoussinet.longueurAccouplement}}</td>
+                            <th class="titre_table">Repères, désignation des pièces</th>
                         </tr>
-                        <tr>
-                            <th class="titre_table">1</th>
-                            <td>{{ parametre.controleMontageCoussinet.d1}}</td>
-                            <th class="titre_table">3</th>
-                            <td>{{ parametre.controleMontageCoussinet.d3}}</td>
-                            <th class="titre_table">5</th>
-                            <td>{{ parametre.controleMontageCoussinet.d5}}</td>
-                        </tr>
-                        <tr>
-                            <th class="titre_table">2</th>
-                            <td>{{ parametre.controleMontageCoussinet.d2}}</td>
-                            <th class="titre_table">4</th>
-                            <td>{{ parametre.controleMontageCoussinet.d4}}</td>
-                            <th class="titre_table">6</th>
-                            <td>{{ parametre.controleMontageCoussinet.d6}}</td>
-                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan CA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
                     </table>
                     <table class="table_sous_page5_6_2">
                         <tr>
-                            <th class="titre_table" colspan="6">Côté opposé Accouplement</th>
+                            <th class="titre_table">PLan COA</th>
+                        </tr>
+                        <tr style="text-align: center; padding: 2px">
+                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
                         </tr>
                         <tr>
-                            <th class="titre_table" colspan="3">Longueur</th>
-                            <td colspan="3">{{ parametre.controleMontageCoussinet.longueurOppAccouplement}}</td>
+                            <th class="titre_table">Repères, désignation des pièces</th>
                         </tr>
-                        <tr>
-                            <th class="titre_table">7</th>
-                            <td>{{ parametre.controleMontageCoussinet.d7}}</td>
-                            <th class="titre_table">9</th>
-                            <td>{{ parametre.controleMontageCoussinet.d9}}</td>
-                            <th class="titre_table">11</th>
-                            <td>{{ parametre.controleMontageCoussinet.d11}}</td>
-                        </tr>
-                        <tr>
-                            <th class="titre_table">8</th>
-                            <td>{{ parametre.controleMontageCoussinet.d8}}</td>
-                            <th class="titre_table">10</th>
-                            <td>{{ parametre.controleMontageCoussinet.d10}}</td>
-                            <th class="titre_table">12</th>
-                            <td>{{ parametre.controleMontageCoussinet.d12}}</td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.controleMontageCoussinet %}
-                <div class="sous_page5_7">
-                    <h5 id="lien532">2. <span class="span_titre">Relevés alésage coussinets</span></h5>
-                    <table class="table_sous_page5_7_1">
-                        <tr class="titre_table">
-                            <th colspan="2">Côté accouplement</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th>Avant (mm)</th>
-                            <th>Arriére (mm)</th>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementAvant1}}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementArriere1}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementAvant2}}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementArriere2}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementAvant3}}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementArriere3}}</td>
-                        </tr>
-                    </table>
-                    <table class="table_sous_page5_7_2">
-                        <tr class="titre_table">
-                            <th colspan="2">Côté opposé accouplement</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th>Avant (mm)</th>
-                            <th>Arriére (mm)</th>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant1 }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere1 }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant2 }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere2 }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant3 }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere3 }}</td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.controleMontageCoussinet %}
-                <div class="sous_page5_8">
-                    <h5 id="lien533">3. <span class="span_titre">Expertise des coussinets</span></h5>
-                    <table>
-                        <tr class="titre_table">
-                            <th class="numero2"></th>
-                            <th>Natures des relevés</th>
-                            <th>Diamètre attendu (mm)</th>
-                            <th>Tolérance</th>
-                            <th>Moyenne des relevés (mm)</th>
-                            <th>Conformité</th>
-                            <th>Observation</th>
-                        </tr>
-                        <tr>
-                            <td>CA</td>
-                            <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve | number_format(2) }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
-                        </tr>
-                        <tr>
-                            <td>COA</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve | number_format(2) }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
-                            <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.releveDimmensionnels %}
-                <div class="page_break"></div>
-                <div class="sous_page5_9">
-                    <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
-                    <table>
-                        <tr>
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}" alt="item.photo" height="150px"></td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr class="titre_table">
-                            <th>Désignation diamètre</th>
-                            <th>Cote attendue (mm)</th>
-                            <th>Tolérance</th>
-                            <th>Cote relevée</th>
-                            <th class="numero2">Conformité</th>
-                            <th>Observation</th>
-                        </tr>
-                        <tr>
-                            <th colspan="6" class="titre_table">Côté accouplement</th>
-                        </tr>
-                        {% for item in parametre.releveDimmensionnels %}
-                            {% if item.type == 'Côté accoupplement' %}
-                                <tr>
-                                    <td>{{item.designation}}</td>
-                                    <td>{{item.coteAttendue}}</td>
-                                    <td>{{item.tolerance}}</td>
-                                    <td>{{item.coteRelevee}}</td>
-                                    {% if item.conformite ==  'Conforme' %}
-                                        <td style="color: green;">{{item.conformite}}</td>
-                                    {% else %}
-                                        <td style="color: red;">{{item.conformite}}</td>
-                                    {% endif %}
-                                    <td>{{item.observation}}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                        <tr>
-                            <th colspan="6" class="titre_table">Côté opposé accouplement</th>
-                        </tr>
-                        {% for item in parametre.releveDimmensionnels %}
-                            {% if item.type == 'Côté opposé accoupplement' %}
-                                <tr>
-                                    <td>{{item.designation}}</td>
-                                    <td>{{item.coteAttendue}}</td>
-                                    <td>{{item.tolerance}}</td>
-                                    <td>{{item.coteRelevee}}</td>
-                                    {% if item.conformite ==  'Conforme' %}
-                                        <td style="color: green;">{{item.conformite}}</td>
-                                    {% else %}
-                                        <td style="color: red;">{{item.conformite}}</td>
-                                    {% endif %}
-                                    <td>{{item.observation}}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </table>
-                    <table>
-                        {% if parametre.photoRotors %}
-                            <tr class="titre_table">
-                                <th>PHOTO : ROTOR</th>
-                            </tr>
-                            {% for item in parametre.photoRotors %}
-                                <tr>
-                                    <td class="td_image">
-                                        {% if item.libelle %}
-                                            <img src="{{ absolute_url(asset('photo_rotor/' ~ item.libelle)) }}" alt="{{ item.libelle }}"
-                                                 height="300px" width="300px">
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.controleGeometriques | length > 0 %}
-                <div class="page_break"></div>
-                <div class="sous_page5_10">
-                    <h4 id="lien55">E. <span class="span_titre">Contrôles géométriques du rotor</span></h4>
-                    <table>
-                        <tr>
-                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/geo.png')) }}"
-                                                                   alt="item.photo" height="170px"></td>
-                        </tr>
-                    </table>
-                    {% for item in parametre.controleGeometriques %}
-                        <table>
-                            <tr class="titre_table">
-                                <th class="text-center" width="10%">Diamètre mesuré</th>
-                                <th colspan="4" class="text-center my_police">{{item.diametre}}</th>
-                            </tr>
-                            <tr class="titre_table">
-                                <th></th>
-                                <th colspan="4" class="text-center">{{item.type}}</th>
-                            </tr>
+                        {% for item in parametre.synoptiques %}
                             <tr>
-                                <th class="titre_table">Repères</th>
-                                <td class="text-center">1</td>
-                                <td class="text-center">2</td>
-                                <td class="text-center">3</td>
-                                <td class="text-center">4</td>
-                            </tr>
-                            <tr>
-                                <th class="titre_table">Faux-Rond</th>
-                                <td>{{ item.fauxRond1 }}</td>
-                                <td>{{ item.fauxRond2 }}</td>
-                                <td>{{ item.fauxRond3 }}</td>
-                                <td>{{ item.fauxRond4 }}</td>
-                            </tr>
-                            <tr>
-                                <th class="titre_table">Conformité</th>
-                                <td colspan="4" class="text-center">{{ item.conformite }}</td>
-                            </tr>
-                        </table>
-                    {% endfor %}
-                    <table>
-                        <tr>
-                            <td height="15%" class="td_image"><img
-                                        src="{{ absolute_url(asset('images/aaa.png')) }}" alt="item.photo"
-                                        height="250px"></td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.appareilMesureMecaniques | length > 0 %}
-                <div class="page_break"></div>
-                <div class="sous_page5_10">
-                    <h4 id="lien56">F. <span class="span_titre">Appareils de mesure utilisés</span></h4>
-                    <table>
-                        <tr class="titre_table">
-                            <th>Désignation du moyen de contrôle</th>
-                            <th>N° de l'appareil</th>
-                            <th>Date de validité</th>
-                        </tr>
-                        {% for item in parametre.appareilMesureMecaniques %}
-                            <tr>
-                                <td>{{item.appareil.designation}}</td>
-                                <td>{{item.appareil.numAppareil}}</td>
-                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.hydroAero %}
-                <div class="sous_page5_11">
-                    <h4 id="lien57">G. <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="4">Machine équipée d'hydro ou Aéro</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th colspan="2">Nature du contrôle</th>
-                            <th>Conformité</th>
-                            <th>Constats</th>
-                        </tr>
-                        <tr>
-                            <td>Essais de presion à x Bars</td>
-                            <td>{{ parametre.hydroAero.nature}}</td>
-                            <td>{{ parametre.hydroAero.conformite1}}</td>
-                            <td>{{ parametre.hydroAero.constat1}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Contrôle visuel des ailettes</td>
-                            <td>{{ parametre.hydroAero.conformite2}}</td>
-                            <td>{{ parametre.hydroAero.constat2}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Contrôle visuel des boites à eau</td>
-                            <td>{{ parametre.hydroAero.conformite3}}</td>
-                            <td>{{ parametre.hydroAero.constat3}}</td>
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.hydroAero %}
-                <div class="sous_page5_12">
-                    <h4 id="lien58">H. <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="3">Pression dépend des préconisation constructeurs</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th>Nature du contrôle</th>
-                            <th>Conformité</th>
-                            <th>Constsat</th>
-                            {# <th>Retenu</th>#}
-                        </tr>
-                        <tr>
-                            <td>Contrôle du dudgeonages des tubes</td>
-                            <td>{{ parametre.hydroAero.conformite4}}</td>
-                            <td>{{parametre.hydroAero.constat4 }}</td>
-                            {# <td>{{ parametre.hydroAero.retenu4}}</td>#}
-                        </tr>
-                        <tr>
-                            <td>Contrôle visuel des tubes</td>
-                            <td>{{ parametre.hydroAero.conformite5}}</td>
-                            <td>{{parametre.hydroAero.constat5 }}</td>
-                            {#<td>{{ parametre.hydroAero.preconisation5}}</td>
-                                    <td>{{ parametre.hydroAero.retenu5}}</td>#}
-                        </tr>
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.photoExpertiseMecaniques|length > 0 %}
-                <div class="page_break"></div>
-                <div class="sous_page5_13">
-                    <h4 id="lien59">I. <span class="span_titre">Illustration des observations</span></h4>
-                    <table>
-                        {% for item in parametre.photoExpertiseMecaniques %}
-                            <tr>
-                                <td class="td_image">
-                                    {% if item.image %}
-                                        <img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}"
-                                             alt="{{ item.libelle }}" height="300px" width="300px">
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="titre_table">{{item.libelle}}</th>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-            {% if parametre.constatMecaniques | length > 0 %}
-                <div class="page_break"></div>
-                <div class="sous_page5_14">
-                    <h4 id="lien510">J. <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="6">Photos</th>
-                        </tr>
-                        <tr class="titre_table">
-                            <th>Vérification</th>
-                            <th>Critère</th>
-                            <th>Observation</th>
-                            <th>Préconisations et conclusion</th>
-                            <th>Retenu</th>
-                            <th>Photo</th>
-                        </tr>
-                        {% for item in parametre.constatMecaniques %}
-                            <tr>
-                                <td>{{item.verification}}</td>
-                                <td>{{item.critere}}</td>
-                                <td>{{item.observation}}</td>
-                                <td>{{item.preconisationConclusion}}</td>
-                                <td>{{item.retenu}}</td>
-                                {% if item.photo %}
-                                    <td height="15%" class="td_image"><img
-                                                src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}"
-                                                alt="{{ item.photo }}" height="200px" width="200px"></td>
-                                {% else %}
-                                    <td></td>
+                                {% if item.type == "Plan COA" %}
+                                    <td>{{item.repere}}</td>
                                 {% endif %}
                             </tr>
                         {% endfor %}
                     </table>
-                </div>
-            {% endif %}
-        </div>
+                {% else %}
+                    <table>
+                        <tr style="text-align: center;">
+                            <td><img src="{{ absolute_url(asset('images/synoptique.PNG')) }}" alt="item.photo" height="240px">
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="padding-top:25px;">
+                        <thead class="titre_table">
+                        <tr>
+                            <th>Repères, désignation des pièces</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="titre_table">
+                            <th>PLAN CA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan CA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        <tr class="titre_table">
+                            <th>PLAN COA</th>
+                        </tr>
+                        {% for item in parametre.synoptiques %}
+                            <tr>
+                                {% if item.type == "Plan COA" %}
+                                    <td>{{item.repere}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if parametre.controleMontageRoulement %}
+            <div class="page_break"></div>
+            <div class="sous_page5_5">
+                <h4 id="lien52">B. <span class="span_titre">Contrôle montage paliers</span></h4>
+                <table>
+                    <tr class="titre_table">
+                        <th class="numero2"></th>
+                        <th>Roulements à la réception</th>
+                        <th>Montage prévu selon CST</th>
+                        <th class="numero">Kit à prévoir</th>
+                    </tr>
+                    <tr>
+                        <td>CA</td>
+                        <td>{{ parametre.controleMontageRoulement.caRoulement }}</td>
+                        <td>{{ parametre.controleMontageRoulement.caMontage }}</td>
+                        <td>{{ parametre.controleMontageRoulement.caKit ? 'Oui' : 'Non' }}</td>
+                    </tr>
+                    <tr>
+                        <td>COA</td>
+                        <td>{{ parametre.controleMontageRoulement.coaRoulement }}</td>
+                        <td>{{ parametre.controleMontageRoulement.coaMontage }}</td>
+                        <td>{{ parametre.controleMontageRoulement.coaKit ? 'Oui' : 'Non' }}</td>
+                    </tr>
+                </table>
+                {% if parametre.controleMontageRoulement.coteCaA or  parametre.controleMontageRoulement.coteCoaA %}
+                    <table>
+                        <tr>
+                            <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/controle_montage2.png')) }}" alt="item.photo"  height="150px"></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr class="titre_table">
+                            <th class="numero2">Rep</th>
+                            <th>Désignation piéces</th>
+                            <th class="numero">Cotes CA</th>
+                            <th class="numero">Cotes COA</th>
+                        </tr>
+                        <tr>
+                            <td>A</td>
+                            <td>Moyeu palier</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaA}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaA}}</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>Emboitage C-Rlt extérieur</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaB}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaB}}</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>Roulement</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaC}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaC}}</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>Emboitage C-Rlt intérieur</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaD}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaD}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>2 rondelles isolantes</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaVide1}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaVide1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Jeu</td>
+                            <td>J = A - (B+C+D+Soupape)</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Graisse</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaVide2}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaVide2}}</td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if parametre.controleMontageCoussinet %}
+            <div class="sous_page5_6">
+                <h4 id="lien53">C. <span class="span_titre">Contrôle des coussinets</span></h4>
+                <h5 id="lien531">1. <span class="span_titre">Expertise des soies</span></h5>
+                <table>
+                    <tr>
+                        <td height="15%" class="td_image"><img
+                                    src="{{ absolute_url(asset('images/cote_accouplement1.png')) }}" alt="item.photo"
+                                    height="120px"></td>
+                        <td height="15%" class="td_image"><img
+                                    src="{{ absolute_url(asset('images/cote_accouplement2.png')) }}" alt="item.photo"
+                                    height="120px"></td>
+                        <td height="15%" class="td_image"><img
+                                    src="{{ absolute_url(asset('images/cote_op_accouplement1.png')) }}" alt="item.photo"
+                                    height="120px"></td>
+                        <td height="15%" class="td_image"><img
+                                    src="{{ absolute_url(asset('images/cote_op_accouplement2.png')) }}" alt="item.photo"
+                                    height="120px"></td>
+                    </tr>
+                </table>
+                <table class="table_sous_page5_6_1">
+                    <tr>
+                        <th class="titre_table" colspan="6">Côté Accouplement</th>
+                    </tr>
+                    <tr>
+                        <th class="titre_table" colspan="3">Longueur</th>
+                        <td colspan="3">{{ parametre.controleMontageCoussinet.longueurAccouplement}}</td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table">1</th>
+                        <td>{{ parametre.controleMontageCoussinet.d1}}</td>
+                        <th class="titre_table">3</th>
+                        <td>{{ parametre.controleMontageCoussinet.d3}}</td>
+                        <th class="titre_table">5</th>
+                        <td>{{ parametre.controleMontageCoussinet.d5}}</td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table">2</th>
+                        <td>{{ parametre.controleMontageCoussinet.d2}}</td>
+                        <th class="titre_table">4</th>
+                        <td>{{ parametre.controleMontageCoussinet.d4}}</td>
+                        <th class="titre_table">6</th>
+                        <td>{{ parametre.controleMontageCoussinet.d6}}</td>
+                    </tr>
+                </table>
+                <table class="table_sous_page5_6_2">
+                    <tr>
+                        <th class="titre_table" colspan="6">Côté opposé Accouplement</th>
+                    </tr>
+                    <tr>
+                        <th class="titre_table" colspan="3">Longueur</th>
+                        <td colspan="3">{{ parametre.controleMontageCoussinet.longueurOppAccouplement}}</td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table">7</th>
+                        <td>{{ parametre.controleMontageCoussinet.d7}}</td>
+                        <th class="titre_table">9</th>
+                        <td>{{ parametre.controleMontageCoussinet.d9}}</td>
+                        <th class="titre_table">11</th>
+                        <td>{{ parametre.controleMontageCoussinet.d11}}</td>
+                    </tr>
+                    <tr>
+                        <th class="titre_table">8</th>
+                        <td>{{ parametre.controleMontageCoussinet.d8}}</td>
+                        <th class="titre_table">10</th>
+                        <td>{{ parametre.controleMontageCoussinet.d10}}</td>
+                        <th class="titre_table">12</th>
+                        <td>{{ parametre.controleMontageCoussinet.d12}}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.controleMontageCoussinet %}
+            <div class="sous_page5_7">
+                <h5 id="lien532">2. <span class="span_titre">Relevés alésage coussinets</span></h5>
+                <table class="table_sous_page5_7_1">
+                    <tr class="titre_table">
+                        <th colspan="2">Côté accouplement</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th>Avant (mm)</th>
+                        <th>Arriére (mm)</th>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant1}}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere1}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant2}}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere2}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementAvant3}}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementArriere3}}</td>
+                    </tr>
+                </table>
+                <table class="table_sous_page5_7_2">
+                    <tr class="titre_table">
+                        <th colspan="2">Côté opposé accouplement</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th>Avant (mm)</th>
+                        <th>Arriére (mm)</th>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant1 }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant2 }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeAvant3 }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.accouplementOpposeArriere3 }}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.controleMontageCoussinet %}
+            <div class="sous_page5_8">
+                <h5 id="lien533">3. <span class="span_titre">Expertise des coussinets</span></h5>
+                <table>
+                    <tr class="titre_table">
+                        <th class="numero2"></th>
+                        <th>Natures des relevés</th>
+                        <th>Diamètre attendu (mm)</th>
+                        <th>Tolérance</th>
+                        <th>Moyenne des relevés (mm)</th>
+                        <th>Conformité</th>
+                        <th>Observation</th>
+                    </tr>
+                    <tr>
+                        <td>CA</td>
+                        <td>{{ parametre.controleMontageCoussinet.caNatureReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caDiametreAttendu }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caTolerence }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caMoyenneReleve | number_format(2) }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caConformite }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.caObservation }}</td>
+                    </tr>
+                    <tr>
+                        <td>COA</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaNatureReleve }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaDiametreAttendu }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaTolerance }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaMoyenneReleve | number_format(2) }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaConformite }}</td>
+                        <td>{{ parametre.controleMontageCoussinet.coaObservation }}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.releveDimmensionnels %}
+            <div class="page_break"></div>
+            <div class="sous_page5_9">
+                <h4 id="lien54">D. <span class="span_titre">Relevés dimensionnels rotor et paliers</span></h4>
+                <table>
+                    <tr>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/dimension.png')) }}" alt="item.photo" height="150px"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="titre_table">
+                        <th>Désignation diamètre</th>
+                        <th>Cote attendue (mm)</th>
+                        <th>Tolérance</th>
+                        <th>Cote relevée</th>
+                        <th class="numero2">Conformité</th>
+                        <th>Observation</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="titre_table">Côté accouplement</th>
+                    </tr>
+                    {% for item in parametre.releveDimmensionnels %}
+                        {% if item.type == 'Côté accoupplement' %}
+                            <tr>
+                                <td>{{item.designation}}</td>
+                                <td>{{item.coteAttendue}}</td>
+                                <td>{{item.tolerance}}</td>
+                                <td>{{item.coteRelevee}}</td>
+                                {% if item.conformite ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conformite}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conformite}}</td>
+                                {% endif %}
+                                <td>{{item.observation}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <th colspan="6" class="titre_table">Côté opposé accouplement</th>
+                    </tr>
+                    {% for item in parametre.releveDimmensionnels %}
+                        {% if item.type == 'Côté opposé accoupplement' %}
+                            <tr>
+                                <td>{{item.designation}}</td>
+                                <td>{{item.coteAttendue}}</td>
+                                <td>{{item.tolerance}}</td>
+                                <td>{{item.coteRelevee}}</td>
+                                {% if item.conformite ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conformite}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conformite}}</td>
+                                {% endif %}
+                                <td>{{item.observation}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <table>
+                    {% if parametre.photoRotors %}
+                        <tr class="titre_table">
+                            <th>PHOTO : ROTOR</th>
+                        </tr>
+                        {% for item in parametre.photoRotors %}
+                            <tr>
+                                <td class="td_image">
+                                    {% if item.libelle %}
+                                        <img src="{{ absolute_url(asset('photo_rotor/' ~ item.libelle)) }}" alt="{{ item.libelle }}"
+                                             height="300px" width="300px">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.controleGeometriques | length > 0 %}
+            <div class="page_break"></div>
+            <div class="sous_page5_10">
+                <h4 id="lien55">E. <span class="span_titre">Contrôles géométriques du rotor</span></h4>
+                <table>
+                    <tr>
+                        <td height="15%" class="td_image"><img src="{{ absolute_url(asset('images/geo.png')) }}"
+                                                               alt="item.photo" height="170px"></td>
+                    </tr>
+                </table>
+                {% for item in parametre.controleGeometriques %}
+                    <table>
+                        <tr class="titre_table">
+                            <th class="text-center" width="10%">Diamètre mesuré</th>
+                            <th colspan="4" class="text-center my_police">{{item.diametre}}</th>
+                        </tr>
+                        <tr class="titre_table">
+                            <th></th>
+                            <th colspan="4" class="text-center">{{item.type}}</th>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Repères</th>
+                            <td class="text-center">1</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">4</td>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Faux-Rond</th>
+                            <td>{{ item.fauxRond1 }}</td>
+                            <td>{{ item.fauxRond2 }}</td>
+                            <td>{{ item.fauxRond3 }}</td>
+                            <td>{{ item.fauxRond4 }}</td>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">Conformité</th>
+                            <td colspan="4" class="text-center">{{ item.conformite }}</td>
+                        </tr>
+                    </table>
+                {% endfor %}
+                <table>
+                    <tr>
+                        <td height="15%" class="td_image"><img
+                                    src="{{ absolute_url(asset('images/aaa.png')) }}" alt="item.photo"
+                                    height="250px"></td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.appareilMesureMecaniques | length > 0 %}
+            <div class="page_break"></div>
+            <div class="sous_page5_10">
+                <h4 id="lien56">F. <span class="span_titre">Appareils de mesure utilisés</span></h4>
+                <table>
+                    <tr class="titre_table">
+                        <th>Désignation du moyen de contrôle</th>
+                        <th>N° de l'appareil</th>
+                        <th>Date de validité</th>
+                    </tr>
+                    {% for item in parametre.appareilMesureMecaniques %}
+                        <tr>
+                            <td>{{item.appareil.designation}}</td>
+                            <td>{{item.appareil.numAppareil}}</td>
+                            <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.hydroAero %}
+            <div class="sous_page5_11">
+                <h4 id="lien57">G. <span class="span_titre">Expertise Hydro-réfrigérant</span></h4>
+                <table>
+                    <tr class="titre_table">
+                        <th colspan="4">Machine équipée d'hydro ou Aéro</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th colspan="2">Nature du contrôle</th>
+                        <th>Conformité</th>
+                        <th>Constats</th>
+                    </tr>
+                    <tr>
+                        <td>Essais de presion à x Bars</td>
+                        <td>{{ parametre.hydroAero.nature}}</td>
+                        <td>{{ parametre.hydroAero.conformite1}}</td>
+                        <td>{{ parametre.hydroAero.constat1}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Contrôle visuel des ailettes</td>
+                        <td>{{ parametre.hydroAero.conformite2}}</td>
+                        <td>{{ parametre.hydroAero.constat2}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Contrôle visuel des boites à eau</td>
+                        <td>{{ parametre.hydroAero.conformite3}}</td>
+                        <td>{{ parametre.hydroAero.constat3}}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.hydroAero %}
+            <div class="sous_page5_12">
+                <h4 id="lien58">H. <span class="span_titre">Expertise Aéroréfrigérant</span></h4>
+                <table>
+                    <tr class="titre_table">
+                        <th colspan="3">Pression dépend des préconisation constructeurs</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th>Nature du contrôle</th>
+                        <th>Conformité</th>
+                        <th>Constsat</th>
+                        {# <th>Retenu</th>#}
+                    </tr>
+                    <tr>
+                        <td>Contrôle du dudgeonages des tubes</td>
+                        <td>{{ parametre.hydroAero.conformite4}}</td>
+                        <td>{{parametre.hydroAero.constat4 }}</td>
+                        {# <td>{{ parametre.hydroAero.retenu4}}</td>#}
+                    </tr>
+                    <tr>
+                        <td>Contrôle visuel des tubes</td>
+                        <td>{{ parametre.hydroAero.conformite5}}</td>
+                        <td>{{parametre.hydroAero.constat5 }}</td>
+                        {#<td>{{ parametre.hydroAero.preconisation5}}</td>
+                                    <td>{{ parametre.hydroAero.retenu5}}</td>#}
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.photoExpertiseMecaniques|length > 0 %}
+            <div class="page_break"></div>
+            <div class="sous_page5_13">
+                <h4 id="lien59">I. <span class="span_titre">Illustration des observations</span></h4>
+                <table>
+                    {% for item in parametre.photoExpertiseMecaniques %}
+                        <tr>
+                            <td class="td_image">
+                                {% if item.image %}
+                                    <img src="{{ absolute_url(asset('photo_expertise_mecanique/' ~ item.image)) }}"
+                                         alt="{{ item.libelle }}" height="300px" width="300px">
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="titre_table">{{item.libelle}}</th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        {% if parametre.constatMecaniques | length > 0 %}
+            <div class="page_break"></div>
+            <div class="sous_page5_14">
+                <h4 id="lien510">J. <span class="span_titre">Observations, constats et préconisations Mécaniques</span></h4>
+                <table>
+                    <tr class="titre_table">
+                        <th colspan="6">Photos</th>
+                    </tr>
+                    <tr class="titre_table">
+                        <th>Vérification</th>
+                        <th>Critère</th>
+                        <th>Observation</th>
+                        <th>Préconisations et conclusion</th>
+                        <th>Retenu</th>
+                        <th>Photo</th>
+                    </tr>
+                    {% for item in parametre.constatMecaniques %}
+                        <tr>
+                            <td>{{item.verification}}</td>
+                            <td>{{item.critere}}</td>
+                            <td>{{item.observation}}</td>
+                            <td>{{item.preconisationConclusion}}</td>
+                            <td>{{item.retenu}}</td>
+                            {% if item.photo %}
+                                <td height="15%" class="td_image"><img
+                                            src="{{ absolute_url(asset('photo_constat_mecanique/' ~ item.photo)) }}"
+                                            alt="{{ item.photo }}" height="200px" width="200px"></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </div>
     {# fin la page 5 #}
-
 
     {# la partie 6 expertise electrique avant lavage #}
     <div class="page_break"></div>
@@ -1368,12 +1365,13 @@
                 <table>
                     <thead class="table-secondary">
                     <tr>
-                        <th class="titre_table" colspan="3">Contrôle visuel et recensement</th>
+                        <th class="titre_table" colspan="5">Contrôle visuel et recensement</th>
                     </tr>
                     <tr class="titre_table">
                         <th></th>
                         <th>Balais</th>
                         <th>Balais de masse</th>
+                        <th class="titre_table" colspan="2">Fac-similé boîte à bornes</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1381,51 +1379,70 @@
                         <td class="titre_table">Dimension</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
+                        <td class="titre_table">Sens rotation</td>
+                        <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
                     </tr>
                     <tr>
                         <td class="titre_table">Marque</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
+                        <td class="titre_table">Remarque</td>
+                        <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
                     </tr>
                     <tr>
                         <td class="titre_table">Quantité</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Nuance</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Longueur Shunt</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Type de Cosses</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Aspect de la patine</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Type pression</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td class="titre_table">Présence de Gaine</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
                         <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine ? 'Oui' : 'Non' }}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         {% endif %}
+        <div class="page_break"></div>
         <div class="sous_page6_1">
             {% if parametre.essaisPlateforme == 'Oui' %}
                 <h4 id="lien62">B. <span class="span_titre">Contrôles électriques à Réception</span></h4>
@@ -1503,6 +1520,7 @@
                 </table>
             {% endif %}
             {% if parametre.mesureResistance %}
+                <div class="page_break"></div>
                 <h5 id="lien622">2. <span class="span_titre">Mesure des résistances</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -1576,6 +1594,7 @@
             {% endif %}
             <div class="sous_page6_3">
                 {% if parametre.mesureVibratoire %}
+                    <div class="page_break"></div>
                     <h5 id="lien624">4. <span class="span_titre">Mesures de vibrations</span></h5>
                     <div class="table_sous_page5_6_1">
                         <table>
@@ -1629,35 +1648,35 @@
                         </tr>
                         <tr>
                             <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                            <td>{{ parametre.mesureVibratoire.n10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.a10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.b10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.c10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.d10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.e10 }}</td>
-                            <td>{{ parametre.mesureVibratoire.f10 }}</td>
+                            <td>{{ parametre.mesureVibratoire.n10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.a10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.b10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.c10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.d10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.e10  }}</td>
+                            <td>{{ parametre.mesureVibratoire.f10  }}</td>
                         </tr>
                         <tr>
                             <td class="titre_table">R.M.S à F0 à 25 Hz</td>
-                            <td>{{ parametre.mesureVibratoire.n25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.a25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.b25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.c25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.d25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.e25 }}</td>
-                            <td>{{ parametre.mesureVibratoire.f25 }}</td>
+                            <td>{{ parametre.mesureVibratoire.n25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.a25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.b25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.c25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.d25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.e25  }}</td>
+                            <td>{{ parametre.mesureVibratoire.f25  }}</td>
                         </tr>
                         {% if parametre.mesureVibratoire.lmesureVibratoires %}
                             {% for item in parametre.mesureVibratoire.lmesureVibratoires %}
                                 <tr>
                                     <td class="titre_table">{{ item.titre}}</td>
-                                    <td>{{ item.n30 }}</td>
-                                    <td>{{ item.a30 }}</td>
-                                    <td>{{ item.b30 }}</td>
-                                    <td>{{ item.c30 }}</td>
-                                    <td>{{ item.d30 }}</td>
-                                    <td>{{ item.e30 }}</td>
-                                    <td>{{ item.f30 }}</td>
+                                    <td>{{ item.n30  }}</td>
+                                    <td>{{ item.a30  }}</td>
+                                    <td>{{ item.b30  }}</td>
+                                    <td>{{ item.c30  }}</td>
+                                    <td>{{ item.d30  }}</td>
+                                    <td>{{ item.e30  }}</td>
+                                    <td>{{ item.f30  }}</td>
                                 </tr>
                             {% endfor %}
                         {% endif %}
@@ -1671,6 +1690,7 @@
         {% endif %}
 
         {% if parametre.appareilMesures|length > 0 %}
+            <div class="page_break"></div>
             <div class="sous_page6_4">
                 {% if parametre.appareilMesures %}
                     <h5 id="lien625">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
@@ -1693,6 +1713,7 @@
         {% endif %}
 
         {% if parametre.controleBobinage %}
+            <div class="page_break"></div>
             <div class="sous_page6_5">
                 <h4 id="lien64">D. <span class="span_titre">Contrôles bobinage</span></h4>
                 <table>
@@ -1725,9 +1746,9 @@
                             <th colspan="4" class="text-center">Balais</th>
                         </tr>
                         <tr class="titre_table">
-                            <th style="width: 200px;">Contrôle</th>
+                            <th style="width: 200px;">Constats</th>
                             <th style="width: 200px;">Critère</th>
-                            <th style="width: 50px;">Relevé</th>
+                            <th style="width: 50px;">Préconisation</th>
                             <th style="width: 50px;">Conformité</th>
                         </tr>
                         <tr>
@@ -1951,6 +1972,7 @@
             {% endif %}
 
             {% if parametre.sondeBobinage %}
+                <div class="page_break"></div>
                 <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
                 <table>
                     <tr class="titre_table">
@@ -2000,6 +2022,7 @@
             {% endif %}
 
             {% if parametre.equirepartitions |length > 0 %}
+                <div class="page_break"></div>
                 <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
                 <table>
                     <tr>
@@ -2120,6 +2143,7 @@
         </div>
     {% endif %}
     {# fin de la partie 8 #}
+
 
     {# la partie 9 Remontage #}
     <div class="page_break"></div>
@@ -2456,38 +2480,76 @@
                         <th>CA</th>
                         <th>COA</th>
                     </tr>
-                    <tr>
-                        <td>A</td>
-                        <td>Moyeu Palier</td>
-                        <td>{{ parametre.remontagePalier.caa }}</td>
-                        <td>{{ parametre.remontagePalier.coaa }}</td>
-                    </tr>
-                    <tr>
-                        <td>B</td>
-                        <td>Emboîtage C-Rlt extérieur</td>
-                        <td>{{ parametre.remontagePalier.cab }}</td>
-                        <td>{{ parametre.remontagePalier.coab }}</td>
-                    </tr>
-                    <tr>
-                        <td>C</td>
-                        <td>Roulement</td>
-                        <td>{{ parametre.remontagePalier.cac }}</td>
-                        <td>{{ parametre.remontagePalier.coac }}</td>
-                    </tr>
-                    <tr>
-                        <td>D</td>
-                        <td>Emboîtage C-Rlt intérieur</td>
-                        <td>{{ parametre.remontagePalier.cad }}</td>
-                        <td>{{ parametre.remontagePalier.coad }}</td>
-                    </tr>
-                    <tr>
-                        <td>Jeu</td>
-                        <td>Jeu axial</td>
-                        {% if parametre.remontagePalier %}
-                            <td>{{ parametre.remontagePalier.caJeu }}</td>
-                            <td>{{ parametre.remontagePalier.coaJeu }}</td>
-                        {% endif %}
-                    </tr>
+                    {% if parametre.remontagePalier.caa or parametre.remontagePalier.coaa or
+                        parametre.remontagePalier.cab or parametre.remontagePalier.coab or
+                        parametre.remontagePalier.cac or parametre.remontagePalier.coac or
+                        parametre.remontagePalier.cad or parametre.remontagePalier.coad
+                    %}
+                        <tr>
+                            <td>A</td>
+                            <td>Moyeu Palier</td>
+                            <td>{{ parametre.remontagePalier.caa }}</td>
+                            <td>{{ parametre.remontagePalier.coaa }}</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>Emboîtage C-Rlt extérieur</td>
+                            <td>{{ parametre.remontagePalier.cab }}</td>
+                            <td>{{ parametre.remontagePalier.coab }}</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>Roulement</td>
+                            <td>{{ parametre.remontagePalier.cac }}</td>
+                            <td>{{ parametre.remontagePalier.coac }}</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>Emboîtage C-Rlt intérieur</td>
+                            <td>{{ parametre.remontagePalier.cad }}</td>
+                            <td>{{ parametre.remontagePalier.coad }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jeu</td>
+                            <td>Jeu axial</td>
+                            {% if parametre.remontagePalier %}
+                                <td>{{ parametre.remontagePalier.caJeu }}</td>
+                                <td>{{ parametre.remontagePalier.coaJeu }}</td>
+                            {% endif %}
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>A</td>
+                            <td>Moyeu Palier</td>
+                            <td>sans objet</td>
+                            <td>sans objet</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>Emboîtage C-Rlt extérieur</td>
+                            <td>sans objet</td>
+                            <td>sans objet</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>Roulement</td>
+                            <td>sans objet</td>
+                            <td>sans objet</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>Emboîtage C-Rlt intérieur</td>
+                            <td>sans objet</td>
+                            <td>sans objet</td>
+                        </tr>
+                        <tr>
+                            <td>Jeu</td>
+                            <td>Jeu axial</td>
+                            <td>sans objet</td>
+                            <td>sans objet</td>
+                        </tr>
+
+                    {% endif %}
                     <tr>
                         <td></td>
                         <td>Roulement</td>
@@ -2747,7 +2809,6 @@
                                         <img src="{{ absolute_url(asset('images/position_v.png')) }}" alt="" height="150px">
                                     {% endif %}
                                 </td>
-
                             </tr>
                         </table>
                     </div>
@@ -2764,46 +2825,46 @@
                         </tr>
                         <tr>
                             <td class="titre_table">R.M.S de 10 à 1000 Hz à vide (mm/s)</td>
-                            <td>{{ parametre.mesureVibratoireEssais.n10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.a10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.b10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.c10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.d10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.e10 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.f10 }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.n10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.a10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.b10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.c10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.d10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.e10 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.f10 | number_format(2) }}</td>
                         </tr>
                         <tr>
                             <td class="titre_table">R.M.S à F0 à 25 Hz</td>
-                            <td>{{ parametre.mesureVibratoireEssais.n25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.a25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.b25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.c25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.d25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.e25 }}</td>
-                            <td>{{ parametre.mesureVibratoireEssais.f25 }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.n25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.a25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.b25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.c25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.d25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.e25 | number_format(2) }}</td>
+                            <td>{{ parametre.mesureVibratoireEssais.f25 | number_format(2) }}</td>
                         </tr>
                         {% if parametre.mesureVibratoireEssais.titre45 != null %}
                             <tr>
                                 <td class="titre_table">{{ parametre.mesureVibratoireEssais.titre35}}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.n35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.a35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.b35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.c35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.d35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.e35 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.f35 }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.n35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.a35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.b35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.c35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.d35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.e35 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.f35 | number_format(2) }}</td>
                             </tr>
                         {% endif %}
                         {% if parametre.mesureVibratoireEssais.titre45 != null %}
                             <tr>
                                 <td class="titre_table">{{ parametre.mesureVibratoireEssais.titre45}}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.n45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.a45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.b45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.c45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.d45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.e45 }}</td>
-                                <td>{{ parametre.mesureVibratoireEssais.f45 }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.n45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.a45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.b45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.c45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.d45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.e45 | number_format(2) }}</td>
+                                <td>{{ parametre.mesureVibratoireEssais.f45 | number_format(2) }}</td>
                             </tr>
                         {% endif %}
                         <tr>
