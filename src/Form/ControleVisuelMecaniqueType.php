@@ -20,7 +20,7 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('bridage')
             ->add('chassis')
             ->add('boite_borne',CheckboxType::class,[
-                'label' => 'Boîte à borne Neutre',
+                'label' => 'Boîte à borne Phase',
                 'required' => false
             ])
             ->add('barrette_neutre')
@@ -36,7 +36,7 @@ class ControleVisuelMecaniqueType extends AbstractType
             ->add('numero_serie')
             ->add('nombre_accessoire')
             ->add('phase_neutre', CheckboxType::class,[
-                'label' => 'Boîte à borne Phase',
+                'label' => 'Boîte à borne Neutre',
                 'required' => false,
             ])
             ->add('photo_accouplement',FileType::class, [
