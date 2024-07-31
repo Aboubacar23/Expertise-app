@@ -320,11 +320,12 @@ class AppareilController extends AbstractController
 
     // Route pour supprimer un appareil
     #[Route('/delete/{id}', name: 'app_appareil_delete', methods: ['GET'])]
-    public function delete(Request $request, Appareil $appareil, AppareilRepository $appareilRepository,
-                           AppareilMesureRepository $appareilMesureRepository,
-                           AppareilMesureEssaisRepository $appareilMesureEssaisRepository,
-                           AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,
-                           AppareilMesureElectriqueRepository $appareilMesureElectriqueRepository): Response
+    public function delete(Request $request, Appareil $appareil,
+       AppareilRepository $appareilRepository,
+       AppareilMesureRepository $appareilMesureRepository,
+       AppareilMesureEssaisRepository $appareilMesureEssaisRepository,
+       AppareilMesureMecaniqueRepository $appareilMesureMecaniqueRepository,
+       AppareilMesureElectriqueRepository $appareilMesureElectriqueRepository): Response
     {
         // Récupère les mesures associées à l'appareil
         $appareilMesure1 = $appareilMesureRepository->findByAppareil($appareil);
