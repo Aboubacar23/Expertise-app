@@ -804,7 +804,7 @@
                             <th class="titre_table">PLan COA</th>
                         </tr>
                         <tr style="text-align: center; padding: 2px">
-                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCa))}}" height="120px" width="120px">
+                            <img class="p-2" src="{{absolute_url(asset('/photos_plan/'~ parametre.imagePlan.imageCoa))}}" height="120px" width="120px">
                         </tr>
                         <tr>
                             <th class="titre_table">Repères, désignation des pièces</th>
@@ -926,8 +926,8 @@
                         <tr>
                             <td>Jeu</td>
                             <td>J = A - (B+C+D+Soupape)</td>
-                            <td>{{ parametre.controleMontageRoulement.coteCaJeu}}</td>
-                            <td>{{ parametre.controleMontageRoulement.coteCoaJeu}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCaJeu | number_format(3)}}</td>
+                            <td>{{ parametre.controleMontageRoulement.coteCoaJeu | number_format(3)}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1149,7 +1149,9 @@
                         {% endif %}
                     {% endfor %}
                 </table>
-                <table>
+            
+  <div class="page_break"></div>    
+<table>
                     {% if parametre.photoRotors %}
                         <tr class="titre_table">
                             <th>PHOTO : ROTOR</th>
