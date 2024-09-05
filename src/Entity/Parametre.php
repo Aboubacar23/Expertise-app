@@ -22,8 +22,8 @@ class Parametre
     #[ORM\Column(length: 255)]
     private ?string $type_machine = null;
 
-    #[ORM\Column]
-    private ?float $puissance = null;
+    #[ORM\Column(length: 255)]
+    private ?string $puissance = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $montage = null;
@@ -37,8 +37,8 @@ class Parametre
     #[ORM\ManyToOne(inversedBy: 'parametres')]
     private ?Type $type = null;
 
-    #[ORM\Column]
-    private ?float $vitesse = null;
+    #[ORM\Column(length: 255)]
+    private ?string $vitesse = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $masse = null;
@@ -55,8 +55,8 @@ class Parametre
     #[ORM\Column(nullable: true)]
     private ?float $stator_frequence = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $stator_courant = null;
+    #[ORM\Column(length: 255,nullable: true)]
+    private ?string $stator_courant = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $stator_couplage = null;
@@ -70,8 +70,8 @@ class Parametre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $rotor_expertise_refrigeant = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $rotor_courant = null;
+    #[ORM\Column(length: 255,nullable: true)]
+    private ?string $rotor_courant = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $presence_plans = null;
@@ -344,12 +344,12 @@ class Parametre
         return $this;
     }
 
-    public function getPuissance(): ?float
+    public function getPuissance(): ?string
     {
         return $this->puissance;
     }
 
-    public function setPuissance(float $puissance): self
+    public function setPuissance(string $puissance): self
     {
         $this->puissance = $puissance;
 
@@ -404,12 +404,12 @@ class Parametre
         return $this;
     }
 
-    public function getVitesse(): ?float
+    public function getVitesse(): ?string
     {
         return $this->vitesse;
     }
 
-    public function setVitesse(float $vitesse): self
+    public function setVitesse(string $vitesse): self
     {
         $this->vitesse = $vitesse;
 
@@ -476,12 +476,12 @@ class Parametre
         return $this;
     }
 
-    public function getStatorCourant(): ?float
+    public function getStatorCourant(): ?string
     {
         return $this->stator_courant;
     }
 
-    public function setStatorCourant(?float $stator_courant): self
+    public function setStatorCourant(?string $stator_courant): self
     {
         $this->stator_courant = $stator_courant;
 
@@ -536,12 +536,12 @@ class Parametre
         return $this;
     }
 
-    public function getRotorCourant(): ?float
+    public function getRotorCourant(): ?string
     {
         return $this->rotor_courant;
     }
 
-    public function setRotorCourant(?float $rotor_courant): self
+    public function setRotorCourant(?string $rotor_courant): self
     {
         $this->rotor_courant = $rotor_courant;
 
