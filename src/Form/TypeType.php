@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Type;
 use App\Entity\Machine;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,10 @@ class TypeType extends AbstractType
                 'placeholder' => 'Choisir le type de machine'
             ])
             ->add('puissance')
-            ->add('montage')
+            ->add('montage', TextType::class, [
+                'label' => 'Montage',
+                'required' => true,
+            ])
             ->add('fabricant')
             ->add('presence_balais')
             ->add('vitesse') 
@@ -54,7 +58,7 @@ class TypeType extends AbstractType
             ->add('stator_frequence',NumberType::class, [
                 'label' => 'Fréquence (Hz)'
             ])
-            ->add('stator_courant',NumberType::class, [
+            ->add('stator_courant',TextType::class, [
                 'label' => 'Courant (A)'
             ])
             ->add('stator_couplage', ChoiceType::class, [
@@ -86,7 +90,7 @@ class TypeType extends AbstractType
                 'placeholder' => 'Choisir expertise',
                 'required' => false
             ])
-            ->add('rotor_courant',NumberType::class, [
+            ->add('rotor_courant',TextType::class, [
                 'label' => 'Courant (A)',
                 'required' => false
             ])

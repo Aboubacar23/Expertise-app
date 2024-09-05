@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Type;
 use App\Entity\Machine;
 use App\Entity\Parametre;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -58,7 +59,7 @@ class ParametreType extends AbstractType
                 'label' => "Tension d'excitation (V)"
             ])
             ->add('stator_frequence')
-            ->add('stator_courant', NumberType::class, [
+            ->add('stator_courant', TextType::class, [
                 'label' => "Courant (A)"
             ])
             ->add('stator_couplage', ChoiceType::class, [
@@ -90,7 +91,7 @@ class ParametreType extends AbstractType
                 ],
                 'placeholder' => 'Choisir type'
             ])
-            ->add('rotor_courant', NumberType::class, [
+            ->add('rotor_courant', TextType::class, [
                 'label' => "Courant (A)",
                 'required' => false
             ])
