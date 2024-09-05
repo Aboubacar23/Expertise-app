@@ -337,7 +337,9 @@
                 <tr>
                     <td>{{parametre.fabricant}}</td>
                     <td>{{parametre.type}}</td>
-                    <td>{{parametre.affaire.numFabrication}}</td>
+                    <td>
+                        {% if parametre.controleVisuelMecanique %}{{parametre.controleVisuelMecanique.numeroSerie}}{% endif %}
+                    </td>
                 </tr>
             </table>
             {% if parametre.lplaque %}
@@ -652,7 +654,7 @@
                         <td>{{ parametre.controleVisuelMecanique.sondePalierCoa }}</td>
                     </tr>
                     <tr>
-                        <td>Phase Neutre</td>
+                        <td>Boite à bornes neutre</td>
                         <td>{{ parametre.controleVisuelMecanique.phaseNeutre ? 'Oui' : 'Non' }}</td>
                         <td>Référence stator</td>
                         <td>{{ parametre.controleVisuelMecanique.referenceStator}}</td>
