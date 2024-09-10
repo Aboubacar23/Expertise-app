@@ -221,7 +221,7 @@
     {% set var_W = 0 %}
 {# calculer ip chaque masse de 1min et 10min #}
     {% for it in items %}
-        {% if it.type == 'Stator' %}
+        {% if it.type == 'Stator' or it.type == 'Stator GV' or it.type == 'Stator PV' %}
             {% if it.controle == 'RI - UVW/masse - 1 min' %}
                 {% set var_UVW1 = it.valeur %}
             {% elseif it.controle == 'RI - UVW/masse - 10 min' %}
@@ -345,7 +345,7 @@
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
-            if(var_type.value == "Stator")
+            if(var_type.value == "Stator" || var_type.value == 'Stator GV' || var_type.value == 'Stator PV')
             {
                 const ol_critre = (critere * tension_stator)/1000000;
                 const new_critere = document.getElementById('l_mesure_isolement_critere');
@@ -624,6 +624,7 @@
                 }
             }
         }
+
         document.getElementById('mesure_isolement_temp_tolerie').addEventListener('input', updateSumField);
         document.getElementById('l_mesure_isolement_type').addEventListener('input', updateSumField);
         //document.getElementById('l_mesure_isolement_critere').addEventListener('input', updateSumField);

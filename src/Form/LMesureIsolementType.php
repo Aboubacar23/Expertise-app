@@ -63,6 +63,8 @@ class LMesureIsolementType extends AbstractType
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
                     "Rotor 2" => "Rotor 2",
+                    "Stator PV" => "Stator PV",
+                    "Stator GV" => "Stator GV",
                     "Stator AE" => "Stator AE",
                     'Rotor AE' => 'Rotor AE',
                     "Régulation" => "Régulation",
