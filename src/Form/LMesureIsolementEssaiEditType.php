@@ -51,6 +51,8 @@ class LMesureIsolementEssaiEditType extends AbstractType
                     'Stator' => 'Stator',
                     'Rotor' => 'Rotor',
                     "Stator 2" => "Stator 2",
+                    "Stator PV" => "Stator PV",
+                    "Stator GV" => "Stator GV",
                     "Rotor 2" => "Rotor 2",
                     "Stator AE" => "Stator AE",
                     'Rotor AE' => 'Rotor AE',
