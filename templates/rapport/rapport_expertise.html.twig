@@ -250,8 +250,7 @@
             <div class="card2">
                 <div class="card-content2">
                     <p>Affaire suivie par : <strong>{{parametre.affaire.suiviPar}}</strong></p>
-                    <p>Date : <strong>{{ parametre.affaire.dateLivraison ? parametre.affaire.dateLivraison|date('d-m-Y') :
-                            '' }}</strong></p>
+                    <p>Date : <strong>{{ "now" | date('d-m-Y') }}</strong></p>
                     <p>Affaire JE N° : <strong>{{parametre.affaire.numAffaire}}</strong></p>
                     <br>
                     <p>Cde : <strong>{{parametre.affaire.codeClient}}</strong></p>
@@ -280,7 +279,7 @@
             <p class="sous_menu2"><a href="#lien511"> 1. Relevé position de l’accouplement</a></p>
             <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à bornesss</a></p>
             <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
-            <p class="sous_menu1"><a href="#lien52"> B. Contrôle montage paliers</a></p>
+            <p class="sous_menu1"><a href="#lien52"> B. Contrôle démontage : paliers</a></p>
             <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
             <p class="sous_menu2"><a href="#lien531"> 1. Expertise des soies</a></p>
             <p class="sous_menu2"><a href="#lien532"> 2. Relevés alésage coussinets</a></p>
@@ -444,7 +443,13 @@
             <div class="sous_page2">
                 <table class="table_sous_page1">
                     <tr class="titre_table">
-                        <th colspan="4">Stator / Inducteur</th>
+                        {% if parametre.machine.categorie == "Asynchrone" %}
+                            <th colspan="4">Stator</th>
+                        {% elseif parametre.machine.categorie == "Synchrone" %}
+                            <th colspan="4">Stator</th>
+                        {% elseif parametre.machine.categorie == "À courant continu" %}
+                            <th colspan="4">Inducteur</th>
+                        {% endif %}
                     </tr>
                     <tr>
                         <th style="text-align:left; width: 110px;">Tension </th>
@@ -475,29 +480,40 @@
                     </tr>
                     {% endif %}
                 </table>
-                <table class="table_sous_page2">
-                    <tr class="titre_table">
-                        <th colspan="2">Rotor / Induit</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:left;"> Tension </th>
-                        <td>{{parametre.rotorTension}} V</td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:left;">Courant</th>
-                        <td>{{ parametre.rotorCourant }} A</td>
-                    </tr>
-                    {% if parametre.rotorTension2 != null or parametre.rotorTension2 > 0 %}
-                    <tr>
-                        <th style="text-align:left;">Tension Excitation </th>
-                        <td>{{parametre.rotorTension2}} V</td>
-                    </tr>
-                    {% endif %}
-                </table>
+                {% if parametre.rotorTension != 0 or parametre.rotorCourant != 0 %}
+                    <table class="table_sous_page2">
+                        <tr class="titre_table">
+                            {% if parametre.machine.categorie == "Asynchrone" %}
+                                <th colspan="2">Rotor</th>
+                            {% elseif parametre.machine.categorie == "Synchrone" %}
+                                <th colspan="2">Excitation</th>
+                            {% elseif parametre.machine.categorie == "À courant continu" %}
+                                <th colspan="2">Induit</th>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;"> Tension </th>
+                            <td>{{parametre.rotorTension}} V</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;">Courant</th>
+                            <td>{{ parametre.rotorCourant }} A</td>
+                        </tr>
+                        {% if parametre.rotorTension2 != null or parametre.rotorTension2 > 0 %}
+                        <tr>
+                            <th style="text-align:left;">Tension Excitation </th>
+                            <td>{{parametre.rotorTension2}} V</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                {% endif %}
             </div>
             <div class="sous_page3">
                 {% if parametre.roulement %}
                 <table class="table_sous_page">
+                    <tr class="titre_table">
+                        <th colspan="3">Plaque roulements</th>
+                    </tr>
                     <tr class="titre_table">
                         <th></th>
                         <th>Roulements CA</th>
@@ -508,10 +524,10 @@
                         <td>{{ parametre.roulement.typeCa }}</td>
                         <td>{{ parametre.roulement.typeCoa }}</td>
                     </tr>
-                    </tr>
-                    <td>Graisse</td>
-                    <td>{{ parametre.roulement.graisseCa }}</td>
-                    <td>{{ parametre.roulement.graisseCoa }}</td>
+                    <tr>
+                        <td>Graisse</td>
+                        <td>{{ parametre.roulement.graisseCa }}</td>
+                        <td>{{ parametre.roulement.graisseCoa }}</td>
                     </tr>
                 </table>
                 {% endif %}
@@ -933,7 +949,7 @@
             {% if parametre.controleMontageRoulement %}
                 <div class="page_break"></div>
                 <div class="sous_page5_5">
-                    <h4 id="lien52">B. <span class="span_titre">Contrôle montage paliers</span></h4>
+                    <h4 id="lien52">B. <span class="span_titre">Contrôle démontage : paliers</span></h4>
                     <table>
                         <tr class="titre_table">
                             <th class="numero2"></th>
@@ -1298,7 +1314,7 @@
                         <h4 id="lien56">F. <span class="span_titre">Appareils de mesure utilisés</span></h4>
                         <table>
                             <tr class="titre_table">
-                                <th>Désignation du moyen de contrôle</th>
+                                <th>Désignation des moyens de contrôle</th>
                                 <th>N° de l'appareil</th>
                                 <th>Date de validité</th>
                             </tr>
@@ -1509,7 +1525,7 @@
                 <h4 id="lien63">B. <span class="span_titre">Contrôles électriques</span></h4>
                 {% endif %}
                 {% if parametre.mesureIsolement %}
-                    <h5 id="lien621">1. <span class="span_titre">Mesure d’isolement</span></h5>
+                    <h5 id="lien621">1. <span class="span_titre">Mesures d’isolement</span></h5>
                     <table>
                         <tr class="titre_table">
                             <th colspan="5" class="text-center">Paramètres</th>
@@ -1522,12 +1538,12 @@
                             <th>Critère</th>
                         </tr>
                         <tr>
-                            <td>{{ parametre.mesureIsolement.tempAmbiante}}</td>
-                            <td>{{ parametre.mesureIsolement.tempTolerie}}</td>
-                            <td>{{ parametre.mesureIsolement.hygrometrie}}</td>
-                            <td>{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('d-m-Y') }}
+                            <td style="text-align: center;">{{ parametre.mesureIsolement.tempAmbiante}}</td>
+                            <td style="text-align: center;">{{ parametre.mesureIsolement.tempTolerie}}</td>
+                            <td style="text-align: center;">{{ parametre.mesureIsolement.hygrometrie}}</td>
+                            <td style="text-align: center;">{{ parametre.mesureIsolement.dateEssais ? parametre.mesureIsolement.dateEssais| date('d-m-Y') }}
                             </td>
-                            <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
+                            <td style="text-align: center;">{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>
                     </table>
                     <table>
@@ -1537,7 +1553,7 @@
                             <th style="width: 6%;">Critère</th>
                             <th style="width: 16%;">Tension d'éssai (V)</th>
                             <th style="width: 16%;">Valeur relevées</th>
-                            <th style="width: 16%;">Correction à 20° C</th>
+                            <th style="width: 16%;">Correction à 20°C</th>
                             <th style="width: 16%;">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -1580,7 +1596,7 @@
                 {% endif %}
                 {% if parametre.mesureResistance %}
                     <div class="page_break"></div>
-                    <h5 id="lien622">2. <span class="span_titre">Mesure des résistances</span></h5>
+                    <h5 id="lien622">2. <span class="span_titre">Mesures des résistances</span></h5>
                     <table>
                         <tr class="titre_table">
                             <th colspan="5" class="text-center">Paramètres</th>
@@ -1593,12 +1609,12 @@
                             <th>Critère</th>
                         </tr>
                         <tr>
-                            <td>{{ parametre.mesureResistance.tempAmbiante}}</td>
-                            <td>{{ parametre.mesureResistance.hygrometrie}}</td>
-                            <td>{{ parametre.mesureResistance.tempTolerie}}</td>
-                            <td>{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y')
+                            <td style="text-align: center">{{ parametre.mesureResistance.tempAmbiante}}</td>
+                            <td style="text-align: center">{{ parametre.mesureResistance.hygrometrie}}</td>
+                            <td style="text-align: center">{{ parametre.mesureResistance.tempTolerie}}</td>
+                            <td style="text-align: center">{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y')
                                 }}</td>
-                            <td>+ ou - 5% de la valeur Rmoy</td>
+                            <td style="text-align: center">+ ou - 5% de la valeur Rmoy</td>
                         </tr>
                     </table>
                     <table>
@@ -1607,7 +1623,7 @@
                             <th style="width: 22%">Contrôle</th>
                             <th>Critère</th>
                             <th style="width: 20%">Valeur relevées</th>
-                            <th style="width: 20%">Correction à 20° C</th>
+                            <th style="width: 20%">Correction à 20°C</th>
                             <th style="width: 20%">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -1756,7 +1772,7 @@
                         <h5 id="lien625">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
                         <table>
                             <tr class="titre_table">
-                                <th>Désignation du moyen de contrôle</th>
+                                <th>Désignation des moyens de contrôle</th>
                                 <th>N° de l'appareil</th>
                                 <th>Date de validité</th>
                             </tr>
@@ -1965,11 +1981,11 @@
                             <th>Critère</th>
                         </tr>
                         <tr>
-                            <td>{{ parametre.statorApresLavage.tempAmbiante}}</td>
-                            <td>{{ parametre.statorApresLavage.tempTolerie}}</td>
-                            <td>{{ parametre.statorApresLavage.hygrometrie}}</td>
-                            <td>{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
-                            <td>{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.tempAmbiante}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.tempTolerie}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.hygrometrie}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
+                            <td style="text-align: center;">{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>
                     </table>
                     <table>
@@ -1980,7 +1996,7 @@
                             <th style="width: 70px;">Tension d'éssai (V)</th>
                             <th style="width: 70px;">Valeur relevée avant lavage (Corrigé à 20°)</th>
                             <th style="width: 70px;">Valeur relevées après lavage</th>
-                            <th style="width: 70px;">Correction à 20° C</th>
+                            <th style="width: 70px;">Correction à 20°C</th>
                             <th style="width: 80px;">Conformité</th>
                         </tr>
                         {% for item in parametre.statorApresLavage.lstatorApresLavages %}
@@ -2044,11 +2060,11 @@
                             <th>Critère</th>
                         </tr>
                         <tr>
-                            <td>{{parametre.sondeBobinage.tempAmbiante }}</td>
-                            <td>{{parametre.sondeBobinage.tempTolerie }}</td>
-                            <td>{{parametre.sondeBobinage.hygrometrie }}</td>
-                            <td>{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
-                            <td>+ ou - 5% de la valeur Rmoy</td>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.tempAmbiante }}</td>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.tempTolerie }}</td>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.hygrometrie }}</td>
+                            <td style="text-align: center;">{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
+                            <td style="text-align: center;">+ ou - 5% de la valeur Rmoy</td>
                         </tr>
                     </table>
                     <table>
@@ -2058,7 +2074,7 @@
                             <th width="10%">Critère <span class="my_police">(MΩ) <span></span></th>
                             <th width="16%">Valeur relevée avant lavage</th>
                             <th width="16%">Valeur relevées après lavage</th>
-                            <th width="16%">Correction à 20° C</th>
+                            <th width="16%">Correction à 20°C</th>
                             <th width="16%">Conformité</th>
                         </tr>
                         {% for item in parametre.sondeBobinage.lsondeBobinages %}
@@ -2066,7 +2082,7 @@
                                 <td>{{item.type}}</td>
                                 <td>{{item.controle}}</td>
                                 <td style="text-align: center;">{{item.critere}}</td>
-                                <td style="text-align: center;">{{item.valeurRelevee}}</td>
+                                <td style="text-align: center;">{{item.valeurRelevee}} <span class="my_police">{{ item.unite }}</span></td>
                                 <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
                                 <td style="text-align: center;">{{item.tempCorrection }} <span class="my_police">{{item.unite}}</span></td>
                                 {% if item.conformite ==  'Conforme' %}
@@ -2144,7 +2160,7 @@
                 {% if parametre.appareilMesureElectriques | length > 0 %}
                     <table>
                         <tr class="titre_table">
-                            <th>Désignation du moyen de contrôle</th>
+                            <th>Désignation des moyens de contrôle</th>
                             <th>N° de l'appareil</th>
                             <th>Date de validité</th>
                         </tr>

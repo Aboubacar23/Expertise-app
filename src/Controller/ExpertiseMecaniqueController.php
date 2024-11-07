@@ -1105,8 +1105,6 @@ class ExpertiseMecaniqueController extends AbstractController
             'formRoulement' => $formRoulement->createView(),
         ]);
     }
-
-
     //synoptiques 
     // Route pour la gestion du synoptique
     #[Route('/synoptique/{id}', name: 'app_synoptique')]
@@ -1158,7 +1156,8 @@ class ExpertiseMecaniqueController extends AbstractController
         }
 
         // Gestion du formulaire de synoptique
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             // Associe l'objet Synoptique au Parametre
             $synoptique->setParametre($parametre);
             $synoptiqueRepository->save($synoptique, true);

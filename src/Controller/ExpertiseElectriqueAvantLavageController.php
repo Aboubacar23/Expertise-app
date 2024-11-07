@@ -124,7 +124,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $choix = $request->get('bouton');
             if ($choix == 'controle_visuel_en_cours') {
                 $image = $formControleVisuelElectique->get('photo')->getData();
-                if ($image) {
+                if ($image)
+                {
                     $size = $image->getSize();
                     if ($size > 2 * 1024 * 1024) {
                         $this->addFlash("error", "Désolé la taille de l'image est > 2 Mo, veuillez compresser la photo");
@@ -1211,7 +1212,6 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         ]);
     }
 
-
     //modifiaction de la pression balais
     #[Route('/edit-pression-masse/{id}', name: 'app_edit_pression_balais_masse', methods: ['POST', 'GET'])]
     public function editPressionMasseBalais(PressionMasseBalais $pressionMasseBalais, Request $request, PressionMasseBalaisRepository $pressionMasseBalaisRepository,): Response
@@ -1238,5 +1238,21 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         ]);
     }
 
+    #[Route('/delete-photo-controle-visuel-recensement/{id}', name : 'app_delete_photo_controle_visuel_recensement')]
+    public function deletePhotoVisuel(ControleVisuelElectrique $controleVisuelElectrique)
+    {
+        $nom = $controleVisuelElectrique->getPhoto();
+        $id = $controleVisuelElectrique->getParametre()->getId();
+        $parameter = $this->getParameter('image_boite_borne') . '/' . $nom;
 
+        if ($parameter)
+        {
+            unlink($parameter);
+        }
+
+        $controleVisuelElectrique->setPhoto(null);
+        $this->entityManager->persist($controleVisuelElectrique);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $id]);
+    }
 }

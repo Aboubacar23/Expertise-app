@@ -114,8 +114,9 @@
                                     <td></td>
                                 </tr>
                                 <tr class="text-center">
-                                    {% if parametre.controleVisuelElectrique  %}
-                                        <td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)}}" height="200" width="200"></td>
+                                    {% if parametre.controleVisuelElectrique.photo  %}
+                                        <td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)}}" height="200" width="200">
+                                        <a href="{{ path('app_delete_photo_controle_visuel_recensement', {'id' : parametre.controleVisuelElectrique.id }) }}" class="btn btn-danger"><i class="fa fa-trash-o fa-2x"></i></a></td>
                                     {% endif %}
                                 </tr>
                             </table>
