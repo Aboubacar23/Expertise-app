@@ -24,7 +24,7 @@ class AppareilType extends AbstractType
     {
         $builder
             ->add('designation', ChoiceType::class, [
-                'label' => 'Désignation du moyen de contrôle',
+                'label' => 'Désignation des moyens de contrôle',
                 'required' => true,
                 'placeholder' => 'Choisissez',
                 'choices' => [
