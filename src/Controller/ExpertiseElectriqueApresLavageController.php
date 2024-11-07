@@ -244,11 +244,14 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $session->remove('stators');
                 $statorApresLavageRepository->save($statorApresLavage, true);
                 return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
-            } elseif ($choix == 'ajouter') {
+            } elseif ($choix == 'ajouter')
+            {
                 $val = 0;
 
-                foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item) {
-                    if ($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle()) {
+                foreach ($parametre->getMesureIsolement()->getLMesureIsolements() as $item)
+                {
+                    if ($item->getType() == $lstatorApresLavage->getType() and $item->getControle() == $lstatorApresLavage->getControle() and $item->getTension() == $lstatorApresLavage->getTensionEssai())
+                    {
                         if ($item->getControle() == 'IP-UVW/masse' or
                             $item->getControle() == 'IP-U/VW+masse' or
                             $item->getControle() == 'IP-V/UW+masse' or
@@ -260,6 +263,7 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         }
                     }
                 }
+
                 $lig = sizeof($listes) + 1;
                 $lstatorApresLavage->setLig($lig);
                 $lstatorApresLavage->setValeurRelevee($val);
@@ -272,7 +276,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 }
 
                 if ($parametre->getStatorApresLavage()) {
-                    foreach ($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j) {
+                    foreach ($parametre->getStatorApresLavage()->getLStatorApresLavages() as $j)
+                    {
                         if ($j->getType() == $lstatorApresLavage->getType() and $j->getControle() == $lstatorApresLavage->getControle() and $j->getTensionEssai() == $lstatorApresLavage->getTensionEssai()) {
                             $this->addFlash("message", "Vous avez déjà ajouter ce contrôle");
                             return $this->redirectToRoute('app_stator_apres_lavage', ['id' => $parametre->getId()]);
