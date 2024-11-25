@@ -322,7 +322,7 @@
              * 1- on a besoin du champ température ambiante, du champ valeur, du champ type et controle.
             */
             //let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_temp_ambiante').value);
-            let temp_ambiante = parseFloat(document.getElementById('mesure_isolement_temp_tolerie').value);
+            let temp_tolerie = parseFloat(document.getElementById('mesure_isolement_temp_tolerie').value);
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_type');
             var var_controle = document.getElementById('l_mesure_isolement_controle');
@@ -345,6 +345,7 @@
            //récupérer la valeur de critère et la température de correction
             const critere = {{ parametre.critere }};
             const valeur_temp = {{ parametre.tempCorrection }};
+
             if(var_type.value == "Stator" || var_type.value == 'Stator GV' || var_type.value == 'Stator PV')
             {
                 const ol_critre = (critere * tension_stator)/1000000;
@@ -607,9 +608,9 @@
 
             const correction = document.getElementById('l_mesure_isolement_temp_correction');
             let valeurCorrection = 0;
-            if(temp_ambiante >= 10 && temp_ambiante <=30)
+            if(temp_tolerie >= 10 && temp_tolerie <=30)
             {
-                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
+                val = (Math.pow(0.50,(valeur_temp - temp_tolerie)/10));
                 valeurCorrection = val*valeur;
                 if (estEntier(valeur))
                 {

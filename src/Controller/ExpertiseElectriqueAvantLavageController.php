@@ -9,6 +9,7 @@ use App\Entity\Plaque;
 use App\Entity\LPlaque;
 use App\Entity\PressionBalais;
 use App\Entity\PressionMasseBalais;
+use App\Entity\PressionPorteBalais;
 use App\Form\BoiteBorneType;
 use App\Form\PhotoType;
 use App\Form\PlaqueType;
@@ -18,9 +19,11 @@ use App\Entity\AutreControle;
 use App\Entity\AppareilMesure;
 use App\Form\PressionBalaisType;
 use App\Form\PressionMasseBalaisType;
+use App\Form\PressionPorteBalaisType;
 use App\Repository\BoiteBorneRepository;
 use App\Repository\PressionBalaisRepository;
 use App\Repository\PressionMasseBalaisRepository;
+use App\Repository\PressionPorteBalaisRepository;
 use App\Service\MailerService;
 use App\Entity\MesureIsolement;
 use App\Form\AutreControleType;
@@ -91,7 +94,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
      * NB : c'est les mêmes étapes pour les autres aussi
      */
 
-    public function __construct(Private RedimensionneService $redimensionneService, Private EntityManagerInterface $entityManager)
+    public function __construct(Private RedimensionneService $redimensionneService, Private EntityManagerInterface $entityManager, private PressionPorteBalaisRepository $pressionPorteBalaisRepository)
     {
         
     }
@@ -604,11 +607,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
 
     //création d'autre controle
     #[Route('/autre-controle/{id}', name: 'app_autre_controle', methods: ['POST', 'GET'])]
-    public function autreControle(Parametre $parametre, Request $request,
-                                  EntityManagerInterface $entityManager,
-                                  PressionBalaisRepository $pressionBalaisRepository,
-                                  PressionMasseBalaisRepository $pressionMasseBalaisRepository,
-                                  AutreControleRepository $autreControleRepository): Response
+    public function autreControle(Parametre $parametre, Request $request, EntityManagerInterface $entityManager, PressionBalaisRepository $pressionBalaisRepository, PressionMasseBalaisRepository $pressionMasseBalaisRepository, AutreControleRepository $autreControleRepository): Response
     {
         // Création de nouvelles instances pour les contrôles
         $autreControle = new AutreControle();
@@ -1255,4 +1254,63 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('app_controle_visuel_recensement', ['id' => $id]);
     }
+
+    #[Route('/pression/porte/balais/{id}', name: 'app_pression_porte_balais')]
+    public function pressionPorte(Parametre $parametre, Request $request): Response
+    {
+        $pression = new PressionPorteBalais();
+        $form = $this->createForm(PressionPorteBalaisType::class, $pression);
+        $form->handleRequest($request);
+
+        $num = count($parametre->getPressionPorteBalais()) + 1;
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $pression->setParametre($parametre);
+            $this->entityManager->persist($pression);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Pression porte balais créé avec succès !');
+            return $this->redirectToRoute('app_pression_porte_balais', ['id' => $parametre->getId() ]);
+        }
+
+        return $this->render('expertise_electrique_avant_lavage/pression_porte_balais.html.twig', [
+            'parametre' => $parametre,
+            'num' => $num,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/delete-pression/porte/balais/{id}', name: 'app_pression_porte_balais_delete')]
+    public function deletePressionPorte(PressionPorteBalais $pressionPorteBalais, Request $request): Response
+    {
+        $parametre = $pressionPorteBalais->getParametre();
+        $this->entityManager->remove($pressionPorteBalais);
+        $this->entityManager->flush();
+
+        $this->addFlash('danger', 'Pression porte balais supprimé avec succès !');
+        return $this->redirectToRoute('app_pression_porte_balais', ['id' => $parametre->getId() ]);
+    }
+
+    #[Route('/edit-pression/edit-porte/edit-balais/{id}', name: 'app_pression_porte_balais_edit')]
+    public function editPressionPorte(PressionPorteBalais $pression, Request $request): Response
+    {
+        $form = $this->createForm(PressionPorteBalaisType::class, $pression);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->entityManager->persist($pression);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Pression porte balais créé avec succès !');
+            return $this->redirectToRoute('app_pression_porte_balais', ['id' => $pression->getParametre()->getId() ]);
+        }
+
+        return $this->render('expertise_electrique_avant_lavage/pression_porte_balais_edit.html.twig', [
+            'parametre' => $pression->getParametre(),
+            'pression' => $pression,
+            'form' => $form->createView()
+        ]);
+    }
+
 }

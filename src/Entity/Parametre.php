@@ -286,6 +286,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PressionMasseBalais::class)]
     private Collection $pressionMasseBalais;
 
+    #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PressionPorteBalais::class)]
+    private Collection $pressionPorteBalais;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -313,6 +316,7 @@ class Parametre
         $this->boiteBornes = new ArrayCollection();
         $this->pressionBalais = new ArrayCollection();
         $this->pressionMasseBalais = new ArrayCollection();
+        $this->pressionPorteBalais = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1858,6 +1862,36 @@ class Parametre
             // set the owning side to null (unless already changed)
             if ($pressionMasseBalai->getParametre() === $this) {
                 $pressionMasseBalai->setParametre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PressionPorteBalais>
+     */
+    public function getPressionPorteBalais(): Collection
+    {
+        return $this->pressionPorteBalais;
+    }
+
+    public function addPressionPorteBalai(PressionPorteBalais $pressionPorteBalai): static
+    {
+        if (!$this->pressionPorteBalais->contains($pressionPorteBalai)) {
+            $this->pressionPorteBalais->add($pressionPorteBalai);
+            $pressionPorteBalai->setParametre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePressionPorteBalai(PressionPorteBalais $pressionPorteBalai): static
+    {
+        if ($this->pressionPorteBalais->removeElement($pressionPorteBalai)) {
+            // set the owning side to null (unless already changed)
+            if ($pressionPorteBalai->getParametre() === $this) {
+                $pressionPorteBalai->setParametre(null);
             }
         }
 
