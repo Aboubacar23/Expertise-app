@@ -30,70 +30,63 @@
                 <div class="x_content">
                     {{ form_start(formControleVisuelElectique) }}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <table class="table">
                                 <tr class="table-secondary">
-                                    <th colspan="4" class="text-center">Balais</th>
+                                    <th></th>
+                                    <th class="text-center">Balais</th>
+                                    <th class="text-center">Balais de masse</th>
                                 </tr>
                                 <tr>
                                     <th>Dimension</th>
-                                    <th>Marque</th>
-                                    <th>Quantité</th>
-                                    <th>Nuance</th>
-                                </tr>
-                                <tr>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_dimension) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_marque) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_quantite) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_nuance) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>longueur Shunt</th>
-                                    <th>Type de Cosse</th>
-                                    <th>Aspect de la patine</th>
-                                    <th>Type pression</th>
-                                </tr>
-                                <tr>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_longueur_shunt) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_type_cosse) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_aspect) }}</td>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_type_pression) }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">{{ form_widget(formControleVisuelElectique.balais_presence_gaine) }}</td>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table">
-                                <tr class="table-secondary">
-                                    <th colspan="4" class="text-center">Balais de masse</th>
-                                </tr>
-                                <tr>
-                                    <th>Dimension</th>
-                                    <th>Marque</th>
-                                    <th>Quantité</th>
-                                    <th>Nuance</th>
-                                </tr>
-                                <tr>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_dimension) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Marque</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_marque) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_marque) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Quantité</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_quantite) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_quantite) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nuance</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_nuance) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_nuance) }}</td>
                                 </tr>
                                 <tr>
                                     <th>longueur Shunt</th>
-                                    <th>Type de Cosse</th>
-                                    <th>Aspect de la patine</th>
-                                    <th>Type pression</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_longueur_shunt) }}</td>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_masse_longueur_shunt) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ form_widget(formControleVisuelElectique.balais_masse_longueur_shunt) }}</td>
+                                    <th>Type de Cosse</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_type_cosse) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_type_cosse) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Aspect de la patine</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_aspect) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_aspect) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Type pression</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_type_pression) }}</td>
                                     <td>{{ form_widget(formControleVisuelElectique.balais_masse_type_pression) }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">{{ form_widget(formControleVisuelElectique.balais_masse_presence_gaine) }}</td>
+                                    <th>Pression théorique</th>
+                                    <td>{{ form_widget(formControleVisuelElectique.pression_theorique) }}</td>
+                                    <td>{{ form_widget(formControleVisuelElectique.pression_theorique_balais_masse) }}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_presence_gaine) }}</td>
+                                    <td>{{ form_widget(formControleVisuelElectique.balais_masse_presence_gaine) }}</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="col-md-12">
@@ -114,7 +107,7 @@
                                     <td></td>
                                 </tr>
                                 <tr class="text-center">
-                                    {% if parametre.controleVisuelElectrique.photo  %}
+                                    {% if parametre.controleVisuelElectrique is not null and parametre.controleVisuelElectrique.photo is not null  %}
                                         <td><img class="p-2" src="{{asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)}}" height="200" width="200">
                                         <a href="{{ path('app_delete_photo_controle_visuel_recensement', {'id' : parametre.controleVisuelElectrique.id }) }}" class="btn btn-danger"><i class="fa fa-trash-o fa-2x"></i></a></td>
                                     {% endif %}
@@ -135,6 +128,6 @@
                 <!-- fin contrôle visuel et recensement -->   
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 {% endblock %}

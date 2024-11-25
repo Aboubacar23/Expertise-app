@@ -662,7 +662,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
     public function deletePoint(PointFonctionnementRotor $pointFonctionnementRotor, PointFonctionnementRotorRepository $pointFonctionnementRotorRepository): Response
     {
         $id = $pointFonctionnementRotor->getParametre()->getId();
-        if ($pointFonctionnementRotor) {
+        if ($pointFonctionnementRotor)
+        {
             $pointFonctionnementRotorRepository->remove($pointFonctionnementRotor, true);
             return $this->redirectToRoute('app_fonctionnement', ['id' => $id], Response::HTTP_SEE_OTHER);
         } else {
