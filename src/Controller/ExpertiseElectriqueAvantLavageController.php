@@ -94,7 +94,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
      * NB : c'est les mêmes étapes pour les autres aussi
      */
 
-    public function __construct(Private RedimensionneService $redimensionneService, Private EntityManagerInterface $entityManager, private PressionPorteBalaisRepository $pressionPorteBalaisRepository)
+    public function __construct(Private RedimensionneService $redimensionneService, Private EntityManagerInterface $entityManager)
     {
         
     }
