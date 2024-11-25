@@ -278,7 +278,7 @@
             <p><a href="#lien5">V. Expertise mécanique</a></p>
             <p class="sous_menu1"><a href="#lien51"> A. Démontage</a></p>
             <p class="sous_menu2"><a href="#lien511"> </a></p>
-            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à bornesss</a></p>
+            <p class="sous_menu2"><a href="#lien512"> 2.  Relevé boîte à borness</a></p>
             <p class="sous_menu2"><a href="#lien513"> 3. Synoptique de démontage</a></p>
             <p class="sous_menu1"><a href="#lien52"> B. Contrôle démontage : paliers</a></p>
             <p class="sous_menu1"><a href="#lien53"> C. Contrôle des coussinets</a></p>
@@ -465,36 +465,44 @@
                         {% elseif parametre.machine.categorie == "Synchrone" %}
                             <th colspan="4">Stator</th>
                         {% elseif parametre.machine.categorie == "À courant continu" %}
-                            <th colspan="4">Inducteur</th>
+                            <th colspan="2">Caractèristiques électriques</th>
                         {% endif %}
                     </tr>
                     <tr>
                         <th style="text-align:left; width: 110px;">Tension </th>
                         <td style="width: 60px;">{{parametre.statorTension}} V</td>
-                        <th style="text-align:left; width: 70px;">Fréquence</th>
-                        <td> {{ parametre.statorFrequence }} Hz</td>
+                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                            <th style="text-align:left; width: 70px;">Fréquence</th>
+                            <td> {{ parametre.statorFrequence }} Hz</td>
+                        {% endif %}
                     </tr>
                     {% if parametre.statorTension2 != null or parametre.statorTension2 > 0 %}
                         <tr>
                             <th style="text-align:left;">Tension Excitation </th>
-                            <td>{{parametre.statorTension}} V</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{parametre.statorTension2}} V</td>
+                            {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                                <td></td>
+                                <td></td>
+                            {% endif %}
                         </tr>
                     {% endif %}
                     <tr>
                         <th style="text-align:left;">Courant</th>
                         <td>{{ parametre.statorCourant }} A</td>
-                        <th style="text-align:left;">Couplage </th>
-                        <td>{{ parametre.statorCouplage }}</td>
+                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                            <th style="text-align:left;">Couplage </th>
+                            <td>{{ parametre.statorCouplage }}</td>
+                        {% endif %}
                     </tr>
                     {% if parametre.statorCourantExcitation != null or parametre.statorCourantExcitation > 0 %}
-                    <tr>
-                        <th style="text-align:left;">Courant Excitation </th>
-                        <td>{{parametre.statorTension2}} A</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                        <tr>
+                            <th style="text-align:left;">Courant Excitation </th>
+                            <td>{{parametre.statorCourantExcitation}} A</td>
+                            {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                                <td></td>
+                                <td></td>
+                            {% endif %}
+                        </tr>
                     {% endif %}
                 </table>
                 {% if parametre.rotorTension != 0 or parametre.rotorCourant != 0 %}
@@ -607,6 +615,15 @@
                                 {% endif %}
                             </tr>
                             <tr>
+                                <td>Présence de Gaine</td>
+                                {% if parametre.presenceBalais == 1 %}
+                                    <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
+                                {% endif %}
+                                {% if parametre.presenceBalaisMasse == 1 %}
+                                    <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
                                 <td>Type pression</td>
                                 {% if parametre.presenceBalais == 1 %}
                                     <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
@@ -625,21 +642,21 @@
                                 {% endif %}
                             </tr>
                             <tr>
-                                <td>Présence de Gaine</td>
-                                {% if parametre.presenceBalais == 1 %}
-                                    <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
-                                {% endif %}
-                                {% if parametre.presenceBalaisMasse == 1 %}
-                                    <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine  ? 'Oui' : 'Non' }}</td>
-                                {% endif %}
-                            </tr>
-                            <tr>
                                 <td>Aspect de la patine</td>
                                 {% if parametre.presenceBalais == 1 %}
                                     <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
                                 {% endif %}
                                 {% if parametre.presenceBalaisMasse == 1 %}
                                     <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <td>Pression théorique</td>
+                                {% if parametre.presenceBalais == 1 %}
+                                    <td>{{ parametre.controleVisuelElectrique.pressionTheorique }}</td>
+                                {% endif %}
+                                {% if parametre.presenceBalaisMasse == 1 %}
+                                    <td>{{ parametre.controleVisuelElectrique.pressionTheoriqueBalaisMasse }}</td>
                                 {% endif %}
                             </tr>
                         </table>
@@ -783,7 +800,7 @@
                 {% endif %}
             </div>
             <div class="sous_page4_3">
-                {% if parametre.controleVisuelMecanique.accessoireSupplementaires | length > 0 %}
+                {% if parametre.controleVisuelMecanique is not null and parametre.controleVisuelMecanique.accessoireSupplementaires is not empty %}
                     <table>
                         <tr class="titre_table">
                             <th colspan="2">Liste des accessoires complémentaires</th>
@@ -849,7 +866,7 @@
                 </div>
             {% endif %}
             <div class="sous_page5_3">
-                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à borness</span></h5>
+                <h5 id="lien512">2. <span class="span_titre"> Relevé boîte à bornes</span></h5>
                 <table>
                     <tr class="titre_table">
                         <th>FAC-SIMILE boîte à bornes</th>
@@ -857,7 +874,7 @@
                     </tr>
                     <tr>
                         <td height="15%" class="td_image">
-                            {% if parametre.controleVisuelElectrique.photo %}
+                            {% if parametre.controleVisuelElectrique and parametre.controleVisuelElectrique.photo %}
                                 <img src="{{ absolute_url(asset('/photo_boite_bornes/'~ parametre.controleVisuelElectrique.photo)) }}" alt="item.photo" height="150px">
                             {% endif %}
                         </td>
@@ -1258,7 +1275,11 @@
                     <table>
                         {% if parametre.photoRotors %}
                             <tr class="titre_table">
-                                <th>PHOTO : ROTOR</th>
+                                {% if parametre.machine.categorie == "À courant continu"  %}
+                                    <th>PHOTO : ROTOR INDUIT</th>
+                                {% else %}
+                                    <th>PHOTO : ROTOR</th>
+                                {% endif %}
                             </tr>
                             {% for item in parametre.photoRotors %}
                                 <tr>
@@ -1466,19 +1487,18 @@
         <div class="page_break"></div>
         <div class="page6">
             <h2 id="lien6">VI. Expertise électrique avant lavage</h2>
-            {% if parametre.controleVisuelElectrique %}
+            {% if parametre.controleVisuelElectrique |length != 0 %}
                 <div class="sous_page6_1_1">
                     <h4 id="lien61">A. <span class="span_titre">Contrôle visuel et recensement</span></h4>
                     <table>
                         <thead class="table-secondary">
                         <tr>
-                            <th class="titre_table" colspan="5">Contrôle visuel et recensement</th>
+                            <th class="titre_table" colspan="3">Contrôle visuel et recensement</th>
                         </tr>
                         <tr class="titre_table">
                             <th></th>
                             <th>Balais</th>
                             <th>Balais de masse</th>
-                            <th class="titre_table" colspan="2">Fac-similé boîte à bornes</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1486,65 +1506,77 @@
                             <td class="titre_table">Dimension</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisDimension }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMasseDimension }}</td>
-                            <td class="titre_table">Sens rotation</td>
-                            <td>{{ parametre.controleVisuelElectrique.sensRotation }}</td>
                         </tr>
                         <tr>
                             <td class="titre_table">Marque</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMarque }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMasseMarque }}</td>
-                            <td class="titre_table">Remarque</td>
-                            <td>{{ parametre.controleVisuelElectrique.remarque }}</td>
                         </tr>
                         <tr>
                             <td class="titre_table">Quantité</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisQuantite }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMasseQuantite }}</td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="titre_table">Nuance</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisNuance }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMasseNuance }}</td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="titre_table">Longueur Shunt</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisLongueurShunt }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMasseLongueurShunt }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Type de Cosses</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Aspect de la patine</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="titre_table">Type pression</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
-                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="titre_table">Présence de Gaine</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisPresenceGaine ? 'Oui' : 'Non' }}</td>
                             <td>{{ parametre.controleVisuelElectrique.balaisMassePresenceGaine ? 'Oui' : 'Non' }}</td>
-                            <td></td>
-                            <td></td>
                         </tr>
+                        <tr>
+                            <td class="titre_table">Type de Cosses</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisTypeCosse }}</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypeCosse }}</td>
+                        </tr>
+                        <tr>
+                            <td class="titre_table">Aspect de la patine</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisAspect }}</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisMasseAspect }}</td>
+                        </tr>
+                        <tr>
+                            <td class="titre_table">Type pression</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisTypePression }}</td>
+                            <td>{{ parametre.controleVisuelElectrique.balaisMasseTypePression }}</td>
+                        </tr>
+                        <tr>
+                            <td class="titre_table">Pression théorique</td>
+                            <td>{{ parametre.controleVisuelElectrique.pressionTheorique  }}</td>
+                            <td>{{ parametre.controleVisuelElectrique.pressionTheoriqueBalaisMasse }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            {% if parametre.pressionPorteBalais is not null %}
+                <div class="sous_page6_1_1">
+                    <h4 id="lien61"><span class="span_titre">Pression porte-balais</span></h4>
+                    <table>
+                        <thead class="table-secondary">
+                        <tr>
+                            <th class="titre_table" colspan="2">Relevé de la pression</th>
+                        </tr>
+                        <tr class="titre_table">
+                            <th style="text-align: left;">N° Balai</th>
+                            <th class="text-right" style="text-align: right;">Pression (kg)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in parametre.pressionPorteBalais  %}
+                            <tr>
+                                <td style="text-align: left;">{{ item.numBalai }}</td>
+                                <td style="text-align: right;">{{ item.pression }}</td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -1642,8 +1674,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: center;">{{ parametre.mesureResistance.tempAmbiante}}</td>
-                            <td style="text-align: center;">{{ parametre.mesureResistance.hygrometrie}}</td>
                             <td style="text-align: center;">{{ parametre.mesureResistance.tempTolerie}}</td>
+                            <td style="text-align: center;">{{ parametre.mesureResistance.hygrometrie}}</td>
                             <td style="text-align: center;">{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y')
                                 }}</td>
                             <td style="text-align: center;">+ ou - 5% de la valeur Rmoy</td>
@@ -2010,7 +2042,7 @@
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
-                            <th>Date Essaie</th>
+                            <th>Date Essais</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
@@ -2089,7 +2121,7 @@
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
-                            <th>Date Essaie</th>
+                            <th>Date Essais</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
@@ -2104,7 +2136,7 @@
                         <tr class="titre_table">
                             <th></th>
                             <th width="16%">Contrôle</th>
-                            <th width="10%">Critère <span class="my_police">(MΩ) <span></span></th>
+                            <th width="10%">Critère </th>
                             <th width="16%">Valeur relevée avant lavage</th>
                             <th width="16%">Valeur relevées après lavage</th>
                             <th width="16%">Correction à 20°C</th>
@@ -2128,16 +2160,16 @@
                     </table>
                 {% endif %}
 
-                {% if parametre.equirepartitions |length > 0 %}
+                {% if parametre.pontDiodes |length > 0 %}
                     <div class="page_break"></div>
-                    <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    <h5 id="lien712">3. <span class="span_titre">Pont de diodes</span></h5>
                     <table>
                         <tr>
-                            <th colspan="3" class="titre_table">Equi-Répartition de tension Roue polaire</th>
+                            <th colspan="3" class="titre_table">Pont diodes</th>
                         </tr>
-                        {% for item in parametre.equirepartitions %}
+                        {% for item in parametre.pontDiodes %}
                             <tr>
-                                <th class="titre_table" style="text-align: left;">{{item.pole}}</th>
+                                <th class="titre_table" style="text-align: left;">{{item.diode}}</th>
                                 <td>{{item.tension}} V</td>
                                 {% if item.conforme ==  'Conforme' %}
                                     <td style="color: green;">{{item.conforme}}</td>
@@ -2150,11 +2182,15 @@
                 {% endif %}
 
                 {% if parametre.equirepartitions |length > 0 %}
-                    <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    {% if parametre.pontDiodes |length == 0 %}
+                        <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    {% elseif parametre.equirepartitions |length > 0 %}
+                        <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    {% endif %}
                     <table>
                         <thead class="table-secondary">
                         <tr class="titre_table">
-                            <th colspan="5" class="text-center">Pont de diodes</th>
+                            <th colspan="5" class="text-center">Equi-Répartition de tension Roue polaire</th>
                         </tr>
                         <tr class="titre_table">
                             <th>Pole</th>

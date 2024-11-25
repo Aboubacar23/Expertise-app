@@ -33,6 +33,8 @@ class ControleVisuelElectriqueType extends AbstractType
             ->add('balais_masse_aspect')
             ->add('balais_masse_type_pression')
             ->add('balais_masse_presence_gaine')
+            ->add('pression_theorique')
+            ->add('pression_theorique_balais_masse')
             ->add('sens_rotation', ChoiceType::class, [
                 'choices' => [
                     'Horaire' => 'Horaire',

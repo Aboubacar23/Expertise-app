@@ -82,6 +82,12 @@ class ControleVisuelElectrique
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pression_theorique = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pression_theorique_balais_masse = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -375,6 +381,30 @@ class ControleVisuelElectrique
     public function setPhoto(?string $photo): static
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getPressionTheorique(): ?string
+    {
+        return $this->pression_theorique;
+    }
+
+    public function setPressionTheorique(?string $pression_theorique): static
+    {
+        $this->pression_theorique = $pression_theorique;
+
+        return $this;
+    }
+
+    public function getPressionTheoriqueBalaisMasse(): ?string
+    {
+        return $this->pression_theorique_balais_masse;
+    }
+
+    public function setPressionTheoriqueBalaisMasse(?string $pression_theorique_balais_masse): static
+    {
+        $this->pression_theorique_balais_masse = $pression_theorique_balais_masse;
 
         return $this;
     }

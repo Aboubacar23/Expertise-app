@@ -38,7 +38,7 @@
                                         <th width="20%">T° ambiante (°C)</th>
                                         <th width="20%">T° fer (°C)</th>
                                         <th width="20%">Hygrométrie (%)</th>
-                                        <th width="10%">Date Essaie</th>
+                                        <th width="10%">Date Essais</th>
                                         <th width="10%">Critère</th>
                                     </tr>
                                     <tr> 
@@ -340,7 +340,7 @@
         function updateSumField() 
         {
            // let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_ambiante').value);
-            let temp_ambiante = parseFloat(document.getElementById('stator_apres_lavage_temp_tolerie').value);
+            let temp_tolerie = parseFloat(document.getElementById('stator_apres_lavage_temp_tolerie').value);
             let valeur = parseFloat(document.getElementById('l_stator_apres_lavage_valeur').value);
             var var_type = document.getElementById('l_stator_apres_lavage_type');
             var var_controle = document.getElementById('l_stator_apres_lavage_controle');
@@ -621,10 +621,11 @@
             }
 
             const correction = document.getElementById('l_stator_apres_lavage_temp_correction');
+
             let valeurCorrection = 0;
-            if(temp_ambiante >= 10 && temp_ambiante <=30)
+            if(temp_tolerie >= 10 && temp_tolerie <=30)
             {
-                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
+                val = (Math.pow(0.50,(valeur_temp - temp_tolerie)/10));
                 valeurCorrection = val*valeur;
                 if (estEntier(valeur))
                 {
