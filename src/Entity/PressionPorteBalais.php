@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\PressionPorteBalaisRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: PressionPorteBalaisRepository::class)]
+class PressionPorteBalais
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?int $num_balai = null;
+
+    #[ORM\Column]
+    private ?float $pression = null;
+
+    #[ORM\ManyToOne(inversedBy: 'pressionPorteBalais')]
+    private ?Parametre $parametre = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNumBalai(): ?int
+    {
+        return $this->num_balai;
+    }
+
+    public function setNumBalai(int $num_balai): static
+    {
+        $this->num_balai = $num_balai;
+
+        return $this;
+    }
+
+    public function getPression(): ?float
+    {
+        return $this->pression;
+    }
+
+    public function setPression(float $pression): static
+    {
+        $this->pression = $pression;
+
+        return $this;
+    }
+
+    public function getParametre(): ?Parametre
+    {
+        return $this->parametre;
+    }
+
+    public function setParametre(?Parametre $parametre): static
+    {
+        $this->parametre = $parametre;
+
+        return $this;
+    }
+}
