@@ -112,18 +112,17 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         { 
-            let temp_ambiante = {{ sondeBobinage.tempAmbiante}};
+            let temp_tolerie = {{ sondeBobinage.tempTolerie}};
             let valeurReleve = parseFloat(document.getElementById('l_sonde_bobinage_edit_valeur').value);
             var var_type = document.getElementById('l_sonde_bobinage_edit_type');
 
             const correction = document.getElementById('l_sonde_bobinage_edit_temp_correction');
             const valeur_temp = {{ parametre.tempCorrection }};
-            console.log(temp_ambiante);
             let valeurCorrection = 0;
             //if(var_type.value == 1 && var_type.value == 2 && var_type.value == 3 && var_type.value == 4)
             if(var_type.value == 1 || var_type.value == 2 || var_type.value == 3 || var_type.value == 4)
             {
-                valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));        
+                valeurCorrection = valeurReleve/(1+0.00393*(temp_tolerie - valeur_temp));
             }
             valeurFinale = valeurCorrection.toFixed(0);
             correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
