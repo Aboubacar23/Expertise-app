@@ -380,6 +380,7 @@
                             <th colspan="2">Caractèristiques électriques</th>
                         {% endif %}
                     </tr>
+
                     <tr>
                         <th style="text-align:left; width: 110px;">Tension </th>
                         <td style="width: 60px;">{{parametre.statorTension}} V</td>
@@ -388,6 +389,16 @@
                             <td> {{ parametre.statorFrequence }} Hz</td>
                         {% endif %}
                     </tr>
+
+                    <tr>
+                        <th style="text-align:left;">Courant</th>
+                        <td>{{ parametre.statorCourant }} A</td>
+                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                            <th style="text-align:left;">Couplage </th>
+                            <td>{{ parametre.statorCouplage }}</td>
+                        {% endif %}
+                    </tr>
+
                     {% if parametre.statorTension2 != null or parametre.statorTension2 > 0 %}
                     <tr>
                         <th style="text-align:left;">Tension Excitation </th>
@@ -398,14 +409,7 @@
                         {% endif %}
                     </tr>
                     {% endif %}
-                    <tr>
-                        <th style="text-align:left;">Courant</th>
-                        <td>{{ parametre.statorCourant }} A</td>
-                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
-                            <th style="text-align:left;">Couplage </th>
-                            <td>{{ parametre.statorCouplage }}</td>
-                        {% endif %}
-                    </tr>
+
                     {% if parametre.statorCourantExcitation != null or parametre.statorCourantExcitation > 0 %}
                     <tr>
                         <th style="text-align:left;">Courant Excitation </th>
@@ -619,28 +623,30 @@
             <h2 id="lien4">IV. Expertise à réception</h2>
             <h4 id="lien41">A. <span class="span_titre">Contrôles et recensement</span></h4>
             <div class="sous_page4_1">
-                {% if parametre.controleRecensements %}
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="2">Photos à réception</th>
-                    </tr>
-                    <tr>
-                        {% for item in parametre.controleRecensements %}
-                        {% if item.photo %}
-                        <td class="td_image"><img
-                                src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
-                                width="300px" height="300px"></td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        {% for item in parametre.controleRecensements %}
-                        <td>{{item.libelle}}</td>
-                        {% endfor %}
-                    </tr>
-                </table>
+                {% if parametre.controleRecensements|length > 0 %}
+                    <table>
+                        <tr class="titre_table">
+                            <th colspan="2">Photos à réception</th>
+                        </tr>
+                        <tr>
+                            {% for item in parametre.controleRecensements %}
+                                {% if item.photo %}
+                                <td class="td_image"><img
+                                        src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
+                                        width="300px" height="300px"></td>
+                                {% else %}
+
+                                <td></td>
+
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for item in parametre.controleRecensements %}
+                                <td>{{item.libelle}}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
                 {% endif %}
             </div>
             <div class="sous_page4_2">
@@ -1477,11 +1483,23 @@
                 <table>
                     <thead class="table-secondary">
                     <tr>
-                        <th class="titre_table" colspan="2">Relevé de la pression</th>
+                        <th class="titre_table" colspan="3">Relevé de la pression</th>
                     </tr>
+
+                    {% if parametre.controleVisuelElectrique %}
+                        {% if parametre.controleVisuelElectrique.pressionTheorique %}
+                            <tr class="table-secondary">
+                                <th colspan="3" class="text-center titre_table">Pression théorique :
+                                    {{ parametre.controleVisuelElectrique.pressionTheorique }}
+                                </th>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+
                     <tr class="titre_table">
                         <th style="text-align: left;">N° Balai</th>
                         <th class="text-right" style="text-align: right;">Pression (kg)</th>
+                        <th class="text-right" style="text-align: right;">Critère</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1489,6 +1507,11 @@
                         <tr>
                             <td style="text-align: left;">{{ item.numBalai }}</td>
                             <td style="text-align: right;">{{ item.pression }}</td>
+                            {% if item.critere ==  'Conforme' %}
+                                <td style="text-align: right; color: green;">{{item.critere}}</td>
+                            {% else %}
+                                <td style="text-align: right; color: red;">{{item.critere}}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -1513,7 +1536,7 @@
                         <th>T° ambiante (°C)</th>
                         <th>T° fer (°C)</th>
                         <th>Hygrométrie (%)</th>
-                        <th>Date d'essai</th>
+                        <th>Date d'essais</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
@@ -1532,7 +1555,7 @@
                         <th style="width: 6%;">Critère</th>
                         <th style="width: 16%;">Tension d'éssai (V)</th>
                         <th style="width: 16%;">Valeur relevées</th>
-                        <th style="width: 16%;">Correction à 20°C</th>
+                        <th style="width: 16%;">Correction à {{  parametre.tempCorrection }} °C</th>
                         <th style="width: 16%;">Conformité</th>
                     </tr>
                     {% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -1573,6 +1596,7 @@
                     {% endfor %}
                 </table>
             {% endif %}
+
             {% if parametre.mesureResistance %}
                 <div class="page_break"></div>
                 <h5 id="lien622">2. <span class="span_titre">Mesures des résistances</span></h5>
@@ -1584,7 +1608,7 @@
                         <th>T° ambiante (°C)</th>
                         <th>T° fer (°C)</th>
                         <th>Hygrométrie (%)</th>
-                        <th>Date d'essai</th>
+                        <th>Date d'essais</th>
                         <th>Critère</th>
                     </tr>
                     <tr>
@@ -1602,7 +1626,7 @@
                         <th style="width: 22%">Contrôle</th>
                         <th>Critère</th>
                         <th style="width: 20%">Valeur relevées</th>
-                        <th style="width: 20%">Correction à 20°C</th>
+                        <th style="width: 20%">Correction à {{  parametre.tempCorrection }} °C</th>
                         <th style="width: 20%">Conformité</th>
                     </tr>
                     {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -1941,256 +1965,256 @@
     {# fin de la partie 6 #}
 
     {# la partie 7 expertise electrique après lavage #}
-    <div class="page_break"></div>
-    <div class="page6">
-        <h2 id="lien7">VII. Expertise électrique après lavage</h2>
-        <div class="sous_page6_1">
-            <h4 id="lien71">A. <span class="span_titre">Contrôles électriques</span></h4>
-            {% if parametre.statorApresLavage %}
-                <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="5" class="text-center">Paramètres</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th>T° ambiante (°C)</th>
-                        <th>T° fer (°C)</th>
-                        <th>Hygrométrie (%)</th>
-                        <th>Date Essais</th>
-                        <th>Critère</th>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">{{ parametre.statorApresLavage.tempAmbiante}}</td>
-                        <td style="text-align: center;">{{ parametre.statorApresLavage.tempTolerie}}</td>
-                        <td style="text-align: center;">{{ parametre.statorApresLavage.hygrometrie}}</td>
-                        <td style="text-align: center;">{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
-                        <td style="text-align: center;">{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th style="width: 150px;">Contrôle</th>
-                        <th style="width: 60px;">Critère</th>
-                        <th style="width: 70px;">Tension d'éssai (V)</th>
-                        <th style="width: 70px;">Valeur relevée avant lavage (Corrigé à 20°)</th>
-                        <th style="width: 70px;">Valeur relevées après lavage</th>
-                        <th style="width: 70px;">Correction à 20°C</th>
-                        <th style="width: 80px;">Conformité</th>
-                    </tr>
-                    {% for item in parametre.statorApresLavage.lstatorApresLavages %}
-                        <tr>
-                            <td>{{item.type}}</td>
-                            <td>{{item.controle}}</td>
-                            <td>
-                                {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
-                                    >= {{item.critere}}
-                                {% else %}
-                                    {{item.critere}}  M<span class="my_police">Ω</span>
-                                {% endif %}
-                            </td>
-                            <td>{{item.tensionEssai}}</td>
-                            <td>
-                                {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
-                                    'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                    {{item.valeurRelevee}}
-                                {% else %}
-                                    {{item.valeurRelevee}} <span class="my_police">{{item.unite}}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
-                                    'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                    {{item.valeur}}
-                                {% else %}
-                                    {{item.valeur}} <span class="my_police">{{item.unite}}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
-                                    'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
-                                    -
-                                {% else %}
-                                    {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
-                                {% endif %}
-                            </td>
-                            {% if item.conformite ==  'Conforme' %}
-                                <td style="color: green;">{{item.conformite}}</td>
-                            {% else %}
-                                <td style="color: red;">{{item.conformite}}</td>
-                            {% endif %}
+        <div class="page_break"></div>
+        <div class="page6">
+            <h2 id="lien7">VII. Expertise électrique après lavage</h2>
+            <div class="sous_page6_1">
+                <h4 id="lien71">A. <span class="span_titre">Contrôles électriques</span></h4>
+                {% if parametre.statorApresLavage %}
+                    <h5 id="lien711">1. <span class="span_titre">Mesure d'isolement</span></h5>
+                    <table>
+                        <tr class="titre_table">
+                            <th colspan="5" class="text-center">Paramètres</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-
-            {% if parametre.sondeBobinage %}
-                <div class="page_break"></div>
-                <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
-                <table>
-                    <tr class="titre_table">
-                        <th colspan="5" class="text-center">Paramètres</th>
-                    </tr>
-                    <tr>
-                        <th>T° ambiante (°C)</th>
-                        <th>T° fer (°C)</th>
-                        <th>Hygrométrie (%)</th>
-                        <th>Date Essais</th>
-                        <th>Critère</th>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">{{parametre.sondeBobinage.tempAmbiante }}</td>
-                        <td style="text-align: center;">{{parametre.sondeBobinage.tempTolerie }}</td>
-                        <td style="text-align: center;">{{parametre.sondeBobinage.hygrometrie }}</td>
-                        <td style="text-align: center;">{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
-                        <td style="text-align: center;">+ ou - 5% de la valeur Rmoy</td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="titre_table">
-                        <th></th>
-                        <th width="16%">Contrôle</th>
-                        <th width="10%">Critère </th>
-                        <th width="16%">Valeur relevée avant lavage</th>
-                        <th width="16%">Valeur relevées après lavage</th>
-                        <th width="16%">Correction à 20°C</th>
-                        <th width="16%">Conformité</th>
-                    </tr>
-                    {% for item in parametre.sondeBobinage.lsondeBobinages %}
-                        <tr>
-                            <td>{{item.type}}</td>
-                            <td>{{item.controle}}</td>
-                            <td style="text-align: center;">{{item.critere}}</td>
-                            <td style="text-align: center;">{{item.valeurRelevee}} <span class="my_police">{{ item.unite }}</span></td>
-                            <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
-                            <td style="text-align: center;">{{item.tempCorrection }} <span class="my_police">{{item.unite}}</span></td>
-                            {% if item.conformite ==  'Conforme' %}
-                                <td style="color: green;">{{item.conformite}}</td>
-                            {% else %}
-                                <td style="color: red;">{{item.conformite}}</td>
-                            {% endif %}
+                        <tr style="text-align: center">
+                            <th>T° ambiante (°C)</th>
+                            <th>T° fer (°C)</th>
+                            <th>Hygrométrie (%)</th>
+                            <th>Date Essais</th>
+                            <th>Critère</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-
-            {% if parametre.pontDiodes |length > 0 %}
-                <div class="page_break"></div>
-                <h5 id="lien712">3. <span class="span_titre">Pont de diodes</span></h5>
-                <table>
-                    <tr>
-                        <th colspan="3" class="titre_table">Pont diodes</th>
-                    </tr>
-                    {% for item in parametre.pontDiodes %}
                         <tr>
-                            <th class="titre_table" style="text-align: left;">{{item.diode}}</th>
-                            <td>{{item.tension}} V</td>
-                            {% if item.conforme ==  'Conforme' %}
-                                <td style="color: green;">{{item.conforme}}</td>
-                            {% else %}
-                                <td style="color: red;">{{item.conforme}}</td>
-                            {% endif %}
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.tempAmbiante}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.tempTolerie}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.hygrometrie}}</td>
+                            <td style="text-align: center;">{{ parametre.statorApresLavage.dateEssais ? parametre.statorApresLavage.dateEssais| date('d-m-Y') }}</td>
+                            <td style="text-align: center;">{{ parametre.critere}} <span class="my_police"> Ω/V </span></td>
                         </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-
-            {% if parametre.equirepartitions |length > 0 %}
-                {% if parametre.pontDiodes |length == 0 %}
-                    <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
-                    {% elseif parametre.equirepartitions |length > 0 %}
-                        <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    </table>
+                    <table>
+                        <tr class="titre_table">
+                            <th></th>
+                            <th style="width: 150px;">Contrôle</th>
+                            <th style="width: 60px;">Critère</th>
+                            <th style="width: 70px;">Tension d'éssai (V)</th>
+                            <th style="width: 70px;">Valeur relevée avant lavage (Corrigé à {{  parametre.tempCorrection }} ° C)</th>
+                            <th style="width: 70px;">Valeur relevées après lavage</th>
+                            <th style="width: 70px;">Correction à {{  parametre.tempCorrection }} °C</th>
+                            <th style="width: 80px;">Conformité</th>
+                        </tr>
+                        {% for item in parametre.statorApresLavage.lstatorApresLavages %}
+                            <tr>
+                                <td>{{item.type}}</td>
+                                <td>{{item.controle}}</td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or   item.controle == 'IP-U/VW+masse' or  item.controle == 'IP-V/UW+masse' or  item.controle == 'IP-W/UV+masse'  %}
+                                        >= {{item.critere}}
+                                    {% else %}
+                                        {{item.critere}}  M<span class="my_police">Ω</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{item.tensionEssai}}</td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
+                                        'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
+                                        {{item.valeurRelevee}}
+                                    {% else %}
+                                        {{item.valeurRelevee}} <span class="my_police">{{item.unite}}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
+                                        'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
+                                        {{item.valeur}}
+                                    {% else %}
+                                        {{item.valeur}} <span class="my_police">{{item.unite}}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.controle == 'IP-UVW/masse' or item.controle == 'IP-U/VW+masse' or item.controle ==
+                                        'IP-V/UW+masse' or item.controle == 'IP-W/UV+masse' %}
+                                        -
+                                    {% else %}
+                                        {{item.tempCorrection}} <span class="my_police">{{item.unite}}</span>
+                                    {% endif %}
+                                </td>
+                                {% if item.conformite ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conformite}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conformite}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
                 {% endif %}
-                <table>
-                    <thead class="table-secondary">
-                    <tr class="titre_table">
-                        <th colspan="5" class="text-center">Equi-Répartition de tension Roue polaire</th>
-                    </tr>
-                    <tr class="titre_table">
-                        <th>Pole</th>
-                        <th>Tension</th>
-                        <th>Courant Absorbe</th>
-                        <th>Tension Alimentation</th>
-                        <th>Conformité</th>
-                    </tr>
-                    </thead>
-                    {% for item in parametre.equirepartitions %}
-                        <tr>
-                            <th class="titre_table" style="text-align: left;">{{item.pole}}</th>
-                            <td>{{item.tension}} V</td>
-                            <td>{{item.courantAbsorbe}}</td>
-                            <td>{{item.tensionAlimentation}} V</td>
-                            {% if item.conforme ==  'Conforme' %}
-                                <td style="color: green;">{{item.conforme}}</td>
-                            {% else %}
-                                <td style="color: red;">{{item.conforme}}</td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
 
-        <div class="sous_page6_4">
-            <div class="page_break"></div>
-            {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
-                <h5 id="lien713">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
-            {% elseif parametre.pontDiodes |length > 0 or parametre.equirepartitions |length > 0 %}
-                <h5 id="lien713">4. <span class="span_titre">Appareils de mesure utilisés</span></h5>
-            {% else %}
-                <h5 id="lien713">3. <span class="span_titre">Appareils de mesure utilisés</span></h5>
-            {% endif %}
+                {% if parametre.sondeBobinage %}
+                    <div class="page_break"></div>
+                    <h5 id="lien712">2. <span class="span_titre">Mesure de Résistances</span></h5>
+                    <table>
+                        <tr class="titre_table">
+                            <th colspan="5" class="text-center">Paramètres</th>
+                        </tr>
+                        <tr>
+                            <th>T° ambiante (°C)</th>
+                            <th>T° fer (°C)</th>
+                            <th>Hygrométrie (%)</th>
+                            <th>Date Essais</th>
+                            <th>Critère</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.tempAmbiante }}</td>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.tempTolerie }}</td>
+                            <td style="text-align: center;">{{parametre.sondeBobinage.hygrometrie }}</td>
+                            <td style="text-align: center;">{{ parametre.sondeBobinage.dateEssais ? parametre.sondeBobinage.dateEssais| date('d-m-Y') }}</td>
+                            <td style="text-align: center;">+ ou - 5% de la valeur Rmoy</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr class="titre_table">
+                            <th></th>
+                            <th width="16%">Contrôle</th>
+                            <th width="10%">Critère </th>
+                            <th width="16%">Valeur relevée avant lavage (Corrigé à {{ parametre.tempCorrection }} °C )</th>
+                            <th width="16%">Valeur relevées après lavage</th>
+                            <th width="16%">Correction à {{  parametre.tempCorrection }} °C</th>
+                            <th width="16%">Conformité</th>
+                        </tr>
+                        {% for item in parametre.sondeBobinage.lsondeBobinages %}
+                            <tr>
+                                <td>{{item.type}}</td>
+                                <td>{{item.controle}}</td>
+                                <td style="text-align: center;">{{item.critere}}</td>
+                                <td style="text-align: center;">{{item.valeurRelevee}} <span class="my_police">{{ item.unite }}</span></td>
+                                <td style="text-align: center;">{{item.valeur}} <span class="my_police">{{ item.unite }}</span></td>
+                                <td style="text-align: center;">{{item.tempCorrection }} <span class="my_police">{{item.unite}}</span></td>
+                                {% if item.conformite ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conformite}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conformite}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
 
-            {% if parametre.appareilMesureElectriques | length > 0 %}
-                <table>
-                    <tr class="titre_table">
-                        <th>Désignation des moyens de contrôle</th>
-                        <th>N° de l'appareil</th>
-                        <th>Date de validité</th>
-                    </tr>
-                    {% for item in parametre.appareilMesureElectriques %}
+                {% if parametre.pontDiodes |length > 0 %}
+                    <div class="page_break"></div>
+                    <h5 id="lien712">3. <span class="span_titre">Pont de diodes</span></h5>
+                    <table>
                         <tr>
-                            <td>{{item.appareil.designation}}</td>
-                            <td>{{item.appareil.numAppareil}}</td>
-                            <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                            <th colspan="3" class="titre_table">Pont diodes</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
-        {% if parametre.constatElectriqueApresLavages | length > 0 %}
-            <div class="page_break"></div>
-            <div class="sous_page6_7">
-                <h4 id="lien72">B. <span class="span_titre">Observations, préconisations et conclusions ECE</span></h4>
-                <table>
-                    <tr class="titre_table">
-                        <th>Vérification</th>
-                        <th>Critère</th>
-                        <th>Observation</th>
-                        <th>Préconisations et conclusion</th>
-                        <th>Retenu</th>
-                        <th>Photo</th>
-                    </tr>
-                    {% for item in parametre.constatElectriqueApresLavages %}
-                        <tr>
-                            <td>{{item.verification}}</td>
-                            <td>{{item.critere}}</td>
-                            <td>{{item.observation}}</td>
-                            <td>{{item.preconisationConclusion}}</td>
-                            <td>{{item.retenu}}</td>
-                            {% if item.photo %}
-                                <td height="20%" class="td_image"><img
-                                            src="{{ absolute_url(asset('photo_constat_electrique_apres_lavage/' ~ item.photo)) }}"
-                                            alt="{{ item.photo }}" height="200px" width="200px"></td>
-                            {% else %}
-                                <td></td>
-                            {% endif %}
+                        {% for item in parametre.pontDiodes %}
+                            <tr>
+                                <th class="titre_table" style="text-align: left;">{{item.diode}}</th>
+                                <td>{{item.tension}} V</td>
+                                {% if item.conforme ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conforme}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conforme}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+                {% if parametre.equirepartitions |length > 0 %}
+                    {% if parametre.pontDiodes |length == 0 %}
+                        <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                        {% elseif parametre.equirepartitions |length > 0 %}
+                            <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                    {% endif %}
+                    <table>
+                        <thead class="table-secondary">
+                        <tr class="titre_table">
+                            <th colspan="5" class="text-center">Equi-Répartition de tension</th>
                         </tr>
-                    {% endfor %}
-                </table>
+                        <tr class="titre_table">
+                            <th>Pole</th>
+                            <th>Tension</th>
+                            <th>Courant Absorbe</th>
+                            <th>Tension Alimentation</th>
+                            <th>Conformité</th>
+                        </tr>
+                        </thead>
+                        {% for item in parametre.equirepartitions %}
+                            <tr>
+                                <th class="titre_table" style="text-align: left;">{{item.pole}}</th>
+                                <td>{{item.tension}} V</td>
+                                <td>{{item.courantAbsorbe}}</td>
+                                <td>{{item.tensionAlimentation}} V</td>
+                                {% if item.conforme ==  'Conforme' %}
+                                    <td style="color: green;">{{item.conforme}}</td>
+                                {% else %}
+                                    <td style="color: red;">{{item.conforme}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
+
+            <div class="sous_page6_4">
+                <div class="page_break"></div>
+                {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
+                    <h5 id="lien713">5. <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                {% elseif parametre.pontDiodes |length > 0 or parametre.equirepartitions |length > 0 %}
+                    <h5 id="lien713">4. <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                {% else %}
+                    <h5 id="lien713">3. <span class="span_titre">Appareils de mesure utilisés</span></h5>
+                {% endif %}
+
+                {% if parametre.appareilMesureElectriques | length > 0 %}
+                    <table>
+                        <tr class="titre_table">
+                            <th>Désignation des moyens de contrôle</th>
+                            <th>N° de l'appareil</th>
+                            <th>Date de validité</th>
+                        </tr>
+                        {% for item in parametre.appareilMesureElectriques %}
+                            <tr>
+                                <td>{{item.appareil.designation}}</td>
+                                <td>{{item.appareil.numAppareil}}</td>
+                                <td>{{item.appareil.dateValidite | date('d-m-Y')}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+            {% if parametre.constatElectriqueApresLavages | length > 0 %}
+                <div class="page_break"></div>
+                <div class="sous_page6_7">
+                    <h4 id="lien72">B. <span class="span_titre">Observations, préconisations et conclusions ECE</span></h4>
+                    <table>
+                        <tr class="titre_table">
+                            <th>Vérification</th>
+                            <th>Critère</th>
+                            <th>Observation</th>
+                            <th>Préconisations et conclusion</th>
+                            <th>Retenu</th>
+                            <th>Photo</th>
+                        </tr>
+                        {% for item in parametre.constatElectriqueApresLavages %}
+                            <tr>
+                                <td>{{item.verification}}</td>
+                                <td>{{item.critere}}</td>
+                                <td>{{item.observation}}</td>
+                                <td>{{item.preconisationConclusion}}</td>
+                                <td>{{item.retenu}}</td>
+                                {% if item.photo %}
+                                    <td height="20%" class="td_image"><img
+                                                src="{{ absolute_url(asset('photo_constat_electrique_apres_lavage/' ~ item.photo)) }}"
+                                                alt="{{ item.photo }}" height="200px" width="200px"></td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        </div>
     {# fin de la partie 7 #}
 
     {# la partie 8 contre expertise #}

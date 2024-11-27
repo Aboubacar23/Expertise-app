@@ -59,8 +59,8 @@
                 <th class="th">Affectation</th>
                 <th class="th">Date État</th>
                 <th class="th">Date validité</th>
-                <th class="th">Etat</th>
                 <th class="th">Statut</th>
+                <th class="th">Etat</th>
             </tr>
             </thead>
             <tbody>
@@ -78,8 +78,8 @@
                     <td class="td">{{ appareil.affectation }}</td>
                     <td class="td" style="width: 50px;">{{ appareil.dateEtat ? appareil.dateEtat|date('d-m-Y') : '' }}</td>
                     <td class="td" style="width: 50px;">{{ appareil.dateValidite ? appareil.dateValidite|date('d-m-Y') : '' }}</td>
-                    <td class="td">{{ appareil.etat }}</td>
                     <td class="td">{{ appareil.statut }}</td>
+                    <td class="td">{{ appareil.etat }}</td>
                 </tr>
             {% endfor %}
             </tbody>

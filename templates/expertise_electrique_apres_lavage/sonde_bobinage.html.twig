@@ -100,7 +100,7 @@
                                         <th width="14%">Critère</th>
                                         <th width="8%">Valeur relevée avant lavage</th>
                                         <th width="14%" colspan="2">Valeur relevées</th>
-                                        <th width="14%">Correction à 20°C</th>
+                                        <th width="14%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="14%">Conformité</th>
                                         <th></th>
                                     </tr>
@@ -170,12 +170,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('sonde_bobinage_temp_ambiante').value);
+            let temp_tolerie = parseFloat(document.getElementById('sonde_bobinage_temp_tolerie').value);
             let valeurReleve = parseFloat(document.getElementById('l_sonde_bobinage_valeur').value);
 
             const correction = document.getElementById('l_sonde_bobinage_temp_correction');
             let valeurCorrection = 0;
-            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - 20));
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_tolerie - 20));
 
             if (estEntier(valeurReleve))
             {

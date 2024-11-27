@@ -54,7 +54,6 @@ class ChercherController extends AbstractController
         {
             // Récupère les appareils correspondant aux critères de recherche
             $appareils = $appareilRepository->findChercher($chercher);
-
             // Génère le contenu HTML pour le PDF
             $html = $this->render('metrologies/chercher/printEtat.html.twig', [
                 'appareils' => $appareils,
