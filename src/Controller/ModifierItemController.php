@@ -126,7 +126,7 @@ class ModifierItemController extends AbstractController
             {
                 $temp = $lmesureIsolement->getTempCorrection(); // Récupère la température de correction
             } else {
-                $temp = number_format($lmesureIsolement->getTempCorrection(), 0, '.', '');
+                $temp = $lmesureIsolement->getTempCorrection();
             }
 
             $lmesureIsolement->setValeur($valeur); // Définit la valeur de l'isolement

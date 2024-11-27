@@ -40,7 +40,7 @@
                                         <td>{{ form_widget(formMesureResistance.temp_ambiante) }}</td>
                                         <th>T° fer (°C)</th>
                                         <td >{{ form_widget(formMesureResistance.temp_tolerie) }}</td>
-                                        <th>Date d'essai</th>
+                                        <th>Date d'essais</th>
                                         <td >{{ form_widget(formMesureResistance.date_essais) }}</td>
                                     </tr>
                                     <tr>
@@ -65,7 +65,7 @@
                                         <th width="14%">Contrôle</th>
                                         <th width="14%">Critère</th>
                                         <th width="18%" colspan="2">Valeur relevées</th>
-                                        <th width="14%">Correction à 20°C</th>
+                                        <th width="14%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="14%">Conformité</th>
                                         <th width="100"></th>  
                                     </tr>
@@ -133,7 +133,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         {
-            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_essai_temp_tolerie').value);
+            let temp_tolerie = parseFloat(document.getElementById('mesure_resistance_essai_temp_tolerie').value);
             let valeurReleve = parseFloat(document.getElementById('l_mesure_reistance_essai_valeur').value);
 
             const correction = document.getElementById('l_mesure_reistance_essai_temp_correction');
@@ -141,7 +141,7 @@
 
             let valeurCorrection = 0;
 
-            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_tolerie - valeur_temp));
             if (estEntier(valeurReleve))
             {
                 nombre = nombreDeChiffre(valeurReleve);

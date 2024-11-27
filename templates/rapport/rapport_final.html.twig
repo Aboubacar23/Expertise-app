@@ -476,6 +476,16 @@
                             <td> {{ parametre.statorFrequence }} Hz</td>
                         {% endif %}
                     </tr>
+
+                    <tr>
+                        <th style="text-align:left;">Courant</th>
+                        <td>{{ parametre.statorCourant }} A</td>
+                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
+                            <th style="text-align:left;">Couplage </th>
+                            <td>{{ parametre.statorCouplage }}</td>
+                        {% endif %}
+                    </tr>
+
                     {% if parametre.statorTension2 != null or parametre.statorTension2 > 0 %}
                         <tr>
                             <th style="text-align:left;">Tension Excitation </th>
@@ -486,14 +496,7 @@
                             {% endif %}
                         </tr>
                     {% endif %}
-                    <tr>
-                        <th style="text-align:left;">Courant</th>
-                        <td>{{ parametre.statorCourant }} A</td>
-                        {% if parametre.machine.categorie == "Asynchrone" or parametre.machine.categorie == "Synchrone" %}
-                            <th style="text-align:left;">Couplage </th>
-                            <td>{{ parametre.statorCouplage }}</td>
-                        {% endif %}
-                    </tr>
+
                     {% if parametre.statorCourantExcitation != null or parametre.statorCourantExcitation > 0 %}
                         <tr>
                             <th style="text-align:left;">Courant Excitation </th>
@@ -663,6 +666,7 @@
                     {% endif %}
                 {% endif %}
             </div>
+
             <div class="sous_page4">
                 {% if parametre.coussinet %}
                 <table class="table_sous_page">
@@ -706,32 +710,32 @@
         <div class="page_break"></div>
         <div class="page4">
             <h2 id="lien4">IV. Expertise à réception</h2>
-            {% if parametre.controleRecensements %}
                 <h4 id="lien41">A. <span class="span_titre">Contrôles et recensement</span></h4>
                 <div class="sous_page4_1">
-                    <table>
-                        <tr class="titre_table">
-                            <th colspan="2">Photos à réception</th>
-                        </tr>
-                        <tr>
-                            {% for item in parametre.controleRecensements %}
-                            {% if item.photo %}
-                            <td class="td_image"><img
-                                    src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
-                                    width="250px" height="250px"></td>
-                            {% else %}
-                            <td></td>
-                            {% endif %}
-                            {% endfor %}
-                        </tr>
-                        <tr>
-                            {% for item in parametre.controleRecensements %}
-                            <td>{{item.libelle}}</td>
-                            {% endfor %}
-                        </tr>
-                    </table>
+                    {% if parametre.controleRecensements|length > 0 %}
+                            <table>
+                                <tr class="titre_table">
+                                    <th colspan="2">Photos à réception</th>
+                                </tr>
+                                <tr>
+                                    {% for item in parametre.controleRecensements %}
+                                    {% if item.photo %}
+                                    <td class="td_image"><img
+                                            src="{{ absolute_url(asset('photo_controle_recensement/' ~ item.photo)) }}" alt="item.photo"
+                                            width="250px" height="250px"></td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for item in parametre.controleRecensements %}
+                                    <td>{{item.libelle}}</td>
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                    {% endif %}
                 </div>
-            {% endif %}
             <div class="sous_page4_2">
                 {% if parametre.controleVisuelMecanique %}
                     <table>
@@ -1563,11 +1567,23 @@
                     <table>
                         <thead class="table-secondary">
                         <tr>
-                            <th class="titre_table" colspan="2">Relevé de la pression</th>
+                            <th class="titre_table" colspan="3">Relevé de la pression</th>
                         </tr>
+
+                         {% if parametre.controleVisuelElectrique %}
+                            {% if parametre.controleVisuelElectrique.pressionTheorique %}
+                                <tr class="table-secondary">
+                                    <th colspan="3" class="text-center titre_table">Pression théorique :
+                                        {{ parametre.controleVisuelElectrique.pressionTheorique }}
+                                    </th>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+
                         <tr class="titre_table">
                             <th style="text-align: left;">N° Balai</th>
                             <th class="text-right" style="text-align: right;">Pression (kg)</th>
+                            <th class="text-right" style="text-align: right;">Critère</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1575,12 +1591,18 @@
                             <tr>
                                 <td style="text-align: left;">{{ item.numBalai }}</td>
                                 <td style="text-align: right;">{{ item.pression }}</td>
+                                {% if item.critere ==  'Conforme' %}
+                                    <td style="text-align: right; color: green;">{{item.critere}}</td>
+                                {% else %}
+                                    <td style="text-align: right; color: red;">{{item.critere}}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
             {% endif %}
+
             <div class="page_break"></div>
             <div class="sous_page6_1">
                 {% if parametre.essaisPlateforme == 'Oui' %}
@@ -1598,7 +1620,7 @@
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
-                            <th>Date d'essai</th>
+                            <th>Date d'essais</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
@@ -1617,7 +1639,7 @@
                             <th style="width: 6%;">Critère</th>
                             <th style="width: 16%;">Tension d'éssai (V)</th>
                             <th style="width: 16%;">Valeur relevées</th>
-                            <th style="width: 16%;">Correction à 20°C</th>
+                            <th style="width: 16%;">Correction à {{  parametre.tempCorrection }} °C</th>
                             <th style="width: 16%;">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -1669,7 +1691,7 @@
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
-                            <th>Date d'essai</th>
+                            <th>Date d'essais</th>
                             <th>Critère</th>
                         </tr>
                         <tr>
@@ -1687,7 +1709,7 @@
                             <th style="width: 22%">Contrôle</th>
                             <th>Critère</th>
                             <th style="width: 20%">Valeur relevées</th>
-                            <th style="width: 20%">Correction à 20°C</th>
+                            <th style="width: 20%">Correction à {{  parametre.tempCorrection }} °C</th>
                             <th style="width: 20%">Conformité</th>
                         </tr>
                         {% for item in parametre.mesureResistance.lmesureResistances %}
@@ -2059,9 +2081,9 @@
                             <th style="width: 150px;">Contrôle</th>
                             <th style="width: 60px;">Critère</th>
                             <th style="width: 70px;">Tension d'éssai (V)</th>
-                            <th style="width: 70px;">Valeur relevée avant lavage (Corrigé à 20°)</th>
+                            <th style="width: 70px;">Valeur relevée avant lavage (Corrigé à {{  parametre.tempCorrection }} ° C)</th>
                             <th style="width: 70px;">Valeur relevées après lavage</th>
-                            <th style="width: 70px;">Correction à 20°C</th>
+                            <th style="width: 70px;">Correction à {{  parametre.tempCorrection }} °C</th>
                             <th style="width: 80px;">Conformité</th>
                         </tr>
                         {% for item in parametre.statorApresLavage.lstatorApresLavages %}
@@ -2137,9 +2159,9 @@
                             <th></th>
                             <th width="16%">Contrôle</th>
                             <th width="10%">Critère </th>
-                            <th width="16%">Valeur relevée avant lavage</th>
+                            <th width="16%">Valeur relevée avant lavage (Corrigé à {{ parametre.tempCorrection }} °C )</th>
                             <th width="16%">Valeur relevées après lavage</th>
-                            <th width="16%">Correction à 20°C</th>
+                            <th width="16%">Correction à {{  parametre.tempCorrection }} °C</th>
                             <th width="16%">Conformité</th>
                         </tr>
                         {% for item in parametre.sondeBobinage.lsondeBobinages %}
@@ -2190,7 +2212,7 @@
                     <table>
                         <thead class="table-secondary">
                         <tr class="titre_table">
-                            <th colspan="5" class="text-center">Equi-Répartition de tension Roue polaire</th>
+                            <th colspan="5" class="text-center">Equi-Répartition de tension</th>
                         </tr>
                         <tr class="titre_table">
                             <th>Pole</th>
@@ -2751,7 +2773,7 @@
                             <td>{{ parametre.mesureIsolementEssai.tempTolerie }}</td>
                             <th class="titre_table">Hygrométrie (%)</th>
                             <td>{{ parametre.mesureIsolementEssai.hygrometrie }}</td>
-                            <th>Date d'essai</th>
+                            <th>Date d'essais</th>
                             <td>{{ parametre.mesureIsolementEssai.dateEssais ? parametre.mesureIsolementEssai.dateEssais| date('d-m-Y') }}
                             </td>
                             <th class="titre_table">Isolation</th>
@@ -2815,7 +2837,7 @@
                             <th>T° ambiante (°C)</th>
                             <th>T° fer (°C)</th>
                             <th>Hygrométrie (%)</th>
-                            <th>Date d'essai</th>
+                            <th>Date d'essais</th>
                             <th>Critère</th>
                             <th>Tension Machine</th>
                         </tr>

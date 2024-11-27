@@ -117,7 +117,7 @@
                                     <tr>
                                         <th colspan="5"></th>
                                         <td>
-                                            {% if parametre.controleVisuelMecanique.photoAccouplement %}
+                                            {% if parametre.controleVisuelMecanique and parametre.controleVisuelMecanique.photoAccouplement %}
                                                 <img src="{{asset('/photo_rotor/' ~ parametre.controleVisuelMecanique.photoAccouplement)}}" alt="{{parametre.controleVisuelMecanique.photoAccouplement}}" height="150"/>
                                             {% endif %}
                                         </td>

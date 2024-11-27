@@ -22,6 +22,9 @@ class PressionPorteBalais
     #[ORM\ManyToOne(inversedBy: 'pressionPorteBalais')]
     private ?Parametre $parametre = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $critere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class PressionPorteBalais
     public function setParametre(?Parametre $parametre): static
     {
         $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getCritere(): ?string
+    {
+        return $this->critere;
+    }
+
+    public function setCritere(?string $critere): static
+    {
+        $this->critere = $critere;
 
         return $this;
     }
