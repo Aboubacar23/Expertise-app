@@ -40,7 +40,7 @@
                                         <th width="15%">T° ambiante (°C)</th>
                                         <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
-                                        <th width="15%">Date d'essai</th>
+                                        <th width="15%">Date d'essais</th>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
                                                 Tension Excitation
@@ -81,7 +81,7 @@
                                         <th width="15%">Contrôle</th>
                                         <th width="15%">Critère</th>
                                         <th width="15%" colspan="2">Valeur relevées</th>
-                                        <th width="15%">Correction à 20°C</th>
+                                        <th width="15%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="15%">Conformité</th>
                                     </tr>
                                     <tr>
@@ -112,21 +112,27 @@
     document.addEventListener('DOMContentLoaded', function() {
         function updateSumField() 
         { 
-            let temp_ambiante = {{ mesureResistanceEssai.tempAmbiante}};
+            let temp_tolerie = {{ mesureResistanceEssai.tempTolerie}};
             let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_essai_edit_valeur').value);
             var var_type = document.getElementById('l_mesure_resistance_essai_edit_type');
 
             const correction = document.getElementById('l_mesure_resistance_essai_edit_temp_correction');
             const valeur_temp = {{ parametre.tempCorrection }};
-            console.log(temp_ambiante);
             let valeurCorrection = 0;
-            //if(var_type.value == 1 && var_type.value == 2 && var_type.value == 3 && var_type.value == 4)
-            if(var_type.value == 1 || var_type.value == 2 || var_type.value == 3 || var_type.value == 4)
+
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_tolerie - valeur_temp));
+            if (estEntier(valeurReleve))
             {
-                valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));        
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+            }else
+            {
+                nombre = nombreDeChiffre(valeurReleve);
+                valeurFinale = valeurCorrection.toFixed(nombre);
+                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
             }
-            valeurFinale = valeurCorrection.toFixed(0);
-            correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);        
+
         }
         
         document.getElementById('temperature').addEventListener('input', updateSumField);

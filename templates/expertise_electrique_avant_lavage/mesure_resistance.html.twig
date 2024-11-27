@@ -40,7 +40,7 @@
                                         <th width="15%">T° ambiante (°C)</th>
                                         <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
-                                        <th width="15%">Date d'essai</th>
+                                        <th width="15%">Date d'essais</th>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
                                                 Tension Excitation
@@ -100,7 +100,7 @@
                                         <th width="15%">Contrôle</th>
                                         <th width="15%">Critère</th>
                                         <th width="15%" colspan="2">Valeur relevées</th>
-                                        <th width="15%">Correction à 20°C</th>
+                                        <th width="15%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="15%">Conformité</th>
                                         <th width="200px"></th>  
                                     </tr>
@@ -193,7 +193,7 @@
         function updateSumField() 
         {
             //let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_ambiante').value);
-            let temp_ambiante = parseFloat(document.getElementById('mesure_resistance_temp_tolerie').value);
+            let temp_tolerie = parseFloat(document.getElementById('mesure_resistance_temp_tolerie').value);
             let valeurReleve = parseFloat(document.getElementById('l_mesure_resistance_valeur').value);
             var var_type = document.getElementById('l_mesure_resistance_type');
 
@@ -202,7 +202,7 @@
             let valeurCorrection = 0;
 
             //if(var_type.value == 1 && var_type.value == 2 && var_type.value == 3 && var_type.value == 4)
-            valeurCorrection = valeurReleve/(1+0.00393*(temp_ambiante - valeur_temp));
+            valeurCorrection = valeurReleve/(1+0.00393*(temp_tolerie - valeur_temp));
             if (estEntier(valeurReleve))
             {
                 nombre = nombreDeChiffre(valeurReleve);

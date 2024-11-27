@@ -163,7 +163,7 @@
 											<th>T° ambiante (°C)</th>
 											<th>T° fer (°C)</th>
 											<th>Hygrométrie (%)</th>
-											<th>Date d'essai</th>
+											<th>Date d'essais</th>
 											<th>Critère</th>
 										</tr>
 										<tr>
@@ -185,7 +185,7 @@
 											<th width="13%">Critère</th>
 											<th width="13%">Tension d'éssai</th>
 											<th width="13%">Valeur relevées</th>
-											<th width="13%">T.Correction à 20°C</th>
+											<th width="13%">T.Correction à {{  parametre.tempCorrection }} °C</th>
 											<th width="13%">Conformité</th>
 										</tr>
 										{% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -245,7 +245,7 @@
 											<th>T° ambiante (°C)</th>
 											<th>T° fer (°C)</th>
 											<th>Hygrométrie (%)</th>
-											<th>Date d'essai</th>
+											<th>Date d'essais</th>
 										</tr>
 										<tr>
 											<td>{{ parametre.mesureResistance.tempAmbiante}}</td>
@@ -262,7 +262,7 @@
 											<th width="17%">Contrôle</th>
 											<th width="17%">Critère</th>
 											<th width="17%">Valeur relevées</th>
-											<th width="17%">Correction à 20°C</th>
+											<th width="17%">Correction à {{  parametre.tempCorrection }} °C</th>
 											<th width="17%">Conformité</th>
 										</tr>
 										{% for item in parametre.mesureResistance.lmesureResistances %}
@@ -1254,9 +1254,9 @@
 												<th width="14%">Contrôle</th>
 												<th width="14%">Critère</th>
 												<th class="text-center" width="14%">Tension d'éssai (V)</th>
-												<th class="text-center" width="14%">Valeur relevée avant lavage (Corrigé à 20°)</th>
+												<th class="text-center" width="14%">Valeur relevée avant lavage (Corrigé à {{  parametre.tempCorrection }} °)</th>
 												<th width="14%">Valeur relevées après lavage</th>
-												<th width="14%">Correction à 20°C</th>
+												<th width="14%">Correction à {{  parametre.tempCorrection }} °C</th>
 												<th width="14%">Conformité</th>
 											</tr>
 											{% for item in parametre.statorApresLavage.lstatorApresLavages %}
@@ -1331,9 +1331,9 @@
 											<th width="16%">Type</th>
 											<th width="16%">Contrôle</th>
 											<th width="16%">Critère</th>
-											<th width="16%">Valeur relevée avant lavage</th>
+											<th width="16%">Valeur relevée avant lavage (Corrigé à {{ parametre.tempCorrection }} °C )</th>
 											<th width="16%">Valeur relevées après lavage</th>
-											<th width="16%">Correction à 20°C</th>
+											<th width="16%">Correction à {{  parametre.tempCorrection }} °C</th>
 											<th width="16%">Conformité</th>
 										</tr>
 										<tr class="bg-primary"></tr>
@@ -1935,7 +1935,7 @@
 									<th>T° ambiante (°C)</th>
 									<th>T° fer (°C)</th>
 									<th>Hygrométrie (%)</th>
-									<th>Date d'essai</th>
+									<th>Date d'essais</th>
 									<th>Critère</th>
 								</tr>
 								<tr>
@@ -1957,7 +1957,7 @@
 									<th width="13%">Critère</th>
 									<th width="13%">Tension d'éssai (V)</th>
 									<th width="13%">Valeur relevées</th>
-									<th width="13%">T.Correction à 20°C</th>
+									<th width="13%">T.Correction à {{  parametre.tempCorrection }} °C</th>
 									<th width="13%">Conformité</th>
 								</tr>
 								{% for item in parametre.mesureIsolementEssai.lmesureIsolementEssais %}
@@ -2011,7 +2011,7 @@
 									<th>T° ambiante (°C)</th>
 									<th>T° fer (°C)</th>
 									<th>Hygrométrie (%)</th>
-									<th>Date d'essai</th>
+									<th>Date d'essais</th>
 								</tr>
 								<tr>
 									<td>{{ parametre.mesureResistanceEssai.tempAmbiante}}</td>
@@ -2028,7 +2028,7 @@
 									<th width="13%">Contrôle</th>
 									<th width="13%">Critère</th>
 									<th width="13%">Valeur relevées</th>
-									<th width="13%">Correction à 20°C</th>
+									<th width="13%">Correction à {{  parametre.tempCorrection }} °C</th>
 									<th width="13%">Conformité</th>
 								</tr>
 								{% for item in parametre.mesureResistanceEssai.lmesureResistanceEssais %}

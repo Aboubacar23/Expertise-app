@@ -216,7 +216,8 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $choix = $request->get('bouton7');
             if ($choix == 'mesure_isolement_en_cours') {
                 $i = 0;
-                foreach ($tables as $item) {
+                foreach ($tables as $item)
+                {
                     $i = $i + 1;
                     $lmesureIsolement = new LMesureIsolement();
                     $lmesureIsolement->setLig($i);

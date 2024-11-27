@@ -39,7 +39,7 @@
                                         <th width="15%">T° ambiante (°C)</th>
                                         <th width="15%">T° fer (°C)</th>
                                         <th width="15%">Hygrométrie (%)</th>
-                                        <th width="15%">Date d'essai</th>
+                                        <th width="15%">Date d'essais</th>
                                         <th width="10%">Critère</th>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
@@ -84,7 +84,7 @@
                                         <th width="13%">Critère</th>
                                         <th width="13%">Tension d'éssai (V)</th>
                                         <th width="13%" colspan="2">Valeur relevées</th>
-                                        <th width="13%">Correction à 20°C</th>
+                                        <th width="13%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="13%">Conformité</th>
                                     </tr>
                                     <tr>
@@ -231,16 +231,18 @@
              *récupérer le contenu des champs qui seront à l'origine des calculs.
              * 1- on a besoin du champ température ambiante, du champ valeur, du champ type et controle.
             */
-            let temp_ambiante = {{ mesureIsolementEssai.tempAmbiante}};
+            let temp_tolerie = {{ mesureIsolementEssai.tempTolerie}};
             let valeur = parseFloat(document.getElementById('l_mesure_isolement_essai_edit_valeur').value);
             var var_type = document.getElementById('l_mesure_isolement_essai_edit_type');
             var var_controle = document.getElementById('l_mesure_isolement_essai_edit_controle');
+
             //récupérer les tensions(tension rotor et stator)
             let tension_rotor = {{ parametre.rotorTension }};
             let tension_stator = {{ parametre.statorTension }};
             let tension_rotor2 = {{ parametre.rotorTension2 }};
             let tension_stator2 = {{ parametre.statorTension2 }};
             //ici on on recupérer les variables que nous avons calculer un peu en haut
+
             let var_id_UVW = {{ var_idUVW }}
             let var_id_U = {{ var_idU }}
             let var_id_V = {{ var_idV }}
@@ -286,12 +288,21 @@
             const correction = document.getElementById('l_mesure_isolement_essai_edit_temp_correction');
 
             let valeurCorrection = 0;
-            if(temp_ambiante >= 10 && temp_ambiante <=30)
+            if(temp_tolerie >= 10 && temp_tolerie <=30)
             {
-                val = (Math.pow(0.50,(valeur_temp - temp_ambiante)/10));
+                val = (Math.pow(0.50,(valeur_temp - temp_tolerie)/10));
                 valeurCorrection = val*valeur;
-                valeurFinale = valeurCorrection.toFixed(0);
-                correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                if (estEntier(valeur))
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }else
+                {
+                    nombre = nombreDeChiffre(valeur);
+                    valeurFinale = valeurCorrection.toFixed(nombre);
+                    correction.value = isNaN(valeurFinale) ? '' : (valeurFinale);
+                }
             }
         }
         document.getElementById('temperature').addEventListener('input', updateSumField);

@@ -410,7 +410,7 @@
 							<div class="col-md-2">
 								<ul class="nav navbar-right panel_toolbox">
 									<li>
-										<a class="collapse-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" href="#collapse1">
+										<a class="collapse-link" data-toggle="collapse" data-target="#collapse111" aria-expanded="false" href="#collapse111">
 											<i class="fa fa-chevron-up"></i>
 										</a>
 									</li>
@@ -419,24 +419,37 @@
 						</div>
 						<div class="clearfix"></div>
 					</div>
-					<div class="x_content collapse" id="collapse1">
+					<div class="x_content collapse" id="collapse111">
 						{% if parametre.pressionPorteBalais is not null %}
 							<div class="row">
 								<div class="col-md-12">
 									<table class="table table-striped table-bordered">
 										<thead class="table-secondary">
 										<tr>
-											<th class="text-center" colspan="2">Pression porte balais</th>
+											<th class="text-center" colspan="3">Pression porte balais</th>
 										</tr>
+
+										{% if parametre.controleVisuelElectrique %}
+											{% if parametre.controleVisuelElectrique.pressionTheorique %}
+												<tr class="table-secondary">
+													<th colspan="3" class="text-center">Pression théorique :
+														{{ parametre.controleVisuelElectrique.pressionTheorique }}
+													</th>
+												</tr>
+											{% endif %}
+										{% endif %}
+
 										<tr>
 											<th>N° Balai</th>
 											<th class="text-right">Pression (kg)</th>
+											<th class="text-right">Critère</th>
 										</thead>
 										<tbody>
 										{% for item in parametre.pressionPorteBalais  %}
 											<tr>
 												<td>{{ item.numBalai }}</td>
 												<td class="text-right">{{ item.pression }}</td>
+												<td class="text-right">{{ item.critere }}</td>
 											</tr>
 										{% endfor %}
 										</tbody>
@@ -506,7 +519,7 @@
 										<th>T° ambiante (°C)</th>
 										<th>T° fer (°C)</th>
 										<th>Hygrométrie (%)</th>
-										<th>Date d'essai</th>
+										<th>Date d'essais</th>
 										<th>Critère</th>
 									</tr>
 									<tr>
@@ -528,7 +541,7 @@
 										<th width="13%">Critère</th>
 										<th width="13%">Tension d'éssai (V)</th>
 										<th width="13%">Valeur relevées</th>
-										<th width="13%">T.Correction à 20°C</th>
+										<th width="13%">T.Correction à {{  parametre.tempCorrection }} °C</th>
 										<th width="13%">Conformité</th>
 									</tr>
 									{% for item in parametre.mesureIsolement.lmesureIsolements %}
@@ -634,7 +647,7 @@
 										<td>{{ parametre.mesureResistance.tempTolerie}}</td>
 										<th>Hygrométrie (%)</th>
 										<td>{{ parametre.mesureResistance.hygrometrie}}</td>
-										<th>Date d'essai</th>
+										<th>Date d'essais</th>
 										<td>{{ parametre.mesureResistance.dateEssais ? parametre.mesureResistance.dateEssais| date('d-m-Y') }}</td>
 									</tr>
 								</table>
@@ -646,7 +659,7 @@
 										<th width="17%">Contrôle</th>
 										<th width="17%">Critère</th>
 										<th width="17%">Valeur relevées</th>
-										<th width="17%">Correction à 20°C</th>
+										<th width="17%">Correction à {{  parametre.tempCorrection }} °C</th>
 										<th width="17%">Conformité</th>
 									</tr>
 									{% for item in parametre.mesureResistance.lmesureResistances %}

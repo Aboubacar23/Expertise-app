@@ -39,7 +39,7 @@
                                         <th>T° ambiante (°C)</th>
                                         <th>T° fer (°C)</th>
                                         <th>Hygrométrie (%)</th>
-                                        <th>Date d'essai</th>
+                                        <th>Date d'essais</th>
                                         <th>Critère</th>
                                         <th width="10%">
                                             {% if parametre.machine.categorie == "À courant continu" %}
@@ -98,7 +98,7 @@
                                         <th width="13%">Critère</th>
                                         <th width="13%">Tension d'éssai (V)</th>
                                         <th width="14%" colspan="2">Valeur relevées</th>
-                                        <th width="13%">Correction à 20°C</th>
+                                        <th width="13%">Correction à {{  parametre.tempCorrection }} °C</th>
                                         <th width="13%">Conformité</th>
                                         <th width=""></th>
                                     </tr>
