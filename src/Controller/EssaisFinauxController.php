@@ -4,6 +4,7 @@ namespace App\Controller;
 
 // Importation des différentes entités, services, formulaires et autres nécessaires pour le contrôleur
 use App\Entity\Parametre;
+use App\Entity\Signature;
 use App\Service\MailerService;
 use App\Entity\AppareilMesureEssais;
 use App\Entity\MesureIsolementEssai;
@@ -333,6 +334,31 @@ class EssaisFinauxController extends AbstractController
                     }
                 }
             }
+
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setEssaiFinaux(1);
+                $signature->setDateEssaiFinaux($date);
+                $signature->setOperateurEssaiFinaux($operateur);
+                $entityManager->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setEssaiFinaux(1);
+                $signature->setDateEssaiFinaux($date);
+                $signature->setOperateurEssaiFinaux($operateur);
+                $entityManager->persist($signature);
+            }
+
 
             // Envoi d'un email au responsable de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();

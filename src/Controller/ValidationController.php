@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Parametre;
+use App\Entity\Signature;
 use App\Repository\AdminRepository;
 use App\Service\MailerService;
 use App\Repository\ParametreRepository;
@@ -104,6 +105,30 @@ class ValidationController extends AbstractController
                     }
                 }
             }
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setValidationExp(1);
+                $signature->setDateValidationExp($date);
+                $signature->setOperateurValidationExp($operateur);
+                $em->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setValidationExp(1);
+                $signature->setDateValidationExp($date);
+                $signature->setOperateurValidationExp($operateur);
+                $em->persist($signature);
+
+            }
 
             // Envoi d'un email au responsable de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
@@ -145,6 +170,31 @@ class ValidationController extends AbstractController
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                     }
                 }
+            }
+
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setValidationFinale(1);
+                $signature->setDateValidationFinale($date);
+                $signature->setOperateurValidationFinale($operateur);
+                $em->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setValidationFinale(1);
+                $signature->setDateValidationFinale($date);
+                $signature->setOperateurValidationFinale($operateur);
+                $em->persist($signature);
+
             }
 
             // Envoi d'un email au responsable de l'affaire

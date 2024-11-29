@@ -4,6 +4,7 @@ namespace App\Controller; // Déclare le namespace du contrôleur
 
 use App\Entity\Parametre; // Importe l'entité Parametre
 use App\Entity\RemontagePhoto; // Importe l'entité RemontagePhoto
+use App\Entity\Signature;
 use App\Service\MailerService; // Importe le service MailerService
 use App\Entity\RemontagePalier; // Importe l'entité RemontagePalier
 use App\Form\RemontagePhotoType; // Importe le formulaire RemontagePhotoType
@@ -242,6 +243,29 @@ class RemontageController extends AbstractController
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                     };
                 }
+            }
+
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setRemontage(1);
+                $signature->setDateRemontage($date);
+                $signature->setOperateurRemontage($operateur);
+                $entityManager->persist($signature);
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setRemontage(1);
+                $signature->setDateRemontage($date);
+                $signature->setOperateurRemontage($operateur);
+                $entityManager->persist($signature);
             }
 
             // Envoie l'email au chef de projet

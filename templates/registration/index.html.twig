@@ -44,6 +44,7 @@
                                         <th>Téléphone</th> 
                                         <th>Email</th>
                                         <th>Rôles</th>
+                                        <th>Signature</th>
                                         <th width="120" class="text-center"></th>
                                     </tr>
                                 </thead>
@@ -81,6 +82,13 @@
                                                         <a class="btn btn-sm btn-outline-dark btn-rounded">MÉTROLOGUE</a>
                                                     {% endif %}
                                                 {% endfor %}
+                                            </td>
+                                            <td class="text-center">
+                                                {% if item.signaturePhoto is not null %}
+                                                    <img src="{{ asset('signatures/'~item.signaturePhoto) }}" alt="" height="50px"/>
+                                                {% else %}
+                                                    <img src="{{ asset('images/none.png') }}"  height="50px"/>
+                                                {% endif %}
                                             </td>
                                             <td class="text-center">
                                                 <a href="{{path('app_register_password_user', { 'id' : item.id })}}" class="btn btn-warning btn-sm"><i class="fa fa-key fa-1x"></i></a>
