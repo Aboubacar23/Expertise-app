@@ -9,10 +9,12 @@ use App\Form\RegistrationFormType; // Importe le formulaire RegistrationFormType
 use App\Repository\AdminRepository; // Importe le repository AdminRepository
 use Doctrine\ORM\EntityManagerInterface; // Importe EntityManagerInterface pour les opérations de base de données
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; // Importe AbstractController comme classe de base
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request; // Importe Request pour gérer les requêtes HTTP
 use Symfony\Component\HttpFoundation\Response; // Importe Response pour gérer les réponses HTTP
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface; // Importe UserPasswordHasherInterface pour hacher les mots de passe
 use Symfony\Component\Routing\Annotation\Route; // Importe Route pour la définition des routes
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface; // Importe TranslatorInterface pour la traduction
 
 #[Route('/register')] // Déclare une route principale pour ce contrôleur
@@ -32,7 +34,7 @@ class RegistrationController extends AbstractController
 
     // Fonction pour ajouter un nouvel utilisateur
     #[Route('/new', name: 'app_register_new')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         // Crée une nouvelle instance de Admin
         $user = new Admin();
@@ -62,6 +64,26 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            //ajout de la photo signature
+            $img = $form->get('signature_photo')->getData();
+            //vérifier si l'img n'est pas vide
+            if ($img)
+            {
+                //récuperer le nom d'origne
+                $orignalImgName = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeImgName = $slugger->slug($orignalImgName);
+
+                //créer un nouveau nom d'image
+                $newImgname = $safeImgName.'-'.uniqid().'.'.$img->guessExtension();
+
+                try {
+                    $img->move($this->getParameter('images_signature'), $newImgname);
+                }catch (FileException $e)
+                {}
+
+                $user->setSignaturePhoto($newImgname);
+            }
+
             // Persist les données de l'utilisateur dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
@@ -79,7 +101,7 @@ class RegistrationController extends AbstractController
 
     // Fonction pour modifier un utilisateur et son mot de passe
     #[Route('/edit/{id}', name : 'app_register_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Admin $admin, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
+    public function edit(Request $request, Admin $admin,SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
     {
         // Crée le formulaire d'édition pour l'administrateur
         $registrationForm = $this->createForm(EditAdminType::class, $admin);
@@ -87,7 +109,8 @@ class RegistrationController extends AbstractController
         $registrationForm->handleRequest($request);
 
         // Vérifie si l'administrateur n'existe pas
-        if(!$admin){
+        if(!$admin)
+        {
             return $this->redirect('app_register_index');
         }else{
             // Vérifie si le formulaire est soumis et valide
@@ -102,6 +125,29 @@ class RegistrationController extends AbstractController
                         $admin->setEtat(1);
                     }
                 }
+
+                //ajout de la photo signature
+                $img = $registrationForm->get('signature_photo')->getData();
+
+                //vérifier si l'img n'est pas vide
+                if ($img)
+                {
+                    //récuperer le nom d'origne
+                    $orignalImgName = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeImgName = $slugger->slug($orignalImgName);
+
+                    //créer un nouveau nom d'image
+                    $newImgname = $safeImgName.'-'.uniqid().'.'.$img->guessExtension();
+
+                    try {
+                        $img->move($this->getParameter('images_signature'), $newImgname);
+                    }catch (FileException $e)
+                    {}
+
+                    $admin->setSignaturePhoto($newImgname);
+                }
+
+
                 // Sauvegarde les modifications dans la base de données
                 $entityManager->flush();
                 // Affiche un message de succès

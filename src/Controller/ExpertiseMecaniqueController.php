@@ -8,6 +8,7 @@ use App\Entity\ImagePlan;
 use App\Entity\Parametre;
 use App\Entity\Roulement;
 use App\Entity\PhotoRotor;
+use App\Entity\Signature;
 use App\Entity\Synoptique;
 use App\Form\CoussinetType;
 use App\Form\HydroAeroType;
@@ -871,6 +872,29 @@ class ExpertiseMecaniqueController extends AbstractController
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                     }
                 }
+            }
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setExpMeca(1);
+                $signature->setDateExpMeca($date);
+                $signature->setOperateurExpMeca($operateur);
+                $entityManager->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setExpMeca(1);
+                $signature->setDateExpMeca($date);
+                $signature->setOperateurExpMeca($operateur);
+                $entityManager->persist($signature);
             }
 
             // Envoie de l'email au suivi de l'affaire

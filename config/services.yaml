@@ -21,6 +21,7 @@ parameters:
     image_boite_borne: '%kernel.project_dir%/public/photo_boite_bornes'
     certificats: '%kernel.project_dir%/public/certificats'
     images_plan: '%kernel.project_dir%/public/photos_plan'
+    images_signature: '%kernel.project_dir%/public/signatures'
 
 services:
     # default configuration for services in *this* file 

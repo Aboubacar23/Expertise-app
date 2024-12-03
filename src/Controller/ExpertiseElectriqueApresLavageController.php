@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Parametre;
 use App\Entity\PontDiode;
+use App\Entity\Signature;
 use App\Form\PontDiodeType;
 use App\Entity\SondeBobinage;
 use App\Entity\LSondeBobinage;
@@ -694,6 +695,30 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                     };
                 }
+            }
+
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setExpApresLavage(1);
+                $signature->setDateExpApresLavage($date);
+                $signature->setOperateurExpApresLavage($operateur);
+                $entityManager->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setExpApresLavage(1);
+                $signature->setDateExpApresLavage($date);
+                $signature->setOperateurExpApresLavage($operateur);
+                $entityManager->persist($signature);
             }
             //envoyer le mail
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();

@@ -289,6 +289,9 @@ class Parametre
     #[ORM\OneToMany(mappedBy: 'parametre', targetEntity: PressionPorteBalais::class)]
     private Collection $pressionPorteBalais;
 
+    #[ORM\OneToOne(mappedBy: 'parametre', cascade: ['persist', 'remove'])]
+    private ?Signature $signature = null;
+
     public function __construct()
     {
         $this->appareilMesures = new ArrayCollection();
@@ -1894,6 +1897,28 @@ class Parametre
                 $pressionPorteBalai->setParametre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSignature(): ?Signature
+    {
+        return $this->signature;
+    }
+
+    public function setSignature(?Signature $signature): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($signature === null && $this->signature !== null) {
+            $this->signature->setParametre(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($signature !== null && $signature->getParametre() !== $this) {
+            $signature->setParametre($this);
+        }
+
+        $this->signature = $signature;
 
         return $this;
     }
