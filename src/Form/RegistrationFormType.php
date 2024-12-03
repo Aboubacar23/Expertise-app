@@ -13,7 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\File;
 
 class RegistrationFormType extends AbstractType
 {
@@ -47,6 +49,22 @@ class RegistrationFormType extends AbstractType
                         'message' => "Veuillez entrer le nom de l'utilisateur",
                     ]),
                 ],
+            ])
+            ->add('signature_photo', FileType::class, [
+                'label' => 'Photo Signature',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '40M',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'Veuillez choisir une image png, jpg ou jpeg',
+                    ])
+                ]
             ])
             ->add('telephone',TextType::class, [
                 'label' => 'Téléphone',

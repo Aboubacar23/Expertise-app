@@ -10,6 +10,7 @@ use App\Entity\LPlaque;
 use App\Entity\PressionBalais;
 use App\Entity\PressionMasseBalais;
 use App\Entity\PressionPorteBalais;
+use App\Entity\Signature;
 use App\Form\BoiteBorneType;
 use App\Form\PhotoType;
 use App\Form\PlaqueType;
@@ -895,7 +896,9 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
     #[Route('/validation/{id}', name: 'valider_expertise_electrique_avant_lavage', methods: ['GET'])]
     public function validation(Parametre $parametre, EntityManagerInterface $entityManager, MailerService $mailerService, AdminRepository $adminRepository): Response
     {
-        if ($parametre) {
+
+        if ($parametre)
+        {
 
             $dossier = 'email/email.html.twig';
             $subject = "Expertise électrique avant lavage";
@@ -916,6 +919,31 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                         $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                     };
                 }
+            }
+
+
+            // Initialise la date actuelle avec le fuseau horaire de Paris
+            $dateZone = new \DateTimeZone('Europe/Paris');
+            $date = new \DateTime('now', $dateZone);
+            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+            $operateur = $this->getUser();
+
+            if(is_null($parametre->getSignature()))
+            {
+                $signature = new Signature();
+                $signature->setParametre($parametre);
+                $signature->setExpAvantLavage(1);
+                $signature->setDateExpAvantLavage($date);
+                $signature->setOperateurExpAvantLavage($operateur);
+                $entityManager->persist($signature);
+
+            }else
+            {
+                $signature = $parametre->getSignature();
+                $signature->setExpAvantLavage(1);
+                $signature->setDateExpAvantLavage($date);
+                $signature->setOperateurExpAvantLavage($operateur);
+                $entityManager->persist($signature);
             }
 
             //envoyer le mail

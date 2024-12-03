@@ -33,7 +33,7 @@
 
     .titre1 {
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 50px;
+        font-size: 30px;
         color: #0063AF;
         font-weight: 200;
         /* border-left: 2px solid red;*/
@@ -45,7 +45,7 @@
 
     h3 {
         color: azure;
-        font-size: 12px;
+        font-size: 20px!important;
     }
 
     h2,
@@ -84,7 +84,7 @@
     }
 
     .titre_rapport {
-        padding-top: 100px;
+        padding-top: 15px;
         text-align: center;
         margin-left: auto;
         margin-right: auto;
@@ -93,7 +93,7 @@
 
     .card1 {
         width: 470px;
-        height: 160px;
+        height: 100px;
         border: 1px solid #0063AF;
         background-color: #0063AF;
         border-radius: 10px;
@@ -114,7 +114,7 @@
     }
 
     .card-content {
-        margin-top: 10px;
+        margin-top: 2px;
     }
 
     .card-content2 {
@@ -231,12 +231,15 @@
         padding-left: 40px;
         font-size: 12px;
     }
+    .table_signature{
+        padding-top: 30px;
+    }
 </style>
 
 <body class="body">
     {# la partie logo et titre #}
     <div class="logo">
-        <img src="{{ absolute_url(asset('images/logo2.png')) }}" alt="" height="150px">
+        <img src="{{ absolute_url(asset('images/logo2.png')) }}" alt="" height="100px">
     </div>
     <div class="titre_rapport">
         <h1 class="titre1">Rapport Final</h1>
@@ -262,6 +265,98 @@
                 {% endif %}
             </div>
         </div>
+
+        {% if parametre.signature is not null %}
+            <div class="table_signature">
+                <table>
+                    <tr class="titre_table" style="text-transform: uppercase">
+                        <th style="width: 50px"></th>
+                        <th>Expertise électrique avant lavage</th>
+                        <th>Expertise électrique après lavage</th>
+                        <th>Expertise Mécanique</th>
+                        <th>Validation du rapport d'expertise</th>
+                    </tr>
+                    <tr style="text-align: center">
+                        <td>Opérateur</td>
+                        <td>
+                            {% if parametre.signature.expAvantLavage == 1 %}
+                                <strong>{{ parametre.signature.operateurExpAvantLavage.prenom }} {{ parametre.signature.operateurExpAvantLavage.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateExpAvantLavage ? parametre.signature.dateExpAvantLavage | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurExpAvantLavage.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpAvantLavage.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if parametre.signature.expApresLavage == 1 %}
+                                <strong>{{ parametre.signature.operateurExpApresLavage.prenom }} {{ parametre.signature.operateurExpApresLavage.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateExpApresLavage ? parametre.signature.dateExpApresLavage | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurExpApresLavage.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpApresLavage.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if parametre.signature.expMeca == 1 %}
+                                <strong>{{ parametre.signature.operateurExpMeca.prenom }} {{ parametre.signature.operateurExpMeca.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateExpAvantLavage ? parametre.signature.dateExpAvantLavage | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurExpMeca.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpMeca.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if parametre.signature.validationExp == 1 %}
+                                <strong>{{ parametre.signature.operateurValidationExp.prenom }} {{ parametre.signature.operateurValidationExp.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateValidationExp ? parametre.signature.dateValidationExp | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurValidationExp.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurValidationExp.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="titre_table" style="text-transform: uppercase">
+                        <th style="width: 50px"></th>
+                        <th>Remontage</th>
+                        <th>Essais Finaux</th>
+                        <th>Validation du rapport final</th>
+                    </tr>
+                    <tr style="text-align: center">
+                        <td>Opérateur</td>
+                        <td>
+                            {% if parametre.signature.remontage == 1 %}
+                                <strong>{{ parametre.signature.operateurRemontage.prenom }} {{ parametre.signature.operateurRemontage.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateRemontage ? parametre.signature.dateRemontage | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurRemontage.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurRemontage.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if parametre.signature.essaiFinaux == 1 %}
+                                <strong>{{ parametre.signature.operateurEssaiFinaux.prenom }} {{ parametre.signature.operateurEssaiFinaux.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateEssaiFinaux ? parametre.signature.dateEssaiFinaux | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurEssaiFinaux.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurEssaiFinaux.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if parametre.signature.validationFinale == 1 %}
+                                <strong>{{ parametre.signature.operateurValidationFinale.prenom }} {{ parametre.signature.operateurValidationFinale.nom }}</strong><br>
+                                <p>{{ parametre.signature.dateValidationFinale ? parametre.signature.dateValidationFinale | date('d-m-Y') }}</p>
+                                {% if parametre.signature.operateurValidationFinale.signaturePhoto %}
+                                    <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurValidationFinale.signaturePhoto)) }}" alt="" height="50px">
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        {% endif %}
     </div>
     {# fin de la partie logo et titre #}
 
@@ -316,10 +411,10 @@
             <p class="sous_menu2"><a href="#lien711"> 1. Mesure d'isolement</a></p>
             <p class="sous_menu2"><a href="#lien712"> 2. Mesure de Résistances</a></p>
             {% if parametre.pontDiodes |length > 0 and parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition</a></p>
+            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition de tension</a></p>
             <p class="sous_menu2"><a href="#lien712"> 4. Pont de Diodes</a></p>
             {% elseif parametre.equirepartitions |length > 0 %}
-            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition</a></p>
+            <p class="sous_menu2"><a href="#lien712"> 3. Mesure d'équi-répartition de tension</a></p>
             {% elseif parametre.pontDiodes |length > 0 %}
             <p class="sous_menu2"><a href="#lien712"> 3. Pont de Diodes</a></p>
             {% endif %}
@@ -2205,14 +2300,14 @@
 
                 {% if parametre.equirepartitions |length > 0 %}
                     {% if parametre.pontDiodes |length == 0 %}
-                        <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                        <h5 id="lien712">3. <span class="span_titre">Mesure d'équi-répartition de tension</span></h5>
                     {% elseif parametre.equirepartitions |length > 0 %}
-                        <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition</span></h5>
+                        <h5 id="lien712">4. <span class="span_titre">Mesure d'équi-répartition de tension</span></h5>
                     {% endif %}
                     <table>
                         <thead class="table-secondary">
                         <tr class="titre_table">
-                            <th colspan="5" class="text-center">Equi-Répartition de tension</th>
+                            <th colspan="5" class="text-center">Mesure Equi-Répartition de tension</th>
                         </tr>
                         <tr class="titre_table">
                             <th>Pole</th>
