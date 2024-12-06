@@ -702,8 +702,8 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             $date = new \DateTime('now', $dateZone);
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
-
-            if(is_null($parametre->getSignature()))
+            // Vérifie ou crée une nouvelle Signature pour éviter les doublons
+            /*if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
@@ -718,15 +718,17 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
                 $signature->setExpApresLavage(1);
                 $signature->setDateExpApresLavage($date);
                 $signature->setOperateurExpApresLavage($operateur);
-                $entityManager->persist($signature);
             }
+            */
+
             //envoyer le mail
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
             $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
-
             $parametre->setExpertiseElectiqueApresLavage(1);
+
             $entityManager->persist($parametre);
             $entityManager->flush();
+
             $this->addFlash("success", "L'expertise validée avec succès");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         } else {
