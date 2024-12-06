@@ -367,8 +367,8 @@ class EssaisFinauxController extends AbstractController
 
             // Mise à jour de l'entité et sauvegarde dans la base de données
             $parametre->setEssaisFinaux(1);
-            //$entityManager->persist($parametre);
-            //$entityManager->flush();
+            $entityManager->persist($parametre);
+            $entityManager->flush();
             $this->addFlash("success", "L'expertise validée avec succès");
             return $this->redirectToRoute('app_parametre_show', ['id' => $parametre->getId()], Response::HTTP_SEE_OTHER);
         } else {
