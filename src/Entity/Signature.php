@@ -57,6 +57,7 @@ class Signature
     private ?Admin $operateur_validation_finale = null;
 
     #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false, unique: true)]
     private ?Parametre $parametre = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]

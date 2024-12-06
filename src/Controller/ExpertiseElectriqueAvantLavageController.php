@@ -928,7 +928,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
 
-            if(is_null($parametre->getSignature()))
+           /* if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
@@ -945,6 +945,7 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $signature->setOperateurExpAvantLavage($operateur);
                 $entityManager->persist($signature);
             }
+           */
 
             //envoyer le mail
             $email2 = $parametre->getAffaire()->getSuiviPar()->getEmail();

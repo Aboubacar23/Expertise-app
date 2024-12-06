@@ -879,7 +879,7 @@ class ExpertiseMecaniqueController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
 
-            if(is_null($parametre->getSignature()))
+           /* if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
@@ -896,6 +896,7 @@ class ExpertiseMecaniqueController extends AbstractController
                 $signature->setOperateurExpMeca($operateur);
                 $entityManager->persist($signature);
             }
+           */
 
             // Envoie de l'email au suivi de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();

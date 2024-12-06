@@ -341,7 +341,7 @@ class EssaisFinauxController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
 
-            if(is_null($parametre->getSignature()))
+           /* if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
@@ -358,6 +358,7 @@ class EssaisFinauxController extends AbstractController
                 $signature->setOperateurEssaiFinaux($operateur);
                 $entityManager->persist($signature);
             }
+           */
 
 
             // Envoi d'un email au responsable de l'affaire

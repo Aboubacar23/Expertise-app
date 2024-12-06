@@ -251,7 +251,7 @@ class RemontageController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
 
-            if(is_null($parametre->getSignature()))
+            /*if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
@@ -267,7 +267,7 @@ class RemontageController extends AbstractController
                 $signature->setOperateurRemontage($operateur);
                 $entityManager->persist($signature);
             }
-
+            */
             // Envoie l'email au chef de projet
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
             $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
