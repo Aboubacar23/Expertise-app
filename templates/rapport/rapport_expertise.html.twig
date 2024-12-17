@@ -280,37 +280,37 @@
                             <td>Opérateur</td>
                             <td>
                                 {% if parametre.signature.expAvantLavage == 1 %}
-                                    <strong>{{ parametre.signature.operateurExpAvantLavage.prenom }} {{ parametre.signature.operateurExpAvantLavage.nom }}</strong><br>
+                                    <strong>{{ parametre.signature.operateurExpAvantLavage }}</strong><br>
                                     <p>{{ parametre.signature.dateExpAvantLavage ? parametre.signature.dateExpAvantLavage | date('d-m-Y') }}</p>
-                                    {% if parametre.signature.operateurExpAvantLavage.signaturePhoto %}
-                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpAvantLavage.signaturePhoto)) }}" alt="" height="50px">
+                                    {% if parametre.signature.signatureExpAvantLavage %}
+                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.signatureExpAvantLavage)) }}" alt="" height="50px">
                                     {% endif %}
                                 {% endif %}
                             </td>
                             <td>
                                 {% if parametre.signature.expApresLavage == 1 %}
-                                    <strong>{{ parametre.signature.operateurExpApresLavage.prenom }} {{ parametre.signature.operateurExpApresLavage.nom }}</strong><br>
+                                    <strong>{{ parametre.signature.operateurExpApresLavage }}</strong><br>
                                     <p>{{ parametre.signature.dateExpApresLavage ? parametre.signature.dateExpApresLavage | date('d-m-Y') }}</p>
-                                    {% if parametre.signature.operateurExpApresLavage.signaturePhoto %}
-                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpApresLavage.signaturePhoto)) }}" alt="" height="50px">
+                                    {% if parametre.signature.signatureExpApresLavage %}
+                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.signatureExpApresLavage)) }}" alt="" height="50px">
                                     {% endif %}
                                 {% endif %}
                             </td>
                             <td>
                                 {% if parametre.signature.expMeca == 1 %}
-                                    <strong>{{ parametre.signature.operateurExpMeca.prenom }} {{ parametre.signature.operateurExpMeca.nom }}</strong><br>
+                                    <strong>{{ parametre.signature.operateurExpMeca }}</strong><br>
                                     <p>{{ parametre.signature.dateExpAvantLavage ? parametre.signature.dateExpAvantLavage | date('d-m-Y') }}</p>
-                                    {% if parametre.signature.operateurExpMeca.signaturePhoto %}
-                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurExpMeca.signaturePhoto)) }}" alt="" height="50px">
+                                    {% if parametre.signature.signatureExpMeca %}
+                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.signatureExpMeca)) }}" alt="" height="50px">
                                     {% endif %}
                                 {% endif %}
                             </td>
                             <td>
                                 {% if parametre.signature.validationExp == 1 %}
-                                    <strong>{{ parametre.signature.operateurValidationExp.prenom }} {{ parametre.signature.operateurValidationExp.nom }}</strong><br>
+                                    <strong>{{ parametre.signature.operateurValidationExp }}</strong><br>
                                     <p>{{ parametre.signature.dateValidationExp ? parametre.signature.dateValidationExp | date('d-m-Y') }}</p>
-                                    {% if parametre.signature.operateurValidationExp.signaturePhoto %}
-                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.operateurValidationExp.signaturePhoto)) }}" alt="" height="50px">
+                                    {% if parametre.signature.signatureValidationExp %}
+                                        <img src="{{ absolute_url(asset('signatures/'~parametre.signature.signatureValidationExp)) }}" alt="" height="50px">
                                     {% endif %}
                                 {% endif %}
                             </td>

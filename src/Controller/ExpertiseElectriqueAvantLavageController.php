@@ -910,9 +910,11 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             $num_affaire = "N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
             $admins = $adminRepository->findAll();
-            foreach ($admins as $admin) {
+            foreach ($admins as $admin)
+            {
                 foreach ($admin->getRoles() as $role) {
-                    if ($role == 'ROLE_AGENT_MAITRISE') {
+                    if ($role == 'ROLE_AGENT_MAITRISE')
+                    {
                         //envoyer le mail
                         $email = $admin->getEmail();
                         $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
@@ -925,16 +927,17 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
             // Initialise la date actuelle avec le fuseau horaire de Paris
             $dateZone = new \DateTimeZone('Europe/Paris');
             $date = new \DateTime('now', $dateZone);
+
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
-
-           /* if(is_null($parametre->getSignature()))
+            if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
-                $signature->setParametre($parametre);
                 $signature->setExpAvantLavage(1);
                 $signature->setDateExpAvantLavage($date);
-                $signature->setOperateurExpAvantLavage($operateur);
+                $signature->setOperateurExpAvantLavage($user);
+                $signature->setParametre($parametre);
+                $signature->setSignatureExpAvantLavage($operateur->getSignaturePhoto());
                 $entityManager->persist($signature);
 
             }else
@@ -942,10 +945,10 @@ class ExpertiseElectriqueAvantLavageController extends AbstractController
                 $signature = $parametre->getSignature();
                 $signature->setExpAvantLavage(1);
                 $signature->setDateExpAvantLavage($date);
-                $signature->setOperateurExpAvantLavage($operateur);
+                $signature->setOperateurExpAvantLavage($user);
+                $signature->setSignatureExpAvantLavage($operateur->getSignaturePhoto());
                 $entityManager->persist($signature);
             }
-           */
 
             //envoyer le mail
             $email2 = $parametre->getAffaire()->getSuiviPar()->getEmail();

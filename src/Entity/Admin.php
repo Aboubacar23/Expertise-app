@@ -52,19 +52,6 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $signature_photo = null;
 
-    #[ORM\OneToOne(mappedBy: 'operateur_exp_avant_lavage', cascade: ['persist', 'remove'])]
-    private ?Signature $signature = null;
-
-    #[ORM\OneToOne(mappedBy: 'operateur_remontage', cascade: ['persist', 'remove'])]
-    private ?Signature $operateurRemontage = null;
-
-    #[ORM\OneToOne(mappedBy: 'operateur_essai_finaux', cascade: ['persist', 'remove'])]
-    private ?Signature $operateurEssaiFinaux = null;
-
-    #[ORM\OneToOne(mappedBy: 'operateur_validation_finale', cascade: ['persist', 'remove'])]
-    private ?Signature $operateurValidationFinale = null;
-
- 
     public function __construct()
     {
         $this->affaire = new ArrayCollection();
@@ -246,93 +233,4 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getSignature(): ?Signature
-    {
-        return $this->signature;
-    }
-
-    public function setSignature(?Signature $signature): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($signature === null && $this->signature !== null) {
-            $this->signature->setOperateurExpAvantLavage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($signature !== null && $signature->getOperateurExpAvantLavage() !== $this) {
-            $signature->setOperateurExpAvantLavage($this);
-        }
-
-        $this->signature = $signature;
-
-        return $this;
-    }
-
-    public function getOperateurRemontage(): ?Signature
-    {
-        return $this->operateurRemontage;
-    }
-
-    public function setOperateurRemontage(?Signature $operateurRemontage): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($operateurRemontage === null && $this->operateurRemontage !== null) {
-            $this->operateurRemontage->setOperateurRemontage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($operateurRemontage !== null && $operateurRemontage->getOperateurRemontage() !== $this) {
-            $operateurRemontage->setOperateurRemontage($this);
-        }
-
-        $this->operateurRemontage = $operateurRemontage;
-
-        return $this;
-    }
-
-    public function getOperateurEssaiFinaux(): ?Signature
-    {
-        return $this->operateurEssaiFinaux;
-    }
-
-    public function setOperateurEssaiFinaux(?Signature $operateurEssaiFinaux): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($operateurEssaiFinaux === null && $this->operateurEssaiFinaux !== null) {
-            $this->operateurEssaiFinaux->setOperateurEssaiFinaux(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($operateurEssaiFinaux !== null && $operateurEssaiFinaux->getOperateurEssaiFinaux() !== $this) {
-            $operateurEssaiFinaux->setOperateurEssaiFinaux($this);
-        }
-
-        $this->operateurEssaiFinaux = $operateurEssaiFinaux;
-
-        return $this;
-    }
-
-    public function getOperateurValidationFinale(): ?Signature
-    {
-        return $this->operateurValidationFinale;
-    }
-
-    public function setOperateurValidationFinale(?Signature $operateurValidationFinale): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($operateurValidationFinale === null && $this->operateurValidationFinale !== null) {
-            $this->operateurValidationFinale->setOperateurValidationFinale(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($operateurValidationFinale !== null && $operateurValidationFinale->getOperateurValidationFinale() !== $this) {
-            $operateurValidationFinale->setOperateurValidationFinale($this);
-        }
-
-        $this->operateurValidationFinale = $operateurValidationFinale;
-
-        return $this;
-    }
-
 }

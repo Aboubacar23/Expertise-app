@@ -18,6 +18,11 @@
             </div>
             <div class="x_content">
                 <div class="row">
+                    {% for flash_message in app.session.flashbag.get('success') %}
+                        <div class="container alert alert-success p-2" role="alert">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
                             <table id="datatable" class="table table-hover table-striped table-bordered table-sm" style="width:100%">
