@@ -193,10 +193,10 @@
 						<thead class="table-secondary mt-2" cellspacing="0">
 							<tr>
 								<th width="2">N°</th>
-								<th>N° Affaire JE</th>
-								{# <th>Nom Client</th>
-																<th>Type Machine</th>
-																<th>Machine</th>#}
+								<th>N° Affaire</th>
+								 <th>Nom Client</th>
+								{#<th>Type Machine</th>
+								<th>Machine</th>#}
 								<th>Suivi Par</th>
 								<th>Reunion Enc</th>
 								<th>Date d'arrivée</th>
@@ -213,121 +213,123 @@
 						<tbody>
 							{% set i = 0 %}
 							{% for affaire in affaires %}
-								{% for item in affaire.parametres %}
-									{% set i = i + 1 %}
-									<tr>
-										<td>{{i}}</td>
-										<td>{{ item.affaire.numAffaire }}</td>
-										{#<td>{{ item.affaire.client }}</td>
-										<td>{{ item.type }}</td>
+								{% if affaire.etat != 1 %}
+									{% for item in affaire.parametres %}
+											{% set i = i + 1 %}
+											<tr>
+												<td>{{i}}</td>
+												<td>{{ item.affaire.numAffaire }}</td>
+												<td>{{ item.affaire.client }}</td>
+												{#<td>{{ item.type }}</td>
 										<td>{{ item.machine }}</td>#}
-										<td>{{ item.affaire.suiviPar }}</td>
-										{% if item.affaire.revueEnclenchements %}
-											<td class="text-center text-success">ok</td>
-										{% else %}
-											<td class="text-center text-danger">Non OK</td>
-										{% endif %}
-										<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
+												<td>{{ item.affaire.suiviPar }}</td>
+												{% if item.affaire.revueEnclenchements %}
+													<td class="text-center text-success">ok</td>
+												{% else %}
+													<td class="text-center text-danger">Non OK</td>
+												{% endif %}
+												<td>{{ item.dateArrivee ? item.dateArrivee|date('d-m-Y') : '' }}</td>
 
-										{% if item.affaire.revueEnclenchements|length == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% elseif item.expertiseElectiqueAvantLavage == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.expertiseElectiqueAvantLavage == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
+												{% if item.affaire.revueEnclenchements|length == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% elseif item.expertiseElectiqueAvantLavage == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.expertiseElectiqueAvantLavage == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
 
-										{% if item.affaire.revueEnclenchements|length == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% elseif item.expertiseMecanique == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.expertiseMecanique == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
+												{% if item.affaire.revueEnclenchements|length == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% elseif item.expertiseMecanique == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.expertiseMecanique == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
 
-										{% if item.affaire.revueEnclenchements|length == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% elseif item.expertiseElectiqueApresLavage == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.expertiseElectiqueApresLavage == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
-										
-										{% if item.expertiseElectiqueApresLavage == 0 or item.expertiseElectiqueAvantLavage == 0 or item.expertiseMecanique == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% elseif item.statut == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.statut == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
-										{% if item.remontage == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.statut == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% elseif item.remontage == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
-										{% if item.essaisFinaux == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.remontage == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% else %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
+												{% if item.affaire.revueEnclenchements|length == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% elseif item.expertiseElectiqueApresLavage == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.expertiseElectiqueApresLavage == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
 
-										{% if item.statutFinal == 1 and item.statut == 1 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x green"></i>
-											</td>
-										{% elseif item.statut == 0 %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x black"></i>
-											</td>
-										{% else %}
-											<td class="text-center">
-												<i class="fa fa-circle fa-10x red clignotant"></i>
-											</td>
-										{% endif %}
+												{% if item.expertiseElectiqueApresLavage == 0 or item.expertiseElectiqueAvantLavage == 0 or item.expertiseMecanique == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% elseif item.statut == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.statut == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
+												{% if item.remontage == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.statut == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% elseif item.remontage == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
+												{% if item.essaisFinaux == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.remontage == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% else %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
 
-										<td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
-									</tr>
-								{% endfor %}
+												{% if item.statutFinal == 1 and item.statut == 1 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x green"></i>
+													</td>
+												{% elseif item.statut == 0 %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x black"></i>
+													</td>
+												{% else %}
+													<td class="text-center">
+														<i class="fa fa-circle fa-10x red clignotant"></i>
+													</td>
+												{% endif %}
+
+												<td>{{ item.affaire.dateLivraison ? item.affaire.dateLivraison|date('d-m-Y') : '' }}</td>
+											</tr>
+									{% endfor %}
+								{% endif %}
 							{% else %}
 								<tr>
 									<td colspan="13">Pas d'affaire dans le système</td>

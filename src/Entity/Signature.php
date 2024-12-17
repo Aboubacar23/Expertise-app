@@ -16,49 +16,23 @@ class Signature
 
     #[ORM\Column(nullable: true)]
     private ?bool $exp_avant_lavage = null;
-
-    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_exp_avant_lavage = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $exp_apres_lavage = null;
-
-    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_exp_apres_lavage = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $exp_meca = null;
 
-    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_exp_meca = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $validation_exp = null;
 
-    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_validation_exp = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $remontage = null;
 
-    #[ORM\OneToOne(inversedBy: 'operateurRemontage', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_remontage = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $essai_finaux = null;
-
-    #[ORM\OneToOne(inversedBy: 'operateurEssaiFinaux', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_essai_finaux = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $validation_finale = null;
-
-    #[ORM\OneToOne(inversedBy: 'operateurValidationFinale', cascade: ['persist', 'remove'])]
-    private ?Admin $operateur_validation_finale = null;
-
-    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false, unique: true)]
-    private ?Parametre $parametre = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_exp_avant_lavage = null;
@@ -71,7 +45,6 @@ class Signature
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_remontage = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_essai_finaux = null;
 
@@ -80,6 +53,50 @@ class Signature
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_validation_exp = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_exp_avant_lavage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_exp_apres_lavage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_exp_meca = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_validation_exp = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_remontage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_essai_finaux = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $operateur_validation_finale = null;
+
+    #[ORM\OneToOne(inversedBy: 'signature', cascade: ['persist', 'remove'])]
+    private ?Parametre $parametre = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_exp_avant_lavage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_exp_apres_lavage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_exp_meca = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_validation_exp = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_remontage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_essai_finaux = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $signature_validation_finale = null;
 
     public function getId(): ?int
     {
@@ -98,18 +115,6 @@ class Signature
         return $this;
     }
 
-    public function getOperateurExpAvantLavage(): ?Admin
-    {
-        return $this->operateur_exp_avant_lavage;
-    }
-
-    public function setOperateurExpAvantLavage(?Admin $operateur_exp_avant_lavage): static
-    {
-        $this->operateur_exp_avant_lavage = $operateur_exp_avant_lavage;
-
-        return $this;
-    }
-
     public function isExpApresLavage(): ?bool
     {
         return $this->exp_apres_lavage;
@@ -118,18 +123,6 @@ class Signature
     public function setExpApresLavage(?bool $exp_apres_lavage): static
     {
         $this->exp_apres_lavage = $exp_apres_lavage;
-
-        return $this;
-    }
-
-    public function getOperateurExpApresLavage(): ?Admin
-    {
-        return $this->operateur_exp_apres_lavage;
-    }
-
-    public function setOperateurExpApresLavage(?Admin $operateur_exp_apres_lavage): static
-    {
-        $this->operateur_exp_apres_lavage = $operateur_exp_apres_lavage;
 
         return $this;
     }
@@ -146,18 +139,6 @@ class Signature
         return $this;
     }
 
-    public function getOperateurExpMeca(): ?Admin
-    {
-        return $this->operateur_exp_meca;
-    }
-
-    public function setOperateurExpMeca(?Admin $operateur_exp_meca): static
-    {
-        $this->operateur_exp_meca = $operateur_exp_meca;
-
-        return $this;
-    }
-
     public function isValidationExp(): ?bool
     {
         return $this->validation_exp;
@@ -166,18 +147,6 @@ class Signature
     public function setValidationExp(?bool $validation_exp): static
     {
         $this->validation_exp = $validation_exp;
-
-        return $this;
-    }
-
-    public function getOperateurValidationExp(): ?Admin
-    {
-        return $this->operateur_validation_exp;
-    }
-
-    public function setOperateurValidationExp(?Admin $operateur_validation_exp): static
-    {
-        $this->operateur_validation_exp = $operateur_validation_exp;
 
         return $this;
     }
@@ -194,18 +163,6 @@ class Signature
         return $this;
     }
 
-    public function getOperateurRemontage(): ?Admin
-    {
-        return $this->operateur_remontage;
-    }
-
-    public function setOperateurRemontage(?Admin $operateur_remontage): static
-    {
-        $this->operateur_remontage = $operateur_remontage;
-
-        return $this;
-    }
-
     public function isEssaiFinaux(): ?bool
     {
         return $this->essai_finaux;
@@ -218,18 +175,6 @@ class Signature
         return $this;
     }
 
-    public function getOperateurEssaiFinaux(): ?Admin
-    {
-        return $this->operateur_essai_finaux;
-    }
-
-    public function setOperateurEssaiFinaux(?Admin $operateur_essai_finaux): static
-    {
-        $this->operateur_essai_finaux = $operateur_essai_finaux;
-
-        return $this;
-    }
-
     public function isValidationFinale(): ?bool
     {
         return $this->validation_finale;
@@ -238,30 +183,6 @@ class Signature
     public function setValidationFinale(?bool $validation_finale): static
     {
         $this->validation_finale = $validation_finale;
-
-        return $this;
-    }
-
-    public function getOperateurValidationFinale(): ?Admin
-    {
-        return $this->operateur_validation_finale;
-    }
-
-    public function setOperateurValidationFinale(?Admin $operateur_validation_finale): static
-    {
-        $this->operateur_validation_finale = $operateur_validation_finale;
-
-        return $this;
-    }
-
-    public function getParametre(): ?Parametre
-    {
-        return $this->parametre;
-    }
-
-    public function setParametre(?Parametre $parametre): static
-    {
-        $this->parametre = $parametre;
 
         return $this;
     }
@@ -346,6 +267,185 @@ class Signature
     public function setDateValidationExp(?\DateTimeInterface $date_validation_exp): static
     {
         $this->date_validation_exp = $date_validation_exp;
+
+        return $this;
+    }
+    public function getOperateurExpAvantLavage(): ?string
+    {
+        return $this->operateur_exp_avant_lavage;
+    }
+
+    public function setOperateurExpAvantLavage(?string $operateur_exp_avant_lavage): static
+    {
+        $this->operateur_exp_avant_lavage = $operateur_exp_avant_lavage;
+
+        return $this;
+    }
+
+    public function getOperateurExpApresLavage(): ?string
+    {
+        return $this->operateur_exp_apres_lavage;
+    }
+
+    public function setOperateurExpApresLavage(?string $operateur_exp_apres_lavage): static
+    {
+        $this->operateur_exp_apres_lavage = $operateur_exp_apres_lavage;
+
+        return $this;
+    }
+
+    public function getOperateurExpMeca(): ?string
+    {
+        return $this->operateur_exp_meca;
+    }
+
+    public function setOperateurExpMeca(?string $operateur_exp_meca): static
+    {
+        $this->operateur_exp_meca = $operateur_exp_meca;
+
+        return $this;
+    }
+
+    public function getOperateurValidationExp(): ?string
+    {
+        return $this->operateur_validation_exp;
+    }
+
+    public function setOperateurValidationExp(?string $operateur_validation_exp): static
+    {
+        $this->operateur_validation_exp = $operateur_validation_exp;
+
+        return $this;
+    }
+
+    public function getOperateurRemontage(): ?string
+    {
+        return $this->operateur_remontage;
+    }
+
+    public function setOperateurRemontage(?string $operateur_remontage): static
+    {
+        $this->operateur_remontage = $operateur_remontage;
+
+        return $this;
+    }
+
+    public function getOperateurEssaiFinaux(): ?string
+    {
+        return $this->operateur_essai_finaux;
+    }
+
+    public function setOperateurEssaiFinaux(?string $operateur_essai_finaux): static
+    {
+        $this->operateur_essai_finaux = $operateur_essai_finaux;
+
+        return $this;
+    }
+
+    public function getOperateurValidationFinale(): ?string
+    {
+        return $this->operateur_validation_finale;
+    }
+
+    public function setOperateurValidationFinale(?string $operateur_validation_finale): static
+    {
+        $this->operateur_validation_finale = $operateur_validation_finale;
+
+        return $this;
+    }
+
+    public function getParametre(): ?Parametre
+    {
+        return $this->parametre;
+    }
+
+    public function setParametre(?Parametre $parametre): static
+    {
+        $this->parametre = $parametre;
+
+        return $this;
+    }
+
+    public function getSignatureExpAvantLavage(): ?string
+    {
+        return $this->signature_exp_avant_lavage;
+    }
+
+    public function setSignatureExpAvantLavage(?string $signature_exp_avant_lavage): static
+    {
+        $this->signature_exp_avant_lavage = $signature_exp_avant_lavage;
+
+        return $this;
+    }
+
+    public function getSignatureExpApresLavage(): ?string
+    {
+        return $this->signature_exp_apres_lavage;
+    }
+
+    public function setSignatureExpApresLavage(?string $signature_exp_apres_lavage): static
+    {
+        $this->signature_exp_apres_lavage = $signature_exp_apres_lavage;
+
+        return $this;
+    }
+
+    public function getSignatureExpMeca(): ?string
+    {
+        return $this->signature_exp_meca;
+    }
+
+    public function setSignatureExpMeca(?string $signature_exp_meca): static
+    {
+        $this->signature_exp_meca = $signature_exp_meca;
+
+        return $this;
+    }
+
+    public function getSignatureValidationExp(): ?string
+    {
+        return $this->signature_validation_exp;
+    }
+
+    public function setSignatureValidationExp(?string $signature_validation_exp): static
+    {
+        $this->signature_validation_exp = $signature_validation_exp;
+
+        return $this;
+    }
+
+    public function getSignatureRemontage(): ?string
+    {
+        return $this->signature_remontage;
+    }
+
+    public function setSignatureRemontage(?string $signature_remontage): static
+    {
+        $this->signature_remontage = $signature_remontage;
+
+        return $this;
+    }
+
+    public function getSignatureEssaiFinaux(): ?string
+    {
+        return $this->signature_essai_finaux;
+    }
+
+    public function setSignatureEssaiFinaux(?string $signature_essai_finaux): static
+    {
+        $this->signature_essai_finaux = $signature_essai_finaux;
+
+        return $this;
+    }
+
+    public function getSignatureValidationFinale(): ?string
+    {
+        return $this->signature_validation_finale;
+    }
+
+    public function setSignatureValidationFinale(?string $signature_validation_finale): static
+    {
+        $this->signature_validation_finale = $signature_validation_finale;
 
         return $this;
     }

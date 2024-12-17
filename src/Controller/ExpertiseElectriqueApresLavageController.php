@@ -703,23 +703,26 @@ class ExpertiseElectriqueApresLavageController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
             // Vérifie ou crée une nouvelle Signature pour éviter les doublons
-            /*if(is_null($parametre->getSignature()))
+
+            if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
                 $signature->setExpApresLavage(1);
                 $signature->setDateExpApresLavage($date);
-                $signature->setOperateurExpApresLavage($operateur);
+                $signature->setOperateurExpApresLavage($user);
+                $signature->setSignatureExpApresLavage($operateur->getSignaturePhoto());
                 $entityManager->persist($signature);
-
             }else
             {
                 $signature = $parametre->getSignature();
                 $signature->setExpApresLavage(1);
                 $signature->setDateExpApresLavage($date);
-                $signature->setOperateurExpApresLavage($operateur);
+                $signature->setOperateurExpApresLavage($user);
+                $signature->setSignatureExpApresLavage($operateur->getSignaturePhoto());
+                $entityManager->persist($signature);
             }
-            */
+
 
             //envoyer le mail
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
