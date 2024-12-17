@@ -82,65 +82,66 @@ class ValidationController extends AbstractController
     #[Route('/validation-expertise/{id}', name: 'app_validation_valide_expertise')]
     public function validationExpertise(AdminRepository $adminRepository, Parametre $parametre, EntityManagerInterface $em, MailerService $mailerService): Response
     {
-        if ($parametre) {
-            // Préparation des informations pour l'envoi de l'email
-            $dossier = 'email/email.html.twig';
-            $subject = "Validation de rapport Expertise";
+        // Préparation des informations pour l'envoi de l'email
+        $dossier = 'email/email.html.twig';
+        $subject = "Validation de rapport Expertise";
 
-            $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
-                . $parametre->getAffaire()->getSuiviPar()->getPrenom();
+        $cdp = $parametre->getAffaire()->getSuiviPar()->getNom() . " "
+            . $parametre->getAffaire()->getSuiviPar()->getPrenom();
 
-            $message = "Le rapport d'expertise a été généré";
-            $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
-            $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
+        $message = "Le rapport d'expertise a été généré";
+        $user = $this->getUser()->getNom() . " " . $this->getUser()->getPrenom();
+        $num_affaire = " N° d'affaire : " . $parametre->getAffaire()->getNumAffaire();
 
-            // Envoi d'emails aux administrateurs avec le rôle 'ROLE_AGENT_MAITRISE'
-            $admins = $adminRepository->findAll();
-            foreach ($admins as $admin) {
-                foreach ($admin->getRoles() as $role) {
-                    if ($role == 'ROLE_AGENT_MAITRISE') {
-                        $email = $admin->getEmail();
-                        $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
-                        $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
-                    }
+        // Envoi d'emails aux administrateurs avec le rôle 'ROLE_AGENT_MAITRISE'
+        $admins = $adminRepository->findAll();
+        foreach ($admins as $admin)
+        {
+            foreach ($admin->getRoles() as $role) {
+                if ($role == 'ROLE_AGENT_MAITRISE') {
+                    $email = $admin->getEmail();
+                    $cdp = $admin->getNom() . ' ' . $admin->getPrenom();
+                    $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
                 }
             }
-            // Initialise la date actuelle avec le fuseau horaire de Paris
-            $dateZone = new \DateTimeZone('Europe/Paris');
-            $date = new \DateTime('now', $dateZone);
-            // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
-            $operateur = $this->getUser();
-
-           /* if(is_null($parametre->getSignature()))
-            {
-                $signature = new Signature();
-                $signature->setParametre($parametre);
-                $signature->setValidationExp(1);
-                $signature->setDateValidationExp($date);
-                $signature->setOperateurValidationExp($operateur);
-                $em->persist($signature);
-
-            }else
-            {
-                $signature = $parametre->getSignature();
-                $signature->setValidationExp(1);
-                $signature->setDateValidationExp($date);
-                $signature->setOperateurValidationExp($operateur);
-                $em->persist($signature);
-
-            }
-           */
-
-            // Envoi d'un email au responsable de l'affaire
-            $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
-            $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
-
-            // Mise à jour de l'entité et sauvegarde dans la base de données
-            $parametre->setStatut(1);
-            $em->persist($parametre);
-            $em->flush();
-            return $this->redirectToRoute('app_affaire_rapport');
         }
+        // Initialise la date actuelle avec le fuseau horaire de Paris
+        $dateZone = new \DateTimeZone('Europe/Paris');
+        $date = new \DateTime('now', $dateZone);
+        $operateur = $this->getUser();
+
+        // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
+        if(is_null($parametre->getSignature()))
+        {
+            $signature = new Signature();
+            $signature->setParametre($parametre);
+            $signature->setValidationExp(1);
+            $signature->setDateValidationExp($date);
+            $signature->setOperateurValidationExp($user);
+            $signature->setSignatureValidationExp($operateur->getSignaturePhoto());
+            $em->persist($signature);
+        }else
+        {
+            $signature = $parametre->getSignature();
+            //dd($signature);
+            $signature->setValidationExp(1);
+            $signature->setDateValidationExp($date);
+            $signature->setOperateurValidationExp($user);
+            $signature->setSignatureValidationExp($operateur->getSignaturePhoto());
+            $em->persist($signature);
+        }
+
+
+        // Envoi d'un email au responsable de l'affaire
+        $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
+        $mailerService->sendEmail($email, $subject, $message, $dossier, $user, $cdp, $num_affaire);
+
+        // Mise à jour de l'entité et sauvegarde dans la base de données
+        $parametre->setStatut(1);
+        $em->persist($parametre);
+        $em->flush();
+        $this->addFlash('success', "Vous avez validé le rapport d'expertise !");
+        return $this->redirectToRoute('app_affaire_rapport');
     }
 
     // Route pour valider la finalisation d'un paramètre
@@ -179,13 +180,14 @@ class ValidationController extends AbstractController
             // Récupère le nom d'utilisateur de l'opérateur actuellement connecté
             $operateur = $this->getUser();
 
-            /*if(is_null($parametre->getSignature()))
+            if(is_null($parametre->getSignature()))
             {
                 $signature = new Signature();
                 $signature->setParametre($parametre);
                 $signature->setValidationFinale(1);
                 $signature->setDateValidationFinale($date);
-                $signature->setOperateurValidationFinale($operateur);
+                $signature->setSignatureValidationFinale($operateur->getSignaturePhoto());
+                $signature->setOperateurValidationFinale($user);
                 $em->persist($signature);
 
             }else
@@ -193,11 +195,10 @@ class ValidationController extends AbstractController
                 $signature = $parametre->getSignature();
                 $signature->setValidationFinale(1);
                 $signature->setDateValidationFinale($date);
-                $signature->setOperateurValidationFinale($operateur);
+                $signature->setSignatureValidationFinale($operateur->getSignaturePhoto());
+                $signature->setOperateurValidationFinale($user);
                 $em->persist($signature);
-
             }
-            */
 
             // Envoi d'un email au responsable de l'affaire
             $email = $parametre->getAffaire()->getSuiviPar()->getEmail();
@@ -209,6 +210,7 @@ class ValidationController extends AbstractController
             $em->persist($affaire);
             $em->persist($parametre);
             $em->flush();
+            $this->addFlash('success', "Vous avez validé le rapport final !");
             return $this->redirectToRoute('app_affaire_rapport');
         }
     }

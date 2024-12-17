@@ -16,8 +16,8 @@ class PressionPorteBalais
     #[ORM\Column]
     private ?int $num_balai = null;
 
-    #[ORM\Column]
-    private ?float $pression = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pression = null;
 
     #[ORM\ManyToOne(inversedBy: 'pressionPorteBalais')]
     private ?Parametre $parametre = null;
@@ -42,12 +42,12 @@ class PressionPorteBalais
         return $this;
     }
 
-    public function getPression(): ?float
+    public function getPression(): ?string
     {
         return $this->pression;
     }
 
-    public function setPression(float $pression): static
+    public function setPression(?string $pression): static
     {
         $this->pression = $pression;
 
