@@ -158,6 +158,16 @@ class AppareilController extends AbstractController
             'appareils' => $appareils,
         ]);
     }
+    #[Route('/tendance/index', name: 'app_appareil_tendance_index', methods: ['GET'])]
+    public function tendance(AppareilRepository $appareilRepository): Response
+    {
+        // Récupère tous les éléments de l'entrepôt "appareil", triés par identifiant de manière décroissante
+        $appareils = $appareilRepository->findBy(['statut' => 'Tendance'],['id' => 'desc']);
+        // Retourne la vue 'appareil/hs.html.twig' avec les appareils hors service
+        return $this->render('appareil/tendance.html.twig', [
+            'appareils' => $appareils,
+        ]);
+    }
 
     // Route pour afficher les appareils en réserve
     #[Route('/reserve/index', name: 'app_appareil_reserve_index', methods: ['GET'])]

@@ -231,6 +231,12 @@
         padding-left: 40px;
         font-size: 12px;
     }
+    .content-remarque{
+        // text-justify: auto!important;
+        text-align: justify;
+        //margin: 2px;
+        //color: red;
+    }
 </style>
 
 <body class="body">
@@ -2850,7 +2856,7 @@
             {% endif %}
         </div>
 
-        {% if parametre.essaisPlateforme == 'Oui' %}
+        {% if parametre.essaisPlateforme == 'Oui' or parametre.essaisPlateforme == 'Non' %}
             <div class="sous_page6_5">
                 {% if parametre.mesureVibratoireEssais %}
                     <h5 id="lien1115">5. <span class="span_titre">Mesures de vibrations</span></h5>
@@ -3027,17 +3033,11 @@
                 </table>
             </div>
         {% endif %}
-
-        {% if parametre.infoGenerale | length > 0 %}
-            <div class="sous_page10_3">
-                <h4>B. <span class="span_titre">Remarque(s) générale(s)</span></h4>
-                <p>{{ parametre.infoGenerale.contenu | raw }}</p>
-            </div>
-        {% endif %}
     </div>
     {# fin de la partie 10 #}
 
     {# la partie 8 Travaux de remise en état et Révision #}
+
     {% if parametre.phototheques | length > 0 %}
         <div class="page_break"></div>
         <div class="page8">
@@ -3061,6 +3061,17 @@
                         {% endfor %}
                     </table>
                 </div>
+            </div>
+        </div>
+    {% endif %}
+    {# fin de la partie 8 #}
+
+    {% if parametre.phototheques | length > 0 %}
+        <div class="page_break"></div>
+        <div class="page8">
+            <h2 id="lien9">XII. Remarque(s) générale(s)</h2>
+            <div class="sous_page8_1">
+                <p class="content-parametre">{{ parametre.infoGenerale.contenu | raw }}</p>
             </div>
         </div>
     {% endif %}
