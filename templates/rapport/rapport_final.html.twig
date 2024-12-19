@@ -234,6 +234,12 @@
     .table_signature{
         padding-top: 30px;
     }
+    .content-remarque{
+       // text-justify: auto!important;
+        text-align: justify;
+        //margin: 2px;
+        //color: red;
+    }
 </style>
 
 <body class="body">
@@ -441,9 +447,9 @@
             <p class="sous_menu2"><a href="#lien1115"> 5. Mesures de vibrations</a></p>
             <p class="sous_menu2"><a href="#lien1116"> 6. Point de fonctionnement rotor bloqué</a></p>
             <p class="sous_menu2"><a href="#lien1117"> 7. Appareils de mesure utilisés</a></p>
-            <p class="sous_menu1"><a href="#lien112"> B. Remarque(s) générale(s)</a></p>
             <p><a href="#lien9">XI. Finitions</a></p>
             <p class="sous_menu1"><a href="#lien91"> A. Photos</a></p>
+            <p><a href="#lien91"> XII. Remarque(s) générale(s)</a></p>
         </div>
     </div>
     {# fin sommaire #}
@@ -3032,7 +3038,7 @@
                 {% endif %}
             </div>
 
-            {% if parametre.essaisPlateforme == 'Oui' %}
+            {% if parametre.essaisPlateforme == 'Oui' or parametre.essaisPlateforme == 'Non' %}
                 <div class="sous_page6_5">
                     {% if parametre.mesureVibratoireEssais %}
                         <div class="page_break"></div>
@@ -3210,13 +3216,6 @@
                     </table>
                 </div>
             {% endif %}
-
-            {% if parametre.infoGenerale | length > 0 %}
-                <div class="sous_page10_3">
-                    <h4>B. <span class="span_titre">Remarque(s) générale(s)</span></h4>
-                    <p>{{ parametre.infoGenerale.contenu | raw }}</p>
-                </div>
-            {% endif %}
         </div>
     {# fin de la partie 10 #}
 
@@ -3244,6 +3243,18 @@
                             {% endfor %}
                         </table>
                     </div>
+            </div>
+        </div>
+    {% endif %}
+    {# fin de la partie 8 #}
+
+    {# la partie 8  #}
+    {% if parametre.infoGenerale | length > 0 %}
+        <div class="page_break"></div>
+        <div class="page8">
+            <h2 id="lien91">XII. Remarque(s) générale(s)</h2>
+            <div class="sous_page8_1">
+                <p class="content-remarque">{{ parametre.infoGenerale.contenu | raw }}</p>
             </div>
         </div>
     {% endif %}
